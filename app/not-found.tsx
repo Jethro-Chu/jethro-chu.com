@@ -1,23 +1,23 @@
-import Link from "next/link";
 import { Button } from "@/components/ui/Button";
 
 export default function NotFound() {
   return (
-    <section className="relative grid min-h-[100svh] place-items-center px-5">
-      <div className="bg-grid absolute inset-0 -z-10" />
-      <div className="text-center">
-        <p className="font-mono text-xs uppercase tracking-[0.3em] text-bone-faint">
-          Error 404
-        </p>
-        <h1 className="mt-6 font-display text-hero leading-[0.9] tracking-tight">
-          Off the <span className="italic text-gradient">map</span>.
+    <section className="grid min-h-[100svh] place-items-center px-6">
+      <div className="w-full max-w-md">
+        <div className="border-t border-line pt-3">
+          <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-muted">
+            Error 404 · no reading
+          </span>
+        </div>
+        <h1 className="mt-8 font-display text-hero font-medium tracking-tight">
+          Off the chart.
         </h1>
-        <p className="mx-auto mt-6 max-w-md text-pretty text-lg leading-relaxed text-bone-dim">
-          This page wandered off — or never existed. Let&apos;s get you back to
+        <p className="mt-6 text-pretty leading-relaxed text-muted">
+          This page wandered off, or never existed. Let&apos;s get you back to
           something real.
         </p>
-        <div className="mt-9 flex items-center justify-center gap-3">
-          <Button href="/" size="lg" arrow magnetic>
+        <div className="mt-8 flex flex-wrap items-center gap-3">
+          <Button href="/" size="lg" arrow>
             Back home
           </Button>
           <Button href="/#work" size="lg" variant="outline">

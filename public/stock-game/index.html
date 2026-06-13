@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MARKET PULSE TERMINAL</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="terminal.css" />
+  <script src="https://unpkg.com/lightweight-charts@4.2.0/dist/lightweight-charts.standalone.production.js"></script>
+  <script src="face-api.min.js"></script>
+</head>
+<body>
+  <!-- screen flash layer for crash/whale events -->
+  <div id="flash" aria-hidden="true"></div>
+
+  <!-- command / header bar -->
+  <header id="cmdbar">
+    <div class="cmd-left">
+      <span class="brand">MARKET&nbsp;PULSE</span>
+      <span class="cmd-sep">│</span>
+      <span class="cmd-line"><span class="prompt">&gt;</span> <span id="cmd-text">EQUITY&nbsp;US&nbsp;&lt;GO&gt;</span><span class="caret">▋</span></span>
+    </div>
+    <nav class="fkeys" aria-label="Function keys">
+      <button class="fkey" data-target="watchlist-panel"><span>F1</span> TRADE</button>
+      <button class="fkey" data-target="positions-panel"><span>F2</span> POSITIONS</button>
+      <button class="fkey" data-target="ticker"><span>F3</span> ALERTS</button>
+      <button class="fkey" id="mute-btn"><span>F4</span> <span id="mute-label">SOUND OFF</span></button>
+    </nav>
+    <div class="cmd-right">
+      <span id="clock" class="clock">--:--:--</span>
+    </div>
+  </header>
+
+  <!-- terminal grid -->
+  <main id="grid">
+    <!-- CHART -->
+    <section class="panel" id="chart-panel">
+      <div class="panel-head">
+        <span class="panel-title">CHART</span>
+        <span class="panel-meta">
+          <span id="chart-symbol">—</span>
+          <span id="chart-last" class="mono">—</span>
+          <span id="chart-chg" class="mono">—</span>
+        </span>
+        <span class="panel-tools">
+          <button class="tool" id="ma-toggle" aria-pressed="true">MA(20)</button>
+        </span>
+      </div>
+      <div class="panel-body chart-body">
+        <div id="chart"></div>
+      </div>
+    </section>
+
+    <!-- SENTIMENT / FACE -->
+    <section class="panel" id="sentiment-panel">
+      <div class="panel-head">
+        <span class="panel-title">SENTIMENT</span>
+        <span class="panel-meta"><span id="sentiment-state" class="mono muted">OFFLINE</span></span>
+      </div>
+      <div class="panel-body sentiment-body">
+        <div class="feed" id="feed">
+          <video id="video" autoplay muted playsinline></video>
+          <canvas id="overlay"></canvas>
+          <div class="feed-status" id="feed-status">
+            <p class="consent" id="consent">
+              Uses your camera to read facial expressions. Runs entirely in your
+              browser; nothing is recorded or uploaded.
+            </p>
+            <button class="start-btn" id="start-cam">▶ START CAMERA</button>
+          </div>
+        </div>
+        <div class="readout">
+          <div class="readout-row">
+            <span class="k">EXPRESSION</span>
+            <span class="v" id="expr-name">—</span>
+          </div>
+          <div class="readout-row">
+            <span class="k">CONFIDENCE</span>
+            <span class="v mono" id="expr-conf">—</span>
+          </div>
+          <div class="bar" id="conf-bar" aria-hidden="true"></div>
+          <div class="readout-row">
+            <span class="k">SENTIMENT</span>
+            <span class="v mono" id="sentiment-score">+0.00</span>
+          </div>
+          <div class="sentiment-meter" aria-hidden="true">
+            <div class="meter-mid"></div>
+            <div class="meter-fill" id="sentiment-fill"></div>
+          </div>
+          <p class="hint" id="sentiment-hint">Smile → bullish bias · Frown → bearish bias</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- WATCHLIST -->
+    <section class="panel" id="watchlist-panel">
+      <div class="panel-head">
+        <span class="panel-title">WATCHLIST</span>
+        <span class="panel-meta muted">CLICK TO SELECT</span>
+      </div>
+      <div class="panel-body table-body">
+        <table class="grid-table" id="watchlist">
+          <thead>
+            <tr>
+              <th class="l">SYM</th>
+              <th class="r">LAST</th>
+              <th class="r">CHG</th>
+              <th class="r">%CHG</th>
+            </tr>
+          </thead>
+          <tbody id="watchlist-rows"><!-- rows injected --></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- PORTFOLIO -->
+    <section class="panel" id="positions-panel">
+      <div class="panel-head">
+        <span class="panel-title">PORTFOLIO</span>
+        <span class="panel-meta"><span id="hiscore" class="mono muted">HI —</span></span>
+      </div>
+      <div class="panel-body positions-body">
+        <div class="stat-grid">
+          <div class="stat"><span class="k">CASH</span><span class="v mono" id="cash">—</span></div>
+          <div class="stat"><span class="k">VALUE</span><span class="v mono" id="net-value">—</span></div>
+          <div class="stat"><span class="k">P&amp;L</span><span class="v mono" id="pnl">—</span></div>
+        </div>
+
+        <div class="goal">
+          <div class="goal-head">
+            <span class="k">GOAL</span><span class="v mono" id="goal-text">$0 / $1,000,000</span>
+          </div>
+          <div class="goal-track"><div class="goal-fill" id="goal-fill"></div></div>
+        </div>
+
+        <div class="trade">
+          <div class="trade-sel">
+            <span class="k">SELECTED</span><span class="v mono" id="sel-symbol">—</span>
+          </div>
+          <div class="trade-controls">
+            <label class="qty"><span>QTY</span><input id="qty" type="number" min="1" value="10" /></label>
+            <button class="t-buy" id="buy-btn">BUY</button>
+            <button class="t-sell" id="sell-btn">SELL</button>
+          </div>
+          <label class="auto">
+            <input type="checkbox" id="auto-trade" />
+            <span>AUTO-TRADE ON EMOTION (smile buys · frown sells)</span>
+          </label>
+        </div>
+
+        <div class="holdings">
+          <table class="grid-table" id="holdings">
+            <thead><tr><th class="l">SYM</th><th class="r">QTY</th><th class="r">AVG</th><th class="r">MKT</th><th class="r">P&amp;L</th></tr></thead>
+            <tbody id="holdings-rows"><tr><td colspan="5" class="empty">NO POSITIONS</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- NEWS / ALERTS TICKER -->
+    <footer id="ticker">
+      <span class="tick-label">ALERTS</span>
+      <div class="tick-viewport"><div class="tick-track" id="tick-track"></div></div>
+    </footer>
+  </main>
+
+  <script src="emotion.js"></script>
+  <script src="game.js"></script>
+</body>
+</html>

@@ -3,26 +3,26 @@
 import { motion, useReducedMotion, type Variants } from "framer-motion";
 import type { ReactNode } from "react";
 
+const EASE = [0.22, 1, 0.36, 1] as const;
+const DURATION = 0.5;
+const DISTANCE = 12;
+
 interface RevealProps {
   children: ReactNode;
   className?: string;
-  /** seconds */
   delay?: number;
-  /** distance to travel in px */
-  y?: number;
   once?: boolean;
   as?: "div" | "section" | "li" | "span" | "article";
 }
 
 /**
- * Scroll-triggered reveal. Respects prefers-reduced-motion by
- * fading in without translation.
+ * Scroll reveal — opacity 0→1 + translateY 12→0, 500ms, run once.
+ * Honors prefers-reduced-motion by rendering the final state.
  */
 export function Reveal({
   children,
   className,
   delay = 0,
-  y = 28,
   once = true,
   as = "div",
 }: RevealProps) {
@@ -30,16 +30,11 @@ export function Reveal({
   const MotionTag = motion[as];
 
   const variants: Variants = {
-    hidden: { opacity: 0, y: reduce ? 0 : y, filter: "blur(6px)" },
+    hidden: { opacity: reduce ? 1 : 0, y: reduce ? 0 : DISTANCE },
     show: {
       opacity: 1,
       y: 0,
-      filter: "blur(0px)",
-      transition: {
-        duration: 0.85,
-        delay,
-        ease: [0.16, 1, 0.3, 1],
-      },
+      transition: { duration: DURATION, delay, ease: EASE },
     },
   };
 
@@ -49,52 +44,51 @@ export function Reveal({
       variants={variants}
       initial="hidden"
       whileInView="show"
-      viewport={{ once, margin: "-12% 0px -12% 0px" }}
+      viewport={{ once, margin: "0px 0px -12% 0px" }}
     >
       {children}
     </MotionTag>
   );
 }
 
-/**
- * Stagger container — children using `RevealItem` will cascade.
- */
+/** Stagger container — children using RevealItem cascade at ~70ms. */
 export function RevealGroup({
   children,
   className,
-  stagger = 0.08,
+  stagger = 0.07,
   once = true,
+  as = "div",
 }: {
   children: ReactNode;
   className?: string;
   stagger?: number;
   once?: boolean;
+  as?: "div" | "ul" | "section";
 }) {
+  const MotionTag = motion[as];
   return (
-    <motion.div
+    <MotionTag
       className={className}
       initial="hidden"
       whileInView="show"
-      viewport={{ once, margin: "-10% 0px -10% 0px" }}
+      viewport={{ once, margin: "0px 0px -10% 0px" }}
       variants={{
         hidden: {},
         show: { transition: { staggerChildren: stagger } },
       }}
     >
       {children}
-    </motion.div>
+    </MotionTag>
   );
 }
 
 export function RevealItem({
   children,
   className,
-  y = 24,
   as = "div",
 }: {
   children: ReactNode;
   className?: string;
-  y?: number;
   as?: "div" | "li" | "article" | "span";
 }) {
   const reduce = useReducedMotion();
@@ -103,13 +97,8 @@ export function RevealItem({
     <MotionTag
       className={className}
       variants={{
-        hidden: { opacity: 0, y: reduce ? 0 : y, filter: "blur(5px)" },
-        show: {
-          opacity: 1,
-          y: 0,
-          filter: "blur(0px)",
-          transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] },
-        },
+        hidden: { opacity: reduce ? 1 : 0, y: reduce ? 0 : DISTANCE },
+        show: { opacity: 1, y: 0, transition: { duration: DURATION, ease: EASE } },
       }}
     >
       {children}

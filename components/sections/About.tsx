@@ -1,73 +1,52 @@
-import { aboutBeats, site } from "@/lib/site";
+import { aboutBeats, capabilities } from "@/lib/site";
 import { Reveal, RevealGroup, RevealItem } from "@/components/motion/Reveal";
+import { SectionHeading } from "@/components/ui/SectionHeading";
+import { Flowsheet } from "@/components/visual/Flowsheet";
 
 export function About() {
   return (
-    <section id="about" className="relative scroll-mt-24 px-5 py-24 sm:px-8 sm:py-32">
-      <div className="mx-auto max-w-7xl">
-        <div className="grid gap-14 lg:grid-cols-[1fr_1.15fr] lg:gap-20">
-          {/* left: portrait + identity */}
-          <div className="lg:sticky lg:top-28 lg:self-start">
+    <section
+      id="about"
+      className="scroll-mt-24 bg-surface px-6 py-20 sm:px-8 sm:py-32 lg:px-16"
+    >
+      <div className="mx-auto max-w-[1280px]">
+        <SectionHeading
+          eyebrow="Panel 02 · Profile"
+          title="A nurse who builds the software he wished he'd had on shift."
+        />
+
+        <div className="mt-16 grid gap-14 lg:grid-cols-12 lg:gap-16">
+          {/* narrative */}
+          <div className="lg:col-span-7">
             <Reveal>
-              <div className="relative">
-                <Portrait />
-              </div>
-            </Reveal>
-            <Reveal delay={0.1}>
-              <div className="mt-6 flex flex-col gap-1">
-                <p className="font-display text-2xl tracking-tight">{site.name}</p>
-                <p className="text-sm text-bone-dim">{site.role}</p>
-                <p className="mt-2 font-mono text-xs text-bone-faint">
-                  {site.location}
-                </p>
-              </div>
-            </Reveal>
-          </div>
-
-          {/* right: narrative */}
-          <div>
-            <Reveal y={16}>
-              <div className="inline-flex items-center gap-2.5">
-                <span className="h-px w-8 bg-gradient-to-r from-iris to-transparent" />
-                <span className="font-mono text-xs uppercase tracking-[0.25em] text-bone-faint">
-                  03 — About
-                </span>
-              </div>
-            </Reveal>
-
-            <Reveal y={22} delay={0.05}>
-              <p className="mt-7 text-balance font-display text-3xl leading-[1.15] tracking-tight sm:text-4xl">
-                I spent years at the{" "}
-                <span className="italic text-gradient">bedside</span> before I wrote
-                a line of production code. That order matters — I design for the
-                person holding the chart, not the spec.
+              <p className="max-w-2xl text-balance font-display text-2xl font-medium leading-snug sm:text-3xl">
+                I spent years at the bedside before I wrote production code. That
+                order is the point — I design for the person holding the chart at
+                3am, not the spec.
               </p>
             </Reveal>
-
-            <Reveal y={20} delay={0.1}>
-              <p className="mt-7 max-w-xl text-pretty text-lg leading-relaxed text-bone-dim">
-                Nursing taught me what most software forgets: that the stakes are
-                human, that trust is earned in small details, and that a confusing
-                interface at 3am isn&apos;t a UX nitpick — it&apos;s a safety issue. I build
-                products that respect that.
+            <Reveal delay={0.05}>
+              <p className="mt-6 max-w-xl text-pretty leading-relaxed text-muted">
+                Nursing taught me what most software forgets: the stakes are human,
+                trust is earned in small details, and a confusing screen at 3am
+                isn&apos;t a UX nitpick — it&apos;s a safety issue. Lab Logger and NurseJet
+                both came out of that.
               </p>
             </Reveal>
 
             {/* timeline beats */}
-            <RevealGroup className="mt-12 flex flex-col gap-px overflow-hidden rounded-2xl border border-line/60">
+            <RevealGroup className="mt-12 divide-y divide-line border-t border-line">
               {aboutBeats.map((beat) => (
                 <RevealItem
                   key={beat.title}
-                  className="group relative grid grid-cols-[auto_1fr] gap-5 bg-surface/30 p-6 transition-colors hover:bg-surface/60 sm:grid-cols-[8rem_1fr] sm:p-7"
+                  className="grid gap-2 py-6 sm:grid-cols-[8rem_1fr] sm:gap-6"
                 >
-                  <span className="font-mono text-xs uppercase tracking-wider text-iris-soft">
+                  <span className="font-mono text-[11px] uppercase tracking-[0.16em] text-ink">
                     {beat.year}
                   </span>
                   <div>
-                    <h3 className="font-display text-xl tracking-tight">
-                      {beat.title}
-                    </h3>
-                    <p className="mt-2 text-pretty text-[15px] leading-relaxed text-bone-dim">
+                    <h3 className="font-display text-lg font-medium">{beat.title}</h3>
+                    <p className="mt-2 max-w-xl text-pretty leading-relaxed text-muted">
                       {beat.body}
                     </p>
                   </div>
@@ -75,37 +54,36 @@ export function About() {
               ))}
             </RevealGroup>
           </div>
+
+          {/* signature + capabilities */}
+          <div className="lg:col-span-5">
+            <Reveal>
+              <Flowsheet />
+            </Reveal>
+
+            <Reveal delay={0.05}>
+              <div className="mt-12">
+                <p className="eyebrow mb-3 border-b border-line pb-2">Capabilities</p>
+                <dl className="divide-y divide-line">
+                  {capabilities.map((c) => (
+                    <div
+                      key={c.group}
+                      className="grid grid-cols-[7rem_1fr] gap-4 py-3"
+                    >
+                      <dt className="font-mono text-[11px] uppercase tracking-[0.14em] text-muted">
+                        {c.group}
+                      </dt>
+                      <dd className="text-sm leading-relaxed text-ink">
+                        {c.items.join(" · ")}
+                      </dd>
+                    </div>
+                  ))}
+                </dl>
+              </div>
+            </Reveal>
+          </div>
         </div>
       </div>
     </section>
-  );
-}
-
-/** Abstract monogram portrait — placeholder until a real photo lands. */
-function Portrait() {
-  return (
-    <div className="relative aspect-[4/5] w-full overflow-hidden rounded-3xl border border-line/60">
-      <div className="absolute inset-0 bg-[radial-gradient(120%_90%_at_20%_10%,#6d5ef855,transparent_55%),radial-gradient(90%_80%_at_100%_100%,#4fd9c844,transparent_50%)]" />
-      <div
-        className="absolute inset-0 opacity-[0.15]"
-        style={{
-          backgroundImage:
-            "linear-gradient(to right, rgba(255,255,255,0.08) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.08) 1px, transparent 1px)",
-          backgroundSize: "40px 40px",
-        }}
-      />
-      <div className="absolute inset-0 grid place-items-center">
-        <span className="font-display text-[9rem] leading-none text-bone/90">
-          JC
-        </span>
-      </div>
-      <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between">
-        <span className="rounded-full glass px-3 py-1 font-mono text-[11px] text-bone-dim">
-          Portrait — placeholder
-        </span>
-        <span className="size-2.5 animate-[float_6s_ease-in-out_infinite] rounded-full bg-aqua" />
-      </div>
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink/40 to-transparent" />
-    </div>
   );
 }

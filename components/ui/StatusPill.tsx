@@ -1,12 +1,15 @@
 import { cn } from "@/lib/utils";
 import type { ProjectStatus } from "@/lib/projects";
 
-const map: Record<ProjectStatus, { dot: string; text: string }> = {
-  Live: { dot: "bg-aqua", text: "text-aqua" },
-  Beta: { dot: "bg-iris-soft", text: "text-iris-soft" },
-  "In progress": { dot: "bg-gold", text: "text-gold" },
-  Concept: { dot: "bg-coral", text: "text-coral" },
-  Research: { dot: "bg-bone-dim", text: "text-bone-dim" },
+/**
+ * Quiet status indicator — a small square mark + mono label.
+ * No pill, no glow. "Live" gets the accent fill; others stay neutral.
+ */
+const filled: Record<ProjectStatus, boolean> = {
+  Live: true,
+  Beta: false,
+  "In progress": false,
+  Research: false,
 };
 
 export function StatusPill({
@@ -16,16 +19,22 @@ export function StatusPill({
   status: ProjectStatus;
   className?: string;
 }) {
-  const c = map[status];
+  const on = filled[status];
   return (
     <span
       className={cn(
-        "inline-flex items-center gap-1.5 rounded-full border border-line bg-ink/40 px-2.5 py-1 text-[11px]",
+        "inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-wider text-muted",
         className
       )}
     >
-      <span className={cn("size-1.5 rounded-full", c.dot)} />
-      <span className={cn("font-medium", c.text)}>{status}</span>
+      <span
+        aria-hidden
+        className={cn(
+          "size-2",
+          on ? "bg-accent" : "border border-muted"
+        )}
+      />
+      {status}
     </span>
   );
 }

@@ -1,12 +1,9 @@
-"use client";
-
 import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { Magnetic } from "@/components/motion/Magnetic";
 import type { ReactNode } from "react";
 
-type Variant = "primary" | "ghost" | "outline";
+type Variant = "primary" | "outline" | "link";
 type Size = "sm" | "md" | "lg";
 
 interface ButtonProps {
@@ -15,27 +12,25 @@ interface ButtonProps {
   variant?: Variant;
   size?: Size;
   className?: string;
-  /** show the arrow affordance */
   arrow?: boolean;
-  magnetic?: boolean;
   external?: boolean;
 }
 
 const base =
-  "group/btn relative inline-flex items-center justify-center gap-2 rounded-full font-medium transition-colors duration-300 focus-ring select-none";
+  "group/btn inline-flex items-center justify-center gap-2 font-medium transition-colors duration-200 focus-ring select-none";
 
 const variants: Record<Variant, string> = {
   primary:
-    "bg-bone text-ink hover:bg-white shadow-[0_8px_30px_-8px_rgba(241,239,233,0.35)]",
+    "rounded-[var(--radius-sm)] bg-ink text-bg hover:bg-[#22302b] border border-ink",
   outline:
-    "border border-line bg-surface/40 text-bone hover:border-iris-soft/50 hover:bg-surface",
-  ghost: "text-bone-dim hover:text-bone",
+    "rounded-[var(--radius-sm)] border border-line bg-surface text-ink hover:border-ink",
+  link: "text-accent-ink underline decoration-1 underline-offset-4 decoration-[color-mix(in_oklab,var(--color-accent)_45%,transparent)] hover:decoration-accent",
 };
 
 const sizes: Record<Size, string> = {
   sm: "px-4 py-2 text-sm",
   md: "px-5 py-2.5 text-sm",
-  lg: "px-7 py-3.5 text-base",
+  lg: "px-6 py-3 text-base",
 };
 
 export function Button({
@@ -45,24 +40,22 @@ export function Button({
   size = "md",
   className,
   arrow = false,
-  magnetic = false,
   external = false,
 }: ButtonProps) {
-  const content = (
+  const isLink = variant === "link";
+  return (
     <Link
       href={href}
-      className={cn(base, variants[variant], sizes[size], className)}
+      className={cn(base, variants[variant], !isLink && sizes[size], className)}
       {...(external ? { target: "_blank", rel: "noreferrer noopener" } : {})}
     >
-      <span className="relative z-10">{children}</span>
+      <span>{children}</span>
       {arrow && (
-        <ArrowUpRight
-          className="relative z-10 size-4 transition-transform duration-300 ease-out group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5"
-          strokeWidth={2}
+        <ArrowRight
+          className="size-4 transition-transform duration-200 group-hover/btn:translate-x-0.5"
+          strokeWidth={1.75}
         />
       )}
     </Link>
   );
-
-  return magnetic ? <Magnetic className="inline-block">{content}</Magnetic> : content;
 }
