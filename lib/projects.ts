@@ -82,11 +82,8 @@ export const projects: Project[] = [
     role: "Design · Engineering",
     index: "01",
     stack: ["React", "TypeScript", "IndexedDB", "PWA"],
-    metrics: [
-      { label: "Entry time", value: "<10s" },
-      { label: "Offline", value: "First-class" },
-      { label: "Panels", value: "40+" },
-    ],
+    // metrics intentionally empty — no verified numbers to show (no invented stats)
+    metrics: [],
     links: [{ label: "Open live", href: "https://lab-logger.com" }],
     // www.lab-logger.com sends X-Frame-Options: DENY + frame-ancestors 'none'
     // → not embeddable; the UI falls back to a poster + "Open live" button.
@@ -184,11 +181,7 @@ export const projects: Project[] = [
     role: "Founder · Design · Engineering",
     index: "03",
     stack: ["TanStack Start", "TypeScript", "Postgres", "Edge"],
-    metrics: [
-      { label: "Cadence", value: "Daily" },
-      { label: "Sourced claims", value: "100%" },
-      { label: "Read time", value: "~4 min" },
-    ],
+    metrics: [],
     caseStudy: [
       {
         kind: "lead",
@@ -221,10 +214,7 @@ export const projects: Project[] = [
     role: "Product · AI engineering",
     index: "04",
     stack: ["Claude", "Tool use", "Vision", "TypeScript"],
-    metrics: [
-      { label: "Modalities", value: "Text · Photo · Voice" },
-      { label: "Validation", value: "Schema-locked" },
-    ],
+    metrics: [],
     caseStudy: [
       {
         kind: "lead",
@@ -257,10 +247,7 @@ export const projects: Project[] = [
     role: "Founder · Full-stack",
     index: "05",
     stack: ["Next.js", "TypeScript", "Postgres", "Maps"],
-    metrics: [
-      { label: "Hospitals", value: "Growing" },
-      { label: "Reviews", value: "Photo-backed" },
-    ],
+    metrics: [],
     caseStudy: [
       {
         kind: "lead",
@@ -281,25 +268,16 @@ export const projects: Project[] = [
   },
 ];
 
-/** A quiet index of additional work — listed, not full case studies. */
+/**
+ * A quiet index of additional work — listed, not full case studies.
+ * Research Radar & Vitals were removed (not confirmed as real, shipped work).
+ * Add entries here only with verified title/outcome/meta.
+ */
 export const moreWork: {
   title: string;
   outcome: string;
   meta: string;
-}[] = [
-  {
-    title: "Research Radar",
-    outcome:
-      "Scans new nursing research and surfaces only the studies that change bedside practice.",
-    meta: "RESEARCH · 2025 · PYTHON · LLM",
-  },
-  {
-    title: "Vitals",
-    outcome:
-      "A component system tuned for clinical clarity — legible at a glance, forgiving under load.",
-    meta: "DESIGN SYSTEM · 2026 · REACT · TOKENS",
-  },
-];
+}[] = [];
 
 export function getProject(slug: string): Project | undefined {
   return projects.find((p) => p.slug === slug);

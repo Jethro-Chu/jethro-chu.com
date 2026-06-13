@@ -11,7 +11,7 @@ export function About() {
     >
       <div className="mx-auto max-w-[1280px]">
         <SectionHeading
-          eyebrow="Panel 02 · Profile"
+          eyebrow="About"
           title="A nurse who builds the software he wished he'd had on shift."
         />
 

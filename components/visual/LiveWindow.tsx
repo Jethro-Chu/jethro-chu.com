@@ -4,13 +4,13 @@ import { useEffect, useId, useState } from "react";
 import { createPortal } from "react-dom";
 import { ArrowUpRight, Play, X } from "lucide-react";
 import type { Project } from "@/lib/projects";
-import { ProjectVisual } from "@/components/visual/ProjectVisual";
+import { ScreenshotPanel } from "@/components/visual/ScreenshotPanel";
 import { cn } from "@/lib/utils";
 
 /**
  * Reusable clinical "live window".
  *
- * - Facade: shows a poster (the ProjectVisual motif) and only mounts the
+ * - Facade: shows a poster (a neutral ScreenshotPanel) and only mounts the
  *   <iframe> when the visitor launches it.
  * - One live iframe at a time across the page (coordinated via a window event).
  * - Framed as a clinical instrument panel: 1px --line border, flat corners, a
@@ -80,13 +80,8 @@ export function LiveWindow({
     setLoaded(false);
   }
 
-  const state = !live
-    ? "Placeholder"
-    : isLive
-      ? "Live"
-      : canEmbed
-        ? "Ready"
-        : "External";
+  // state only shown for projects with a live target (no "Placeholder" labels)
+  const state = !live ? null : isLive ? "Live" : canEmbed ? "Ready" : "External";
 
   const frame = live ? (
     <div className="absolute inset-0 bg-surface">
@@ -122,8 +117,12 @@ export function LiveWindow({
             )}
           />
           <span className="truncate text-ink">{project.title}</span>
-          <span aria-hidden>·</span>
-          <span>{state}</span>
+          {state && (
+            <>
+              <span aria-hidden>·</span>
+              <span>{state}</span>
+            </>
+          )}
         </span>
 
         <div className="flex shrink-0 items-center gap-3">
@@ -157,7 +156,7 @@ export function LiveWindow({
       <div className="relative w-full overflow-hidden" style={{ aspectRatio: aspect }}>
         {/* poster (always the base layer) */}
         <div className="absolute inset-0">
-          <ProjectVisual project={project} bare className="h-full" />
+          <ScreenshotPanel project={project} className="h-full" />
         </div>
 
         {/* desktop inline live frame */}

@@ -1,7 +1,6 @@
 /* ============================================================
    SITE CONFIG — identity, nav, socials, and copy.
    Copy is specific and grounded — no filler, no banned phrases.
-   Replace [PLACEHOLDER] / "verify" values with Jethro's real details.
    ============================================================ */
 
 export const site = {
@@ -20,7 +19,7 @@ export const site = {
 export const hero = {
   headline: ["Nurse", "&", "Builder"],
   subline: "Clinical shifts and a codebase. Lab Logger came out of both.",
-  record: "Record — J. Chu",
+  record: "Jethro Chu",
   locus: "Bay Area, CA",
   statusLabel: "Status",
   statusValue: "Available for select work",
@@ -36,14 +35,13 @@ export const nav = [
 
 export const socials = [
   { label: "Email", href: "mailto:jethro.chu@gmail.com" },
-  { label: "GitHub", href: "https://github.com/" },
-  { label: "LinkedIn", href: "https://linkedin.com/" },
+  { label: "GitHub", href: "https://github.com/Jethro-Chu" },
+  // LinkedIn omitted until a real URL is provided (no dead generic links).
 ] as const;
 
 /* ------------------------------------------------------------
    FLOWSHEET SIGNATURE — credentials presented like a lab panel.
-   `bar` is an optional 0–1 fill for a range bar.
-   NOTE: verify these against Jethro's real, exact numbers.
+   `bar` is an optional 0–1 fill for a range bar. Confirmed by Jethro.
    ------------------------------------------------------------ */
 export const credentials: {
   label: string;
@@ -51,25 +49,25 @@ export const credentials: {
   note?: string;
   bar?: number;
 }[] = [
-  { label: "CLINICAL HOURS", value: "560", bar: 0.74 }, // verify
+  { label: "CLINICAL HOURS", value: "560", bar: 0.74 },
   {
     label: "SYSTEMS WORKED",
     value: "4",
-    note: "City of Hope · CHLA · Kaiser · SAHZU", // verify
+    note: "City of Hope · CHLA · Kaiser · SAHZU",
   },
-  { label: "BUILDING SINCE", value: "2024" }, // verify
-  { label: "DEGREE", value: "BSN", note: "in progress" }, // verify
+  { label: "BUILDING SINCE", value: "2024" },
+  { label: "DEGREE", value: "BSN", note: "in progress" },
 ];
 
 /* ------------------------------------------------------------
    ABOUT — nurse→builder narrative. Keep specific; the unusual
-   path is the selling point. [PLACEHOLDER] = Jethro to fill.
+   path is the selling point.
    ------------------------------------------------------------ */
 export const aboutBeats: { year: string; title: string; body: string }[] = [
   {
     year: "BEDSIDE",
     title: "I started as a nurse",
-    body: "Clinical shifts taught me how software actually meets human stakes — and how rarely it's built for the person holding the chart at 3am. [PLACEHOLDER: units worked, e.g. oncology / pediatrics, and years.]",
+    body: "Clinical shifts across four systems — City of Hope, CHLA, Kaiser, and SAHZU — taught me how software actually meets human stakes, and how rarely it's built for the person holding the chart at 3am.",
   },
   {
     year: "CROSSOVER",

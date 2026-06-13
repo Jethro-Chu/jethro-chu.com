@@ -8,7 +8,7 @@ export function Contact() {
       <div className="mx-auto max-w-[1280px]">
         <Reveal>
           <div className="flex items-center gap-3 border-b border-line pb-3">
-            <span className="eyebrow">Panel 03 · Contact</span>
+            <span className="eyebrow">Contact</span>
           </div>
         </Reveal>
 

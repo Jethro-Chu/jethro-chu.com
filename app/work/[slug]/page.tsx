@@ -85,37 +85,40 @@ export default async function WorkPage({
         )}
       </header>
 
-      {/* hero visual — live window + timestamped annotation (signature) */}
+      {/* hero visual */}
       <Reveal delay={0.1} className="mx-auto mt-12 max-w-6xl px-6 sm:px-8">
         <figure>
           <LiveWindow project={project} aspect="16 / 9" />
-          <figcaption className="mt-3 flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.14em] text-muted">
-            <span className="text-accent">▸</span>
-            Plate 01 · {project.title}
-            {project.live?.embeddable
-              ? " — live, interactive preview"
-              : project.live
-                ? " — hosted externally; opens in a new tab"
-                : " interface — representative placeholder"}
-          </figcaption>
+          {project.live && (
+            <figcaption className="mt-3 flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.14em] text-muted">
+              <span className="text-accent">▸</span>
+              {project.live.experience
+                ? "Live, interactive — launch to play"
+                : project.live.embeddable
+                  ? "Live, interactive preview"
+                  : "Hosted live — opens in a new tab"}
+            </figcaption>
+          )}
         </figure>
       </Reveal>
 
-      {/* metrics — flowsheet readout */}
-      <div className="mx-auto mt-14 max-w-5xl px-6 sm:px-8">
-        <RevealGroup className="grid grid-cols-2 border-t border-l border-line sm:grid-cols-4">
-          {project.metrics.map((m) => (
-            <RevealItem key={m.label} className="border-b border-r border-line p-5">
-              <p className="font-mono text-2xl tabular-nums text-ink sm:text-3xl">
-                {m.value}
-              </p>
-              <p className="mt-1 font-mono text-[11px] uppercase tracking-[0.14em] text-muted">
-                {m.label}
-              </p>
-            </RevealItem>
-          ))}
-        </RevealGroup>
-      </div>
+      {/* metrics — flowsheet readout (only when there are verified numbers) */}
+      {project.metrics.length > 0 && (
+        <div className="mx-auto mt-14 max-w-5xl px-6 sm:px-8">
+          <RevealGroup className="grid grid-cols-2 border-t border-l border-line sm:grid-cols-4">
+            {project.metrics.map((m) => (
+              <RevealItem key={m.label} className="border-b border-r border-line p-5">
+                <p className="font-mono text-2xl tabular-nums text-ink sm:text-3xl">
+                  {m.value}
+                </p>
+                <p className="mt-1 font-mono text-[11px] uppercase tracking-[0.14em] text-muted">
+                  {m.label}
+                </p>
+              </RevealItem>
+            ))}
+          </RevealGroup>
+        </div>
+      )}
 
       {/* stack */}
       <div className="mx-auto mt-8 max-w-5xl px-6 sm:px-8">

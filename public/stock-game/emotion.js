@@ -9,7 +9,9 @@
 (function () {
   "use strict";
 
-  const MODEL_URL = "https://cdn.jsdelivr.net/npm/@vladmandic/face-api/model/";
+  // self-hosted weights (public/stock-game/models/). Origin-relative, no trailing
+  // slash — face-api appends "/<manifest>.json" itself.
+  const MODEL_URL = "/stock-game/models";
 
   // expressions that push the market up vs. down
   const POSITIVE = ["happy", "surprised"];

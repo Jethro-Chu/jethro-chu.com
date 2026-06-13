@@ -4,7 +4,7 @@ import { projects, moreWork, type Project } from "@/lib/projects";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { StatusPill } from "@/components/ui/StatusPill";
 import { LiveWindow } from "@/components/visual/LiveWindow";
-import { ProjectVisual } from "@/components/visual/ProjectVisual";
+import { ScreenshotPanel } from "@/components/visual/ScreenshotPanel";
 import { Reveal } from "@/components/motion/Reveal";
 
 export function Work() {
@@ -12,7 +12,7 @@ export function Work() {
     <section id="work" className="scroll-mt-24 px-6 py-20 sm:px-8 sm:py-32 lg:px-16">
       <div className="mx-auto max-w-[1280px]">
         <SectionHeading
-          eyebrow="Panel 01 · Selected work"
+          eyebrow="Selected work"
           title="A few things I've designed and shipped."
           description="Curated, not exhaustive — each one is real, and most came out of the gap between using clinical software and building it."
         />
@@ -23,7 +23,8 @@ export function Work() {
           ))}
         </div>
 
-        {/* quiet index of additional work */}
+        {/* quiet index of additional work (only when there's verified work to list) */}
+        {moreWork.length > 0 && (
         <Reveal>
           <div className="mt-20 border-t border-line pt-6">
             <p className="eyebrow mb-2">Also building</p>
@@ -45,6 +46,7 @@ export function Work() {
             </ul>
           </div>
         </Reveal>
+        )}
       </div>
     </section>
   );
@@ -82,7 +84,7 @@ function WorkEntry({ project }: { project: Project }) {
                   </span>
                 </div>
                 <div className="relative aspect-[16/10] overflow-hidden">
-                  <ProjectVisual project={project} bare className="h-full" />
+                  <ScreenshotPanel project={project} className="h-full" />
                   <div className="absolute inset-0 grid place-items-center bg-bg/45">
                     <span className="inline-flex items-center gap-2 rounded-[var(--radius-sm)] border border-ink bg-ink px-5 py-2.5 text-sm font-medium text-bg transition-colors group-hover/poster:bg-[#22302b]">
                       <Play className="size-4" strokeWidth={1.75} />
