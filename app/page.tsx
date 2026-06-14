@@ -1,15 +1,21 @@
-import { Hero } from "@/components/sections/Hero";
-import { WorkShowcase } from "@/components/sections/WorkShowcase";
-import { About } from "@/components/sections/About";
-import { Contact } from "@/components/sections/Contact";
+import { Altimeter } from "@/components/Altimeter";
+import { Hero } from "@/components/Hero";
+import { Approach } from "@/components/Approach";
+import { Projects } from "@/components/Projects";
+import { About } from "@/components/About";
+import { Footer } from "@/components/Footer";
 
 export default function Home() {
   return (
     <>
-      <Hero />
-      <WorkShowcase />
-      <About />
-      <Contact />
+      <Altimeter />
+      <main id="main">
+        <Hero />
+        <Approach />
+        <Projects />
+        <About />
+      </main>
+      <Footer />
     </>
   );
 }
