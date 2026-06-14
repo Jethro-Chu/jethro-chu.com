@@ -1,4 +1,4 @@
-import { aboutBeats, capabilities, pullQuote } from "@/lib/site";
+import { about, aboutBeats, capabilities } from "@/lib/site";
 import { Reveal, RevealGroup, RevealItem } from "@/components/motion/Reveal";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Flowsheet } from "@/components/visual/Flowsheet";
@@ -16,37 +16,18 @@ export function About() {
       className="on-deep scroll-mt-16 px-6 py-24 sm:px-8 sm:py-32 lg:px-16"
     >
       <div className="mx-auto max-w-[1280px]">
-        <SectionHeading
-          eyebrow="About"
-          title="A nurse who builds the software he wished he'd had on shift."
-        />
+        <SectionHeading eyebrow="About" title={about.title} />
 
         <div className="mt-16 grid gap-14 lg:grid-cols-12 lg:gap-16">
           {/* narrative */}
           <div className="lg:col-span-7">
             <Reveal>
               <p className="max-w-2xl text-balance font-display text-2xl font-medium leading-snug text-ink sm:text-3xl">
-                I spent years at the bedside before I wrote a line of production code.
-                That order is the point. I build for the people using clinical software
-                under pressure, not for the spec.
+                {about.lead}
               </p>
             </Reveal>
 
-            <Reveal delay={0.05}>
-              <blockquote
-                className="mt-10 max-w-xl border-l-2 pl-5"
-                style={{ borderColor: "var(--color-primary)" }}
-              >
-                <p className="font-display text-xl font-medium leading-snug text-ink sm:text-2xl">
-                  <span aria-hidden style={{ color: "var(--color-amber-ink)" }}>
-                    “
-                  </span>
-                  I design for {pullQuote}, not the person reading the requirements doc.
-                </p>
-              </blockquote>
-            </Reveal>
-
-            {/* nurse to builder beats, along a lead-wire spine */}
+            {/* nursing-student-to-builder beats, along a lead-wire spine */}
             <div className="relative mt-14 pl-8">
               <span
                 aria-hidden

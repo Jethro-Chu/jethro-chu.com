@@ -80,29 +80,33 @@ export const credentials: {
 ];
 
 /* ------------------------------------------------------------
-   ABOUT: the nurse-to-builder narrative. Keep it specific; the
-   unusual path is the selling point. No em-dashes in prose.
+   ABOUT: a nursing student who builds software, in his own voice.
+   First person, plain, honest, casual. Don't exaggerate the clinical
+   side (he's a student doing rotations, not "years at the bedside").
+   No em-dashes, no cinematic phrasing, no forced inspirational ending.
    ------------------------------------------------------------ */
+export const about = {
+  title: "I'm finishing my BSN and I build software.",
+  lead: "I'm a nursing student wrapping up my BSN, and on the side I build healthcare, research, and AI tools. The clinical side and the building side feed each other more than you'd think.",
+};
+
 export const aboutBeats: { year: string; title: string; body: string }[] = [
   {
-    year: "BEDSIDE",
-    title: "I started as a nurse",
-    body: "Clinical shifts across four systems (City of Hope, CHLA, Kaiser, and SAHZU) taught me how software actually meets human stakes, and how rarely it's built for the person holding the chart at 3am.",
+    year: "Clinical",
+    title: "Where I've trained",
+    body: "I've done rotations at City of Hope, CHLA, Kaiser, and SAHZU. I'm still a student doing my hours, not a licensed RN yet, but seeing how care works on a floor changed how I think about designing anything.",
   },
   {
-    year: "CROSSOVER",
-    title: "I taught myself to build",
-    body: "I learned to design and ship software to fix the tools I wished I'd had on shift. Lab Logger was the first, built from the gap between charting a result and understanding it.",
+    year: "Building",
+    title: "Why I started",
+    body: "I kept hitting tools that were harder to use than they needed to be, so I started making better ones. The clinical side taught me to care about whether a thing is actually clear and usable, not just whether it ships.",
   },
   {
-    year: "NOW",
-    title: "I build from inside care",
-    body: "Finishing a BSN while shipping healthcare and AI products. The bedside isn't a market I researched. It's where I came from, and it's the through-line in everything here.",
+    year: "Projects",
+    title: "What I'm working on",
+    body: "Lab Logger is an AI lab notebook: you describe an experiment in plain words and it writes it up, organizes it, and remembers it for you. NurseJet is a daily brief for nurses that turns clinical research and updates into a short read, with every claim traceable back to its source.",
   },
 ];
-
-/** The one editorial pull-quote, drawn from the real bedside copy above. */
-export const pullQuote = "the person holding the chart at 3am";
 
 /* ------------------------------------------------------------
    CAPABILITIES: a quiet flowsheet list (mono labels + hairlines),
