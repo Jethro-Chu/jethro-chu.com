@@ -53,7 +53,7 @@ export function Footer() {
                   {...(l.href.startsWith("http")
                     ? { target: "_blank", rel: "noreferrer noopener" }
                     : {})}
-                  className="font-body text-base font-medium text-[var(--color-pine)] underline decoration-[var(--color-golden)] decoration-2 underline-offset-4 transition-colors hover:text-[var(--color-pine-deep)]"
+                  className="font-body text-base font-medium text-[var(--color-pine)] underline decoration-[var(--color-pine)] decoration-2 underline-offset-4 transition-colors hover:text-[var(--color-pine-deep)]"
                 >
                   {l.label}
                 </a>

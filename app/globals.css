@@ -57,7 +57,6 @@
 html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-rendering: optimizeLegibility;
   scroll-behavior: smooth;
 }
 
@@ -157,12 +156,6 @@ body {
 /* ============================================================
    MOTIFS  (topographic map vernacular — quiet, low opacity)
    ============================================================ */
-
-/* faint contour texture, used behind dark bands */
-.contour-bg {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 200 200'%3E%3Cg fill='none' stroke='%23ffffff' stroke-width='1'%3E%3Cpath d='M-20 60 Q60 10 140 60 T300 60'/%3E%3Cpath d='M-20 90 Q60 45 140 90 T300 90'/%3E%3Cpath d='M-20 120 Q60 80 140 120 T300 120'/%3E%3Cpath d='M-20 150 Q60 115 140 150 T300 150'/%3E%3C/g%3E%3C/svg%3E");
-  background-size: 420px 420px;
-}
 
 /* hairline rule */
 .rule {

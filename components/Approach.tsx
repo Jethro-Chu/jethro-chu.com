@@ -39,7 +39,7 @@ export function Approach() {
 
         <a
           href="#projects"
-          className="mt-8 inline-flex items-center gap-2 font-body text-base font-medium text-[var(--color-pine)] underline decoration-[var(--color-golden)] decoration-2 underline-offset-4 transition-colors hover:text-[var(--color-pine-deep)]"
+          className="mt-8 inline-flex items-center gap-2 font-body text-base font-medium text-[var(--color-pine)] underline decoration-[var(--color-pine)] decoration-2 underline-offset-4 transition-colors hover:text-[var(--color-pine-deep)]"
         >
           Skip ahead to the projects
           <svg

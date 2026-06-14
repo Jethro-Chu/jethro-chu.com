@@ -1,5 +1,6 @@
 import { sections, ELEVATION_START, ELEVATION_SUMMIT } from "@/content/content";
 import type { SectionMeta } from "@/content/content";
+import { cn } from "@/lib/utils";
 
 /**
  * The altimeter — the signature element.
@@ -45,7 +46,7 @@ export function Altimeter() {
     <>
       {/* ---- desktop: vertical rail, fixed in the right gutter ---- */}
       <nav
-        aria-label="Elevation"
+        aria-label="Elevation rail"
         className="pointer-events-none fixed right-0 top-0 z-40 hidden h-screen w-32 lg:block"
       >
         {/* the track */}
@@ -60,53 +61,86 @@ export function Altimeter() {
             className="pointer-events-auto absolute right-[22px] flex -translate-y-1/2 flex-col items-end gap-1.5"
             style={{ top: railTop(elevation) }}
           >
-            {list.map((s) => (
-              <a
-                key={s.id}
-                href={`#${s.id}`}
-                className="group flex items-center gap-2.5"
-                aria-label={`${s.label}, ${fmt(elevation)} feet`}
-              >
-                <span className="flex flex-col items-end leading-tight">
-                  <span className="font-body text-[0.82rem] font-medium text-[var(--color-shadow)] transition-colors group-hover:text-[var(--color-pine)] group-focus-visible:text-[var(--color-pine)]">
-                    {s.label}
+            {list.map((s) => {
+              const isProjects = s.id === "projects"; // the escape hatch to the work
+              return (
+                <a
+                  key={s.id}
+                  href={`#${s.id}`}
+                  className="group flex items-center gap-2.5"
+                  aria-label={
+                    isProjects
+                      ? `Jump to projects, ${fmt(elevation)} feet`
+                      : `${s.label}, ${fmt(elevation)} feet`
+                  }
+                >
+                  <span className="flex flex-col items-end leading-tight">
+                    <span
+                      className={cn(
+                        "font-body text-[0.82rem] transition-colors group-hover:text-[var(--color-pine)] group-focus-visible:text-[var(--color-pine)]",
+                        isProjects
+                          ? "font-semibold text-[var(--color-pine)]"
+                          : "font-medium text-[var(--color-shadow)]"
+                      )}
+                    >
+                      {s.label}
+                    </span>
+                    <span className="label-mono tnum text-[0.66rem]">
+                      {fmt(elevation)} ft
+                    </span>
                   </span>
-                  <span className="label-mono tnum text-[0.66rem]">
-                    {fmt(elevation)} ft
-                  </span>
-                </span>
-                <span
-                  aria-hidden
-                  className="size-3 shrink-0 rounded-full border-2 border-[var(--color-granite-line)] bg-[var(--color-sand)] transition-colors group-hover:border-[var(--color-pine)] group-hover:bg-[var(--color-pine)] group-focus-visible:border-[var(--color-pine)]"
-                />
-              </a>
-            ))}
+                  <span
+                    aria-hidden
+                    className={cn(
+                      "size-3 shrink-0 rounded-full border-2 transition-colors",
+                      isProjects
+                        ? "border-[var(--color-pine)] bg-[var(--color-pine)]"
+                        : "border-[var(--color-granite-line)] bg-[var(--color-sand)] group-hover:border-[var(--color-pine)] group-hover:bg-[var(--color-pine)] group-focus-visible:border-[var(--color-pine)]"
+                    )}
+                  />
+                </a>
+              );
+            })}
           </div>
         ))}
       </nav>
 
       {/* ---- mobile / tablet: bottom junction bar ---- */}
       <nav
-        aria-label="Elevation"
+        aria-label="Elevation bar"
         className="fixed inset-x-0 bottom-0 z-40 border-t border-[var(--color-granite-line)] bg-[color-mix(in_oklab,var(--color-sand)_92%,transparent)] backdrop-blur-sm lg:hidden"
         style={{ paddingBottom: "env(safe-area-inset-bottom)" }}
       >
         <ul className="no-scrollbar flex items-stretch gap-1 overflow-x-auto px-2 py-1.5">
-          {sections.map((s) => (
-            <li key={s.id} className="shrink-0">
-              <a
-                href={`#${s.id}`}
-                className="flex min-h-[44px] flex-col items-center justify-center rounded-sm px-3 py-1"
-              >
-                <span className="font-body text-[0.78rem] font-medium text-[var(--color-shadow)]">
-                  {s.label}
-                </span>
-                <span className="label-mono tnum text-[0.6rem]">
-                  {fmt(s.elevation)} ft
-                </span>
-              </a>
-            </li>
-          ))}
+          {sections.map((s) => {
+            const isProjects = s.id === "projects";
+            return (
+              <li key={s.id} className="shrink-0">
+                <a
+                  href={`#${s.id}`}
+                  aria-label={isProjects ? "Jump to projects" : undefined}
+                  className={cn(
+                    "flex min-h-[44px] flex-col items-center justify-center rounded-sm px-3 py-1",
+                    isProjects && "bg-[color-mix(in_oklab,var(--color-pine)_12%,transparent)]"
+                  )}
+                >
+                  <span
+                    className={cn(
+                      "font-body text-[0.78rem]",
+                      isProjects
+                        ? "font-semibold text-[var(--color-pine)]"
+                        : "font-medium text-[var(--color-shadow)]"
+                    )}
+                  >
+                    {s.label}
+                  </span>
+                  <span className="label-mono tnum text-[0.6rem]">
+                    {fmt(s.elevation)} ft
+                  </span>
+                </a>
+              </li>
+            );
+          })}
         </ul>
       </nav>
     </>

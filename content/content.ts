@@ -40,7 +40,7 @@ export const site = {
   tagline: "Nursing student who builds software between clinical shifts.",
   // meta description for search + social
   description:
-    "Jethro Chu is a nursing student who builds software, including Lab Logger. A portfolio that climbs from the Yosemite valley floor to the summit of Half Dome.",
+    "Jethro Chu is a nursing student who builds healthcare, research, and AI software, including Lab Logger. His portfolio climbs from the Yosemite valley floor to the Half Dome summit.",
   url: "https://jethrochu.com",
 } as const;
 
@@ -50,7 +50,7 @@ export const site = {
 export const sections: SectionMeta[] = [
   { id: "hero", label: "trailhead", landmark: "Happy Isles", elevation: 4000 },
   { id: "approach", label: "the approach", landmark: "Vernal and Nevada Falls", elevation: 5900 },
-  { id: "projects", label: "projects", landmark: "Sub-dome", elevation: 8200 },
+  { id: "projects", label: "projects", landmark: "Sub Dome", elevation: 8200 },
   { id: "about", label: "summit", landmark: "Half Dome summit", elevation: 8839 },
   { id: "contact", label: "the view", landmark: "Half Dome summit", elevation: 8839 },
 ];
@@ -63,7 +63,7 @@ export const approach = {
   heading: "What I do",
   // Two or three plain sentences. Confirm with Jethro.
   body: [
-    "I'm a nursing student, and I build software. Most of it sits where care and tools meet, like Lab Logger.",
+    "I'm a nursing student, and I build software. Most of it is healthcare and research tools, like Lab Logger and NurseJet.",
     "I learned to build because I kept hitting tools that were harder to use than they needed to be. So I started making better ones.",
   ],
 } as const;
@@ -97,7 +97,7 @@ export const projects: Project[] = [
     role: "",
     stack: [],
     summary:
-      "PLACEHOLDER — open slot. Drop a real project here: title, one-line role, the stack, and a plain sentence on what it does.",
+      "PLACEHOLDER, open slot. Drop a real project here: a title, a one-line role, the stack, and a plain sentence on what it does.",
     placeholder: true,
   },
 ];
@@ -114,7 +114,7 @@ export const about = {
   // PLACEHOLDER bio, first person and plain. Confirm school, grad year,
   // and which clinical details Jethro wants public.
   body: [
-    "I'm a BSN nursing student at Azusa Pacific University, graduating December [year].",
+    "I'm a BSN nursing student at Azusa Pacific University.",
     "I've done clinical rotations across several hospital systems. On the side I build software like Lab Logger, and I climb granite in the Sierra.",
     "This is the top of Half Dome, 8,839 feet up. Scrolling down here was the climb.",
   ],
@@ -124,7 +124,7 @@ export const about = {
 export const contact = {
   heading: "Let's connect",
   // PLACEHOLDER line — confirm.
-  line: "If you're building in healthcare, software, or somewhere between, I'd like to hear about it.",
+  line: "If you're building in healthcare or software, I'd like to hear about it.",
   links: [
     { label: "Email", href: "mailto:jethro.chu@gmail.com" }, // PLACEHOLDER — confirm
     { label: "GitHub", href: "https://github.com/Jethro-Chu" },

@@ -64,7 +64,7 @@ export function ProjectCard({
             href={project.link.href}
             target="_blank"
             rel="noreferrer noopener"
-            className="mt-5 inline-flex items-center gap-1.5 font-body text-sm font-medium text-[var(--color-pine)] underline decoration-[var(--color-golden)] decoration-2 underline-offset-4 transition-colors hover:text-[var(--color-pine-deep)]"
+            className="mt-5 inline-flex items-center gap-1.5 font-body text-sm font-medium text-[var(--color-pine)] underline decoration-[var(--color-pine)] decoration-2 underline-offset-4 transition-colors hover:text-[var(--color-pine-deep)]"
           >
             {project.link.label}
             <svg
