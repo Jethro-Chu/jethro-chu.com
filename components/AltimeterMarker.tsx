@@ -61,10 +61,10 @@ export function AltimeterMarker() {
     [ELEVATION_START, ELEVATION_SUMMIT],
     ["88vh", "12vh"]
   );
-  const fill = useTransform(
+  const fillScale = useTransform(
     elevation,
     [ELEVATION_START, ELEVATION_SUMMIT],
-    ["0%", "100%"]
+    [0, 1]
   );
   const readout = useTransform(elevation, (v) =>
     Math.round(v).toLocaleString("en-US")
@@ -79,24 +79,23 @@ export function AltimeterMarker() {
         aria-hidden
         className="pointer-events-none fixed right-0 top-0 z-30 hidden h-screen w-32 lg:block"
       >
-        <motion.div
-          className="absolute right-[16px] flex -translate-y-1/2 items-center gap-2"
-          style={{ top: railTop }}
-        >
-          <span className="label-mono tnum inline-flex items-center rounded-xs bg-[var(--color-pine)] px-1.5 py-0.5 text-[0.66rem] text-white">
-            <motion.span>{readout}</motion.span>
-            <span className="ml-0.5">ft</span>
-          </span>
-          <span className="size-3.5 rounded-full border-2 border-[var(--color-sand)] bg-[var(--color-pine)]" />
+        <motion.div className="absolute right-[16px] top-0" style={{ y: railTop }}>
+          <div className="flex -translate-y-1/2 items-center gap-2">
+            <span className="label-mono tnum inline-flex items-center rounded-xs bg-[var(--color-pine)] px-1.5 py-0.5 text-[0.66rem] text-white">
+              <motion.span>{readout}</motion.span>
+              <span className="ml-0.5">ft</span>
+            </span>
+            <span className="size-3.5 rounded-full border-2 border-[var(--color-sand)] bg-[var(--color-pine)]" />
+          </div>
         </motion.div>
       </div>
 
       {/* mobile: thin top progress bar with live readout */}
       <div aria-hidden className="pointer-events-none fixed inset-x-0 top-0 z-30 lg:hidden">
-        <div className="h-[3px] w-full bg-[var(--color-granite-line)]">
+        <div className="h-[3px] w-full overflow-hidden bg-[var(--color-granite-line)]">
           <motion.div
-            className="h-full bg-[var(--color-pine)]"
-            style={{ width: fill }}
+            className="h-full w-full origin-left bg-[var(--color-pine)]"
+            style={{ scaleX: fillScale }}
           />
         </div>
         <div className="flex justify-end px-3 pt-1">

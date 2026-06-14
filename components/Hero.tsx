@@ -1,5 +1,4 @@
 import { site, sections } from "@/content/content";
-import { Contour } from "@/components/scenery/Contour";
 
 const trailhead = sections[0];
 
@@ -15,12 +14,6 @@ export function Hero() {
       aria-labelledby="hero-name"
       className="relative flex min-h-[100svh] flex-col justify-between overflow-hidden px-6 pb-24 pt-28 sm:px-10 lg:pb-28 lg:pl-16 lg:pr-32"
     >
-      {/* a faint suggestion of granite walls at the edges */}
-      <Contour
-        className="pointer-events-none absolute inset-x-0 bottom-0 h-32 text-[var(--color-granite-line)]"
-        opacity={0.45}
-      />
-
       <p className="label-mono tnum flex items-center gap-2">
         <span className="text-[var(--color-shadow)]">
           {trailhead.elevation.toLocaleString("en-US")} ft

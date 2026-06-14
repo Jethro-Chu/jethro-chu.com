@@ -1,7 +1,9 @@
 import { SmoothScroll } from "@/components/motion/SmoothScroll";
+import { ConsoleEgg } from "@/components/motion/ConsoleEgg";
 import { BackgroundGradient } from "@/components/scenery/BackgroundGradient";
 import { LightSweep } from "@/components/motion/LightSweep";
 import { Scenery } from "@/components/scenery/Scenery";
+import { RouteLine } from "@/components/scenery/RouteLine";
 import { Altimeter } from "@/components/Altimeter";
 import { AltimeterMarker } from "@/components/AltimeterMarker";
 import { Hero } from "@/components/Hero";
@@ -17,9 +19,12 @@ export default function Home() {
       <BackgroundGradient />
       <LightSweep />
       <Scenery />
+      {/* the climbing route, drawing down the page */}
+      <RouteLine />
 
       {/* native smooth scroll, never hijacked */}
       <SmoothScroll />
+      <ConsoleEgg />
 
       {/* the signature: static nav rail + the live climbing marker */}
       <Altimeter />
