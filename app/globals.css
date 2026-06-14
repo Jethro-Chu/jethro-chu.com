@@ -57,7 +57,8 @@
 html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  scroll-behavior: smooth;
+  /* no scroll-behavior here: Lenis owns smoothing when motion is allowed, and
+     native instant scroll is correct under reduced motion. */
 }
 
 body {

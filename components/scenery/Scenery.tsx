@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
 
 /**
@@ -45,8 +46,11 @@ export function Scenery() {
   const { scrollYProgress } = useScroll();
   const farY = useTransform(scrollYProgress, [0, 1], ["0%", "-16%"]);
   const nearY = useTransform(scrollYProgress, [0, 1], ["0%", "-42%"]);
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
 
-  if (reduce) {
+  // static ridges until mounted (deterministic first paint) and under reduced motion
+  if (!mounted || reduce) {
     return (
       <div
         aria-hidden

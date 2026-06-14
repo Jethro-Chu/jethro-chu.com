@@ -15,20 +15,24 @@ export function SmoothScroll() {
   const reduce = useReducedMotion();
 
   useEffect(() => {
-    if (reduce) return;
-
-    const lenis = new Lenis({
-      duration: 1.05,
-      easing: (t) => 1 - Math.pow(1 - t, 3),
-    });
-
+    let lenis: Lenis | undefined;
     let raf = 0;
-    const loop = (time: number) => {
-      lenis.raf(time);
-      raf = requestAnimationFrame(loop);
-    };
-    raf = requestAnimationFrame(loop);
 
+    // smooth scroll only when motion is allowed; reduced motion keeps native scroll
+    if (!reduce) {
+      lenis = new Lenis({
+        duration: 1.05,
+        easing: (t) => 1 - Math.pow(1 - t, 3),
+      });
+      const loop = (time: number) => {
+        lenis!.raf(time);
+        raf = requestAnimationFrame(loop);
+      };
+      raf = requestAnimationFrame(loop);
+    }
+
+    // anchor jumps work in both modes; Lenis eases them when present, and focus
+    // lands inside the destination either way (a11y, including reduced motion)
     const onClick = (e: MouseEvent) => {
       if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey) return;
       const anchor = (e.target as HTMLElement)?.closest?.(
@@ -37,21 +41,23 @@ export function SmoothScroll() {
       if (!anchor) return;
       const hash = anchor.getAttribute("href");
       if (!hash || hash === "#") return;
-      const target = document.querySelector(hash);
-      if (!target) return;
-      e.preventDefault();
-      lenis.scrollTo(target as HTMLElement);
-      // land keyboard focus inside the destination for a11y
-      const el = target as HTMLElement;
+      const el = document.querySelector(hash) as HTMLElement | null;
+      if (!el) return;
+      if (lenis) {
+        e.preventDefault();
+        lenis.scrollTo(el);
+      }
       if (!el.hasAttribute("tabindex")) el.setAttribute("tabindex", "-1");
       el.focus({ preventScroll: true });
     };
     document.addEventListener("click", onClick);
 
     return () => {
-      cancelAnimationFrame(raf);
+      if (lenis) {
+        cancelAnimationFrame(raf);
+        lenis.destroy();
+      }
       document.removeEventListener("click", onClick);
-      lenis.destroy();
     };
   }, [reduce]);
 

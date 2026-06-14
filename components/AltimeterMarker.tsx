@@ -22,36 +22,46 @@ export function AltimeterMarker() {
   const reduce = useReducedMotion();
   const { scrollY } = useScroll();
   const [tops, setTops] = useState<number[]>([]);
+  // gate motion on mount so the static fallback is the deterministic first paint
+  // (useReducedMotion is null during SSR / the first client commit)
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
     const measure = () => {
       setTops(
         sections.map((s) => {
           const el = document.getElementById(s.id);
-          return el ? el.getBoundingClientRect().top + window.scrollY : 0;
+          return el ? el.getBoundingClientRect().top + window.scrollY : NaN;
         })
       );
     };
     measure();
-    // re-measure after fonts/images settle and on resize
-    const t = window.setTimeout(measure, 400);
+    // re-measure on everything that actually shifts the section tops: fonts
+    // loading, the summit image decoding, and any layout change.
+    document.fonts?.ready.then(measure).catch(() => {});
+    const ro = new ResizeObserver(measure);
+    ro.observe(document.documentElement);
     window.addEventListener("resize", measure);
     return () => {
-      window.clearTimeout(t);
+      ro.disconnect();
       window.removeEventListener("resize", measure);
     };
   }, []);
 
-  // build a strictly-increasing scroll->elevation map from measured tops
+  // build a strictly-increasing scroll->elevation map from measured tops,
+  // skipping any section whose element was not found (no silent 0s)
   const [inRange, outRange] = useMemo(() => {
-    if (tops.length < 2) return [[0, 1], [ELEVATION_START, ELEVATION_START]];
     const xs: number[] = [];
     const ys: number[] = [];
     tops.forEach((y, i) => {
-      const x = i === 0 ? 0 : Math.max(y, xs[xs.length - 1] + 1);
+      if (!Number.isFinite(y)) return;
+      const x =
+        xs.length === 0 ? Math.max(0, y) : Math.max(y, xs[xs.length - 1] + 1);
       xs.push(x);
       ys.push(sections[i].elevation);
     });
+    if (xs.length < 2) return [[0, 1], [ELEVATION_START, ELEVATION_START]];
     return [xs, ys];
   }, [tops]);
 
@@ -70,7 +80,7 @@ export function AltimeterMarker() {
     Math.round(v).toLocaleString("en-US")
   );
 
-  if (reduce) return null;
+  if (!mounted || reduce) return null;
 
   return (
     <>
@@ -83,8 +93,9 @@ export function AltimeterMarker() {
           {/* the marker dot, aligned on the track with the junction dots (right-[58px]) */}
           <span className="absolute right-[51px] size-3.5 -translate-y-1/2 rounded-full border-2 border-[var(--color-sand)] bg-[var(--color-pine)] shadow-[0_0_0_3px_color-mix(in_oklab,var(--color-pine)_22%,transparent)]" />
           {/* the live readout, in the gutter to the right of the track */}
-          <span className="absolute right-[8px] -translate-y-1/2 label-mono tnum rounded-xs bg-[var(--color-pine)] px-1.5 py-0.5 text-[0.62rem] text-white">
+          <span className="tnum absolute right-[4px] -translate-y-1/2 whitespace-nowrap rounded-xs bg-[var(--color-pine)] px-1 py-0.5 text-[0.5rem] tracking-[0.02em] text-[var(--color-on-dark)]">
             <motion.span>{readout}</motion.span>
+            <span className="ml-0.5">ft</span>
           </span>
         </motion.div>
       </div>
@@ -98,7 +109,7 @@ export function AltimeterMarker() {
           />
         </div>
         <div className="flex justify-end px-3 pt-1">
-          <span className="label-mono tnum inline-flex items-center rounded-xs bg-[var(--color-pine)] px-1.5 py-0.5 text-[0.6rem] text-white">
+          <span className="tnum inline-flex items-center rounded-xs bg-[var(--color-pine)] px-1.5 py-0.5 text-[0.6rem] tracking-[0.02em] text-[var(--color-on-dark)]">
             <motion.span>{readout}</motion.span>
             <span className="ml-0.5">ft</span>
           </span>

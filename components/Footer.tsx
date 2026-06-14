@@ -52,6 +52,9 @@ export function Footer() {
                   className="font-body text-base font-medium text-[var(--color-pine)] underline decoration-[var(--color-pine)] decoration-2 underline-offset-4 transition-colors hover:text-[var(--color-pine-deep)]"
                 >
                   {l.label}
+                  {l.href.startsWith("http") && (
+                    <span className="sr-only"> (opens in a new tab)</span>
+                  )}
                 </a>
               </li>
             )

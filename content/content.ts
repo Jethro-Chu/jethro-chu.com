@@ -64,7 +64,7 @@ export const approach = {
   // Two or three plain sentences. Confirm with Jethro.
   body: [
     "I'm a nursing student, and I build software. Most of it is healthcare and research tools, like Lab Logger and NurseJet.",
-    "I learned to build because I kept hitting tools that were harder to use than they needed to be. So I started making better ones.",
+    "I learned to build because the software I had to use kept getting in my way. So I started making my own.",
   ],
 } as const;
 
@@ -92,12 +92,13 @@ export const projects: Project[] = [
     link: { href: "https://nursejet.org", label: "nursejet.org" },
   },
   {
+    // PLACEHOLDER open slot for Jethro: add a real project (title, role, stack,
+    // a one-line summary, link) following the entries above, or delete this entry.
     id: "slot-3",
     title: "Add a project",
     role: "",
     stack: [],
-    summary:
-      "PLACEHOLDER, open slot. Drop a real project here: a title, a one-line role, the stack, and a plain sentence on what it does.",
+    summary: "Open slot. A real project lands here soon.",
     placeholder: true,
   },
 ];
@@ -116,7 +117,7 @@ export const about = {
   body: [
     "I'm a BSN nursing student at Azusa Pacific University.",
     "I've done clinical rotations across several hospital systems. On the side I build software like Lab Logger, and I climb granite in the Sierra.",
-    "This is the top of Half Dome, 8,839 feet up. Scrolling down here was the climb.",
+    "This is the top of Half Dome, 8,839 feet up. Scrolling this far down the page was the climb.",
   ],
 } as const;
 

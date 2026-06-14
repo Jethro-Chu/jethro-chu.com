@@ -122,7 +122,7 @@ export function Altimeter() {
                   href={`#${s.id}`}
                   aria-label={isProjects ? "Jump to projects" : undefined}
                   className={cn(
-                    "flex min-h-[44px] flex-col items-center justify-center rounded-sm px-3 py-1",
+                    "flex min-h-[44px] min-w-[44px] flex-col items-center justify-center rounded-sm px-3 py-1",
                     isProjects && "bg-[color-mix(in_oklab,var(--color-pine)_12%,transparent)]"
                   )}
                 >

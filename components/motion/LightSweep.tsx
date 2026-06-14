@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
 
 /**
@@ -13,8 +14,10 @@ export function LightSweep() {
   const reduce = useReducedMotion();
   const { scrollYProgress } = useScroll();
   const opacity = useTransform(scrollYProgress, [0.45, 0.8, 1], [0, 0.3, 0.4]);
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
 
-  if (reduce) return null;
+  if (!mounted || reduce) return null;
 
   return (
     <motion.div

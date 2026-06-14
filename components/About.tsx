@@ -13,23 +13,8 @@ export function About() {
     <section
       id="about"
       aria-labelledby="about-heading"
-      className="relative scroll-mt-6 px-6 py-24 sm:px-10 sm:py-28 lg:pl-16 lg:pr-40"
+      className="scroll-mt-6 px-6 py-24 sm:px-10 sm:py-28 lg:pl-16 lg:pr-40"
     >
-      {/* a small bird soaring over the summit (the costume is the joke) */}
-      <svg
-        aria-hidden
-        viewBox="0 0 28 12"
-        className="pointer-events-none absolute right-[8%] top-12 w-6 text-[var(--color-shadow)] opacity-30 sm:top-16 sm:w-7"
-        fill="none"
-      >
-        <path
-          d="M1 9 C 6 2 10 8 14 6 C 18 8 22 2 27 9"
-          stroke="currentColor"
-          strokeWidth="1.4"
-          strokeLinecap="round"
-        />
-      </svg>
-
       <div className="mx-auto grid max-w-5xl items-center gap-10 lg:grid-cols-[minmax(0,440px)_1fr] lg:gap-14">
         {/* the photo */}
         <figure className="mx-auto w-full max-w-sm lg:max-w-none">
