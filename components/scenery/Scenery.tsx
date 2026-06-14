@@ -71,10 +71,16 @@ export function Scenery() {
       aria-hidden
       className="pointer-events-none fixed inset-x-0 bottom-0 -z-10 hidden h-[40vh] sm:block"
     >
-      <motion.div style={{ y: farY }} className="absolute inset-x-0 bottom-0">
+      <motion.div
+        style={{ y: farY, willChange: "transform" }}
+        className="absolute inset-x-0 bottom-0"
+      >
         <FarRidge />
       </motion.div>
-      <motion.div style={{ y: nearY }} className="absolute inset-x-0 bottom-0">
+      <motion.div
+        style={{ y: nearY, willChange: "transform" }}
+        className="absolute inset-x-0 bottom-0"
+      >
         <NearRidge />
       </motion.div>
     </div>

@@ -24,7 +24,12 @@ export function RouteLine() {
     >
       <motion.div
         className="h-full w-full"
-        style={{ clipPath: reduce ? "none" : clip }}
+        // clip-path is paint, not composite; will-change isolates the reveal to
+        // its own layer so the per-frame repaint does not touch the rest of the page
+        style={{
+          clipPath: reduce ? "none" : clip,
+          willChange: reduce ? "auto" : "clip-path",
+        }}
       >
         <svg
           className="h-full w-full"

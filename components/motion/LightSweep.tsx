@@ -25,6 +25,7 @@ export function LightSweep() {
       className="pointer-events-none fixed inset-0 -z-10"
       style={{
         opacity,
+        willChange: "opacity",
         background:
           "radial-gradient(125% 80% at 50% 108%, color-mix(in oklab, var(--color-horizon) 30%, transparent) 0%, transparent 60%)",
       }}

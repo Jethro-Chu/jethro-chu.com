@@ -89,7 +89,10 @@ export function AltimeterMarker() {
         aria-hidden
         className="pointer-events-none fixed right-0 top-0 z-30 hidden h-screen w-40 lg:block"
       >
-        <motion.div className="absolute inset-x-0 top-0" style={{ y: railTop }}>
+        <motion.div
+          className="absolute inset-x-0 top-0"
+          style={{ y: railTop, willChange: "transform" }}
+        >
           {/* the marker dot, aligned on the track with the junction dots (right-[58px]) */}
           <span className="absolute right-[51px] size-3.5 -translate-y-1/2 rounded-full border-2 border-[var(--color-sand)] bg-[var(--color-pine)] shadow-[0_0_0_3px_color-mix(in_oklab,var(--color-pine)_22%,transparent)]" />
           {/* the live readout, in the gutter to the right of the track */}
@@ -105,7 +108,7 @@ export function AltimeterMarker() {
         <div className="h-[3px] w-full overflow-hidden bg-[var(--color-granite-line)]">
           <motion.div
             className="h-full w-full origin-left bg-[var(--color-pine)]"
-            style={{ scaleX: fillScale }}
+            style={{ scaleX: fillScale, willChange: "transform" }}
           />
         </div>
         <div className="flex justify-end px-3 pt-1">
