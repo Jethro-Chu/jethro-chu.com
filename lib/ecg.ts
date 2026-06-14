@@ -28,31 +28,37 @@ interface EcgOptions {
   beatWidth?: number;
 }
 
-/** One P-QRS-T complex spanning [x, x+w], returning to baseline. */
+/**
+ * One P-QRS-T complex spanning [x, x+w], returning to baseline.
+ *
+ * Lead-II morphology, left to right: a short flat TP segment, a smooth
+ * rounded P wave, a flat PR segment, a sharp QRS (small Q dip down, tall
+ * R spike up, deeper S trough below baseline), a flat ST segment, a broad
+ * rounded T wave, then flat to the next beat. Amplitudes scale off the R
+ * wave so the proportions always read right: R >> T > P, and the S trough
+ * is deeper than the Q dip. P and T are quadratic curves; Q-R-S are
+ * straight, pointed lines. Geometry follows the clinical reference (a
+ * 100-wide beat with R at 41%).
+ */
 function beat(x: number, w: number, base: number, amp: number) {
   const fx = (f: number) => +(x + f * w).toFixed(2);
   const fy = (a: number) => +(base - a * amp).toFixed(2); // a>0 is UP
-  const rx = fx(0.34);
+  const rx = fx(0.41);
   const ry = fy(1.0);
   const d =
-    `L ${fx(0.06)} ${base} ` +
-    // P wave (rounded)
-    `Q ${fx(0.1)} ${fy(0.16)} ${fx(0.14)} ${fy(0.16)} ` +
-    `Q ${fx(0.18)} ${fy(0.16)} ${fx(0.22)} ${base} ` +
-    // PR segment
-    `L ${fx(0.29)} ${base} ` +
-    // QRS (sharp)
-    `L ${fx(0.31)} ${fy(-0.12)} ` + // Q dip
-    `L ${rx} ${ry} ` + // R spike
-    `L ${fx(0.37)} ${fy(-0.3)} ` + // S dip
-    `L ${fx(0.41)} ${base} ` +
-    // ST segment
-    `L ${fx(0.52)} ${base} ` +
-    // T wave (rounded)
-    `Q ${fx(0.6)} ${fy(0.34)} ${fx(0.68)} ${fy(0.34)} ` +
-    `Q ${fx(0.76)} ${fy(0.34)} ${fx(0.82)} ${base} ` +
-    // rest to next beat
-    `L ${fx(1.0)} ${base}`;
+    `L ${fx(0.14)} ${base} ` + // TP segment (flat)
+    // P wave: smooth rounded bump, peak ~0.19 amp
+    `Q ${fx(0.2)} ${fy(0.381)} ${fx(0.26)} ${base} ` +
+    `L ${fx(0.34)} ${base} ` + // PR segment (flat)
+    // QRS: sharp, narrow, pointed
+    `L ${fx(0.37)} ${fy(-0.095)} ` + // Q dip (small, down)
+    `L ${rx} ${ry} ` + // R spike (tall, the dominant feature)
+    `L ${fx(0.45)} ${fy(-0.238)} ` + // S trough (deeper than Q)
+    `L ${fx(0.48)} ${base} ` + // return to baseline
+    `L ${fx(0.58)} ${base} ` + // ST segment (flat)
+    // T wave: broad rounded bump, peak ~0.33 amp (taller than P, well below R)
+    `Q ${fx(0.7)} ${fy(0.667)} ${fx(0.82)} ${base} ` +
+    `L ${fx(1.0)} ${base}`; // TP to the next beat
   return { d, r: { x: rx, y: ry } };
 }
 

@@ -15,14 +15,13 @@ export function Contact() {
       className="on-deep scroll-mt-16 px-6 pb-24 pt-10 sm:px-8 sm:pb-28 lg:px-16"
     >
       <div className="mx-auto max-w-[1280px]">
-        {/* the trace settles: one beat, then a calm resting baseline */}
+        {/* the trace settles: a few calm beats resolving to a resting baseline */}
         <div className="h-12 sm:h-16" aria-hidden>
           <VitalsWaveform
             height={120}
-            beats={1}
-            beatWidth={300}
+            beats={3}
             startGap={0.04}
-            endGap={0.46}
+            endGap={0.16}
             strokeWidth={2}
           />
         </div>

@@ -37,11 +37,11 @@ export function Hero() {
         <motion.div {...rise(0.16)} className="mt-5 h-16 sm:h-24" aria-hidden>
           <VitalsWaveform
             height={140}
-            beats={1}
-            beatWidth={460}
-            startGap={0.03}
-            endGap={0.04}
+            beats={4}
+            startGap={0.02}
+            endGap={0.02}
             strokeWidth={2.25}
+            rPeakIndex={1}
           />
         </motion.div>
 
