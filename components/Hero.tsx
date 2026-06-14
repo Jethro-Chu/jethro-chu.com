@@ -14,10 +14,6 @@ export function Hero() {
       id="hero"
       aria-labelledby="hero-name"
       className="relative flex min-h-[100svh] flex-col justify-between overflow-hidden px-6 pb-24 pt-28 sm:px-10 lg:pb-28 lg:pl-16 lg:pr-32"
-      style={{
-        background:
-          "linear-gradient(180deg, color-mix(in oklab, var(--color-sky) 26%, var(--color-sand)) 0%, var(--color-sand) 52%)",
-      }}
     >
       {/* a faint suggestion of granite walls at the edges */}
       <Contour

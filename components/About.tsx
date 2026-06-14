@@ -14,10 +14,6 @@ export function About() {
       id="about"
       aria-labelledby="about-heading"
       className="scroll-mt-6 px-6 py-24 sm:px-10 sm:py-28 lg:pl-16 lg:pr-32"
-      style={{
-        background:
-          "linear-gradient(180deg, var(--color-sand) 0%, color-mix(in oklab, var(--color-horizon) 24%, var(--color-sand)) 100%)",
-      }}
     >
       <div className="mx-auto grid max-w-5xl items-center gap-10 lg:grid-cols-[minmax(0,440px)_1fr] lg:gap-14">
         {/* the photo */}

@@ -24,7 +24,7 @@
   --color-pine: #3e5c46;          /* primary accent: links, tags, active (6:1 on sand) */
   --color-pine-deep: #2c4334;     /* hover / text on granite */
   --color-golden: #c98f45;        /* highlights, route line, alpenglow (non-text on light) */
-  --color-golden-deep: #8a5a1c;   /* accessible CTA fill (white text 6.3:1) */
+  --color-golden-deep: #6b4310;   /* accessible warm text + CTA fill (AA on warm bands) */
   --color-granite: #c5beb1;       /* neutral surface, card border ground */
   --color-granite-line: #ab9f8b;  /* perceivable hairline / border (3:1 non-text) */
   --color-sky: #3e72a6;           /* valley sky, midday end of the light sweep */
@@ -74,6 +74,21 @@ body {
 ::selection {
   background: color-mix(in oklab, var(--color-pine) 22%, transparent);
   color: var(--color-shadow);
+}
+
+/* Lenis smooth scroll (does not hijack; updates native scroll position) */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
 }
 
 /* Visible keyboard focus, never removed */

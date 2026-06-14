@@ -13,10 +13,6 @@ export function Footer() {
       id="contact"
       aria-labelledby="contact-heading"
       className="scroll-mt-6 px-6 pb-28 pt-24 sm:px-10 sm:pb-24 sm:pt-28 lg:pb-16 lg:pl-16 lg:pr-32"
-      style={{
-        background:
-          "linear-gradient(180deg, color-mix(in oklab, var(--color-horizon) 24%, var(--color-sand)) 0%, color-mix(in oklab, var(--color-horizon-low) 32%, var(--color-sand)) 100%)",
-      }}
     >
       <div className="mx-auto max-w-4xl">
         <p className="label-mono tnum flex items-center gap-2">
