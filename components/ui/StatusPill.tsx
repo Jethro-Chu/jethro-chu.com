@@ -1,14 +1,16 @@
 import { cn } from "@/lib/utils";
 import type { ProjectStatus } from "@/lib/projects";
+import { LiveGlyph } from "@/components/visual/LiveGlyph";
 
 /**
- * Quiet status indicator — a small square mark + mono label.
- * No pill, no glow. "Live" gets the accent fill; others stay neutral.
+ * Quiet status indicator. "Live" gets the amber pulse glyph; "Beta" /
+ * "In progress" are the honest "watch" states, marked in amber-ink (the
+ * AA-safe amber for text). Others stay neutral mono. No glowing pill.
  */
-const filled: Record<ProjectStatus, boolean> = {
-  Live: true,
-  Beta: false,
-  "In progress": false,
+const watchSet: Record<ProjectStatus, boolean> = {
+  Live: false,
+  Beta: true,
+  "In progress": true,
   Research: false,
 };
 
@@ -19,21 +21,29 @@ export function StatusPill({
   status: ProjectStatus;
   className?: string;
 }) {
-  const on = filled[status];
+  const live = status === "Live";
+  const watch = watchSet[status];
   return (
     <span
       className={cn(
-        "inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-wider text-muted",
+        "inline-flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-wider",
         className
       )}
+      style={{ color: watch ? "var(--color-amber-ink)" : "var(--color-muted)" }}
     >
-      <span
-        aria-hidden
-        className={cn(
-          "size-2",
-          on ? "bg-accent" : "border border-muted"
-        )}
-      />
+      {live ? (
+        <LiveGlyph size={13} />
+      ) : (
+        <span
+          aria-hidden
+          className="size-2"
+          style={
+            watch
+              ? { background: "var(--color-amber)" }
+              : { border: "1px solid var(--color-muted)" }
+          }
+        />
+      )}
       {status}
     </span>
   );

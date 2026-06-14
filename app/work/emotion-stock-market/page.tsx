@@ -5,10 +5,10 @@ import { GameStage } from "@/components/work/GameStage";
 const project = getProject("emotion-stock-market");
 
 export const metadata: Metadata = {
-  title: "Emotion Stock Market — Play",
+  title: "Emotion Stock Market · Play",
   description:
     project?.summary ??
-    "Trade a simulated Bloomberg-style market with your facial expressions — on-device, nothing uploaded.",
+    "Trade a simulated Bloomberg-style market with your facial expressions, on-device, nothing uploaded.",
 };
 
 const CONSENT =

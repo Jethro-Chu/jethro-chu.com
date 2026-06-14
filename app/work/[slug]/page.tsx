@@ -3,12 +3,15 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowRight } from "lucide-react";
 import { getProject, projects } from "@/lib/projects";
+import { projectThemeStyle } from "@/lib/theme";
 import { LiveWindow } from "@/components/visual/LiveWindow";
 import { StatusPill } from "@/components/ui/StatusPill";
 import { Tag } from "@/components/ui/Tag";
 import { Button } from "@/components/ui/Button";
 import { Reveal, RevealGroup, RevealItem } from "@/components/motion/Reveal";
 import { BackBar } from "@/components/work/BackBar";
+import { ProjectGlyph } from "@/components/visual/posters/ProjectGlyph";
+import { PulseDivider } from "@/components/visual/PulseDivider";
 
 export function generateStaticParams() {
   // emotion-stock-market has its own dedicated full-screen route
@@ -26,7 +29,7 @@ export async function generateMetadata({
   const project = getProject(slug);
   if (!project) return {};
   return {
-    title: `${project.title} — ${project.category}`,
+    title: `${project.title} · ${project.category}`,
     description: project.summary,
     openGraph: { title: project.title, description: project.summary },
   };
@@ -45,7 +48,7 @@ export default async function WorkPage({
   const next = projects[(idx + 1) % projects.length];
 
   return (
-    <article className="pb-10">
+    <article className="pb-10" style={projectThemeStyle(project.theme)}>
       <BackBar />
 
       {/* hero */}
@@ -61,9 +64,12 @@ export default async function WorkPage({
         </Reveal>
 
         <Reveal delay={0.05}>
-          <h1 className="mt-8 font-display text-hero font-medium tracking-tight">
-            {project.title}
-          </h1>
+          <div className="mt-8 flex items-center gap-4">
+            <ProjectGlyph slug={project.slug} className="h-11 w-11 text-ink" />
+            <h1 className="font-display text-hero font-medium tracking-tight">
+              {project.title}
+            </h1>
+          </div>
         </Reveal>
 
         <Reveal delay={0.1}>
@@ -76,7 +82,12 @@ export default async function WorkPage({
           <Reveal delay={0.15}>
             <div className="mt-8 flex flex-wrap items-center gap-3">
               {project.links.map((l) => (
-                <Button key={l.label} href={l.href} external arrow>
+                <Button
+                  key={l.label}
+                  href={l.href}
+                  external={/^https?:/.test(l.href)}
+                  arrow
+                >
                   {l.label}
                 </Button>
               ))}
@@ -91,21 +102,21 @@ export default async function WorkPage({
           <LiveWindow project={project} aspect="16 / 9" />
           {project.live && (
             <figcaption className="mt-3 flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.14em] text-muted">
-              <span className="text-accent">▸</span>
+              <span className="text-primary">▸</span>
               {project.live.experience
-                ? "Live, interactive — launch to play"
+                ? "Live and interactive. Launch to play."
                 : project.live.embeddable
-                  ? "Live, interactive preview"
-                  : "Hosted live — opens in a new tab"}
+                  ? "Live, interactive preview."
+                  : "Hosted live. Opens in a new tab."}
             </figcaption>
           )}
         </figure>
       </Reveal>
 
-      {/* metrics — flowsheet readout (only when there are verified numbers) */}
+      {/* metrics readout (only when there are verified numbers) */}
       {project.metrics.length > 0 && (
         <div className="mx-auto mt-14 max-w-5xl px-6 sm:px-8">
-          <RevealGroup className="grid grid-cols-2 border-t border-l border-line sm:grid-cols-4">
+          <RevealGroup className="grid grid-cols-2 border-l border-t border-line sm:grid-cols-4">
             {project.metrics.map((m) => (
               <RevealItem key={m.label} className="border-b border-r border-line p-5">
                 <p className="font-mono text-2xl tabular-nums text-ink sm:text-3xl">
@@ -136,36 +147,43 @@ export default async function WorkPage({
 
       {/* case-study body */}
       <div className="mx-auto mt-16 max-w-3xl px-6 sm:px-8">
-        <div className="flex flex-col gap-14">
+        <div className="flex flex-col">
           {project.caseStudy.map((block, i) => (
-            <Reveal key={i}>
-              <section>
-                {block.kicker && (
-                  <p className="eyebrow mb-3 border-b border-line pb-2">
-                    {block.kicker}
-                  </p>
-                )}
-                {block.heading && (
-                  <h2 className="mb-5 text-balance font-display text-section font-medium">
-                    {block.heading}
-                  </h2>
-                )}
-                <div className="flex flex-col gap-5">
-                  {block.body.map((para, pi) => (
-                    <p
-                      key={pi}
-                      className={
-                        block.kind === "lead"
-                          ? "text-pretty text-lg leading-relaxed text-ink sm:text-xl"
-                          : "text-pretty leading-relaxed text-muted"
-                      }
-                    >
-                      {para}
-                    </p>
-                  ))}
+            <div key={i}>
+              {i > 0 && (
+                <div aria-hidden className="text-line-strong">
+                  <PulseDivider className="my-12 opacity-70" />
                 </div>
-              </section>
-            </Reveal>
+              )}
+              <Reveal>
+                <section>
+                  {block.kicker && (
+                    <p className="eyebrow eyebrow-brand mb-3 border-b border-line pb-2">
+                      {block.kicker}
+                    </p>
+                  )}
+                  {block.heading && (
+                    <h2 className="mb-5 text-balance font-display text-section font-medium">
+                      {block.heading}
+                    </h2>
+                  )}
+                  <div className="flex flex-col gap-5">
+                    {block.body.map((para, pi) => (
+                      <p
+                        key={pi}
+                        className={
+                          block.kind === "lead"
+                            ? "text-pretty text-lg leading-relaxed text-ink sm:text-xl"
+                            : "text-pretty leading-relaxed text-muted"
+                        }
+                      >
+                        {para}
+                      </p>
+                    ))}
+                  </div>
+                </section>
+              </Reveal>
+            </div>
           ))}
         </div>
       </div>
@@ -179,14 +197,17 @@ export default async function WorkPage({
           >
             <p className="eyebrow">Next</p>
             <div className="mt-3 flex items-center justify-between gap-6">
-              <div>
-                <p className="font-display text-3xl font-medium tracking-tight sm:text-4xl">
-                  {next.title}
-                </p>
-                <p className="mt-2 max-w-md text-sm text-muted">{next.outcome}</p>
+              <div className="flex items-center gap-4">
+                <ProjectGlyph slug={next.slug} className="hidden h-10 w-10 text-ink sm:block" />
+                <div>
+                  <p className="font-display text-3xl font-medium tracking-tight sm:text-4xl">
+                    {next.title}
+                  </p>
+                  <p className="mt-2 max-w-md text-sm text-muted">{next.outcome}</p>
+                </div>
               </div>
               <ArrowRight
-                className="size-6 shrink-0 text-accent transition-transform duration-200 group-hover:translate-x-1"
+                className="size-6 shrink-0 text-primary transition-transform duration-200 group-hover:translate-x-1"
                 strokeWidth={1.75}
               />
             </div>

@@ -62,7 +62,7 @@ function Gate({ consent, onStart }: { consent: string; onStart: () => void }) {
         <p className="text-[11px] uppercase tracking-[0.2em] text-[#ffa028]">
           Market Pulse Terminal
         </p>
-        <h1 className="font-sans text-2xl font-medium tracking-tight text-[#e8e8e8] sm:text-3xl">
+        <h1 className="font-display text-2xl font-medium tracking-tight text-[#e8e8e8] sm:text-3xl">
           Trade a live market with your face.
         </h1>
         <p className="max-w-sm text-[12px] leading-relaxed text-[#8a8a8a]">

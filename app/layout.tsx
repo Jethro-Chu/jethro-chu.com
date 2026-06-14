@@ -29,7 +29,7 @@ const spaceMono = Space_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
-    default: `${site.name} — ${site.role}`,
+    default: `${site.name} · ${site.role}`,
     template: `%s · ${site.name}`,
   },
   description: site.positioning,
@@ -46,21 +46,21 @@ export const metadata: Metadata = {
   creator: site.name,
   openGraph: {
     type: "website",
-    title: `${site.name} — ${site.role}`,
+    title: `${site.name} · ${site.role}`,
     description: site.positioning,
     siteName: site.name,
     locale: "en_US",
   },
   twitter: {
     card: "summary_large_image",
-    title: `${site.name} — ${site.role}`,
+    title: `${site.name} · ${site.role}`,
     description: site.positioning,
   },
   robots: { index: true, follow: true },
 };
 
 export const viewport: Viewport = {
-  themeColor: "#f2f4f3",
+  themeColor: "#f4f6f4",
   width: "device-width",
   initialScale: 1,
 };

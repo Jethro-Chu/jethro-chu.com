@@ -1,9 +1,17 @@
 @import "tailwindcss";
 
 /* ============================================================
-   "FLOWSHEET" DESIGN SYSTEM — Jethro Chu
-   Clinical information-design discipline, editorial restraint.
-   Monochrome + one teal accent. No gradients, no glass.
+   "TELEMETRY" DESIGN SYSTEM — Jethro Chu
+   Living clinical data, with a bedside heart.
+
+   GOVERNING RULE — COLOR ENCODES CLINICAL STATE, never decoration:
+     • teal-green (--color-primary)  = in-range / normal / RESTING  (the site's quiet default)
+     • vivid amber (--color-amber)   = LIVE / now / WATCH            (≈3 uses per viewport, FILL/graphic only)
+     • deep red  (--color-critical)  = TRUE-CRITICAL only            (essentially never appears, keeps its weight)
+
+   The amber is autobiographical: the same hue family as Jethro's own
+   Emotion Stock Market terminal (#FFA028). No gradients, no glass, no
+   aurora. Flat fills + 1px hairlines + monospace numerics.
    ============================================================ */
 
 @theme {
@@ -12,15 +20,41 @@
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-space-mono), ui-monospace, "SF Mono", monospace;
 
-  /* ---- Color: Flowsheet Light (cool clinical paper) ---- */
-  --color-bg: #f2f4f3;
-  --color-surface: #fbfcfb;
-  --color-ink: #15201c;
-  --color-muted: #5a655f;
-  --color-line: #d9dedb;
-  --color-accent: #0e7c66;
-  /* darker teal that meets AA on the light surface for text links */
-  --color-accent-ink: #0b6655;
+  /* ---- Paper & ink (light page) ---- */
+  --color-bg: #f4f6f4;          /* clinical paper, faint green cast        ink 16.4:1 / muted 6.1:1 */
+  --color-surface: #fcfdfc;     /* cards, panels, nav, reading column      ink 17.5:1 / muted 6.5:1 */
+  --color-surface-sunk: #ecf0ee;/* recessed "monitor screen" wells — non-text only */
+  --color-ink: #0e1a16;         /* primary text, headlines, icon strokes   AAA */
+  --color-muted: #51605a;       /* secondary text, captions, mono meta     AA (6.1 / 6.5) */
+
+  /* ---- Hairlines ---- */
+  --color-line: #c9d2ce;        /* dividers/borders/gridlines — 1.42:1, STRUCTURAL ONLY, never text */
+  --color-line-strong: #74817b; /* perceivable UI separators/affordances — 3.63:1 on bg (≥3:1 non-text) */
+
+  /* ---- Primary: teal-green = in-range / resting / brand ---- */
+  --color-primary: #0b6e59;       /* links-as-data, marks, button fill     text 5.71/6.08 AA, white-on 6.20 */
+  --color-primary-deep: #07533f;  /* hover/pressed, deep-band GROUND        text 8.34/8.88 AAA */
+  --color-primary-wash: #e2eee9;  /* flat in-range tint (band/backplate)    ink-on 14.97 / deep-on 7.61 */
+
+  /* ---- Amber: the ONE vivid — live / now / watch (FILL/graphic only) ---- */
+  --color-amber: #ff8a1f;       /* R-peak tick, LIVE glyph, watch-knob     as text on light: 2.17 FAIL → forbidden */
+  --color-amber-ink: #8a4b00;   /* the ONLY amber-as-text on light         6.26/6.67 AA */
+  --color-on-amber: #1a1206;    /* text/glyph ON an amber fill             7.86 AAA */
+  --color-amber-soft: #ffb454;  /* amber mark/text on the deep band        5.14 on deep AA */
+
+  /* ---- Critical: true out-of-range / destructive ONLY ---- */
+  --color-critical: #b3261e;    /* never decorative                        6.02/6.41 AA, white-on 6.54 */
+
+  /* ---- Data semantics (in-range good == the resting brand) ---- */
+  --color-data-good: #0b6e59;
+
+  /* ---- Deep-pine band (the one compositional dark zone) ---- */
+  --color-primary-deep-on: #07533f; /* alias kept for clarity */
+  --color-deep-surface: #0c3a33;  /* raised panels inside the deep band     ink-inv 10.97 / muted-inv 6.99 */
+  --color-ink-inv: #eaf1ed;       /* headlines/body on deep                 7.90/10.97 */
+  --color-muted-inv: #b4c5be;     /* secondary text on deep                 5.03/6.99 AA */
+  --color-primary-bright: #5fd8be;/* teal links/data TEXT on deep           5.20/7.22 AA */
+  --color-primary-mark: #2fb694;  /* teal NON-TEXT marks on deep            3.55 (≥3:1, never text) */
 
   /* ---- Radii (instrument feel) ---- */
   --radius-xs: 2px;
@@ -28,6 +62,9 @@
 
   /* ---- Motion ---- */
   --ease-flow: cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* ---- Elevation (a whisper, never glass) ---- */
+  --shadow-card: 0 1px 2px rgba(14, 26, 22, 0.05), 0 4px 16px -8px rgba(14, 26, 22, 0.08);
 }
 
 /* ============================================================
@@ -63,11 +100,13 @@ body {
   color: var(--color-ink);
   font-family: var(--font-sans);
   line-height: 1.6;
-  overflow-x: hidden;
+  /* clip (not hidden): prevents horizontal scroll WITHOUT making body a
+     scroll container, which would break position: sticky in the work stack. */
+  overflow-x: clip;
 }
 
 ::selection {
-  background: color-mix(in oklab, var(--color-accent) 22%, transparent);
+  background: color-mix(in oklab, var(--color-primary) 20%, transparent);
   color: var(--color-ink);
 }
 
@@ -85,7 +124,28 @@ body {
   border-radius: 0;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #c3cac6;
+  background: var(--color-line-strong);
+}
+
+/* ============================================================
+   DEEP-PINE BAND — the one compositional dark zone.
+   Scoped token REMAP so reused components (Flowsheet, RangeBar,
+   capability lists, links) invert automatically inside it.
+   ============================================================ */
+
+.on-deep {
+  background-color: var(--color-primary-deep);
+  color: var(--color-ink-inv);
+  /* remap the light-page tokens to their deep-band equivalents */
+  --color-ink: var(--color-ink-inv);
+  --color-muted: var(--color-muted-inv);
+  --color-surface: var(--color-deep-surface);
+  --color-surface-sunk: #0a312b;
+  --color-line: #1d4d42;
+  --color-line-strong: #2c6356;
+  --color-primary: var(--color-primary-bright); /* teal text/links readable on pine */
+  --color-primary-wash: #0f463c;
+  --color-amber-ink: var(--color-amber-soft);   /* amber-as-text on pine uses soft */
 }
 
 /* ============================================================
@@ -115,7 +175,8 @@ body {
   letter-spacing: -0.01em;
 }
 
-/* Mono eyebrow / label */
+/* Mono eyebrow / kicker. May tint primary-deep for a quiet brand cue
+   (color is never the SOLE hierarchy signal — size/weight/role carry it). */
 .eyebrow {
   font-family: var(--font-mono);
   font-size: 0.72rem;
@@ -123,22 +184,33 @@ body {
   letter-spacing: 0.18em;
   color: var(--color-muted);
 }
+.eyebrow-brand {
+  color: var(--color-primary-deep);
+}
+
+/* Tabular monospace numerics — every number stacks like a lab report. */
+.tnum {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+}
 
 /* ============================================================
    ELEMENTS
    ============================================================ */
 
-/* Inline link — the one place accent touches running text */
+/* Inline link — teal-as-data (AA as text at 5.71:1). */
 .link {
-  color: var(--color-accent-ink);
+  color: var(--color-primary);
   text-decoration: underline;
   text-decoration-thickness: 1px;
   text-underline-offset: 3px;
-  text-decoration-color: color-mix(in oklab, var(--color-accent) 45%, transparent);
-  transition: text-decoration-color 0.2s var(--ease-flow);
+  text-decoration-color: color-mix(in oklab, var(--color-primary) 45%, transparent);
+  transition: text-decoration-color 0.2s var(--ease-flow), color 0.2s var(--ease-flow);
 }
 .link:hover {
-  text-decoration-color: var(--color-accent);
+  color: var(--color-primary-deep);
+  text-decoration-color: var(--color-primary);
 }
 
 /* Animated underline for nav/footer links */
@@ -165,27 +237,111 @@ body {
 /* Visible keyboard focus */
 .focus-ring:focus-visible,
 a:focus-visible,
-button:focus-visible {
-  outline: 2px solid var(--color-accent);
+button:focus-visible,
+input:focus-visible {
+  outline: 2px solid var(--color-primary);
   outline-offset: 2px;
+  border-radius: var(--radius-xs);
 }
 
-/* Flowsheet range bar (decile cells) */
+/* ============================================================
+   FLOWSHEET RANGE BAR — decile cells.
+   state: in-range (default) = primary · watch = amber · critical = red
+   ============================================================ */
+
 .range-cell {
   width: 0.55rem;
   height: 0.7rem;
   border: 1px solid var(--color-line);
+  background: transparent;
 }
 .range-cell[data-on="true"] {
-  background: var(--color-accent);
-  border-color: var(--color-accent);
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+}
+.range-cell[data-state="watch"][data-on="true"] {
+  background: var(--color-amber);
+  border-color: var(--color-amber);
+}
+.range-cell[data-state="critical"][data-on="true"] {
+  background: var(--color-critical);
+  border-color: var(--color-critical);
 }
 
-/* Hide scrollbar utility (horizontal scrollers) */
+/* ============================================================
+   UTILITIES
+   ============================================================ */
+
+/* Hide scrollbar (horizontal scrollers) */
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }
 .no-scrollbar {
   -ms-overflow-style: none;
   scrollbar-width: none;
+}
+
+/* Draw-on for SVG traces (waveform / sparkline / divider).
+   Default state is COMPLETE/settled; the .draw class animates the
+   stroke once. prefers-reduced-motion skips straight to settled. */
+.trace-draw {
+  stroke-dasharray: var(--trace-len, 1000);
+  stroke-dashoffset: var(--trace-len, 1000);
+  animation: trace-in 1.1s var(--ease-flow) forwards;
+}
+@keyframes trace-in {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .trace-draw {
+    animation: none;
+    stroke-dashoffset: 0;
+  }
+}
+
+/* Wipe-in: reveal an SVG trace left-to-right via clip-path. Robust at
+   any scale (unlike dashoffset under non-uniform scaling). Only applies
+   when motion is allowed; otherwise the element renders complete. */
+@media (prefers-reduced-motion: no-preference) {
+  /* held clipped until the trace scrolls into view, then it wipes in */
+  .wipe-pre {
+    clip-path: inset(0 100% 0 0);
+  }
+  .wipe-in {
+    animation: wipe-in 1.1s var(--ease-flow) both;
+  }
+  @keyframes wipe-in {
+    from {
+      clip-path: inset(0 100% 0 0);
+    }
+    to {
+      clip-path: inset(0 0 0 0);
+    }
+  }
+}
+
+/* Single soft ping ring on a live pulse-dot — fires ONCE, then static. */
+.pulse-ping {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: pulse-ping 1.4s var(--ease-flow) 1 forwards;
+}
+@keyframes pulse-ping {
+  0% {
+    opacity: 0.5;
+    transform: scale(0.6);
+  }
+  70%,
+  100% {
+    opacity: 0;
+    transform: scale(2.6);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .pulse-ping {
+    animation: none;
+    opacity: 0;
+  }
 }

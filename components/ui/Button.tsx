@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import type { ReactNode } from "react";
 
@@ -21,10 +21,10 @@ const base =
 
 const variants: Record<Variant, string> = {
   primary:
-    "rounded-[var(--radius-sm)] bg-ink text-bg hover:bg-[#22302b] border border-ink",
+    "rounded-[var(--radius-sm)] border border-primary bg-primary text-white hover:bg-primary-deep hover:border-primary-deep",
   outline:
-    "rounded-[var(--radius-sm)] border border-line bg-surface text-ink hover:border-ink",
-  link: "text-accent-ink underline decoration-1 underline-offset-4 decoration-[color-mix(in_oklab,var(--color-accent)_45%,transparent)] hover:decoration-accent",
+    "rounded-[var(--radius-sm)] border border-line-strong bg-surface text-ink hover:border-primary",
+  link: "text-primary underline decoration-1 underline-offset-4 hover:decoration-2",
 };
 
 const sizes: Record<Size, string> = {
@@ -50,12 +50,18 @@ export function Button({
       {...(external ? { target: "_blank", rel: "noreferrer noopener" } : {})}
     >
       <span>{children}</span>
-      {arrow && (
-        <ArrowRight
-          className="size-4 transition-transform duration-200 group-hover/btn:translate-x-0.5"
-          strokeWidth={1.75}
-        />
-      )}
+      {arrow &&
+        (external ? (
+          <ArrowUpRight
+            className="size-4 transition-transform duration-200 group-hover/btn:-translate-y-0.5 group-hover/btn:translate-x-0.5"
+            strokeWidth={1.75}
+          />
+        ) : (
+          <ArrowRight
+            className="size-4 transition-transform duration-200 group-hover/btn:translate-x-0.5"
+            strokeWidth={1.75}
+          />
+        ))}
     </Link>
   );
 }
