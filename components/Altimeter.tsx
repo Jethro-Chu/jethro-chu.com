@@ -13,16 +13,18 @@ import { cn } from "@/lib/utils";
  * it works with no JS and is the reduced-motion fallback as-is. The scroll-linked
  * climbing marker and live readout arrive in Phase 2, layered on top of this.
  *
- * Desktop: a slim vertical rail fixed to the right gutter, summit at the top.
+ * Desktop: a slim vertical rail fixed to the right gutter. The trailhead sits at
+ * the top and the summit at the bottom, so the marker travels down with the
+ * scroll (descending the page is ascending the mountain).
  * Mobile: a compact bottom bar of junction chips.
  */
 
 const fmt = (n: number) => n.toLocaleString("en-US");
 const range = ELEVATION_SUMMIT - ELEVATION_START;
 
-/** vertical position on the rail, summit (top) -> trailhead (bottom). */
+/** vertical position on the rail: trailhead (top) -> summit (bottom). */
 function railTop(elevation: number) {
-  const frac = 1 - (elevation - ELEVATION_START) / range; // 0 at summit, 1 at trailhead
+  const frac = (elevation - ELEVATION_START) / range; // 0 at trailhead, 1 at summit
   return `calc(12vh + 76vh * ${frac})`;
 }
 
@@ -36,7 +38,7 @@ function groupByElevation(items: SectionMeta[]) {
   }
   return [...map.entries()]
     .map(([elevation, list]) => ({ elevation, list }))
-    .sort((a, b) => b.elevation - a.elevation); // summit first (top of the rail)
+    .sort((a, b) => a.elevation - b.elevation); // trailhead first (top of the rail)
 }
 
 export function Altimeter() {
@@ -47,18 +49,18 @@ export function Altimeter() {
       {/* ---- desktop: vertical rail, fixed in the right gutter ---- */}
       <nav
         aria-label="Elevation rail"
-        className="pointer-events-none fixed right-0 top-0 z-40 hidden h-screen w-32 lg:block"
+        className="pointer-events-none fixed right-0 top-0 z-40 hidden h-screen w-40 lg:block"
       >
         {/* the track */}
         <span
           aria-hidden
-          className="absolute bottom-[12vh] right-7 top-[12vh] w-px bg-[var(--color-granite-line)]"
+          className="absolute bottom-[12vh] right-[58px] top-[12vh] w-px bg-[var(--color-granite-line)]"
         />
 
         {groups.map(({ elevation, list }) => (
           <div
             key={elevation}
-            className="pointer-events-auto absolute right-[22px] flex -translate-y-1/2 flex-col items-end gap-1.5"
+            className="pointer-events-auto absolute right-[52px] flex -translate-y-1/2 flex-col items-end gap-1.5"
             style={{ top: railTop(elevation) }}
           >
             {list.map((s) => {

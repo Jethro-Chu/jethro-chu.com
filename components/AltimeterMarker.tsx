@@ -59,7 +59,7 @@ export function AltimeterMarker() {
   const railTop = useTransform(
     elevation,
     [ELEVATION_START, ELEVATION_SUMMIT],
-    ["88vh", "12vh"]
+    ["12vh", "88vh"]
   );
   const fillScale = useTransform(
     elevation,
@@ -74,19 +74,18 @@ export function AltimeterMarker() {
 
   return (
     <>
-      {/* desktop: marker climbing the rail */}
+      {/* desktop: the marker descends the rail with the scroll */}
       <div
         aria-hidden
-        className="pointer-events-none fixed right-0 top-0 z-30 hidden h-screen w-32 lg:block"
+        className="pointer-events-none fixed right-0 top-0 z-30 hidden h-screen w-40 lg:block"
       >
-        <motion.div className="absolute right-[16px] top-0" style={{ y: railTop }}>
-          <div className="flex -translate-y-1/2 items-center gap-2">
-            <span className="label-mono tnum inline-flex items-center rounded-xs bg-[var(--color-pine)] px-1.5 py-0.5 text-[0.66rem] text-white">
-              <motion.span>{readout}</motion.span>
-              <span className="ml-0.5">ft</span>
-            </span>
-            <span className="size-3.5 rounded-full border-2 border-[var(--color-sand)] bg-[var(--color-pine)]" />
-          </div>
+        <motion.div className="absolute inset-x-0 top-0" style={{ y: railTop }}>
+          {/* the marker dot, aligned on the track with the junction dots (right-[58px]) */}
+          <span className="absolute right-[51px] size-3.5 -translate-y-1/2 rounded-full border-2 border-[var(--color-sand)] bg-[var(--color-pine)] shadow-[0_0_0_3px_color-mix(in_oklab,var(--color-pine)_22%,transparent)]" />
+          {/* the live readout, in the gutter to the right of the track */}
+          <span className="absolute right-[8px] -translate-y-1/2 label-mono tnum rounded-xs bg-[var(--color-pine)] px-1.5 py-0.5 text-[0.62rem] text-white">
+            <motion.span>{readout}</motion.span>
+          </span>
         </motion.div>
       </div>
 

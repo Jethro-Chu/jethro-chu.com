@@ -11,7 +11,7 @@ export function Approach() {
     <section
       id="approach"
       aria-labelledby="approach-heading"
-      className="scroll-mt-6 px-6 py-24 sm:px-10 sm:py-28 lg:pl-16 lg:pr-32"
+      className="scroll-mt-6 px-6 py-24 sm:px-10 sm:py-28 lg:pl-16 lg:pr-40"
     >
       <div className="mx-auto max-w-3xl">
         <p className="label-mono tnum flex items-center gap-2">

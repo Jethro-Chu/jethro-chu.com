@@ -13,7 +13,7 @@ export function About() {
     <section
       id="about"
       aria-labelledby="about-heading"
-      className="relative scroll-mt-6 px-6 py-24 sm:px-10 sm:py-28 lg:pl-16 lg:pr-32"
+      className="relative scroll-mt-6 px-6 py-24 sm:px-10 sm:py-28 lg:pl-16 lg:pr-40"
     >
       {/* a small bird soaring over the summit (the costume is the joke) */}
       <svg

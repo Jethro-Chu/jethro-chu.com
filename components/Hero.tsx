@@ -12,7 +12,7 @@ export function Hero() {
     <section
       id="hero"
       aria-labelledby="hero-name"
-      className="relative flex min-h-[100svh] flex-col justify-between overflow-hidden px-6 pb-24 pt-28 sm:px-10 lg:pb-28 lg:pl-16 lg:pr-32"
+      className="relative flex min-h-[100svh] flex-col justify-between overflow-hidden px-6 pb-24 pt-28 sm:px-10 lg:pb-28 lg:pl-16 lg:pr-40"
     >
       <p className="label-mono tnum flex items-center gap-2">
         <span className="text-[var(--color-shadow)]">

@@ -12,7 +12,7 @@ export function Footer() {
     <footer
       id="contact"
       aria-labelledby="contact-heading"
-      className="scroll-mt-6 px-6 pb-28 pt-24 sm:px-10 sm:pb-24 sm:pt-28 lg:pb-16 lg:pl-16 lg:pr-32"
+      className="scroll-mt-6 px-6 pb-28 pt-24 sm:px-10 sm:pb-24 sm:pt-28 lg:pb-16 lg:pl-16 lg:pr-40"
     >
       <div className="mx-auto max-w-4xl">
         <p className="label-mono tnum flex items-center gap-2">
