@@ -21,7 +21,12 @@ export function SmoothScroll() {
     // smooth scroll only when motion is allowed; reduced motion keeps native scroll
     if (!reduce) {
       lenis = new Lenis({
-        duration: 1.05,
+        // Snappier settle: 0.8s (down from 1.05) with a sharp ease-out. The
+        // wheel/touch multipliers stay at the default 1 (never inflated).
+        // NOTE: Lenis could be removed entirely and the scroll-linked animations
+        // bound to native scroll via framer's useScroll for maximum snappiness;
+        // not removing it yet.
+        duration: 0.8,
         easing: (t) => 1 - Math.pow(1 - t, 3),
       });
       const loop = (time: number) => {
