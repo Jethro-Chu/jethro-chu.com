@@ -54,11 +54,16 @@ class SceneErrorBoundary extends React.Component<
 
 function decideMode(): Mode {
   if (typeof window === "undefined") return "off";
+  // ONLY true mobile or reduced-motion users get the frozen static frame.
+  // Low core count does NOT force static on desktop (it lowers DPR instead) —
+  // otherwise the scroll-driven flyover silently freezes on many machines.
   if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return "static";
-  const small = window.innerWidth < 768;
-  const lowCore = (navigator.hardwareConcurrency ?? 8) <= 4;
-  if (small || lowCore) return "static";
+  if (window.innerWidth < 760) return "static";
   return "animate";
+}
+
+function lowPower(): boolean {
+  return typeof navigator !== "undefined" && (navigator.hardwareConcurrency ?? 8) <= 4;
 }
 
 export function YosemiteBackground() {
@@ -133,7 +138,7 @@ export function YosemiteBackground() {
   const showCanvas = mounted && mode !== "off";
   // animate continuously; the browser already throttles rAF when the tab is hidden
   const frameloop: FrameLoop = animate ? "always" : "demand";
-  const dpr: [number, number] = animate ? [1, 1.75] : [1, 2];
+  const dpr: [number, number] = animate ? [1, lowPower() ? 1.2 : 1.75] : [1, 2];
 
   return (
     <motion.div

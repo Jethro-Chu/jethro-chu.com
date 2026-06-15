@@ -38,11 +38,11 @@ const M = { ready: false, halfW: FIT / 2, halfD: FIT / 2, topY: FIT / 2 };
    rises, always looking down-valley at the dome (-Z). Tuned by screenshot. */
 interface Key { p: number; camZ: number; py: number; driftX: number; lookY: number; lookZ: number; fov: number }
 const KEYS: Key[] = [
-  { p: 0.0, camZ: 1.7, py: 0.5, driftX: 0.0, lookY: 0.46, lookZ: -0.3, fov: 50 },
-  { p: 0.3, camZ: 1.5, py: 0.55, driftX: 0.05, lookY: 0.54, lookZ: -0.42, fov: 46 },
-  { p: 0.6, camZ: 1.32, py: 0.6, driftX: 0.03, lookY: 0.64, lookZ: -0.52, fov: 43 },
-  { p: 0.85, camZ: 1.18, py: 0.64, driftX: -0.02, lookY: 0.74, lookZ: -0.6, fov: 40 },
-  { p: 1.0, camZ: 1.1, py: 0.66, driftX: 0.0, lookY: 0.8, lookZ: -0.66, fov: 38 },
+  { p: 0.0, camZ: 2.2, py: 0.62, driftX: 0.28, lookY: 0.5, lookZ: -0.25, fov: 52 },
+  { p: 0.3, camZ: 1.78, py: 0.62, driftX: 0.12, lookY: 0.56, lookZ: -0.38, fov: 46 },
+  { p: 0.6, camZ: 1.44, py: 0.66, driftX: -0.05, lookY: 0.66, lookZ: -0.5, fov: 41 },
+  { p: 0.85, camZ: 1.18, py: 0.7, driftX: -0.1, lookY: 0.78, lookZ: -0.6, fov: 36 },
+  { p: 1.0, camZ: 1.06, py: 0.72, driftX: -0.06, lookY: 0.83, lookZ: -0.68, fov: 33 },
 ];
 
 function sampleKey(p: number, out: Key): Key {
