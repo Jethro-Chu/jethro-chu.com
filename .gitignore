@@ -30,3 +30,8 @@ next-env.d.ts
 
 # local preview/tooling config (machine-specific paths)
 .claude/
+
+# heavy 3D source models — only the optimized halfdome-opt.glb is committed
+/public/models/yosemite.glb
+/public/models/yosemite-opt.glb
+/public/models/half_dome_src/

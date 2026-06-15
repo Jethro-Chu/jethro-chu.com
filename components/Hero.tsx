@@ -23,10 +23,10 @@ export function Hero() {
       </p>
 
       <div className="mx-auto w-full max-w-4xl text-center">
-        <h1 id="hero-name" className="text-summit text-[var(--color-shadow)]">
+        <h1 id="hero-name" className="text-summit legible-on-scene text-[var(--color-shadow)]">
           {site.name}
         </h1>
-        <p className="mx-auto mt-6 max-w-xl text-pretty text-lg leading-relaxed text-[var(--color-muted)] sm:text-xl">
+        <p className="legible-on-scene mx-auto mt-6 max-w-xl text-pretty text-lg leading-relaxed text-[var(--color-muted)] sm:text-xl">
           {site.tagline}
         </p>
       </div>

@@ -155,6 +155,12 @@ html.lenis body {
   letter-spacing: -0.01em;
 }
 
+/* keeps dark hero/section text legible over the 3D scene: a soft sand halo that
+   is invisible over light sky/haze but separates the text from darker terrain */
+.legible-on-scene {
+  text-shadow: 0 1px 2px rgba(237, 230, 214, 0.55), 0 2px 26px rgba(237, 230, 214, 0.5);
+}
+
 /* mono utility label (elevations, metadata, altimeter) */
 .label-mono {
   font-family: var(--font-mono);

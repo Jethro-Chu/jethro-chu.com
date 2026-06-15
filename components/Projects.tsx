@@ -31,7 +31,7 @@ export function Projects() {
           </p>
         </div>
 
-        <div className="mt-10 flex flex-col gap-5">
+        <div className="mt-12 flex flex-col gap-16 sm:mt-16 sm:gap-24">
           {projects.map((project, i) => (
             <ProjectCard key={project.id} project={project} index={i} />
           ))}
