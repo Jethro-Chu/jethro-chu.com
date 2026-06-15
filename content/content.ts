@@ -60,13 +60,11 @@ export const sections: SectionMeta[] = [
 export const ELEVATION_START = 4000;
 export const ELEVATION_SUMMIT = 8839;
 
-/* Section 2 — the approach (short intro / what I do). PLACEHOLDER. */
+/* Section 2 — the approach (short intro / what I do). Jethro's copy. */
 export const approach = {
   heading: "What I do",
-  // Two or three plain sentences. Confirm with Jethro.
   body: [
-    "I'm a nursing student, and I build software. Most of it is healthcare and research tools, like Lab Logger and NurseJet.",
-    "I learned to build because the software I had to use kept getting in my way. So I started making my own.",
+    "I'm a nursing student who loves to build. Most of what I create comes from things I wish existed in healthcare, research, or the tools people use every day.",
   ],
 } as const;
 
