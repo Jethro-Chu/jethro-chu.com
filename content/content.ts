@@ -104,7 +104,7 @@ export const projects: Project[] = [
   {
     id: "lab-logger",
     title: "Lab Logger",
-    role: "Solo project — designed and built it myself",
+    role: "Solo project. Designed and built it myself.",
     // [confirm stack — looks like Next.js · React · Tailwind from the live site]
     stack: [],
     summary:
@@ -129,7 +129,7 @@ export const projects: Project[] = [
   },
 ];
 
-/* Section 4 — about (the summit payoff). PLACEHOLDER bio. */
+/* Section 4 — about (the summit payoff). Jethro's bio. */
 export const about = {
   heading: "The summit",
   photo: {
@@ -138,10 +138,11 @@ export const about = {
     width: 1200,
     height: 1600,
   },
-  // PLACEHOLDER bio, first person and plain. Confirm school, grad year,
-  // and which clinical details Jethro wants public.
+  // First person and plain. The specific school name and grad year are
+  // intentionally omitted until Jethro confirms them (do not invent one).
+  // Clinical detail is kept generic for the same reason.
   body: [
-    "I'm a BSN nursing student at Azusa Pacific University.",
+    "I'm a BSN nursing student.",
     "I've done clinical rotations across several hospital systems. On the side I build software like Lab Logger, and I climb granite in the Sierra.",
     "This is the top of Half Dome, 8,839 feet up. Scrolling this far down the page was the climb.",
   ],
@@ -153,8 +154,9 @@ export const contact = {
   // PLACEHOLDER line — confirm.
   line: "If you're building in healthcare or software, I'd like to hear about it.",
   links: [
-    { label: "Email", href: "mailto:jethro.chu@gmail.com" }, // PLACEHOLDER — confirm
+    { label: "Email", href: "mailto:jethro.chu@gmail.com" },
     { label: "GitHub", href: "https://github.com/Jethro-Chu" },
-    { label: "LinkedIn", href: "#" }, // PLACEHOLDER — add real URL
+    // LinkedIn intentionally omitted until Jethro provides a real URL
+    // (shipping no link beats shipping a dead "#" one).
   ],
 } as const;

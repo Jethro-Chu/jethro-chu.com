@@ -35,30 +35,22 @@ export function Footer() {
         </p>
 
         <ul className="mt-8 flex flex-wrap gap-x-8 gap-y-3">
-          {contact.links.map((l) =>
-            l.href === "#" ? (
-              <li key={l.label}>
-                <span className="font-body text-base text-[var(--color-muted)]">
-                  {l.label} <span className="label-mono">· soon</span>
-                </span>
-              </li>
-            ) : (
-              <li key={l.label}>
-                <a
-                  href={l.href}
-                  {...(l.href.startsWith("http")
-                    ? { target: "_blank", rel: "noreferrer noopener" }
-                    : {})}
-                  className="font-body text-base font-medium text-[var(--color-pine)] underline decoration-[var(--color-pine)] decoration-2 underline-offset-4 transition-colors hover:text-[var(--color-pine-deep)]"
-                >
-                  {l.label}
-                  {l.href.startsWith("http") && (
-                    <span className="sr-only"> (opens in a new tab)</span>
-                  )}
-                </a>
-              </li>
-            )
-          )}
+          {contact.links.map((l) => (
+            <li key={l.label}>
+              <a
+                href={l.href}
+                {...(l.href.startsWith("http")
+                  ? { target: "_blank", rel: "noreferrer noopener" }
+                  : {})}
+                className="font-body text-base font-medium text-[var(--color-pine)] underline decoration-[var(--color-pine)] decoration-2 underline-offset-4 transition-colors hover:text-[var(--color-pine-deep)]"
+              >
+                {l.label}
+                {l.href.startsWith("http") && (
+                  <span className="sr-only"> (opens in a new tab)</span>
+                )}
+              </a>
+            </li>
+          ))}
         </ul>
 
         <div className="mt-16 flex flex-wrap items-center justify-between gap-4 border-t border-[var(--color-granite-line)] pt-6">
