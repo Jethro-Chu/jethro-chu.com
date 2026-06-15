@@ -104,7 +104,7 @@ export const projects: Project[] = [
   {
     id: "lab-logger",
     title: "Lab Logger",
-    role: "Built with three other students at Caltech",
+    role: "Designed and built with three friends at Caltech",
     // [confirm stack — looks like Next.js · React · Tailwind from the live site]
     stack: [],
     summary:
