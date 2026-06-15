@@ -131,7 +131,7 @@ export const projects: Project[] = [
 
 /* Section 4 — about (the summit payoff). Jethro's bio. */
 export const about = {
-  heading: "The summit",
+  heading: "About me",
   photo: {
     src: "/images/halfdome-summit.jpg",
     alt: "Jethro Chu on the granite summit of Half Dome at golden hour, in a climbing harness and a white costume, arms crossed and smiling.",
