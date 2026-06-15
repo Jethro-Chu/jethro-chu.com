@@ -28,6 +28,8 @@ export interface Project {
   /** 1-2 plain sentences: what it does and why it matters */
   summary: string;
   link?: { href: string; label: string };
+  /** optional source repository link */
+  repo?: { href: string; label: string };
   /** optional thumbnail under /public/images */
   thumbnail?: string;
   /** marks an unfilled slot so it renders as a clearly-labelled placeholder */
@@ -68,51 +70,64 @@ export const approach = {
   ],
 } as const;
 
-/* Section 3 — projects. Lab Logger is seeded. Cards 2+ are drafts or
-   clearly-labelled open slots. Confirm titles, summaries, and links. */
+/* Section 3 — projects, in Jethro's order. Copy is his, kept verbatim.
+   Where the stack is bracketed it is unverified: left as an empty array for
+   Jethro to fill rather than guessed. Thumbnails are notes for now (the card is
+   text-only until real screenshots exist). */
 export const projects: Project[] = [
-  {
-    id: "lab-logger",
-    title: "Lab Logger",
-    role: "Design and engineering", // PLACEHOLDER role
-    stack: ["Next.js", "TypeScript", "LLMs"],
-    // PLACEHOLDER summary — confirm. Based on the live product (an AI lab notebook).
-    summary:
-      "An AI lab notebook for researchers. You describe an experiment in plain words and it writes it up, organizes it, and remembers it for you.",
-    link: { href: "https://lab-logger.com", label: "lab-logger.com" },
-  },
   {
     id: "nursejet",
     title: "NurseJet",
-    role: "Founder, design, engineering", // PLACEHOLDER role
-    stack: ["TanStack Start", "TypeScript", "Postgres"],
-    // PLACEHOLDER summary — confirm.
+    role: "Solo build",
+    // [confirm stack — the /opengraph-image route suggests Next.js, but verify]
+    stack: [],
     summary:
-      "A daily brief for nurses. It turns clinical research and practice updates into a short read, and every claim traces back to its source.",
+      "A daily clinical briefing for bedside nurses. It distills new nursing research, guideline changes, and safety alerts into short briefs, organized by your specialty from the ED to the NICU, with the exact source citation and a bedside takeaway on every one.",
     link: { href: "https://nursejet.org", label: "nursejet.org" },
+    // thumbnail: screenshot of a sample brief (the takeaways + citations layout)
   },
   {
-    id: "ratemyhospitalfood",
-    title: "RateMyHospitalFood",
-    role: "Founder, full-stack", // PLACEHOLDER role, confirm
-    stack: ["Next.js", "TypeScript", "Postgres"],
-    // PLACEHOLDER summary, confirm.
+    id: "emotion-stock-market-game",
+    title: "Emotion Stock Market Game",
+    role: "Solo build",
+    stack: ["Vanilla JS", "face-api.js", "TensorFlow.js"],
     summary:
-      "Crowd-sourced, photo-backed reviews of hospital food, mapped to real facilities, so patients and families know what to expect during a stay.",
+      "A stock-market game where your facial expressions, read live through your camera, drive every buy and sell. Random crashes, recessions, and Warren Buffett whale pumps keep the market lurching, and it all runs in your browser with nothing recorded or uploaded.",
+    link: {
+      href: "https://jethro-chu.github.io/JethroStockMarketGame.github.io/",
+      label: "play the game",
+    },
+    repo: {
+      href: "https://github.com/Jethro-Chu/JethroStockMarketGame.github.io",
+      label: "source",
+    },
+    // thumbnail: screenshot of the game terminal mid-play
+  },
+  {
+    id: "lab-logger",
+    title: "Lab Logger",
+    role: "Solo project — designed and built it myself",
+    // [confirm stack — looks like Next.js · React · Tailwind from the live site]
+    stack: [],
+    summary:
+      "Log a lab value and read it against its reference range, the way a clinician already thinks. It files each result into a running notebook, so you can watch a number trend across tests instead of hunting through old lab PDFs.",
+    link: { href: "https://lab-logger.com", label: "lab-logger.com" },
+    // thumbnail: screenshot of the notebook view (cream and burnt-orange UI)
+  },
+  {
+    id: "rate-my-hospital-food",
+    title: "Rate My Hospital Food",
+    role: "Solo build",
+    // [confirm stack — full-stack app with auth, database, and search]
+    stack: [],
+    // [confirm ratemyhospitalfood.com is live]
+    summary:
+      "A review site for hospital cafeteria food. Search a hospital, read real reviews, and leave your own star rating, with the best and worst cafeterias ranked the way a food app would.",
     link: {
       href: "https://ratemyhospitalfood.com",
       label: "ratemyhospitalfood.com",
     },
-  },
-  {
-    id: "cleo",
-    title: "Cleo",
-    role: "Product, AI engineering", // PLACEHOLDER role, confirm
-    stack: ["Claude", "Vision", "TypeScript"],
-    // PLACEHOLDER summary, confirm.
-    summary:
-      "The natural-language way into Lab Logger. Describe an experiment by voice or a quick note and Cleo captures a clean, structured entry, asking only when something is genuinely unclear.",
-    link: { href: "https://lab-logger.com/cleo", label: "lab-logger.com/cleo" },
+    // thumbnail: screenshot of the hospital search or a review card
   },
 ];
 

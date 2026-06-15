@@ -59,29 +59,34 @@ export function ProjectCard({
           </ul>
         )}
 
-        {project.link && (
-          <a
-            href={project.link.href}
-            target="_blank"
-            rel="noreferrer noopener"
-            className="mt-5 inline-flex items-center gap-1.5 font-body text-sm font-medium text-[var(--color-pine)] underline decoration-[var(--color-pine)] decoration-2 underline-offset-4 transition-colors hover:text-[var(--color-pine-deep)]"
-          >
-            {project.link.label}
-            <span className="sr-only"> (opens in a new tab)</span>
-            <svg
-              aria-hidden
-              width="14"
-              height="14"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path d="M7 17 17 7M9 7h8v8" />
-            </svg>
-          </a>
+        {(project.link || project.repo) && (
+          <div className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-2">
+            {[project.link, project.repo].filter(Boolean).map((l) => (
+              <a
+                key={l!.href}
+                href={l!.href}
+                target="_blank"
+                rel="noreferrer noopener"
+                className="inline-flex items-center gap-1.5 font-body text-sm font-medium text-[var(--color-pine)] underline decoration-[var(--color-pine)] decoration-2 underline-offset-4 transition-colors hover:text-[var(--color-pine-deep)]"
+              >
+                {l!.label}
+                <span className="sr-only"> (opens in a new tab)</span>
+                <svg
+                  aria-hidden
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M7 17 17 7M9 7h8v8" />
+                </svg>
+              </a>
+            ))}
+          </div>
         )}
       </div>
     </article>
