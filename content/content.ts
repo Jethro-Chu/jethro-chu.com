@@ -64,7 +64,7 @@ export const ELEVATION_SUMMIT = 8839;
 export const approach = {
   heading: "What I do",
   body: [
-    "I'm a nursing student who loves to build. Most of what I create comes from things I wish existed in healthcare, research, or the tools people use every day.",
+    "I'm a nursing student who loves to build. Most of what I create comes from things I wish existed in healthcare, research, or the tools people use every day. Some of it is serious, and some of it is just for fun.",
   ],
 } as const;
 
