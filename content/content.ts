@@ -92,14 +92,27 @@ export const projects: Project[] = [
     link: { href: "https://nursejet.org", label: "nursejet.org" },
   },
   {
-    // PLACEHOLDER open slot for Jethro: add a real project (title, role, stack,
-    // a one-line summary, link) following the entries above, or delete this entry.
-    id: "slot-3",
-    title: "Add a project",
-    role: "",
-    stack: [],
-    summary: "Open slot. A real project lands here soon.",
-    placeholder: true,
+    id: "ratemyhospitalfood",
+    title: "RateMyHospitalFood",
+    role: "Founder, full-stack", // PLACEHOLDER role, confirm
+    stack: ["Next.js", "TypeScript", "Postgres"],
+    // PLACEHOLDER summary, confirm.
+    summary:
+      "Crowd-sourced, photo-backed reviews of hospital food, mapped to real facilities, so patients and families know what to expect during a stay.",
+    link: {
+      href: "https://ratemyhospitalfood.com",
+      label: "ratemyhospitalfood.com",
+    },
+  },
+  {
+    id: "cleo",
+    title: "Cleo",
+    role: "Product, AI engineering", // PLACEHOLDER role, confirm
+    stack: ["Claude", "Vision", "TypeScript"],
+    // PLACEHOLDER summary, confirm.
+    summary:
+      "The natural-language way into Lab Logger. Describe an experiment by voice or a quick note and Cleo captures a clean, structured entry, asking only when something is genuinely unclear.",
+    link: { href: "https://lab-logger.com/cleo", label: "lab-logger.com/cleo" },
   },
 ];
 
