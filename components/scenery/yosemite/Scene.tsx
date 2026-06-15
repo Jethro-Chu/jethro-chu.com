@@ -8,16 +8,17 @@ import type { MotionValue } from "framer-motion";
 import { goldenWeight } from "./cameraPath";
 
 /**
- * Cinematic Half Dome flythrough. The optimized photogrammetry model is
- * auto-oriented (dome rotated to face -Z) and auto-grounded (base at y=0) from
- * its own geometry at load, then a forward-and-up camera path carries the viewer
- * from the valley floor up toward Half Dome's face, driven by the page scroll.
- * Atmospheric haze + a gradient sky hide the model's irregular edges and make it
- * read as a grounded landscape, not a floating object.
+ * Cinematic Half Dome flyover. The optimized photogrammetry model is
+ * auto-oriented (dome rotated to face -Z) and grounded (base at y=0) from its own
+ * geometry. The camera glides on explicit keyframes that stay well ABOVE the
+ * terrain (height is a fraction of the dome's height, with a hard floor), flying
+ * forward from the valley up toward Half Dome. Driven by the page scroll; the
+ * wrapper fades the canvas out after the hero so the cards are never inside the
+ * mountain.
  */
 
 const MODEL_URL = "/models/halfdome-opt.glb";
-const FIT = 1000; // the model's largest dimension is normalized to this
+const FIT = 1000;
 useGLTF.preload(MODEL_URL);
 
 type FrameLoop = "always" | "demand" | "never";
@@ -29,26 +30,22 @@ interface SceneProps {
   dpr: [number, number];
 }
 
-/* shared metrics, filled once the model is measured (normalized space:
-   dome at -Z, base at y=0, centred on X/Z) */
 const M = { ready: false, halfW: FIT / 2, halfD: FIT / 2, topY: FIT / 2 };
 
-/* camera path keyframes as FRACTIONS of the model metrics, so the path adapts to
-   whatever the model measures: pos = (px*halfW, py*topY, pz*halfD), same for look.
-   The camera starts low at the +Z (valley) end and climbs forward toward the dome
-   at -Z, always gazing up the valley. Tuned by screenshot. */
-interface Key { p: number; px: number; py: number; pz: number; lx: number; ly: number; lz: number; fov: number }
+/* camera path keyframes. camZ/py/lookY/lookZ are FRACTIONS of the metrics:
+   pos = (driftX*halfW, py*topY, camZ*halfD); look = (0, lookY*topY, lookZ*halfD).
+   py stays high (camera above the terrain); the path flies forward (+Z -> 0) and
+   rises, always looking down-valley at the dome (-Z). Tuned by screenshot. */
+interface Key { p: number; camZ: number; py: number; driftX: number; lookY: number; lookZ: number; fov: number }
 const KEYS: Key[] = [
-  { p: 0.0, px: 0.0, py: 0.34, pz: 1.0, lx: 0.0, ly: 0.2, lz: -0.35, fov: 52 },
-  { p: 0.15, px: 0.05, py: 0.37, pz: 0.74, lx: 0.0, ly: 0.28, lz: -0.55, fov: 51 },
-  { p: 0.34, px: 0.04, py: 0.44, pz: 0.44, lx: 0.0, ly: 0.44, lz: -0.72, fov: 49 },
-  { p: 0.55, px: -0.04, py: 0.54, pz: 0.14, lx: 0.0, ly: 0.64, lz: -0.86, fov: 47 },
-  { p: 0.7, px: 0.0, py: 0.64, pz: -0.1, lx: 0.0, ly: 0.82, lz: -0.96, fov: 46 },
-  { p: 0.85, px: 0.03, py: 0.7, pz: -0.22, lx: 0.0, ly: 0.88, lz: -1.02, fov: 45 },
-  { p: 1.0, px: -0.02, py: 0.72, pz: -0.26, lx: 0.0, ly: 0.87, lz: -1.05, fov: 45 },
+  { p: 0.0, camZ: 1.7, py: 0.5, driftX: 0.0, lookY: 0.46, lookZ: -0.3, fov: 50 },
+  { p: 0.3, camZ: 1.5, py: 0.55, driftX: 0.05, lookY: 0.54, lookZ: -0.42, fov: 46 },
+  { p: 0.6, camZ: 1.32, py: 0.6, driftX: 0.03, lookY: 0.64, lookZ: -0.52, fov: 43 },
+  { p: 0.85, camZ: 1.18, py: 0.64, driftX: -0.02, lookY: 0.74, lookZ: -0.6, fov: 40 },
+  { p: 1.0, camZ: 1.1, py: 0.66, driftX: 0.0, lookY: 0.8, lookZ: -0.66, fov: 38 },
 ];
 
-function samplePath(p: number, posOut: THREE.Vector3, lookOut: THREE.Vector3): number {
+function sampleKey(p: number, out: Key): Key {
   const k = KEYS;
   const n = k.length;
   let i = 0;
@@ -59,21 +56,26 @@ function samplePath(p: number, posOut: THREE.Vector3, lookOut: THREE.Vector3): n
   let t = THREE.MathUtils.clamp((p - a.p) / span, 0, 1);
   t = t * t * (3 - 2 * t);
   const lp = (u: number, v: number) => u + (v - u) * t;
-  posOut.set(lp(a.px, b.px) * M.halfW, lp(a.py, b.py) * M.topY, lp(a.pz, b.pz) * M.halfD);
-  lookOut.set(lp(a.lx, b.lx) * M.halfW, lp(a.ly, b.ly) * M.topY, lp(a.lz, b.lz) * M.halfD);
-  return lp(a.fov, b.fov);
+  out.p = p;
+  out.camZ = lp(a.camZ, b.camZ);
+  out.py = lp(a.py, b.py);
+  out.driftX = lp(a.driftX, b.driftX);
+  out.lookY = lp(a.lookY, b.lookY);
+  out.lookZ = lp(a.lookZ, b.lookZ);
+  out.fov = lp(a.fov, b.fov);
+  return out;
 }
 
-/* valley-midday vs golden-hour atmosphere (lerped by goldenWeight) */
-const FOG_V = new THREE.Color("#b9c5c5");
-const FOG_G = new THREE.Color("#e6c8a0");
+/* valley-midday vs golden-hour atmosphere */
+const FOG_V = new THREE.Color("#aab6bd");
+const FOG_G = new THREE.Color("#e6c6a0");
 const SUN_V = new THREE.Color("#fff3da");
 const SUN_G = new THREE.Color("#f4a85a");
 const SUN_POS_V = new THREE.Vector3(0.75, 1.5, 0.95);
-const SUN_POS_G = new THREE.Vector3(1.35, 0.5, 0.55);
+const SUN_POS_G = new THREE.Vector3(1.35, 0.55, 0.55);
 const SKYTOP_V = new THREE.Color("#3e72a6");
 const SKYTOP_G = new THREE.Color("#4d5080");
-const SKYBOT_V = new THREE.Color("#d3dad6");
+const SKYBOT_V = new THREE.Color("#cdd8d8");
 const SKYBOT_G = new THREE.Color("#edc189");
 
 function Model() {
@@ -92,7 +94,6 @@ function Model() {
     const size = box.getSize(new THREE.Vector3());
     const center = box.getCenter(new THREE.Vector3());
 
-    // find the dome: horizontal centroid of the highest-Y vertices
     const tmp = new THREE.Vector3();
     let hx = 0;
     let hz = 0;
@@ -115,14 +116,11 @@ function Model() {
     const domeX = hn ? hx / hn : center.x;
     const domeZ = hn ? hz / hn : center.z;
 
-    // rotate so the dome direction points to -Z (ahead of the climbing camera)
     const rotY = Math.PI - Math.atan2(domeX - center.x, domeZ - center.z);
     const s = FIT / Math.max(size.x, size.y, size.z);
     g.rotation.y = rotY;
     g.scale.setScalar(s);
     g.updateMatrixWorld(true);
-
-    // ground it: centre X/Z, drop the base to y=0
     const box2 = new THREE.Box3().setFromObject(g);
     const c2 = box2.getCenter(new THREE.Vector3());
     g.position.set(-c2.x, -box2.min.y, -c2.z);
@@ -149,10 +147,7 @@ function SkyDome({ matRef }: { matRef: React.MutableRefObject<THREE.ShaderMateri
       new THREE.ShaderMaterial({
         side: THREE.BackSide,
         depthWrite: false,
-        uniforms: {
-          uTop: { value: SKYTOP_V.clone() },
-          uBottom: { value: SKYBOT_V.clone() },
-        },
+        uniforms: { uTop: { value: SKYTOP_V.clone() }, uBottom: { value: SKYBOT_V.clone() } },
         vertexShader: `varying vec3 vDir; void main(){ vDir = normalize(position); gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }`,
         fragmentShader: `uniform vec3 uTop; uniform vec3 uBottom; varying vec3 vDir; void main(){ float t = smoothstep(-0.06, 0.6, vDir.y); gl_FragColor = vec4(mix(uBottom, uTop, t), 1.0); }`,
       }),
@@ -182,6 +177,7 @@ function Rig({
   const camera = useThree((s) => s.camera) as THREE.PerspectiveCamera;
   const scene = useThree((s) => s.scene);
   const t = useRef({
+    key: { p: 0, camZ: 0, py: 0, driftX: 0, lookY: 0, lookZ: 0, fov: 50 } as Key,
     pos: new THREE.Vector3(),
     look: new THREE.Vector3(),
     dPos: new THREE.Vector3(),
@@ -194,19 +190,26 @@ function Rig({
   useFrame((_s, delta) => {
     if (!M.ready) return;
     const p = animate ? progress.get() : staticP;
-    const fov = samplePath(p, t.pos, t.look);
+    const k = sampleKey(p, t.key);
+
+    // camera height stays a high fraction of the dome height with a hard floor,
+    // so it always glides above the terrain (never clips / passes under)
+    const py = Math.max(k.py * M.topY, 0.42 * M.topY);
+    t.pos.set(k.driftX * M.halfW, py, k.camZ * M.halfD);
+    t.look.set(0, k.lookY * M.topY, k.lookZ * M.halfD);
 
     if (!t.init) {
       t.dPos.copy(t.pos);
       t.dLook.copy(t.look);
-      t.dFov = fov;
+      t.dFov = k.fov;
       t.init = true;
     } else {
-      const k = 1 - Math.exp(-(animate ? 9 : 60) * Math.min(delta, 0.05));
-      t.dPos.lerp(t.pos, k);
-      t.dLook.lerp(t.look, k);
-      t.dFov += (fov - t.dFov) * k;
+      const lerpK = 1 - Math.exp(-(animate ? 9 : 60) * Math.min(delta, 0.05));
+      t.dPos.lerp(t.pos, lerpK);
+      t.dLook.lerp(t.look, lerpK);
+      t.dFov += (k.fov - t.dFov) * lerpK;
     }
+
     camera.position.copy(t.dPos);
     camera.lookAt(t.dLook);
     if (Math.abs(camera.fov - t.dFov) > 1e-3) {
@@ -218,8 +221,8 @@ function Rig({
     const fog = scene.fog as THREE.Fog | null;
     if (fog) {
       fog.color.copy(FOG_V).lerp(FOG_G, w);
-      fog.near = M.halfD * 0.8;
-      fog.far = M.halfD * 6.5;
+      fog.near = M.halfD * 0.7;
+      fog.far = M.halfD * 5.5;
     }
     if (sunRef.current) {
       sunRef.current.color.copy(SUN_V).lerp(SUN_G, w);
@@ -244,9 +247,9 @@ export default function YosemiteScene({ progress, animate, staticP, frameloop, d
       frameloop={frameloop}
       dpr={dpr}
       gl={{ antialias: true, powerPreference: "high-performance", alpha: false }}
-      camera={{ fov: 53, near: 1, far: FIT * 12, position: [0, 140, 480] }}
+      camera={{ fov: 52, near: 1, far: FIT * 12, position: [0, 380, 380] }}
     >
-      <fog attach="fog" args={["#b9c5c5", 200, 1400]} />
+      <fog attach="fog" args={["#aab6bd", 250, 1600]} />
       <SkyDome matRef={skyRef} />
       <hemisphereLight args={["#9fb6cc", "#caa97e", 0.7]} />
       <ambientLight intensity={0.35} />

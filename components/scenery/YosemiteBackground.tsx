@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
-import { useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { sections } from "@/content/content";
 import { STATIC_P } from "./yosemite/cameraPath";
 
@@ -32,7 +32,10 @@ const YosemiteScene = dynamic(() => import("./yosemite/Scene"), { ssr: false });
 // Indexes align with sections[0..3] (hero, approach, projects, about) plus a 1.0
 // terminal. The dome arrival (camera-progress ~0.70) is pinned to the About/summit
 // section, so the 3D crest lands with the real summit photo at ANY viewport height.
-const ANCHOR_CP = [0, 0.14, 0.34, 0.7, 1];
+// The flyover is confined to the hero + approach: camera-progress reaches 1.0 by
+// the Projects section, where the 3D fades out so the cards are never "inside the
+// mountain". hero -> 0, approach -> 0.55, projects/about/end -> 1.0.
+const ANCHOR_CP = [0, 0.55, 1, 1, 1];
 const DEFAULT_ANCHOR_SF = [0, 0.27, 0.44, 0.74, 1];
 const ANCHOR_IDS = sections.slice(0, 4).map((s) => s.id);
 
@@ -64,6 +67,9 @@ export function YosemiteBackground() {
   // remap raw scroll progress through the measured section positions so the
   // climb's beats stay pinned to the sections (same source as the altimeter)
   const cameraProgress = useTransform(scrollYProgress, anchorSf, ANCHOR_CP, { clamp: true });
+  // fade the whole 3D layer out as the flyover ends, revealing the plain sand
+  // background for the project cards and below
+  const sceneOpacity = useTransform(cameraProgress, [0.8, 1], [1, 0]);
   const [mode, setMode] = useState<Mode>("off");
   const [mounted, setMounted] = useState(false);
 
@@ -130,7 +136,11 @@ export function YosemiteBackground() {
   const dpr: [number, number] = animate ? [1, 1.75] : [1, 2];
 
   return (
-    <div aria-hidden className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
+    <motion.div
+      aria-hidden
+      style={{ opacity: sceneOpacity }}
+      className="pointer-events-none fixed inset-0 -z-10 overflow-hidden"
+    >
       {/* warm valley wash: the first-paint base and the no-canvas fallback */}
       <div
         className="absolute inset-0"
@@ -161,12 +171,12 @@ export function YosemiteBackground() {
         className="absolute inset-0"
         style={{
           background:
-            "radial-gradient(120% 78% at 50% 40%," +
-            " color-mix(in oklab, var(--color-sand) 26%, transparent) 0%," +
-            " color-mix(in oklab, var(--color-sand) 14%, transparent) 46%," +
-            " transparent 82%)",
+            "radial-gradient(74% 50% at 50% 44%," +
+            " color-mix(in oklab, var(--color-sand) 60%, transparent) 0%," +
+            " color-mix(in oklab, var(--color-sand) 28%, transparent) 42%," +
+            " transparent 72%)",
         }}
       />
-    </div>
+    </motion.div>
   );
 }
