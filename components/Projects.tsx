@@ -1,5 +1,6 @@
 import { projects, sections } from "@/content/content";
 import { ProjectCard } from "@/components/ProjectCard";
+import { Reveal } from "@/components/motion/Reveal";
 
 const subdome = sections[2];
 
@@ -31,9 +32,11 @@ export function Projects() {
           </p>
         </div>
 
-        <div className="mt-12 flex flex-col gap-16 sm:mt-16 sm:gap-24">
+        <div className="mt-12 flex flex-col gap-10 sm:mt-16 sm:gap-12">
           {projects.map((project, i) => (
-            <ProjectCard key={project.id} project={project} index={i} />
+            <Reveal key={project.id}>
+              <ProjectCard project={project} index={i} />
+            </Reveal>
           ))}
         </div>
       </div>

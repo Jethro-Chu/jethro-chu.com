@@ -24,14 +24,14 @@ export function Approach() {
 
         <h2
           id="approach-heading"
-          className="text-ridge mt-5 text-[var(--color-shadow)]"
+          className="text-ridge legible-on-scene mt-5 text-[var(--color-shadow)]"
         >
           {approach.heading}
         </h2>
 
         <div className="mt-6 space-y-4 text-lg leading-relaxed text-[var(--color-shadow)] sm:text-xl">
           {approach.body.map((para, i) => (
-            <p key={i} className="max-w-2xl text-pretty">
+            <p key={i} className="legible-on-scene max-w-2xl text-pretty">
               {para}
             </p>
           ))}

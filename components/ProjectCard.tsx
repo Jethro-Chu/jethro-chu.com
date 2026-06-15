@@ -26,11 +26,11 @@ export function ProjectCard({
   }
 
   return (
-    <article className="grid gap-5 rounded-md border border-[var(--color-granite-line)] bg-[var(--color-card)] p-6 shadow-[0_1px_2px_rgba(60,64,73,0.04)] sm:p-7 lg:grid-cols-[15rem_1fr] lg:gap-8">
+    <article className="group grid gap-5 rounded-md border border-[var(--color-granite-line)] bg-[var(--color-card)] p-7 shadow-[0_1px_2px_rgba(60,64,73,0.05),0_10px_30px_-16px_rgba(60,64,73,0.16)] transition-[transform,box-shadow] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-0.5 hover:shadow-[0_2px_4px_rgba(60,64,73,0.06),0_18px_44px_-18px_rgba(60,64,73,0.24)] sm:p-8 lg:grid-cols-[14rem_1fr] lg:gap-10">
       {/* left: index, title, role */}
       <div>
-        <span className="label-mono tnum">{pad2(index)}</span>
-        <h3 className="text-rise mt-1.5 text-[var(--color-shadow)]">
+        <span className="label-mono tnum text-[var(--color-pine)]">{pad2(index)}</span>
+        <h3 className="text-rise mt-2 text-[var(--color-shadow)]">
           {project.title}
         </h3>
         {project.role && (

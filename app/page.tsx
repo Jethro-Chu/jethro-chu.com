@@ -2,7 +2,7 @@ import { SmoothScroll } from "@/components/motion/SmoothScroll";
 import { ConsoleEgg } from "@/components/motion/ConsoleEgg";
 import { BackgroundGradient } from "@/components/scenery/BackgroundGradient";
 import { LightSweep } from "@/components/motion/LightSweep";
-import { YosemiteBackground } from "@/components/scenery/YosemiteBackground";
+import { YosemiteScene } from "@/components/scenery/YosemiteScene";
 import { RouteLine } from "@/components/scenery/RouteLine";
 import { Altimeter } from "@/components/Altimeter";
 import { AltimeterMarker } from "@/components/AltimeterMarker";
@@ -18,8 +18,9 @@ export default function Home() {
       {/* the climb's light: a page-tall wash (static) + a scroll-linked alpenglow */}
       <BackgroundGradient />
       <LightSweep />
-      {/* the climb itself: a real-time 3D canyon the camera flies up with the scroll */}
-      <YosemiteBackground />
+      {/* the climb itself: a composed, layered Half Dome atmosphere that the scroll
+          pushes through, then dissolves into the sand wash before the projects */}
+      <YosemiteScene />
       {/* the climbing route, drawing down the page */}
       <RouteLine />
 
