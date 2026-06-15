@@ -142,18 +142,29 @@ export function YosemiteScene() {
   const hero = useHeroProgress();
   const animated = mounted && !reduce;
 
-  const sceneOpacity = useTransform(hero, [0.42, 0.78], [1, 0]);
-  const farScale = useTransform(hero, [0, 1], [1, 1.06]);
-  const midScale = useTransform(hero, [0, 1], [1, 1.16]);
-  const foreScale = useTransform(hero, [0, 1], [1, 1.34]);
-  const farY = useTransform(hero, [0, 1], ["0%", "-1.5%"]);
-  const midY = useTransform(hero, [0, 1], ["0%", "1.5%"]);
-  const foreY = useTransform(hero, [0, 1], ["0%", "4.5%"]);
-  const glow = useTransform(hero, [0, 0.6, 1], [0.06, 0.2, 0.34]);
+  // dissolve LATE (into the approach) so the push keeps going past the hero
+  const sceneOpacity = useTransform(hero, [0.55, 0.9], [1, 0]);
+  // a pronounced forward dolly: each depth layer scales out of the valley distance
+  // at a very different rate (foreground ~2x fast, distance ~1.2x slow) for real
+  // travel-into-it parallax. Front-loaded ([0,0.55,1]) so the movement is obvious
+  // within the first scroll gestures, then keeps building through the intro.
+  const farScale = useTransform(hero, [0, 0.55, 1], [1, 1.13, 1.2]);
+  const domeScale = useTransform(hero, [0, 0.55, 1], [1, 1.34, 1.62]);
+  const midScale = useTransform(hero, [0, 0.55, 1], [1, 1.42, 1.68]);
+  const foreScale = useTransform(hero, [0, 0.55, 1], [1, 1.74, 2.1]);
+  const farY = useTransform(hero, [0, 1], ["0%", "-2.6%"]);
+  const domeY = useTransform(hero, [0, 1], ["0%", "-6.5%"]);
+  const midY = useTransform(hero, [0, 1], ["0%", "3.4%"]);
+  const foreY = useTransform(hero, [0, 1], ["0%", "10%"]);
+  const glow = useTransform(hero, [0, 0.6, 1], [0.06, 0.22, 0.36]);
   const sGlow = 0.16;
 
   const lyr = (mv: MotionValue<number>, yv: MotionValue<string>) =>
     animated ? { scale: mv, y: yv, transformOrigin: ORIGIN } : undefined;
+  // the destination grows and rises in place (its own origin) — climbing toward it
+  const domeLyr = animated
+    ? { scale: domeScale, y: domeY, transformOrigin: "50% 62%" }
+    : undefined;
 
   return (
     <motion.div
@@ -187,7 +198,10 @@ export function YosemiteScene() {
 
       <motion.div className="absolute inset-0" style={lyr(farScale, farY)}>
         <LineLayer lines={FAR_LINES} />
-        <LineLayer lines={DOME_LINES} className="hidden md:block" />
+      </motion.div>
+      {/* the distant dome destination: its own slow-but-growing layer (desktop) */}
+      <motion.div className="absolute inset-0 hidden md:block" style={domeLyr}>
+        <LineLayer lines={DOME_LINES} />
       </motion.div>
       <motion.div className="absolute inset-0" style={lyr(midScale, midY)}>
         <LineLayer lines={MID_LINES} />
