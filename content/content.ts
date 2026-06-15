@@ -104,11 +104,11 @@ export const projects: Project[] = [
   {
     id: "lab-logger",
     title: "Lab Logger",
-    role: "Designed and built with three friends at Caltech",
+    role: "Designed the UX for an AI-powered lab notebook",
     // [confirm stack — looks like Next.js · React · Tailwind from the live site]
     stack: [],
     summary:
-      "Log a lab value and read it against its reference range, the way a clinician already thinks. It files each result into a running notebook, so you can watch a number trend across tests instead of hunting through old lab PDFs.",
+      "I helped shape Lab Logger into a tool that turns messy notes, voice entries, files, and PDFs into organized experiment records. My focus was making the product feel simple, trustworthy, and fast enough for researchers to use in the middle of real work.",
     link: { href: "https://lab-logger.com", label: "lab-logger.com" },
     // thumbnail: screenshot of the notebook view (cream and burnt-orange UI)
   },
