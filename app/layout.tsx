@@ -30,7 +30,9 @@ export default function RootLayout({
       lang="en"
       className={cn(fraunces.variable, hanken.variable, plexMono.variable)}
     >
-      <body>
+      {/* suppressHydrationWarning: browser extensions (Grammarly, etc.) inject
+          attributes on <body> before hydration; ignore that one mismatch only. */}
+      <body suppressHydrationWarning>
         <a href="#main" className="skip-link">
           Skip to content
         </a>
