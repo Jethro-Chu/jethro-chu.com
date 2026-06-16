@@ -1,12 +1,15 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { ArrowRight, Sparkles, MessageSquareText } from "./icons";
 import { useAskJethro } from "./AskJethro";
 import { projectById } from "@/content/profile";
 
 /* the hero command bar — the primary way into the assistant */
-const HERO_CHIPS = ["What has he built?", "Why invite him to a hackathon?", "Healthcare AI projects"];
+const HERO_CHIPS = ["What has he built?", "Why invite him to a hackathon?"];
+const chipCls =
+  "label-mono rounded-full border border-[var(--color-granite-line)] bg-[color-mix(in_oklab,var(--color-sand)_60%,transparent)] px-3 py-1 text-[0.66rem] text-[var(--color-muted)] transition-colors hover:border-[var(--color-pine)] hover:text-[var(--color-pine)]";
 
 export function HeroCommand() {
   const { ask } = useAskJethro();
@@ -42,14 +45,14 @@ export function HeroCommand() {
       </form>
       <div className="mt-3 flex flex-wrap justify-center gap-2">
         {HERO_CHIPS.map((q) => (
-          <button
-            key={q}
-            onClick={() => ask(q)}
-            className="label-mono rounded-full border border-[var(--color-granite-line)] bg-[color-mix(in_oklab,var(--color-sand)_60%,transparent)] px-3 py-1 text-[0.66rem] text-[var(--color-muted)] transition-colors hover:border-[var(--color-pine)] hover:text-[var(--color-pine)]"
-          >
+          <button key={q} onClick={() => ask(q)} className={chipCls}>
             {q}
           </button>
         ))}
+        {/* a normal link, not an assistant trigger */}
+        <Link href="/resume" className={chipCls}>
+          My resume
+        </Link>
       </div>
     </div>
   );
