@@ -51,25 +51,42 @@ export function AskJethroProvider({ children }: { children: React.ReactNode }) {
   const [input, setInput] = useState("");
   const [isThinking, setIsThinking] = useState(false);
   const nextId = useRef(1);
-  const thinkTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
   const id = () => nextId.current++;
 
   const open = useCallback(() => setIsOpen(true), []);
   const close = useCallback(() => setIsOpen(false), []);
 
-  const submit = useCallback((question: string, context?: { projectId?: string }) => {
+  const submit = useCallback(async (question: string, context?: { projectId?: string }) => {
     const text = question.trim();
     if (!text) return;
     setInput("");
-    // user bubble first, then a short "thinking" beat, then one assistant reply
     setMessages((m) => [...m, { id: id(), role: "user", text }]);
     setIsThinking(true);
-    clearTimeout(thinkTimer.current);
-    thinkTimer.current = setTimeout(() => {
-      const answer = generateJethroAnswer(text, context);
-      setIsThinking(false);
-      setMessages((m) => [...m, { id: id(), role: "assistant", answer, fresh: true }]);
-    }, 360);
+
+    // the local engine supplies the suggested actions + follow-ups in every case,
+    // and the full answer if the Gemini endpoint is unavailable (demo / no key)
+    const local = generateJethroAnswer(text, context);
+    const started = Date.now();
+    let geminiText = "";
+    try {
+      const res = await fetch("/api/ask-jethro", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ question: text }),
+      });
+      if (res.ok) geminiText = (((await res.json()) as { answer?: string }).answer ?? "").trim();
+    } catch {
+      /* network error → local fallback below */
+    }
+    // keep the "thinking" beat from flashing on an instant local fallback
+    const elapsed = Date.now() - started;
+    if (elapsed < 350) await new Promise((r) => setTimeout(r, 350 - elapsed));
+
+    const answer = geminiText
+      ? { intent: "gemini", content: geminiText, relatedProjects: [], followUps: local.followUps, actions: local.actions }
+      : local;
+    setIsThinking(false);
+    setMessages((m) => [...m, { id: id(), role: "assistant", answer, fresh: true }]);
   }, []);
 
   const ask = useCallback(
