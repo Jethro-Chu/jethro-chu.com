@@ -49,7 +49,9 @@ export function AskJethroProvider({ children }: { children: React.ReactNode }) {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [input, setInput] = useState("");
+  const [isThinking, setIsThinking] = useState(false);
   const nextId = useRef(1);
+  const thinkTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
   const id = () => nextId.current++;
 
   const open = useCallback(() => setIsOpen(true), []);
@@ -58,13 +60,16 @@ export function AskJethroProvider({ children }: { children: React.ReactNode }) {
   const submit = useCallback((question: string, context?: { projectId?: string }) => {
     const text = question.trim();
     if (!text) return;
-    const answer = generateJethroAnswer(text, context);
-    setMessages((m) => [
-      ...m,
-      { id: id(), role: "user", text },
-      { id: id(), role: "assistant", answer, fresh: true },
-    ]);
     setInput("");
+    // user bubble first, then a short "thinking" beat, then one assistant reply
+    setMessages((m) => [...m, { id: id(), role: "user", text }]);
+    setIsThinking(true);
+    clearTimeout(thinkTimer.current);
+    thinkTimer.current = setTimeout(() => {
+      const answer = generateJethroAnswer(text, context);
+      setIsThinking(false);
+      setMessages((m) => [...m, { id: id(), role: "assistant", answer, fresh: true }]);
+    }, 360);
   }, []);
 
   const ask = useCallback(
@@ -119,6 +124,7 @@ export function AskJethroProvider({ children }: { children: React.ReactNode }) {
       <AskJethroPanel
         isOpen={isOpen}
         messages={messages}
+        isThinking={isThinking}
         input={input}
         setInput={setInput}
         onSubmit={() => submit(input)}
@@ -137,6 +143,7 @@ export function AskJethroProvider({ children }: { children: React.ReactNode }) {
 function AskJethroPanel({
   isOpen,
   messages,
+  isThinking,
   input,
   setInput,
   onSubmit,
@@ -146,6 +153,7 @@ function AskJethroPanel({
 }: {
   isOpen: boolean;
   messages: ChatMessage[];
+  isThinking: boolean;
   input: string;
   setInput: (v: string) => void;
   onSubmit: () => void;
@@ -165,12 +173,12 @@ function AskJethroPanel({
     }
   }, [isOpen]);
 
-  // keep the thread scrolled to the newest message
+  // keep the thread scrolled to the newest message / thinking indicator
   useEffect(() => {
     if (isOpen && threadRef.current) {
       threadRef.current.scrollTo({ top: threadRef.current.scrollHeight, behavior: reduce ? "auto" : "smooth" });
     }
-  }, [messages, isOpen, reduce]);
+  }, [messages, isThinking, isOpen, reduce]);
 
   return (
     <AnimatePresence>
@@ -191,7 +199,7 @@ function AskJethroPanel({
             role="dialog"
             aria-modal="true"
             aria-label="Ask Jethro"
-            className="absolute inset-x-0 bottom-0 top-0 flex flex-col border-[var(--color-granite-line)] bg-[var(--color-sand)] sm:inset-y-0 sm:left-auto sm:right-0 sm:w-[min(30rem,100vw)] sm:border-l"
+            className="absolute inset-x-0 bottom-0 top-0 flex flex-col border-[var(--color-granite-line)] bg-[var(--color-sand)] sm:inset-y-0 sm:left-auto sm:right-0 sm:w-[min(28rem,100vw)] sm:border-l"
             initial={reduce ? { opacity: 0 } : { x: "100%" }}
             animate={reduce ? { opacity: 1 } : { x: 0 }}
             exit={reduce ? { opacity: 0 } : { x: "100%" }}
@@ -219,19 +227,22 @@ function AskJethroPanel({
             </header>
 
             {/* thread */}
-            <div ref={threadRef} className="flex-1 space-y-5 overflow-y-auto px-5 py-5">
-              {messages.length === 0 ? (
+            <div ref={threadRef} className="flex-1 space-y-6 overflow-y-auto px-5 py-5">
+              {messages.length === 0 && !isThinking ? (
                 <EmptyState onAsk={onAsk} />
               ) : (
-                messages.map((m) =>
-                  m.role === "user" ? (
-                    <UserBubble key={m.id} text={m.text} />
-                  ) : m.role === "casestudy" ? (
-                    <CaseStudyBlock key={m.id} projectId={m.projectId} onAction={onAction} />
-                  ) : (
-                    <AssistantBubble key={m.id} answer={m.answer} fresh={m.fresh} onAsk={onAsk} onAction={onAction} />
-                  )
-                )
+                <>
+                  {messages.map((m) =>
+                    m.role === "user" ? (
+                      <UserBubble key={m.id} text={m.text} />
+                    ) : m.role === "casestudy" ? (
+                      <CaseStudyBlock key={m.id} projectId={m.projectId} onAction={onAction} />
+                    ) : (
+                      <AssistantBubble key={m.id} answer={m.answer} fresh={m.fresh} onAsk={onAsk} onAction={onAction} />
+                    )
+                  )}
+                  {isThinking && <Thinking />}
+                </>
               )}
             </div>
 
@@ -274,17 +285,38 @@ function AskJethroPanel({
 /* ------------------------------------------------------------------ */
 
 function EmptyState({ onAsk }: { onAsk: (q: string) => void }) {
+  const first = profile.name.split(" ")[0];
   return (
-    <div className="pt-2">
-      <p className="text-[0.95rem] leading-relaxed text-[var(--color-shadow)]">
-        I&apos;m a thoughtful version of {profile.name.split(" ")[0]}, answering from his real projects and background. Ask
-        me anything, or start here:
-      </p>
-      <div className="mt-4 flex flex-col gap-2">
-        {suggestedQuestions.slice(0, 6).map((q) => (
-          <Chip key={q} label={q} onClick={() => onAsk(q)} block />
+    <div className="pt-1">
+      <div className="rounded-md rounded-tl-xs border border-[var(--color-granite-line)] bg-[var(--color-card)] px-4 py-3.5">
+        <p className="text-[0.92rem] leading-relaxed text-[var(--color-shadow)]">
+          Ask me about {first}&apos;s projects, healthcare AI work, hackathon fit, or what he&apos;s currently building.
+        </p>
+      </div>
+      <p className="label-mono mb-2 mt-5 text-[0.6rem]">try asking</p>
+      <div className="flex flex-wrap gap-2">
+        {suggestedQuestions.map((q) => (
+          <Chip key={q} label={q} onClick={() => onAsk(q)} />
         ))}
       </div>
+    </div>
+  );
+}
+
+function Thinking() {
+  return (
+    <div
+      className="flex w-fit items-center gap-1.5 rounded-md rounded-tl-xs border border-[var(--color-granite-line)] bg-[var(--color-card)] px-4 py-3.5"
+      role="status"
+      aria-label="Jethro is thinking"
+    >
+      {[0, 1, 2].map((i) => (
+        <span
+          key={i}
+          className="size-1.5 animate-bounce rounded-full bg-[var(--color-muted)]"
+          style={{ animationDelay: `${i * 0.15}s` }}
+        />
+      ))}
     </div>
   );
 }
@@ -310,50 +342,32 @@ function AssistantBubble({
   onAsk: (q: string) => void;
   onAction: (a: AssistantAction) => void;
 }) {
-  const related = answer.relatedProjectIds
-    .map((pid) => projectById(pid))
-    .filter((p): p is NonNullable<typeof p> => Boolean(p));
-
   return (
-    <div className="space-y-3">
-      <div className="rounded-md rounded-tl-xs border border-[var(--color-granite-line)] bg-[var(--color-card)] px-4 py-3">
-        <StreamedText text={answer.text} animate={fresh} />
-        <CopyButton text={answer.text} />
+    <div className="space-y-2.5">
+      <div className="max-w-[92%] rounded-md rounded-tl-xs border border-[var(--color-granite-line)] bg-[var(--color-card)] px-4 py-3">
+        <FormattedAnswer content={answer.content} animate={fresh} />
+        <CopyButton text={answer.content} />
       </div>
 
-      {related.length > 0 && (
-        <div className="flex flex-wrap gap-1.5">
-          {related.slice(0, 4).map((p) => (
-            <button
-              key={p.id}
-              onClick={() => onAsk(`What is ${p.title}?`)}
-              className="label-mono rounded-xs border border-[var(--color-granite-line)] px-2 py-1 text-[0.66rem] text-[var(--color-pine)] transition-colors hover:bg-[var(--color-pine)] hover:text-[var(--color-on-dark)]"
-            >
-              {p.title}
-            </button>
-          ))}
-        </div>
-      )}
-
       {answer.actions.length > 0 && (
-        <div className="flex flex-wrap gap-2">
+        <div className="flex flex-wrap gap-1.5">
           {answer.actions.map((a, i) => (
             <button
               key={i}
               onClick={() => onAction(a)}
-              className="inline-flex items-center gap-1.5 rounded-sm border border-[var(--color-granite-line)] bg-[var(--color-sand)] px-2.5 py-1.5 text-[0.78rem] font-medium text-[var(--color-shadow)] transition-colors hover:border-[var(--color-pine)] hover:text-[var(--color-pine)]"
+              className="inline-flex items-center gap-1 rounded-sm border border-[var(--color-granite-line)] bg-[var(--color-sand)] px-2.5 py-1 text-[0.76rem] font-medium text-[var(--color-shadow)] transition-colors hover:border-[var(--color-pine)] hover:text-[var(--color-pine)]"
             >
               {a.label}
-              {a.type === "open-link" && <ArrowUpRight size={13} />}
+              {a.type === "open-link" && <ArrowUpRight size={12} />}
             </button>
           ))}
         </div>
       )}
 
       {answer.followUps.length > 0 && (
-        <div className="flex flex-col gap-1.5 pt-1">
+        <div className="flex flex-wrap gap-1.5 pt-0.5">
           {answer.followUps.slice(0, 3).map((q) => (
-            <Chip key={q} label={q} onClick={() => onAsk(q)} block muted />
+            <Chip key={q} label={q} onClick={() => onAsk(q)} />
           ))}
         </div>
       )}
@@ -394,27 +408,11 @@ function CaseStudyBlock({ projectId, onAction }: { projectId: string; onAction: 
   );
 }
 
-function Chip({
-  label,
-  onClick,
-  block,
-  muted,
-}: {
-  label: string;
-  onClick: () => void;
-  block?: boolean;
-  muted?: boolean;
-}) {
+function Chip({ label, onClick }: { label: string; onClick: () => void }) {
   return (
     <button
       onClick={onClick}
-      className={[
-        "rounded-sm border px-3 py-2 text-left text-[0.84rem] transition-colors",
-        block ? "w-full" : "",
-        muted
-          ? "border-[var(--color-granite-line)] text-[var(--color-muted)] hover:border-[var(--color-pine)] hover:text-[var(--color-shadow)]"
-          : "border-[var(--color-granite-line)] bg-[var(--color-card)] text-[var(--color-shadow)] hover:border-[var(--color-pine)] hover:text-[var(--color-pine)]",
-      ].join(" ")}
+      className="rounded-full border border-[var(--color-granite-line)] bg-[var(--color-card)] px-3 py-1.5 text-left text-[0.8rem] text-[var(--color-shadow)] transition-colors hover:border-[var(--color-pine)] hover:text-[var(--color-pine)]"
     >
       {label}
     </button>
@@ -440,39 +438,75 @@ function CopyButton({ text }: { text: string }) {
   );
 }
 
-/** lightweight streaming reveal; instant under reduced motion */
-function StreamedText({ text, animate }: { text: string; animate: boolean }) {
+/** lightweight streaming reveal with light formatting; instant under reduced motion */
+function FormattedAnswer({ content, animate }: { content: string; animate: boolean }) {
   const reduce = useReducedMotion();
-  const [n, setN] = useState(animate && !reduce ? 0 : text.length);
+  const [n, setN] = useState(animate && !reduce ? 0 : content.length);
 
   useEffect(() => {
     if (!animate || reduce) {
-      setN(text.length);
+      setN(content.length);
       return;
     }
-    const step = Math.max(2, Math.ceil(text.length / 26));
+    const step = Math.max(2, Math.ceil(content.length / 26));
     const t = setInterval(() => {
       setN((cur) => {
-        if (cur >= text.length) {
+        if (cur >= content.length) {
           clearInterval(t);
           return cur;
         }
-        return Math.min(text.length, cur + step);
+        return Math.min(content.length, cur + step);
       });
     }, 16);
     return () => clearInterval(t);
-  }, [text, animate, reduce]);
+  }, [content, animate, reduce]);
 
   return (
-    <div className="space-y-2.5 text-[0.92rem] leading-relaxed text-[var(--color-shadow)]">
-      {text
+    <div className="space-y-2.5 text-[0.9rem] leading-relaxed text-[var(--color-shadow)]">
+      {content
         .slice(0, n)
         .split("\n\n")
         .map((para, i) => (
-          <p key={i} className="whitespace-pre-line text-pretty">
-            {para}
-          </p>
+          <Paragraph key={i} text={para} />
         ))}
     </div>
   );
+}
+
+const LABEL = /^(Why it matters|Jethro's role[^:]*):\s+([\s\S]+)$/;
+
+function Paragraph({ text }: { text: string }) {
+  if (text.startsWith("• ") || text.includes("\n• ")) {
+    return (
+      <ul className="space-y-1">
+        {text
+          .split("\n")
+          .filter(Boolean)
+          .map((line, i) =>
+            line.startsWith("• ") ? (
+              <li key={i} className="flex gap-2">
+                <span aria-hidden className="text-[var(--color-pine)]">
+                  •
+                </span>
+                <span>{line.slice(2)}</span>
+              </li>
+            ) : (
+              <li key={i} className="list-none">
+                {line}
+              </li>
+            )
+          )}
+      </ul>
+    );
+  }
+  const m = text.match(LABEL);
+  if (m) {
+    return (
+      <p className="text-pretty">
+        <span className="font-medium text-[var(--color-shadow)]">{m[1]}:</span>{" "}
+        <span className="text-[var(--color-muted)]">{m[2]}</span>
+      </p>
+    );
+  }
+  return <p className="whitespace-pre-line text-pretty">{text}</p>;
 }

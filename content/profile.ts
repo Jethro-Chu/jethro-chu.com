@@ -42,6 +42,9 @@ export interface CaseStudy {
 export interface ProjectIntel {
   id: string;
   subtitle: string;
+  /** concise "what Jethro did" phrasing, for the assistant's role line
+   *  (distinct from the base Project.role label shown on the card) */
+  builderRole: string;
   categories: ProjectCategory[];
   status: ProjectStatus;
   year: string;
@@ -65,6 +68,7 @@ const intel: Record<string, ProjectIntel> = {
   "lab-logger": {
     id: "lab-logger",
     subtitle: "AI research notebook · UX/design",
+    builderRole: "product direction, UX, the landing experience, and the AI workflow design",
     categories: ["ai", "research", "design"],
     status: "Live",
     year: "2025",
@@ -99,6 +103,7 @@ const intel: Record<string, ProjectIntel> = {
   nursejet: {
     id: "nursejet",
     subtitle: "Daily clinical briefing for nurses",
+    builderRole: "solo — he designs, builds, writes, and publishes it",
     categories: ["healthcare", "ai", "consumer"],
     status: "Live",
     year: "2025",
@@ -133,6 +138,7 @@ const intel: Record<string, ProjectIntel> = {
   "rate-my-hospital-food": {
     id: "rate-my-hospital-food",
     subtitle: "A real product out of a funny idea",
+    builderRole: "solo — design, build, and ship",
     categories: ["consumer", "playful", "healthcare"],
     status: "Live", // TODO(jethro): confirm ratemyhospitalfood.com is live
     year: "2024",
@@ -167,6 +173,7 @@ const intel: Record<string, ProjectIntel> = {
   "emotion-stock-market-game": {
     id: "emotion-stock-market-game",
     subtitle: "Your face trades the market",
+    builderRole: "solo — design and build, including the live face tracking",
     categories: ["playful", "ai", "consumer"],
     status: "Live",
     year: "2024",
@@ -210,6 +217,7 @@ const jethroOs: FullProject = {
   link: { href: site.url, label: "you're on it" },
   isVirtual: true,
   subtitle: "A portfolio you can ask questions",
+  builderRole: "solo — design and build",
   categories: ["ai", "design", "portfolio"],
   status: "In progress",
   year: "2026",
@@ -323,15 +331,11 @@ export const invite = {
 };
 
 /* ---- starter questions for the assistant's empty state ---- */
+/* the few starter prompts shown in the assistant's empty state */
 export const suggestedQuestions: string[] = [
-  "What has Jethro built?",
-  "Show me his healthcare AI projects",
+  "What has he built?",
+  "Healthcare AI projects",
   "Why invite him to a hackathon?",
   "What is Lab Logger?",
-  "What is NurseJet?",
-  "What's his nursing background?",
-  "What's his strongest project?",
-  "What is he focused on right now?",
-  "Summarize Jethro in 30 seconds",
-  "What should he build next?",
+  "Tell me about NurseJet",
 ];
