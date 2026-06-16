@@ -13,7 +13,7 @@ import { join } from "path";
 
 export const runtime = "nodejs"; // we read the knowledge file from disk
 
-const MODEL = "gemini-2.0-flash";
+const MODEL = "gemini-2.5-flash";
 const ENDPOINT = `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent`;
 
 // the exact assistant brief, plus the safety guardrails from the knowledge doc
