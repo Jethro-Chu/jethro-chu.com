@@ -2,25 +2,50 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { ArrowRight, Sparkles, MessageSquareText } from "./icons";
 import { useAskJethro } from "./AskJethro";
 import { projectById } from "@/content/profile";
+import { resolveSearchAction, type SearchAction } from "@/lib/searchIntent";
+import { scrollToId } from "@/lib/scrollToId";
 
-/* the hero command bar — the primary way into the assistant */
-const HERO_CHIPS = ["What has he built?", "Why invite him to a hackathon?"];
+/* the hero command bar — a smart router, not just a chat input */
 const chipCls =
   "label-mono rounded-full border border-[var(--color-granite-line)] bg-[color-mix(in_oklab,var(--color-sand)_60%,transparent)] px-3 py-1 text-[0.66rem] text-[var(--color-muted)] transition-colors hover:border-[var(--color-pine)] hover:text-[var(--color-pine)]";
 
 export function HeroCommand() {
   const { ask } = useAskJethro();
+  const router = useRouter();
   const [v, setV] = useState("");
+
+  // carry out a resolved action; scroll falls back to the assistant if the
+  // target section is missing, so the user is never left with a dead submit
+  const run = (action: SearchAction, fallbackQuestion: string) => {
+    if (action.type === "navigate") {
+      router.push(action.href);
+    } else if (action.type === "scroll") {
+      if (!scrollToId(action.targetId)) ask(fallbackQuestion);
+    } else {
+      ask(action.question);
+    }
+  };
+
+  const onSubmit = () => {
+    const query = v.trim();
+    if (!query) {
+      ask("What has Jethro built?");
+      return;
+    }
+    run(resolveSearchAction(query), query);
+    setV(""); // clear only after the action is taken
+  };
 
   return (
     <div className="mx-auto mt-9 w-full max-w-xl">
       <form
         onSubmit={(e) => {
           e.preventDefault();
-          ask(v.trim() || "What has Jethro built?");
+          onSubmit();
         }}
         className="group flex items-center gap-2.5 rounded-md border border-[var(--color-granite-line)] bg-[color-mix(in_oklab,var(--color-card)_88%,transparent)] px-3.5 py-2.5 shadow-[0_1px_2px_rgba(60,64,73,0.04),0_12px_30px_-20px_rgba(60,64,73,0.25)] transition-colors focus-within:border-[var(--color-pine)]"
       >
@@ -28,8 +53,8 @@ export function HeroCommand() {
         <input
           value={v}
           onChange={(e) => setV(e.target.value)}
-          aria-label="Ask Jethro a question"
-          placeholder="Ask what I've built, or why I'd be useful…"
+          aria-label="Search or ask about Jethro"
+          placeholder="Ask what I've built, or jump to a section…"
           className="min-w-0 flex-1 bg-transparent text-[0.95rem] text-[var(--color-shadow)] outline-none placeholder:text-[var(--color-muted)]"
         />
         <kbd className="label-mono hidden shrink-0 rounded-xs border border-[var(--color-granite-line)] px-1.5 py-0.5 text-[0.6rem] text-[var(--color-muted)] sm:block">
@@ -37,19 +62,26 @@ export function HeroCommand() {
         </kbd>
         <button
           type="submit"
-          aria-label="Ask Jethro"
+          aria-label="Go"
           className="flex size-8 shrink-0 items-center justify-center rounded-sm bg-[var(--color-pine)] text-[var(--color-on-dark)] transition-colors hover:bg-[var(--color-pine-deep)]"
         >
           <ArrowRight size={16} />
         </button>
       </form>
+      {/* clean, intentional homepage actions — not chatbot prompts */}
       <div className="mt-3 flex flex-wrap justify-center gap-2">
-        {HERO_CHIPS.map((q) => (
-          <button key={q} onClick={() => ask(q)} className={chipCls}>
-            {q}
-          </button>
-        ))}
-        {/* a normal link, not an assistant trigger */}
+        <button
+          onClick={() => {
+            if (!scrollToId("projects")) ask("What has Jethro built?");
+          }}
+          className={chipCls}
+        >
+          View projects
+        </button>
+        <button onClick={() => ask("Tell me about Jethro.")} className={chipCls}>
+          Ask about Jethro
+        </button>
+        {/* a real navigation, not an assistant trigger */}
         <Link href="/resume" className={chipCls}>
           My resume
         </Link>
@@ -96,6 +128,17 @@ export function AskChip({
     >
       {label ?? question}
       {primary && <ArrowRight size={14} aria-hidden />}
+    </button>
+  );
+}
+
+/* opens the assistant panel without pre-filling a question — for section CTAs */
+export function OpenAskButton({ label = "Ask Jethro", className }: { label?: string; className?: string }) {
+  const { open } = useAskJethro();
+  return (
+    <button onClick={open} aria-haspopup="dialog" className={className}>
+      <Sparkles size={15} className="text-[var(--color-pine)]" aria-hidden />
+      {label}
     </button>
   );
 }

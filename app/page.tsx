@@ -15,7 +15,7 @@ import { AskJethroProvider } from "@/components/ask-jethro/AskJethro";
 import { FloatingAsk } from "@/components/ask-jethro/triggers";
 import { CurrentlyBuilding } from "@/components/CurrentlyBuilding";
 import { CaseStudyExplorer } from "@/components/CaseStudyExplorer";
-import { InviteJethro } from "@/components/InviteJethro";
+import { Method } from "@/components/Method";
 
 export default function Home() {
   return (
@@ -44,7 +44,7 @@ export default function Home() {
         <Projects />
         <CurrentlyBuilding />
         <CaseStudyExplorer />
-        <InviteJethro />
+        <Method />
         <About />
       </main>
       <Footer />

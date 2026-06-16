@@ -4,6 +4,13 @@ import { useEffect } from "react";
 import Lenis from "lenis";
 import { useReducedMotion } from "framer-motion";
 
+declare global {
+  interface Window {
+    /** the live Lenis instance, so command-bar / chip scrolls stay smooth */
+    __lenis?: Lenis;
+  }
+}
+
 /**
  * Lenis smooth scroll. It updates native scroll position (so framer's
  * useScroll keeps working) and never traps the wheel. Anchor clicks (the
@@ -34,6 +41,7 @@ export function SmoothScroll() {
         raf = requestAnimationFrame(loop);
       };
       raf = requestAnimationFrame(loop);
+      window.__lenis = lenis;
     }
 
     // anchor jumps work in both modes; Lenis eases them when present, and focus
@@ -61,6 +69,7 @@ export function SmoothScroll() {
       if (lenis) {
         cancelAnimationFrame(raf);
         lenis.destroy();
+        if (window.__lenis === lenis) window.__lenis = undefined;
       }
       document.removeEventListener("click", onClick);
     };

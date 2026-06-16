@@ -330,6 +330,27 @@ export const invite = {
   ],
 };
 
+/* ---- "Method" — how Jethro builds (homepage section) ---- */
+export const method = {
+  title: "I build from the part that feels harder than it should.",
+  intro:
+    "Most of my ideas start the same way: I notice a workflow that feels slower, messier, or more annoying than it needs to be. Then I try to turn that friction into something usable: a clinical briefing tool, a lab notebook, a review app, or even a weird browser experiment.",
+  steps: [
+    {
+      title: "Notice the friction",
+      copy: "Clinical work, research, and everyday tools all have moments where people lose time fighting the system. I pay attention to those moments because they usually point to something worth building.",
+    },
+    {
+      title: "Prototype fast",
+      copy: "I use AI tools, design judgment, and modern web stacks to move from rough idea to working product quickly. The goal is not to make a perfect first version. It is to make something real enough to test.",
+    },
+    {
+      title: "Make it useful",
+      copy: "The projects I care about most are the ones that remove friction instead of adding more software to manage. Lab Logger, NurseJet, and my other builds all come from that same instinct.",
+    },
+  ],
+} as const;
+
 /* ---- starter questions for the assistant's empty state ---- */
 /* the few starter prompts shown in the assistant's empty state */
 export const suggestedQuestions: string[] = [
