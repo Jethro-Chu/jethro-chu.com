@@ -1,4 +1,5 @@
 import type { Project } from "@/content/content";
+import { AskAboutButton } from "@/components/ask-jethro/triggers";
 
 const pad2 = (n: number) => String(n + 1).padStart(2, "0");
 
@@ -88,6 +89,10 @@ export function ProjectCard({
             ))}
           </div>
         )}
+
+        <div className="mt-5">
+          <AskAboutButton projectId={project.id} />
+        </div>
       </div>
     </article>
   );

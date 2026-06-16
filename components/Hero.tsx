@@ -1,4 +1,5 @@
 import { site, sections } from "@/content/content";
+import { HeroCommand } from "@/components/ask-jethro/triggers";
 
 const trailhead = sections[0];
 
@@ -29,6 +30,7 @@ export function Hero() {
         <p className="legible-on-scene mx-auto mt-6 max-w-xl text-pretty text-lg leading-relaxed text-[var(--color-muted)] sm:text-xl">
           {site.tagline}
         </p>
+        <HeroCommand />
       </div>
 
       <a

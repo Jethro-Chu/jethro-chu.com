@@ -11,9 +11,15 @@ import { Approach } from "@/components/Approach";
 import { Projects } from "@/components/Projects";
 import { About } from "@/components/About";
 import { Footer } from "@/components/Footer";
+import { AskJethroProvider } from "@/components/ask-jethro/AskJethro";
+import { FloatingAsk } from "@/components/ask-jethro/triggers";
+import { CurrentlyBuilding } from "@/components/CurrentlyBuilding";
+import { CaseStudyExplorer } from "@/components/CaseStudyExplorer";
+import { InviteJethro } from "@/components/InviteJethro";
 
 export default function Home() {
   return (
+    <AskJethroProvider>
     <div className="relative">
       {/* the climb's light: a page-tall wash (static) + a scroll-linked alpenglow */}
       <BackgroundGradient />
@@ -36,9 +42,14 @@ export default function Home() {
         <Hero />
         <Approach />
         <Projects />
+        <CurrentlyBuilding />
+        <CaseStudyExplorer />
+        <InviteJethro />
         <About />
       </main>
       <Footer />
+      <FloatingAsk />
     </div>
+    </AskJethroProvider>
   );
 }
