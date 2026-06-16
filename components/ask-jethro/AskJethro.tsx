@@ -181,21 +181,62 @@ function AskJethroPanel({
   const reduce = useReducedMotion();
   const inputRef = useRef<HTMLInputElement>(null);
   const threadRef = useRef<HTMLDivElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
+  const endRef = useRef<HTMLDivElement>(null);
+  // whether to keep following the bottom (turns false once the user scrolls up)
+  const stick = useRef(true);
+  const lastTop = useRef(0);
+
+  const scrollToEnd = useCallback(
+    (smooth: boolean) => {
+      const el = threadRef.current;
+      if (el) el.scrollTo({ top: el.scrollHeight, behavior: smooth && !reduce ? "smooth" : "auto" });
+    },
+    [reduce]
+  );
+
+  // Only DISENGAGE following on an upward user drag. A programmatic scroll toward
+  // the bottom (scrollTop increasing) must never pause auto-follow, otherwise the
+  // intermediate scroll events would stop us following streaming text.
+  const onThreadScroll = () => {
+    const el = threadRef.current;
+    if (!el) return;
+    const top = el.scrollTop;
+    if (top < lastTop.current - 4) stick.current = false;
+    if (el.scrollHeight - top - el.clientHeight < 60) stick.current = true;
+    lastTop.current = top;
+  };
 
   // focus the input when opened
   useEffect(() => {
     if (isOpen) {
+      stick.current = true;
       const t = setTimeout(() => inputRef.current?.focus(), 120);
       return () => clearTimeout(t);
     }
   }, [isOpen]);
 
-  // keep the thread scrolled to the newest message / thinking indicator
+  // a new message / thinking beat follows to the bottom; a fresh user message or
+  // the assistant starting to answer always re-engages following
   useEffect(() => {
-    if (isOpen && threadRef.current) {
-      threadRef.current.scrollTo({ top: threadRef.current.scrollHeight, behavior: reduce ? "auto" : "smooth" });
-    }
-  }, [messages, isThinking, isOpen, reduce]);
+    if (!isOpen) return;
+    const last = messages[messages.length - 1];
+    if (last?.role === "user" || isThinking) stick.current = true;
+    // instant (not smooth) so it can't conflict with the streaming-follow below
+    if (stick.current) scrollToEnd(false);
+  }, [messages, isThinking, isOpen, scrollToEnd]);
+
+  // follow the streaming answer as it grows, but only while still sticking.
+  // re-runs on open so the observer attaches once the dialog (contentRef) mounts.
+  useEffect(() => {
+    const content = contentRef.current;
+    if (!isOpen || !content) return;
+    const ro = new ResizeObserver(() => {
+      if (stick.current) scrollToEnd(false);
+    });
+    ro.observe(content);
+    return () => ro.disconnect();
+  }, [scrollToEnd, isOpen]);
 
   return (
     <AnimatePresence>
@@ -216,7 +257,8 @@ function AskJethroPanel({
             role="dialog"
             aria-modal="true"
             aria-label="Ask Jethro"
-            className="absolute inset-x-0 bottom-0 top-0 flex flex-col border-[var(--color-granite-line)] bg-[var(--color-sand)] sm:inset-y-0 sm:left-auto sm:right-0 sm:w-[min(28rem,100vw)] sm:border-l"
+            data-lenis-prevent
+            className="absolute inset-x-0 bottom-0 top-0 flex h-full min-h-0 flex-col border-[var(--color-granite-line)] bg-[var(--color-sand)] sm:inset-y-0 sm:left-auto sm:right-0 sm:w-[min(28rem,100vw)] sm:border-l"
             initial={reduce ? { opacity: 0 } : { x: "100%" }}
             animate={reduce ? { opacity: 1 } : { x: 0 }}
             exit={reduce ? { opacity: 0 } : { x: "100%" }}
@@ -224,7 +266,7 @@ function AskJethroPanel({
             style={{ willChange: "transform" }}
           >
             {/* header */}
-            <header className="flex items-center justify-between border-b border-[var(--color-granite-line)] px-5 py-3.5">
+            <header className="flex shrink-0 items-center justify-between border-b border-[var(--color-granite-line)] px-5 py-3.5">
               <div className="flex items-center gap-2.5">
                 <span className="size-2 rounded-full bg-[var(--color-pine)]" aria-hidden />
                 <div>
@@ -243,29 +285,40 @@ function AskJethroPanel({
               </button>
             </header>
 
-            {/* thread */}
-            <div ref={threadRef} className="flex-1 space-y-6 overflow-y-auto px-5 py-5">
-              {messages.length === 0 && !isThinking ? (
-                <EmptyState onAsk={onAsk} />
-              ) : (
-                <>
-                  {messages.map((m) =>
-                    m.role === "user" ? (
-                      <UserBubble key={m.id} text={m.text} />
-                    ) : m.role === "casestudy" ? (
-                      <CaseStudyBlock key={m.id} projectId={m.projectId} onAction={onAction} />
-                    ) : (
-                      <AssistantBubble key={m.id} answer={m.answer} fresh={m.fresh} onAsk={onAsk} onAction={onAction} />
-                    )
-                  )}
-                  {isThinking && <Thinking />}
-                </>
-              )}
+            {/* thread — the ONLY scrollable region. min-h-0 lets it shrink so
+                overflow scrolling engages; data-lenis-prevent stops the page's
+                smooth-scroll from stealing the wheel/touch here. */}
+            <div
+              ref={threadRef}
+              onScroll={onThreadScroll}
+              data-lenis-prevent
+              className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-5 py-5"
+            >
+              <div ref={contentRef} className="space-y-6">
+                {messages.length === 0 && !isThinking ? (
+                  <EmptyState onAsk={onAsk} />
+                ) : (
+                  <>
+                    {messages.map((m) =>
+                      m.role === "user" ? (
+                        <UserBubble key={m.id} text={m.text} />
+                      ) : m.role === "casestudy" ? (
+                        <CaseStudyBlock key={m.id} projectId={m.projectId} onAction={onAction} />
+                      ) : (
+                        <AssistantBubble key={m.id} answer={m.answer} fresh={m.fresh} onAsk={onAsk} onAction={onAction} />
+                      )
+                    )}
+                    {isThinking && <Thinking />}
+                  </>
+                )}
+                {/* bottom sentinel for auto-scroll */}
+                <div ref={endRef} aria-hidden />
+              </div>
             </div>
 
-            {/* input */}
+            {/* input — always visible at the bottom */}
             <form
-              className="border-t border-[var(--color-granite-line)] p-3"
+              className="shrink-0 border-t border-[var(--color-granite-line)] p-3"
               onSubmit={(e) => {
                 e.preventDefault();
                 onSubmit();
@@ -341,7 +394,7 @@ function Thinking() {
 function UserBubble({ text }: { text: string }) {
   return (
     <div className="flex justify-end">
-      <p className="max-w-[88%] rounded-md rounded-tr-xs bg-[var(--color-pine)] px-3.5 py-2 text-[0.92rem] leading-relaxed text-[var(--color-on-dark)]">
+      <p className="max-w-[88%] break-words rounded-md rounded-tr-xs bg-[var(--color-pine)] px-3.5 py-2 text-[0.92rem] leading-relaxed text-[var(--color-on-dark)]">
         {text}
       </p>
     </div>
@@ -479,7 +532,7 @@ function FormattedAnswer({ content, animate }: { content: string; animate: boole
   }, [content, animate, reduce]);
 
   return (
-    <div className="space-y-2.5 text-[0.9rem] leading-relaxed text-[var(--color-shadow)]">
+    <div className="space-y-2.5 break-words text-[0.9rem] leading-relaxed text-[var(--color-shadow)]">
       {content
         .slice(0, n)
         .split("\n\n")
@@ -491,6 +544,19 @@ function FormattedAnswer({ content, animate }: { content: string; animate: boole
 }
 
 const LABEL = /^(Why it matters|Jethro's role[^:]*):\s+([\s\S]+)$/;
+
+/** render **bold** inline (Gemini answers use markdown); leave the rest as text */
+function renderInline(text: string): React.ReactNode {
+  return text.split(/(\*\*[^*]+\*\*)/g).map((part, i) =>
+    part.startsWith("**") && part.endsWith("**") ? (
+      <strong key={i} className="font-medium text-[var(--color-shadow)]">
+        {part.slice(2, -2)}
+      </strong>
+    ) : (
+      part
+    )
+  );
+}
 
 function Paragraph({ text }: { text: string }) {
   if (text.startsWith("• ") || text.includes("\n• ")) {
@@ -505,11 +571,11 @@ function Paragraph({ text }: { text: string }) {
                 <span aria-hidden className="text-[var(--color-pine)]">
                   •
                 </span>
-                <span>{line.slice(2)}</span>
+                <span>{renderInline(line.slice(2))}</span>
               </li>
             ) : (
               <li key={i} className="list-none">
-                {line}
+                {renderInline(line)}
               </li>
             )
           )}
@@ -521,9 +587,9 @@ function Paragraph({ text }: { text: string }) {
     return (
       <p className="text-pretty">
         <span className="font-medium text-[var(--color-shadow)]">{m[1]}:</span>{" "}
-        <span className="text-[var(--color-muted)]">{m[2]}</span>
+        <span className="text-[var(--color-muted)]">{renderInline(m[2])}</span>
       </p>
     );
   }
-  return <p className="whitespace-pre-line text-pretty">{text}</p>;
+  return <p className="whitespace-pre-line text-pretty">{renderInline(text)}</p>;
 }
