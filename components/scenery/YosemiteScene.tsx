@@ -32,7 +32,7 @@ const vshape = (x: number) => Math.pow((2 * x - 1) * (2 * x - 1), 0.62);
 function valley(d: number) {
   const centerY = 0.8 - 0.235 * d;
   const sideY = 0.5 + 0.07 * d;
-  const N = 64;
+  const N = 44;
   const pts: string[] = [];
   for (let k = 0; k <= N; k++) {
     const x = k / N;
@@ -85,6 +85,9 @@ const FORE_LINES: LineDef[] = [
   { d: valley(0.08), stroke: 0.62, width: 1.45, color: INK_FORE, fill: 0.06 },
 ];
 
+// NOTE: no vector-effect:non-scaling-stroke. With it, a CSS-scaled SVG must
+// re-rasterize every frame to keep strokes 1px — the main scroll-jank source.
+// Plain strokes let each layer promote to a GPU texture and scale for free.
 function LineLayer({ lines, className = "" }: { lines: LineDef[]; className?: string }) {
   return (
     <svg
@@ -103,7 +106,6 @@ function LineLayer({ lines, className = "" }: { lines: LineDef[]; className?: st
             strokeWidth={l.width}
             strokeLinecap="round"
             strokeLinejoin="round"
-            vectorEffect="non-scaling-stroke"
           />
         </g>
       ))}
@@ -138,39 +140,51 @@ const ORIGIN = "50% 56%"; // the valley distance — the camera pushes through i
 export function YosemiteScene() {
   const reduce = useReducedMotion();
   const [mounted, setMounted] = useState(false);
-  useEffect(() => setMounted(true), []);
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    setMounted(true);
+    // measured ONCE (and on breakpoint change) — never on scroll
+    const mq = window.matchMedia("(max-width: 767px)");
+    const update = () => setIsMobile(mq.matches);
+    update();
+    mq.addEventListener?.("change", update);
+    return () => mq.removeEventListener?.("change", update);
+  }, []);
   const hero = useHeroProgress();
   const animated = mounted && !reduce;
 
   // dissolve LATE (into the approach) so the push keeps going past the hero
   const sceneOpacity = useTransform(hero, [0.55, 0.9], [1, 0]);
   // a pronounced forward dolly: each depth layer scales out of the valley distance
-  // at a very different rate (foreground ~2x fast, distance ~1.2x slow) for real
-  // travel-into-it parallax. Front-loaded ([0,0.55,1]) so the movement is obvious
-  // within the first scroll gestures, then keeps building through the intro.
+  // at a very different rate (foreground fast, distance slow) for travel-into-it
+  // parallax. Front-loaded so the movement is obvious in the first scroll gestures.
+  // Mobile uses a lighter envelope (fewer/smaller moves) for a smooth frame rate.
   const farScale = useTransform(hero, [0, 0.55, 1], [1, 1.13, 1.2]);
   const domeScale = useTransform(hero, [0, 0.55, 1], [1, 1.34, 1.62]);
-  const midScale = useTransform(hero, [0, 0.55, 1], [1, 1.42, 1.68]);
-  const foreScale = useTransform(hero, [0, 0.55, 1], [1, 1.74, 2.1]);
+  const midScale = useTransform(hero, [0, 0.55, 1], isMobile ? [1, 1.22, 1.36] : [1, 1.42, 1.68]);
+  const foreScale = useTransform(hero, [0, 0.55, 1], isMobile ? [1, 1.36, 1.54] : [1, 1.74, 2.1]);
   const farY = useTransform(hero, [0, 1], ["0%", "-2.6%"]);
   const domeY = useTransform(hero, [0, 1], ["0%", "-6.5%"]);
-  const midY = useTransform(hero, [0, 1], ["0%", "3.4%"]);
-  const foreY = useTransform(hero, [0, 1], ["0%", "10%"]);
-  const glow = useTransform(hero, [0, 0.6, 1], [0.06, 0.22, 0.36]);
-  const sGlow = 0.16;
+  const midY = useTransform(hero, [0, 1], ["0%", isMobile ? "2%" : "3.4%"]);
+  const foreY = useTransform(hero, [0, 1], ["0%", isMobile ? "5.5%" : "10%"]);
+  const sGlow = 0.18;
 
+  // GPU-friendly: promote each moving layer to its own composited texture so the
+  // scale/translate run on the compositor (no per-frame SVG re-raster or repaint).
   const lyr = (mv: MotionValue<number>, yv: MotionValue<string>) =>
-    animated ? { scale: mv, y: yv, transformOrigin: ORIGIN } : undefined;
+    animated
+      ? { scale: mv, y: yv, transformOrigin: ORIGIN, willChange: "transform", backfaceVisibility: "hidden" as const }
+      : undefined;
   // the destination grows and rises in place (its own origin) — climbing toward it
   const domeLyr = animated
-    ? { scale: domeScale, y: domeY, transformOrigin: "50% 62%" }
+    ? { scale: domeScale, y: domeY, transformOrigin: "50% 62%", willChange: "transform", backfaceVisibility: "hidden" as const }
     : undefined;
 
   return (
     <motion.div
       aria-hidden
       className="pointer-events-none fixed inset-0 -z-10 overflow-hidden"
-      style={{ opacity: mounted ? sceneOpacity : 1 }}
+      style={{ opacity: mounted ? sceneOpacity : 1, willChange: "opacity" }}
     >
       {/* sky wash: cool muted sky easing to warm page sand */}
       <div
@@ -196,10 +210,11 @@ export function YosemiteScene() {
         }}
       />
 
-      <motion.div className="absolute inset-0" style={lyr(farScale, farY)}>
+      {/* far contours + the distant dome: desktop only (one fewer moving layer on
+          mobile, where they read least and cost the most) */}
+      <motion.div className="absolute inset-0 hidden md:block" style={lyr(farScale, farY)}>
         <LineLayer lines={FAR_LINES} />
       </motion.div>
-      {/* the distant dome destination: its own slow-but-growing layer (desktop) */}
       <motion.div className="absolute inset-0 hidden md:block" style={domeLyr}>
         <LineLayer lines={DOME_LINES} />
       </motion.div>
@@ -222,11 +237,11 @@ export function YosemiteScene() {
         }}
       />
 
-      {/* a whisper of golden-hour light low in the valley, growing with the climb */}
-      <motion.div
+      {/* a whisper of golden-hour light low in the valley (static — no per-frame work) */}
+      <div
         className="absolute inset-0"
         style={{
-          opacity: animated ? glow : sGlow,
+          opacity: sGlow,
           background:
             "radial-gradient(110% 66% at 50% 110%," +
             " color-mix(in oklab, var(--color-horizon) 38%, transparent) 0%," +

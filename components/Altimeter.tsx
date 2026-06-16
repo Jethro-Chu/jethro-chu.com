@@ -110,7 +110,7 @@ export function Altimeter() {
       {/* ---- mobile / tablet: bottom junction bar ---- */}
       <nav
         aria-label="Elevation bar"
-        className="fixed inset-x-0 bottom-0 z-40 border-t border-[color-mix(in_oklab,var(--color-granite-line)_55%,transparent)] bg-[color-mix(in_oklab,var(--color-sand)_78%,transparent)] backdrop-blur-md lg:hidden"
+        className="fixed inset-x-0 bottom-0 z-40 border-t border-[color-mix(in_oklab,var(--color-granite-line)_55%,transparent)] bg-[color-mix(in_oklab,var(--color-sand)_94%,transparent)] lg:hidden"
         style={{ paddingBottom: "env(safe-area-inset-bottom)" }}
       >
         <ul className="no-scrollbar flex items-stretch gap-1 overflow-x-auto px-2 py-1.5">
