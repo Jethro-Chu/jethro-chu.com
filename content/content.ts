@@ -144,7 +144,7 @@ export const about = {
   body: [
     "I'm a BSN nursing student.",
     "I've done clinical rotations across several hospital systems. On the side I build software like Lab Logger, and I climb granite in the Sierra.",
-    "This is the top of Half Dome, 8,839 feet up. Scrolling this far down the page was the climb.",
+    "This is the top of Half Dome, 8,839 feet up.",
   ],
 } as const;
 
