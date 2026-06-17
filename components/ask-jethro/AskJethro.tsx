@@ -15,7 +15,7 @@ import { X, ArrowUpRight, Copy, Check, CornerDownLeft } from "./icons";
 import { generateJethroAnswer, type AssistantAnswer, type AssistantAction } from "@/lib/askJethro";
 import { isOffTopic } from "@/lib/searchIntent";
 import { scrollToId } from "@/lib/scrollToId";
-import { OffTrailMoment } from "./OffTrailMoment";
+import { OffTrailCard } from "./OffTrailCard";
 import { projectById, suggestedQuestions, profile } from "@/content/profile";
 
 /* ------------------------------------------------------------------ */
@@ -341,7 +341,7 @@ function AskJethroPanel({
                       ) : m.role === "casestudy" ? (
                         <CaseStudyBlock key={m.id} projectId={m.projectId} onAction={onAction} />
                       ) : m.role === "offtrail" ? (
-                        <OffTrailMoment key={m.id} onAction={onOffTrail} />
+                        <OffTrailCard key={m.id} onAction={onOffTrail} />
                       ) : (
                         <AssistantBubble key={m.id} answer={m.answer} fresh={m.fresh} onAsk={onAsk} onAction={onAction} />
                       )
