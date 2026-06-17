@@ -29,6 +29,9 @@ export function HeroCommand() {
       } else {
         ask(fallbackQuestion);
       }
+    } else if (action.type === "offTopic") {
+      // opens the sidebar and submits; the assistant shows the off-trail moment
+      ask(action.query);
     } else {
       ask(action.question);
     }

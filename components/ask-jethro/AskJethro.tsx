@@ -9,9 +9,13 @@ import {
   useRef,
   useState,
 } from "react";
+import { useRouter } from "next/navigation";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { X, ArrowUpRight, Copy, Check, CornerDownLeft } from "./icons";
 import { generateJethroAnswer, type AssistantAnswer, type AssistantAction } from "@/lib/askJethro";
+import { isOffTopic } from "@/lib/searchIntent";
+import { scrollToId } from "@/lib/scrollToId";
+import { OffTrailMoment } from "./OffTrailMoment";
 import { projectById, suggestedQuestions, profile } from "@/content/profile";
 
 /* ------------------------------------------------------------------ */
@@ -39,13 +43,17 @@ export function useAskJethro(): AskJethroCtx {
 type ChatMessage =
   | { id: number; role: "user"; text: string }
   | { id: number; role: "assistant"; answer: AssistantAnswer; fresh: boolean }
-  | { id: number; role: "casestudy"; projectId: string };
+  | { id: number; role: "casestudy"; projectId: string }
+  | { id: number; role: "offtrail" };
+
+type OffTrailAction = "projects" | "resume" | "about";
 
 /* ------------------------------------------------------------------ */
 /*  provider (owns state, renders the panel)                          */
 /* ------------------------------------------------------------------ */
 
 export function AskJethroProvider({ children }: { children: React.ReactNode }) {
+  const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [input, setInput] = useState("");
@@ -61,6 +69,11 @@ export function AskJethroProvider({ children }: { children: React.ReactNode }) {
     if (!text) return;
     setInput("");
     setMessages((m) => [...m, { id: id(), role: "user", text }]);
+    // obvious off-topic asks never reach Gemini — show the off-trail moment instead
+    if (isOffTopic(text)) {
+      setMessages((m) => [...m, { id: id(), role: "offtrail" }]);
+      return;
+    }
     setIsThinking(true);
 
     // the local engine supplies the suggested actions + follow-ups in every case,
@@ -124,6 +137,21 @@ export function AskJethroProvider({ children }: { children: React.ReactNode }) {
     [submit, showCaseStudy]
   );
 
+  const handleOffTrail = useCallback(
+    (a: OffTrailAction) => {
+      if (a === "projects") {
+        setIsOpen(false);
+        // let the panel close before scrolling the page behind it
+        window.setTimeout(() => scrollToId("projects"), 380);
+      } else if (a === "resume") {
+        router.push("/resume");
+      } else {
+        submit("Tell me about Jethro.");
+      }
+    },
+    [router, submit]
+  );
+
   // ⌘K / Ctrl-K toggles, Escape closes
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -153,6 +181,7 @@ export function AskJethroProvider({ children }: { children: React.ReactNode }) {
         onClose={close}
         onAsk={(q) => submit(q)}
         onAction={handleAction}
+        onOffTrail={handleOffTrail}
       />
     </Ctx.Provider>
   );
@@ -172,6 +201,7 @@ function AskJethroPanel({
   onClose,
   onAsk,
   onAction,
+  onOffTrail,
 }: {
   isOpen: boolean;
   messages: ChatMessage[];
@@ -182,6 +212,7 @@ function AskJethroPanel({
   onClose: () => void;
   onAsk: (q: string) => void;
   onAction: (a: AssistantAction) => void;
+  onOffTrail: (a: OffTrailAction) => void;
 }) {
   const reduce = useReducedMotion();
   const inputRef = useRef<HTMLInputElement>(null);
@@ -309,6 +340,8 @@ function AskJethroPanel({
                         <UserBubble key={m.id} text={m.text} />
                       ) : m.role === "casestudy" ? (
                         <CaseStudyBlock key={m.id} projectId={m.projectId} onAction={onAction} />
+                      ) : m.role === "offtrail" ? (
+                        <OffTrailMoment key={m.id} onAction={onOffTrail} />
                       ) : (
                         <AssistantBubble key={m.id} answer={m.answer} fresh={m.fresh} onAsk={onAsk} onAction={onAction} />
                       )

@@ -10,7 +10,8 @@
 export type SearchAction =
   | { type: "navigate"; href: string }
   | { type: "scroll"; targetId: string; highlight?: string[] }
-  | { type: "ask"; question: string };
+  | { type: "ask"; question: string }
+  | { type: "offTopic"; query: string };
 
 /** lowercase, trim, strip punctuation, collapse whitespace */
 function normalize(query: string): string {
@@ -20,6 +21,59 @@ function normalize(query: string): string {
     .replace(/[^a-z0-9]+/g, " ") // every other separator -> space
     .replace(/\s+/g, " ")
     .trim();
+}
+
+/* Anything mentioning Jethro, his projects, his domain, or the site is on-topic
+   and must never be flagged off-topic — even if it also trips an off-topic word. */
+const ON_TOPIC_GUARD = [
+  "jethro", "nursejet", "nurse jet", "lab logger", "lablogger",
+  "rate my hospital", "hospital food", "stock market game", "emotion stock",
+  "resume", "cv", "portfolio", "hackathon", "lab notebook", "experiment record",
+  "nursing", "clinical", "healthcare", "health tech", "med surg", "bedside",
+  "this site", "this website", "this portfolio", "his project", "your project",
+  "skill", "contact", "email", "how he build", "how jethro build", "how you build",
+];
+
+/* High-signal markers of an obviously off-topic ask. Precision over recall:
+   borderline asks fall through to the grounded assistant, not the off-trail card. */
+const OFF_TOPIC_MARKERS = [
+  // weather
+  "weather", "temperature", "forecast", "how hot is", "how cold is", "will it rain",
+  // sports
+  "nba", "nfl", "mlb", "super bowl", "world cup", "playoff", "who won", "final score",
+  "lebron", "messi", "ronaldo", "premier league", "champions league",
+  // food / recipes
+  "recipe", "pasta", "how to cook", "how to bake", "dinner idea", "what should i eat",
+  // math / homework
+  "solve this", "math problem", "derivative of", "integral of", "homework", "this equation",
+  // trivia / geography
+  "capital of", "population of", "how tall is", "tallest", "largest country", "how far is",
+  // creative writing
+  "poem", "haiku", "write a story", "write me a story", "tell me a joke", "song lyrics", "rap about",
+  // medical advice
+  "should i take", "is it safe to take", "ibuprofen", "tylenol", "advil", "aspirin",
+  "acetaminophen", "dosage", "diagnose", "symptoms of", "what medication", "my headache", "my fever",
+  // stocks / shopping
+  "stock price", "share price", "bitcoin", "crypto price", "where to buy", "best deal", "discount code",
+  // politics / news
+  "election", "president of", "republican", "democrat", "politics", "latest news", "headlines",
+  // travel
+  "flight to", "hotel in", "trip to", "vacation", "things to do in",
+  // generic coding help unrelated to this portfolio
+  "write me a script", "write a function", "debug my", "fix my code", "leetcode", "python script", "sql query",
+];
+
+/**
+ * True only for OBVIOUSLY off-topic asks (weather, sports, recipes, trivia,
+ * medical advice, etc.). Anything that mentions Jethro / his work / the site is
+ * guarded as on-topic. Used both by the router and by the assistant before it
+ * would ever call Gemini, so off-topic asks never hit the model.
+ */
+export function isOffTopic(query: string): boolean {
+  const n = normalize(query);
+  if (!n) return false;
+  if (ON_TOPIC_GUARD.some((g) => n.includes(g))) return false;
+  return OFF_TOPIC_MARKERS.some((m) => n.includes(m));
 }
 
 export function resolveSearchAction(query: string): SearchAction {
@@ -172,6 +226,11 @@ export function resolveSearchAction(query: string): SearchAction {
     return { type: "scroll", targetId: "about" };
   }
 
-  /* ---- default: hand the exact question to the assistant ---- */
+  /* ---- 10. Obviously off-topic: the "off the trail" moment (no Gemini) ---- */
+  if (isOffTopic(raw)) {
+    return { type: "offTopic", query: raw };
+  }
+
+  /* ---- default: hand the exact question to the grounded assistant ---- */
   return { type: "ask", question: raw };
 }
