@@ -40,8 +40,8 @@ const DESTS: { key: OffTrailAction; label: string }[] = [
 const SUGGESTIONS = [
   "What has he built?",
   "What is Lab Logger?",
+  "What is NurseJet?",
   "What's his clinical background?",
-  "Why invite him to a hackathon?",
 ];
 const btn =
   "inline-flex items-center rounded-sm border border-[var(--color-granite-line)] bg-[var(--color-sand)] px-2.5 py-1 text-[0.76rem] font-medium text-[var(--color-shadow)] transition-colors hover:border-[var(--color-pine)] hover:text-[var(--color-pine)]";
