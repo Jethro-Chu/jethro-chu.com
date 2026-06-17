@@ -103,6 +103,17 @@ export function generateJethroAnswer(question: string, context?: { projectId?: s
   // --- a named project ---
   if (named) return projectAnswer(named);
 
+  // --- resume / clinical experience (offer the page, don't dead-end) ---
+  if (has(q, "resume", "cv") || /clinical experience|work experience|nursing experience/.test(q)) {
+    return {
+      intent: "resume",
+      content: `${profile.name} is a Bachelor of Science in Nursing student at Azusa Pacific University (expected December 2026), with clinical placements across pediatric, mental health, oncology, cardiac, emergency, and med-surg settings.\n\nHis full resume — education, clinical hours, certifications (BLS, ACLS, Epic), and skills — is on the resume page.`,
+      relatedProjects: [],
+      followUps: ["What has Jethro built?", "Why invite him to a hackathon?"],
+      actions: [{ type: "open-link", label: "View resume", href: "/resume" }],
+    };
+  }
+
   // --- hackathon / invite / hire ---
   if (has(q, "hackathon", "invite", "recruit", "hire", "intern", "why should", "pick him", "pick jethro", "join")) {
     return {

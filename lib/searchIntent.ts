@@ -33,15 +33,6 @@ export function resolveSearchAction(query: string): SearchAction {
   // contains a whole word (avoids matching inside other words)
   const hasWord = (...words: string[]) => words.some((w) => tokenSet.has(w));
 
-  const QWORDS = new Set([
-    "what", "whats", "why", "how", "when", "where", "who", "whos", "which",
-    "does", "do", "is", "are", "can", "could", "would", "should", "will",
-  ]);
-  const looksLikeQuestion =
-    raw.endsWith("?") ||
-    (tokens.length > 0 && QWORDS.has(tokens[0])) ||
-    hasPhrase("tell me", "explain", "describe", "what about");
-
   /* ---- 1. Lab Logger (specific project) ---- */
   if (hasPhrase("lab logger", "lablogger", "lab notebook", "research notebook", "research project")) {
     return { type: "scroll", targetId: "lab-logger" };
@@ -95,12 +86,12 @@ export function resolveSearchAction(query: string): SearchAction {
     return { type: "ask", question: "Why should we invite Jethro to a hackathon?" };
   }
 
-  /* ---- 6. Resume (navigate, unless they ask a real question about it) ---- */
+  /* ---- 6. Resume (any mention of it just loads the resume page) ---- */
   if (
     hasWord("resume", "cv", "experience") ||
-    hasPhrase("clinical resume", "nursing resume", "clinical experience")
+    hasPhrase("clinical resume", "nursing resume", "clinical experience", "curriculum vitae")
   ) {
-    return looksLikeQuestion ? { type: "ask", question: raw } : { type: "navigate", href: "/resume" };
+    return { type: "navigate", href: "/resume" };
   }
 
   /* ---- 7. Projects / work / portfolio ---- */

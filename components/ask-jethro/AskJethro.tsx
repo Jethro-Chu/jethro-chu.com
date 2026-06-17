@@ -109,7 +109,12 @@ export function AskJethroProvider({ children }: { children: React.ReactNode }) {
   const handleAction = useCallback(
     (action: AssistantAction) => {
       if (action.type === "open-link" && action.href) {
-        window.open(action.href, action.href.startsWith("mailto:") ? "_self" : "_blank", "noopener,noreferrer");
+        if (action.href.startsWith("/")) {
+          // internal route (e.g. /resume): navigate in the same tab
+          window.location.assign(action.href);
+        } else {
+          window.open(action.href, action.href.startsWith("mailto:") ? "_self" : "_blank", "noopener,noreferrer");
+        }
       } else if (action.type === "ask" && action.question) {
         submit(action.question);
       } else if (action.type === "view-case-study" && action.projectId) {
