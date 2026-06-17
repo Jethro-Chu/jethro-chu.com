@@ -365,7 +365,7 @@ function EmptyState({ onAsk }: { onAsk: (q: string) => void }) {
     <div className="pt-1">
       <div className="rounded-md rounded-tl-xs border border-[var(--color-granite-line)] bg-[var(--color-card)] px-4 py-3.5">
         <p className="text-[0.92rem] leading-relaxed text-[var(--color-shadow)]">
-          Ask me about {first}&apos;s projects, healthcare AI work, hackathon fit, or what he&apos;s currently building.
+          Ask me about {first}&apos;s projects, healthcare AI work, his product approach, or what he&apos;s currently building.
         </p>
       </div>
       <p className="label-mono mb-2 mt-5 text-[0.6rem]">try asking</p>

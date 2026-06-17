@@ -356,7 +356,7 @@ export const method = {
 export const suggestedQuestions: string[] = [
   "What has he built?",
   "Healthcare AI projects",
-  "Why invite him to a hackathon?",
+  "What's his strongest project?",
   "What is Lab Logger?",
   "Tell me about NurseJet",
 ];

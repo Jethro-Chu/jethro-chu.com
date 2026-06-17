@@ -59,7 +59,7 @@ function projectAnswer(p: FullProject): AssistantAnswer {
     intent: `project:${p.id}`,
     content: `${p.title} is ${lowerFirst(p.oneLine)}\n\nWhy it matters: ${p.whyItMatters}\n\nJethro's role: ${p.builderRole}.`,
     relatedProjects: rel ? [rel.id] : [],
-    followUps: rel ? [`Tell me about ${rel.title}`, "What has Jethro built?"] : ["What has Jethro built?", "Why invite him to a hackathon?"],
+    followUps: rel ? [`Tell me about ${rel.title}`, "What has Jethro built?"] : ["What has Jethro built?", "What is he focused on right now?"],
     actions,
   };
 }
@@ -109,7 +109,7 @@ export function generateJethroAnswer(question: string, context?: { projectId?: s
       intent: "resume",
       content: `${profile.name} is a Bachelor of Science in Nursing student at Azusa Pacific University (expected December 2026), with clinical placements across pediatric, mental health, oncology, cardiac, emergency, and med-surg settings.\n\nHis full resume — education, clinical hours, certifications (BLS, ACLS, Epic), and skills — is on the resume page.`,
       relatedProjects: [],
-      followUps: ["What has Jethro built?", "Why invite him to a hackathon?"],
+      followUps: ["What has Jethro built?", "What's his strongest project?"],
       actions: [{ type: "open-link", label: "View resume", href: "/resume" }],
     };
   }
@@ -120,8 +120,8 @@ export function generateJethroAnswer(question: string, context?: { projectId?: s
       intent: "hackathon_pitch",
       content: invite.whyHackathon,
       relatedProjects: featuredProjects.map((p) => p.id),
-      followUps: ["Pitch him in 30 seconds", "Show his healthcare AI projects"],
-      actions: [askAction("Pitch in 30 seconds", "Summarize Jethro in 30 seconds")],
+      followUps: ["Show his healthcare AI projects", "What is he focused on right now?"],
+      actions: [],
     };
   }
 
@@ -131,7 +131,7 @@ export function generateJethroAnswer(question: string, context?: { projectId?: s
       intent: "pitch_30",
       content: invite.pitch30,
       relatedProjects: featuredProjects.map((p) => p.id),
-      followUps: ["What has Jethro built?", "Why invite him to a hackathon?"],
+      followUps: ["What has Jethro built?", "What's his strongest project?"],
       actions: [],
     };
   }
@@ -210,7 +210,7 @@ export function generateJethroAnswer(question: string, context?: { projectId?: s
       intent: "background",
       content: `${profile.builderIdentity}\n\n${profile.longBio}`,
       relatedProjects: featuredProjects.map((p) => p.id),
-      followUps: ["What has Jethro built?", "Why invite him to a hackathon?"],
+      followUps: ["What has Jethro built?", "What's his strongest project?"],
       actions: [askAction("What has he built?", "What has Jethro built?")],
     };
   }
@@ -232,7 +232,7 @@ export function generateJethroAnswer(question: string, context?: { projectId?: s
       intent: "contact",
       content: `The fastest way is email — he's open to healthcare, software, and hackathon collaborations.`,
       relatedProjects: [],
-      followUps: ["Why invite him to a hackathon?", "What has Jethro built?"],
+      followUps: ["What has Jethro built?", "Show his healthcare AI projects"],
       actions: [
         ...(profile.contactEmail ? [{ type: "open-link" as const, label: "Email Jethro", href: profile.contactEmail }] : []),
         ...(profile.github ? [{ type: "open-link" as const, label: "GitHub", href: profile.github }] : []),
@@ -246,7 +246,7 @@ export function generateJethroAnswer(question: string, context?: { projectId?: s
       intent: "project_overview",
       content: `Jethro builds across healthcare, AI, research, and playful consumer tools. The work to know:\n\n• NurseJet — a daily clinical briefing for nurses\n• Lab Logger — an AI research notebook he shaped the UX for\n• Rate My Hospital Food — a real product out of a funny idea\n• Emotion Stock Market Game — your face trades the market\n\nThe pattern: he notices friction in a real setting, then builds software around it.`,
       relatedProjects: featuredProjects.map((p) => p.id),
-      followUps: ["Show his healthcare AI projects", "Why invite him to a hackathon?"],
+      followUps: ["Show his healthcare AI projects", "What is he focused on right now?"],
       actions: [askAction("About NurseJet", "What is NurseJet?"), askAction("About Lab Logger", "What is Lab Logger?")],
     };
   }
@@ -256,7 +256,7 @@ export function generateJethroAnswer(question: string, context?: { projectId?: s
     intent: "unknown",
     content: `I answer best about Jethro's projects, his healthcare and AI work, his product approach, why he'd be useful on a team, and what he's focused on now. Try one of these:`,
     relatedProjects: [],
-    followUps: ["What has Jethro built?", "Why invite him to a hackathon?", "What is Lab Logger?"],
+    followUps: ["What has Jethro built?", "What's his strongest project?", "What is Lab Logger?"],
     actions: [],
   };
 }
