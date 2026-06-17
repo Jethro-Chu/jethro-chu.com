@@ -44,9 +44,9 @@ type ChatMessage =
   | { id: number; role: "user"; text: string }
   | { id: number; role: "assistant"; answer: AssistantAnswer; fresh: boolean }
   | { id: number; role: "casestudy"; projectId: string }
-  | { id: number; role: "offtrail" };
+  | { id: number; role: "offtrail"; query: string };
 
-type OffTrailAction = "projects" | "resume" | "about";
+type OffTrailAction = "projects" | "resume" | "ask" | "about";
 
 /* ------------------------------------------------------------------ */
 /*  provider (owns state, renders the panel)                          */
@@ -71,7 +71,7 @@ export function AskJethroProvider({ children }: { children: React.ReactNode }) {
     setMessages((m) => [...m, { id: id(), role: "user", text }]);
     // obvious off-topic asks never reach Gemini — show the off-trail moment instead
     if (isOffTopic(text)) {
-      setMessages((m) => [...m, { id: id(), role: "offtrail" }]);
+      setMessages((m) => [...m, { id: id(), role: "offtrail", query: text }]);
       return;
     }
     setIsThinking(true);
@@ -139,10 +139,10 @@ export function AskJethroProvider({ children }: { children: React.ReactNode }) {
 
   const handleOffTrail = useCallback(
     (a: OffTrailAction) => {
-      if (a === "projects") {
+      if (a === "projects" || a === "about") {
         setIsOpen(false);
         // let the panel close before scrolling the page behind it
-        window.setTimeout(() => scrollToId("projects"), 380);
+        window.setTimeout(() => scrollToId(a === "about" ? "about" : "projects"), 380);
       } else if (a === "resume") {
         router.push("/resume");
       } else {

@@ -23,20 +23,28 @@ function normalize(query: string): string {
     .trim();
 }
 
-/* Anything mentioning Jethro, his projects, his domain, or the site is on-topic
-   and must never be flagged off-topic — even if it also trips an off-topic word. */
-const ON_TOPIC_GUARD = [
+/* Strong on-topic terms: if any appear, the ask is about Jethro / his work /
+   the site, and is never off-topic — even if it also trips an off-topic word. */
+const STRONG_ON_TOPIC = [
   "jethro", "nursejet", "nurse jet", "lab logger", "lablogger",
   "rate my hospital", "hospital food", "stock market game", "emotion stock",
-  "resume", "cv", "portfolio", "hackathon", "lab notebook", "experiment record",
-  "nursing", "clinical", "healthcare", "health tech", "med surg", "bedside",
-  "this site", "this website", "this portfolio", "his project", "your project",
-  "skill", "contact", "email", "how he build", "how jethro build", "how you build",
+  "resume", "portfolio", "lab notebook", "this site", "this website", "this portfolio",
 ];
 
-/* High-signal markers of an obviously off-topic ask. Precision over recall:
-   borderline asks fall through to the grounded assistant, not the off-trail card. */
+/* Obvious off-topic / out-of-scope markers: task-generation requests, unsafe
+   asks, and clearly unrelated categories. Checked before the soft on-topic
+   signals so "build me a todo app" or "can you write me X" is always caught. */
 const OFF_TOPIC_MARKERS = [
+  // "do a general task for me" requests (the assistant is not a general tool)
+  "build me", "make me", "write me", "create me", "code me", "develop me", "generate me",
+  "design me", "help me build", "help me make", "help me write", "help me code", "help me design",
+  "can you build", "can you make", "can you write", "can you code", "can you create",
+  "how do i build", "how do i make", "how do i create", "how do i code",
+  "how to build", "how to make", "how to create", "how to code",
+  "todo app", "flappy", "clone of", "build an app", "make an app",
+  // unsafe / harmful — do not answer, just send off-trail
+  "bomb", "explosive", "build a weapon", "how to hack", "hack into", "malware", "ransomware",
+  "make a virus", "untraceable", "kill someone", "hurt someone",
   // weather
   "weather", "temperature", "forecast", "how hot is", "how cold is", "will it rain",
   // sports
@@ -44,36 +52,54 @@ const OFF_TOPIC_MARKERS = [
   "lebron", "messi", "ronaldo", "premier league", "champions league",
   // food / recipes
   "recipe", "pasta", "how to cook", "how to bake", "dinner idea", "what should i eat",
-  // math / homework
+  // math / homework / science
   "solve this", "math problem", "derivative of", "integral of", "homework", "this equation",
+  "quantum", "physics", "chemistry", "periodic table",
   // trivia / geography
   "capital of", "population of", "how tall is", "tallest", "largest country", "how far is",
   // creative writing
-  "poem", "haiku", "write a story", "write me a story", "tell me a joke", "song lyrics", "rap about",
+  "poem", "haiku", "write a story", "tell me a joke", "song lyrics", "rap about",
   // medical advice
   "should i take", "is it safe to take", "ibuprofen", "tylenol", "advil", "aspirin",
-  "acetaminophen", "dosage", "diagnose", "symptoms of", "what medication", "my headache", "my fever",
+  "acetaminophen", "dosage", "diagnose me", "symptoms of", "what medication", "my headache", "my fever",
   // stocks / shopping
   "stock price", "share price", "bitcoin", "crypto price", "where to buy", "best deal", "discount code",
   // politics / news
   "election", "president of", "republican", "democrat", "politics", "latest news", "headlines",
   // travel
-  "flight to", "hotel in", "trip to", "vacation", "things to do in",
+  "flight to", "hotel in", "trip to", "vacation", "things to do in", "plan a trip",
   // generic coding help unrelated to this portfolio
-  "write me a script", "write a function", "debug my", "fix my code", "leetcode", "python script", "sql query",
+  "write a function", "debug my", "fix my code", "leetcode", "python script", "sql query",
 ];
 
+/* Softer on-topic signals: his domain, his career, his building work, the site. */
+const SOFT_ON_TOPIC = [
+  "nursing", "clinical", "healthcare", "health tech", "med surg", "bedside", "patient care",
+  "skill", "stack", "contact", "email", "hire", "recruit", "collaborate", "invite",
+  "hackathon", "education", "experience", "background", "certification",
+  "design", "ux", "his work", "his code", "he built", "he build", "project", "ship",
+  "believe", "philosophy", "approach", "website", "navigate",
+];
+
+/* on-topic pronouns (the assistant is asked ABOUT Jethro: "what has he built") */
+const ON_TOPIC_PRONOUNS = ["he", "his", "him", "hes", "jethros"];
+
 /**
- * True only for OBVIOUSLY off-topic asks (weather, sports, recipes, trivia,
- * medical advice, etc.). Anything that mentions Jethro / his work / the site is
- * guarded as on-topic. Used both by the router and by the assistant before it
- * would ever call Gemini, so off-topic asks never hit the model.
+ * Allowlist model: an ask is off-topic UNLESS it shows an on-topic signal.
+ * Order: strong on-topic wins, then explicit off-topic / unsafe markers, then
+ * soft on-topic signals and pronouns; anything with no tie to Jethro or the
+ * site defaults to off-trail. Used by the router AND by the assistant before it
+ * would ever call Gemini, so obvious off-topic asks never reach the model.
  */
 export function isOffTopic(query: string): boolean {
   const n = normalize(query);
   if (!n) return false;
-  if (ON_TOPIC_GUARD.some((g) => n.includes(g))) return false;
-  return OFF_TOPIC_MARKERS.some((m) => n.includes(m));
+  if (STRONG_ON_TOPIC.some((t) => n.includes(t))) return false;
+  if (OFF_TOPIC_MARKERS.some((m) => n.includes(m))) return true;
+  const tokens = new Set(n.split(" "));
+  if (ON_TOPIC_PRONOUNS.some((p) => tokens.has(p))) return false;
+  if (SOFT_ON_TOPIC.some((t) => n.includes(t))) return false;
+  return true; // nothing ties it to Jethro or the site → off the trail
 }
 
 export function resolveSearchAction(query: string): SearchAction {
