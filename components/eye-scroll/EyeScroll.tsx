@@ -24,6 +24,7 @@ const MAX_SPEED = 950; // px/sec cap
 const SMOOTH = 0.16; // per-frame approach toward the target speed
 
 type Status = "off" | "loading" | "calibrating" | "active" | "denied" | "error";
+type LoadingPhase = "camera" | "model" | "warmup";
 
 interface WebGazer {
   setGazeListener(cb: (data: { x: number; y: number } | null, ts: number) => void): WebGazer;
@@ -89,6 +90,7 @@ export function EyeScrollProvider({ children }: { children: React.ReactNode }) {
   const [supported, setSupported] = useState(false);
   const [status, setStatus] = useState<Status>("off");
   const [calibStep, setCalibStep] = useState(0);
+  const [loadingPhase, setLoadingPhase] = useState<LoadingPhase>("camera");
 
   const gaze = useRef<{ x: number; y: number } | null>(null);
   const calib = useRef({ centerY: 0, topY: 0, bottomY: 0, ok: false });
@@ -167,6 +169,7 @@ export function EyeScrollProvider({ children }: { children: React.ReactNode }) {
 
   const enable = useCallback(async () => {
     if (!supported || statusRef.current !== "off") return;
+    setLoadingPhase("camera");
     setStatusSafe("loading");
     // probe permission first so a denial is detected cleanly
     try {
@@ -178,6 +181,7 @@ export function EyeScrollProvider({ children }: { children: React.ReactNode }) {
     }
     let wg: WebGazer;
     try {
+      setLoadingPhase("model");
       wg = await loadWebgazer();
       wg.saveDataAcrossSessions(false);
       wg.setGazeListener((data) => {
@@ -191,6 +195,7 @@ export function EyeScrollProvider({ children }: { children: React.ReactNode }) {
       return;
     }
     // wait for the first real prediction (model warm-up), then calibrate
+    setLoadingPhase("warmup");
     const startedAt = performance.now();
     const waitReady = () => {
       if (statusRef.current !== "loading") return;
@@ -267,7 +272,13 @@ export function EyeScrollProvider({ children }: { children: React.ReactNode }) {
   return (
     <Ctx.Provider value={{ supported, status, enable, disable }}>
       {children}
-      <EyeScrollOverlay status={status} calibStep={calibStep} onCalibClick={onCalibClick} onDisable={disable} />
+      <EyeScrollOverlay
+        status={status}
+        loadingPhase={loadingPhase}
+        calibStep={calibStep}
+        onCalibClick={onCalibClick}
+        onDisable={disable}
+      />
     </Ctx.Provider>
   );
 }
@@ -278,11 +289,13 @@ export function EyeScrollProvider({ children }: { children: React.ReactNode }) {
 
 function EyeScrollOverlay({
   status,
+  loadingPhase,
   calibStep,
   onCalibClick,
   onDisable,
 }: {
   status: Status;
+  loadingPhase: LoadingPhase;
   calibStep: number;
   onCalibClick: (key: string) => void;
   onDisable: () => void;
@@ -290,12 +303,58 @@ function EyeScrollOverlay({
   if (status === "off") return null;
 
   if (status === "loading") {
+    const steps = [
+      { key: "camera", label: "Allow camera access" },
+      { key: "model", label: "Loading the eye tracker" },
+      { key: "warmup", label: "Warming up · look at your screen" },
+    ] as const;
+    const activeIdx = steps.findIndex((s) => s.key === loadingPhase);
     return (
-      <div className="fixed inset-x-0 top-4 z-[90] flex justify-center px-4">
-        <div className="flex items-center gap-2.5 rounded-full border border-[var(--color-granite-line)] bg-[var(--color-card)] px-4 py-2 shadow-[0_8px_30px_-12px_rgba(60,64,73,0.4)]">
-          <span className="size-2 animate-pulse rounded-full bg-[var(--color-pine)]" aria-hidden />
-          <span className="label-mono text-[0.66rem] text-[var(--color-shadow)]">starting eye scroll · allow camera access</span>
-        </div>
+      <div className="fixed inset-0 z-[90] flex flex-col items-center justify-center gap-5 bg-[color-mix(in_oklab,var(--color-sand)_88%,transparent)] px-6 text-center">
+        <p className="label-mono text-[0.66rem] text-[var(--color-pine)]">eye scroll</p>
+        {/* a small drawing route line that loops while it loads */}
+        <svg width="150" height="26" viewBox="0 0 150 26" fill="none" aria-hidden>
+          <path d="M4 18 C 34 6, 60 22, 86 12 S 134 6, 146 16" stroke="var(--color-granite-line)" strokeWidth="1.4" strokeLinecap="round" />
+          <circle cx="75" cy="13" r="3" fill="var(--color-golden)" className="animate-pulse" />
+        </svg>
+        <p className="font-display text-[1.35rem] font-medium text-[var(--color-shadow)]">Starting eye scroll…</p>
+        <ul className="flex flex-col items-start gap-2">
+          {steps.map((s, i) => {
+            const state = i < activeIdx ? "done" : i === activeIdx ? "active" : "pending";
+            return (
+              <li key={s.key} className="flex items-center gap-2.5">
+                <span
+                  aria-hidden
+                  className={
+                    state === "active"
+                      ? "size-2 animate-pulse rounded-full bg-[var(--color-pine)]"
+                      : state === "done"
+                        ? "size-2 rounded-full bg-[var(--color-pine)]"
+                        : "size-2 rounded-full border border-[var(--color-granite-line)]"
+                  }
+                />
+                <span
+                  className={`label-mono text-[0.7rem] ${
+                    state === "pending" ? "text-[var(--color-granite-line)]" : "text-[var(--color-shadow)]"
+                  }`}
+                >
+                  {s.label}
+                  {state === "done" && " ✓"}
+                </span>
+              </li>
+            );
+          })}
+        </ul>
+        <p className="max-w-xs text-pretty text-[0.78rem] leading-relaxed text-[var(--color-muted)]">
+          First time takes a few seconds while the tracker downloads. Everything runs on your device — nothing is
+          recorded or uploaded.
+        </p>
+        <button
+          onClick={onDisable}
+          className="label-mono text-[0.62rem] text-[var(--color-muted)] underline underline-offset-2 transition-colors hover:text-[var(--color-pine)]"
+        >
+          cancel (Esc)
+        </button>
       </div>
     );
   }
