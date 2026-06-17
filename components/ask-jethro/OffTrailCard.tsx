@@ -44,9 +44,9 @@ const SUGGESTIONS = [
   "What's his clinical background?",
 ];
 const btn =
-  "inline-flex items-center rounded-sm border border-[var(--color-granite-line)] bg-[var(--color-sand)] px-2.5 py-1 text-[0.76rem] font-medium text-[var(--color-shadow)] transition-colors hover:border-[var(--color-pine)] hover:text-[var(--color-pine)]";
+  "inline-flex items-center rounded-sm border border-[var(--color-granite-line)] bg-[var(--color-sand)] px-2.5 py-1 text-[0.76rem] font-medium text-[var(--color-shadow)] transition duration-150 ease-[var(--ease-fast)] hover:border-[var(--color-pine)] hover:text-[var(--color-pine)] active:scale-[0.98]";
 const askChip =
-  "rounded-full border border-[var(--color-granite-line)] bg-[var(--color-card)] px-2.5 py-1 text-left text-[0.72rem] text-[var(--color-shadow)] transition-colors hover:border-[var(--color-pine)] hover:text-[var(--color-pine)]";
+  "rounded-full border border-[var(--color-granite-line)] bg-[var(--color-card)] px-2.5 py-1 text-left text-[0.72rem] text-[var(--color-shadow)] transition duration-150 ease-[var(--ease-fast)] hover:border-[var(--color-pine)] hover:text-[var(--color-pine)] active:scale-[0.98]";
 const GAME_H = 200;
 
 export function OffTrailCard({

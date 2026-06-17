@@ -11,7 +11,7 @@ import { scrollToId, flashEmphasis } from "@/lib/scrollToId";
 
 /* the hero command bar — a smart router, not just a chat input */
 const chipCls =
-  "label-mono rounded-full border border-[var(--color-granite-line)] bg-[color-mix(in_oklab,var(--color-sand)_60%,transparent)] px-3 py-1 text-[0.66rem] text-[var(--color-muted)] transition-colors hover:border-[var(--color-pine)] hover:text-[var(--color-pine)]";
+  "label-mono rounded-full border border-[var(--color-granite-line)] bg-[color-mix(in_oklab,var(--color-sand)_60%,transparent)] px-3 py-1 text-[0.66rem] text-[var(--color-muted)] transition duration-150 ease-[var(--ease-fast)] hover:border-[var(--color-pine)] hover:text-[var(--color-pine)] active:scale-[0.96]";
 
 export function HeroCommand() {
   const { ask } = useAskJethro();
@@ -70,7 +70,7 @@ export function HeroCommand() {
         <button
           type="submit"
           aria-label="Go"
-          className="flex size-8 shrink-0 items-center justify-center rounded-sm bg-[var(--color-pine)] text-[var(--color-on-dark)] transition-colors hover:bg-[var(--color-pine-deep)]"
+          className="flex size-8 shrink-0 items-center justify-center rounded-sm bg-[var(--color-pine)] text-[var(--color-on-dark)] transition duration-150 ease-[var(--ease-fast)] hover:bg-[var(--color-pine-deep)] active:scale-95"
         >
           <ArrowRight size={16} />
         </button>
@@ -105,7 +105,7 @@ export function FloatingAsk() {
     <button
       onClick={open}
       aria-label="Ask Jethro (Command-K)"
-      className="fixed bottom-20 right-4 z-50 inline-flex items-center gap-2 rounded-full border border-[var(--color-granite-line)] bg-[var(--color-card)] px-4 py-2.5 text-[0.85rem] font-medium text-[var(--color-shadow)] shadow-[0_2px_4px_rgba(60,64,73,0.08),0_16px_36px_-18px_rgba(60,64,73,0.4)] transition-colors hover:border-[var(--color-pine)] hover:text-[var(--color-pine)] lg:bottom-6 lg:right-6"
+      className="fixed bottom-20 right-4 z-50 inline-flex items-center gap-2 rounded-full border border-[var(--color-granite-line)] bg-[var(--color-card)] px-4 py-2.5 text-[0.85rem] font-medium text-[var(--color-shadow)] shadow-[0_2px_4px_rgba(60,64,73,0.08),0_16px_36px_-18px_rgba(60,64,73,0.4)] transition duration-150 ease-[var(--ease-fast)] hover:border-[var(--color-pine)] hover:text-[var(--color-pine)] hover:-translate-y-px active:translate-y-0 active:scale-[0.97] lg:bottom-6 lg:right-6"
     >
       <MessageSquareText size={16} className="text-[var(--color-pine)]" aria-hidden />
       Ask Jethro
@@ -129,8 +129,8 @@ export function AskChip({
       onClick={() => ask(question)}
       className={
         primary
-          ? "inline-flex items-center gap-1.5 rounded-sm bg-[var(--color-pine)] px-3.5 py-2 text-[0.85rem] font-medium text-[var(--color-on-dark)] transition-colors hover:bg-[var(--color-pine-deep)]"
-          : "inline-flex items-center gap-1.5 rounded-sm border border-[var(--color-granite-line)] bg-[var(--color-card)] px-3.5 py-2 text-[0.85rem] font-medium text-[var(--color-shadow)] transition-colors hover:border-[var(--color-pine)] hover:text-[var(--color-pine)]"
+          ? "inline-flex items-center gap-1.5 rounded-sm bg-[var(--color-pine)] px-3.5 py-2 text-[0.85rem] font-medium text-[var(--color-on-dark)] transition duration-150 ease-[var(--ease-fast)] hover:bg-[var(--color-pine-deep)] active:scale-[0.98]"
+          : "inline-flex items-center gap-1.5 rounded-sm border border-[var(--color-granite-line)] bg-[var(--color-card)] px-3.5 py-2 text-[0.85rem] font-medium text-[var(--color-shadow)] transition duration-150 ease-[var(--ease-fast)] hover:border-[var(--color-pine)] hover:text-[var(--color-pine)] active:scale-[0.98]"
       }
     >
       {label ?? question}
@@ -158,7 +158,7 @@ export function AskAboutButton({ projectId, label }: { projectId: string; label?
   return (
     <button
       onClick={() => ask(`What is ${p.title}?`, { projectId })}
-      className="inline-flex items-center gap-1.5 rounded-sm border border-[var(--color-granite-line)] px-2.5 py-1.5 font-mono text-[0.7rem] text-[var(--color-pine)] transition-colors hover:border-[var(--color-pine)] hover:bg-[var(--color-pine)] hover:text-[var(--color-on-dark)]"
+      className="inline-flex items-center gap-1.5 rounded-sm border border-[var(--color-granite-line)] px-2.5 py-1.5 font-mono text-[0.7rem] text-[var(--color-pine)] transition duration-150 ease-[var(--ease-fast)] hover:border-[var(--color-pine)] hover:bg-[var(--color-pine)] hover:text-[var(--color-on-dark)] active:scale-[0.97]"
     >
       <Sparkles size={12} aria-hidden />
       {label ?? "Ask Jethro about this"}

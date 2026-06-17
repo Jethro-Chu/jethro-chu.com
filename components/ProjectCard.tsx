@@ -28,7 +28,7 @@ export function ProjectCard({
   }
 
   return (
-    <article id={project.id} className="group grid scroll-mt-24 gap-5 rounded-md border border-[var(--color-granite-line)] bg-[var(--color-card)] p-7 shadow-[0_1px_2px_rgba(60,64,73,0.05),0_10px_30px_-16px_rgba(60,64,73,0.16)] transition-[transform,box-shadow] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-0.5 hover:shadow-[0_2px_4px_rgba(60,64,73,0.06),0_18px_44px_-18px_rgba(60,64,73,0.24)] sm:p-8 lg:grid-cols-[14rem_1fr] lg:gap-10">
+    <article id={project.id} className="group grid scroll-mt-24 gap-5 rounded-md border border-[var(--color-granite-line)] bg-[var(--color-card)] p-7 shadow-[0_1px_2px_rgba(60,64,73,0.05),0_12px_34px_-16px_rgba(60,64,73,0.2)] transition-transform duration-200 ease-[var(--ease-fast)] hover:-translate-y-0.5 active:scale-[0.997] sm:p-8 lg:grid-cols-[14rem_1fr] lg:gap-10">
       {/* left: index, title, role */}
       <div>
         <span className="label-mono tnum text-[var(--color-pine)]">{pad2(index)}</span>

@@ -42,6 +42,9 @@
 
   /* ---- motion ---- */
   --ease-trail: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-fast: cubic-bezier(0.16, 1, 0.3, 1);
+  --duration-fast: 160ms;
+  --duration-medium: 220ms;
 }
 
 /* ============================================================
@@ -216,6 +219,33 @@ html.lenis body {
   outline: 2px solid transparent;
   border-radius: 0.75rem;
   animation: cmd-emphasis 1.6s ease-out;
+}
+
+/* ============================================================
+   FAST UI  — instant, tactile interaction feedback (transform/opacity only)
+   ============================================================ */
+
+.fast-ui {
+  transition:
+    transform var(--duration-fast) var(--ease-fast),
+    opacity var(--duration-fast) var(--ease-fast),
+    background-color var(--duration-fast) var(--ease-fast),
+    border-color var(--duration-fast) var(--ease-fast),
+    color var(--duration-fast) var(--ease-fast);
+}
+.fast-ui:hover {
+  transform: translateY(-1px);
+}
+.fast-ui:active {
+  transform: translateY(0) scale(0.985);
+}
+
+/* Pause decorative loops while the page is actively scrolling (set by Lenis,
+   cleared ~150ms after it stops) so the gesture stays buttery. Scoped to the
+   two looping classes so toggling the flag is a cheap, local style recalc. */
+:where(html[data-scrolling]) .scroll-cue,
+:where(html[data-scrolling]) .animate-ping {
+  animation-play-state: paused;
 }
 
 /* ============================================================

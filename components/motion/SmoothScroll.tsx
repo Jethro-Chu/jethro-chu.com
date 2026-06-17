@@ -24,6 +24,8 @@ export function SmoothScroll() {
   useEffect(() => {
     let lenis: Lenis | undefined;
     let raf = 0;
+    let onScroll: (() => void) | undefined;
+    let scrollEnd = 0;
 
     // smooth scroll only when motion is allowed; reduced motion keeps native scroll
     if (!reduce) {
@@ -42,6 +44,24 @@ export function SmoothScroll() {
       };
       raf = requestAnimationFrame(loop);
       window.__lenis = lenis;
+
+      // flag the document while scrolling so decorative CSS loops pause for the
+      // gesture (see globals.css). Set once on start, cleared ~150ms after stop —
+      // no per-frame DOM writes.
+      const root = document.documentElement;
+      let scrolling = false;
+      onScroll = () => {
+        if (!scrolling) {
+          scrolling = true;
+          root.setAttribute("data-scrolling", "");
+        }
+        if (scrollEnd) window.clearTimeout(scrollEnd);
+        scrollEnd = window.setTimeout(() => {
+          scrolling = false;
+          root.removeAttribute("data-scrolling");
+        }, 150);
+      };
+      lenis.on("scroll", onScroll);
     }
 
     // anchor jumps work in both modes; Lenis eases them when present, and focus
@@ -68,9 +88,12 @@ export function SmoothScroll() {
     return () => {
       if (lenis) {
         cancelAnimationFrame(raf);
+        if (onScroll) lenis.off("scroll", onScroll);
         lenis.destroy();
         if (window.__lenis === lenis) window.__lenis = undefined;
       }
+      window.clearTimeout(scrollEnd);
+      document.documentElement.removeAttribute("data-scrolling");
       document.removeEventListener("click", onClick);
     };
   }, [reduce]);
