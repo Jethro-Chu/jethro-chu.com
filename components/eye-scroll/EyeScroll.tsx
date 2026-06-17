@@ -1,6 +1,7 @@
 "use client";
 
 import { createContext, useCallback, useContext, useEffect, useRef, useState } from "react";
+import { EyeOverlay } from "./EyeOverlay";
 
 /**
  * Eye Scroll — a desktop-only, opt-in webcam gaze-scroller. Look near the top
@@ -40,6 +41,8 @@ interface WebGazer {
   setRegression(name: string): WebGazer;
   clearGazeListener(): WebGazer;
   clearData?(): void;
+  /** the underlying face tracker — getPositions() returns the 468 mesh landmarks */
+  getTracker?(): { getPositions?(): unknown[] | null | undefined } | null | undefined;
 }
 declare global {
   interface Window {
@@ -272,6 +275,7 @@ export function EyeScrollProvider({ children }: { children: React.ReactNode }) {
   return (
     <Ctx.Provider value={{ supported, status, enable, disable }}>
       {children}
+      {status === "active" && <EyeOverlay gazeRef={gaze} />}
       <EyeScrollOverlay
         status={status}
         loadingPhase={loadingPhase}
