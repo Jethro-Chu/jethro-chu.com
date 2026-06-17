@@ -8,6 +8,7 @@ import { useAskJethro } from "./AskJethro";
 import { projectById } from "@/content/profile";
 import { resolveSearchAction, type SearchAction } from "@/lib/searchIntent";
 import { scrollToId, flashEmphasis } from "@/lib/scrollToId";
+import { useEyeScroll } from "@/components/eye-scroll/EyeScroll";
 
 /* the hero command bar — a smart router, not just a chat input */
 const chipCls =
@@ -15,6 +16,7 @@ const chipCls =
 
 export function HeroCommand() {
   const { ask } = useAskJethro();
+  const { supported: eyeSupported, status: eyeStatus, enable: enableEye } = useEyeScroll();
   const router = useRouter();
   const [v, setV] = useState("");
 
@@ -92,6 +94,16 @@ export function HeroCommand() {
         <Link href="/resume" className={chipCls}>
           My resume
         </Link>
+        {/* desktop-only, opt-in webcam gaze scrolling */}
+        {eyeSupported && (
+          <button onClick={() => enableEye()} disabled={eyeStatus !== "off"} className={`${chipCls} disabled:opacity-60`}>
+            {eyeStatus === "active" || eyeStatus === "calibrating"
+              ? "Eye scroll on"
+              : eyeStatus === "loading"
+                ? "Starting…"
+                : "Enable eye scrolling"}
+          </button>
+        )}
       </div>
     </div>
   );

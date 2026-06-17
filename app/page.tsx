@@ -12,6 +12,7 @@ import { Projects } from "@/components/Projects";
 import { About } from "@/components/About";
 import { Footer } from "@/components/Footer";
 import { AskJethroProvider } from "@/components/ask-jethro/AskJethro";
+import { EyeScrollProvider } from "@/components/eye-scroll/EyeScroll";
 import { FloatingAsk } from "@/components/ask-jethro/triggers";
 import { CurrentlyBuilding } from "@/components/CurrentlyBuilding";
 import { CaseStudyExplorer } from "@/components/CaseStudyExplorer";
@@ -20,6 +21,7 @@ import { Method } from "@/components/Method";
 export default function Home() {
   return (
     <AskJethroProvider>
+    <EyeScrollProvider>
     <div className="relative">
       {/* the climb's light: a page-tall wash (static) + a scroll-linked alpenglow */}
       <BackgroundGradient />
@@ -50,6 +52,7 @@ export default function Home() {
       <Footer />
       <FloatingAsk />
     </div>
+    </EyeScrollProvider>
     </AskJethroProvider>
   );
 }
