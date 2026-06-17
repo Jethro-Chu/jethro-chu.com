@@ -341,7 +341,7 @@ function AskJethroPanel({
                       ) : m.role === "casestudy" ? (
                         <CaseStudyBlock key={m.id} projectId={m.projectId} onAction={onAction} />
                       ) : m.role === "offtrail" ? (
-                        <OffTrailCard key={m.id} onAction={onOffTrail} />
+                        <OffTrailCard key={m.id} onAction={onOffTrail} onAsk={onAsk} />
                       ) : (
                         <AssistantBubble key={m.id} answer={m.answer} fresh={m.fresh} onAsk={onAsk} onAction={onAction} />
                       )

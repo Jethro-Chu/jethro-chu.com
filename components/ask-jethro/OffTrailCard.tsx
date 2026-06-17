@@ -34,14 +34,28 @@ const COL = {
 const DESTS: { key: OffTrailAction; label: string }[] = [
   { key: "projects", label: "View projects" },
   { key: "resume", label: "My resume" },
-  { key: "ask", label: "Ask about Jethro" },
   { key: "about", label: "About" },
+];
+// portfolio-geared questions that get a real grounded answer (never off-topic)
+const SUGGESTIONS = [
+  "What has he built?",
+  "What is Lab Logger?",
+  "What's his clinical background?",
+  "Why invite him to a hackathon?",
 ];
 const btn =
   "inline-flex items-center rounded-sm border border-[var(--color-granite-line)] bg-[var(--color-sand)] px-2.5 py-1 text-[0.76rem] font-medium text-[var(--color-shadow)] transition-colors hover:border-[var(--color-pine)] hover:text-[var(--color-pine)]";
+const askChip =
+  "rounded-full border border-[var(--color-granite-line)] bg-[var(--color-card)] px-2.5 py-1 text-left text-[0.72rem] text-[var(--color-shadow)] transition-colors hover:border-[var(--color-pine)] hover:text-[var(--color-pine)]";
 const GAME_H = 200;
 
-export function OffTrailCard({ onAction }: { onAction: (a: OffTrailAction) => void }) {
+export function OffTrailCard({
+  onAction,
+  onAsk,
+}: {
+  onAction: (a: OffTrailAction) => void;
+  onAsk: (q: string) => void;
+}) {
   const reduce = useReducedMotion();
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const wrapRef = useRef<HTMLDivElement | null>(null);
@@ -439,10 +453,7 @@ export function OffTrailCard({ onAction }: { onAction: (a: OffTrailAction) => vo
           <span className="label-mono text-[0.6rem] text-[var(--color-pine)]">off trail</span>
         </div>
         <div className="px-4 py-3.5">
-          <p className="text-[0.9rem] leading-relaxed text-[var(--color-muted)]">
-            You wandered off the portfolio trail. Pick a route to get back.
-          </p>
-          <RouteButtons onAction={onAction} />
+          <OffTrailGuide onAsk={onAsk} onAction={onAction} />
         </div>
       </div>
     );
@@ -464,20 +475,45 @@ export function OffTrailCard({ onAction }: { onAction: (a: OffTrailAction) => vo
         <canvas ref={canvasRef} aria-hidden style={{ width: "100%", height: "100%", display: "block", cursor: "pointer" }} />
       </div>
       <div className="px-4 py-3">
-        <RouteButtons onAction={onAction} />
+        <OffTrailGuide onAsk={onAsk} onAction={onAction} />
       </div>
     </div>
   );
 }
 
-function RouteButtons({ onAction }: { onAction: (a: OffTrailAction) => void }) {
+/* the "you wandered off trail — try asking" nudge: portfolio questions that
+   submit to the assistant, plus the route-back navigation */
+function OffTrailGuide({
+  onAsk,
+  onAction,
+}: {
+  onAsk: (q: string) => void;
+  onAction: (a: OffTrailAction) => void;
+}) {
   return (
-    <div className="mt-0.5 flex flex-wrap gap-1.5">
-      {DESTS.map((d) => (
-        <button key={d.key} onClick={() => onAction(d.key)} className={btn}>
-          {d.label}
-        </button>
-      ))}
+    <div className="space-y-3">
+      <div>
+        <p className="mb-2 text-[0.85rem] leading-snug text-[var(--color-muted)]">
+          Looks like you wandered off trail. Try asking:
+        </p>
+        <div className="flex flex-wrap gap-1.5">
+          {SUGGESTIONS.map((q) => (
+            <button key={q} onClick={() => onAsk(q)} className={askChip}>
+              {q}
+            </button>
+          ))}
+        </div>
+      </div>
+      <div>
+        <p className="label-mono mb-1.5 text-[0.6rem] text-[var(--color-muted)]">or get back on trail</p>
+        <div className="flex flex-wrap gap-1.5">
+          {DESTS.map((d) => (
+            <button key={d.key} onClick={() => onAction(d.key)} className={btn}>
+              {d.label}
+            </button>
+          ))}
+        </div>
+      </div>
     </div>
   );
 }
