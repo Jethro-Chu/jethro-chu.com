@@ -54,32 +54,9 @@ export function Footer() {
         </ul>
 
         <div className="mt-16 flex flex-wrap items-center justify-between gap-4 border-t border-[var(--color-granite-line)] pt-6">
-          <div className="flex flex-col gap-1">
-            <p className="label-mono">
-              © {new Date().getFullYear()} {site.name}
-            </p>
-            <p className="label-mono text-[0.66rem] leading-relaxed">
-              Half Dome terrain:{" "}
-              <a
-                href="https://sketchfab.com/3d-models/half-dome-yosemite-fc8d0e10bd6149ca83de73274d4a2200"
-                target="_blank"
-                rel="noreferrer noopener"
-                className="underline decoration-[var(--color-granite-line)] underline-offset-2 hover:text-[var(--color-pine)]"
-              >
-                &ldquo;Half Dome, Yosemite&rdquo;
-              </a>{" "}
-              by Alan Zimmerman, licensed{" "}
-              <a
-                href="https://creativecommons.org/licenses/by/4.0/"
-                target="_blank"
-                rel="noreferrer noopener"
-                className="underline decoration-[var(--color-granite-line)] underline-offset-2 hover:text-[var(--color-pine)]"
-              >
-                CC BY 4.0
-              </a>
-              .
-            </p>
-          </div>
+          <p className="label-mono">
+            © {new Date().getFullYear()} {site.name}
+          </p>
           <a
             href="#hero"
             className="group inline-flex items-center gap-2 rounded-sm py-1 font-body text-sm font-medium text-[var(--color-pine)] transition-colors hover:text-[var(--color-pine-deep)]"
