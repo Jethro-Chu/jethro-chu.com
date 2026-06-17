@@ -35,8 +35,13 @@ export default function EmotionStockMarketGamePage() {
     >
       <ProjectSection n="01" label="what it is" heading="Your face trades the market">
         <p>
-          The Emotion Stock Market Game is a browser experiment where facial expressions, read live through the camera,
-          drive simulated stock trades. It runs entirely in your browser, with nothing recorded or uploaded.
+          A playful browser game inspired by the advice everyone hears: don&apos;t trade with your emotions. I made the
+          opposite. In this game, your facial expressions drive the market. Smile, panic, hesitate, or overreact, and
+          your emotions become the trading strategy.
+        </p>
+        <p>
+          It is not financial advice. It is just a weird, fun experiment about what happens when the market listens to
+          your face.
         </p>
       </ProjectSection>
 

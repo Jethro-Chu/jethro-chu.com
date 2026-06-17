@@ -178,7 +178,7 @@ const intel: Record<string, ProjectIntel> = {
     status: "Live",
     year: "2024",
     oneLine:
-      "A browser stock-market game where your facial expressions, read live through your camera, drive every buy and sell — and it all runs locally with nothing recorded or uploaded.",
+      "A browser game where your facial expressions drive simulated trades. Everyone says don't trade on emotion, so it does the opposite: every smile, panic, and overreaction can move your portfolio.",
     whyItMatters:
       "It is the most demo-worthy thing to put in front of someone: instant, physical, and a little absurd. It also shows I can wire real ML (face tracking) into a tight, private, single-page experience.",
     features: [

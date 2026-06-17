@@ -246,11 +246,11 @@ Good answer to “Why include it on the portfolio?”:
 
 ### 4.4 Emotion Stock Market Game / Market Pulse
 
-The Emotion Stock Market Game is an experimental browser game where facial expressions control simulated stock trades.
+The Emotion Stock Market Game is a playful browser game built on a twist: everyone says don't trade with your emotions, so Jethro made the opposite. Facial expressions, read live through the camera, drive simulated trades.
 
 Core idea:
 
-> A stock-market game where your facial expressions, read live through your camera, drive every buy and sell.
+> Everyone says not to trade with your emotions, so I built a game that does the opposite. Your facial expressions drive simulated trades in a chaotic browser market where every smile, panic, and overreaction can move your portfolio.
 
 The game uses:
 
@@ -267,7 +267,7 @@ It is more experimental and fun than clinical.
 
 Good answer:
 
-> The Emotion Stock Market Game is a browser experiment where facial expressions control simulated stock trades. It combines computer vision, playful market mechanics, and browser-based interaction. It is one of Jethro’s more fun experimental projects.
+> The Emotion Stock Market Game is a playful browser game inspired by the advice everyone hears: don't trade with your emotions. Jethro built the opposite, where your facial expressions drive the market. Smile, panic, hesitate, or overreact, and your emotions become the trading strategy. It is not financial advice, just a weird, fun experiment about what happens when the market listens to your face.
 
 ---
 
@@ -629,7 +629,7 @@ A review site for hospital cafeteria food. Search a hospital, read real reviews,
 **Subtitle:** Solo build
 
 **Description:**  
-A stock-market game where your facial expressions, read live through your camera, drive every buy and sell. Random crashes, recessions, and Warren Buffett whale pumps keep the market lurching, and it all runs in your browser with nothing recorded or uploaded.
+A playful browser game inspired by the advice everyone hears: don't trade with your emotions. I made the opposite. In this game, your facial expressions drive the market. Smile, panic, hesitate, or overreact, and your emotions become the trading strategy. It is not financial advice. It is just a weird, fun experiment about what happens when the market listens to your face.
 
 **Tags:**
 

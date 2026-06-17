@@ -93,7 +93,7 @@ export const projects: Project[] = [
     role: "Solo build",
     stack: ["Vanilla JS", "face-api.js", "TensorFlow.js"],
     summary:
-      "A stock-market game where your facial expressions, read live through your camera, drive every buy and sell. Random crashes, recessions, and Warren Buffett whale pumps keep the market lurching, and it all runs in your browser with nothing recorded or uploaded.",
+      "Everyone says not to trade with your emotions, so I built a game that does the opposite. Your facial expressions drive simulated trades in a chaotic browser market where every smile, panic, and overreaction can move your portfolio.",
     page: "/projects/emotion-stock-market-game",
     link: {
       href: "https://jethro-chu.github.io/JethroStockMarketGame.github.io/",
