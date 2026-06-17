@@ -25,3 +25,23 @@ export function scrollToId(targetId: string): boolean {
   el.focus({ preventScroll: true });
   return true;
 }
+
+/**
+ * Briefly pulse a quiet accent outline around the given element ids — used to
+ * draw the eye to a couple of cards after scrolling there (e.g. emphasize Lab
+ * Logger + NurseJet on a "healthcare AI" query). No-op under reduced motion.
+ */
+export function flashEmphasis(ids: string[], delay = 500): void {
+  if (typeof document === "undefined") return;
+  if (window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) return;
+  window.setTimeout(() => {
+    for (const id of ids) {
+      const el = document.getElementById(id);
+      if (!el) continue;
+      el.classList.remove("cmd-emphasis");
+      void el.offsetWidth; // reflow so the animation restarts cleanly
+      el.classList.add("cmd-emphasis");
+      window.setTimeout(() => el.classList.remove("cmd-emphasis"), 1800);
+    }
+  }, delay);
+}

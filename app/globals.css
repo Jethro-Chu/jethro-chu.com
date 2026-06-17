@@ -203,6 +203,21 @@ html.lenis body {
   animation: trail-bob 2.4s var(--ease-trail) infinite;
 }
 
+/* command-bar emphasis: a brief accent-outline pulse on a card the search
+   routed to (e.g. Lab Logger + NurseJet on a "healthcare AI" query). Outline
+   never affects layout; the JS helper and the rule below both disable it under
+   reduced motion. */
+@keyframes cmd-emphasis {
+  0% { outline-color: transparent; outline-offset: 2px; }
+  25% { outline-color: color-mix(in oklab, var(--color-pine) 60%, transparent); outline-offset: 4px; }
+  100% { outline-color: transparent; outline-offset: 2px; }
+}
+.cmd-emphasis {
+  outline: 2px solid transparent;
+  border-radius: 0.75rem;
+  animation: cmd-emphasis 1.6s ease-out;
+}
+
 /* ============================================================
    REDUCED MOTION  — complete static fallback, same palette
    ============================================================ */

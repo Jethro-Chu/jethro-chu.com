@@ -7,7 +7,7 @@ import { ArrowRight, Sparkles, MessageSquareText } from "./icons";
 import { useAskJethro } from "./AskJethro";
 import { projectById } from "@/content/profile";
 import { resolveSearchAction, type SearchAction } from "@/lib/searchIntent";
-import { scrollToId } from "@/lib/scrollToId";
+import { scrollToId, flashEmphasis } from "@/lib/scrollToId";
 
 /* the hero command bar — a smart router, not just a chat input */
 const chipCls =
@@ -24,7 +24,11 @@ export function HeroCommand() {
     if (action.type === "navigate") {
       router.push(action.href);
     } else if (action.type === "scroll") {
-      if (!scrollToId(action.targetId)) ask(fallbackQuestion);
+      if (scrollToId(action.targetId)) {
+        if (action.highlight) flashEmphasis(action.highlight);
+      } else {
+        ask(fallbackQuestion);
+      }
     } else {
       ask(action.question);
     }

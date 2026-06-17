@@ -9,7 +9,7 @@
 
 export type SearchAction =
   | { type: "navigate"; href: string }
-  | { type: "scroll"; targetId: string }
+  | { type: "scroll"; targetId: string; highlight?: string[] }
   | { type: "ask"; question: string };
 
 /** lowercase, trim, strip punctuation, collapse whitespace */
@@ -33,17 +33,56 @@ export function resolveSearchAction(query: string): SearchAction {
   // contains a whole word (avoids matching inside other words)
   const hasWord = (...words: string[]) => words.some((w) => tokenSet.has(w));
 
-  /* ---- 1. Lab Logger (specific project) ---- */
-  if (hasPhrase("lab logger", "lablogger", "lab notebook", "research notebook", "research project")) {
+  /* ---- 1. Lab Logger (specific project, scrolls to its card) ---- */
+  if (
+    hasPhrase(
+      "lab logger",
+      "lablogger",
+      "lab notebook",
+      "research notebook",
+      "research project",
+      "ai lab notebook",
+      "experiment records",
+    )
+  ) {
     return { type: "scroll", targetId: "lab-logger" };
   }
 
-  /* ---- 2. NurseJet (specific project) ---- */
-  if (hasPhrase("nursejet", "nurse jet", "nursing briefing", "nursing research", "clinical briefing")) {
-    return { type: "scroll", targetId: "nursejet" };
+  /* ---- 2. NurseJet (its own detail page) ---- */
+  if (
+    hasPhrase(
+      "nursejet",
+      "nurse jet",
+      "nursing briefing",
+      "clinical briefing",
+      "nursing research",
+      "nursing news",
+      "safety alert",
+      "bedside brief",
+      "source cited nursing",
+    )
+  ) {
+    return { type: "navigate", href: "/projects/nursejet" };
   }
 
-  /* ---- 3. AI philosophy (before healthcare; "ai in healthcare" / "believe") ---- */
+  /* ---- 3. Emotion Stock Market Game (its own detail page) ---- */
+  if (
+    hasPhrase(
+      "stock game",
+      "stock market",
+      "emotion stock",
+      "market pulse",
+      "face game",
+      "webcam game",
+      "expression game",
+      "computer vision",
+      "facial expression",
+    )
+  ) {
+    return { type: "navigate", href: "/projects/emotion-stock-market-game" };
+  }
+
+  /* ---- 4. AI philosophy (before healthcare; "ai in healthcare" / "believe") ---- */
   if (
     hasPhrase(
       "ai in healthcare",
@@ -55,12 +94,14 @@ export function resolveSearchAction(query: string): SearchAction {
       "what does jethro believe",
       "believe about ai",
       "what he believe",
+      "ai should do",
+      "healthcare future",
     )
   ) {
     return { type: "ask", question: "What does Jethro believe about AI in healthcare?" };
   }
 
-  /* ---- 4. Healthcare AI work ---- */
+  /* ---- 5. Healthcare AI work (scroll to projects, emphasize the two) ---- */
   if (
     hasPhrase(
       "healthcare ai",
@@ -74,10 +115,10 @@ export function resolveSearchAction(query: string): SearchAction {
       "health ai",
     )
   ) {
-    return { type: "ask", question: "Show me Jethro's healthcare AI projects." };
+    return { type: "scroll", targetId: "projects", highlight: ["lab-logger", "nursejet"] };
   }
 
-  /* ---- 5. Hackathon / invite ---- */
+  /* ---- 6. Hackathon / invite ---- */
   if (
     hasWord("hackathon", "demo") ||
     hasPhrase("why invite", "invite him", "invite jethro", "should we invite", "why should we invite") ||
@@ -86,7 +127,7 @@ export function resolveSearchAction(query: string): SearchAction {
     return { type: "ask", question: "Why should we invite Jethro to a hackathon?" };
   }
 
-  /* ---- 6. Resume (any mention of it just loads the resume page) ---- */
+  /* ---- 7. Resume (any mention of it just loads the resume page) ---- */
   if (
     hasWord("resume", "cv", "experience") ||
     hasPhrase("clinical resume", "nursing resume", "clinical experience", "curriculum vitae")
@@ -94,7 +135,7 @@ export function resolveSearchAction(query: string): SearchAction {
     return { type: "navigate", href: "/resume" };
   }
 
-  /* ---- 7. Projects / work / portfolio ---- */
+  /* ---- 8. Projects / work / portfolio ---- */
   if (
     hasWord("projects", "project", "portfolio", "work") ||
     hasPhrase(
@@ -113,7 +154,7 @@ export function resolveSearchAction(query: string): SearchAction {
     return { type: "scroll", targetId: "projects" };
   }
 
-  /* ---- 8. About / who is Jethro ---- */
+  /* ---- 9. About / who is Jethro ---- */
   if (
     hasPhrase(
       "about you",
@@ -126,7 +167,7 @@ export function resolveSearchAction(query: string): SearchAction {
       "who is he",
       "tell me about",
     ) ||
-    hasWord("about", "bio")
+    hasWord("about", "bio", "background")
   ) {
     return { type: "scroll", targetId: "about" };
   }

@@ -1,3 +1,4 @@
+import Link from "next/link";
 import type { Project } from "@/content/content";
 import { AskAboutButton } from "@/components/ask-jethro/triggers";
 
@@ -58,6 +59,20 @@ export function ProjectCard({
               </li>
             ))}
           </ul>
+        )}
+
+        {project.page && (
+          <div className="mt-5">
+            <Link
+              href={project.page}
+              className="inline-flex items-center gap-1.5 font-body text-sm font-medium text-[var(--color-pine)] underline decoration-[var(--color-pine)] decoration-2 underline-offset-4 transition-colors hover:text-[var(--color-pine-deep)]"
+            >
+              View project
+              <svg aria-hidden width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M5 12h14M13 6l6 6-6 6" />
+              </svg>
+            </Link>
+          </div>
         )}
 
         {(project.link || project.repo) && (

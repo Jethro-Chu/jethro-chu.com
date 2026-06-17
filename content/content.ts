@@ -32,6 +32,8 @@ export interface Project {
   repo?: { href: string; label: string };
   /** optional thumbnail under /public/images */
   thumbnail?: string;
+  /** optional internal detail page, e.g. /projects/nursejet */
+  page?: string;
   /** marks an unfilled slot so it renders as a clearly-labelled placeholder */
   placeholder?: boolean;
 }
@@ -81,6 +83,7 @@ export const projects: Project[] = [
     stack: [],
     summary:
       "A daily clinical briefing for bedside nurses. It distills new nursing research, guideline changes, and safety alerts into short briefs, organized by your specialty from the ED to the NICU, with the exact source citation and a bedside takeaway on every one.",
+    page: "/projects/nursejet",
     link: { href: "https://nursejet.org", label: "nursejet.org" },
     // thumbnail: screenshot of a sample brief (the takeaways + citations layout)
   },
@@ -91,6 +94,7 @@ export const projects: Project[] = [
     stack: ["Vanilla JS", "face-api.js", "TensorFlow.js"],
     summary:
       "A stock-market game where your facial expressions, read live through your camera, drive every buy and sell. Random crashes, recessions, and Warren Buffett whale pumps keep the market lurching, and it all runs in your browser with nothing recorded or uploaded.",
+    page: "/projects/emotion-stock-market-game",
     link: {
       href: "https://jethro-chu.github.io/JethroStockMarketGame.github.io/",
       label: "play the game",
