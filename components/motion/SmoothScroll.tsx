@@ -28,13 +28,13 @@ export function SmoothScroll() {
     // smooth scroll only when motion is allowed; reduced motion keeps native scroll
     if (!reduce) {
       lenis = new Lenis({
-        // Snappier settle: 0.8s (down from 1.05) with a sharp ease-out. The
-        // wheel/touch multipliers stay at the default 1 (never inflated).
-        // NOTE: Lenis could be removed entirely and the scroll-linked animations
-        // bound to native scroll via framer's useScroll for maximum snappiness;
-        // not removing it yet.
-        duration: 0.8,
-        easing: (t) => 1 - Math.pow(1 - t, 3),
+        // Lerp-based smoothing instead of a fixed duration: the scroll eases
+        // toward the target a fixed fraction PER FRAME, so it tracks the wheel/
+        // trackpad tightly (no 0.8s float behind your input) and gets crisper as
+        // the refresh rate rises — high-refresh displays converge in fewer ms.
+        // Higher lerp = snappier/more 1:1; lower = floatier. ~0.16 is responsive
+        // but still smooth. Wheel/touch multipliers stay at the default 1.
+        lerp: 0.16,
       });
       const loop = (time: number) => {
         lenis!.raf(time);
