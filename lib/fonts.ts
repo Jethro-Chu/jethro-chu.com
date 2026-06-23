@@ -13,7 +13,9 @@ export const fraunces = Fraunces({
   subsets: ["latin"],
   display: "swap",
   variable: "--font-fraunces",
-  axes: ["opsz", "SOFT"],
+  // opsz only: `font-optical-sizing: auto` uses it (globals.css). The SOFT axis is
+  // referenced nowhere, so shipping it was dead weight on the largest preloaded font.
+  axes: ["opsz"],
 });
 
 export const hanken = Hanken_Grotesk({
