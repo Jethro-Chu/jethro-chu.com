@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { fraunces, hanken, plexMono } from "@/lib/fonts";
 import { site } from "@/content/content";
 import { cn } from "@/lib/utils";
+import { MotionProvider } from "@/components/motion/MotionProvider";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -36,7 +37,7 @@ export default function RootLayout({
         <a href="#main" className="skip-link">
           Skip to content
         </a>
-        {children}
+        <MotionProvider>{children}</MotionProvider>
       </body>
     </html>
   );

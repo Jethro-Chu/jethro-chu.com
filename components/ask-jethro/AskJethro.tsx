@@ -10,7 +10,7 @@ import {
   useState,
 } from "react";
 import { useRouter } from "next/navigation";
-import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
+import { m, AnimatePresence, useReducedMotion } from "framer-motion";
 import { X, ArrowUpRight, Copy, Check, CornerDownLeft } from "./icons";
 import { generateJethroAnswer, type AssistantAnswer, type AssistantAction } from "@/lib/askJethro";
 import { isOffTopic } from "@/lib/searchIntent";
@@ -279,7 +279,7 @@ function AskJethroPanel({
       {isOpen && (
         <div className="fixed inset-0 z-[60]">
           {/* scrim */}
-          <motion.button
+          <m.button
             aria-label="Close assistant"
             className="absolute inset-0 bg-[color-mix(in_oklab,var(--color-shadow)_28%,transparent)]"
             initial={{ opacity: 0 }}
@@ -289,7 +289,7 @@ function AskJethroPanel({
             onClick={onClose}
           />
           {/* panel: right drawer on desktop, full sheet on mobile */}
-          <motion.div
+          <m.div
             role="dialog"
             aria-modal="true"
             aria-label="Ask Jethro"
@@ -381,7 +381,7 @@ function AskJethroPanel({
                 </button>
               </div>
             </form>
-          </motion.div>
+          </m.div>
         </div>
       )}
     </AnimatePresence>

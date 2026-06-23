@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
+import { m, useReducedMotion } from "framer-motion";
 
 /**
  * A quiet enter animation: content settles up and fades in as it scrolls into
@@ -19,7 +19,7 @@ export function Reveal({
   as?: "div" | "li";
 }) {
   const reduce = useReducedMotion();
-  const Tag = as === "li" ? motion.li : motion.div;
+  const Tag = as === "li" ? m.li : m.div;
 
   if (reduce) {
     const Plain = as === "li" ? "li" : "div";

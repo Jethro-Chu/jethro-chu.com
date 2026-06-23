@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import {
-  motion,
+  m,
   useScroll,
   useTransform,
   useReducedMotion,
@@ -181,7 +181,7 @@ export function YosemiteScene() {
     : undefined;
 
   return (
-    <motion.div
+    <m.div
       aria-hidden
       className="pointer-events-none fixed inset-0 -z-10 overflow-hidden"
       style={{ opacity: mounted ? sceneOpacity : 1, willChange: "opacity" }}
@@ -212,18 +212,18 @@ export function YosemiteScene() {
 
       {/* far contours + the distant dome: desktop only (one fewer moving layer on
           mobile, where they read least and cost the most) */}
-      <motion.div className="absolute inset-0 hidden md:block" style={lyr(farScale, farY)}>
+      <m.div className="absolute inset-0 hidden md:block" style={lyr(farScale, farY)}>
         <LineLayer lines={FAR_LINES} />
-      </motion.div>
-      <motion.div className="absolute inset-0 hidden md:block" style={domeLyr}>
+      </m.div>
+      <m.div className="absolute inset-0 hidden md:block" style={domeLyr}>
         <LineLayer lines={DOME_LINES} />
-      </motion.div>
-      <motion.div className="absolute inset-0" style={lyr(midScale, midY)}>
+      </m.div>
+      <m.div className="absolute inset-0" style={lyr(midScale, midY)}>
         <LineLayer lines={MID_LINES} />
-      </motion.div>
-      <motion.div className="absolute inset-0" style={lyr(foreScale, foreY)}>
+      </m.div>
+      <m.div className="absolute inset-0" style={lyr(foreScale, foreY)}>
         <LineLayer lines={FORE_LINES} />
-      </motion.div>
+      </m.div>
 
       {/* a soft sand veil behind the centered title so the type always leads */}
       <div
@@ -248,6 +248,6 @@ export function YosemiteScene() {
             " transparent 56%)",
         }}
       />
-    </motion.div>
+    </m.div>
   );
 }

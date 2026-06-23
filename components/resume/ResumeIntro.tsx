@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
+import { m, AnimatePresence, useReducedMotion } from "framer-motion";
 
 /**
  * A short, calm "building" intro shown once when the /resume page mounts. The
@@ -36,17 +36,17 @@ export function ResumeReveal({ children }: { children: React.ReactNode }) {
 
   return (
     <>
-      <motion.div
+      <m.div
         initial={reduce ? false : { opacity: 0, y: 14 }}
         animate={revealed ? { opacity: 1, y: 0 } : reduce ? { opacity: 1, y: 0 } : { opacity: 0, y: 14 }}
         transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
       >
         {children}
-      </motion.div>
+      </m.div>
 
       <AnimatePresence>
         {!reduce && phase !== "out" && (
-          <motion.div
+          <m.div
             key="resume-intro"
             aria-hidden
             className="fixed inset-0 z-[80] flex flex-col items-center justify-center bg-[var(--color-sand)]"
@@ -54,23 +54,23 @@ export function ResumeReveal({ children }: { children: React.ReactNode }) {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.45, ease: "easeOut" }}
           >
-            <motion.div
+            <m.div
               className="flex flex-col items-center"
               animate={phase === "lift" ? { opacity: 0, y: -10 } : { opacity: 1, y: 0 }}
               transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
             >
-              <motion.p
+              <m.p
                 className="label-mono mb-4 text-[0.66rem]"
                 initial={{ opacity: 0, y: 4 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.05, duration: 0.4 }}
               >
                 resume / clinical route
-              </motion.p>
+              </m.p>
 
               <p className="text-summit text-[var(--color-shadow)]" aria-label={WORD}>
                 {WORD.split("").map((ch, i) => (
-                  <motion.span
+                  <m.span
                     key={i}
                     className="inline-block"
                     initial={{ opacity: 0, y: 8 }}
@@ -78,13 +78,13 @@ export function ResumeReveal({ children }: { children: React.ReactNode }) {
                     transition={{ delay: 0.14 + i * 0.045, duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
                   >
                     {ch}
-                  </motion.span>
+                  </m.span>
                 ))}
               </p>
 
               {/* a thin route line drawing underneath the word */}
               <svg width="220" height="26" viewBox="0 0 220 26" fill="none" className="mt-3">
-                <motion.path
+                <m.path
                   d="M4 18 C 44 6, 78 22, 110 12 S 178 4, 216 16"
                   stroke="var(--color-pine)"
                   strokeWidth="1.5"
@@ -93,7 +93,7 @@ export function ResumeReveal({ children }: { children: React.ReactNode }) {
                   animate={{ pathLength: 1, opacity: 0.65 }}
                   transition={{ pathLength: { delay: 0.3, duration: 0.7, ease: "easeInOut" }, opacity: { delay: 0.3, duration: 0.2 } }}
                 />
-                <motion.circle
+                <m.circle
                   cx="110"
                   cy="12"
                   r="2.6"
@@ -103,8 +103,8 @@ export function ResumeReveal({ children }: { children: React.ReactNode }) {
                   transition={{ delay: 0.72, duration: 0.25 }}
                 />
               </svg>
-            </motion.div>
-          </motion.div>
+            </m.div>
+          </m.div>
         )}
       </AnimatePresence>
     </>

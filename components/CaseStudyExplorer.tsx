@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
+import { m, AnimatePresence, useReducedMotion } from "framer-motion";
 import { ArrowUpRight } from "@/components/ask-jethro/icons";
 import { fullProjects } from "@/content/profile";
 import { AskAboutButton } from "@/components/ask-jethro/triggers";
@@ -63,7 +63,7 @@ export function CaseStudyExplorer() {
         </div>
 
         <AnimatePresence mode="wait">
-          <motion.div
+          <m.div
             key={active}
             initial={reduce ? false : { opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
@@ -102,7 +102,7 @@ export function CaseStudyExplorer() {
               )}
               <AskAboutButton projectId={p.id} label="Ask Jethro about this" />
             </div>
-          </motion.div>
+          </m.div>
         </AnimatePresence>
       </div>
     </section>

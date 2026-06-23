@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
+import { m, useScroll, useTransform, useReducedMotion } from "framer-motion";
 
 /**
  * The alpenglow. A warm wash, anchored low in the viewport, that resolves as
@@ -20,7 +20,7 @@ export function LightSweep() {
   if (!mounted || reduce) return null;
 
   return (
-    <motion.div
+    <m.div
       aria-hidden
       className="pointer-events-none fixed inset-0 -z-10"
       style={{

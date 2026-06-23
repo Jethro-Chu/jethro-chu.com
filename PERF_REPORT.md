@@ -110,22 +110,25 @@ loads on mobile or on first paint.
 
 ## Ranked next opportunities (highest impact first)
 
-1. **Trim Framer Motion from the 184 kB first load.** It dominates the `255` shared chunk.
-   Options, cheapest→deepest: `LazyMotion` + `m` components (defer the full feature bundle),
-   or move the simplest reveals/parallax to pure CSS scroll-driven animation. Needs care —
-   Framer is used widely (scene, reveals, scroll). Medium risk, big JS win.
+JS is now in good shape (home first-load 160 kB, mobile TBT 30 ms). The remaining mobile
+weakness is **LCP 3.2 s**, which is font-bytes-on-the-critical-path — so font work leads.
+
+1. **Further font trims — the real mobile lever (LCP).** Mobile LCP is still ~3.2 s, gated
+   by critical-path font bytes (Fraunces 67 kB + Hanken 35 kB preloaded). Options to measure:
+   trim the Fraunces `wght` range to the weights actually used; or drop the `preload` on
+   whichever of Fraunces/Hanken is NOT the true LCP element so the LCP font wins the
+   bandwidth race. Diminishing returns, but it's what moves mobile now.
 2. **Audit `"use client"` reach + provider wrapping.** `AskJethroProvider` +
    `EyeScrollProvider` wrap the whole page; confirm they don't pull avoidable code into the
-   first-load path and push client boundaries as far down as possible.
-3. **Further font trims (smaller, lower-risk).** The Fraunces preload is now 67 kB. If
-   mobile LCP needs more: trim the Fraunces `wght` range to the weights actually used, or
-   drop the *preload* on whichever of the two display/body fonts is NOT the true LCP element
-   so the LCP font wins the bandwidth race. Measure each — diminishing returns.
+   first-load path and push client boundaries as far down as possible. Lower impact now that
+   first-load is 160 kB and TBT is 30 ms — JS hygiene, not a hot path.
 
 ## Done
 
 - ✅ **Shrink the Fraunces critical-path font** — dropped the unused `SOFT` axis
-  (`lib/fonts.ts`). See change log 2026-06-23.
+  (`lib/fonts.ts`). See change log 2026-06-23 (font).
+- ✅ **Trim Framer Motion** — `LazyMotion` + `m` + sync `domAnimation` (drops drag/layout/pan
+  feature code). First-load 184→160 kB, TBT 130→30 ms. See change log 2026-06-23 (motion).
 
 ---
 
@@ -152,3 +155,44 @@ weight in the largest preloaded font.
 −53 kB font and the +5 score. Visual identity verified unchanged via screenshot (Fraunces
 still renders with optical sizing; hero, altimeter, parallax, command bar all intact)
 — expected, since `SOFT` was never applied.
+
+### 2026-06-23 — Trim Framer Motion (LazyMotion + `m` + sync `domAnimation`)
+
+**Inventory first.** 9 files import framer-motion. APIs in use: `motion.*` (div/span/button/
+circle/path/p/li, 7 files), `AnimatePresence`+`exit` (3 files), `whileInView` (Reveal),
+`useScroll`/`useTransform` (4 files), `useReducedMotion` (many). **No `drag`, no `layout`/
+`layoutId`, no pan, no spring** (the `drag`/`layout` grep hits were all comments). So
+`domAnimation` (animations + variants + exit + whileInView + hover/tap/focus) is sufficient;
+`domMax` (adds drag+layout) is not needed. Confirmed `domAnimation` includes `inView` by
+reading the installed v11.18.2 feature source.
+
+**Change.** New `components/motion/MotionProvider.tsx` wraps the app once in `app/layout.tsx`
+with `<LazyMotion strict features={domAnimation}>`. Converted every `motion.*` → `m.*` across
+the 7 component files (`strict` throws on any miss; verified none remain). The scroll hooks
+and `useReducedMotion` are not LazyMotion-gated, so the scroll driver is untouched.
+
+**Sync, not async — measured decision.** Tried the async bundle
+(`features={() => import("framer-motion").then(m => m.domAnimation)}`): first-load **161 kB**,
+but it added a post-first-paint work burst (every `m` upgrades when the chunk lands → sporadic
+TBT spikes) and a window where the scroll parallax was not yet live. The climb is the product,
+so a dead first-scroll is a regression. Sync `domAnimation` measured **160 kB** (≈ same / 1 kB
+smaller) with the parallax live from frame one and no burst. Kept sync.
+
+| | Before (post-font) | After | Δ |
+|---|---|---|---|
+| First Load JS `/` | 184 kB | **160 kB** | **−24 kB (−13%)** |
+| First Load JS `/projects/[slug]` | 143 kB | **114 kB** | −29 kB |
+| First Load JS `/resume` | 145 kB | **116 kB** | −29 kB |
+| Mobile Performance | 94 | **93** | ≈ (±noise band) |
+| Mobile TBT | 100 ms | **30 ms** | **−70 ms** |
+| Mobile CLS | 0 | **0** | 0 |
+| Mobile LCP | 3.0 s | 3.2 s | ≈ (font-bound, untouched) |
+| Desktop | 100 | **100** | — |
+
+Mobile numbers are the median of 3 identical warm passes (93/93/93, TBT 30, CLS 0). The
+deterministic wins are **−24 kB first-load** and **−70 ms TBT** (less feature code to parse at
+hydration). **Motion verified** via headless-Chrome/CDP (real active page, rAF runs — unlike
+the hidden Claude Preview tab): parallax = 4 contour layers scale on scroll (1.13/1.33/1.40/
+1.71), altimeter marker translates with scroll (y 97→675), no reveal stuck invisible
+(whileInView fires), Ask-Jethro AnimatePresence dialog opens, Eye Scroll trigger present,
+**0 console errors/warnings** (no `strict` violations). Hero screenshot unchanged.
