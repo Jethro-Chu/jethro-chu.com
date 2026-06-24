@@ -242,6 +242,28 @@ html.lenis body {
 }
 
 /* ============================================================
+   ASCENT  — the hidden game's summit reward reveal (one-shot, settles)
+   ============================================================ */
+@keyframes summit-photo-in {
+  from { opacity: 0; transform: scale(1.14); filter: blur(10px); }
+  to { opacity: 1; transform: scale(1); filter: blur(0); }
+}
+.summit-photo { animation: summit-photo-in 1300ms var(--ease-trail) both; }
+
+@keyframes summit-bloom-in {
+  0% { opacity: 0; }
+  45% { opacity: 0.9; }
+  100% { opacity: 0.28; }
+}
+.summit-bloom { animation: summit-bloom-in 1700ms var(--ease-trail) both; }
+
+@keyframes summit-rise-in {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.summit-rise { animation: summit-rise-in 700ms var(--ease-trail) 620ms both; }
+
+/* ============================================================
    FAST UI  — instant, tactile interaction feedback (transform/opacity only)
    ============================================================ */
 

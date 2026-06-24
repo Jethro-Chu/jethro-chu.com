@@ -193,22 +193,25 @@ export default function AscentGame({ onClose }: { onClose: () => void }) {
       if (s.px < pad) { s.px = pad; s.pv = 0; }
       if (s.px > s.w - pad) { s.px = s.w - pad; s.pv = 0; }
 
-      // spawn rockfall
+      // spawn rockfall — denser, faster, and multiple rocks per drop the higher you climb
       s.spawn -= dt;
-      const interval = Math.max(0.34, 0.95 - prog * 0.6);
+      const interval = Math.max(0.18, 0.66 - prog * 0.48);
       if (s.spawn <= 0) {
-        s.spawn = interval * (0.7 + Math.random() * 0.6);
-        const rad = 10 + Math.random() * 16;
-        const verts = Array.from({ length: 9 }, () => 0.78 + Math.random() * 0.34);
-        s.rocks.push({
-          x: rad + Math.random() * (s.w - rad * 2),
-          y: -rad,
-          r: rad,
-          vy: 170 + prog * 260 + Math.random() * 70,
-          spin: (Math.random() - 0.5) * 2,
-          rot: 0,
-          verts,
-        });
+        s.spawn = interval * (0.6 + Math.random() * 0.45);
+        const drops = 1 + (Math.random() < prog * 0.7 ? 1 : 0) + (Math.random() < prog * 0.4 ? 1 : 0);
+        for (let d = 0; d < drops; d++) {
+          const rad = 9 + Math.random() * 17;
+          const verts = Array.from({ length: 9 }, () => 0.78 + Math.random() * 0.34);
+          s.rocks.push({
+            x: rad + Math.random() * (s.w - rad * 2),
+            y: -rad - d * 42,
+            r: rad,
+            vy: 215 + prog * 350 + Math.random() * 90,
+            spin: (Math.random() - 0.5) * 2.4,
+            rot: 0,
+            verts,
+          });
+        }
       }
 
       // update rocks + collision
@@ -324,6 +327,9 @@ export default function AscentGame({ onClose }: { onClose: () => void }) {
   useEffect(() => {
     fit();
     draw();
+    // preload the summit reward photo so the win reveal is instant
+    const pre = new Image();
+    pre.src = "/images/halfdome-summit.jpg";
     closeRef.current?.focus();
     const onResize = () => { fit(); if (g.current.phase !== "playing") draw(); };
     window.addEventListener("resize", onResize);
@@ -369,17 +375,15 @@ export default function AscentGame({ onClose }: { onClose: () => void }) {
       <div className="relative mx-auto w-full max-w-[480px] flex-1 overflow-hidden">
         <canvas ref={canvasRef} className="block h-full w-full touch-none" />
 
-        {phase !== "playing" && (
+        {(phase === "ready" || phase === "over") && (
           <div className="absolute inset-0 flex flex-col items-center justify-center gap-5 bg-[color-mix(in_oklab,var(--color-sand)_72%,transparent)] px-8 text-center">
             <p className="text-rise font-display text-[var(--color-shadow)]">
-              {phase === "ready" && "Ascent"}
-              {phase === "over" && "Rockfall."}
-              {phase === "summit" && "Summit. 8,839 ft."}
+              {phase === "ready" ? "Ascent" : "Rockfall."}
             </p>
             <p className="max-w-xs text-pretty leading-relaxed text-[var(--color-muted)]">
-              {phase === "ready" && "Climb from the valley floor to the Half Dome summit. Dodge the rockfall."}
-              {phase === "over" && `You reached ${reached.toLocaleString("en-US")} ft. Best ${best.toLocaleString("en-US")} ft.`}
-              {phase === "summit" && "You made the top. The view earns the climb."}
+              {phase === "ready"
+                ? "Climb from the valley floor to the Half Dome summit. Dodge the rockfall."
+                : `You reached ${reached.toLocaleString("en-US")} ft. Best ${best.toLocaleString("en-US")} ft.`}
             </p>
             <button
               onClick={start}
@@ -391,6 +395,54 @@ export default function AscentGame({ onClose }: { onClose: () => void }) {
           </div>
         )}
       </div>
+
+      {/* SUMMIT — the reward: the real Half Dome summit photo, revealed */}
+      {phase === "summit" && (
+        <div className="absolute inset-0 z-[110] overflow-hidden bg-[var(--color-shadow)]">
+          <img
+            src="/images/halfdome-summit.jpg"
+            alt="Jethro Chu on the granite summit of Half Dome at golden hour."
+            className="summit-photo absolute inset-0 h-full w-full object-cover"
+          />
+          {/* golden summit bloom */}
+          <div
+            className="summit-bloom pointer-events-none absolute inset-0"
+            style={{
+              background:
+                "radial-gradient(85% 55% at 50% 26%, color-mix(in oklab, var(--color-golden) 78%, transparent) 0%, transparent 60%)",
+            }}
+          />
+          {/* legibility vignette */}
+          <div
+            className="pointer-events-none absolute inset-0"
+            style={{ background: "linear-gradient(to top, rgba(24,22,18,0.88) 0%, rgba(24,22,18,0.12) 44%, transparent 72%)" }}
+          />
+          <button
+            onClick={onClose}
+            aria-label="Close game"
+            className="absolute right-3 top-3 rounded-sm p-2 text-[var(--color-on-dark)] transition-colors hover:bg-[color-mix(in_oklab,var(--color-shadow)_45%,transparent)]"
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden>
+              <path d="M18 6 6 18M6 6l12 12" />
+            </svg>
+          </button>
+          <div className="summit-rise absolute inset-x-0 bottom-0 flex flex-col items-center gap-3 px-8 pb-12 text-center">
+            <p className="label-mono tnum tracking-[0.14em] text-[var(--color-golden)]">
+              8,839 FT · HALF DOME
+            </p>
+            <p className="text-ridge font-display text-[var(--color-on-dark)]">You reached the summit</p>
+            <p className="max-w-sm text-pretty leading-relaxed text-[var(--color-on-dark-muted)]">
+              Best {best.toLocaleString("en-US")} ft. The view earns the climb.
+            </p>
+            <button
+              onClick={start}
+              className="mt-1 rounded-sm bg-[var(--color-on-dark)] px-5 py-2.5 font-body text-sm font-medium text-[var(--color-shadow)] transition-transform hover:scale-[1.03]"
+            >
+              Climb again
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
