@@ -103,7 +103,7 @@ const intel: Record<string, ProjectIntel> = {
   nursejet: {
     id: "nursejet",
     subtitle: "Daily clinical briefing for nurses",
-    builderRole: "solo — he designs, builds, writes, and publishes it",
+    builderRole: "solo: he designs, builds, writes, and publishes it",
     categories: ["healthcare", "ai", "consumer"],
     status: "Live",
     year: "2025",
@@ -138,7 +138,7 @@ const intel: Record<string, ProjectIntel> = {
   "rate-my-hospital-food": {
     id: "rate-my-hospital-food",
     subtitle: "A real product out of a funny idea",
-    builderRole: "solo — design, build, and ship",
+    builderRole: "solo: design, build, and ship",
     categories: ["consumer", "playful", "healthcare"],
     status: "Live", // TODO(jethro): confirm ratemyhospitalfood.com is live
     year: "2024",
@@ -173,7 +173,7 @@ const intel: Record<string, ProjectIntel> = {
   "emotion-stock-market-game": {
     id: "emotion-stock-market-game",
     subtitle: "Your face trades the market",
-    builderRole: "solo — design and build, including the live face tracking",
+    builderRole: "solo: design and build, including the live face tracking",
     categories: ["playful", "ai", "consumer"],
     status: "Live",
     year: "2024",
@@ -185,7 +185,7 @@ const intel: Record<string, ProjectIntel> = {
       "Facial expressions read live via the camera drive buys and sells",
       "Random crashes, recessions, and Warren Buffett whale pumps",
       "Runs entirely in the browser",
-      "Nothing recorded or uploaded — fully local",
+      "Nothing recorded or uploaded, fully local",
     ],
     caseStudy: {
       problem:
@@ -193,7 +193,7 @@ const intel: Record<string, ProjectIntel> = {
       insight:
         "Your face is an underused controller, and doing it locally means it can be playful without being creepy about privacy.",
       build:
-        "A vanilla-JS game using face-api.js and TensorFlow.js for live expression detection, with market events for chaos — all client-side.",
+        "A vanilla-JS game using face-api.js and TensorFlow.js for live expression detection, with market events for chaos, all client-side.",
       state: "Live and playable in the browser, source on GitHub.",
       next: "More market events and a tighter onboarding for the camera step.",
     },
@@ -217,7 +217,7 @@ const jethroOs: FullProject = {
   link: { href: site.url, label: "you're on it" },
   isVirtual: true,
   subtitle: "A portfolio you can ask questions",
-  builderRole: "solo — design and build",
+  builderRole: "solo: design and build",
   categories: ["ai", "design", "portfolio"],
   status: "In progress",
   year: "2026",
@@ -238,7 +238,7 @@ const jethroOs: FullProject = {
       "Let people ask. The data is structured anyway, so an assistant can answer with specifics instead of vibes.",
     build:
       "A local, deterministic assistant over a structured profile, with a command palette and project intelligence, built to drop in a real LLM later with no key required to demo.",
-    state: "In progress — the version you're using now.",
+    state: "In progress. The version you're using now.",
     next: "Wire a real model behind the same interface and add per-project deep dives.",
   },
   tags: ["portfolio", "ai", "assistant", "design", "os"],
@@ -284,11 +284,11 @@ export const profile = {
   ],
   // honest, no invented metrics or employers
   highlights: [
-    "Ships full products solo — NurseJet, Rate My Hospital Food, and the Emotion Stock Market Game are all end-to-end builds.",
+    "Ships full products solo: NurseJet, Rate My Hospital Food, and the Emotion Stock Market Game are all end-to-end builds.",
     "Shaped the UX of Lab Logger, an AI research notebook (lab-logger.com).",
-    "Nursing student with clinical rotations across several hospital systems — the healthcare context is firsthand, not researched.",
+    "Nursing student with clinical rotations across several hospital systems. The healthcare context is firsthand, not researched.",
     "Comfortable wiring real ML into the browser (live face tracking in the game).",
-    "Writes for the reader, not the journal — NurseJet's whole point is a citation plus a bedside takeaway.",
+    "Writes for the reader, not the journal. NurseJet's whole point is a citation plus a bedside takeaway.",
   ],
   // editable "currently building" cards
   currentFocus: [
@@ -318,7 +318,7 @@ export const profile = {
 /* ---- "Invite Jethro" / hackathon mode ---- */
 export const invite = {
   pitch30:
-    "Jethro is a nursing student who ships real products. He builds at the intersection of healthcare, AI, and design — NurseJet (a daily clinical briefing for nurses), Lab Logger (an AI research notebook he shaped the UX for), and a face-controlled stock-market game, among others. Invite him when you want someone who has actually stood in the rooms these tools are for, and can still turn a vague idea into a working build fast.",
+    "Jethro is a nursing student who ships real products. He builds at the intersection of healthcare, AI, and design: NurseJet (a daily clinical briefing for nurses), Lab Logger (an AI research notebook he shaped the UX for), and a face-controlled stock-market game, among others. Invite him when you want someone who has actually stood in the rooms these tools are for, and can still turn a vague idea into a working build fast.",
   whyHackathon:
     "Invite Jethro if you want someone who can turn a vague idea into a working product quickly. He brings a mix you don't usually get in one person: real nursing and clinical context, product taste, and the energy to build with AI instead of just talking about it. He pitches from problems he's actually seen, not from a slide.",
   goodFor: [

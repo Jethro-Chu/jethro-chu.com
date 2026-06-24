@@ -423,7 +423,7 @@ export default function AscentGame({ onClose }: { onClose: () => void }) {
     <div
       role="dialog"
       aria-modal="true"
-      aria-label="Ascent — a hidden climbing game"
+      aria-label="Ascent, a hidden climbing game"
       className="fixed inset-0 z-[100] flex flex-col bg-[var(--color-sand)]"
     >
       {/* clinical top bar */}

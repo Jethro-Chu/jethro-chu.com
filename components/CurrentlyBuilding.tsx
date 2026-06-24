@@ -35,7 +35,7 @@ export function CurrentlyBuilding() {
                   {f.project}
                 </h3>
                 <p className="mt-2.5 text-sm leading-relaxed text-[var(--color-shadow)]">
-                  <span className="text-[var(--color-muted)]">Improving — </span>
+                  <span className="text-[var(--color-muted)]">Improving: </span>
                   {f.improving}
                 </p>
                 <p className="mt-2 text-sm leading-relaxed text-[var(--color-muted)]">{f.why}</p>

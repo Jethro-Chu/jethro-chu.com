@@ -38,7 +38,7 @@ export function CaseStudyExplorer() {
           Case study explorer
         </h2>
         <p className="mt-4 max-w-2xl text-pretty leading-relaxed text-[var(--color-muted)]">
-          Short, honest write-ups. No invented metrics — where something is a prototype or still in progress, it says so.
+          Short, honest write-ups. No invented metrics. Where something is a prototype or still in progress, it says so.
         </p>
 
         <div role="tablist" aria-label="Projects" className="mt-8 flex flex-wrap gap-2">
