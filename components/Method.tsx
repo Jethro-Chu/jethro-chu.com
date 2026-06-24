@@ -2,6 +2,7 @@ import Link from "next/link";
 import { method } from "@/content/profile";
 import { Reveal } from "@/components/motion/Reveal";
 import { OpenAskButton } from "@/components/ask-jethro/triggers";
+import { DecodeText } from "@/components/motion/DecodeText";
 
 /**
  * Method — how Jethro builds. Replaces the old "why invite me" pitch with a
@@ -22,7 +23,7 @@ export function Method() {
       className="scroll-mt-6 px-6 py-24 sm:px-10 sm:py-28 lg:pl-16 lg:pr-40"
     >
       <div className="mx-auto max-w-4xl">
-        <p className="label-mono">Method</p>
+        <DecodeText as="p" className="label-mono" text="Method" />
         <h2 id="method-heading" className="text-ridge mt-3 max-w-3xl text-[var(--color-shadow)]">
           {method.title}
         </h2>
