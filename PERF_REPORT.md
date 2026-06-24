@@ -132,6 +132,38 @@ weakness is **LCP 3.2 s**, which is font-bytes-on-the-critical-path — so font 
 
 ---
 
+## Investigated, parked (do not re-litigate)
+
+### 2026-06-23 — Hero scroll jank → YosemiteScene SVG dolly re-raster (user: leave as-is)
+
+**Symptom:** periodic stutter while scrolling the hero. **Diagnosis (Chrome trace +
+CDP, headless system Chrome — the only reliable way; the Claude Preview tab pauses rAF):**
+
+- A/B: hero region (scene visible) ≈ 32 ms/frame avg with periodic 80–130 ms hitches
+  (jank>50ms ≈ 12 frames / 2 s scroll); a deep region with the scene faded is ≈ 18 ms,
+  **zero** frames >50 ms. The jank is 100% the `YosemiteScene`.
+- Trace during a 2 s hero scroll: **RasterTask 717 ms / 190 tasks (max 96 ms)**;
+  FunctionCall 63 ms, Layout 5 ms. So it's **raster, not script/layout**. The 4 contour
+  layers dolly-**scale up to 2.1×**, and Chrome **re-rasterizes the vector SVG every frame**
+  on scale-up to keep strokes sharp. (The in-file comment claiming "scale for free / no
+  per-frame re-raster" is wrong — measured.)
+
+**Fixes tried and MEASURED to fail (don't repeat):**
+1. Reduce scale magnitude (fore 2.1→1.55 etc.): RasterTask 717→665 ms (−7%). Cost is
+   driven by scale *changing at all*, not magnitude. Pointless feel change.
+2. Drop 2 of 4 scaling layers (far/dome → translate-only): 717→665 ms (−7%). mid+fore
+   dominate the raster cost, and they're the prominent dolly.
+3. Isolate each layer on its own static GPU texture (inner `translateZ(0)` layer): made it
+   **worse** (717→841 ms) — Chrome propagates effective scale down and re-rasters anyway.
+
+**Only real fixes (all trade against the signature dolly), offered to user:**
+- (A) Translate-only layers — guaranteed smooth, but the current translate amounts are
+  small so the scene becomes near-static (loses the travel-into-valley zoom).
+- (B) Rasterize each layer to a bitmap (canvas) once, then GPU-scale it — keeps the dolly,
+  smooth; lines soften slightly at max zoom; non-trivial code. Unvalidated.
+- (C) Leave as-is. **← user chose this 2026-06-23.** The signature look is kept; the rest
+  of the page already scrolls smoothly. Revisit only if asked, starting from option B.
+
 ## Change log
 
 ### 2026-06-23 — Drop unused Fraunces `SOFT` axis
