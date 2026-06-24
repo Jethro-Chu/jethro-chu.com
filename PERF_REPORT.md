@@ -156,13 +156,26 @@ CDP, headless system Chrome — the only reliable way; the Claude Preview tab pa
 3. Isolate each layer on its own static GPU texture (inner `translateZ(0)` layer): made it
    **worse** (717→841 ms) — Chrome propagates effective scale down and re-rasters anyway.
 
-**Only real fixes (all trade against the signature dolly), offered to user:**
-- (A) Translate-only layers — guaranteed smooth, but the current translate amounts are
-  small so the scene becomes near-static (loses the travel-into-valley zoom).
-- (B) Rasterize each layer to a bitmap (canvas) once, then GPU-scale it — keeps the dolly,
-  smooth; lines soften slightly at max zoom; non-trivial code. Unvalidated.
-- (C) Leave as-is. **← user chose this 2026-06-23.** The signature look is kept; the rest
-  of the page already scrolls smoothly. Revisit only if asked, starting from option B.
+**RESOLVED 2026-06-23 (commit `4e8e802`): scene made STATIC.** User reported the hero
+lag again ("really bad"), so it was fixed. Two more fixes were tried and ALSO measured to
+fail — **option (B) was wrong:**
+4. Rasterize each layer to a `<canvas>` once, scale the canvas: RasterTask ~824 ms. Scaling
+   the parent layer re-rasters its tile (canvas drawn in at the new scale) regardless.
+5. Rasterize to a PNG `<img>`, scale the img: ~759 ms. Not direct-composited here, re-rasters
+   too. **So (B) "bitmap then GPU-scale" does NOT work — do not retry it.**
+
+**Measurement caveat learned:** headless macOS Chrome software-renders (even with GPU flags),
+so RasterTask totals conflate software compositing with re-raster — they CANNOT distinguish
+scale vs translate. The trustworthy headless metric is **frame pacing** (avg interval +
+count of frames >50 ms), not RasterTask totals. Real-GPU cost can only be confirmed by the
+user on their machine.
+
+**What actually worked:** make the contour layers **static** (no per-frame transform at all)
+and keep only the scene-opacity dissolve. Frame pacing: dolly avg 31.6 ms / 12 frames >50 ms
+→ static avg **17.8 ms / 0 frames >50 ms**. Note translate-only stayed janky (avg ~31, 10–13
+frames >50 ms) — the cost is per-frame transforming four full-screen layers *at all*, not the
+scale specifically. The altimeter still tracks the climb, so the ascent metaphor holds; hero
+visuals are unchanged at rest. Trade-off accepted: the scene no longer parallax/zooms on scroll.
 
 ## Change log
 
