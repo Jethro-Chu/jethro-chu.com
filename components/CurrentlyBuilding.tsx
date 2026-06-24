@@ -15,7 +15,7 @@ export function CurrentlyBuilding() {
       className="scroll-mt-6 px-6 py-24 sm:px-10 sm:py-28 lg:pl-16 lg:pr-40"
     >
       <div className="mx-auto max-w-4xl">
-        <DecodeText as="p" className="label-mono" text="Now building" />
+        <DecodeText as="p" className="eyebrow" text="Now building" />
         <h2 id="now-heading" className="text-ridge mt-3 text-[var(--color-shadow)]">
           Currently building
         </h2>

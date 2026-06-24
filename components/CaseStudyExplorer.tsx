@@ -33,7 +33,7 @@ export function CaseStudyExplorer() {
       className="scroll-mt-6 px-6 py-24 sm:px-10 sm:py-28 lg:pl-16 lg:pr-40"
     >
       <div className="mx-auto max-w-4xl">
-        <DecodeText as="p" className="label-mono" text="Case studies" />
+        <DecodeText as="p" className="eyebrow" text="Case studies" />
         <h2 id="cases-heading" className="text-ridge mt-3 text-[var(--color-shadow)]">
           Case study explorer
         </h2>

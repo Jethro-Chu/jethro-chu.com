@@ -23,7 +23,7 @@ export function Method() {
       className="scroll-mt-6 px-6 py-24 sm:px-10 sm:py-28 lg:pl-16 lg:pr-40"
     >
       <div className="mx-auto max-w-4xl">
-        <DecodeText as="p" className="label-mono" text="Method" />
+        <DecodeText as="p" className="eyebrow" text="Method" />
         <h2 id="method-heading" className="text-ridge mt-3 max-w-3xl text-[var(--color-shadow)]">
           {method.title}
         </h2>

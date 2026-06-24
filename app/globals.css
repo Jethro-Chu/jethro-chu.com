@@ -173,6 +173,26 @@ html.lenis body {
   color: var(--color-muted);
 }
 
+/* section eyebrow — a precise "route marker": mono label led by a short golden
+   route-line tick (golden is the route-line color), wider tracking for a crisp,
+   deliberate instrument feel. Sentence case preserved (warm field-guide voice). */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  color: var(--color-muted);
+}
+.eyebrow::before {
+  content: "";
+  width: 1.5rem;
+  height: 1px;
+  margin-right: 0.7rem;
+  background: var(--color-golden);
+  opacity: 0.85;
+}
+
 .tnum {
   font-family: var(--font-mono);
   font-variant-numeric: tabular-nums;
