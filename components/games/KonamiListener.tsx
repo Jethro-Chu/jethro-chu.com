@@ -7,11 +7,7 @@ import dynamic from "next/dynamic";
 // never touches first-load JS.
 const AscentGame = dynamic(() => import("./AscentGame"), { ssr: false });
 
-const KONAMI = [
-  "ArrowUp", "ArrowUp", "ArrowDown", "ArrowDown",
-  "ArrowLeft", "ArrowRight", "ArrowLeft", "ArrowRight",
-  "b", "a",
-];
+const KONAMI = ["ArrowUp", "ArrowUp", "ArrowDown", "ArrowDown"];
 
 declare global {
   interface Window {
