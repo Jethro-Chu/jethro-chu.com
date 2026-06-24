@@ -11,11 +11,16 @@
    mirrors the Ask Jethro panel — sand surface, hairline rules,
    monospace labels, pine accent, soft radii. Gemini is never called
    from the browser; this component only hits the same-origin route.
+
+   Question mode shows PROGRESS (not confidence). Confidence is shown
+   only when the engine commits to a final guess. After three wrong
+   guesses the engine gives up and asks what the answer was, then
+   shows a learning summary for it.
    ============================================================ */
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { m, AnimatePresence, useReducedMotion } from "framer-motion";
-import { X, Check, ArrowRight } from "@/components/ask-jethro/icons";
+import { X, Check, ArrowRight, CornerDownLeft } from "@/components/ask-jethro/icons";
 
 interface Props {
   onClose: () => void;
@@ -36,12 +41,18 @@ interface Summary {
 }
 
 interface ApiResponse {
-  status: "question" | "guess";
+  status: "question" | "guess" | "safety";
   question: string | null;
   guess: string | null;
   confidence: number;
   summary?: Summary | null;
+  message?: string | null;
 }
+
+const MAX_WRONG_GUESSES = 3;
+
+const SAFETY_FALLBACK =
+  "This is an educational game, not medical advice. If this is an emergency, call your local emergency number or get medical help now.";
 
 /* The ten categories, in the order they appear. `key` is sent to the API
    (and must match the route's allowlist); `label` is what the player sees. */
@@ -87,7 +98,17 @@ export function MedicalAkinatorGame({ onClose }: Props) {
   const [gameStarted, setGameStarted] = useState(false);
   const [solved, setSolved] = useState(false);
 
+  // --- wrong-guess / reveal flow ---
+  const [wrongGuesses, setWrongGuesses] = useState(0);
+  const [revealing, setRevealing] = useState(false);
+  const [revealInput, setRevealInput] = useState("");
+  const [revealed, setRevealed] = useState(false);
+  const [safety, setSafety] = useState<string | null>(null);
+
   const cardRef = useRef<HTMLDivElement>(null);
+
+  // real questions asked, excluding the synthetic "wrong guess" markers
+  const askedCount = Math.max(0, answers.length - wrongGuesses);
 
   /* ask the backend for the next move given the full history */
   const advance = useCallback(async (history: QA[], cat: string) => {
@@ -124,9 +145,15 @@ export function MedicalAkinatorGame({ onClose }: Props) {
       setCategory(cat);
       setGameStarted(true);
       setAnswers([]);
+      setCurrentQuestion(null);
       setGuess(null);
       setSummary(null);
       setSolved(false);
+      setWrongGuesses(0);
+      setRevealing(false);
+      setRevealInput("");
+      setRevealed(false);
+      setSafety(null);
       void advance([], cat);
     },
     [advance]
@@ -143,20 +170,67 @@ export function MedicalAkinatorGame({ onClose }: Props) {
     [advance, answers, category, currentQuestion, loading]
   );
 
-  const confirmCorrect = useCallback(() => setSolved(true), []);
+  const confirmCorrect = useCallback(() => {
+    setRevealed(false);
+    setSolved(true);
+  }, []);
 
-  // wrong guess: record it as a rejected concept so the engine won't repeat it
+  // wrong guess: record it in the exact agreed format so the engine rules it out;
+  // after MAX_WRONG_GUESSES, stop guessing and ask the user what it actually was
   const keepGoing = useCallback(() => {
     if (!guess || !category || loading) return;
-    const next = [...answers, { question: guessPrompt(guess), answer: "no" as const }];
+    const next: QA[] = [
+      ...answers,
+      { question: `The assistant guessed ${guess}. Was that correct?`, answer: "no" },
+    ];
+    const nextWrong = wrongGuesses + 1;
     setAnswers(next);
+    setWrongGuesses(nextWrong);
     setGuess(null);
-    void advance(next, category);
-  }, [advance, answers, category, guess, loading]);
+    if (nextWrong >= MAX_WRONG_GUESSES) {
+      setRevealing(true); // give up gracefully → learning moment
+    } else {
+      void advance(next, category);
+    }
+  }, [advance, answers, category, guess, loading, wrongGuesses]);
+
+  // the user tells us what they were thinking of → fetch a learning summary
+  const submitReveal = useCallback(async () => {
+    const what = revealInput.trim();
+    if (!what || !category || loading) return;
+    setLoading(true);
+    setError(null);
+    setSafety(null);
+    try {
+      const res = await fetch("/api/medical-akinator", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ category, answers, reveal: what }),
+      });
+      if (!res.ok) throw new Error(`status ${res.status}`);
+      const data = (await res.json()) as ApiResponse;
+      if (data.status === "safety") {
+        setSafety(data.message || SAFETY_FALLBACK);
+      } else if (data.status === "guess" && (data.guess || what)) {
+        setGuess(data.guess || what);
+        setSummary(data.summary ?? null);
+        setRevealed(true);
+        setRevealing(false);
+        setSolved(true);
+      } else {
+        throw new Error("unexpected-shape");
+      }
+    } catch {
+      setError("Could not load a summary right now. Try again in a moment.");
+    } finally {
+      setLoading(false);
+    }
+  }, [answers, category, loading, revealInput]);
 
   const retry = useCallback(() => {
-    if (category) void advance(answers, category);
-  }, [advance, answers, category]);
+    if (revealing) void submitReveal();
+    else if (category) void advance(answers, category);
+  }, [advance, answers, category, revealing, submitReveal]);
 
   const restart = useCallback(() => {
     setCategory(null);
@@ -169,6 +243,11 @@ export function MedicalAkinatorGame({ onClose }: Props) {
     setLoading(false);
     setGameStarted(false);
     setSolved(false);
+    setWrongGuesses(0);
+    setRevealing(false);
+    setRevealInput("");
+    setRevealed(false);
+    setSafety(null);
   }, []);
 
   // Escape closes the modal
@@ -245,25 +324,21 @@ export function MedicalAkinatorGame({ onClose }: Props) {
           ) : error ? (
             <ErrorState message={error} onRetry={retry} onRestart={restart} />
           ) : solved && guess ? (
-            <SolvedView guess={guess} summary={summary} onRestart={restart} onClose={onClose} />
+            <SolvedView guess={guess} summary={summary} revealed={revealed} onRestart={restart} onClose={onClose} />
+          ) : revealing ? (
+            loading ? (
+              <Thinking label="looking it up" />
+            ) : (
+              <RevealView value={revealInput} setValue={setRevealInput} onSubmit={submitReveal} safety={safety} />
+            )
           ) : loading || (!currentQuestion && !guess) ? (
-            <Thinking count={answers.length} />
+            <Thinking label={askedCount === 0 ? "warming up" : "narrowing it down"} />
           ) : guess ? (
-            <GuessView
-              guess={guess}
-              confidence={confidence}
-              onCorrect={confirmCorrect}
-              onKeepGoing={keepGoing}
-            />
+            <GuessView guess={guess} confidence={confidence} onCorrect={confirmCorrect} onKeepGoing={keepGoing} />
           ) : currentQuestion ? (
-            <QuestionView
-              question={currentQuestion}
-              confidence={confidence}
-              count={answers.length}
-              onAnswer={answer}
-            />
+            <QuestionView question={currentQuestion} count={askedCount} onAnswer={answer} />
           ) : (
-            <Thinking count={answers.length} />
+            <Thinking label="narrowing it down" />
           )}
         </div>
 
@@ -271,7 +346,8 @@ export function MedicalAkinatorGame({ onClose }: Props) {
         {gameStarted && (
           <footer className="flex shrink-0 items-center justify-between border-t border-[var(--color-granite-line)] px-5 py-2.5">
             <p className="label-mono text-[0.6rem]">
-              {answers.length} {answers.length === 1 ? "question" : "questions"}
+              {askedCount} {askedCount === 1 ? "question" : "questions"}
+              {wrongGuesses > 0 && ` · ${wrongGuesses}/${MAX_WRONG_GUESSES} wrong`}
             </p>
             <button
               onClick={restart}
@@ -315,12 +391,10 @@ function CategoryPicker({ onPick }: { onPick: (key: string) => void }) {
 
 function QuestionView({
   question,
-  confidence,
   count,
   onAnswer,
 }: {
   question: string;
-  confidence: number;
   count: number;
   onAnswer: (v: AnswerValue) => void;
 }) {
@@ -331,7 +405,8 @@ function QuestionView({
         <p className="mt-2 text-pretty text-[1.15rem] font-medium leading-snug text-[var(--color-shadow)]">
           {question}
         </p>
-        <ConfidenceMeter value={confidence} />
+        {/* progress during question mode — NOT confidence */}
+        <ProgressMeter count={count} />
       </div>
       <div className="grid grid-cols-2 gap-2">
         {ANSWER_OPTIONS.map((o) => (
@@ -366,6 +441,7 @@ function GuessView({
         <p className="mt-2 text-pretty text-[1.35rem] font-medium leading-snug text-[var(--color-shadow)]">
           {guessPrompt(guess)}
         </p>
+        {/* confidence is shown ONLY on a final guess */}
         <ConfidenceMeter value={confidence} />
       </div>
       <div className="flex flex-col gap-2 sm:flex-row">
@@ -387,34 +463,92 @@ function GuessView({
   );
 }
 
+function RevealView({
+  value,
+  setValue,
+  onSubmit,
+  safety,
+}: {
+  value: string;
+  setValue: (v: string) => void;
+  onSubmit: () => void;
+  safety: string | null;
+}) {
+  return (
+    <div className="space-y-4">
+      <div>
+        <p className="label-mono text-[0.6rem] text-[var(--color-pine)]">I&apos;m stumped</p>
+        <p className="mt-2 text-pretty text-[1.1rem] font-medium leading-snug text-[var(--color-shadow)]">
+          Three guesses in and I didn&apos;t get it. What were you thinking of? I&apos;ll give you the
+          rundown.
+        </p>
+      </div>
+
+      {safety && <SafetyCard message={safety} />}
+
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          onSubmit();
+        }}
+      >
+        <div className="flex items-center gap-2 rounded-sm border border-[var(--color-granite-line)] bg-[var(--color-card)] px-3 py-2 focus-within:border-[var(--color-pine)]">
+          <input
+            autoFocus
+            value={value}
+            onChange={(e) => setValue(e.target.value)}
+            placeholder="e.g. heart failure, hyperkalemia, beta blockers"
+            aria-label="What were you thinking of?"
+            className="min-w-0 flex-1 bg-transparent text-[0.92rem] text-[var(--color-shadow)] outline-none placeholder:text-[var(--color-muted)]"
+          />
+          <button
+            type="submit"
+            aria-label="Show the answer"
+            disabled={!value.trim()}
+            className="flex items-center gap-1 rounded-xs bg-[var(--color-pine)] px-2.5 py-1.5 text-[var(--color-on-dark)] transition-opacity disabled:opacity-40"
+          >
+            <CornerDownLeft size={15} />
+          </button>
+        </div>
+      </form>
+    </div>
+  );
+}
+
 function SolvedView({
   guess,
   summary,
+  revealed,
   onRestart,
   onClose,
 }: {
   guess: string;
   summary: Summary | null;
+  revealed: boolean;
   onRestart: () => void;
   onClose: () => void;
 }) {
   const rows: [string, string][] = summary
-    ? [
+    ? ([
         ["What it is", summary.whatItIs],
         ["Key signs / symptoms", summary.signsSymptoms],
         ["Nursing priorities", summary.nursingPriorities],
         ["NCLEX clue", summary.nclexClue],
-      ].filter(([, v]) => v) as [string, string][]
+      ].filter(([, v]) => v) as [string, string][])
     : [];
 
   return (
     <div className="space-y-5">
       <div className="flex items-center gap-2">
-        <span className="flex size-6 items-center justify-center rounded-full bg-[var(--color-pine)] text-[var(--color-on-dark)]">
-          <Check size={14} />
-        </span>
-        <p className="font-display text-[1.2rem] font-medium capitalize text-[var(--color-shadow)]">{guess}</p>
+        {revealed ? (
+          <span className="label-mono text-[0.6rem] text-[var(--color-muted)]">you stumped me · the answer</span>
+        ) : (
+          <span className="flex size-6 items-center justify-center rounded-full bg-[var(--color-pine)] text-[var(--color-on-dark)]">
+            <Check size={14} />
+          </span>
+        )}
       </div>
+      <p className="-mt-3 font-display text-[1.2rem] font-medium capitalize text-[var(--color-shadow)]">{guess}</p>
 
       {rows.length > 0 ? (
         <dl className="space-y-3 rounded-md border border-[var(--color-granite-line)] bg-[var(--color-card)] px-4 py-3.5">
@@ -426,7 +560,9 @@ function SolvedView({
           ))}
         </dl>
       ) : (
-        <p className="text-[0.88rem] leading-relaxed text-[var(--color-muted)]">Nice. Got it.</p>
+        <p className="text-[0.88rem] leading-relaxed text-[var(--color-muted)]">
+          {revealed ? "Noted. Worth a quick review on your own." : "Nice. Got it."}
+        </p>
       )}
 
       <div className="flex flex-col gap-2 sm:flex-row">
@@ -444,6 +580,15 @@ function SolvedView({
           Close
         </button>
       </div>
+    </div>
+  );
+}
+
+function SafetyCard({ message }: { message: string }) {
+  return (
+    <div className="rounded-md border border-[var(--color-granite-line)] bg-[var(--color-card)] px-4 py-3">
+      <p className="label-mono text-[0.6rem] text-[var(--color-golden-deep)]">a quick note</p>
+      <p className="mt-1 text-[0.86rem] leading-relaxed text-[var(--color-shadow)]">{message}</p>
     </div>
   );
 }
@@ -478,6 +623,24 @@ function ErrorState({
   );
 }
 
+/** progress toward a guess during question mode — deliberately NOT a confidence value */
+function ProgressMeter({ count }: { count: number }) {
+  const TARGET = 15; // a soft sense of "how far along", not a hard limit
+  const pct = Math.round((Math.min(count, TARGET) / TARGET) * 100);
+  return (
+    <div className="mt-4 flex items-center gap-2.5">
+      <div className="h-1 flex-1 overflow-hidden rounded-full bg-[var(--color-granite)]">
+        <div
+          className="h-full rounded-full bg-[var(--color-pine)] transition-[width] duration-300"
+          style={{ width: `${Math.max(6, pct)}%` }}
+        />
+      </div>
+      <span className="label-mono text-[0.58rem]">narrowing it down</span>
+    </div>
+  );
+}
+
+/** confidence — only rendered on a final guess */
 function ConfidenceMeter({ value }: { value: number }) {
   const pct = Math.round(Math.min(1, Math.max(0, value)) * 100);
   return (
@@ -490,7 +653,7 @@ function ConfidenceMeter({ value }: { value: number }) {
   );
 }
 
-function Thinking({ count }: { count: number }) {
+function Thinking({ label }: { label: string }) {
   return (
     <div className="flex flex-col items-center justify-center gap-3 py-10" role="status" aria-label="Thinking">
       <div className="flex items-center gap-1.5">
@@ -502,7 +665,7 @@ function Thinking({ count }: { count: number }) {
           />
         ))}
       </div>
-      <p className="label-mono text-[0.6rem]">{count === 0 ? "warming up" : "narrowing it down"}</p>
+      <p className="label-mono text-[0.6rem]">{label}</p>
     </div>
   );
 }
