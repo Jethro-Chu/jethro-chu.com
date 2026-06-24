@@ -124,7 +124,7 @@ export default function ResumePage() {
             {/* clinical experience — a timeline / clinical route */}
             <section className="border-t border-[var(--color-granite-line)] py-12 sm:py-14">
               <Kicker n="02" label="clinical experience" />
-              <h2 className="text-ridge mt-4 text-[var(--color-shadow)]">Clinical route</h2>
+              <h2 className="text-ridge mt-4 text-[var(--color-shadow)]">Clinical rotations</h2>
               <ol className="mt-8 space-y-7 border-l border-[var(--color-granite-line)] pl-6 sm:pl-8">
                 {resume.clinical.map((c) => (
                   <li key={c.org} className="relative">
