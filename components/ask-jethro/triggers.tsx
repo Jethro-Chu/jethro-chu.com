@@ -10,8 +10,9 @@ import { resolveSearchAction, type SearchAction } from "@/lib/searchIntent";
 import { scrollToId, flashEmphasis } from "@/lib/scrollToId";
 import { useEyeScroll } from "@/components/eye-scroll/EyeScroll";
 import { useMedicalAkinator } from "@/components/medical-akinator/MedicalAkinatorProvider";
+import { MEDICAL_AKINATOR_ENABLED } from "@/lib/featureFlags";
 
-/* hidden easter egg: submitting this exact command opens the Medical Akinator */
+/* hidden command: submitting this exact word opens the Isabel symptom checker */
 const AKINATOR_COMMAND = "akinator";
 
 /* the hero command bar — a smart router, not just a chat input */
@@ -46,9 +47,10 @@ export function HeroCommand() {
 
   const onSubmit = () => {
     const query = v.trim();
-    // hidden command: "akinator" opens the Medical Akinator and never reaches
-    // the normal search router (so the regular command-bar behavior is unchanged)
-    if (query.toLowerCase() === AKINATOR_COMMAND) {
+    // hidden command: "akinator" opens the symptom checker and never reaches
+    // the normal search router (so the regular command-bar behavior is unchanged).
+    // When the feature flag is off, it falls through to normal search.
+    if (MEDICAL_AKINATOR_ENABLED && query.toLowerCase() === AKINATOR_COMMAND) {
       setV("");
       openAkinator();
       return;

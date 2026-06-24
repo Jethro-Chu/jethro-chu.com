@@ -2,15 +2,16 @@
 
 /* ============================================================
    MEDICAL AKINATOR  ·  provider
-   Owns the open/close state for the hidden game and mounts the
-   modal. Exposed via useMedicalAkinator() so the hero command bar
-   can open it when the player submits the exact command "akinator".
-   Kept separate from the Ask Jethro assistant so the easter egg is
-   fully self-contained and removable.
+   Owns the open/close state for the hidden symptom checker and mounts
+   the modal. Exposed via useMedicalAkinator() so the hero command bar
+   can open it when the user submits the exact command "akinator".
+   Kept separate from the Ask Jethro assistant so the feature is fully
+   self-contained and removable, and gated by a feature flag.
    ============================================================ */
 
 import { createContext, useCallback, useContext, useMemo, useState } from "react";
-import { MedicalAkinatorModal } from "./MedicalAkinatorGame";
+import { MedicalAkinatorModal } from "./MedicalAkinator";
+import { MEDICAL_AKINATOR_ENABLED } from "@/lib/featureFlags";
 
 interface MedicalAkinatorCtx {
   isOpen: boolean;
@@ -28,7 +29,8 @@ export function useMedicalAkinator(): MedicalAkinatorCtx {
 
 export function MedicalAkinatorProvider({ children }: { children: React.ReactNode }) {
   const [isOpen, setIsOpen] = useState(false);
-  const open = useCallback(() => setIsOpen(true), []);
+  // feature flag: when disabled, open() is a no-op and the modal never mounts
+  const open = useCallback(() => setIsOpen(MEDICAL_AKINATOR_ENABLED), []);
   const close = useCallback(() => setIsOpen(false), []);
 
   const ctx = useMemo<MedicalAkinatorCtx>(() => ({ isOpen, open, close }), [isOpen, open, close]);
@@ -36,7 +38,7 @@ export function MedicalAkinatorProvider({ children }: { children: React.ReactNod
   return (
     <Ctx.Provider value={ctx}>
       {children}
-      <MedicalAkinatorModal open={isOpen} onClose={close} />
+      {isOpen && <MedicalAkinatorModal onClose={close} />}
     </Ctx.Provider>
   );
 }
