@@ -3,6 +3,7 @@ import { fraunces, hanken, plexMono } from "@/lib/fonts";
 import { site } from "@/content/content";
 import { cn } from "@/lib/utils";
 import { MotionProvider } from "@/components/motion/MotionProvider";
+import { KonamiListener } from "@/components/games/KonamiListener";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -38,6 +39,7 @@ export default function RootLayout({
           Skip to content
         </a>
         <MotionProvider>{children}</MotionProvider>
+        <KonamiListener />
       </body>
     </html>
   );
