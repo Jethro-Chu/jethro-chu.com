@@ -263,6 +263,15 @@ html.lenis body {
 }
 .summit-rise { animation: summit-rise-in 700ms var(--ease-trail) 620ms both; }
 
+/* a passing elevation-milestone callout inside the game */
+@keyframes ascent-flash {
+  0% { opacity: 0; transform: translate(-50%, 10px); }
+  18% { opacity: 1; transform: translate(-50%, 0); }
+  78% { opacity: 1; transform: translate(-50%, 0); }
+  100% { opacity: 0; transform: translate(-50%, -10px); }
+}
+.ascent-flash { animation: ascent-flash 1700ms var(--ease-trail) both; }
+
 /* ============================================================
    FAST UI  — instant, tactile interaction feedback (transform/opacity only)
    ============================================================ */
