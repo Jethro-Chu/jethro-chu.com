@@ -12,6 +12,7 @@ import { Projects } from "@/components/Projects";
 import { About } from "@/components/About";
 import { Footer } from "@/components/Footer";
 import { AskJethroProvider } from "@/components/ask-jethro/AskJethro";
+import { MedicalAkinatorProvider } from "@/components/medical-akinator/MedicalAkinatorProvider";
 import { EyeScrollProvider } from "@/components/eye-scroll/EyeScroll";
 import { FloatingAsk } from "@/components/ask-jethro/triggers";
 import { CurrentlyBuilding } from "@/components/CurrentlyBuilding";
@@ -21,6 +22,7 @@ import { Method } from "@/components/Method";
 export default function Home() {
   return (
     <AskJethroProvider>
+    <MedicalAkinatorProvider>
     <EyeScrollProvider>
     <div className="relative">
       {/* the climb's light: a page-tall wash (static) + a scroll-linked alpenglow */}
@@ -53,6 +55,7 @@ export default function Home() {
       <FloatingAsk />
     </div>
     </EyeScrollProvider>
+    </MedicalAkinatorProvider>
     </AskJethroProvider>
   );
 }

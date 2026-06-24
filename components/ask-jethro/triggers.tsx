@@ -9,6 +9,10 @@ import { projectById } from "@/content/profile";
 import { resolveSearchAction, type SearchAction } from "@/lib/searchIntent";
 import { scrollToId, flashEmphasis } from "@/lib/scrollToId";
 import { useEyeScroll } from "@/components/eye-scroll/EyeScroll";
+import { useMedicalAkinator } from "@/components/medical-akinator/MedicalAkinatorProvider";
+
+/* hidden easter egg: submitting this exact command opens the Medical Akinator */
+const AKINATOR_COMMAND = "akinator";
 
 /* the hero command bar — a smart router, not just a chat input */
 const chipCls =
@@ -16,6 +20,7 @@ const chipCls =
 
 export function HeroCommand() {
   const { ask } = useAskJethro();
+  const { open: openAkinator } = useMedicalAkinator();
   const { supported: eyeSupported, status: eyeStatus, enable: enableEye } = useEyeScroll();
   const router = useRouter();
   const [v, setV] = useState("");
@@ -41,6 +46,13 @@ export function HeroCommand() {
 
   const onSubmit = () => {
     const query = v.trim();
+    // hidden command: "akinator" opens the Medical Akinator and never reaches
+    // the normal search router (so the regular command-bar behavior is unchanged)
+    if (query.toLowerCase() === AKINATOR_COMMAND) {
+      setV("");
+      openAkinator();
+      return;
+    }
     if (!query) {
       ask("What has Jethro built?");
       return;
