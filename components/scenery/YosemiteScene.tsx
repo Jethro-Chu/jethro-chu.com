@@ -5,7 +5,6 @@ import {
   m,
   useScroll,
   useTransform,
-  useReducedMotion,
   type MotionValue,
 } from "framer-motion";
 
@@ -13,11 +12,11 @@ import {
  * Yosemite Valley as a refined 3D OUTLINED terrain you travel into — not a filled
  * mountain. Thin warm contour lines describe the valley as a stack of nested
  * cross-sections (wide and deep near you, closing toward the distance) with a
- * small Half Dome outline as the destination at the valley's end. On scroll the
- * camera dollies gently forward: the near contours open out and pass while the
- * distant dome draws nearer (layered parallax), then the whole field dissolves
- * into the page's sand before the projects. Pure SVG/CSS, no assets, never a
- * blob; the open sky above keeps the typography the star. Reduced motion holds.
+ * small Half Dome outline as the destination at the valley's end. The contours are
+ * STATIC (no per-frame transform — that re-rasterized full-screen vector layers
+ * every frame and janked the hero scroll); the scene simply dissolves into the
+ * page's sand before the projects via a cheap opacity fade. Pure SVG/CSS, no assets,
+ * never a blob; the open sky above keeps the typography the star.
  */
 
 const W = 1440;
@@ -85,9 +84,8 @@ const FORE_LINES: LineDef[] = [
   { d: valley(0.08), stroke: 0.62, width: 1.45, color: INK_FORE, fill: 0.06 },
 ];
 
-// NOTE: no vector-effect:non-scaling-stroke. With it, a CSS-scaled SVG must
-// re-rasterize every frame to keep strokes 1px — the main scroll-jank source.
-// Plain strokes let each layer promote to a GPU texture and scale for free.
+// Static layer: drawn once, never transformed on scroll (see YosemiteScene). Plain
+// strokes, no vector-effect:non-scaling-stroke.
 function LineLayer({ lines, className = "" }: { lines: LineDef[]; className?: string }) {
   return (
     <svg
@@ -135,50 +133,19 @@ function useHeroProgress(): MotionValue<number> {
   return useTransform(scrollY, [0, end], [0, 1], { clamp: true });
 }
 
-const ORIGIN = "50% 56%"; // the valley distance — the camera pushes through it
-
 export function YosemiteScene() {
-  const reduce = useReducedMotion();
   const [mounted, setMounted] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
-  useEffect(() => {
-    setMounted(true);
-    // measured ONCE (and on breakpoint change) — never on scroll
-    const mq = window.matchMedia("(max-width: 767px)");
-    const update = () => setIsMobile(mq.matches);
-    update();
-    mq.addEventListener?.("change", update);
-    return () => mq.removeEventListener?.("change", update);
-  }, []);
+  useEffect(() => setMounted(true), []);
   const hero = useHeroProgress();
-  const animated = mounted && !reduce;
 
-  // dissolve LATE (into the approach) so the push keeps going past the hero
+  // The contour layers are STATIC during scroll. Any per-frame transform on these
+  // full-screen vector layers makes the browser re-rasterize / re-composite them
+  // every frame, which janked the hero scroll. The ONLY scroll-linked change is the
+  // whole scene's opacity dissolving into the projects — a cheap cached-buffer fade
+  // (the static children rasterize once; only the opacity value changes per frame).
+  // The altimeter (separate, tiny) still tracks the live climb.
   const sceneOpacity = useTransform(hero, [0.55, 0.9], [1, 0]);
-  // a pronounced forward dolly: each depth layer scales out of the valley distance
-  // at a very different rate (foreground fast, distance slow) for travel-into-it
-  // parallax. Front-loaded so the movement is obvious in the first scroll gestures.
-  // Mobile uses a lighter envelope (fewer/smaller moves) for a smooth frame rate.
-  const farScale = useTransform(hero, [0, 0.55, 1], [1, 1.13, 1.2]);
-  const domeScale = useTransform(hero, [0, 0.55, 1], [1, 1.34, 1.62]);
-  const midScale = useTransform(hero, [0, 0.55, 1], isMobile ? [1, 1.22, 1.36] : [1, 1.42, 1.68]);
-  const foreScale = useTransform(hero, [0, 0.55, 1], isMobile ? [1, 1.36, 1.54] : [1, 1.74, 2.1]);
-  const farY = useTransform(hero, [0, 1], ["0%", "-2.6%"]);
-  const domeY = useTransform(hero, [0, 1], ["0%", "-6.5%"]);
-  const midY = useTransform(hero, [0, 1], ["0%", isMobile ? "2%" : "3.4%"]);
-  const foreY = useTransform(hero, [0, 1], ["0%", isMobile ? "5.5%" : "10%"]);
   const sGlow = 0.18;
-
-  // GPU-friendly: promote each moving layer to its own composited texture so the
-  // scale/translate run on the compositor (no per-frame SVG re-raster or repaint).
-  const lyr = (mv: MotionValue<number>, yv: MotionValue<string>) =>
-    animated
-      ? { scale: mv, y: yv, transformOrigin: ORIGIN, willChange: "transform", backfaceVisibility: "hidden" as const }
-      : undefined;
-  // the destination grows and rises in place (its own origin) — climbing toward it
-  const domeLyr = animated
-    ? { scale: domeScale, y: domeY, transformOrigin: "50% 62%", willChange: "transform", backfaceVisibility: "hidden" as const }
-    : undefined;
 
   return (
     <m.div
@@ -210,20 +177,21 @@ export function YosemiteScene() {
         }}
       />
 
-      {/* far contours + the distant dome: desktop only (one fewer moving layer on
-          mobile, where they read least and cost the most) */}
-      <m.div className="absolute inset-0 hidden md:block" style={lyr(farScale, farY)}>
+      {/* depth contours (static). far + the distant dome are desktop-only — on a
+          narrow phone the viewport crops to where they sit, so they are hidden and
+          the mid/fore contours carry the scene. */}
+      <div className="absolute inset-0 hidden md:block">
         <LineLayer lines={FAR_LINES} />
-      </m.div>
-      <m.div className="absolute inset-0 hidden md:block" style={domeLyr}>
+      </div>
+      <div className="absolute inset-0 hidden md:block">
         <LineLayer lines={DOME_LINES} />
-      </m.div>
-      <m.div className="absolute inset-0" style={lyr(midScale, midY)}>
+      </div>
+      <div className="absolute inset-0">
         <LineLayer lines={MID_LINES} />
-      </m.div>
-      <m.div className="absolute inset-0" style={lyr(foreScale, foreY)}>
+      </div>
+      <div className="absolute inset-0">
         <LineLayer lines={FORE_LINES} />
-      </m.div>
+      </div>
 
       {/* a soft sand veil behind the centered title so the type always leads */}
       <div
