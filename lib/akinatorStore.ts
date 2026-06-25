@@ -44,8 +44,11 @@ export interface GameAnswer {
 
 /* ---- config + low-level KV --------------------------------------------- */
 
-const KV_URL = process.env.KV_REST_API_URL ?? "";
-const KV_TOKEN = process.env.KV_REST_API_TOKEN ?? "";
+// Accept either naming the Vercel/Upstash integration injects:
+//  - Vercel KV:        KV_REST_API_URL / KV_REST_API_TOKEN
+//  - Upstash (direct): UPSTASH_REDIS_REST_URL / UPSTASH_REDIS_REST_TOKEN
+const KV_URL = process.env.KV_REST_API_URL ?? process.env.UPSTASH_REDIS_REST_URL ?? "";
+const KV_TOKEN = process.env.KV_REST_API_TOKEN ?? process.env.UPSTASH_REDIS_REST_TOKEN ?? "";
 const PERSISTENT = Boolean(KV_URL && KV_TOKEN);
 
 const CONDITIONS_KEY = "akinator:conditions"; // hash: normalized name -> JSON profile
