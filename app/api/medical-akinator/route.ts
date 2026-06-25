@@ -19,76 +19,92 @@ import { NextResponse } from "next/server";
  */
 
 export const runtime = "nodejs";
+export const maxDuration = 30; // headroom for internal retries on Gemini "high demand" blips
 
-const MODEL = "gemini-2.5-flash";
+// flash-lite has more available capacity than flash (fewer "high demand" 503s)
+// and is cheaper; plenty capable for binary questions + common-condition guesses.
+const MODEL = "gemini-2.5-flash-lite";
 const ENDPOINT = `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent`;
 
-/* Allowed categories — must match the labels offered in the UI (lowercased).
-   An unknown category is rejected so the game can never be steered off-domain. */
-const CATEGORIES = new Set([
-  "disease process",
-  "medication class",
-  "lab value/electrolyte issue",
-  "cardiac condition",
-  "respiratory condition",
-  "neuro condition",
-  "gi/gu condition",
-  "endocrine condition",
-  "ob/peds condition",
-  "random medical topic",
-]);
+/* The two starting scopes the UI offers. An unknown category is rejected so the
+   game can never be steered off-domain. */
+const CATEGORIES = new Set(["medication", "medical_topic"]);
+
+/* the starting scope description handed to the model for each category */
+const SCOPE: Record<string, string> = {
+  medication:
+    "The hidden answer is a MEDICATION, a medication class, or a pharmacology concept (examples: beta blockers, ACE inhibitors, loop diuretics, insulin, heparin, antibiotics, opioids, corticosteroids, calcium channel blockers).",
+  medical_topic:
+    "The hidden answer is any NON-medication nursing or medical topic (examples: acute pancreatitis, heart failure, pulmonary embolism, hypokalemia, metabolic acidosis, seizure precautions, asthma, DKA, myasthenia gravis, prioritization, infection control, fluid overload, shock).",
+};
 
 const ANSWERS = new Set(["yes", "no", "maybe", "unknown"]);
 
-const MAX_TURNS = 20; // hard stop: force a best guess once the history is this long
+const MAX_TURNS = 15; // hard stop: force a best guess once this many questions asked
 const MAX_QUESTION_REWRITES = 2; // ask the model to rewrite a non-binary question this many times
 
 const SAFETY_MESSAGE =
   "This is an educational guessing game, not medical advice. If you or someone else might be having a medical emergency, call your local emergency number (911 in the US) or get medical help now. To keep playing, enter the name of a condition or concept and I'll show its learning summary.";
 
-const SYSTEM_PROMPT = `You are playing a medical Akinator-style guessing game inside Jethro Chu's personal portfolio website. The user is thinking of a medical condition, disease process, medication class, lab abnormality, or nursing concept. You may only ask one binary yes/no question at a time. The user can only answer Yes, No, Maybe, or "I don't know". Do not ask either/or questions, open-ended questions, multiple-choice questions, or questions that require choosing between two categories. If you want to distinguish between two possibilities, ask one side at a time. For example, instead of asking "Is it acute or chronic?" ask "Is it typically chronic?". Return only valid JSON matching the schema.
+const SYSTEM_PROMPT = `You are playing a Medical Akinator-style educational guessing game inside Jethro Chu's personal portfolio website. The user has selected either "Medication" or "Medical topic" as the starting scope and is thinking of one specific answer within that scope. Use that scope as the starting point and narrow it down. Ask only ONE binary yes/no question at a time. The user can only answer Yes, No, Maybe, or "I don't know". Do not ask open-ended, multiple-choice, or either/or questions. Do not ask questions like "Is it acute or chronic?" — instead ask "Is it typically chronic?" or "Is it typically acute?". Return only valid JSON matching the schema.
 
-Invalid questions (NEVER produce these):
+Binary questions only — invalid (NEVER produce these):
 - "Is it acute or chronic?"
 - "Which system does it affect?"
 - "Is it neurological or endocrine?"
 - "What medication class is it?"
-
-Valid questions:
+Valid:
+- "Is it typically acute?"
 - "Is it typically chronic?"
 - "Does it primarily affect the nervous system?"
-- "Is it an endocrine condition?"
 - "Is it a medication class?"
+Never use the words "or", "either", "which", "what", "type of", "category", "choose", or "select" inside a question, and never separate two options with a slash. Keep each question short and concrete (under ~12 words). Never repeat a question already in the transcript.
 
-Never use the words "or", "either", "which", "what", "type of", "category", "choose", or "select" inside a question, and never separate two options with a slash. Every question must be a single statement the user can confirm or deny.
+Maintain an internal ranked candidate list and update it after every answer:
+- "Yes" raises candidates that have the feature.
+- "No" lowers or eliminates candidates that require the feature.
+- "Maybe" slightly raises candidates that sometimes have the feature.
+- "I don't know" eliminates nothing.
+Each turn, return your current top candidates with confidences (0 to 1) in "candidateList", most likely first.
 
-Question quality:
-- Make every question discriminate. Prioritize: pathophysiology/mechanism, the body system involved, acuity (ask one side, e.g. "Is it typically acute?"), characteristic labs or diagnostics, risk factors, clinical presentation, and nursing-relevant clues.
-- Keep each question short and concrete — aim for under about 12 words.
-- Never ask vague or subjective questions like "Is it serious?" or "Is it common?".
-- Never repeat or merely reword a question already in the transcript.
+Ask questions in phases, using the question count provided. Get MORE specific as the list narrows — never ask general questions forever:
+- Questions 1-3: BROAD narrowing (body system involved, acute vs chronic asked one side, acute-care setting, a major presenting feature). e.g. "Does it primarily affect the cardiovascular system?"
+- Questions 4-7: MORE SPECIFIC clinical features (a specific symptom, a characteristic lab, a typical treatment). e.g. "Is anticoagulation commonly used to treat it?"
+- Questions 8+: HIGHLY SPECIFIC differentiators that separate the top candidates. e.g. "Is it commonly caused by a clot traveling from the leg?"
+Never ask vague questions like "Does it affect the body?", "Is it serious?", or "Is it common?". Each question must rule candidates in or out.
+
+Make a guess (mode = "guess") when one candidate has high confidence, OR the top candidate is clearly more likely than the rest, OR you have already asked about 10-15 questions. Set "guess" to ONLY the answer's name.
 
 Rules:
-- Stay strictly within nursing and medical education. The hidden answer is always a general medical/nursing concept, never a specific real person, a diagnosis of the user, or anything outside healthcare. If the user's answers seem to steer somewhere non-medical, ignore that and ask another medical question.
-- Never give individualized medical advice, dosing for a real person, or a diagnosis of the user. This is a conceptual guessing game about textbook/NCLEX-level topics.
-- Ask exactly ONE question per turn.
-- Treat "maybe" and "unknown" as weak/uncertain signals — do not over-anchor on them.
-- If the transcript contains an entry like 'The assistant guessed X. Was that correct? -> no', then X is ruled out: never guess or re-ask X, and ask a MORE SPECIFIC single yes/no question that separates the remaining possibilities.
-- Prefer to keep asking until you are genuinely confident. Only set status to "guess" when confidence is about 0.7 or higher, or when you have already asked many questions and should commit.
-- When status is "question": fill "question" with ONE binary yes/no question, fill "reasoning" with a short note on what it distinguishes, and set "validYesNoQuestion" to true ONLY if the question is a single yes/no question that uses none of the forbidden words above. Set "guess" and "summary" to null.
-- When status is "guess": fill "guess" with ONLY the name of the condition/concept (e.g. "heart failure", "DKA", "loop diuretics") with no surrounding sentence, and fill "summary" with a brief, educational recap: what it is, key signs/symptoms, major nursing priorities, and one NCLEX-style clue. Keep each summary field to one or two tight sentences.
-- "confidence" is a number from 0 to 1 reflecting how sure you are of your guess.`;
+- Stay strictly within nursing and medical education. The hidden answer is a general medical/nursing concept, never a specific real person or a diagnosis of the user.
+- Never give individualized medical advice or a diagnosis of the user. This is a conceptual game about textbook/NCLEX-level topics.
+- If the transcript shows 'The assistant guessed X. Was that correct? -> no', then X is ruled out: do not guess or re-ask X. Keep narrowing with a MORE SPECIFIC single yes/no question.
+- When mode is "question": fill "question" with ONE binary yes/no question, set "guess" to null, and set "validYesNoQuestion" to true ONLY if the question is a single yes/no question using none of the forbidden words above.
+- When mode is "guess": fill "guess" with the answer's name only, set "question" to null, and fill "summary" with a brief educational recap: what it is, key signs/symptoms, major nursing priorities, and one NCLEX-style clue (one or two tight sentences each).
+- Always fill "reasoning" with a short note on what the current step distinguishes.`;
 
-/* Gemini structured-output schema — forces a valid, parseable response shape. */
+/* Gemini structured-output schema — forces a valid, parseable response shape.
+   candidateList + reasoning are the model's internal narrowing state; they are
+   NOT forwarded to the client (see the response below) unless debug is on. */
 const RESPONSE_SCHEMA = {
   type: "OBJECT",
   properties: {
-    status: { type: "STRING", enum: ["question", "guess"] },
+    mode: { type: "STRING", enum: ["question", "guess"] },
     question: { type: "STRING", nullable: true },
+    guess: { type: "STRING", nullable: true },
+    candidateList: {
+      type: "ARRAY",
+      nullable: true,
+      items: {
+        type: "OBJECT",
+        properties: {
+          name: { type: "STRING" },
+          confidence: { type: "NUMBER" },
+        },
+      },
+    },
     reasoning: { type: "STRING", nullable: true },
     validYesNoQuestion: { type: "BOOLEAN", nullable: true },
-    guess: { type: "STRING", nullable: true },
-    confidence: { type: "NUMBER" },
     summary: {
       type: "OBJECT",
       nullable: true,
@@ -100,7 +116,7 @@ const RESPONSE_SCHEMA = {
       },
     },
   },
-  required: ["status", "confidence"],
+  required: ["mode"],
 };
 
 interface IncomingAnswer {
@@ -126,10 +142,12 @@ export async function POST(request: Request) {
   let category = "";
   let answers: { question: string; answer: string }[] = [];
   let reveal = "";
+  let debug = false;
   try {
-    const body = (await request.json()) as { category?: unknown; answers?: unknown; reveal?: unknown };
+    const body = (await request.json()) as { category?: unknown; answers?: unknown; reveal?: unknown; debug?: unknown };
     category = String(body?.category ?? "").toLowerCase().trim();
     reveal = String(body?.reveal ?? "").slice(0, 200).trim();
+    debug = body?.debug === true; // when true, also return candidateList + reasoning (never shown in the UI)
     const raw = Array.isArray(body?.answers) ? (body.answers as IncomingAnswer[]) : [];
     answers = raw
       .slice(0, MAX_TURNS + 8) // small slack over the cap; we still force a guess below
@@ -153,10 +171,10 @@ export async function POST(request: Request) {
     }
     const userText = `The guessing game is over and the user has revealed the answer they were thinking of.
 
-Category: ${category}
+Scope: ${category}
 The user was thinking of: "${reveal}"
 
-If this is a legitimate medical, nursing, pharmacology, or pathophysiology concept, set status to "guess", set "guess" to its proper concept name, set "confidence" to 1, and fill "summary" with a brief learning recap: what it is, key signs/symptoms, major nursing priorities, and one NCLEX-style clue (one or two tight sentences each). If the text is not a medical/nursing concept, still set status to "guess" and "guess" to the text, but use "summary" to gently note it is outside this educational game's scope. Respond with JSON only.`;
+If this is a legitimate medical, nursing, or pharmacology concept, set mode to "guess", set "guess" to its proper name, and fill "summary" with a brief learning recap: what it is, key signs/symptoms, major nursing priorities, and one NCLEX-style clue (one or two tight sentences each). If the text is not a medical/nursing concept, still set mode to "guess" and "guess" to the text, but use "summary" to gently note it is outside this educational game's scope. Respond with JSON only.`;
     try {
       const parsed = await askGemini(apiKey, userText);
       if (!parsed) return NextResponse.json({ error: "empty-answer" }, { status: 502 });
@@ -176,43 +194,57 @@ If this is a legitimate medical, nursing, pharmacology, or pathophysiology conce
   }
 
   // --- play mode: ask the next question or make a guess --------------------
+  // count real questions (exclude synthetic "wrong guess" markers) for phasing
+  const realQuestions = answers.filter(
+    (a) => !/^The assistant guessed .* Was that correct\?$/.test(a.question),
+  ).length;
+
   const transcript = answers.length
     ? answers.map((a, i) => `${i + 1}. ${a.question} -> ${ANSWER_LABEL[a.answer]}`).join("\n")
     : "(no questions asked yet)";
 
-  const forceGuess = answers.length >= MAX_TURNS;
-  const turnNote = forceGuess
-    ? `You have already asked ${answers.length} questions. Commit now: set status to "guess" with your single best guess and a summary.`
-    : answers.length === 0
-      ? `Ask your first broad question for this category.`
-      : `Decide the single best next step: ask ONE new question that best narrows the remaining possibilities, or, if you are confident, make a guess. Never repeat a question above.`;
+  const forceGuess = realQuestions >= MAX_TURNS;
+  const phaseNote = forceGuess
+    ? `You have asked ${realQuestions} questions — commit now: set mode to "guess" with your single best guess and a summary.`
+    : realQuestions === 0
+      ? `This is question 1 (BROAD phase): ask a broad yes/no question that splits the scope.`
+      : realQuestions <= 3
+        ? `Question ${realQuestions + 1} (BROAD phase): ask another broad narrowing yes/no question.`
+        : realQuestions <= 7
+          ? `Question ${realQuestions + 1} (SPECIFIC phase): ask a specific yes/no question about a clinical feature, lab, or treatment that separates your top candidates.`
+          : `Question ${realQuestions + 1} (HIGHLY SPECIFIC phase): ask a very specific differentiating yes/no question.`;
 
-  const userText = `Category: ${category}
+  const guessHint = forceGuess
+    ? ""
+    : ` Instead, make a guess now (mode "guess") if one candidate has high confidence or is clearly ahead of the rest.`;
+
+  const userText = `Starting scope (${category}): ${SCOPE[category]}
 
 Transcript so far (question -> the user's answer):
 ${transcript}
 
-${turnNote}
+You have asked ${realQuestions} question(s). ${phaseNote}${guessHint}
 Respond with JSON only.`;
 
   try {
     let parsed = await askGemini(apiKey, userText);
     if (!parsed) return NextResponse.json({ error: "empty-answer" }, { status: 502 });
 
-    let status: "question" | "guess" = parsed.status === "guess" ? "guess" : "question";
+    let mode: "question" | "guess" = parsed.mode === "guess" || parsed.status === "guess" ? "guess" : "question";
     const guess = typeof parsed.guess === "string" ? parsed.guess.trim() : "";
     // a guess with no name is not a usable guess — fall back to asking
-    if (status === "guess" && !guess) status = "question";
+    if (mode === "guess" && !guess) mode = "question";
 
     // --- guess turn -------------------------------------------------------
-    if (status === "guess") {
+    if (mode === "guess") {
       return NextResponse.json({
         status: "guess",
         question: null,
         guess,
-        confidence: clamp01(parsed.confidence),
+        confidence: topConfidence(parsed),
         summary: sanitizeSummary(parsed.summary),
         message: null,
+        ...(debug ? { candidateList: parsed.candidateList, reasoning: parsed.reasoning } : {}),
       });
     }
 
@@ -238,9 +270,10 @@ Respond with JSON only.`;
       status: "question",
       question,
       guess: null,
-      confidence: clamp01(parsed?.confidence),
+      confidence: topConfidence(parsed),
       summary: null,
       message: null,
+      ...(debug ? { candidateList: parsed?.candidateList, reasoning: parsed?.reasoning } : {}),
     });
   } catch (err) {
     console.error("[medical-akinator] request failed:", err);
@@ -250,8 +283,13 @@ Respond with JSON only.`;
 
 /* ---- Gemini call ------------------------------------------------------- */
 
-/** call Gemini with the shared system prompt + schema; throws on a non-OK response */
-async function askGemini(apiKey: string, userText: string): Promise<ParsedModel | null> {
+// brief backoffs (ms) for retrying Gemini's transient "high demand" 503s / rate spikes
+const GEMINI_RETRY_BACKOFF_MS = [400, 900, 1600];
+const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
+
+/** call Gemini with the shared system prompt + schema; retries transient
+    overload (503/429/500) with backoff, then throws on a non-OK response */
+async function askGemini(apiKey: string, userText: string, attempt = 0): Promise<ParsedModel | null> {
   const res = await fetch(ENDPOINT, {
     method: "POST",
     headers: { "Content-Type": "application/json", "x-goog-api-key": apiKey },
@@ -269,8 +307,15 @@ async function askGemini(apiKey: string, userText: string): Promise<ParsedModel 
   });
 
   if (!res.ok) {
+    const body = (await res.text()).slice(0, 400);
+    // a momentary "high demand" blip usually clears on a quick retry
+    if ((res.status === 503 || res.status === 429 || res.status === 500) && attempt < GEMINI_RETRY_BACKOFF_MS.length) {
+      console.warn(`[medical-akinator] Gemini ${res.status}, retry ${attempt + 1}/${GEMINI_RETRY_BACKOFF_MS.length}`);
+      await sleep(GEMINI_RETRY_BACKOFF_MS[attempt]);
+      return askGemini(apiKey, userText, attempt + 1);
+    }
     // log server-side only; never leak provider details to the client
-    console.error(`[medical-akinator] Gemini ${res.status}:`, (await res.text()).slice(0, 400));
+    console.error(`[medical-akinator] Gemini ${res.status}:`, body);
     throw new Error(`gemini-${res.status}`);
   }
 
@@ -318,8 +363,8 @@ function isValidYesNoQuestion(validFlag: unknown, question: string): boolean {
 function rewriteUserText(category: string, badQuestion: string): string {
   return `Your previous question was NOT a valid binary yes/no question: "${badQuestion}".
 It must be answerable with only Yes, No, Maybe, or "I don't know", must NOT contain the words "or", "either", "which", "what", "type of", "category", "choose", or "select", and must not ask the user to pick between options or categories.
-Rewrite it as ONE short yes/no question that probes a SINGLE possibility (ask one side at a time), keeping the same diagnostic intent for the category "${category}".
-Set status to "question", set "validYesNoQuestion" to true, and respond with JSON only.`;
+Rewrite it as ONE short yes/no question that probes a SINGLE possibility (ask one side at a time), keeping the same diagnostic intent for the scope "${category}".
+Set mode to "question", set "validYesNoQuestion" to true, and respond with JSON only.`;
 }
 
 /* ---- safety ------------------------------------------------------------ */
@@ -343,14 +388,31 @@ function looksUnsafe(text: string): boolean {
 
 /* ---- parsing / normalization helpers ----------------------------------- */
 
+interface Candidate {
+  name?: unknown;
+  confidence?: unknown;
+}
+
 interface ParsedModel {
-  status?: unknown;
+  mode?: unknown;
+  status?: unknown; // tolerate the legacy field name
   question?: unknown;
+  guess?: unknown;
+  candidateList?: unknown;
   reasoning?: unknown;
   validYesNoQuestion?: unknown;
-  guess?: unknown;
-  confidence?: unknown;
+  confidence?: unknown; // legacy top-level confidence
   summary?: unknown;
+}
+
+/** confidence of the model's top candidate (drives the guess meter); 0..1 */
+function topConfidence(parsed: ParsedModel | null): number {
+  const list = Array.isArray(parsed?.candidateList) ? (parsed!.candidateList as Candidate[]) : [];
+  if (list.length) {
+    const c = Number(list[0]?.confidence);
+    if (Number.isFinite(c)) return Math.min(1, Math.max(0, c));
+  }
+  return clamp01(parsed?.confidence);
 }
 
 /** parse the model output as JSON, tolerating an accidental code-fence wrap */
