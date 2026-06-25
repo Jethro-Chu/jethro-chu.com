@@ -19,7 +19,9 @@ import { NextResponse } from "next/server";
  */
 
 export const runtime = "nodejs";
-export const maxDuration = 30; // headroom for internal retries on Gemini "high demand" blips
+// NOTE: no custom maxDuration — it must stay within the Vercel plan's function
+// limit (the Hobby plan caps it, and exceeding it fails the deploy). Retries
+// below are kept short so a turn comfortably finishes within the default timeout.
 
 // flash-lite has more available capacity than flash (fewer "high demand" 503s)
 // and is cheaper; plenty capable for binary questions + common-condition guesses.
@@ -283,8 +285,9 @@ Respond with JSON only.`;
 
 /* ---- Gemini call ------------------------------------------------------- */
 
-// brief backoffs (ms) for retrying Gemini's transient "high demand" 503s / rate spikes
-const GEMINI_RETRY_BACKOFF_MS = [400, 900, 1600];
+// brief backoffs (ms) for retrying Gemini's transient "high demand" 503s / rate
+// spikes — kept to 2 retries so the whole turn fits the default function timeout
+const GEMINI_RETRY_BACKOFF_MS = [400, 1100];
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
 /** call Gemini with the shared system prompt + schema; retries transient
