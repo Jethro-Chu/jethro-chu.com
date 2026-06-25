@@ -23,10 +23,14 @@ export const runtime = "nodejs";
 // limit (the Hobby plan caps it, and exceeding it fails the deploy). Retries
 // below are kept short so a turn comfortably finishes within the default timeout.
 
-// flash-lite has more available capacity than flash (fewer "high demand" 503s)
-// and is cheaper; plenty capable for binary questions + common-condition guesses.
-const MODEL = "gemini-2.5-flash-lite";
-const ENDPOINT = `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent`;
+// Try several models in order so one overloaded model never breaks a turn.
+// flash-lite first (fast, cheap, most available); fall back to other capacity
+// pools (different models = different "high demand" state). All support the JSON
+// schema and are plenty capable for binary medical questions.
+const MODELS = ["gemini-2.5-flash-lite", "gemini-2.5-flash", "gemini-2.0-flash"];
+const endpoint = (model: string) => `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`;
+const MODEL_BACKOFF_MS = [0, 350, 700]; // brief wait before each successive model attempt
+const sleep = (ms: number) => (ms > 0 ? new Promise((r) => setTimeout(r, ms)) : Promise.resolve());
 
 /* The two starting scopes the UI offers. An unknown category is rejected so the
    game can never be steered off-domain. */
@@ -127,7 +131,7 @@ interface IncomingAnswer {
 }
 
 interface GeminiResponse {
-  candidates?: { content?: { parts?: { text?: string }[] } }[];
+  candidates?: { content?: { parts?: { text?: string }[] }; finishReason?: string }[];
 }
 
 const ANSWER_LABEL: Record<string, string> = {
@@ -285,50 +289,72 @@ Respond with JSON only.`;
 
 /* ---- Gemini call ------------------------------------------------------- */
 
-// brief backoffs (ms) for retrying Gemini's transient "high demand" 503s / rate
-// spikes — kept to 2 retries so the whole turn fits the default function timeout
-const GEMINI_RETRY_BACKOFF_MS = [400, 1100];
-const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
-
-/** call Gemini with the shared system prompt + schema; retries transient
-    overload (503/429/500) with backoff, then throws on a non-OK response */
-async function askGemini(apiKey: string, userText: string, attempt = 0): Promise<ParsedModel | null> {
-  const res = await fetch(ENDPOINT, {
-    method: "POST",
-    headers: { "Content-Type": "application/json", "x-goog-api-key": apiKey },
-    body: JSON.stringify({
-      systemInstruction: { parts: [{ text: SYSTEM_PROMPT }] },
-      contents: [{ role: "user", parts: [{ text: userText }] }],
-      generationConfig: {
-        temperature: 0.6,
-        topP: 0.95,
-        maxOutputTokens: 700,
-        responseMimeType: "application/json",
-        responseSchema: RESPONSE_SCHEMA,
-      },
-    }),
+/** Ask Gemini with the shared system prompt + schema, trying each model in
+    MODELS until one responds. A model that is overloaded (503/429), rate-limited,
+    or unavailable (404/500) just falls through to the next capacity pool; only a
+    genuine client error (400/401/403) aborts. Throws if every model fails. */
+async function askGemini(apiKey: string, userText: string): Promise<ParsedModel | null> {
+  const requestBody = JSON.stringify({
+    systemInstruction: { parts: [{ text: SYSTEM_PROMPT }] },
+    contents: [{ role: "user", parts: [{ text: userText }] }],
+    generationConfig: {
+      temperature: 0.6,
+      topP: 0.95,
+      // generous budget: the 2.5 models spend "thinking" tokens BEFORE the JSON,
+      // and the JSON now carries a candidate list + reasoning + (on a guess) a
+      // summary. Too low a cap truncates the JSON mid-string and the parse fails.
+      maxOutputTokens: 2048,
+      responseMimeType: "application/json",
+      responseSchema: RESPONSE_SCHEMA,
+    },
   });
 
-  if (!res.ok) {
-    const body = (await res.text()).slice(0, 400);
-    // a momentary "high demand" blip usually clears on a quick retry
-    if ((res.status === 503 || res.status === 429 || res.status === 500) && attempt < GEMINI_RETRY_BACKOFF_MS.length) {
-      console.warn(`[medical-akinator] Gemini ${res.status}, retry ${attempt + 1}/${GEMINI_RETRY_BACKOFF_MS.length}`);
-      await sleep(GEMINI_RETRY_BACKOFF_MS[attempt]);
-      return askGemini(apiKey, userText, attempt + 1);
+  let lastStatus = 0;
+  for (let i = 0; i < MODELS.length; i++) {
+    await sleep(MODEL_BACKOFF_MS[i] ?? 700);
+
+    let res: Response;
+    try {
+      res = await fetch(endpoint(MODELS[i]), {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "x-goog-api-key": apiKey },
+        body: requestBody,
+      });
+    } catch (err) {
+      console.warn(`[medical-akinator] ${MODELS[i]} network error, trying next:`, (err as Error).message);
+      lastStatus = 0;
+      continue;
     }
-    // log server-side only; never leak provider details to the client
-    console.error(`[medical-akinator] Gemini ${res.status}:`, body);
-    throw new Error(`gemini-${res.status}`);
+
+    if (res.ok) {
+      const data = (await res.json()) as GeminiResponse;
+      const text = (data.candidates?.[0]?.content?.parts ?? [])
+        .map((p) => p.text ?? "")
+        .join("")
+        .trim();
+      const parsed = parseModelJson(text);
+      if (parsed) return parsed;
+      // 200 but unparseable (usually a truncated response, finishReason MAX_TOKENS)
+      // — log it and fall through to the next model rather than failing the turn
+      const finish = data.candidates?.[0]?.finishReason;
+      console.warn(`[medical-akinator] ${MODELS[i]} 200 but unparseable (finish=${finish}, len=${text.length}); trying next`);
+      lastStatus = 200;
+      continue;
+    }
+
+    lastStatus = res.status;
+    const body = (await res.text()).slice(0, 300);
+    // a real client error (bad key/request) won't be fixed by another model
+    if (res.status === 400 || res.status === 401 || res.status === 403) {
+      console.error(`[medical-akinator] Gemini ${res.status} (${MODELS[i]}):`, body);
+      throw new Error(`gemini-${res.status}`);
+    }
+    // overload / rate limit / unavailable → fall through to the next model
+    console.warn(`[medical-akinator] ${MODELS[i]} -> ${res.status}, trying next model`);
   }
 
-  const data = (await res.json()) as GeminiResponse;
-  const text = (data.candidates?.[0]?.content?.parts ?? [])
-    .map((p) => p.text ?? "")
-    .join("")
-    .trim();
-
-  return parseModelJson(text);
+  console.error(`[medical-akinator] all models unavailable (last status ${lastStatus})`);
+  throw new Error(`gemini-${lastStatus}`);
 }
 
 /* ---- question validation ----------------------------------------------- */

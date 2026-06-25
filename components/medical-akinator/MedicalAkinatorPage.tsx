@@ -73,6 +73,32 @@ const guessPrompt = (g: string) => {
   return /^(my guess is|is it|are you|is this|do you mean)\b/i.test(t) ? t : `My guess is ${t}. Am I right?`;
 };
 
+/** POST to the akinator route, silently retrying a transient overload (502/503)
+    a few times before surfacing an error — so a momentary Gemini "high demand"
+    blip never drops the player onto the "unavailable" screen. The server already
+    tries multiple models per request; this adds spaced retries on top. */
+async function postAkinator(body: Record<string, unknown>): Promise<ApiResponse> {
+  const RETRY_GAPS_MS = [1200, 2200]; // waits between attempts (3 attempts total)
+  let lastErr: unknown;
+  for (let attempt = 0; attempt <= RETRY_GAPS_MS.length; attempt++) {
+    try {
+      const res = await fetch("/api/medical-akinator", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+      });
+      if (res.ok) return (await res.json()) as ApiResponse;
+      // 502/503 = transient Gemini overload from our route → retry; else stop
+      if (res.status !== 502 && res.status !== 503) throw new Error(`status ${res.status}`);
+      lastErr = new Error(`status ${res.status}`);
+    } catch (err) {
+      lastErr = err; // network error → also worth a retry
+    }
+    if (attempt < RETRY_GAPS_MS.length) await new Promise((r) => setTimeout(r, RETRY_GAPS_MS[attempt]));
+  }
+  throw lastErr ?? new Error("request failed");
+}
+
 export function MedicalAkinatorPage() {
   const reduce = useReducedMotion();
   const router = useRouter();
@@ -103,13 +129,7 @@ export function MedicalAkinatorPage() {
     setLoading(true);
     setError(null);
     try {
-      const res = await fetch("/api/medical-akinator", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ category: cat, answers: history }),
-      });
-      if (!res.ok) throw new Error(`status ${res.status}`);
-      const data = (await res.json()) as ApiResponse;
+      const data = await postAkinator({ category: cat, answers: history });
       setConfidence(typeof data.confidence === "number" ? data.confidence : 0);
       if (data.status === "guess" && data.guess) {
         setGuess(data.guess);
@@ -188,13 +208,7 @@ export function MedicalAkinatorPage() {
     setError(null);
     setSafety(null);
     try {
-      const res = await fetch("/api/medical-akinator", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ category, answers, reveal: what }),
-      });
-      if (!res.ok) throw new Error(`status ${res.status}`);
-      const data = (await res.json()) as ApiResponse;
+      const data = await postAkinator({ category, answers, reveal: what });
       if (data.status === "safety") {
         setSafety(data.message || SAFETY_FALLBACK);
       } else if (data.status === "guess" && (data.guess || what)) {
