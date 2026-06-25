@@ -37,16 +37,27 @@ interface Summary {
   nclexClue: string;
 }
 
-interface ApiResponse {
-  status: "question" | "guess" | "safety";
-  question: string | null;
-  guess: string | null;
-  confidence: number;
-  summary?: Summary | null;
-  message?: string | null;
+interface LearnedProfile {
+  name: string;
+  aliases?: string[];
+  hallmark_features?: string[];
+  times_missed?: number;
 }
 
-const MAX_WRONG_GUESSES = 3;
+interface ApiResponse {
+  status: "question" | "guess" | "safety" | "learned";
+  question?: string | null;
+  guess?: string | null;
+  confidence?: number;
+  summary?: Summary | null;
+  message?: string | null;
+  // learn response
+  name?: string;
+  profile?: LearnedProfile;
+  persisted?: boolean;
+}
+
+const MAX_WRONG_GUESSES = 5; // give the engine more chances to land a rare answer before giving up
 
 const SAFETY_FALLBACK =
   "This is an educational game, not medical advice. If this is an emergency, call your local emergency number or get medical help now.";
@@ -105,6 +116,7 @@ export function MedicalAkinatorPage() {
 
   // --- game state ---
   const [category, setCategory] = useState<string | null>(null);
+  const [gameId, setGameId] = useState("");
   const [answers, setAnswers] = useState<QA[]>([]);
   const [currentQuestion, setCurrentQuestion] = useState<string | null>(null);
   const [guess, setGuess] = useState<string | null>(null);
@@ -114,11 +126,11 @@ export function MedicalAkinatorPage() {
   const [error, setError] = useState<string | null>(null);
   const [solved, setSolved] = useState(false);
 
-  // --- wrong-guess / reveal flow ---
+  // --- stumped → learn flow ---
   const [wrongGuesses, setWrongGuesses] = useState(0);
-  const [revealing, setRevealing] = useState(false);
-  const [revealInput, setRevealInput] = useState("");
-  const [revealed, setRevealed] = useState(false);
+  const [stumped, setStumped] = useState(false);
+  const [learnInput, setLearnInput] = useState("");
+  const [learned, setLearned] = useState<LearnedProfile | null>(null);
   const [safety, setSafety] = useState<string | null>(null);
 
   // real questions asked, excluding the synthetic "wrong guess" markers
@@ -153,15 +165,16 @@ export function MedicalAkinatorPage() {
   const chooseCategory = useCallback(
     (cat: string) => {
       setCategory(cat);
+      setGameId(typeof crypto !== "undefined" && crypto.randomUUID ? crypto.randomUUID() : `g_${Date.now()}`);
       setAnswers([]);
       setCurrentQuestion(null);
       setGuess(null);
       setSummary(null);
       setSolved(false);
       setWrongGuesses(0);
-      setRevealing(false);
-      setRevealInput("");
-      setRevealed(false);
+      setStumped(false);
+      setLearnInput("");
+      setLearned(null);
       setSafety(null);
       void advance([], cat);
     },
@@ -180,7 +193,6 @@ export function MedicalAkinatorPage() {
   );
 
   const confirmCorrect = useCallback(() => {
-    setRevealed(false);
     setSolved(true);
   }, []);
 
@@ -194,44 +206,41 @@ export function MedicalAkinatorPage() {
     setWrongGuesses(nextWrong);
     setGuess(null);
     if (nextWrong >= MAX_WRONG_GUESSES) {
-      setRevealing(true); // give up gracefully → learning moment
+      setStumped(true); // give up gracefully → learning moment
     } else {
       void advance(next, category);
     }
   }, [advance, answers, category, guess, loading, wrongGuesses]);
 
-  // the user tells us what they were thinking of → fetch a learning summary
-  const submitReveal = useCallback(async () => {
-    const what = revealInput.trim();
+  // the user names the topic that stumped the engine → enrich + save it
+  const submitLearn = useCallback(async () => {
+    const what = learnInput.trim();
     if (!what || !category || loading) return;
     setLoading(true);
     setError(null);
     setSafety(null);
     try {
-      const data = await postAkinator({ category, answers, reveal: what });
+      const data = await postAkinator({ category, answers, learn: what, gameId });
       if (data.status === "safety") {
         setSafety(data.message || SAFETY_FALLBACK);
-      } else if (data.status === "guess" && (data.guess || what)) {
-        setGuess(data.guess || what);
-        setSummary(data.summary ?? null);
-        setRevealed(true);
-        setRevealing(false);
-        setSolved(true);
+      } else if (data.status === "learned") {
+        setLearned(data.profile ?? { name: data.name || what });
+        setStumped(false);
       } else {
         throw new Error("unexpected-shape");
       }
     } catch (err) {
-      console.error("[medical-akinator] reveal failed:", err);
-      setError("Could not load a summary right now. Try again in a moment.");
+      console.error("[medical-akinator] learn failed:", err);
+      setError("Couldn't save that right now. Try again in a moment.");
     } finally {
       setLoading(false);
     }
-  }, [answers, category, loading, revealInput]);
+  }, [answers, category, gameId, learnInput, loading]);
 
   const retry = useCallback(() => {
-    if (revealing) void submitReveal();
+    if (stumped) void submitLearn();
     else if (category) void advance(answers, category);
-  }, [advance, answers, category, revealing, submitReveal]);
+  }, [advance, answers, category, stumped, submitLearn]);
 
   const restart = useCallback(() => {
     setCategory(null);
@@ -244,9 +253,9 @@ export function MedicalAkinatorPage() {
     setLoading(false);
     setSolved(false);
     setWrongGuesses(0);
-    setRevealing(false);
-    setRevealInput("");
-    setRevealed(false);
+    setStumped(false);
+    setLearnInput("");
+    setLearned(null);
     setSafety(null);
   }, []);
 
@@ -256,23 +265,25 @@ export function MedicalAkinatorPage() {
   // (and each new question) fades in fresh
   const phaseKey = !category
     ? "start"
-    : error
-      ? "error"
-      : solved && guess
-        ? "solved"
-        : revealing
-          ? loading
-            ? "reveal-loading"
-            : "reveal"
-          : loading || (!currentQuestion && !guess)
-            ? "thinking"
-            : guess
-              ? "guess"
-              : currentQuestion
-                ? `q-${askedCount}`
-                : "thinking";
+    : learned
+      ? "learned"
+      : error
+        ? "error"
+        : solved && guess
+          ? "solved"
+          : stumped
+            ? loading
+              ? "learn-loading"
+              : "learn"
+            : loading || (!currentQuestion && !guess)
+              ? "thinking"
+              : guess
+                ? "guess"
+                : currentQuestion
+                  ? `q-${askedCount}`
+                  : "thinking";
 
-  const inGame = category !== null && !solved;
+  const inGame = category !== null && !solved && !learned;
 
   return (
     <div className="relative flex min-h-screen flex-col">
@@ -304,18 +315,20 @@ export function MedicalAkinatorPage() {
         >
           {!category ? (
             <StartScreen onPick={chooseCategory} />
+          ) : learned ? (
+            <LearnedScreen profile={learned} onRestart={restart} />
           ) : error ? (
             <ErrorScreen message={error} onRetry={retry} onRestart={restart} onExit={exit} />
           ) : solved && guess ? (
-            <SolvedScreen guess={guess} summary={summary} revealed={revealed} onRestart={restart} onExit={exit} />
-          ) : revealing ? (
+            <SolvedScreen guess={guess} summary={summary} onRestart={restart} onExit={exit} />
+          ) : stumped ? (
             loading ? (
-              <Thinking label="looking it up" />
+              <Thinking label="learning it" />
             ) : (
-              <RevealScreen
-                value={revealInput}
-                setValue={setRevealInput}
-                onSubmit={submitReveal}
+              <LearnScreen
+                value={learnInput}
+                setValue={setLearnInput}
+                onSubmit={submitLearn}
                 safety={safety}
                 onRestart={restart}
               />
@@ -510,7 +523,7 @@ function GuessScreen({
   );
 }
 
-function RevealScreen({
+function LearnScreen({
   value,
   setValue,
   onSubmit,
@@ -525,11 +538,14 @@ function RevealScreen({
 }) {
   return (
     <div className="text-center">
-      <p className="label-mono text-[var(--color-pine)]">I&apos;m stumped</p>
-      <p className="mx-auto mt-4 max-w-lg text-balance font-display text-[1.5rem] font-medium leading-snug text-[var(--color-shadow)] sm:text-[1.9rem]">
-        Three guesses in and I didn&apos;t get it. What were you thinking of?
+      <p className="label-mono text-[var(--color-pine)]">you stumped me</p>
+      <h2 className="mx-auto mt-4 max-w-lg text-balance font-display text-[1.7rem] font-medium leading-snug text-[var(--color-shadow)] sm:text-[2.1rem]">
+        Help me learn this for next time.
+      </h2>
+      <p className="mx-auto mt-4 max-w-lg text-[0.98rem] leading-relaxed text-[var(--color-muted)]">
+        I couldn&apos;t identify your medical topic this time, but I can add it to my knowledge base so
+        I&apos;m more likely to recognize it in future games.
       </p>
-      <p className="mt-3 text-[0.95rem] leading-relaxed text-[var(--color-muted)]">I&apos;ll give you the rundown.</p>
 
       {safety && (
         <div className="mx-auto mt-6 max-w-lg">
@@ -537,8 +553,9 @@ function RevealScreen({
         </div>
       )}
 
+      <p className="label-mono mb-3 mt-9">what medical topic were you thinking of?</p>
       <form
-        className="mx-auto mt-7 max-w-md"
+        className="mx-auto max-w-md"
         onSubmit={(e) => {
           e.preventDefault();
           onSubmit();
@@ -549,13 +566,13 @@ function RevealScreen({
             autoFocus
             value={value}
             onChange={(e) => setValue(e.target.value)}
-            placeholder="e.g. heart failure, beta blockers"
-            aria-label="What were you thinking of?"
+            placeholder="e.g. Takotsubo cardiomyopathy"
+            aria-label="What medical topic were you thinking of?"
             className="min-w-0 flex-1 bg-transparent text-[0.98rem] text-[var(--color-shadow)] outline-none placeholder:text-[var(--color-muted)]"
           />
           <button
             type="submit"
-            aria-label="Show the answer"
+            aria-label="Teach it"
             disabled={!value.trim()}
             className="flex items-center gap-1 rounded-xs bg-[var(--color-pine)] px-3 py-2 text-[var(--color-on-dark)] transition-opacity disabled:opacity-40"
           >
@@ -566,7 +583,49 @@ function RevealScreen({
 
       <div className="mt-8 flex justify-center">
         <button onClick={onRestart} className="label-mono transition-colors hover:text-[var(--color-pine)]">
-          Restart
+          Skip · restart
+        </button>
+      </div>
+    </div>
+  );
+}
+
+function LearnedScreen({ profile, onRestart }: { profile: LearnedProfile; onRestart: () => void }) {
+  const features = (profile.hallmark_features ?? []).slice(0, 4);
+  return (
+    <div className="text-center">
+      <span className="mx-auto flex size-10 items-center justify-center rounded-full bg-[var(--color-pine)] text-[var(--color-on-dark)]">
+        <Check size={20} />
+      </span>
+      <p className="label-mono mt-4 text-[var(--color-pine)]">thanks! I&apos;ve learned</p>
+      <h2 className="mt-2 font-display text-[2rem] font-medium capitalize leading-tight text-[var(--color-shadow)] sm:text-[2.5rem]">
+        {profile.name}
+      </h2>
+      <p className="mx-auto mt-4 max-w-lg text-[0.98rem] leading-relaxed text-[var(--color-muted)]">
+        This medical topic has been added to my knowledge base and I&apos;ll use it in future games.
+      </p>
+
+      {features.length > 0 && (
+        <div className="mx-auto mt-7 max-w-md rounded-md border border-[var(--color-granite-line)] bg-[var(--color-card)] px-5 py-4 text-left">
+          <p className="label-mono text-[var(--color-pine)]">what I now know</p>
+          <ul className="mt-2 space-y-1">
+            {features.map((f) => (
+              <li key={f} className="flex gap-2 text-[0.9rem] leading-relaxed text-[var(--color-shadow)]">
+                <span aria-hidden className="mt-[0.55rem] size-1 shrink-0 rounded-full bg-[var(--color-pine)]" />
+                <span>{f}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+
+      <div className="mx-auto mt-10 flex max-w-lg flex-col gap-3 sm:flex-row">
+        <button onClick={onRestart} className={`${primaryBtn} flex-1`}>
+          Play again
+          <ArrowRight size={16} />
+        </button>
+        <button onClick={onRestart} className={`${secondaryBtn} flex-1`}>
+          Try another topic
         </button>
       </div>
     </div>
@@ -576,13 +635,11 @@ function RevealScreen({
 function SolvedScreen({
   guess,
   summary,
-  revealed,
   onRestart,
   onExit,
 }: {
   guess: string;
   summary: Summary | null;
-  revealed: boolean;
   onRestart: () => void;
   onExit: () => void;
 }) {
@@ -598,13 +655,9 @@ function SolvedScreen({
   return (
     <div>
       <div className="text-center">
-        {revealed ? (
-          <p className="label-mono text-[var(--color-muted)]">you stumped me · the answer</p>
-        ) : (
-          <span className="mx-auto flex size-9 items-center justify-center rounded-full bg-[var(--color-pine)] text-[var(--color-on-dark)]">
-            <Check size={18} />
-          </span>
-        )}
+        <span className="mx-auto flex size-9 items-center justify-center rounded-full bg-[var(--color-pine)] text-[var(--color-on-dark)]">
+          <Check size={18} />
+        </span>
         <h2 className="mt-4 font-display text-[2rem] font-medium capitalize leading-tight text-[var(--color-shadow)] sm:text-[2.4rem]">
           {guess}
         </h2>
@@ -620,9 +673,7 @@ function SolvedScreen({
           ))}
         </dl>
       ) : (
-        <p className="mt-6 text-center text-[0.95rem] leading-relaxed text-[var(--color-muted)]">
-          {revealed ? "Noted. Worth a quick review on your own." : "Nice. Got it."}
-        </p>
+        <p className="mt-6 text-center text-[0.95rem] leading-relaxed text-[var(--color-muted)]">Nice. Got it.</p>
       )}
 
       <div className="mx-auto mt-10 flex max-w-lg flex-col gap-3 sm:flex-row">
