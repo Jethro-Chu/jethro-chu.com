@@ -133,7 +133,9 @@ export function MedicalAkinatorGame({ onClose }: Props) {
       } else {
         throw new Error("unexpected-shape");
       }
-    } catch {
+    } catch (err) {
+      // surface the real failure to the console; show the friendly message in the UI
+      console.error("[medical-akinator] question generation failed:", err);
       setError("The guessing engine is unavailable right now. Try again in a moment.");
     } finally {
       setLoading(false);
@@ -220,7 +222,8 @@ export function MedicalAkinatorGame({ onClose }: Props) {
       } else {
         throw new Error("unexpected-shape");
       }
-    } catch {
+    } catch (err) {
+      console.error("[medical-akinator] reveal failed:", err);
       setError("Could not load a summary right now. Try again in a moment.");
     } finally {
       setLoading(false);

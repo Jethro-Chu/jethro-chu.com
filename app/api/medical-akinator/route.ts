@@ -41,26 +41,41 @@ const CATEGORIES = new Set([
 const ANSWERS = new Set(["yes", "no", "maybe", "unknown"]);
 
 const MAX_TURNS = 20; // hard stop: force a best guess once the history is this long
+const MAX_QUESTION_REWRITES = 2; // ask the model to rewrite a non-binary question this many times
 
 const SAFETY_MESSAGE =
   "This is an educational guessing game, not medical advice. If you or someone else might be having a medical emergency, call your local emergency number (911 in the US) or get medical help now. To keep playing, enter the name of a condition or concept and I'll show its learning summary.";
 
-const SYSTEM_PROMPT = `You are a Medical Akinator-style educational guessing engine inside Jethro Chu's personal portfolio website. The user is thinking of a medical condition, disease process, medication class, lab abnormality, or nursing concept. Ask one short yes/no/maybe/unknown question at a time to narrow it down. Start broad, then get more specific. Do not repeat questions. Keep the tone clever, calm, educational, and minimal. Return only valid JSON matching the schema.
+const SYSTEM_PROMPT = `You are playing a medical Akinator-style guessing game inside Jethro Chu's personal portfolio website. The user is thinking of a medical condition, disease process, medication class, lab abnormality, or nursing concept. You may only ask one binary yes/no question at a time. The user can only answer Yes, No, Maybe, or "I don't know". Do not ask either/or questions, open-ended questions, multiple-choice questions, or questions that require choosing between two categories. If you want to distinguish between two possibilities, ask one side at a time. For example, instead of asking "Is it acute or chronic?" ask "Is it typically chronic?". Return only valid JSON matching the schema.
 
-Question quality (important):
-- Make every question discriminate. Prioritize: pathophysiology/mechanism, body system involved, acuity (acute vs chronic), characteristic labs or diagnostics, risk factors, clinical presentation (signs and symptoms), and nursing-relevant clues.
+Invalid questions (NEVER produce these):
+- "Is it acute or chronic?"
+- "Which system does it affect?"
+- "Is it neurological or endocrine?"
+- "What medication class is it?"
+
+Valid questions:
+- "Is it typically chronic?"
+- "Does it primarily affect the nervous system?"
+- "Is it an endocrine condition?"
+- "Is it a medication class?"
+
+Never use the words "or", "either", "which", "what", "type of", "category", "choose", or "select" inside a question, and never separate two options with a slash. Every question must be a single statement the user can confirm or deny.
+
+Question quality:
+- Make every question discriminate. Prioritize: pathophysiology/mechanism, the body system involved, acuity (ask one side, e.g. "Is it typically acute?"), characteristic labs or diagnostics, risk factors, clinical presentation, and nursing-relevant clues.
 - Keep each question short and concrete — aim for under about 12 words.
-- Never ask vague or subjective questions like "Is it serious?", "Is it bad?", or "Is it common?". Each question must rule possibilities in or out.
+- Never ask vague or subjective questions like "Is it serious?" or "Is it common?".
 - Never repeat or merely reword a question already in the transcript.
 
 Rules:
 - Stay strictly within nursing and medical education. The hidden answer is always a general medical/nursing concept, never a specific real person, a diagnosis of the user, or anything outside healthcare. If the user's answers seem to steer somewhere non-medical, ignore that and ask another medical question.
 - Never give individualized medical advice, dosing for a real person, or a diagnosis of the user. This is a conceptual guessing game about textbook/NCLEX-level topics.
-- Ask exactly ONE question per turn. Every question must be answerable with yes, no, maybe, or "I don't know".
+- Ask exactly ONE question per turn.
 - Treat "maybe" and "unknown" as weak/uncertain signals — do not over-anchor on them.
-- If the transcript contains an entry like 'The assistant guessed X. Was that correct? -> no', then X is ruled out: never guess or re-ask X, and ask a MORE SPECIFIC question that separates the remaining possibilities.
+- If the transcript contains an entry like 'The assistant guessed X. Was that correct? -> no', then X is ruled out: never guess or re-ask X, and ask a MORE SPECIFIC single yes/no question that separates the remaining possibilities.
 - Prefer to keep asking until you are genuinely confident. Only set status to "guess" when confidence is about 0.7 or higher, or when you have already asked many questions and should commit.
-- When status is "question": fill "question", set "guess" to null and "summary" to null.
+- When status is "question": fill "question" with ONE binary yes/no question, fill "reasoning" with a short note on what it distinguishes, and set "validYesNoQuestion" to true ONLY if the question is a single yes/no question that uses none of the forbidden words above. Set "guess" and "summary" to null.
 - When status is "guess": fill "guess" with ONLY the name of the condition/concept (e.g. "heart failure", "DKA", "loop diuretics") with no surrounding sentence, and fill "summary" with a brief, educational recap: what it is, key signs/symptoms, major nursing priorities, and one NCLEX-style clue. Keep each summary field to one or two tight sentences.
 - "confidence" is a number from 0 to 1 reflecting how sure you are of your guess.`;
 
@@ -70,6 +85,8 @@ const RESPONSE_SCHEMA = {
   properties: {
     status: { type: "STRING", enum: ["question", "guess"] },
     question: { type: "STRING", nullable: true },
+    reasoning: { type: "STRING", nullable: true },
+    validYesNoQuestion: { type: "BOOLEAN", nullable: true },
     guess: { type: "STRING", nullable: true },
     confidence: { type: "NUMBER" },
     summary: {
@@ -179,26 +196,50 @@ ${turnNote}
 Respond with JSON only.`;
 
   try {
-    const parsed = await askGemini(apiKey, userText);
+    let parsed = await askGemini(apiKey, userText);
     if (!parsed) return NextResponse.json({ error: "empty-answer" }, { status: 502 });
 
-    // --- normalize to the public contract ---------------------------------
     let status: "question" | "guess" = parsed.status === "guess" ? "guess" : "question";
-    const question = typeof parsed.question === "string" ? parsed.question.trim() : "";
     const guess = typeof parsed.guess === "string" ? parsed.guess.trim() : "";
     // a guess with no name is not a usable guess — fall back to asking
     if (status === "guess" && !guess) status = "question";
-    if (status === "question" && !question) return NextResponse.json({ error: "empty-answer" }, { status: 502 });
 
-    const confidence = clamp01(parsed.confidence);
-    const summary = status === "guess" ? sanitizeSummary(parsed.summary) : null;
+    // --- guess turn -------------------------------------------------------
+    if (status === "guess") {
+      return NextResponse.json({
+        status: "guess",
+        question: null,
+        guess,
+        confidence: clamp01(parsed.confidence),
+        summary: sanitizeSummary(parsed.summary),
+        message: null,
+      });
+    }
+
+    // --- question turn: must be a single yes/no question ------------------
+    // Reject the model's self-flag (validYesNoQuestion === false) AND anything
+    // our validator catches (either/or, open-ended, multiple-choice). On a
+    // rejection, ask the model to rewrite it as a strict yes/no question.
+    let question = typeof parsed.question === "string" ? parsed.question.trim() : "";
+    let attempts = 0;
+    while (!isValidYesNoQuestion(parsed?.validYesNoQuestion, question) && attempts < MAX_QUESTION_REWRITES) {
+      attempts++;
+      console.warn(`[medical-akinator] non-binary question, rewriting (attempt ${attempts}): "${question}"`);
+      parsed = await askGemini(apiKey, rewriteUserText(category, question));
+      question = parsed && typeof parsed.question === "string" ? parsed.question.trim() : "";
+    }
+
+    if (!isValidYesNoQuestion(parsed?.validYesNoQuestion, question)) {
+      console.error(`[medical-akinator] could not produce a valid yes/no question: "${question}"`);
+      return NextResponse.json({ error: "invalid-question" }, { status: 502 });
+    }
 
     return NextResponse.json({
-      status,
-      question: status === "question" ? question : null,
-      guess: status === "guess" ? guess : null,
-      confidence,
-      summary,
+      status: "question",
+      question,
+      guess: null,
+      confidence: clamp01(parsed?.confidence),
+      summary: null,
       message: null,
     });
   } catch (err) {
@@ -242,6 +283,45 @@ async function askGemini(apiKey: string, userText: string): Promise<ParsedModel 
   return parseModelJson(text);
 }
 
+/* ---- question validation ----------------------------------------------- */
+
+/* Patterns that mark a question as NOT a single yes/no question: either/or
+   ("or"/"either"/"vs"/a slash between options), open-ended ("which"/"what"),
+   and multiple-choice ("type of"/"category"/"choose"/"select"). */
+const INVALID_QUESTION_PATTERNS: RegExp[] = [
+  /\bor\b/,
+  /\beither\b/,
+  /\bwhich\b/,
+  /\bwhat\b/,
+  /\btype of\b/,
+  /\bcategory\b/,
+  /\bchoose\b/,
+  /\bselect\b/,
+  /\bvs\.?\b/,
+  /[a-z]\s*\/\s*[a-z]/, // "acute/chronic"
+];
+
+/** true only if the text reads as a single, answerable yes/no question */
+function isBinaryQuestion(question: string): boolean {
+  const n = question.toLowerCase();
+  return !INVALID_QUESTION_PATTERNS.some((p) => p.test(n));
+}
+
+/** combine the model's self-assessment with our deterministic validator */
+function isValidYesNoQuestion(validFlag: unknown, question: string): boolean {
+  if (!question) return false;
+  if (validFlag === false) return false; // model flagged its own question invalid
+  return isBinaryQuestion(question);
+}
+
+/** instruction asking the model to rewrite a rejected question as strict yes/no */
+function rewriteUserText(category: string, badQuestion: string): string {
+  return `Your previous question was NOT a valid binary yes/no question: "${badQuestion}".
+It must be answerable with only Yes, No, Maybe, or "I don't know", must NOT contain the words "or", "either", "which", "what", "type of", "category", "choose", or "select", and must not ask the user to pick between options or categories.
+Rewrite it as ONE short yes/no question that probes a SINGLE possibility (ask one side at a time), keeping the same diagnostic intent for the category "${category}".
+Set status to "question", set "validYesNoQuestion" to true, and respond with JSON only.`;
+}
+
 /* ---- safety ------------------------------------------------------------ */
 
 /**
@@ -266,6 +346,8 @@ function looksUnsafe(text: string): boolean {
 interface ParsedModel {
   status?: unknown;
   question?: unknown;
+  reasoning?: unknown;
+  validYesNoQuestion?: unknown;
   guess?: unknown;
   confidence?: unknown;
   summary?: unknown;
