@@ -38,6 +38,8 @@ export interface Landmark {
   faceset?: string;
   /** a JETHRO placeholder line to author, rendered as a clearly-marked draft */
   authoredLine?: string;
+  /** when true, the modal renders the full structured resume (ResumeSheet) below the body */
+  resumeSheet?: boolean;
 }
 
 const FACE = "/game/ninja-adventure/sprites/hunter-face.png";
@@ -125,8 +127,9 @@ export const landmarks: Landmark[] = [
     authoredLine:
       "JETHRO: one or two lines on what you're looking for (roles, teams, the kind of work).",
     body: [
-      `${status.degree}, ${status.school}, expected ${status.bsnGraduation}. ${status.clinicalHours} clinical hours; ${status.certifications.join(", ")}.`,
+      `Five clinical rotations, ${status.clinicalHours} hours across pediatric, mental health, oncology, cardiac, and emergency settings. The full breakdown is below.`,
     ],
+    resumeSheet: true,
     links: [{ label: "Download resume", href: resume.pdf }],
   },
   {

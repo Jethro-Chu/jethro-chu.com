@@ -12,6 +12,7 @@ import { AnimatePresence, m, useReducedMotion } from "framer-motion";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { gameBus } from "@/lib/gameBus";
 import { landmarkById, projectsForLandmark, type Landmark } from "@/content/portfolio";
+import { ResumeSheet } from "./ResumeSheet";
 
 export function LandmarkModal() {
   const [landmark, setLandmark] = useState<Landmark | null>(null);
@@ -137,6 +138,8 @@ export function LandmarkModal() {
                 </p>
               ))}
             </div>
+
+            {landmark.resumeSheet && <ResumeSheet />}
 
             {projects.length > 0 && (
               <ul className="mt-5 space-y-3 border-t border-[var(--color-granite-line)] pt-4">

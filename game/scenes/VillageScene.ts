@@ -153,8 +153,11 @@ export class VillageScene extends Phaser.Scene {
   private firstgids: Record<string, number> = {};
   private tsRefs: Record<string, Phaser.Tilemaps.Tileset> = {};
   private solid: boolean[][] = [];
+  // sprite-footprint reservation (decor spacing only; NOT collision — that's `solid`)
+  private occupied: boolean[][] = [];
   private facing = "down";
   private paused = false;
+  private intro = true; // title-screen mode: scenic camera, controls off
   private discovered = new Set<string>();
   private active: string | null = null;
   private armed = new Set<string>();
@@ -188,10 +191,13 @@ export class VillageScene extends Phaser.Scene {
     this.bindBus();
 
     this.cameras.main.setBounds(0, 0, MAP_W * TILE, MAP_H * TILE);
-    this.cameras.main.setZoom(ZOOM);
-    this.cameras.main.startFollow(this.player, true, 0.16, 0.16);
-    this.cameras.main.setDeadzone(40, 30);
     this.cameras.main.roundPixels = true;
+    // boot into the title-screen view: a scenic shot of the plaza + fountain,
+    // the scene alive (water/NPCs/birds) but the player hidden + controls off
+    this.cameras.main.setZoom(2.2);
+    this.cameras.main.centerOn(SPAWN.tx * TILE, (SPAWN.ty - 1) * TILE);
+    this.player.setVisible(false);
+    this.playerShadow.setVisible(false);
 
     for (const d of this.doors) this.armed.add(d.id);
     this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => this.teardown());
@@ -221,6 +227,7 @@ export class VillageScene extends Phaser.Scene {
     const overlay = map.createBlankLayer("overlay", all)!.setDepth(1); // paths/plaza/water
     const decals = map.createBlankLayer("decals", all)!.setDepth(2); // flowers (flat)
     this.solid = Array.from({ length: MAP_H }, () => Array(MAP_W).fill(false));
+    this.occupied = Array.from({ length: MAP_H }, () => Array(MAP_W).fill(false));
     const rnd = this.rng(99173);
 
     for (let y = 0; y < MAP_H; y++)
@@ -599,6 +606,8 @@ export class VillageScene extends Phaser.Scene {
       const [, , , w, h] = t;
       if (this.canBlock(x, y, w, h)) {
         this.obj(t, x, y);
+        // reserve the canopy footprint so no other tree/bush overlaps it
+        this.reserve(x, y, w, h);
         // only the trunk cell collides
         if (this.solid[y + h - 1]) this.solid[y + h - 1][x + Math.floor(w / 2)] = true;
         // (clear the non-trunk footprint so it doesn't wall off the town)
@@ -618,8 +627,9 @@ export class VillageScene extends Phaser.Scene {
     while (bplaced < 24 && bguard++ < 3000) {
       const x = 2 + Math.floor(rnd() * (MAP_W - 4));
       const y = 3 + Math.floor(rnd() * (RIVER_TOP - 4));
-      if (this.solid[y][x]) continue;
+      if (this.solid[y][x] || this.occupied[y]?.[x]) continue;
       this.placeBush(x, y, rnd() > 0.5 ? "bush1" : "bush2");
+      this.reserve(x, y, 1, 1);
       bplaced++;
     }
 
@@ -861,6 +871,20 @@ export class VillageScene extends Phaser.Scene {
         this.moveTarget = null;
       })
     );
+    // "PLAY": leave the title screen and hand the player control
+    this.busOff.push(
+      gameBus.on("valley:play", () => {
+        if (!this.intro) return;
+        this.intro = false;
+        this.player.setVisible(true);
+        this.playerShadow.setVisible(true);
+        const cam = this.cameras.main;
+        cam.setZoom(ZOOM);
+        cam.startFollow(this.player, true, 0.16, 0.16);
+        cam.setDeadzone(40, 30);
+        cam.flash(260, 244, 239, 227);
+      })
+    );
     // nav teleport: jump the player + camera to a building, with a flash
     this.busOff.push(
       gameBus.on("valley:goto", ({ id }) => {
@@ -882,9 +906,13 @@ export class VillageScene extends Phaser.Scene {
   }
 
   update(time: number, delta: number) {
-    if (this.paused || !this.player) return;
+    if (!this.player) return;
     this.shimmers.forEach((s, i) => (s.tilePositionX += (i === 0 ? 0.32 : -0.22) * (delta / 16)));
-    this.updateNpcs(delta / 1000);
+    if (!this.paused) this.updateNpcs(delta / 1000); // NPCs wander during the intro too (life)
+    if (this.intro || this.paused) {
+      this.player.body.setVelocity(0, 0);
+      return;
+    }
     const speed = 92;
     let vx = 0;
     let vy = 0;
@@ -940,10 +968,21 @@ export class VillageScene extends Phaser.Scene {
     } else if (!inside && this.active) this.active = null;
   }
 
-  private canBlock(x: number, y: number, w: number, h: number) {
+  // can a w×h decoration sit here? rejects map obstacles (exact footprint) and
+  // keeps a `gap`-tile clearance from other decorations so sprites never overlap
+  // (overlap = a front sprite's hard outline/base slicing the canopy behind it).
+  private canBlock(x: number, y: number, w: number, h: number, gap = 1) {
     if (x < 2 || y < 2 || x + w > MAP_W - 2 || y + h > MAP_H - 2) return false;
     for (let dy = 0; dy < h; dy++) for (let dx = 0; dx < w; dx++) if (this.solid[y + dy][x + dx]) return false;
+    for (let dy = -gap; dy < h + gap; dy++)
+      for (let dx = -gap; dx < w + gap; dx++) if (this.occupied[y + dy]?.[x + dx]) return false;
     return true;
+  }
+
+  // mark a w×h footprint as taken so later decorations keep their distance
+  private reserve(x: number, y: number, w: number, h: number) {
+    for (let dy = 0; dy < h; dy++)
+      for (let dx = 0; dx < w; dx++) if (this.occupied[y + dy]) this.occupied[y + dy][x + dx] = true;
   }
 
   private rng(seed: number) {

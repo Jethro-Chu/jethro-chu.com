@@ -29,6 +29,8 @@ export interface ValleyEventMap {
   "valley:close": void;
   /** nav -> scene: teleport the player + camera to a landmark (with a flash) */
   "valley:goto": { id: string };
+  /** intro "PLAY" -> scene: leave the title screen, hand the player control */
+  "valley:play": void;
 }
 
 type EventKey = keyof ValleyEventMap;

@@ -2,16 +2,15 @@
 
 /* ============================================================
    VillageStandalone  ·  the /village route's interactive layer
-   Entry card -> mounts the shared VillageMount full-screen. Mirrors the
-   homepage overlay but as a standalone route (and a direct preview link).
-   Gate here is WebGL + motion only (no viewport floor) so it works on the
-   route; the homepage entrance keeps the stricter canPlayValley gate.
+   Mounts the shared VillageMount full-screen (which shows the title
+   screen, then play). Mirrors the homepage overlay but as a standalone
+   route + direct preview link. Gate is WebGL + motion only (no viewport
+   floor) so it works on the route; reduced-motion / no-WebGL get the
+   SSR'd flat content beneath with a re-enter affordance.
    ============================================================ */
 
 import dynamic from "next/dynamic";
-import { AnimatePresence, m } from "framer-motion";
 import { useEffect, useState } from "react";
-import { gameBus } from "@/lib/gameBus";
 
 const VillageMount = dynamic(() => import("@/components/valley/VillageMount"), {
   ssr: false,
@@ -24,8 +23,6 @@ const VillageMount = dynamic(() => import("@/components/valley/VillageMount"), {
   ),
 });
 
-type Phase = "card" | "playing" | "flat";
-
 function ok(): boolean {
   try {
     if (window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) return false;
@@ -37,82 +34,28 @@ function ok(): boolean {
 }
 
 export function VillageStandalone() {
-  const [phase, setPhase] = useState<Phase>("card");
+  const [playing, setPlaying] = useState(false);
   const [capable, setCapable] = useState(true);
 
   useEffect(() => {
     const able = ok();
     setCapable(able);
-    if (!able) setPhase("flat");
-    else if (new URLSearchParams(window.location.search).get("enter") === "1") setPhase("playing");
+    setPlaying(able); // capable visitors land on the title screen; others read the flat page
   }, []);
 
-  return (
-    <>
-      <AnimatePresence>
-        {phase === "card" && (
-          <m.div
-            className="fixed inset-0 z-40 flex items-center justify-center bg-[var(--color-sand)] p-5"
-            initial={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
-          >
-            <div className="w-full max-w-sm text-center">
-              <span className="eyebrow justify-center">A playable portfolio</span>
-              <h1 className="text-summit mt-3 text-[var(--color-shadow)]">Yosemite Village</h1>
-              <p className="mx-auto mt-4 max-w-xs text-[0.95rem] leading-relaxed text-[var(--color-muted)]">
-                Explore the town and step into the buildings. Each one opens a real part
-                of the portfolio. Or skip straight to reading it.
-              </p>
-              <div className="mt-7 flex flex-col gap-3">
-                <button
-                  type="button"
-                  onClick={() => setPhase("playing")}
-                  className="fast-ui rounded-sm bg-[var(--color-pine)] px-5 py-3 font-medium text-[var(--color-on-dark)]"
-                >
-                  Enter Yosemite Village
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setPhase("flat")}
-                  className="fast-ui rounded-sm border border-[var(--color-granite-line)] px-5 py-2.5 text-[0.9rem] font-medium text-[var(--color-shadow)]"
-                >
-                  Skip to the portfolio
-                </button>
-              </div>
-              <p className="label-mono mt-5 text-[0.62rem] text-[var(--color-muted)]">
-                WASD / arrows / drag to move · prototype
-              </p>
-            </div>
-          </m.div>
-        )}
-      </AnimatePresence>
+  if (!capable) return null;
 
-      {phase === "playing" && (
-        <div className="z-30 bg-[#3f7a57]" style={{ position: "fixed", inset: 0 }}>
-          <VillageMount />
-          <button
-            type="button"
-            onClick={() => {
-              gameBus.emit("game:skip");
-              setPhase("flat");
-            }}
-            className="fast-ui label-mono fixed left-3 top-3 z-[61] rounded-sm bg-[color-mix(in_oklab,var(--color-shadow)_72%,transparent)] px-3 py-2 text-[0.72rem] text-[var(--color-on-dark)]"
-          >
-            ← Back to the portfolio
-          </button>
-        </div>
-      )}
-
-      {phase === "flat" && capable && (
-        <button
-          type="button"
-          onClick={() => setPhase("playing")}
-          className="fast-ui fixed bottom-5 right-5 z-40 rounded-sm bg-[var(--color-pine)] px-4 py-2.5 text-[0.82rem] font-medium text-[var(--color-on-dark)] shadow-lg"
-        >
-          Enter the village
-        </button>
-      )}
-    </>
+  return playing ? (
+    <div className="z-30 bg-[#3f7a57]" style={{ position: "fixed", inset: 0 }}>
+      <VillageMount onExit={() => setPlaying(false)} />
+    </div>
+  ) : (
+    <button
+      type="button"
+      onClick={() => setPlaying(true)}
+      className="fast-ui fixed bottom-5 right-5 z-40 rounded-sm bg-[var(--color-pine)] px-4 py-2.5 text-[0.82rem] font-medium text-[var(--color-on-dark)] shadow-lg"
+    >
+      Enter the village
+    </button>
   );
 }

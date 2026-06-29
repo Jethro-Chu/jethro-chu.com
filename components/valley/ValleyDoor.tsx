@@ -105,7 +105,7 @@ export function ValleyDoor() {
       animate={{ opacity: 1 }}
       transition={{ duration: dur }}
     >
-      <VillageMount />
+      <VillageMount onExit={close} />
       <button
         ref={backRef}
         type="button"
