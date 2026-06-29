@@ -178,9 +178,12 @@ export class VillageScene extends Phaser.Scene {
     this.buildGround();
     this.buildPlayer();
     this.makeBushTextures();
+    this.makeFxTextures();
     this.decorate();
     this.animateWater();
     this.buildNpcs();
+    this.addAmbientFx();
+    this.addBirds();
     this.bindInput();
     this.bindBus();
 
@@ -354,6 +357,171 @@ export class VillageScene extends Phaser.Scene {
     make("bush2", BUSH2);
   }
 
+  // author small FX + fountain textures in canvas (no asset guesswork)
+  private makeFxTextures() {
+    const mk = (key: string, w: number, h: number, draw: (c: CanvasRenderingContext2D) => void) => {
+      if (this.textures.exists(key)) return;
+      const t = this.textures.createCanvas(key, w, h);
+      if (!t) return;
+      draw(t.getContext());
+      t.refresh();
+    };
+    // white particles (emitter tints them)
+    mk("leaf", 5, 5, (c) => {
+      c.fillStyle = "#ffffff";
+      c.fillRect(1, 0, 3, 5);
+      c.fillRect(0, 1, 5, 3);
+    });
+    mk("ember", 3, 3, (c) => {
+      c.fillStyle = "#ffffff";
+      c.fillRect(1, 0, 1, 3);
+      c.fillRect(0, 1, 3, 1);
+    });
+    mk("smoke", 8, 8, (c) => {
+      c.fillStyle = "#ffffff";
+      c.beginPath();
+      c.arc(4, 4, 3.6, 0, Math.PI * 2);
+      c.fill();
+    });
+    // bird: 2 frames (5x3) dark silhouette, registered as a sheet
+    mk("bird", 10, 3, (c) => {
+      c.fillStyle = "#2b2b33";
+      // frame 0 (wings up): cols 0-4
+      [[0, 0], [4, 0], [1, 1], [3, 1], [2, 2]].forEach(([x, y]) => c.fillRect(x, y, 1, 1));
+      // frame 1 (wings level): cols 5-9
+      [[5, 1], [6, 1], [8, 1], [9, 1], [7, 2]].forEach(([x, y]) => c.fillRect(x, y, 1, 1));
+    });
+    const bt = this.textures.get("bird");
+    if (!bt.has("0")) {
+      bt.add("0", 0, 0, 0, 5, 3);
+      bt.add("1", 0, 5, 0, 5, 3);
+    }
+    if (!this.anims.exists("bird-fly"))
+      this.anims.create({
+        key: "bird-fly",
+        frames: [{ key: "bird", frame: "0" }, { key: "bird", frame: "1" }],
+        frameRate: 7,
+        repeat: -1,
+      });
+    // fountain 32x32: stone basin + water
+    mk("fountain", 32, 32, (c) => {
+      const ring = (r: number, col: string) => {
+        c.fillStyle = col;
+        c.beginPath();
+        c.arc(16, 20, r, 0, Math.PI * 2);
+        c.fill();
+      };
+      ring(14, "#3a3f4a");
+      ring(13, "#9aa3b2");
+      ring(11, "#6a7180");
+      ring(9, "#4a7fa0");
+      ring(7, "#7fb0c8");
+      c.fillStyle = "#3a3f4a"; // pedestal
+      c.fillRect(14, 6, 4, 12);
+      c.fillStyle = "#6a7180";
+      c.fillRect(15, 6, 2, 12);
+      c.fillStyle = "#d6ecf5"; // basin top rim
+      c.fillRect(8, 18, 16, 1);
+    });
+  }
+
+  private placeFountain(tx: number, ty: number) {
+    const px = tx * TILE;
+    const py = (ty + 2) * TILE;
+    this.add.ellipse(px + 16, py - 2, 30, 9, 0x0d1014, 0.2).setDepth(py - 1);
+    this.add.image(px, py, "fountain").setOrigin(0, 1).setDepth(py);
+    // animated water in the basin: ripple + shimmer dot
+    const ring = this.add.ellipse(px + 16, py - 12, 6, 3, 0xd6ecf5, 0.6).setDepth(py + 0.5);
+    this.tweens.add({ targets: ring, scaleX: 2.4, scaleY: 2.4, alpha: 0, duration: 1500, repeat: -1, ease: "Quad.out" });
+    // a small water spout
+    this.add
+      .particles(px + 16, py - 16, "ember", {
+        speedY: { min: -34, max: -22 },
+        speedX: { min: -6, max: 6 },
+        gravityY: 90,
+        lifespan: 700,
+        scale: { start: 1, end: 0.4 },
+        alpha: { start: 0.9, end: 0 },
+        frequency: 90,
+        quantity: 1,
+        tint: [0x7fb0c8, 0xd6ecf5],
+      })
+      .setDepth(py + 1);
+    for (let dy = 0; dy < 2; dy++) for (let dx = 0; dx < 2; dx++) if (this.solid[ty + dy]) this.solid[ty + dy][tx + dx] = true;
+  }
+
+  // ambient particles: drifting leaves + campfire embers/smoke
+  private addAmbientFx() {
+    this.add
+      .particles(0, 0, "leaf", {
+        x: { min: 0, max: MAP_W * TILE },
+        y: { min: -10, max: 4 },
+        lifespan: 7000,
+        speedY: { min: 8, max: 22 },
+        speedX: { min: -16, max: 16 },
+        rotate: { min: 0, max: 360 },
+        scale: { min: 0.5, max: 1 },
+        alpha: { start: 0.85, end: 0.4 },
+        frequency: 550,
+        quantity: 1,
+        tint: [0xc98f45, 0xadbc3a, 0xe67c44, 0x74a334],
+      })
+      .setDepth(9000);
+
+    const cx = 12 * TILE + 8;
+    const cy = 28 * TILE + 6;
+    this.add
+      .particles(cx, cy, "ember", {
+        speedY: { min: -34, max: -14 },
+        speedX: { min: -8, max: 8 },
+        lifespan: 850,
+        scale: { start: 1.1, end: 0 },
+        alpha: { start: 1, end: 0 },
+        frequency: 110,
+        quantity: 1,
+        tint: [0xffa028, 0xff6a1f, 0xffe18d],
+      })
+      .setDepth(cy + 30);
+    this.add
+      .particles(cx, cy - 6, "smoke", {
+        speedY: { min: -16, max: -8 },
+        speedX: { min: -5, max: 7 },
+        lifespan: 1800,
+        scale: { start: 0.5, end: 1.7 },
+        alpha: { start: 0.22, end: 0 },
+        frequency: 320,
+        quantity: 1,
+        tint: 0x9aa3b2,
+      })
+      .setDepth(cy + 31);
+  }
+
+  // birds drifting across the sky on a loop
+  private addBirds() {
+    const fly = (delay: number) => {
+      if (!this.sys || !this.sys.displayList) return; // bail only if the scene is torn down
+      const y = 18 + Math.random() * 110;
+      const fromLeft = Math.random() > 0.5;
+      const b = this.add
+        .sprite(fromLeft ? -12 : MAP_W * TILE + 12, y, "bird", "0")
+        .setDepth(9500)
+        .setFlipX(!fromLeft);
+      b.play("bird-fly");
+      this.tweens.add({
+        targets: b,
+        x: fromLeft ? MAP_W * TILE + 12 : -12,
+        y: y + (Math.random() * 50 - 25),
+        duration: 7000 + Math.random() * 5000,
+        delay,
+        onComplete: () => {
+          b.destroy();
+          fly(1500 + Math.random() * 5000);
+        },
+      });
+    };
+    for (let i = 0; i < 3; i++) fly(Math.random() * 4000);
+  }
+
   // a custom bush: shadow + y-sorted image (decorative, not solid)
   private placeBush(tx: number, ty: number, key: string) {
     const px = tx * TILE;
@@ -389,8 +557,9 @@ export class VillageScene extends Phaser.Scene {
     this.obj(OBJ.rock, GLACIER_DOOR.tx - 4, MAP_H - 2);
     this.obj(OBJ.rock, GLACIER_DOOR.tx + 2, MAP_H - 2);
 
-    // plaza centerpiece: a market stall + benches + a signpost + flowers
-    this.obj(OBJ.market, SPAWN.tx - 1, SPAWN.ty - 1);
+    // plaza: a fountain centerpiece (north), a market stall to the side, props
+    this.placeFountain(SPAWN.tx - 1, SPAWN.ty - 3);
+    this.obj(OBJ.market, SPAWN.tx - 5, SPAWN.ty + 1);
     this.obj(OBJ.barrel, SPAWN.tx + 4, SPAWN.ty + 2);
     for (const [lx, ly] of [
       [SPAWN.tx - 5, SPAWN.ty - 3],
