@@ -48,6 +48,38 @@ NOT a dependency (plain JSON output); the touch controls are hand-rolled.
 
 ---
 
+## 2026-06-29 — "Enter the valley" homepage overlay (branch `feat/valley-overlay`)
+
+Opt-in entrance that mounts the valley as a full-screen overlay over the SSR scroll homepage
+(no navigation). Homepage stays a Server Component; one thin client island (`ValleyDoor`) +
+gated entrances (`EnterValleyButton`) + a shared `ValleyMount`.
+
+**Measurements (`next build`, node@22):**
+| | Pre-change (`/`) | After overlay (`/`) | Δ |
+|---|---|---|---|
+| First Load JS | 162 kB | **164 kB** | **+2 kB** (well within the +15 kB gate) |
+| Phaser on initial load | none | **none** | the island defers everything valley behind the click |
+| SSR HTML | content only | **content only** | no entrance, no Phaser (entrance is client-gated) |
+
+- `/valley` unchanged (119 kB) — the scene is shared, not forked. Build green, types pass.
+- Median-of-5 mobile Lighthouse to re-confirm at the Phase 5 gate (baseline mobile 93). The
+  only added initial cost is the island; +2 kB is far under budget.
+- **Verified at runtime:** entrance renders only for capable clients; Phaser loads **only on
+  click**; ← / ESC destroy the canvas (no leaked canvas/rAF — confirmed `canvas` gone after
+  close); re-entry re-creates; body scroll + Lenis + scroll position restored on close.
+
+**Lesson (cost real time):** **`AnimatePresence` freezes the exiting subtree at its last
+render**, so a child mounted inside the exiting overlay (the Phaser `ValleyMount`) stays alive
+through the exit animation — and in the throttled preview the exit never completes, so the
+engine never tore down. Fix: don't gate the engine behind an exit animation. Unmount the
+overlay directly on `open=false` (instant `game.destroy`); keep only the enter fade.
+
+**Note:** the preview tab reports a ~0-width window, so `canPlayValley()` (viewport ≥ 360)
+hides the entrance there by design — correct for tiny screens, but it means the entrance +
+overlay visuals must be judged in a focused real browser (the merge gate).
+
+---
+
 ## ⚠️ Architecture reality (read before trusting old docs)
 
 The iteration prompt and `HANDOFF.md` describe a **react-three-fiber 3D Half Dome

@@ -17,6 +17,7 @@ import { FloatingAsk } from "@/components/ask-jethro/triggers";
 import { CurrentlyBuilding } from "@/components/CurrentlyBuilding";
 import { CaseStudyExplorer } from "@/components/CaseStudyExplorer";
 import { Method } from "@/components/Method";
+import { ValleyDoor } from "@/components/valley/ValleyDoor";
 
 export default function Home() {
   return (
@@ -51,6 +52,9 @@ export default function Home() {
       </main>
       <Footer />
       <FloatingAsk />
+      {/* opt-in valley overlay controller (thin client island; renders nothing
+          until "Enter the valley" is clicked — homepage stays server-rendered) */}
+      <ValleyDoor />
     </div>
     </EyeScrollProvider>
     </AskJethroProvider>

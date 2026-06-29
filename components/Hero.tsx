@@ -1,5 +1,6 @@
 import { site, sections } from "@/content/content";
 import { HeroCommand } from "@/components/ask-jethro/triggers";
+import { EnterValleyButton } from "@/components/valley/EnterValleyButton";
 
 const trailhead = sections[0];
 
@@ -31,6 +32,7 @@ export function Hero() {
           {site.tagline}
         </p>
         <HeroCommand />
+        <EnterValleyButton variant="hero" />
       </div>
 
       <a

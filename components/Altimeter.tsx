@@ -1,6 +1,7 @@
 import { sections, ELEVATION_START, ELEVATION_SUMMIT } from "@/content/content";
 import type { SectionMeta } from "@/content/content";
 import { cn } from "@/lib/utils";
+import { EnterValleyButton } from "@/components/valley/EnterValleyButton";
 
 /**
  * The altimeter — the signature element.
@@ -143,6 +144,7 @@ export function Altimeter() {
               </li>
             );
           })}
+          <EnterValleyButton variant="station" />
         </ul>
       </nav>
     </>

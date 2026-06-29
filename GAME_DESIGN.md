@@ -6,7 +6,9 @@ open modals with real portfolio content. Built on the **Ninja Adventure** CC0 ti
 (see `CREDITS.md`). The art quality comes from the tileset, not from generated pixels.
 
 Status: **prototype** on branch `feat/yosemite-valley`, route `/valley`. The live homepage
-`/` and the shipped scroll site are untouched until merge.
+`/` and the shipped scroll site are untouched until merge. A follow-on branch
+`feat/valley-overlay` adds an opt-in "Enter the valley" entrance that mounts this same scene
+as a full-screen overlay over the homepage (shared `ValleyMount`; see HANDOFF).
 
 ---
 

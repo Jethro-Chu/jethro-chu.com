@@ -23,6 +23,10 @@ export interface ValleyEventMap {
   "game:resume": void;
   /** React -> Phaser: skip / leave the valley */
   "game:skip": void;
+  /** entrance affordance -> ValleyDoor: open the full-screen overlay */
+  "valley:open": void;
+  /** ValleyDoor -> listeners: the overlay closed */
+  "valley:close": void;
 }
 
 type EventKey = keyof ValleyEventMap;

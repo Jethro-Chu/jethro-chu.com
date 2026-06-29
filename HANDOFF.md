@@ -37,9 +37,33 @@ metrics + the Phaser justification in `PERF_REPORT.md`; art credit in `CREDITS.m
   `resume.ts`; `JETHRO:` drafts for voice lines). **Assets:** cherry-picked 16-px tilesets +
   Hunter sprite/faceset in `public/game/ninja-adventure/` (~276 KB, not the 110 MB pack).
 
-**Next step:** export `game/map/valley.tmj` for Tiled; author the custom El Capitan / Half
-Dome / Yosemite Falls art + the Ahwahnee building; trail cards + Glacier Point payoff; DOM
-minimap. Open `/valley` in a **focused desktop browser** (preview throttles rAF → slow).
+### Homepage overlay entrance (branch `feat/valley-overlay`, off the above)
+Opt-in "Enter the valley" that mounts the SAME valley as a full-screen overlay OVER the
+scroll homepage (no navigation). The homepage stays a **Server Component**; one thin client
+island does the work.
+- `components/valley/ValleyMount.tsx` — extracted shared playable surface (dynamic Phaser +
+  Discovered + LandmarkModal). Consumed by BOTH `ValleyExperience` (/valley) and the overlay,
+  so the scene is never forked. Phaser is dynamically imported here = code-split.
+- `components/valley/EnterValleyButton.tsx` — the entrance (`variant` hero | station). Renders
+  null on the server and when `canPlayValley()` is false (reduced-motion / no-WebGL / viewport
+  < 360), so the SSR HTML + SEO are unchanged and crawlers/incapable users never see it.
+  Emits `valley:open`. Placed in `Hero.tsx` (after `<HeroCommand/>`) and the Altimeter mobile
+  station bar.
+- `components/valley/ValleyDoor.tsx` — the overlay controller in `app/page.tsx` (renders
+  nothing until opened). On `valley:open`: capture `scrollY`, `window.__lenis.stop()` + body
+  `overflow:hidden`, mount the overlay (Framer enter fade). On ← / ESC: **unmount immediately**
+  (no AnimatePresence exit — that froze the subtree and leaked the canvas; `game.destroy(true)`
+  runs via PhaserValley cleanup), then restore Lenis + body + `scrollY` + focus. `lib/gameBus.ts`
+  gained `valley:open` / `valley:close`. Capability shared in `lib/canPlayValley.ts`.
+- **Verified:** homepage +2 kB first-load (164 kB), no Phaser on initial load, SSR HTML has no
+  entrance/Phaser, Phaser loads only on click, ← / ESC destroy the canvas (no leak), re-entry
+  re-creates, body/Lenis/scroll restored. **Merge gate:** do NOT merge to master until Jethro
+  walks it in a focused desktop browser AND on mobile (the preview's ~0-width window hides the
+  entrance, so the entrance/overlay visuals can only be judged in a real browser).
+
+**Next step (valley prototype):** export `game/map/valley.tmj` for Tiled; author the custom El
+Capitan / Half Dome / Yosemite Falls art + the Ahwahnee building; trail cards + Glacier Point
+payoff; DOM minimap. Open `/valley` in a **focused desktop browser** (preview throttles rAF).
 
 ---
 

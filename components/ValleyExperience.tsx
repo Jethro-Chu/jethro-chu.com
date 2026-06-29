@@ -8,23 +8,10 @@
    or crawler traffic.
    ============================================================ */
 
-import dynamic from "next/dynamic";
 import { AnimatePresence, m } from "framer-motion";
 import { useEffect, useState } from "react";
 import { gameBus } from "@/lib/gameBus";
-import { LandmarkModal } from "@/components/valley/LandmarkModal";
-import { Discovered } from "@/components/HUD/Discovered";
-
-const PhaserValley = dynamic(() => import("@/game/PhaserValley"), {
-  ssr: false,
-  loading: () => (
-    <div className="flex h-full w-full items-center justify-center bg-[#2f5a42]">
-      <span className="label-mono animate-pulse text-[var(--color-on-dark)]">
-        loading the valley…
-      </span>
-    </div>
-  ),
-});
+import ValleyMount from "@/components/valley/ValleyMount";
 
 type Phase = "card" | "playing" | "flat";
 
@@ -103,9 +90,7 @@ export function ValleyExperience() {
           className="z-30 bg-[#2f5a42]"
           style={{ position: "fixed", inset: 0 }}
         >
-          <PhaserValley />
-          <Discovered />
-          <LandmarkModal />
+          <ValleyMount />
           <button
             type="button"
             onClick={skip}

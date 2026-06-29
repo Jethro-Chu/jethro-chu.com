@@ -1,0 +1,119 @@
+"use client";
+
+/* ============================================================
+   ValleyDoor  ·  the homepage overlay controller (thin client island)
+   The ONLY valley code on the homepage's initial load. It renders no
+   entrance itself (EnterValleyButton does) and nothing until opened, so
+   the island stays tiny and the page stays a server component.
+
+   On valley:open it captures scroll, stops Lenis + locks the body,
+   then dynamically imports the valley (Phaser loads only now) into a
+   fixed full-screen overlay with a Framer fade. On close (← / ESC) it
+   unmounts the valley FIRST (PhaserValley's cleanup calls
+   game.destroy(true) → no leaked canvas/rAF), then fades the empty
+   shell, restores scroll + Lenis + body + focus. No navigation.
+   ============================================================ */
+
+import dynamic from "next/dynamic";
+import { m, useReducedMotion } from "framer-motion";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { gameBus } from "@/lib/gameBus";
+import { canPlayValley } from "@/lib/canPlayValley";
+
+const ValleyMount = dynamic(() => import("@/components/valley/ValleyMount"), {
+  ssr: false,
+  loading: () => (
+    <div className="flex h-full w-full items-center justify-center bg-[#2f5a42]">
+      <span className="label-mono animate-pulse text-[var(--color-on-dark)]">
+        loading the valley…
+      </span>
+    </div>
+  ),
+});
+
+export function ValleyDoor() {
+  const [open, setOpen] = useState(false);
+  const savedScroll = useRef(0);
+  const lastFocus = useRef<HTMLElement | null>(null);
+  const backRef = useRef<HTMLButtonElement>(null);
+  const reduce = useReducedMotion();
+
+  const close = useCallback(() => {
+    // unmount the overlay immediately -> ValleyMount unmounts ->
+    // PhaserValley cleanup calls game.destroy(true). No exit animation holds
+    // the engine alive (that was the leak); the enter fade is enough.
+    setOpen(false);
+    gameBus.emit("game:skip");
+    gameBus.emit("valley:close");
+    window.__lenis?.start();
+    document.body.style.overflow = "";
+    window.scrollTo(0, savedScroll.current);
+    window.__lenis?.scrollTo(savedScroll.current, { immediate: true });
+    lastFocus.current?.focus?.();
+  }, []);
+
+  useEffect(
+    () =>
+      gameBus.on("valley:open", () => {
+        if (!canPlayValley()) return; // guard (entrance is already gated)
+        savedScroll.current = window.scrollY;
+        lastFocus.current = document.activeElement as HTMLElement;
+        window.__lenis?.stop();
+        document.body.style.overflow = "hidden";
+        setOpen(true);
+      }),
+    []
+  );
+
+  // ESC closes; move focus into the overlay on open
+  useEffect(() => {
+    if (!open) return;
+    const t = window.setTimeout(() => backRef.current?.focus(), 50);
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        e.preventDefault();
+        close();
+      }
+    };
+    window.addEventListener("keydown", onKey);
+    return () => {
+      window.clearTimeout(t);
+      window.removeEventListener("keydown", onKey);
+    };
+  }, [open, close]);
+
+  // safety: restore scroll lock if this island ever unmounts while open
+  useEffect(() => {
+    return () => {
+      document.body.style.overflow = "";
+      window.__lenis?.start();
+    };
+  }, []);
+
+  const dur = reduce ? 0 : 0.32;
+
+  // No AnimatePresence: `open` false unmounts instantly, so ValleyMount unmounts
+  // and the Phaser game is destroyed right away (no exit animation keeps it alive).
+  if (!open) return null;
+  return (
+    <m.div
+      role="dialog"
+      aria-modal="true"
+      aria-label="Yosemite valley"
+      className="fixed inset-0 z-[60] bg-[#2f5a42]"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: dur }}
+    >
+      <ValleyMount />
+      <button
+        ref={backRef}
+        type="button"
+        onClick={close}
+        className="fast-ui label-mono fixed right-3 top-3 z-[61] rounded-sm bg-[color-mix(in_oklab,var(--color-shadow)_72%,transparent)] px-3 py-2 text-[0.74rem] text-[var(--color-on-dark)]"
+      >
+        ← Back to the portfolio
+      </button>
+    </m.div>
+  );
+}
