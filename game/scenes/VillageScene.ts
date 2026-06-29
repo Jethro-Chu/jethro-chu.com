@@ -115,6 +115,16 @@ interface BDef {
   ty: number;
   doorDx: number;
 }
+
+interface NpcRec {
+  spr: Phaser.Types.Physics.Arcade.SpriteWithDynamicBody;
+  shadow: Phaser.GameObjects.Ellipse;
+  texture: string;
+  fourDir: boolean;
+  speed: number;
+  timer: number;
+  dir: { x: number; y: number };
+}
 const BUILDINGS: BDef[] = [
   { id: "visitor-center", rect: OBJ.houseTan, tx: 19, ty: 5, doorDx: 1 },
   { id: "ranger-station", rect: OBJ.houseOrange, tx: 8, ty: 6, doorDx: 1 },
@@ -134,6 +144,10 @@ const SPAWN = { tx: 23, ty: 16 };
 export class VillageScene extends Phaser.Scene {
   private player!: Phaser.Types.Physics.Arcade.SpriteWithDynamicBody;
   private playerShadow!: Phaser.GameObjects.Ellipse;
+  private collGroup!: Phaser.Physics.Arcade.StaticGroup;
+  private npcGroup!: Phaser.Physics.Arcade.Group;
+  private npcs: NpcRec[] = [];
+  private shimmers: Phaser.GameObjects.TileSprite[] = [];
   private cursors?: Phaser.Types.Input.Keyboard.CursorKeys;
   private keys?: Record<string, Phaser.Input.Keyboard.Key>;
   private firstgids: Record<string, number> = {};
@@ -155,10 +169,9 @@ export class VillageScene extends Phaser.Scene {
 
   preload() {
     for (const t of TILESETS) this.load.image(t.key, `${BASE}${t.file}.png`);
-    this.load.spritesheet("hunter", "/game/ninja-adventure/sprites/hunter.png", {
-      frameWidth: TILE,
-      frameHeight: TILE,
-    });
+    const S = "/game/ninja-adventure/sprites/";
+    for (const k of ["hunter", "bear", "racoon", "frog", "cat", "villager", "oldman"])
+      this.load.spritesheet(k, `${S}${k}.png`, { frameWidth: TILE, frameHeight: TILE });
   }
 
   create() {
@@ -166,6 +179,8 @@ export class VillageScene extends Phaser.Scene {
     this.buildPlayer();
     this.makeBushTextures();
     this.decorate();
+    this.animateWater();
+    this.buildNpcs();
     this.bindInput();
     this.bindBus();
 
@@ -489,7 +504,167 @@ export class VillageScene extends Phaser.Scene {
         } else x++;
       }
     }
+    this.collGroup = group;
     this.physics.add.collider(this.player, group);
+  }
+
+  // ---- animated water: scrolling shimmer + looping ripples ----
+  private animateWater() {
+    // a small translucent caustic texture
+    const tex = this.textures.createCanvas("shimmer", 48, 48);
+    if (tex) {
+      const ctx = tex.getContext();
+      ctx.clearRect(0, 0, 48, 48);
+      ctx.fillStyle = "rgba(255,255,255,0.5)";
+      const rnd = this.rng(8181);
+      for (let i = 0; i < 14; i++) {
+        const x = Math.floor(rnd() * 48);
+        const y = Math.floor(rnd() * 48);
+        ctx.fillRect(x, y, 2 + Math.floor(rnd() * 3), 1);
+      }
+      tex.refresh();
+    }
+    const ry = RIVER_TOP * TILE;
+    const rh = (MAP_H - RIVER_TOP) * TILE;
+    for (let i = 0; i < 2; i++) {
+      const s = this.add
+        .tileSprite(0, ry, MAP_W * TILE, rh, "shimmer")
+        .setOrigin(0, 0)
+        .setDepth(3)
+        .setAlpha(i === 0 ? 0.16 : 0.1);
+      this.shimmers.push(s);
+    }
+    // a few ripple rings on the water
+    const rnd = this.rng(5151);
+    for (let i = 0; i < 7; i++) {
+      const rx = 4 * TILE + rnd() * (MAP_W - 8) * TILE;
+      const ryy = (RIVER_TOP + 1) * TILE + rnd() * (rh - 2 * TILE);
+      const ring = this.add.ellipse(rx, ryy, 6, 3, 0xd6ecf5, 0.5).setDepth(4);
+      this.tweens.add({
+        targets: ring,
+        scaleX: 3,
+        scaleY: 3,
+        alpha: 0,
+        duration: 1800 + rnd() * 1400,
+        delay: rnd() * 2000,
+        repeat: -1,
+        ease: "Quad.out",
+      });
+    }
+  }
+
+  private findOpen(tx: number, ty: number): { tx: number; ty: number } {
+    for (let r = 0; r < 6; r++)
+      for (let dy = -r; dy <= r; dy++)
+        for (let dx = -r; dx <= r; dx++) {
+          const x = tx + dx;
+          const y = ty + dy;
+          if (x > 1 && y > 1 && x < MAP_W - 2 && y < RIVER_TOP - 1 && !this.solid[y][x]) return { tx: x, ty: y };
+        }
+    return { tx, ty };
+  }
+
+  // ---- ambient NPCs: hikers + Yosemite wildlife, wandering ----
+  private buildNpcs() {
+    const fourDir = (key: string) => {
+      if (!this.textures.exists(key)) return;
+      ([
+        ["down", 0],
+        ["up", 4],
+        ["left", 8],
+        ["right", 12],
+      ] as [string, number][]).forEach(([n, s]) =>
+        this.anims.create({
+          key: `${key}-${n}`,
+          frames: this.anims.generateFrameNumbers(key, { start: s, end: s + 3 }),
+          frameRate: 7,
+          repeat: -1,
+        })
+      );
+    };
+    fourDir("villager");
+    fourDir("oldman");
+    if (this.textures.exists("bear"))
+      this.anims.create({ key: "bear-walk", frames: this.anims.generateFrameNumbers("bear", { start: 0, end: 3 }), frameRate: 5, repeat: -1 });
+    for (const k of ["racoon", "frog", "cat"])
+      if (this.textures.exists(k))
+        this.anims.create({ key: `${k}-walk`, frames: this.anims.generateFrameNumbers(k, { start: 0, end: 1 }), frameRate: 5, repeat: -1 });
+
+    this.npcGroup = this.physics.add.group();
+    const spawn = (
+      texture: string,
+      tx: number,
+      ty: number,
+      opts: { fourDir?: boolean; speed?: number; tint?: number } = {}
+    ) => {
+      if (!this.textures.exists(texture)) return; // skip any sprite that failed to load
+      const p = this.findOpen(tx, ty);
+      const spr = this.physics.add.sprite(p.tx * TILE + 8, p.ty * TILE + 8, texture, 0) as Phaser.Types.Physics.Arcade.SpriteWithDynamicBody;
+      spr.setOrigin(0.5, 0.7);
+      spr.body.setSize(8, 7).setOffset(4, 8);
+      if (opts.tint) spr.setTint(opts.tint);
+      const shadow = this.add.ellipse(spr.x, spr.y + 3, 10, 4, 0x0d1014, 0.2);
+      this.npcGroup.add(spr);
+      this.npcs.push({ spr, shadow, texture, fourDir: !!opts.fourDir, speed: opts.speed ?? 26, timer: 0, dir: { x: 0, y: 0 } });
+    };
+
+    // hikers on the paths
+    spawn("villager", 21, 18, { fourDir: true, speed: 34 });
+    spawn("oldman", 26, 13, { fourDir: true, speed: 28 });
+    spawn("villager", 16, 16, { fourDir: true, speed: 34 });
+    // Yosemite wildlife
+    spawn("bear", 38, 9, { speed: 18 });
+    spawn("bear", 12, 10, { speed: 20, tint: 0xd8c39a }); // tan = deer/elk
+    spawn("bear", 30, 11, { speed: 20, tint: 0xd8c39a });
+    spawn("racoon", 10, 22, { speed: 30 });
+    spawn("frog", 19, 28, { speed: 22 });
+    spawn("cat", 36, 21, { speed: 28 });
+
+    this.physics.add.collider(this.npcGroup, this.collGroup);
+    this.physics.add.collider(this.npcGroup, this.player);
+    this.physics.add.collider(this.npcGroup, this.npcGroup);
+  }
+
+  private updateNpcs(dt: number) {
+    for (const n of this.npcs) {
+      const body = n.spr.body;
+      const blocked = body.blocked.up || body.blocked.down || body.blocked.left || body.blocked.right;
+      n.timer -= dt;
+      if (n.timer <= 0 || blocked) {
+        const r = Math.random();
+        if (r < 0.3) n.dir = { x: 0, y: 0 };
+        else {
+          const dirs = [
+            [1, 0],
+            [-1, 0],
+            [0, 1],
+            [0, -1],
+          ];
+          const d = dirs[Math.floor(Math.random() * 4)];
+          n.dir = { x: d[0], y: d[1] };
+        }
+        n.timer = 0.8 + Math.random() * 2.2;
+      }
+      body.setVelocity(n.dir.x * n.speed, n.dir.y * n.speed);
+      if (n.dir.x || n.dir.y) {
+        if (n.fourDir) {
+          const f = Math.abs(n.dir.x) > Math.abs(n.dir.y) ? (n.dir.x < 0 ? "left" : "right") : n.dir.y < 0 ? "up" : "down";
+          n.spr.anims.play(`${n.texture}-${f}`, true);
+        } else {
+          n.spr.anims.play(`${n.texture}-walk`, true);
+          if (n.dir.x) n.spr.setFlipX(n.dir.x < 0);
+        }
+      } else n.spr.anims.stop();
+      n.spr.setDepth(n.spr.y);
+      n.shadow.setPosition(n.spr.x, n.spr.y + 3).setDepth(n.spr.y - 1);
+    }
+  }
+
+  private stopNpcs() {
+    for (const n of this.npcs) {
+      n.spr.body.setVelocity(0, 0);
+      n.dir = { x: 0, y: 0 };
+    }
   }
 
   private bindInput() {
@@ -503,7 +678,13 @@ export class VillageScene extends Phaser.Scene {
   }
 
   private bindBus() {
-    this.busOff.push(gameBus.on("game:pause", () => (this.paused = true)));
+    this.busOff.push(
+      gameBus.on("game:pause", () => {
+        this.paused = true;
+        this.player?.body?.setVelocity(0, 0);
+        this.stopNpcs();
+      })
+    );
     this.busOff.push(
       gameBus.on("game:resume", () => {
         this.paused = false;
@@ -512,8 +693,10 @@ export class VillageScene extends Phaser.Scene {
     );
   }
 
-  update(time: number) {
+  update(time: number, delta: number) {
     if (this.paused || !this.player) return;
+    this.shimmers.forEach((s, i) => (s.tilePositionX += (i === 0 ? 0.32 : -0.22) * (delta / 16)));
+    this.updateNpcs(delta / 1000);
     const speed = 92;
     let vx = 0;
     let vy = 0;
