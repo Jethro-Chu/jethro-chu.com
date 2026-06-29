@@ -62,10 +62,10 @@ const OBJ = {
   tent1: ["camp", 4, 0, 3, 3] as Rect,
   tent2: ["camp", 7, 0, 3, 3] as Rect,
   tent3: ["camp", 10, 0, 3, 3] as Rect,
-  treeA: ["nature", 5, 2, 2, 3] as Rect,
-  treeB: ["nature", 1, 3, 2, 3] as Rect,
-  cypress: ["nature", 12, 14, 2, 4] as Rect,
-  bigTree: ["nature", 4, 17, 4, 4] as Rect,
+  // full trees, cropped to their exact 3x3 / 2x2 bounds (no cut-off)
+  treeA: ["nature", 0, 2, 3, 3] as Rect, // lush green
+  treeB: ["nature", 4, 2, 3, 3] as Rect, // lush green, double canopy
+  treeSmall: ["nature", 6, 0, 2, 2] as Rect, // small round green
   rock: ["nature", 15, 16, 2, 2] as Rect,
   lantern: ["camp", 12, 7, 1, 1] as Rect,
   barrel: ["camp", 0, 1, 1, 1] as Rect,
@@ -571,7 +571,7 @@ export class VillageScene extends Phaser.Scene {
 
     // a forest ring around the rim + a few clusters. Mostly green trees,
     // edge-biased so the town interior stays clean (not a messy thicket).
-    const trees = [OBJ.treeA, OBJ.treeB, OBJ.treeA, OBJ.treeB, OBJ.bigTree];
+    const trees = [OBJ.treeA, OBJ.treeB, OBJ.treeA, OBJ.treeB, OBJ.treeSmall];
     let placed = 0;
     let guard = 0;
     while (placed < 52 && guard++ < 5000) {
@@ -796,6 +796,7 @@ export class VillageScene extends Phaser.Scene {
 
   private updateNpcs(dt: number) {
     for (const n of this.npcs) {
+      if (!n.spr || !n.spr.body || !n.spr.active) continue;
       const body = n.spr.body;
       const blocked = body.blocked.up || body.blocked.down || body.blocked.left || body.blocked.right;
       n.timer -= dt;
@@ -831,7 +832,7 @@ export class VillageScene extends Phaser.Scene {
 
   private stopNpcs() {
     for (const n of this.npcs) {
-      n.spr.body.setVelocity(0, 0);
+      if (n.spr && n.spr.body) n.spr.body.setVelocity(0, 0);
       n.dir = { x: 0, y: 0 };
     }
   }
