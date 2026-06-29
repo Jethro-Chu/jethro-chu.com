@@ -10,6 +10,35 @@ Lighthouse: `PORT=3100 npm run start` then `npx lighthouse@12 http://localhost:3
 
 ---
 
+## 2026-06-29 — Yosemite Village (branch `feat/yosemite-village`)
+
+Hub-based explorable pixel TOWN (replaces the open valley), built from the pack's
+pre-composed `TilesetHouse` + `tileset_camp` buildings. Same engine/gate/bus/modal/overlay
+as the valley; the homepage "Enter Yosemite Village" overlay mounts the shared `VillageMount`.
+
+**Measurements (`next build`, node@22):**
+| Route | First Load JS | Note |
+|---|---|---|
+| `/` (home) | **165 kB** | +5 kB vs 160 kB baseline (within +15 kB gate); island only, no Phaser |
+| `/village` (initial) | **114 kB** | standalone route; **no Phaser** (behind the entry card) |
+| `/valley` | 120 kB | prior prototype, still present |
+
+- Phaser + tilemap code-split, fetched only on entry; no Phaser in any prerendered HTML.
+- Build green, types pass, 0 console errors. Median-of-5 mobile Lighthouse owed at the gate
+  (delta is +5 kB JS with no Phaser, so expected within 5 pts; not yet formally run).
+
+**Honest status (the brief's 80/20 rule):** the town reads as a believable hub — plaza +
+radiating paths + 7 buildings as districts + tents + trees + the Merced with a bank edge +
+a plank bridge to the torii overlook. It is a strong BASE, not Peter-tier polish. Remaining
+~20% is hand-tuning in Tiled: denser props/fences/flowerbeds (some bare grass remains), a
+richer plaza, water-edge autotiling, in-canvas bitmap-font signposts (currently lantern
+markers + DOM minimap labels + on-approach panels), the El Cap / Half Dome skyline (deferred),
+cards + ambient-audio toggle, and the `.tmj` export. Buildings are stamped from verified
+source rects (houses cols 0-3/4-7/8-11/12-15; grand lodge cols 25-28 rows 8-13; torii cols
+0-2 rows 5-6; tents camp cols 4-6/7-9/10-12).
+
+---
+
 ## 2026-06-29 — Yosemite valley prototype (branch `feat/yosemite-valley`)
 
 A top-down explorable Yosemite valley (Phaser 3 + the Ninja Adventure CC0 tileset), built as

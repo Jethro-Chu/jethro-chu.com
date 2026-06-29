@@ -20,12 +20,12 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { gameBus } from "@/lib/gameBus";
 import { canPlayValley } from "@/lib/canPlayValley";
 
-const ValleyMount = dynamic(() => import("@/components/valley/ValleyMount"), {
+const VillageMount = dynamic(() => import("@/components/valley/VillageMount"), {
   ssr: false,
   loading: () => (
-    <div className="flex h-full w-full items-center justify-center bg-[#2f5a42]">
+    <div className="flex h-full w-full items-center justify-center bg-[#3f7a57]">
       <span className="label-mono animate-pulse text-[var(--color-on-dark)]">
-        loading the valley…
+        loading the village…
       </span>
     </div>
   ),
@@ -99,13 +99,13 @@ export function ValleyDoor() {
     <m.div
       role="dialog"
       aria-modal="true"
-      aria-label="Yosemite valley"
-      className="fixed inset-0 z-[60] bg-[#2f5a42]"
+      aria-label="Yosemite Village"
+      className="fixed inset-0 z-[60] bg-[#3f7a57]"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: dur }}
     >
-      <ValleyMount />
+      <VillageMount />
       <button
         ref={backRef}
         type="button"

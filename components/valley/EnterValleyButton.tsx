@@ -47,9 +47,9 @@ export function EnterValleyButton({ variant = "hero" }: { variant?: "hero" | "st
           className="flex min-h-[44px] min-w-[44px] flex-col items-center justify-center rounded-sm bg-[color-mix(in_oklab,var(--color-pine)_14%,transparent)] px-3 py-1"
         >
           <span className="font-body text-[0.78rem] font-semibold text-[var(--color-pine)]">
-            valley
+            village
           </span>
-          <span className="label-mono text-[0.6rem]">play</span>
+          <span className="label-mono text-[0.6rem]">explore</span>
         </button>
       </li>
     );
@@ -65,9 +65,9 @@ export function EnterValleyButton({ variant = "hero" }: { variant?: "hero" | "st
       <PixelPeak />
       <span className="flex flex-col leading-tight">
         <span className="font-body text-[0.95rem] font-semibold text-[var(--color-shadow)] group-hover:text-[var(--color-pine)]">
-          Enter the valley
+          Enter Yosemite Village
         </span>
-        <span className="label-mono text-[0.62rem]">an explorable pixel Yosemite</span>
+        <span className="label-mono text-[0.62rem]">an explorable pixel town</span>
       </span>
     </button>
   );

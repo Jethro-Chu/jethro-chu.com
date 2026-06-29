@@ -7,7 +7,37 @@ Tailwind v4 oxide.) **`npm run build` clobbers a running dev server's `.next`** 
 
 ---
 
-## ACTIVE: Yosemite valley prototype (branch `feat/yosemite-valley`, route `/valley`)
+## ACTIVE: Yosemite Village (branch `feat/yosemite-village`, route `/village` + homepage overlay)
+
+Hub-based explorable pixel TOWN that replaces the open valley (the pack's weakness is open
+terrain; its strength is pre-composed buildings, so the town leans on structures). Same
+engine/gate/bus/modal/overlay as the valley.
+- `game/scenes/VillageScene.ts` — the town: central plaza spawn, dirt paths radiating to 7
+  buildings (each a portfolio district), tents (projects), the Merced along the bottom edge
+  with a grass bank + a plank bridge to the torii overlook (Glacier Point), granite rim,
+  trees. Buildings stamped from verified `TilesetHouse`/`tileset_camp` source rects via
+  `stampRect`. Walk-into-door triggers → `landmark:enter`. Tile picks + rects in `T` / `BUILDINGS`.
+- `game/PhaserVillage.tsx` — FIT mount (480×270, zoom 2). `components/valley/VillageMount.tsx`
+  — dynamic PhaserVillage + `Minimap` + `Discovered` + `LandmarkModal` (shared, code-split).
+- `components/HUD/Minimap.tsx` — DOM minimap (markers + visited state + player dot; `sm:` up).
+- `app/village/page.tsx` + `components/valley/VillageStandalone.tsx` — standalone route + a
+  direct preview link. The homepage overlay (`ValleyDoor`) now mounts `VillageMount`; the
+  entrance copy is "Enter Yosemite Village".
+- **Content:** `content/portfolio.ts` `landmarks` are now the 7 buildings (visitor-center,
+  chapel, cabins, ahwahnee, ranger-station, general-store, glacier-point). The old `/valley`
+  scene keeps its own stale LANDMARK_POS (different ids) → it renders the map but its landmark
+  triggers no longer fire; `/valley` is superseded by `/village`.
+- **Recon method:** building/tent/path/water/bridge tile coords were read by rendering a
+  labeled grid atlas of each tileset in `preview_eval` (see PERF lessons) — not by eye.
+- **Status:** strong ~80% base (see PERF "Honest status"); hand-tuning is the user's Tiled
+  pass. Deferred: cards, ambient audio, skyline monoliths, bitmap-font signposts, `.tmj` export.
+- **Merge gate:** NOT merged to master; pushed as a Vercel BRANCH PREVIEW. Walk it in a real
+  desktop browser + mobile before merging. Debug handles (`window.__village`/`__valleyBus`) are
+  `NODE_ENV !== production`-guarded → stripped from the deployed build.
+
+---
+
+## Yosemite valley prototype (branch `feat/yosemite-valley`, route `/valley`)
 
 A top-down, explorable pixel **Yosemite Valley** (Phaser 3, tile-based) on the **Ninja
 Adventure** CC0 tileset, modeled on peteroravec.com. Built as an **isolated prototype**: the

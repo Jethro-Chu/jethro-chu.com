@@ -1,12 +1,13 @@
 /* ============================================================
-   PORTFOLIO  ·  single source of truth for the Yosemite valley (§4)
-   One record per landmark. BOTH the flat fallback and the in-valley
-   modals read from here, so nothing biographical is hard-coded in
-   game code.
+   PORTFOLIO  ·  single source of truth for Yosemite Village (§4)
+   One record per building/district. BOTH the flat fallback and the
+   in-village panels read from here, so nothing biographical is
+   hard-coded in game code.
 
    Real facts are pulled from content.ts + resume.ts. Personal-voice
-   lines are JETHRO drafts to author, then run through /stop-slop (§8).
-   Do not invent biography.
+   lines are JETHRO drafts to author, then run through /stop-slop.
+   The export names (landmarks/landmarkById/projectsForLandmark) are
+   kept stable so the modal/HUD/flat components are unchanged.
    ============================================================ */
 
 import { projects as allProjects } from "./content";
@@ -21,19 +22,19 @@ export interface LandmarkLink {
 export interface Landmark {
   /** stable id, used by trigger zones + the bridge */
   id: string;
-  /** real Yosemite landmark */
+  /** the building / district name */
   landmark: string;
-  /** short section name (modal eyebrow / minimap label) */
+  /** short section name (panel eyebrow / minimap label) */
   section: string;
-  /** modal title */
+  /** panel title */
   title: string;
-  /** modal body, one string per paragraph */
+  /** panel body, one string per paragraph */
   body: string[];
   /** optional outbound links */
   links?: LandmarkLink[];
   /** optional project ids (resolved against content.ts) shown here */
   projects?: string[];
-  /** pack faceset used as the modal headshot (Peter-style) */
+  /** pack faceset used as the panel headshot (Peter-style) */
   faceset?: string;
   /** a JETHRO placeholder line to author, rendered as a clearly-marked draft */
   authoredLine?: string;
@@ -41,45 +42,34 @@ export interface Landmark {
 
 const FACE = "/game/ninja-adventure/sprites/hunter-face.png";
 
-/* ---- one-place status fields (update here, read everywhere) ---- */
 export const status = {
-  school: resume.education.school, // Azusa Pacific University
-  degree: resume.education.degree, // Bachelor of Science in Nursing
+  school: resume.education.school,
+  degree: resume.education.degree,
   bsnGraduation: "December 2026",
-  clinicalHours: 560, // 90 + 90 + 160 + 110 + 110, verified against resume.ts
-  certifications: resume.skills.certifications, // BLS, ACLS, Epic EHR
-  resumePdf: resume.pdf, // /Jethro_Chu_Resume.pdf
+  clinicalHours: 560,
+  certifications: resume.skills.certifications,
+  resumePdf: resume.pdf,
 } as const;
 
-/* ---- the seven landmarks, free-roam (discoverable in any order) ---- */
+/* ---- the seven village buildings (hub-and-spokes, any order) ---- */
 export const landmarks: Landmark[] = [
   {
-    id: "tunnel-view",
-    landmark: "Tunnel View",
-    section: "The trailhead",
-    title: "Welcome to the valley",
+    id: "visitor-center",
+    landmark: "Visitor Center",
+    section: "About",
+    title: "Who Jethro is",
     faceset: FACE,
     authoredLine:
       "JETHRO: one or two lines introducing yourself as a BSN nurse-in-training and a builder of live software.",
     body: [
       "Jethro Chu is a nursing student who builds software between clinical shifts. Two paths, walked together: the bedside and the keyboard.",
-      "Wander the valley. Every landmark opens a real part of the portfolio, in any order you like.",
+      "Most of what I build comes from friction I have actually felt, in a hospital, in research, or in the everyday tools people fight with. Nursing taught me to notice it; building is what I do about it.",
+      "Wander the village. Every building opens a real part of the portfolio, in any order.",
     ],
   },
   {
-    id: "el-capitan",
-    landmark: "El Capitan",
-    section: "Origins",
-    title: "The granite foundation",
-    faceset: FACE,
-    body: [
-      "Most of what I build comes from friction I have actually felt: in a hospital, in research, or in the everyday tools people fight with.",
-      "Nursing taught me to notice where a workflow slows someone down. Building is what I do about it. The two are the same instinct pointed at different problems.",
-    ],
-  },
-  {
-    id: "yosemite-falls",
-    landmark: "Yosemite Falls",
+    id: "chapel",
+    landmark: "The Chapel",
     section: "Clinical",
     title: "The clinical route",
     faceset: FACE,
@@ -91,47 +81,53 @@ export const landmarks: Landmark[] = [
     links: [{ label: "Full resume", href: resume.pdf }],
   },
   {
-    id: "half-dome",
-    landmark: "Half Dome",
-    section: "Builder",
+    id: "cabins",
+    landmark: "The Tent Cabins",
+    section: "Projects",
     title: "What I build",
     faceset: FACE,
     body: [
       "Live software, mostly solo, mostly born from healthcare and research. Some serious, some for fun, all shipped.",
     ],
-    projects: [
-      "nursejet",
-      "lab-logger",
-      "rate-my-hospital-food",
-      "emotion-stock-market-game",
-    ],
+    projects: ["nursejet", "lab-logger", "rate-my-hospital-food", "emotion-stock-market-game"],
   },
   {
     id: "ahwahnee",
     landmark: "The Ahwahnee",
     section: "Under the hood",
-    title: "How this valley works",
+    title: "How this village works",
     faceset: FACE,
     body: [
       "This site is a static Next.js portfolio. The real, indexable content loads first and works with no JavaScript, for crawlers, reduced-motion, and anyone who would rather just read.",
-      "The valley is an enhancement layered over that DOM. Phaser, the tilemap, and the art load only when you choose to explore, in their own code-split chunk, so the fast path never downloads a game.",
-      "The art is the Ninja Adventure pack by pixel-boy (CC0): professionally drawn 16-px tiles, hand-arranged in a Tiled map and integer-scaled for pixel-perfect edges. The HUD and modals are plain DOM, kept crisp and accessible.",
+      "The village is an enhancement layered over that DOM. Phaser, the tilemap, and the art load only when you choose to explore, in their own code-split chunk, so the fast path never downloads a game.",
+      "The art is the Ninja Adventure pack by pixel-boy (CC0): professionally drawn 16-px tiles, hand-arranged into a town and integer-scaled for pixel-perfect edges. The HUD, minimap, and panels are plain DOM, kept crisp and accessible.",
     ],
   },
   {
-    id: "merced-bridge",
-    landmark: "Merced River · Swinging Bridge",
+    id: "ranger-station",
+    landmark: "The Ranger Station",
     section: "Contact",
-    title: "Cross the river",
+    title: "Get in touch",
     faceset: FACE,
-    body: [
-      "If you are building in healthcare or software, I would like to hear about it.",
-    ],
+    body: ["If you are building in healthcare or software, I would like to hear about it."],
     links: [
       { label: "Email", href: "mailto:jethro.chu@gmail.com" },
       { label: "GitHub", href: "https://github.com/Jethro-Chu" },
       // LinkedIn intentionally omitted until a real URL exists (no dead links).
     ],
+  },
+  {
+    id: "general-store",
+    landmark: "The General Store",
+    section: "Resume",
+    title: "Resume and what I'm looking for",
+    faceset: FACE,
+    authoredLine:
+      "JETHRO: one or two lines on what you're looking for (roles, teams, the kind of work).",
+    body: [
+      `${status.degree}, ${status.school}, expected ${status.bsnGraduation}. ${status.clinicalHours} clinical hours; ${status.certifications.join(", ")}.`,
+    ],
+    links: [{ label: "Download resume", href: resume.pdf }],
   },
   {
     id: "glacier-point",
@@ -140,7 +136,7 @@ export const landmarks: Landmark[] = [
     title: "The whole valley",
     faceset: FACE,
     authoredLine:
-      "JETHRO: the dual-identity statement. The one or two lines that say who you are as a nurse and a builder, taking in the whole valley.",
+      "JETHRO: the dual-identity statement. The one or two lines that say who you are as a nurse and a builder, taking in the view.",
     body: ["BSN expected December 2026. Building live software now."],
     links: [
       { label: "Download resume", href: resume.pdf },
@@ -153,14 +149,12 @@ export const landmarks: Landmark[] = [
 export const landmarkById = (id: string): Landmark | undefined =>
   landmarks.find((l) => l.id === id);
 
-/** resolve a landmark's project ids against the verified content.ts list */
 export const projectsForLandmark = (l: Landmark): Project[] =>
   (l.projects ?? [])
     .map((id) => allProjects.find((p) => p.id === id))
     .filter((p): p is Project => Boolean(p));
 
-/* ---- collectible trail-card aphorisms (seeds; JETHRO to finalize) ----
-   Clinical reasoning as engineering, Jethro's brand. Marked draft until authored. */
+/* ---- collectible cards: cross-domain aphorisms (seeds; JETHRO to finalize) ---- */
 export interface TrailCard {
   id: string;
   aphorism: string;
