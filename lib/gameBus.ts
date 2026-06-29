@@ -31,6 +31,8 @@ export interface ValleyEventMap {
   "valley:goto": { id: string };
   /** intro "PLAY" -> scene: leave the title screen, hand the player control */
   "valley:play": void;
+  /** zoom buttons -> scene: step the camera zoom level (+1 in / -1 out) */
+  "valley:zoom": { dir: number };
 }
 
 type EventKey = keyof ValleyEventMap;

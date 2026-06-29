@@ -10,6 +10,33 @@ Lighthouse: `PORT=3100 npm run start` then `npx lighthouse@12 http://localhost:3
 
 ---
 
+## 2026-06-29 — Village camera + wayfinding (branch `feat/yosemite-village`)
+
+Camera/nav legibility pass: widened the view (design res 480×270 → **768×432**, integer zoom
+levels `[1,2,3]` default 2), rebuilt the minimap as a real town map, made the nav fast-travel,
+added a directional cue, in-world signposts, a one-time hint, and zoom controls (wheel / pinch
+/ keys / buttons). No map/art/mount/code-split changes.
+
+**Measurements (`next build`, node@22):**
+| Route | First Load JS | Δ |
+|---|---|---|
+| `/` (home) | **164 kB** | **+0** (all new HUD is in the code-split village chunk) |
+| `/village` (initial) | **104 kB** | **+0** (no Phaser; behind intro) |
+| `/valley` | 122 kB | +2 kB (prior prototype, still present) |
+
+- Budget held trivially: homepage + village initial loads **unchanged** vs the prior commit.
+  The camera change is data (resolution/zoom numbers); the HUD additions (ZoomControls,
+  DirectionCue, ControlsHint, rebuilt Minimap) all land in the dynamic village chunk that
+  only loads after the entry click, so they never touch the gated initial JS.
+- Build green, `tsc --noEmit` clean, 16/16 static pages. Verified end-to-end in-browser
+  (Chrome): wider default view shows several buildings; zoom out → town overview; minimap
+  markers + you-are-here + legend + visited gold; nav/minimap fast-travel opens the right
+  panel; signposts readable; direction cue points to the nearest unvisited; mobile (402-wide)
+  nav scrolls, HUD usable, camera sane. Pixel-perfect maintained (integer zoom).
+- Mobile Lighthouse delta is **+0 kB** initial JS, so well within the 5-pt gate (not re-run).
+
+---
+
 ## 2026-06-29 — Yosemite Village (branch `feat/yosemite-village`)
 
 Hub-based explorable pixel TOWN (replaces the open valley), built from the pack's

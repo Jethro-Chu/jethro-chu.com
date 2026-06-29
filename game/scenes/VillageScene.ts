@@ -11,6 +11,7 @@
 
 import * as Phaser from "phaser";
 import { gameBus } from "@/lib/gameBus";
+import { landmarks } from "@/content/portfolio";
 
 export const TILE = 16;
 
@@ -24,9 +25,15 @@ export const TILESETS = [
 ] as const;
 const BASE = "/game/ninja-adventure/tilesets/";
 
-export const GAME_W = 480;
-export const GAME_H = 270;
-const ZOOM = 2.5;
+// internal design resolution (Scale.FIT scales this to the viewport). Bigger
+// than before so the camera shows much more of the town at the same zoom.
+export const GAME_W = 768;
+export const GAME_H = 432;
+// integer camera zoom levels (pixel-perfect). Default = index 0 (1x): the whole
+// town overview (Jethro's pick) — you see the place at a glance. 2x = a focused
+// stroll, 3x = detail. Wheel / pinch / +- buttons / keyboard step between them.
+const ZOOM_LEVELS = [1, 2, 3] as const;
+const DEFAULT_ZOOM_IDX = 0;
 const MAP_W = 46;
 const MAP_H = 34;
 const RIVER_TOP = 30;
@@ -158,6 +165,9 @@ export class VillageScene extends Phaser.Scene {
   private facing = "down";
   private paused = false;
   private intro = true; // title-screen mode: scenic camera, controls off
+  private zoomIdx = DEFAULT_ZOOM_IDX;
+  private pinchDist = 0;
+  private playLockUntil = 0; // brief input lock after PLAY so the tap can't set a move-target
   private discovered = new Set<string>();
   private active: string | null = null;
   private armed = new Set<string>();
@@ -165,6 +175,7 @@ export class VillageScene extends Phaser.Scene {
   private busOff: Array<() => void> = [];
   private moveTarget: { x: number; y: number } | null = null;
   private lastEmit = 0;
+  private signs: Record<string, Phaser.GameObjects.Image> = {};
 
   constructor() {
     super("village");
@@ -183,6 +194,7 @@ export class VillageScene extends Phaser.Scene {
     this.makeBushTextures();
     this.makeFxTextures();
     this.decorate();
+    this.placeSigns();
     this.animateWater();
     this.buildNpcs();
     this.addAmbientFx();
@@ -194,7 +206,7 @@ export class VillageScene extends Phaser.Scene {
     this.cameras.main.roundPixels = true;
     // boot into the title-screen view: a scenic shot of the plaza + fountain,
     // the scene alive (water/NPCs/birds) but the player hidden + controls off
-    this.cameras.main.setZoom(2.2);
+    this.cameras.main.setZoom(ZOOM_LEVELS[this.zoomIdx]);
     this.cameras.main.centerOn(SPAWN.tx * TILE, (SPAWN.ty - 1) * TILE);
     this.player.setVisible(false);
     this.playerShadow.setVisible(false);
@@ -529,6 +541,71 @@ export class VillageScene extends Phaser.Scene {
     for (let i = 0; i < 3; i++) fly(Math.random() * 4000);
   }
 
+  // a readable wooden nameplate, rendered to a canvas texture. Supersampled
+  // (S x) and placed at setScale(1/S) so it stays crisp under the FIT upscale.
+  private makeSign(key: string, text: string): number {
+    const S = 3;
+    if (this.textures.exists(key)) return S;
+    const fontPx = 9 * S;
+    const padX = 5 * S;
+    const padY = 3 * S;
+    const stake = 3 * S;
+    const font = `bold ${fontPx}px ui-monospace, Menlo, monospace`;
+    const probe = document.createElement("canvas").getContext("2d");
+    if (!probe) return S;
+    probe.font = font;
+    const tw = Math.ceil(probe.measureText(text).width);
+    const w = tw + padX * 2;
+    const plaqueH = fontPx + padY * 2;
+    const cv = document.createElement("canvas");
+    cv.width = w;
+    cv.height = plaqueH + stake;
+    const c = cv.getContext("2d");
+    if (!c) return S;
+    c.fillStyle = "#5c4326"; // stake
+    c.fillRect(w / 2 - S, plaqueH - S, 2 * S, stake + S);
+    c.fillStyle = "#272a31"; // plaque
+    c.fillRect(0, 0, w, plaqueH);
+    c.fillStyle = "#c9a86a"; // border
+    c.fillRect(0, 0, w, S);
+    c.fillRect(0, plaqueH - S, w, S);
+    c.fillRect(0, 0, S, plaqueH);
+    c.fillRect(w - S, 0, S, plaqueH);
+    c.font = font; // text
+    c.fillStyle = "#f4efe3";
+    c.textBaseline = "middle";
+    c.textAlign = "center";
+    c.fillText(text, w / 2, plaqueH / 2 + S);
+    this.textures.addCanvas(key, cv);
+    // LINEAR so the 3x supersample resolves crisp at every zoom — under the
+    // scene's NEAREST default the antialiased text would just minify and drop
+    // strokes at the 1x overview (the default). Signs only; tiles stay NEAREST.
+    this.textures.get(key).setFilter(Phaser.Textures.FilterMode.LINEAR);
+    return S;
+  }
+
+  // float a nameplate above each building so you can read the town from a distance
+  private placeSigns() {
+    const anchors: { id: string; tx: number; ty: number }[] = [
+      ...BUILDINGS.map((b) => ({ id: b.id, tx: b.tx + b.rect[3] / 2, ty: b.ty })),
+      { id: "cabins", tx: 12, ty: 23 },
+      { id: "glacier-point", tx: 23, ty: 29 },
+    ];
+    for (const a of anchors) {
+      const l = landmarks.find((x) => x.id === a.id);
+      if (!l) continue;
+      const key = `sign-${a.id}`;
+      const S = this.makeSign(key, l.section);
+      if (!this.textures.exists(key)) continue; // canvas ctx failed → no sign, no __MISSING box
+      const img = this.add
+        .image(a.tx * TILE, a.ty * TILE - 1, key)
+        .setOrigin(0.5, 1)
+        .setScale(1 / S)
+        .setDepth(8800);
+      this.signs[a.id] = img;
+    }
+  }
+
   // a custom bush: shadow + y-sorted image (decorative, not solid)
   private placeBush(tx: number, ty: number, key: string) {
     const px = tx * TILE;
@@ -850,17 +927,34 @@ export class VillageScene extends Phaser.Scene {
   private bindInput() {
     this.cursors = this.input.keyboard?.createCursorKeys();
     this.keys = this.input.keyboard?.addKeys("W,A,S,D") as Record<string, Phaser.Input.Keyboard.Key>;
-    this.input.on("pointerdown", (p: Phaser.Input.Pointer) => (this.moveTarget = { x: p.worldX, y: p.worldY }));
+    this.input.addPointer(1); // a 2nd touch pointer so pinch-zoom works on mobile
+    const setTarget = (p: Phaser.Input.Pointer) => {
+      // no walk during intro, the post-PLAY lock, or a two-finger pinch
+      if (this.intro || this.time.now < this.playLockUntil || this.input.pointer2?.isDown) return;
+      this.moveTarget = { x: p.worldX, y: p.worldY };
+    };
+    this.input.on("pointerdown", setTarget);
     this.input.on("pointermove", (p: Phaser.Input.Pointer) => {
-      if (p.isDown) this.moveTarget = { x: p.worldX, y: p.worldY };
+      if (p.isDown) setTarget(p);
     });
     this.input.on("pointerup", () => (this.moveTarget = null));
+    // mouse wheel -> zoom (desktop)
+    this.input.on("wheel", (_p: unknown, _o: unknown, _dx: number, dy: number) => {
+      if (!this.intro) this.applyZoom(this.zoomIdx + (dy > 0 ? -1 : 1));
+    });
+    // keyboard +/- -> zoom
+    this.input.keyboard?.on("keydown", (e: KeyboardEvent) => {
+      if (this.intro) return;
+      if (e.key === "+" || e.key === "=") this.applyZoom(this.zoomIdx + 1);
+      else if (e.key === "-" || e.key === "_") this.applyZoom(this.zoomIdx - 1);
+    });
   }
 
   private bindBus() {
     this.busOff.push(
       gameBus.on("game:pause", () => {
         this.paused = true;
+        this.pinchDist = 0; // don't carry a stale pinch span across a modal
         this.player?.body?.setVelocity(0, 0);
         this.stopNpcs();
       })
@@ -876,20 +970,24 @@ export class VillageScene extends Phaser.Scene {
       gameBus.on("valley:play", () => {
         if (!this.intro) return;
         this.intro = false;
+        this.moveTarget = null;
+        this.playLockUntil = this.time.now + 320; // swallow the PLAY tap
         this.player.setVisible(true);
         this.playerShadow.setVisible(true);
         const cam = this.cameras.main;
-        cam.setZoom(ZOOM);
+        cam.setZoom(ZOOM_LEVELS[this.zoomIdx]);
         cam.startFollow(this.player, true, 0.16, 0.16);
-        cam.setDeadzone(40, 30);
+        cam.setDeadzone(48, 36);
         cam.flash(260, 244, 239, 227);
       })
     );
+    // zoom buttons: step the camera zoom level
+    this.busOff.push(gameBus.on("valley:zoom", ({ dir }) => this.applyZoom(this.zoomIdx + dir)));
     // nav teleport: jump the player + camera to a building, with a flash
     this.busOff.push(
       gameBus.on("valley:goto", ({ id }) => {
         const door = this.doors.find((d) => d.id === id);
-        if (!door || !this.player) return;
+        if (!door || !this.player || this.intro) return;
         const x = door.x * TILE + 8;
         const y = (door.y + 1) * TILE + 8;
         this.player.setPosition(x, y);
@@ -901,8 +999,44 @@ export class VillageScene extends Phaser.Scene {
         cam.centerOn(x, y);
         cam.flash(260, 244, 239, 227);
         this.playerShadow?.setPosition(x, y + 4);
+        if (!this.discovered.has(id)) {
+          this.discovered.add(id);
+          gameBus.emit("landmark:discovered", { id });
+        }
+        // open the panel once the flash settles (same for nav + minimap travel)
+        this.time.delayedCall(360, () => {
+          if (this.active === id && !this.intro) gameBus.emit("landmark:enter", { id });
+        });
       })
     );
+  }
+
+  // step the camera zoom level (clamped), tweened so it never snaps
+  private applyZoom(idx: number) {
+    const clamped = Phaser.Math.Clamp(idx, 0, ZOOM_LEVELS.length - 1);
+    if (clamped === this.zoomIdx) return;
+    this.zoomIdx = clamped;
+    this.tweens.add({ targets: this.cameras.main, zoom: ZOOM_LEVELS[clamped], duration: 200, ease: "Quad.out" });
+  }
+
+  // two-finger pinch -> step zoom (discrete). Suppresses walk-to-tap while pinching.
+  private handlePinch() {
+    const p1 = this.input.pointer1;
+    const p2 = this.input.pointer2;
+    if (p1?.isDown && p2?.isDown) {
+      const d = Phaser.Math.Distance.Between(p1.x, p1.y, p2.x, p2.y);
+      if (this.pinchDist > 0) {
+        const r = d / this.pinchDist;
+        if (r > 1.28) {
+          this.applyZoom(this.zoomIdx + 1);
+          this.pinchDist = d;
+        } else if (r < 0.78) {
+          this.applyZoom(this.zoomIdx - 1);
+          this.pinchDist = d;
+        }
+      } else this.pinchDist = d;
+      this.moveTarget = null; // don't walk toward a finger mid-pinch
+    } else this.pinchDist = 0;
   }
 
   update(time: number, delta: number) {
@@ -913,6 +1047,7 @@ export class VillageScene extends Phaser.Scene {
       this.player.body.setVelocity(0, 0);
       return;
     }
+    this.handlePinch();
     const speed = 92;
     let vx = 0;
     let vy = 0;

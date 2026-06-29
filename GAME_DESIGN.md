@@ -81,7 +81,9 @@ mismatched art.
 
 ## 8. Bridge events (`lib/gameBus.ts`)
 Phaser emits `game:ready` / `landmark:enter` / `landmark:discovered` / `player:move` /
-`card:collect`. React emits `game:pause` / `game:resume` / `game:skip`.
+`card:collect`. React emits `game:pause` / `game:resume` / `game:skip` / `valley:open` /
+`valley:close` / `valley:play` (intro PLAY → hand control) / `valley:goto {id}` (nav/minimap
+fast-travel) / `valley:zoom {dir}` (zoom buttons step the camera).
 
 ## 9. Personal-voice copy (placeholders — Jethro authors, then /stop-slop)
 - Tunnel View intro line; Glacier Point dual-identity statement.
@@ -109,6 +111,33 @@ Phaser emits `game:ready` / `landmark:enter` / `landmark:discovered` / `player:m
   camera + collision, 7 landmark triggers → Framer modal (faceset headshot + real content +
   draft placeholders + pause/focus/ESC), Discovered N/7 HUD, entry card + code-split gate.
 - **Not yet:** valley.tmj export, custom landmark art, the Ahwahnee interior, trail cards,
-  Glacier Point payoff, the DOM minimap, ambient life/audio, water-edge autotiling, mobile
-  joystick polish, a 3× desktop zoom tier. Verify motion in a focused browser (preview
-  throttles rAF).
+  Glacier Point payoff, ambient audio, water-edge autotiling, mobile joystick polish.
+  Verify motion in a focused browser (preview throttles rAF).
+
+## 11. Camera + wayfinding pass (2026-06-29)
+
+The first full frame read as "one small patch, can't navigate." Fixed camera + wayfinding
+only (no map/art/mount changes):
+
+- **Camera.** Internal design resolution raised **480×270 → 768×432** (same 16:9), and the
+  zoom is now an **integer level set `[1, 2, 3]`, default 2** (`DEFAULT_ZOOM_IDX = 1`). At 2×
+  the view is ~24×13.5 tiles — several buildings + plaza + paths at once; 1× is a town
+  overview, 3× is detail. Integer zoom keeps pixels crisp under the unavoidable FIT upscale
+  (`pixelArt` + `roundPixels`). Camera follows the player with bounds clamped to the map and
+  a 48×36 deadzone. Zoom control: mouse wheel + keyboard `+/-` + two-finger pinch (in-scene)
+  and DOM `+/-` buttons (`components/HUD/ZoomControls.tsx` → `valley:zoom`). A 320 ms input
+  lock on `valley:play` stops the PLAY tap from leaking a walk-to target.
+- **Minimap** (`components/HUD/Minimap.tsx`) rebuilt as a real SVG town map (viewBox in tile
+  coords): grass, the Merced + bridge, dirt paths from the plaza, plaza/fountain, a marker
+  per building (golden once visited) + a live pulsing "you are here", a legend, and a
+  visited count. Markers + legend rows fast-travel (`valley:goto`). Geometry is shared, not
+  duplicated: `content/portfolio.ts` exports `villageMap` + per-landmark `map:{x,y}` (mirrors
+  the scene).
+- **Wayfinding.** Top nav fast-travels (`valley:goto` → scene flash-travels, marks
+  discovered, opens the panel) and highlights the active district. `DirectionCue` shows a
+  bottom-centre arrow rotated toward the nearest unvisited building (hides when close / all
+  visited). In-world **signposts**: a crisp canvas-texture nameplate floats above each
+  building (supersampled, placed at `1/S` scale), readable from a distance. `ControlsHint`
+  shows a one-time, dismissible controls line per session.
+- **Perf:** homepage `/` 164 kB and `/village` 104 kB both **unchanged** — all new HUD lives
+  in the code-split village chunk, never the initial loads.

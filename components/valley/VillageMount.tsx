@@ -15,6 +15,9 @@ import { gameBus } from "@/lib/gameBus";
 import { Discovered } from "@/components/HUD/Discovered";
 import { Minimap } from "@/components/HUD/Minimap";
 import { VillageNav } from "@/components/HUD/VillageNav";
+import { ZoomControls } from "@/components/HUD/ZoomControls";
+import { DirectionCue } from "@/components/HUD/DirectionCue";
+import { ControlsHint } from "@/components/HUD/ControlsHint";
 import { LandmarkModal } from "@/components/valley/LandmarkModal";
 import { VillageIntro } from "@/components/valley/VillageIntro";
 
@@ -48,6 +51,9 @@ export default function VillageMount({ onExit }: { onExit?: () => void }) {
           <VillageNav />
           <Minimap />
           <Discovered />
+          <ZoomControls />
+          <DirectionCue />
+          <ControlsHint />
         </>
       )}
       <LandmarkModal />

@@ -26,6 +26,9 @@ export interface Landmark {
   landmark: string;
   /** short section name (panel eyebrow / minimap label) */
   section: string;
+  /** building centre in tile coords (mirrors VillageScene placement) — drives
+   *  the minimap markers + the directional cue. Keep in sync with the scene. */
+  map: { x: number; y: number };
   /** panel title */
   title: string;
   /** panel body, one string per paragraph */
@@ -59,6 +62,7 @@ export const landmarks: Landmark[] = [
     id: "visitor-center",
     landmark: "Visitor Center",
     section: "About",
+    map: { x: 21, y: 6 },
     title: "Who Jethro is",
     faceset: FACE,
     authoredLine:
@@ -73,6 +77,7 @@ export const landmarks: Landmark[] = [
     id: "chapel",
     landmark: "The Chapel",
     section: "Clinical",
+    map: { x: 8, y: 19 },
     title: "The clinical route",
     faceset: FACE,
     body: [
@@ -86,6 +91,7 @@ export const landmarks: Landmark[] = [
     id: "cabins",
     landmark: "The Tent Cabins",
     section: "Projects",
+    map: { x: 13, y: 25 },
     title: "What I build",
     faceset: FACE,
     body: [
@@ -97,6 +103,7 @@ export const landmarks: Landmark[] = [
     id: "ahwahnee",
     landmark: "The Ahwahnee",
     section: "Under the hood",
+    map: { x: 34, y: 7 },
     title: "How this village works",
     faceset: FACE,
     body: [
@@ -109,6 +116,7 @@ export const landmarks: Landmark[] = [
     id: "ranger-station",
     landmark: "The Ranger Station",
     section: "Contact",
+    map: { x: 10, y: 7 },
     title: "Get in touch",
     faceset: FACE,
     body: ["If you are building in healthcare or software, I would like to hear about it."],
@@ -122,6 +130,7 @@ export const landmarks: Landmark[] = [
     id: "general-store",
     landmark: "The General Store",
     section: "Resume",
+    map: { x: 36, y: 19 },
     title: "Resume and what I'm looking for",
     faceset: FACE,
     authoredLine:
@@ -136,6 +145,7 @@ export const landmarks: Landmark[] = [
     id: "glacier-point",
     landmark: "Glacier Point",
     section: "The overlook",
+    map: { x: 23, y: 32 },
     title: "The whole valley",
     faceset: FACE,
     authoredLine:
@@ -148,6 +158,16 @@ export const landmarks: Landmark[] = [
     ],
   },
 ];
+
+/* ---- village map geometry (mirrors VillageScene) for the minimap ---- */
+export const villageMap = {
+  w: 46,
+  h: 34,
+  plaza: { x: 23, y: 14 }, // fountain / plaza centre
+  spawn: { x: 23, y: 16 },
+  riverTop: 30, // first river row (the Merced runs along the bottom)
+  bridge: { x: 22, w: 2 }, // plank bridge to Glacier Point
+} as const;
 
 export const landmarkById = (id: string): Landmark | undefined =>
   landmarks.find((l) => l.id === id);

@@ -17,9 +17,20 @@ engine/gate/bus/modal/overlay as the valley.
   with a grass bank + a plank bridge to the torii overlook (Glacier Point), granite rim,
   trees. Buildings stamped from verified `TilesetHouse`/`tileset_camp` source rects via
   `stampRect`. Walk-into-door triggers → `landmark:enter`. Tile picks + rects in `T` / `BUILDINGS`.
-- `game/PhaserVillage.tsx` — FIT mount (480×270, zoom 2). `components/valley/VillageMount.tsx`
-  — dynamic PhaserVillage + `Minimap` + `Discovered` + `LandmarkModal` (shared, code-split).
-- `components/HUD/Minimap.tsx` — DOM minimap (markers + visited state + player dot; `sm:` up).
+- `game/PhaserVillage.tsx` — FIT mount (**768×432**; camera zoom is an integer level set
+  `[1,2,3]`, default **2** ≈ 24×13.5 tiles visible). `components/valley/VillageMount.tsx` —
+  dynamic PhaserVillage + intro title screen (`VillageIntro`), then the play HUD: `Minimap`,
+  `Discovered`, `VillageNav`, `ZoomControls`, `DirectionCue`, `ControlsHint`, `LandmarkModal`
+  (all shared + code-split; Phaser loads only when this mounts).
+- **Camera + wayfinding (2026-06-29):** zoom via wheel / pinch / keyboard `+-` /
+  `ZoomControls` buttons (`valley:zoom`). `components/HUD/Minimap.tsx` is now a real SVG town
+  map (grass/river/bridge/paths/plaza + per-building markers with visited state + live
+  you-are-here + legend; markers/legend fast-travel via `valley:goto`). `VillageNav`
+  fast-travels + highlights the active district; the scene's `valley:goto` flash-travels,
+  marks discovered, and opens the panel (one path for nav + minimap). `DirectionCue` =
+  bottom-centre arrow to the nearest unvisited building. In-world **signposts** float above
+  each building (`VillageScene.placeSigns`/`makeSign`, supersampled canvas text). Shared
+  geometry: `content/portfolio.ts` exports `villageMap` + per-landmark `map:{x,y}`.
 - `app/village/page.tsx` + `components/valley/VillageStandalone.tsx` — standalone route + a
   direct preview link. The homepage overlay (`ValleyDoor`) now mounts `VillageMount`; the
   entrance copy is "Enter Yosemite Village".

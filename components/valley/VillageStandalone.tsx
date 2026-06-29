@@ -43,6 +43,20 @@ export function VillageStandalone() {
     setPlaying(able); // capable visitors land on the title screen; others read the flat page
   }, []);
 
+  // lock body scroll while the full-screen game is up (mirrors the homepage
+  // overlay) so wheel-zoom can't scroll the flat page behind it
+  useEffect(() => {
+    if (!playing) return;
+    const lenis = (window as unknown as { __lenis?: { stop?: () => void; start?: () => void } }).__lenis;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    lenis?.stop?.();
+    return () => {
+      document.body.style.overflow = prev;
+      lenis?.start?.();
+    };
+  }, [playing]);
+
   if (!capable) return null;
 
   return playing ? (

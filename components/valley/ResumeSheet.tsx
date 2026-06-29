@@ -32,6 +32,14 @@ function Chips({ tags }: { tags: readonly string[] }) {
   );
 }
 
+function SkillList({ items }: { items: readonly string[] }) {
+  return (
+    <p className="mt-1 text-[0.82rem] leading-relaxed text-[var(--color-muted)]">
+      {items.join(" · ")}
+    </p>
+  );
+}
+
 function SkillBlock({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <div>
@@ -101,21 +109,21 @@ export function ResumeSheet() {
         </ol>
       </section>
 
-      {/* 03 · skills & systems */}
+      {/* 03 · skills & systems — long lists as compact text, not chip walls */}
       <section>
         <SectionLabel n="03" label="skills & systems" />
-        <div className="mt-3 space-y-3.5">
+        <div className="mt-3 space-y-3">
           <SkillBlock title="Certifications & systems">
             <Chips tags={resume.skills.certifications} />
           </SkillBlock>
           <SkillBlock title="Clinical skills">
-            <Chips tags={resume.skills.clinical} />
+            <SkillList items={resume.skills.clinical} />
           </SkillBlock>
           <SkillBlock title="Professional">
-            <Chips tags={resume.skills.professional} />
+            <SkillList items={resume.skills.professional} />
           </SkillBlock>
           <SkillBlock title="Mentorship">
-            <p className="mt-1.5 text-[0.85rem] leading-snug text-[var(--color-shadow)]">
+            <p className="mt-1 text-[0.84rem] leading-snug text-[var(--color-shadow)]">
               <span className="font-medium">{resume.skills.mentorship.title}.</span>{" "}
               <span className="text-[var(--color-muted)]">{resume.skills.mentorship.desc}</span>
             </p>
