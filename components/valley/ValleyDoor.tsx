@@ -39,6 +39,14 @@ export function ValleyDoor() {
   const reduce = useReducedMotion();
 
   const close = useCallback(() => {
+    // remember the visitor chose the classic site, so we don't re-open the
+    // village over them again this session (the village is the default landing,
+    // but closing it should stick)
+    try {
+      sessionStorage.setItem("village-closed", "1");
+    } catch {
+      /* private mode */
+    }
     // unmount the overlay immediately -> ValleyMount unmounts ->
     // PhaserValley cleanup calls game.destroy(true). No exit animation holds
     // the engine alive (that was the leak); the enter fade is enough.
@@ -52,18 +60,32 @@ export function ValleyDoor() {
     lastFocus.current?.focus?.();
   }, []);
 
-  useEffect(
-    () =>
-      gameBus.on("valley:open", () => {
-        if (!canPlayValley()) return; // guard (entrance is already gated)
-        savedScroll.current = window.scrollY;
-        lastFocus.current = document.activeElement as HTMLElement;
-        window.__lenis?.stop();
-        document.body.style.overflow = "hidden";
-        setOpen(true);
-      }),
-    []
-  );
+  const openOverlay = useCallback(() => {
+    if (!canPlayValley()) return; // reduced-motion / no-WebGL / tiny viewport keep the site
+    savedScroll.current = window.scrollY;
+    lastFocus.current = document.activeElement as HTMLElement;
+    window.__lenis?.stop();
+    document.body.style.overflow = "hidden";
+    setOpen(true);
+  }, []);
+
+  // the entrance affordance (or anything) can still request the overlay
+  useEffect(() => gameBus.on("valley:open", openOverlay), [openOverlay]);
+
+  // FRONT PAGE: auto-open the village for capable first-time visitors, unless
+  // they closed it this session. Crawlers / no-JS / reduced-motion never run
+  // this, so the SSR scroll site stays the indexable, accessible fallback.
+  useEffect(() => {
+    let dismissed = false;
+    try {
+      dismissed = sessionStorage.getItem("village-closed") === "1";
+    } catch {
+      /* private mode */
+    }
+    if (dismissed) return;
+    const t = window.setTimeout(openOverlay, 50); // let the page settle first
+    return () => window.clearTimeout(t);
+  }, [openOverlay]);
 
   // ESC closes; move focus into the overlay on open
   useEffect(() => {

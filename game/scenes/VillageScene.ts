@@ -1003,10 +1003,10 @@ export class VillageScene extends Phaser.Scene {
           this.discovered.add(id);
           gameBus.emit("landmark:discovered", { id });
         }
-        // open the panel once the flash settles (same for nav + minimap travel)
-        this.time.delayedCall(360, () => {
-          if (this.active === id && !this.intro) gameBus.emit("landmark:enter", { id });
-        });
+        // straight into the building's room — emit synchronously (a Phaser-clock
+        // delayedCall is unreliable once a room pauses the scene); the village
+        // flash is moot since the room covers it instantly
+        gameBus.emit("landmark:enter", { id });
       })
     );
   }

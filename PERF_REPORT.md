@@ -10,6 +10,32 @@ Lighthouse: `PORT=3100 npm run start` then `npx lighthouse@12 http://localhost:3
 
 ---
 
+## 2026-06-29 — Front page + walkable interior rooms (branch `feat/yosemite-village`)
+
+`/` now auto-opens the village over the SSR scroll site (capable visitors only; the site
+stays the crawler/no-JS/reduced-motion fallback + the "Back to the portfolio" escape).
+Entering any of the 7 buildings opens a full-screen walkable `InteriorRoom` (info backdrop +
+roaming CSS-sprite hiker + door back) instead of the modal.
+
+**Measurements (`next build`, node@22):**
+| Route | First Load JS | Δ |
+|---|---|---|
+| `/` (home) | **164 kB** | **+0** (InteriorRoom + Phaser stay in the code-split village chunk) |
+| `/village` (initial) | **105 kB** | +0 |
+| `/valley` | 122 kB | — |
+
+- Budget held: initial loads unchanged. `InteriorRoom` is a static import inside the
+  dynamic `VillageMount`, so it rides the on-demand chunk, never `/`'s initial JS. The
+  homepage auto-open loads Phaser AFTER first paint (on the overlay mount), not in the
+  gated initial bundle.
+- Build green, `tsc --noEmit` clean, 16/16 static. Verified in-browser: homepage auto-opens
+  the village + keeps the SSR site under it; entering a building opens its room with the full
+  info + roaming character + door/back; close resumes the village. The rAF roam loop only
+  ticks while the tab is visible (rAF pauses when hidden) — verified the loop runs + moves the
+  hiker during a visible window; full walk to confirm on the live (visible) preview.
+
+---
+
 ## 2026-06-29 — Village camera + wayfinding (branch `feat/yosemite-village`)
 
 Camera/nav legibility pass: widened the view (design res 480×270 → **768×432**, integer zoom

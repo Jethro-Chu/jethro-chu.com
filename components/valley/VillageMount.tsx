@@ -18,7 +18,7 @@ import { VillageNav } from "@/components/HUD/VillageNav";
 import { ZoomControls } from "@/components/HUD/ZoomControls";
 import { DirectionCue } from "@/components/HUD/DirectionCue";
 import { ControlsHint } from "@/components/HUD/ControlsHint";
-import { LandmarkModal } from "@/components/valley/LandmarkModal";
+import { InteriorRoom } from "@/components/valley/InteriorRoom";
 import { VillageIntro } from "@/components/valley/VillageIntro";
 
 const PhaserVillage = dynamic(() => import("@/game/PhaserVillage"), {
@@ -56,7 +56,7 @@ export default function VillageMount({ onExit }: { onExit?: () => void }) {
           <ControlsHint />
         </>
       )}
-      <LandmarkModal />
+      <InteriorRoom />
     </>
   );
 }

@@ -31,6 +31,18 @@ engine/gate/bus/modal/overlay as the valley.
   bottom-centre arrow to the nearest unvisited building. In-world **signposts** float above
   each building (`VillageScene.placeSigns`/`makeSign`, supersampled canvas text). Shared
   geometry: `content/portfolio.ts` exports `villageMap` + per-landmark `map:{x,y}`.
+- **Front page + interior rooms (2026-06-29):** `/` now AUTO-OPENS the village over the SSR
+  scroll site for capable visitors (`ValleyDoor` fires `openOverlay` on mount unless
+  `sessionStorage["village-closed"]`); crawlers / no-JS / reduced-motion still get the SSR
+  site, and the top-right "← Back to the portfolio" reveals it (and sticks for the session).
+  Entering ANY of the 7 buildings now opens `components/valley/InteriorRoom.tsx` (replaces
+  `LandmarkModal` in `VillageMount`): a full-screen walkable "room" where the building's full
+  info (reused from `content/portfolio`) is the backdrop, a CSS-spritesheet hiker roams it
+  (WASD / arrows / tap, a single rAF loop writing transforms directly + scroll-follow), and a
+  door / "← Back to the village" / ESC returns (game:resume). `valley:goto` now emits
+  `landmark:enter` synchronously (a Phaser-clock delayedCall was unreliable once a room paused
+  the scene). NOTE: the room's rAF movement only runs while the tab is visible (rAF pauses
+  when hidden) — expected, and the reason it can't be verified in a backgrounded headless tab.
 - `app/village/page.tsx` + `components/valley/VillageStandalone.tsx` — standalone route + a
   direct preview link. The homepage overlay (`ValleyDoor`) now mounts `VillageMount`; the
   entrance copy is "Enter Yosemite Village".
