@@ -65,7 +65,7 @@ const OBJ = {
   // full trees, cropped to their exact 3x3 / 2x2 bounds (no cut-off)
   treeA: ["nature", 0, 2, 3, 3] as Rect, // lush green
   treeB: ["nature", 4, 2, 3, 3] as Rect, // lush green, double canopy
-  treeSmall: ["nature", 6, 0, 2, 2] as Rect, // small round green
+  treeSmall: ["nature", 0, 0, 2, 2] as Rect, // small round green (clean, no exposed roots)
   rock: ["nature", 15, 16, 2, 2] as Rect,
   lantern: ["camp", 12, 7, 1, 1] as Rect,
   barrel: ["camp", 0, 1, 1, 1] as Rect,
