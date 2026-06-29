@@ -73,6 +73,41 @@ const OBJ = {
   signpost: ["house", 3, 4, 1, 2] as Rect,
 };
 
+// custom bushes, hand-authored in the pack's exact tree greens so they blend
+// (. transparent · o outline · d dark · m mid · l light)
+const BUSH_PAL: Record<string, string | null> = {
+  ".": null,
+  o: "#141b1b",
+  d: "#4a7f4b",
+  m: "#74a334",
+  l: "#adbc3a",
+};
+const BUSH1 = [
+  "....oooo.....",
+  "..oommmmoo...",
+  ".ommllmmmmo..",
+  ".omllmmmmmo..",
+  "ommmmmmmmmmo.",
+  "ommmmmmmdmmo.",
+  "ommdmmmmmmmo.",
+  ".ommmmmmmmo..",
+  ".oddmmmmddo..",
+  "..oddddddo...",
+  "...oooooo....",
+];
+const BUSH2 = [
+  "...oo....oo....",
+  "..ommo..ommmo..",
+  ".ommmooommmmo..",
+  ".ommllmmmllmo..",
+  "ommmmmmmmmmmmo.",
+  "ommmdmmmmmlmmo.",
+  ".ommmmmmmmmmo..",
+  ".oddmmmmmmddo..",
+  "..oddddddddo...",
+  "...oooooooo...."
+];
+
 interface BDef {
   id: string;
   rect: Rect;
@@ -98,6 +133,7 @@ const SPAWN = { tx: 23, ty: 16 };
 
 export class VillageScene extends Phaser.Scene {
   private player!: Phaser.Types.Physics.Arcade.SpriteWithDynamicBody;
+  private playerShadow!: Phaser.GameObjects.Ellipse;
   private cursors?: Phaser.Types.Input.Keyboard.CursorKeys;
   private keys?: Record<string, Phaser.Input.Keyboard.Key>;
   private firstgids: Record<string, number> = {};
@@ -128,6 +164,7 @@ export class VillageScene extends Phaser.Scene {
   create() {
     this.buildGround();
     this.buildPlayer();
+    this.makeBushTextures();
     this.decorate();
     this.bindInput();
     this.bindBus();
@@ -262,6 +299,10 @@ export class VillageScene extends Phaser.Scene {
     if (!tex.has(fname)) tex.add(fname, 0, sc * TILE, sr * TILE, w * TILE, h * TILE);
     const px = tx * TILE;
     const py = (ty + h) * TILE; // bottom edge in px
+    // soft drop shadow grounds the object (the "3D" pop)
+    this.add
+      .ellipse(px + (w * TILE) / 2, py - 2, w * TILE * 0.82, Math.min(11, 5 + w * 1.5), 0x0d1014, 0.2)
+      .setDepth(py - 1);
     const img = this.add.image(px, py, ts, fname).setOrigin(0, 1);
     img.setDepth(py);
     if (solidBlock)
@@ -274,6 +315,38 @@ export class VillageScene extends Phaser.Scene {
     return img;
   }
 
+  // paint the custom bushes into canvas textures (pack greens, blends in)
+  private makeBushTextures() {
+    const make = (key: string, grid: string[]) => {
+      const w = grid.reduce((m, r) => Math.max(m, r.length), 0);
+      const h = grid.length;
+      const tex = this.textures.createCanvas(key, w, h);
+      if (!tex) return;
+      const ctx = tex.getContext();
+      for (let y = 0; y < h; y++) {
+        const row = grid[y];
+        for (let x = 0; x < row.length; x++) {
+          const col = BUSH_PAL[row[x]];
+          if (col) {
+            ctx.fillStyle = col;
+            ctx.fillRect(x, y, 1, 1);
+          }
+        }
+      }
+      tex.refresh();
+    };
+    make("bush1", BUSH1);
+    make("bush2", BUSH2);
+  }
+
+  // a custom bush: shadow + y-sorted image (decorative, not solid)
+  private placeBush(tx: number, ty: number, key: string) {
+    const px = tx * TILE;
+    const py = ty * TILE + TILE;
+    this.add.ellipse(px + 6, py - 1, 13, 5, 0x0d1014, 0.18).setDepth(py - 1);
+    this.add.image(px, py, key).setOrigin(0, 1).setDepth(py);
+  }
+
   // ---- decoration: buildings, tents, props, trees (all y-sorted) ----
   private decorate() {
     const rnd = this.rng(424242);
@@ -283,9 +356,9 @@ export class VillageScene extends Phaser.Scene {
       const doorX = b.tx + b.doorDx;
       const doorY = b.ty + b.rect[4] - 1;
       if (this.solid[doorY]) this.solid[doorY][doorX] = false;
-      // lanterns flank the door
-      this.obj(OBJ.lantern, doorX - 1, b.ty + b.rect[4] - 1, false);
-      this.obj(OBJ.lantern, doorX + 1, b.ty + b.rect[4] - 1, false);
+      // bushes flank the door (landscaped entrance)
+      this.placeBush(doorX - 1, b.ty + b.rect[4] - 1, "bush2");
+      this.placeBush(doorX + 1, b.ty + b.rect[4] - 1, "bush1");
     }
     // tents (projects)
     for (const tent of TENTS) this.obj(tent.rect, tent.tx, tent.ty);
@@ -303,7 +376,6 @@ export class VillageScene extends Phaser.Scene {
 
     // plaza centerpiece: a market stall + benches + a signpost + flowers
     this.obj(OBJ.market, SPAWN.tx - 1, SPAWN.ty - 1);
-    this.obj(OBJ.signpost, SPAWN.tx - 4, SPAWN.ty + 1, false);
     this.obj(OBJ.barrel, SPAWN.tx + 4, SPAWN.ty + 2);
     for (const [lx, ly] of [
       [SPAWN.tx - 5, SPAWN.ty - 3],
@@ -311,10 +383,11 @@ export class VillageScene extends Phaser.Scene {
       [SPAWN.tx - 5, SPAWN.ty + 3],
       [SPAWN.tx + 5, SPAWN.ty + 3],
     ])
-      this.obj(OBJ.lantern, lx, ly, false);
+      this.placeBush(lx, ly, "bush1");
 
-    // a forest ring around the rim + clusters, plus rocks near the river
-    const trees = [OBJ.treeA, OBJ.treeB, OBJ.cypress];
+    // a forest ring around the rim + clusters, plus rocks near the river.
+    // Lush feature trees lead, with mid trees + cypress for variety.
+    const trees = [OBJ.bigTree, OBJ.bigTree, OBJ.treeA, OBJ.treeA, OBJ.cypress];
     let placed = 0;
     let guard = 0;
     while (placed < 70 && guard++ < 5000) {
@@ -355,6 +428,17 @@ export class VillageScene extends Phaser.Scene {
     this.obj(OBJ.rock, 4, RIVER_TOP - 2);
     this.obj(OBJ.rock, MAP_W - 6, RIVER_TOP - 2);
 
+    // scatter custom bushes (shadowed, y-sorted) to enrich the ground
+    let bplaced = 0;
+    let bguard = 0;
+    while (bplaced < 44 && bguard++ < 3000) {
+      const x = 2 + Math.floor(rnd() * (MAP_W - 4));
+      const y = 3 + Math.floor(rnd() * (RIVER_TOP - 4));
+      if (this.solid[y][x]) continue;
+      this.placeBush(x, y, rnd() > 0.5 ? "bush1" : "bush2");
+      bplaced++;
+    }
+
     // subtle atmosphere: god-ray overlay, screen-fixed, very low alpha
     if (this.textures.exists("ray")) {
       /* not loaded; skipped */
@@ -383,6 +467,7 @@ export class VillageScene extends Phaser.Scene {
     this.player = this.physics.add.sprite(SPAWN.tx * TILE + 8, SPAWN.ty * TILE + 8, "hunter", 0);
     this.player.setOrigin(0.5, 0.7);
     this.player.body.setSize(9, 8).setOffset(3.5, 7);
+    this.playerShadow = this.add.ellipse(this.player.x, this.player.y + 4, 11, 5, 0x0d1014, 0.22);
     this.physics.world.setBounds(0, 0, MAP_W * TILE, MAP_H * TILE);
     this.player.setCollideWorldBounds(true);
     this.buildColliders();
@@ -452,6 +537,7 @@ export class VillageScene extends Phaser.Scene {
     const len = Math.hypot(vx, vy) || 1;
     this.player.body.setVelocity((vx / len) * speed, (vy / len) * speed);
     this.player.setDepth(this.player.y); // y-sort against objects
+    this.playerShadow.setPosition(this.player.x, this.player.y + 4).setDepth(this.player.y - 1);
     if (vx || vy) {
       if (Math.abs(vx) > Math.abs(vy)) this.facing = vx < 0 ? "left" : "right";
       else this.facing = vy < 0 ? "up" : "down";
