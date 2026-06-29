@@ -1,4 +1,52 @@
-# HANDOFF — 3D Half Dome hero (jethrochu.com)
+# HANDOFF — jethrochu.com
+
+Build/dev with **node@22**: `export PATH=/opt/homebrew/opt/node@22/bin:$PATH`, then
+`npm run dev -- --port 4321` / `npm run build`. (Homebrew node is 22; nvm's default v18 trips
+Tailwind v4 oxide.) **`npm run build` clobbers a running dev server's `.next`** → 500
+(routes-manifest ENOENT); fix = stop+start the dev server (don't just rm .next under it).
+
+---
+
+## ACTIVE: Yosemite valley prototype (branch `feat/yosemite-valley`, route `/valley`)
+
+A top-down, explorable pixel **Yosemite Valley** (Phaser 3, tile-based) on the **Ninja
+Adventure** CC0 tileset, modeled on peteroravec.com. Built as an **isolated prototype**: the
+live homepage `/` and the shipped scroll site are untouched. Locked spec in `GAME_DESIGN.md`;
+metrics + the Phaser justification in `PERF_REPORT.md`; art credit in `CREDITS.md`.
+
+**Architecture**
+- `app/valley/page.tsx` (server) renders `FlatValley` (real, SSR'd, indexable content) with
+  `ValleyExperience` layered over it. (At integration the existing shipped site becomes the
+  fallback instead of FlatValley.)
+- `components/ValleyExperience.tsx` (client) — capability gate (reduced-motion / WebGL) +
+  entry card ("Enter the valley" / "Skip to the portfolio") + the **code-split** dynamic
+  import of Phaser (`ssr:false`, only on the Enter click) + HUD + modal + skip.
+- `game/PhaserValley.tsx` — the `ssr:false` target; mounts `Phaser.Game` (Scale.FIT, design
+  480×270, `pixelArt`). **Only module that imports `phaser`**, so it stays in its own chunk.
+- `game/scenes/ValleyScene.ts` — loads the cherry-picked tilesets, generates the valley
+  in-code (grass / Merced / forest / trails / granite rim), the hiker (4-dir, collision),
+  the camera (zoom 2), and 7 landmark triggers. A `DEBUG_ATLAS` const renders a labeled
+  tileset for index-reading. Tile indices verified by pixel analysis (see GAME_DESIGN §10).
+- **Bridge:** `lib/gameBus.ts` typed singleton event bus. Phaser emits `game:ready` /
+  `landmark:enter` / `landmark:discovered` / `player:move` / `card:collect`; React emits
+  `game:pause` / `game:resume` / `game:skip`. (Dev-only `window.__valleyBus` + `window.__valley`
+  handles, stripped from prod, for tests.)
+- `components/valley/LandmarkModal.tsx` (faceset headshot + content + focus trap + pause),
+  `components/HUD/Discovered.tsx` (N/7), `components/valley/FlatValley.tsx` (SSR fallback).
+- **Content source of truth:** `content/portfolio.ts` (real facts from `content.ts` +
+  `resume.ts`; `JETHRO:` drafts for voice lines). **Assets:** cherry-picked 16-px tilesets +
+  Hunter sprite/faceset in `public/game/ninja-adventure/` (~276 KB, not the 110 MB pack).
+
+**Next step:** export `game/map/valley.tmj` for Tiled; author the custom El Capitan / Half
+Dome / Yosemite Falls art + the Ahwahnee building; trail cards + Glacier Point payoff; DOM
+minimap. Open `/valley` in a **focused desktop browser** (preview throttles rAF → slow).
+
+---
+
+## SUPERSEDED (stale): 3D Half Dome hero
+
+> The section below describes a react-three-fiber 3D hero that was **removed** before the
+> shipped Yosemite Ascent (no `three`/`drei` in `package.json`). Kept for history only.
 
 Branch `redesign/yosemite-ascent`. Build/dev with **node@22**:
 `export PATH=/opt/homebrew/opt/node@22/bin:$PATH` then `npm run dev` (port 4321) / `npm run build`.

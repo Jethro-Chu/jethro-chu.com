@@ -10,6 +10,44 @@ Lighthouse: `PORT=3100 npm run start` then `npx lighthouse@12 http://localhost:3
 
 ---
 
+## 2026-06-29 — Yosemite valley prototype (branch `feat/yosemite-valley`)
+
+A top-down explorable Yosemite valley (Phaser 3 + the Ninja Adventure CC0 tileset), built as
+an isolated prototype at `/valley`. Live homepage `/` and the scroll site untouched. Spec in
+`GAME_DESIGN.md`, architecture in `HANDOFF.md`, art credit in `CREDITS.md`.
+
+**New dependency — Phaser 3.80 (justification):** the one sanctioned new dep (the brief
+authorizes it); the engine for the valley. Imported via `next/dynamic({ ssr:false })` ONLY on
+the "Enter the valley" click, so it lands in its own code-split chunk, absent from the server
+bundle, the initial `/` and `/climb`/`/valley` loads, and fallback/crawler traffic. Tiled is
+NOT a dependency (plain JSON output); the touch controls are hand-rolled.
+
+**Asset payload:** cherry-picked 16-px tilesets + Hunter sprite/faceset + 2 FX into
+`public/game/ninja-adventure/` = **276 KB** (not the 110 MB pack; no monsters/bosses/music).
+
+**Measurements (`next build`, node@22):**
+| Route | First Load JS | Note |
+|---|---|---|
+| `/` (home) | **162 kB** | +2 kB vs 160 kB baseline (noise) — homepage untouched, within +15 kB gate |
+| `/valley` (initial) | **119 kB** | new prototype route; **no Phaser** in the initial load |
+| Phaser chunk (on Enter) | ~**308 kB gz** | lazy; fetched only on "Enter", + tileset PNGs from /public |
+
+- **Perf gate (initial `/` load) intact.** The engine + art never ship to the fast path.
+  Median-of-5 mobile Lighthouse to be re-captured at the Phase 7 gate (baseline mobile 93,
+  recorded below).
+- Build green, types pass, 0 console errors. Code-split confirmed at build and runtime.
+
+**Two lessons (cost real time, recorded so they aren't repeated):**
+1. **`Scale.RESIZE` gives a 0-width canvas in the preview tab** (the tab is ~2px / 0-size, so
+   rAF + element size are degenerate). Use `Scale.FIT` with a fixed design resolution so the
+   canvas renders independent of window size.
+2. **Phaser does not auto-chain `firstgid`** for a blank multi-tileset tilemap (all default to
+   0 → every tile resolves to the first tileset). Assign firstgids explicitly. Tile indices
+   were then chosen by **pixel analysis** of each tileset, not by eye (the scaled preview is
+   too blurry to read indices reliably).
+
+---
+
 ## ⚠️ Architecture reality (read before trusting old docs)
 
 The iteration prompt and `HANDOFF.md` describe a **react-three-fiber 3D Half Dome
