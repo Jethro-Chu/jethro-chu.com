@@ -32,8 +32,19 @@ const PhaserVillage = dynamic(() => import("@/game/PhaserVillage"), {
   ),
 });
 
-export default function VillageMount({ onExit }: { onExit?: () => void }) {
+export default function VillageMount() {
   const [intro, setIntro] = useState(true);
+
+  // "Read the portfolio" -> the original scroll site at /. Set the session flag
+  // first so / shows the site instead of re-opening the village over it.
+  const leaveToSite = () => {
+    try {
+      sessionStorage.setItem("village-closed", "1");
+    } catch {
+      /* private mode */
+    }
+    window.location.assign("/");
+  };
 
   return (
     <>
@@ -44,7 +55,7 @@ export default function VillageMount({ onExit }: { onExit?: () => void }) {
             setIntro(false);
             gameBus.emit("valley:play");
           }}
-          onSkip={() => onExit?.()}
+          onSkip={leaveToSite}
         />
       ) : (
         <>

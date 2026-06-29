@@ -61,7 +61,7 @@ export function VillageStandalone() {
 
   return playing ? (
     <div className="z-30 bg-[#3f7a57]" style={{ position: "fixed", inset: 0 }}>
-      <VillageMount onExit={() => setPlaying(false)} />
+      <VillageMount />
     </div>
   ) : (
     <button
