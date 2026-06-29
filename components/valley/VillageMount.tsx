@@ -11,6 +11,7 @@
 import dynamic from "next/dynamic";
 import { Discovered } from "@/components/HUD/Discovered";
 import { Minimap } from "@/components/HUD/Minimap";
+import { VillageNav } from "@/components/HUD/VillageNav";
 import { LandmarkModal } from "@/components/valley/LandmarkModal";
 
 const PhaserVillage = dynamic(() => import("@/game/PhaserVillage"), {
@@ -28,6 +29,7 @@ export default function VillageMount() {
   return (
     <>
       <PhaserVillage />
+      <VillageNav />
       <Minimap />
       <Discovered />
       <LandmarkModal />

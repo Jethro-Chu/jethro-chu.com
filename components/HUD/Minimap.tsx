@@ -47,7 +47,7 @@ export function Minimap() {
 
   return (
     <div
-      className="pointer-events-none fixed right-3 top-3 z-40 hidden h-32 w-44 rounded-sm border border-[var(--color-granite-line)] bg-[color-mix(in_oklab,var(--color-shadow)_80%,transparent)] sm:block"
+      className="pointer-events-none fixed bottom-3 right-3 z-40 hidden h-32 w-44 rounded-sm border border-[var(--color-granite-line)] bg-[color-mix(in_oklab,var(--color-shadow)_80%,transparent)] sm:block"
       aria-hidden
     >
       <span className="label-mono absolute left-1.5 top-1 text-[0.56rem] text-[var(--color-on-dark-muted)]">

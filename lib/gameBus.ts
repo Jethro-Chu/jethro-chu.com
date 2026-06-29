@@ -27,6 +27,8 @@ export interface ValleyEventMap {
   "valley:open": void;
   /** ValleyDoor -> listeners: the overlay closed */
   "valley:close": void;
+  /** nav -> scene: teleport the player + camera to a landmark (with a flash) */
+  "valley:goto": { id: string };
 }
 
 type EventKey = keyof ValleyEventMap;

@@ -272,14 +272,14 @@ export class VillageScene extends Phaser.Scene {
     // dirt paths from plaza to each door
     for (const d of this.doors) this.carvePath(overlay, SPAWN.tx, SPAWN.ty, d.x, d.y + 1);
 
-    // flat flower / bush decals scattered on grass (not on path/plaza/solid)
+    // a few flower decals scattered on grass (kept sparse to avoid clutter)
     let f = 0;
     let guard = 0;
-    while (f < 120 && guard++ < 5000) {
+    while (f < 46 && guard++ < 4000) {
       const x = 2 + Math.floor(rnd() * (MAP_W - 4));
       const y = 2 + Math.floor(rnd() * (RIVER_TOP - 3));
       if (this.solid[y][x] || overlay.getTileAt(x, y)) continue;
-      const pick = [T.flowerY, T.flowerR, T.flowerW, T.bushS, T.bush2][Math.floor(rnd() * 5)];
+      const pick = [T.flowerY, T.flowerR, T.flowerW][Math.floor(rnd() * 3)];
       decals.putTileAt(this.gid("nature", pick), x, y);
       f++;
     }
@@ -460,11 +460,11 @@ export class VillageScene extends Phaser.Scene {
         speedY: { min: 8, max: 22 },
         speedX: { min: -16, max: 16 },
         rotate: { min: 0, max: 360 },
-        scale: { min: 0.5, max: 1 },
-        alpha: { start: 0.85, end: 0.4 },
-        frequency: 550,
+        scale: { min: 0.5, max: 0.9 },
+        alpha: { start: 0.7, end: 0.3 },
+        frequency: 1500,
         quantity: 1,
-        tint: [0xc98f45, 0xadbc3a, 0xe67c44, 0x74a334],
+        tint: [0xadbc3a, 0x74a334, 0xc98f45],
       })
       .setDepth(9000);
 
@@ -569,16 +569,16 @@ export class VillageScene extends Phaser.Scene {
     ])
       this.placeBush(lx, ly, "bush1");
 
-    // a forest ring around the rim + clusters, plus rocks near the river.
-    // Lush feature trees lead, with mid trees + cypress for variety.
-    const trees = [OBJ.bigTree, OBJ.bigTree, OBJ.treeA, OBJ.treeA, OBJ.cypress];
+    // a forest ring around the rim + a few clusters. Mostly green trees,
+    // edge-biased so the town interior stays clean (not a messy thicket).
+    const trees = [OBJ.treeA, OBJ.treeB, OBJ.treeA, OBJ.treeB, OBJ.bigTree];
     let placed = 0;
     let guard = 0;
-    while (placed < 70 && guard++ < 5000) {
+    while (placed < 52 && guard++ < 5000) {
       const edge = rnd();
       let x: number;
       let y: number;
-      if (edge < 0.55) {
+      if (edge < 0.72) {
         // ring near the rim
         const side = Math.floor(rnd() * 3);
         if (side === 0) {
@@ -615,7 +615,7 @@ export class VillageScene extends Phaser.Scene {
     // scatter custom bushes (shadowed, y-sorted) to enrich the ground
     let bplaced = 0;
     let bguard = 0;
-    while (bplaced < 44 && bguard++ < 3000) {
+    while (bplaced < 24 && bguard++ < 3000) {
       const x = 2 + Math.floor(rnd() * (MAP_W - 4));
       const y = 3 + Math.floor(rnd() * (RIVER_TOP - 4));
       if (this.solid[y][x]) continue;
@@ -858,6 +858,24 @@ export class VillageScene extends Phaser.Scene {
       gameBus.on("game:resume", () => {
         this.paused = false;
         this.moveTarget = null;
+      })
+    );
+    // nav teleport: jump the player + camera to a building, with a flash
+    this.busOff.push(
+      gameBus.on("valley:goto", ({ id }) => {
+        const door = this.doors.find((d) => d.id === id);
+        if (!door || !this.player) return;
+        const x = door.x * TILE + 8;
+        const y = (door.y + 1) * TILE + 8;
+        this.player.setPosition(x, y);
+        this.player.body.setVelocity(0, 0);
+        this.moveTarget = null;
+        this.active = id; // stop the proximity check from re-firing the panel
+        this.armed.delete(id);
+        const cam = this.cameras.main;
+        cam.centerOn(x, y);
+        cam.flash(260, 244, 239, 227);
+        this.playerShadow?.setPosition(x, y + 4);
       })
     );
   }
