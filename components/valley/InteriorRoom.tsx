@@ -28,7 +28,7 @@ const SHEET_H = 112 * SCALE;
 const DIR_ROW: Record<string, number> = { down: 0, up: 1, left: 2, right: 3 };
 const SPEED = 230; // px/s
 const DOOR_Y = 64; // door centre, from the top of the world
-const SPAWN_Y = 168; // hiker starts just below the door
+const SPAWN_Y = 250; // hiker starts below the header, clear of the title + door
 
 export function InteriorRoom() {
   const [landmark, setLandmark] = useState<Landmark | null>(null);
@@ -231,7 +231,7 @@ export function InteriorRoom() {
               )}
               <div>
                 <span className="eyebrow text-[var(--color-golden)]">{landmark.section}</span>
-                <h2 className="text-summit mt-0.5 text-[var(--color-card)]">{landmark.title}</h2>
+                <h2 className="text-rise mt-0.5 text-[var(--color-card)]">{landmark.title}</h2>
                 <p className="label-mono text-[0.66rem] text-[var(--color-on-dark-muted)]">
                   {landmark.landmark}
                 </p>
