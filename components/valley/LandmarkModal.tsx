@@ -187,7 +187,7 @@ export function LandmarkModal() {
               onClick={close}
               className="fast-ui mt-6 w-full rounded-sm bg-[var(--color-shadow)] px-4 py-2 text-[0.82rem] font-medium text-[var(--color-on-dark)]"
             >
-              Back to the valley
+              Back to the village
             </button>
           </m.div>
         </m.div>
