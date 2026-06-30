@@ -32,11 +32,7 @@ const CW = PFW * SCALE; // on-screen character width
 const CH = PFH * SCALE; // on-screen character height
 const SHEET_W = PFW * 5 * SCALE; // 5 frames wide
 const SHEET_H = PFH * SCALE;
-const SPEED = 230; // base walk speed (px/s)
-// Projects + Resume are the content-heavy rooms; walk them at 2x so they're quick
-// to traverse. Every other room (and the whole village) stays at the base speed.
-const FAST_SPEED = SPEED * 2;
-const FAST_ROOMS = new Set(["cabins", "general-store"]); // Projects, Resume
+const SPEED = 460; // 2x walk speed (px/s) — quick to traverse every interior room
 const DOOR_Y = 64; // door centre, from the top of the world
 const SPAWN_Y = 250; // hiker starts below the header, clear of the title + door
 const TITLE_ID = "interior-room-title";
@@ -93,7 +89,6 @@ export function InteriorRoom() {
     if (!scroller || !world || !ch) return;
 
     const reduce = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches ?? false;
-    const speed = FAST_ROOMS.has(landmark.id) ? FAST_SPEED : SPEED; // 2x in Projects/Resume
 
     pos.current = { x: scroller.clientWidth / 2, y: SPAWN_Y };
     target.current = null;
@@ -189,8 +184,8 @@ export function InteriorRoom() {
       }
       const moving = !!(vx || vy);
       const len = Math.hypot(vx, vy) || 1;
-      pos.current.x += (vx / len) * speed * dt;
-      pos.current.y += (vy / len) * speed * dt;
+      pos.current.x += (vx / len) * SPEED * dt;
+      pos.current.y += (vy / len) * SPEED * dt;
       const maxX = w.clientWidth - CW / 2;
       const maxY = Math.max(w.clientHeight, sc.clientHeight) - CH / 2;
       pos.current.x = Math.max(CW / 2, Math.min(maxX, pos.current.x));
