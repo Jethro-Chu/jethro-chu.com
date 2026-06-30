@@ -23,7 +23,7 @@ export function VillageIntro({
 }) {
   return (
     <m.div
-      className="fixed inset-0 z-[58] flex flex-col items-center justify-between py-12 text-center sm:py-16"
+      className="fixed inset-0 z-[58] flex flex-col items-center justify-center py-12 text-center sm:py-16"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.4 }}
@@ -93,7 +93,7 @@ export function VillageIntro({
       </div>
 
       {/* bottom skip */}
-      <div className="relative flex flex-wrap items-center justify-center gap-3 px-6">
+      <div className="absolute inset-x-0 bottom-12 flex flex-wrap items-center justify-center gap-3 px-6 sm:bottom-16">
         <span
           className="label-mono text-[0.74rem]"
           style={{ color: CREAM, textShadow: "0 1px 4px rgba(0,0,0,0.85)" }}
