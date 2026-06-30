@@ -26,11 +26,12 @@ export function Discovered() {
 
   return (
     <div
+      role="status"
+      aria-live="polite"
       className="pointer-events-none fixed bottom-3 left-3 z-40 rounded-sm bg-[color-mix(in_oklab,var(--color-shadow)_70%,transparent)] px-2.5 py-1.5"
-      aria-hidden
     >
       <span className="label-mono tnum text-[0.72rem] text-[var(--color-on-dark)]">
-        {found.size} / {landmarks.length} viewpoints
+        {found.size} / {landmarks.length} buildings explored
       </span>
     </div>
   );

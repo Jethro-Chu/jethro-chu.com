@@ -51,7 +51,7 @@ function SkillBlock({ title, children }: { title: string; children: React.ReactN
 
 export function ResumeSheet() {
   return (
-    <div className="mt-5 space-y-6 border-t border-[var(--color-granite-line)] pt-5">
+    <div className="space-y-6">
       {/* 01 · education */}
       <section>
         <SectionLabel n="01" label="education" />

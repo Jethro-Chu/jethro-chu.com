@@ -6,12 +6,12 @@
    entrance itself (EnterValleyButton does) and nothing until opened, so
    the island stays tiny and the page stays a server component.
 
-   On valley:open it captures scroll, stops Lenis + locks the body,
-   then dynamically imports the valley (Phaser loads only now) into a
-   fixed full-screen overlay with a Framer fade. On close (← / ESC) it
-   unmounts the valley FIRST (PhaserValley's cleanup calls
-   game.destroy(true) → no leaked canvas/rAF), then fades the empty
-   shell, restores scroll + Lenis + body + focus. No navigation.
+   On valley:open it captures scroll, stops Lenis + locks the body, then
+   dynamically imports VillageMount (Phaser loads only now) into a fixed
+   full-screen overlay with a Framer fade. On close (← / ESC) it unmounts
+   VillageMount FIRST (PhaserVillage's cleanup calls game.destroy(true) →
+   no leaked canvas/rAF), then restores scroll + Lenis + body + focus.
+   It also auto-opens on the homepage (the village is the front page).
    ============================================================ */
 
 import dynamic from "next/dynamic";
@@ -33,6 +33,7 @@ const VillageMount = dynamic(() => import("@/components/valley/VillageMount"), {
 
 export function ValleyDoor() {
   const [open, setOpen] = useState(false);
+  const [roomOpen, setRoomOpen] = useState(false); // a building interior is open over the village
   const savedScroll = useRef(0);
   const lastFocus = useRef<HTMLElement | null>(null);
   const backRef = useRef<HTMLButtonElement>(null);
@@ -47,17 +48,26 @@ export function ValleyDoor() {
     } catch {
       /* private mode */
     }
-    // unmount the overlay immediately -> ValleyMount unmounts ->
-    // PhaserValley cleanup calls game.destroy(true). No exit animation holds
-    // the engine alive (that was the leak); the enter fade is enough.
+    // unmount the overlay immediately -> VillageMount unmounts -> PhaserVillage
+    // cleanup calls game.destroy(true). No exit animation holds the engine alive
+    // (that was the leak); the enter fade is enough. Then restore the page.
     setOpen(false);
-    gameBus.emit("game:skip");
-    gameBus.emit("valley:close");
     window.__lenis?.start();
     document.body.style.overflow = "";
     window.scrollTo(0, savedScroll.current);
     window.__lenis?.scrollTo(savedScroll.current, { immediate: true });
     lastFocus.current?.focus?.();
+  }, []);
+
+  // track whether a building interior is open (InteriorRoom pauses on enter,
+  // resumes on close) so the overlay's own back/ESC defer to the room's
+  useEffect(() => {
+    const off1 = gameBus.on("landmark:enter", () => setRoomOpen(true));
+    const off2 = gameBus.on("game:resume", () => setRoomOpen(false));
+    return () => {
+      off1();
+      off2();
+    };
   }, []);
 
   const openOverlay = useCallback(() => {
@@ -87,12 +97,13 @@ export function ValleyDoor() {
     return () => window.clearTimeout(t);
   }, [openOverlay]);
 
-  // ESC closes; move focus into the overlay on open
+  // ESC closes the overlay — but only when no interior room is open (the room
+  // owns ESC then). Move focus into the overlay on open.
   useEffect(() => {
     if (!open) return;
     const t = window.setTimeout(() => backRef.current?.focus(), 50);
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
+      if (e.key === "Escape" && !roomOpen) {
         e.preventDefault();
         close();
       }
@@ -102,7 +113,7 @@ export function ValleyDoor() {
       window.clearTimeout(t);
       window.removeEventListener("keydown", onKey);
     };
-  }, [open, close]);
+  }, [open, close, roomOpen]);
 
   // safety: restore scroll lock if this island ever unmounts while open
   useEffect(() => {
@@ -128,14 +139,19 @@ export function ValleyDoor() {
       transition={{ duration: dur }}
     >
       <VillageMount />
-      <button
-        ref={backRef}
-        type="button"
-        onClick={close}
-        className="fast-ui label-mono fixed right-3 top-3 z-[61] rounded-sm bg-[color-mix(in_oklab,var(--color-shadow)_72%,transparent)] px-3 py-2 text-[0.74rem] text-[var(--color-on-dark)]"
-      >
-        ← Back to the portfolio
-      </button>
+      {/* hidden while a building interior is open — the room owns its own
+          "← back to the village" and this would otherwise float over it and
+          tear the whole village down instead of returning to the map */}
+      {!roomOpen && (
+        <button
+          ref={backRef}
+          type="button"
+          onClick={close}
+          className="fast-ui label-mono fixed right-3 top-3 z-[61] rounded-sm bg-[color-mix(in_oklab,var(--color-shadow)_72%,transparent)] px-3 py-2 text-[0.74rem] text-[var(--color-on-dark)]"
+        >
+          ← Back to the portfolio
+        </button>
+      )}
     </m.div>
   );
 }

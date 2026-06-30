@@ -2,15 +2,17 @@
 
 /* ============================================================
    VillageStandalone  ·  the /village route's interactive layer
-   Mounts the shared VillageMount full-screen (which shows the title
-   screen, then play). Mirrors the homepage overlay but as a standalone
-   route + direct preview link. Gate is WebGL + motion only (no viewport
-   floor) so it works on the route; reduced-motion / no-WebGL get the
-   SSR'd flat content beneath with a re-enter affordance.
+   Mounts the shared VillageMount full-screen (title screen, then play).
+   Mirrors the homepage overlay but as a standalone route + direct preview
+   link, including its OWN exit chrome (back button + ESC -> the scroll
+   site at /), which the homepage gets from ValleyDoor. Gate is WebGL +
+   motion only; reduced-motion / no-WebGL get the SSR'd flat content with a
+   re-enter affordance.
    ============================================================ */
 
 import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
+import { gameBus } from "@/lib/gameBus";
 
 const VillageMount = dynamic(() => import("@/components/valley/VillageMount"), {
   ssr: false,
@@ -33,14 +35,34 @@ function ok(): boolean {
   }
 }
 
+function leaveToSite() {
+  try {
+    sessionStorage.setItem("village-closed", "1");
+  } catch {
+    /* private mode */
+  }
+  window.location.assign("/");
+}
+
 export function VillageStandalone() {
   const [playing, setPlaying] = useState(false);
   const [capable, setCapable] = useState(true);
+  const [roomOpen, setRoomOpen] = useState(false);
 
   useEffect(() => {
     const able = ok();
     setCapable(able);
     setPlaying(able); // capable visitors land on the title screen; others read the flat page
+  }, []);
+
+  // an interior room owns its own back/ESC — defer to it when one is open
+  useEffect(() => {
+    const off1 = gameBus.on("landmark:enter", () => setRoomOpen(true));
+    const off2 = gameBus.on("game:resume", () => setRoomOpen(false));
+    return () => {
+      off1();
+      off2();
+    };
   }, []);
 
   // lock body scroll while the full-screen game is up (mirrors the homepage
@@ -57,11 +79,33 @@ export function VillageStandalone() {
     };
   }, [playing]);
 
+  // ESC leaves to the scroll site — but not while a room is open (room owns ESC)
+  useEffect(() => {
+    if (!playing) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape" && !roomOpen) {
+        e.preventDefault();
+        leaveToSite();
+      }
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [playing, roomOpen]);
+
   if (!capable) return null;
 
   return playing ? (
     <div className="z-30 bg-[#3f7a57]" style={{ position: "fixed", inset: 0 }}>
       <VillageMount />
+      {!roomOpen && (
+        <button
+          type="button"
+          onClick={leaveToSite}
+          className="fast-ui label-mono fixed right-3 top-3 z-[45] rounded-sm bg-[color-mix(in_oklab,var(--color-shadow)_72%,transparent)] px-3 py-2 text-[0.74rem] text-[var(--color-on-dark)]"
+        >
+          ← Back to the portfolio
+        </button>
+      )}
     </div>
   ) : (
     <button

@@ -49,7 +49,7 @@ export function Minimap() {
       <div className="overflow-hidden rounded-md border border-[var(--color-granite-line)] bg-[color-mix(in_oklab,var(--color-shadow)_86%,transparent)] shadow-lg">
         <div className="flex items-center justify-between px-2 pt-1.5">
           <span className="label-mono text-[0.58rem] text-[var(--color-on-dark-muted)]">Yosemite Village</span>
-          <span className="label-mono text-[0.58rem] text-[var(--color-golden)]">{found.size}/{landmarks.length}</span>
+          <span className="label-mono text-[0.58rem] text-[#e6bd73]">{found.size}/{landmarks.length}</span>
         </div>
 
         <svg viewBox={`0 0 ${W} ${H}`} className="mt-1 block w-full" role="img" aria-label="Village map">
@@ -123,7 +123,7 @@ export function Minimap() {
                   />
                   <span
                     className="label-mono truncate text-[0.56rem]"
-                    style={{ color: on ? "var(--color-golden)" : "var(--color-on-dark)" }}
+                    style={{ color: on ? "#e6bd73" : "var(--color-on-dark)" }}
                   >
                     {l.section}
                   </span>

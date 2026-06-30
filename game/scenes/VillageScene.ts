@@ -954,7 +954,7 @@ export class VillageScene extends Phaser.Scene {
     this.busOff.push(
       gameBus.on("game:pause", () => {
         this.paused = true;
-        this.pinchDist = 0; // don't carry a stale pinch span across a modal
+        this.pinchDist = 0; // don't carry a stale pinch span across an interior room
         this.player?.body?.setVelocity(0, 0);
         this.stopNpcs();
       })

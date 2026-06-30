@@ -2,32 +2,26 @@
    gameBus  ·  the React <-> Phaser bridge (§4)
    A tiny typed singleton event bus. No state library, no deps.
    Phaser emits world events; React listens and drives the DOM
-   (minimap, discovered HUD, landmark modals, collected cards).
-   React emits control events back (pause / resume / skip).
+   (minimap, discovered HUD, interior rooms). React emits control
+   events back (pause / resume / travel / zoom).
    ============================================================ */
 
 export interface ValleyEventMap {
   /** the Phaser scene has booted and is ready */
   "game:ready": void;
-  /** the player walked into a landmark trigger zone */
+  /** the player walked into a landmark trigger zone (opens the interior room) */
   "landmark:enter": { id: string };
   /** a landmark was discovered for the first time (HUD/minimap) */
   "landmark:discovered": { id: string };
   /** player world position, for the minimap (throttled by the scene) */
   "player:move": { x: number; y: number };
-  /** a trail card was collected */
-  "card:collect": { id: string };
-  /** React -> Phaser: pause (e.g. a modal opened) */
+  /** React -> Phaser: pause (an interior room opened) */
   "game:pause": void;
-  /** React -> Phaser: resume */
+  /** React -> Phaser: resume (the room closed) */
   "game:resume": void;
-  /** React -> Phaser: skip / leave the valley */
-  "game:skip": void;
   /** entrance affordance -> ValleyDoor: open the full-screen overlay */
   "valley:open": void;
-  /** ValleyDoor -> listeners: the overlay closed */
-  "valley:close": void;
-  /** nav -> scene: teleport the player + camera to a landmark (with a flash) */
+  /** nav / minimap -> scene: travel the player + camera to a landmark */
   "valley:goto": { id: string };
   /** intro "PLAY" -> scene: leave the title screen, hand the player control */
   "valley:play": void;

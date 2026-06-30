@@ -6,12 +6,14 @@
    into that district's room: the full info is the backdrop (crisp DOM,
    reused from content/portfolio), and you walk a little hiker ALL OVER it
    — WASD / arrows / tap — then step through the door to return to the
-   village. Rendered full-screen over the paused village; the door (or the
-   top-left button, or ESC) emits game:resume and unmounts.
+   village. Rendered full-screen over the paused village.
 
-   The character is a CSS spritesheet sprite driven by a single rAF loop
-   that writes transforms directly to the DOM (no per-frame React renders),
-   with the scroll container following it like a camera.
+   It is a proper dialog: role=dialog + aria-modal + aria-labelledby, focus
+   moves in on open and restores on close, Tab is trapped, ESC / the door /
+   the back button all close. prefers-reduced-motion freezes the walk-cycle.
+   The character is a CSS spritesheet sprite driven by one rAF loop that
+   writes transforms directly to the DOM (no per-frame React renders), with
+   the scroll container following it like a camera.
    ============================================================ */
 
 import { useCallback, useEffect, useRef, useState } from "react";
@@ -29,13 +31,17 @@ const DIR_ROW: Record<string, number> = { down: 0, up: 1, left: 2, right: 3 };
 const SPEED = 230; // px/s
 const DOOR_Y = 64; // door centre, from the top of the world
 const SPAWN_Y = 250; // hiker starts below the header, clear of the title + door
+const TITLE_ID = "interior-room-title";
 
 export function InteriorRoom() {
   const [landmark, setLandmark] = useState<Landmark | null>(null);
 
+  const rootRef = useRef<HTMLDivElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
   const worldRef = useRef<HTMLDivElement>(null);
   const charRef = useRef<HTMLDivElement>(null);
+  const backRef = useRef<HTMLButtonElement>(null);
+  const lastFocus = useRef<HTMLElement | null>(null);
 
   const pos = useRef({ x: 0, y: SPAWN_Y });
   const target = useRef<{ x: number; y: number } | null>(null);
@@ -49,6 +55,7 @@ export function InteriorRoom() {
       gameBus.on("landmark:enter", ({ id }) => {
         const l = landmarkById(id);
         if (!l) return;
+        lastFocus.current = document.activeElement as HTMLElement;
         setLandmark(l);
         gameBus.emit("game:pause");
       }),
@@ -58,6 +65,7 @@ export function InteriorRoom() {
   const close = useCallback(() => {
     setLandmark(null);
     gameBus.emit("game:resume");
+    lastFocus.current?.focus?.();
   }, []);
 
   useEffect(() => {
@@ -67,17 +75,42 @@ export function InteriorRoom() {
     const ch = charRef.current;
     if (!scroller || !world || !ch) return;
 
+    const reduce = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches ?? false;
+
     pos.current = { x: scroller.clientWidth / 2, y: SPAWN_Y };
     target.current = null;
     keys.current = {};
     dir.current = "down";
     frame.current = 0;
+    // paint the hiker at spawn synchronously so it never flashes at (0,0)
+    ch.style.transform = `translate(${pos.current.x - SIZE / 2}px, ${SPAWN_Y - SIZE / 2}px)`;
+    ch.style.backgroundPosition = "0px 0px";
+
+    // move focus into the room (a11y); restored in close()
+    backRef.current?.focus();
 
     const MOVE = ["w", "a", "s", "d", "arrowup", "arrowdown", "arrowleft", "arrowright"];
     const onKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
         e.preventDefault();
         close();
+        return;
+      }
+      if (e.key === "Tab" && rootRef.current) {
+        const f = rootRef.current.querySelectorAll<HTMLElement>(
+          'a[href], button, [tabindex]:not([tabindex="-1"])'
+        );
+        if (f.length) {
+          const first = f[0];
+          const lastEl = f[f.length - 1];
+          if (e.shiftKey && document.activeElement === first) {
+            e.preventDefault();
+            lastEl.focus();
+          } else if (!e.shiftKey && document.activeElement === lastEl) {
+            e.preventDefault();
+            first.focus();
+          }
+        }
         return;
       }
       const k = e.key.toLowerCase();
@@ -91,18 +124,24 @@ export function InteriorRoom() {
       keys.current[e.key.toLowerCase()] = false;
     };
     const onPointer = (e: PointerEvent) => {
+      // a tap on a link/button follows it — don't also send the hiker walking
+      if ((e.target as HTMLElement)?.closest("a, button")) return;
       const r = world.getBoundingClientRect();
       target.current = { x: e.clientX - r.left, y: e.clientY - r.top };
+    };
+    let last = performance.now();
+    const onVisible = () => {
+      if (!document.hidden) last = performance.now(); // no dt spike after a hidden stretch
     };
     window.addEventListener("keydown", onKeyDown);
     window.addEventListener("keyup", onKeyUp);
     scroller.addEventListener("pointerdown", onPointer);
+    document.addEventListener("visibilitychange", onVisible);
 
     // per-run flag + local raf id: StrictMode-safe (run1's cleanup flips its own
     // `alive`, so run1's loop stops; run2 owns a fresh flag and keeps ticking)
     let alive = true;
     let rafId = 0;
-    let last = performance.now();
     const loop = (t: number) => {
       if (!alive) return;
       const dt = Math.min(0.05, (t - last) / 1000);
@@ -142,10 +181,12 @@ export function InteriorRoom() {
       if (moving) {
         if (Math.abs(vx) > Math.abs(vy)) dir.current = vx < 0 ? "left" : "right";
         else dir.current = vy < 0 ? "up" : "down";
-        frameT.current += dt;
-        if (frameT.current > 0.12) {
-          frameT.current = 0;
-          frame.current = (frame.current + 1) % 4;
+        if (!reduce) {
+          frameT.current += dt;
+          if (frameT.current > 0.12) {
+            frameT.current = 0;
+            frame.current = (frame.current + 1) % 4;
+          }
         }
       } else frame.current = 0;
 
@@ -171,6 +212,7 @@ export function InteriorRoom() {
       window.removeEventListener("keydown", onKeyDown);
       window.removeEventListener("keyup", onKeyUp);
       scroller.removeEventListener("pointerdown", onPointer);
+      document.removeEventListener("visibilitychange", onVisible);
     };
   }, [landmark, close]);
 
@@ -178,7 +220,13 @@ export function InteriorRoom() {
   const projects = projectsForLandmark(landmark);
 
   return (
-    <div className="fixed inset-0 z-50">
+    <div
+      ref={rootRef}
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby={TITLE_ID}
+      className="fixed inset-0 z-50"
+    >
       {/* the room: scroll container = camera; world = the walkable hall */}
       <div
         ref={scrollRef}
@@ -231,7 +279,9 @@ export function InteriorRoom() {
               )}
               <div>
                 <span className="eyebrow text-[var(--color-golden)]">{landmark.section}</span>
-                <h2 className="text-rise mt-0.5 text-[var(--color-card)]">{landmark.title}</h2>
+                <h2 id={TITLE_ID} className="text-rise mt-0.5 text-[var(--color-card)]">
+                  {landmark.title}
+                </h2>
                 <p className="label-mono text-[0.66rem] text-[var(--color-on-dark-muted)]">
                   {landmark.landmark}
                 </p>
@@ -329,6 +379,7 @@ export function InteriorRoom() {
 
       {/* fixed chrome */}
       <button
+        ref={backRef}
         type="button"
         onClick={close}
         className="fast-ui label-mono fixed left-3 top-3 z-[55] rounded-sm bg-[color-mix(in_oklab,#1a120a_80%,transparent)] px-3 py-2 text-[0.74rem] text-[var(--color-card)]"

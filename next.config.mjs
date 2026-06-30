@@ -17,6 +17,10 @@ const nextConfig = {
   images: {
     formats: ["image/avif", "image/webp"],
   },
+  // the old /valley prototype is retired; send any lingering links to the village
+  async redirects() {
+    return [{ source: "/valley", destination: "/village", permanent: true }];
+  },
 };
 
 export default nextConfig;
