@@ -131,7 +131,7 @@ export const landmarks: Landmark[] = [
     landmark: "The General Store",
     section: "Resume",
     map: { x: 36, y: 19 },
-    title: "Resume and what I'm looking for",
+    title: "Resume",
     faceset: FACE,
     authoredLine:
       "JETHRO: one or two lines on what you're looking for (roles, teams, the kind of work).",
