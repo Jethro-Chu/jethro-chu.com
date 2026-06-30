@@ -20,7 +20,7 @@ engine/gate/bus/modal/overlay as the valley.
 - `game/PhaserVillage.tsx` — FIT mount (**768×432**; camera zoom is an integer level set
   `[1,2,3]`, default **2** ≈ 24×13.5 tiles visible). `components/valley/VillageMount.tsx` —
   dynamic PhaserVillage + intro title screen (`VillageIntro`), then the play HUD: `Minimap`,
-  `Discovered`, `VillageNav`, `ZoomControls`, `DirectionCue`, `ControlsHint`, `LandmarkModal`
+  `Discovered`, `VillageNav`, `ZoomControls`, `DirectionCue`, `ControlsHint`, `InteriorRoom`
   (all shared + code-split; Phaser loads only when this mounts).
 - **Camera + wayfinding (2026-06-29):** zoom via wheel / pinch / keyboard `+-` /
   `ZoomControls` buttons (`valley:zoom`). `components/HUD/Minimap.tsx` is now a real SVG town
@@ -60,7 +60,17 @@ engine/gate/bus/modal/overlay as the valley.
 
 ---
 
-## Yosemite valley prototype (branch `feat/yosemite-valley`, route `/valley`)
+## RETIRED — Yosemite valley prototype (the original `/valley`)
+
+> **Deleted 2026-06-29.** The open-valley prototype was superseded by the hub-based
+> **Village** (the ACTIVE section above). Its files are gone — `app/valley/page.tsx`,
+> `components/ValleyExperience.tsx`, `components/valley/ValleyMount.tsx`,
+> `components/valley/LandmarkModal.tsx`, `game/PhaserValley.tsx`, `game/scenes/ValleyScene.ts` —
+> and `/valley` now 301-redirects to `/village` (`next.config.mjs`). Kept from this stack:
+> `FlatValley` (SSR fallback, used by `/village`), `EnterValleyButton` (Hero/Altimeter re-entry),
+> `ResumeSheet` (used by `InteriorRoom`), `ValleyDoor` (homepage overlay), `canPlayValley`.
+> The walk-in **`InteriorRoom`** replaced `LandmarkModal`. The notes below are kept for
+> historical context only and DO NOT reflect shipped code.
 
 A top-down, explorable pixel **Yosemite Valley** (Phaser 3, tile-based) on the **Ninja
 Adventure** CC0 tileset, modeled on peteroravec.com. Built as an **isolated prototype**: the

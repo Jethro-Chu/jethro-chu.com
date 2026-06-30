@@ -1,4 +1,13 @@
-# GAME_DESIGN — Yosemite Valley (locked spec)
+# GAME_DESIGN — Yosemite Valley → Village (spec)
+
+> **Status (2026-06-29): SHIPPED as the hub-based "Yosemite Village."** The original open-valley
+> prototype below (§1–§9) was superseded and its code DELETED (`ValleyScene`/`PhaserValley`/
+> `LandmarkModal`/`/valley` — see HANDOFF "RETIRED"); `/valley` redirects to `/village`. The live
+> system is `game/scenes/VillageScene.ts` + `components/valley/{VillageMount,VillageIntro,
+> InteriorRoom}.tsx`, auto-opened on the homepage by `ValleyDoor`. Landmarks now open a walkable
+> **InteriorRoom** (not a modal). The current, accurate sections are **§10 (village build)**,
+> **§11 (camera + wayfinding)**, and **§12 (front page + interior rooms)** at the bottom; §1–§9
+> are the historical valley spec, kept for design rationale (tileset, palette, motion, a11y).
 
 A top-down, explorable pixel **Yosemite Valley** (Phaser 3, tile-based) modeled on
 peteroravec.com: walk a hiker around the valley floor, discover landmark "stations" that
@@ -141,3 +150,25 @@ only (no map/art/mount changes):
   shows a one-time, dismissible controls line per session.
 - **Perf:** homepage `/` 164 kB and `/village` 104 kB both **unchanged** — all new HUD lives
   in the code-split village chunk, never the initial loads.
+
+## 12. Front page + walkable interior rooms (2026-06-29)
+
+The village became the **front page**, and landmarks became **walkable rooms**.
+
+- **Front page.** `/` still renders the full SSR scroll site (crawlers / no-JS / reduced-motion
+  / no-WebGL keep it, gated by `canPlayValley`), but `ValleyDoor` now AUTO-OPENS the village
+  overlay over it for capable visitors (once per session — closing sets
+  `sessionStorage["village-closed"]`). Phaser still code-split + loaded only after first paint
+  on the overlay mount, so `/`'s initial JS is unchanged. Two ways back to the site: the intro
+  **"Read the portfolio →"** navigates to `/`; the overlay's **"← Back to the portfolio"**
+  smooth-closes (and is hidden while a room is open).
+- **Interior rooms.** Entering ANY of the 7 buildings (walk-in, nav, or minimap →
+  `landmark:enter`) opens **`InteriorRoom`** instead of a modal: a full-screen, scrollable
+  "room" where the building's full info (reused from `content/portfolio`, incl. `ResumeSheet`)
+  is the backdrop, and a CSS-spritesheet **hiker roams all over it** (WASD / arrows / tap; one
+  rAF loop writes transforms directly + a scroll-follow camera). A door / "← Back to the
+  village" / ESC returns (`game:resume`). It's a proper dialog (`role=dialog` + `aria-modal` +
+  `aria-labelledby`, focus moves in + restores, Tab trapped); `prefers-reduced-motion` freezes
+  the walk-cycle. The `/village` route mirrors the homepage, including its own back/ESC exit.
+- **Perf:** `/` 164 kB, `/village` 105 kB (initial loads unchanged — `InteriorRoom` rides the
+  code-split chunk). Retiring the `/valley` prototype removed a whole duplicate Phaser scene.
