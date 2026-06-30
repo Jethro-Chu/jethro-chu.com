@@ -218,6 +218,9 @@ export function InteriorRoom() {
 
   if (!landmark) return null;
   const projects = projectsForLandmark(landmark);
+  // short landmarks (Contact, Overlook) would dangle at the top of a tall empty
+  // room — centre their content vertically so the room reads as intentional
+  const isShort = !landmark.resumeSheet && projects.length === 0 && landmark.body.length <= 1;
 
   return (
     <div
@@ -236,7 +239,11 @@ export function InteriorRoom() {
             "repeating-linear-gradient(90deg,#3a2c1e 0px,#3a2c1e 46px,#352719 46px,#352719 48px),#3a2c1e",
         }}
       >
-        <div ref={worldRef} className="relative mx-auto w-full" style={{ minHeight: "100%" }}>
+        <div
+          ref={worldRef}
+          className={`relative mx-auto w-full ${isShort ? "flex items-center justify-center" : ""}`}
+          style={{ minHeight: "100%" }}
+        >
           {/* door home, centre-top */}
           <button
             type="button"
@@ -264,7 +271,11 @@ export function InteriorRoom() {
           </button>
 
           {/* the building's info — the backdrop you walk all over */}
-          <div className="relative z-[20] mx-auto w-full max-w-2xl px-5 pb-40 pt-32">
+          <div
+            className={`relative z-[20] mx-auto w-full max-w-2xl px-5 ${
+              isShort ? "py-24" : "pb-40 pt-32"
+            }`}
+          >
             <header className="flex items-start gap-3">
               {landmark.faceset && (
                 // eslint-disable-next-line @next/next/no-img-element
