@@ -101,7 +101,7 @@ export function VillageStandalone() {
         <button
           type="button"
           onClick={leaveToSite}
-          className="fast-ui label-mono fixed right-3 top-3 z-[45] rounded-sm bg-[color-mix(in_oklab,var(--color-shadow)_72%,transparent)] px-3 py-2 text-[0.74rem] text-[var(--color-on-dark)]"
+          className="fast-ui fixed right-3 top-3 z-[45] rounded-sm bg-[color-mix(in_oklab,var(--color-shadow)_90%,transparent)] px-3 py-2 font-mono text-[0.74rem] font-medium tracking-[0.04em] text-[var(--color-on-dark)] shadow-sm"
         >
           ← Back to the portfolio
         </button>
