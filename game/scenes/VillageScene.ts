@@ -168,6 +168,8 @@ export class VillageScene extends Phaser.Scene {
   private solid: boolean[][] = [];
   // sprite-footprint reservation (decor spacing only; NOT collision — that's `solid`)
   private occupied: boolean[][] = [];
+  // path/plaza tiles — trees & scattered bushes must NOT land on the roads
+  private isPath: boolean[][] = [];
   private facing = "down";
   private paused = false;
   private intro = true; // title-screen mode: scenic camera, controls off
@@ -247,6 +249,7 @@ export class VillageScene extends Phaser.Scene {
     const decals = map.createBlankLayer("decals", all)!.setDepth(2); // flowers (flat)
     this.solid = Array.from({ length: MAP_H }, () => Array(MAP_W).fill(false));
     this.occupied = Array.from({ length: MAP_H }, () => Array(MAP_W).fill(false));
+    this.isPath = Array.from({ length: MAP_H }, () => Array(MAP_W).fill(false));
     const rnd = this.rng(99173);
 
     for (let y = 0; y < MAP_H; y++)
@@ -288,7 +291,10 @@ export class VillageScene extends Phaser.Scene {
     // plaza: cream square
     for (let y = SPAWN.ty - 3; y <= SPAWN.ty + 3; y++)
       for (let x = SPAWN.tx - 5; x <= SPAWN.tx + 5; x++)
-        if (!this.solid[y]?.[x]) overlay.putTileAt(this.gid("floor", T.plaza), x, y);
+        if (!this.solid[y]?.[x]) {
+          overlay.putTileAt(this.gid("floor", T.plaza), x, y);
+          if (this.isPath[y]) this.isPath[y][x] = true;
+        }
 
     // doors known before paths
     for (const b of BUILDINGS) this.doors.push({ id: b.id, x: b.tx + b.doorDx, y: b.ty + b.rect[4] });
@@ -321,8 +327,10 @@ export class VillageScene extends Phaser.Scene {
     let x = x0;
     let y = y0;
     const put = () => {
-      if (x > 1 && y > 1 && x < MAP_W - 2 && y < MAP_H - 2 && !this.solid[y][x])
+      if (x > 1 && y > 1 && x < MAP_W - 2 && y < MAP_H - 2 && !this.solid[y][x]) {
         layer.putTileAt(this.gid("floor", T.path), x, y);
+        if (this.isPath[y]) this.isPath[y][x] = true;
+      }
     };
     while (x !== x1) {
       put();
@@ -711,7 +719,7 @@ export class VillageScene extends Phaser.Scene {
     while (bplaced < 24 && bguard++ < 3000) {
       const x = 2 + Math.floor(rnd() * (MAP_W - 4));
       const y = 3 + Math.floor(rnd() * (RIVER_TOP - 4));
-      if (this.solid[y][x] || this.occupied[y]?.[x]) continue;
+      if (this.solid[y][x] || this.occupied[y]?.[x] || this.isPath[y]?.[x]) continue;
       this.placeBush(x, y, rnd() > 0.5 ? "bush1" : "bush2");
       this.reserve(x, y, 1, 1);
       bplaced++;
@@ -1223,6 +1231,8 @@ export class VillageScene extends Phaser.Scene {
   private canBlock(x: number, y: number, w: number, h: number, gap = 1) {
     if (x < 2 || y < 2 || x + w > MAP_W - 2 || y + h > MAP_H - 2) return false;
     for (let dy = 0; dy < h; dy++) for (let dx = 0; dx < w; dx++) if (this.solid[y + dy][x + dx]) return false;
+    // never cover a road/plaza — keep the whole footprint off path tiles
+    for (let dy = 0; dy < h; dy++) for (let dx = 0; dx < w; dx++) if (this.isPath[y + dy]?.[x + dx]) return false;
     for (let dy = -gap; dy < h + gap; dy++)
       for (let dx = -gap; dx < w + gap; dx++) if (this.occupied[y + dy]?.[x + dx]) return false;
     return true;
