@@ -181,7 +181,6 @@ export class VillageScene extends Phaser.Scene {
   private busOff: Array<() => void> = [];
   private moveTarget: { x: number; y: number } | null = null;
   private lastEmit = 0;
-  private inZone = false; // is the hiker inside a fast-travel district (Projects / Resume)?
   private signs: Record<string, Phaser.GameObjects.Image> = {};
 
   constructor() {
@@ -1052,12 +1051,7 @@ export class VillageScene extends Phaser.Scene {
       return;
     }
     this.handlePinch();
-    // Projects (cabins) + Resume (general store) are fast-travel districts:
-    // 2x movement inside their zone, with a short warp-in flash on first entry.
-    const inZone = this.nearZone();
-    if (inZone && !this.inZone) this.teleportFx(this.player.x, this.player.y);
-    this.inZone = inZone;
-    const speed = inZone ? 184 : 92;
+    const speed = 92; // uniform across the village — the 2x boost now lives inside the Projects/Resume rooms
     let vx = 0;
     let vy = 0;
     const left = this.cursors?.left.isDown || this.keys?.A.isDown;
@@ -1114,52 +1108,6 @@ export class VillageScene extends Phaser.Scene {
       x: rect.left + fx * rect.width,
       y: rect.top + fy * rect.height,
     });
-  }
-
-  // Is the hiker inside the Projects (cabins) or Resume (general store) district?
-  // A few tiles around those two doors run at double speed.
-  private nearZone(): boolean {
-    if (!this.player) return false;
-    const ptx = this.player.x / TILE;
-    const pty = this.player.y / TILE;
-    const R = 5; // tiles
-    for (const d of this.doors) {
-      if (d.id !== "cabins" && d.id !== "general-store") continue;
-      if (Math.hypot(ptx - d.x, pty - d.y) <= R) return true;
-    }
-    return false;
-  }
-
-  // A short "warp in" flash when the hiker steps into a fast-travel district:
-  // an expanding teal ring + a quick blink + a soft camera flash. Respects
-  // reduced motion (skips the animation entirely).
-  private teleportFx(x: number, y: number) {
-    const reduce =
-      typeof window !== "undefined" &&
-      !!window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
-    if (reduce) return;
-    const ring = this.add
-      .circle(x, y, 13, 0x000000, 0)
-      .setStrokeStyle(2, 0xbfe3d0, 0.95)
-      .setDepth(1_000_000)
-      .setScale(0.35);
-    this.tweens.add({
-      targets: ring,
-      scale: 1.7,
-      alpha: 0,
-      duration: 320,
-      ease: "Quad.out",
-      onComplete: () => ring.destroy(),
-    });
-    this.tweens.add({
-      targets: this.player,
-      alpha: 0.3,
-      duration: 90,
-      yoyo: true,
-      repeat: 1,
-      ease: "Quad.inOut",
-    });
-    this.cameras.main.flash(150, 198, 227, 214);
   }
 
   // Surface the "Enter?" prompt only when the hiker is actually ON the door —

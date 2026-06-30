@@ -36,6 +36,9 @@ export interface ValleyEventMap {
   "valley:nearpos": { x: number; y: number };
   /** "Enter?" prompt / Enter key -> scene: enter the door the player is on */
   "valley:enter": void;
+  /** room -> HUD: the interior room is closing; play the exit teleport veil
+   *  (the actual unmount + game:resume follow once the veil has covered) */
+  "room:exit": void;
 }
 
 type EventKey = keyof ValleyEventMap;

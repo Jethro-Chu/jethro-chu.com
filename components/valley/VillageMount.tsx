@@ -19,6 +19,7 @@ import { ZoomControls } from "@/components/HUD/ZoomControls";
 import { DirectionCue } from "@/components/HUD/DirectionCue";
 import { ControlsHint } from "@/components/HUD/ControlsHint";
 import { EnterPrompt } from "@/components/HUD/EnterPrompt";
+import { RoomTransition } from "@/components/HUD/RoomTransition";
 import { InteriorRoom } from "@/components/valley/InteriorRoom";
 import { VillageIntro } from "@/components/valley/VillageIntro";
 
@@ -70,6 +71,7 @@ export default function VillageMount() {
         </>
       )}
       <InteriorRoom />
+      <RoomTransition />
     </>
   );
 }
