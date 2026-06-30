@@ -27,6 +27,11 @@ export interface ValleyEventMap {
   "valley:play": void;
   /** zoom buttons -> scene: step the camera zoom level (+1 in / -1 out) */
   "valley:zoom": { dir: number };
+  /** scene -> HUD: player is standing on a door (id) or has left it (null) —
+   *  drives the "Enter?" confirmation prompt. Entry is a CHOICE, never automatic. */
+  "valley:near": { id: string | null };
+  /** "Enter?" prompt / Enter key -> scene: enter the door the player is on */
+  "valley:enter": void;
 }
 
 type EventKey = keyof ValleyEventMap;

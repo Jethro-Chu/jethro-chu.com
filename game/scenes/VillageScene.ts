@@ -15,6 +15,12 @@ import { landmarks } from "@/content/portfolio";
 
 export const TILE = 16;
 
+// Player ("Jethro") sprite: front-facing idle + 4-frame walk cycle, sliced from
+// public/game/jethro/player.png (5 frames: idle, walk1..walk4). Taller than the
+// 16px NPCs so the face/suit/glasses stay legible at the game's zoom levels.
+export const PLAYER_FW = 16;
+export const PLAYER_FH = 32;
+
 export const TILESETS = [
   { key: "floor", file: "TilesetFloor", cols: 22, rows: 26 },
   { key: "nature", file: "TilesetNature", cols: 24, rows: 21 },
@@ -169,8 +175,8 @@ export class VillageScene extends Phaser.Scene {
   private pinchDist = 0;
   private playLockUntil = 0; // brief input lock after PLAY so the tap can't set a move-target
   private discovered = new Set<string>();
-  private active: string | null = null;
-  private armed = new Set<string>();
+  private nearDoor: string | null = null; // door the player is currently standing on (drives the Enter? prompt)
+  private teleporting = false; // mid warp-in animation: freeze input until the room opens
   private doors: { id: string; x: number; y: number }[] = [];
   private busOff: Array<() => void> = [];
   private moveTarget: { x: number; y: number } | null = null;
@@ -184,8 +190,10 @@ export class VillageScene extends Phaser.Scene {
   preload() {
     for (const t of TILESETS) this.load.image(t.key, `${BASE}${t.file}.png`);
     const S = "/game/ninja-adventure/sprites/";
-    for (const k of ["hunter", "bear", "racoon", "frog", "cat", "villager", "oldman"])
+    for (const k of ["bear", "racoon", "frog", "cat", "villager", "oldman"])
       this.load.spritesheet(k, `${S}${k}.png`, { frameWidth: TILE, frameHeight: TILE });
+    // player — Jethro: front-facing idle + 4-frame walk (no side/back art)
+    this.load.spritesheet("jethro", "/game/jethro/player.png", { frameWidth: PLAYER_FW, frameHeight: PLAYER_FH });
   }
 
   create() {
@@ -211,7 +219,6 @@ export class VillageScene extends Phaser.Scene {
     this.player.setVisible(false);
     this.playerShadow.setVisible(false);
 
-    for (const d of this.doors) this.armed.add(d.id);
     this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => this.teardown());
     if (process.env.NODE_ENV !== "production")
       (window as unknown as { __village?: unknown }).__village = this;
@@ -722,23 +729,18 @@ export class VillageScene extends Phaser.Scene {
   }
 
   private buildPlayer() {
-    const dirs: [string, number][] = [
-      ["down", 0],
-      ["up", 4],
-      ["left", 8],
-      ["right", 12],
-    ];
-    for (const [name, start] of dirs)
-      this.anims.create({
-        key: `walk-${name}`,
-        frames: this.anims.generateFrameNumbers("hunter", { start, end: start + 3 }),
-        frameRate: 8,
-        repeat: -1,
-      });
-    this.player = this.physics.add.sprite(SPAWN.tx * TILE + 8, SPAWN.ty * TILE + 8, "hunter", 0);
-    this.player.setOrigin(0.5, 0.7);
-    this.player.body.setSize(9, 8).setOffset(3.5, 7);
-    this.playerShadow = this.add.ellipse(this.player.x, this.player.y + 4, 11, 5, 0x0d1014, 0.22);
+    // Front-facing art only: one walk loop (frames 1..4), mirrored for left/right;
+    // up/down reuse the forward frames. Frame 0 is the idle pose.
+    this.anims.create({
+      key: "player-walk",
+      frames: this.anims.generateFrameNumbers("jethro", { start: 1, end: 4 }),
+      frameRate: 8,
+      repeat: -1,
+    });
+    this.player = this.physics.add.sprite(SPAWN.tx * TILE + 8, SPAWN.ty * TILE + 8, "jethro", 0);
+    this.player.setOrigin(0.5, 0.92); // pivot at the feet for clean y-sorting
+    this.player.body.setSize(9, 6).setOffset(3.5, 25); // small collider at the feet
+    this.playerShadow = this.add.ellipse(this.player.x, this.player.y + 1, 11, 5, 0x0d1014, 0.22);
     this.physics.world.setBounds(0, 0, MAP_W * TILE, MAP_H * TILE);
     this.player.setCollideWorldBounds(true);
     this.buildColliders();
@@ -947,6 +949,8 @@ export class VillageScene extends Phaser.Scene {
       if (this.intro) return;
       if (e.key === "+" || e.key === "=") this.applyZoom(this.zoomIdx + 1);
       else if (e.key === "-" || e.key === "_") this.applyZoom(this.zoomIdx - 1);
+      // Enter / E confirms the door prompt when the player is standing on a door
+      else if ((e.key === "Enter" || e.key === "e" || e.key === "E") && this.nearDoor) this.enterNearDoor();
     });
   }
 
@@ -983,30 +987,24 @@ export class VillageScene extends Phaser.Scene {
     );
     // zoom buttons: step the camera zoom level
     this.busOff.push(gameBus.on("valley:zoom", ({ dir }) => this.applyZoom(this.zoomIdx + dir)));
-    // nav teleport: jump the player + camera to a building, with a flash
+    // "Enter?" prompt confirmed: enter the door the player is standing on
+    this.busOff.push(gameBus.on("valley:enter", () => this.enterNearDoor()));
+    // nav teleport: jump the player + camera to the door, then warp in through
+    // the SAME teleport animation the walk-in path uses (consistent entry feel)
     this.busOff.push(
       gameBus.on("valley:goto", ({ id }) => {
         const door = this.doors.find((d) => d.id === id);
-        if (!door || !this.player || this.intro) return;
+        if (!door || !this.player || this.intro || this.teleporting) return;
         const x = door.x * TILE + 8;
         const y = (door.y + 1) * TILE + 8;
         this.player.setPosition(x, y);
         this.player.body.setVelocity(0, 0);
         this.moveTarget = null;
-        this.active = id; // stop the proximity check from re-firing the panel
-        this.armed.delete(id);
-        const cam = this.cameras.main;
-        cam.centerOn(x, y);
-        cam.flash(260, 244, 239, 227);
-        this.playerShadow?.setPosition(x, y + 4);
-        if (!this.discovered.has(id)) {
-          this.discovered.add(id);
-          gameBus.emit("landmark:discovered", { id });
-        }
-        // straight into the building's room — emit synchronously (a Phaser-clock
-        // delayedCall is unreliable once a room pauses the scene); the village
-        // flash is moot since the room covers it instantly
-        gameBus.emit("landmark:enter", { id });
+        this.cameras.main.centerOn(x, y); // keep the warp on-screen
+        this.playerShadow?.setPosition(x, y + 1);
+        // arm this door and run the warp-in (discovery + room open happen there)
+        this.nearDoor = id;
+        this.enterNearDoor();
       })
     );
   }
@@ -1047,6 +1045,11 @@ export class VillageScene extends Phaser.Scene {
       this.player.body.setVelocity(0, 0);
       return;
     }
+    if (this.teleporting) {
+      // a warp tween owns the player's scale/alpha; just keep it still
+      this.player.body.setVelocity(0, 0);
+      return;
+    }
     this.handlePinch();
     const speed = 92;
     let vx = 0;
@@ -1071,12 +1074,16 @@ export class VillageScene extends Phaser.Scene {
     const len = Math.hypot(vx, vy) || 1;
     this.player.body.setVelocity((vx / len) * speed, (vy / len) * speed);
     this.player.setDepth(this.player.y); // y-sort against objects
-    this.playerShadow.setPosition(this.player.x, this.player.y + 4).setDepth(this.player.y - 1);
+    this.playerShadow.setPosition(this.player.x, this.player.y + 1).setDepth(this.player.y - 1);
     if (vx || vy) {
       if (Math.abs(vx) > Math.abs(vy)) this.facing = vx < 0 ? "left" : "right";
       else this.facing = vy < 0 ? "up" : "down";
-      this.player.anims.play(`walk-${this.facing}`, true);
-    } else this.player.anims.stop();
+      this.player.setFlipX(this.facing === "left"); // mirror the front frames
+      this.player.anims.play("player-walk", true);
+    } else {
+      this.player.anims.stop();
+      this.player.setFrame(0); // idle pose
+    }
 
     if (time - this.lastEmit > 110) {
       this.lastEmit = time;
@@ -1085,22 +1092,111 @@ export class VillageScene extends Phaser.Scene {
     this.checkDoors();
   }
 
+  // Surface the "Enter?" prompt only when the hiker is actually ON the door —
+  // the door tile (d) or the threshold one row up — never a tile early, and
+  // never automatically. Entering is the player's choice (button / Enter key).
   private checkDoors() {
-    let inside: string | null = null;
+    const ptx = Math.floor(this.player.x / TILE);
+    const pty = Math.floor(this.player.y / TILE);
+    let near: string | null = null;
     for (const d of this.doors) {
-      const dist = Phaser.Math.Distance.Between(this.player.x, this.player.y, d.x * TILE + 8, d.y * TILE + 8);
-      if (dist < 20) inside = d.id;
-      else if (dist > 34) this.armed.add(d.id);
-    }
-    if (inside && inside !== this.active && this.armed.has(inside)) {
-      this.active = inside;
-      this.armed.delete(inside);
-      if (!this.discovered.has(inside)) {
-        this.discovered.add(inside);
-        gameBus.emit("landmark:discovered", { id: inside });
+      if (ptx === d.x && (pty === d.y || pty === d.y - 1)) {
+        near = d.id;
+        break;
       }
-      gameBus.emit("landmark:enter", { id: inside });
-    } else if (!inside && this.active) this.active = null;
+    }
+    if (near !== this.nearDoor) {
+      this.nearDoor = near;
+      gameBus.emit("valley:near", { id: near });
+    }
+  }
+
+  // Confirmed entry (Enter? button or Enter/E key): play a short teleport warp,
+  // then open the room. No-op if not at a door or the scene is busy. The room is
+  // opened from the warp's completion callback — the scene is still un-paused
+  // until then, so the tween + timers run reliably (unlike after a room pause).
+  private enterNearDoor() {
+    const id = this.nearDoor;
+    if (!id || this.intro || this.paused || this.teleporting) return;
+    this.teleporting = true;
+    this.player.body.setVelocity(0, 0);
+    this.player.anims.stop();
+    this.player.setFrame(0);
+    this.moveTarget = null;
+    // clear the prompt the moment we commit to the warp
+    this.nearDoor = null;
+    gameBus.emit("valley:near", { id: null });
+    if (!this.discovered.has(id)) {
+      this.discovered.add(id);
+      gameBus.emit("landmark:discovered", { id });
+    }
+    const open = () => {
+      this.teleporting = false;
+      this.resetPlayerFx();
+      gameBus.emit("landmark:enter", { id }); // pauses the scene + opens the room
+    };
+    const reduce = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches ?? false;
+    if (reduce) {
+      this.cameras.main.flash(160, 244, 239, 227);
+      open();
+    } else {
+      this.playTeleport(open);
+    }
+  }
+
+  // the warp itself: a golden ground ring + a burst of sparkles, the hiker
+  // squashing to a bright sliver and fading out, capped by a cream flash. ~460ms.
+  private playTeleport(onDone: () => void) {
+    const px = this.player.x;
+    const py = this.player.y; // feet (origin 0.92)
+
+    const ring = this.add
+      .ellipse(px, py, 14, 6, 0xffe18d, 0.85)
+      .setDepth(py - 0.5)
+      .setBlendMode(Phaser.BlendModes.ADD);
+    this.tweens.add({ targets: ring, scaleX: 4.4, scaleY: 4.4, alpha: 0, duration: 440, ease: "Quad.out" });
+
+    const burst = this.add
+      .particles(px, py - 10, "ember", {
+        speedY: { min: -96, max: -38 },
+        speedX: { min: -28, max: 28 },
+        lifespan: 480,
+        scale: { start: 1.4, end: 0 },
+        alpha: { start: 1, end: 0 },
+        tint: [0xffe18d, 0xffffff, 0xffa028],
+        emitting: false,
+      })
+      .setDepth(py + 3);
+    burst.explode(18, px, py - 10);
+
+    this.player.setTint(0xfff4d0);
+    this.tweens.add({
+      targets: this.player,
+      scaleX: 0.12,
+      scaleY: 1.5,
+      angle: 6,
+      alpha: 0,
+      duration: 340,
+      ease: "Back.in",
+    });
+    this.tweens.add({ targets: this.playerShadow, scaleX: 0.1, scaleY: 0.1, alpha: 0, duration: 300, ease: "Quad.in" });
+
+    this.time.delayedCall(300, () => this.cameras.main.flash(240, 244, 239, 227));
+    this.time.delayedCall(460, () => {
+      ring.destroy();
+      burst.destroy();
+      onDone();
+    });
+  }
+
+  // restore the hiker after a warp (the room covers the village, so this is unseen
+  // until the player returns and the scene resumes). Kill any in-flight warp tween
+  // first so a frame hitch can't leave the sprite mid-squash on return.
+  private resetPlayerFx() {
+    this.tweens.killTweensOf(this.player);
+    this.tweens.killTweensOf(this.playerShadow);
+    this.player.setScale(1).setAlpha(1).setAngle(0).clearTint();
+    this.playerShadow.setScale(1).setAlpha(0.22);
   }
 
   // can a w×h decoration sit here? rejects map obstacles (exact footprint) and

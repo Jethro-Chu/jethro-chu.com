@@ -34,7 +34,7 @@ export function ControlsHint() {
     >
       <div className="flex items-center gap-3 rounded-md border border-[var(--color-granite-line)] bg-[color-mix(in_oklab,var(--color-shadow)_88%,transparent)] px-4 py-2.5 shadow-lg">
         <p className="label-mono flex-1 text-[0.7rem] leading-relaxed text-[var(--color-on-dark)]">
-          Walk with WASD / arrows or tap · click a district up top to travel · pinch or ± to zoom · walk into a building to open it
+          Walk with WASD / arrows or tap · click a district up top to travel · pinch or ± to zoom · step up to a building and choose Enter
         </p>
         <button
           type="button"

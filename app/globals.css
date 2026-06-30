@@ -272,6 +272,15 @@ html.lenis body {
 }
 .ascent-flash { animation: ascent-flash 1700ms var(--ease-trail) both; }
 
+/* an interior room materializing after the village teleport-warp + cream flash.
+   Opacity only (no transform) so the room's position:fixed chrome stays anchored
+   to the viewport. Reduced motion makes it instant via the global block below. */
+@keyframes room-warp-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.room-warp-in { animation: room-warp-in 220ms var(--ease-trail) both; }
+
 /* ============================================================
    FAST UI  — instant, tactile interaction feedback (transform/opacity only)
    ============================================================ */

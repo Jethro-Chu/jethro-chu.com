@@ -21,13 +21,17 @@ import { gameBus } from "@/lib/gameBus";
 import { landmarkById, projectsForLandmark, type Landmark } from "@/content/portfolio";
 import { ResumeSheet } from "./ResumeSheet";
 
-const SHEET = "/game/ninja-adventure/sprites/hunter.png";
-const SCALE = 3;
-const FRAME = 16;
-const SIZE = FRAME * SCALE; // 48px on-screen character
-const SHEET_W = 64 * SCALE;
-const SHEET_H = 112 * SCALE;
-const DIR_ROW: Record<string, number> = { down: 0, up: 1, left: 2, right: 3 };
+// Player ("Jethro"): a horizontal strip of 5 frames (idle, walk1..walk4),
+// front-facing only — we flip horizontally for left, and reuse the forward
+// frames for up/right/down. See public/game/jethro/player.png.
+const SHEET = "/game/jethro/player.png";
+const PFW = 16; // native frame width
+const PFH = 32; // native frame height
+const SCALE = 2;
+const CW = PFW * SCALE; // on-screen character width
+const CH = PFH * SCALE; // on-screen character height
+const SHEET_W = PFW * 5 * SCALE; // 5 frames wide
+const SHEET_H = PFH * SCALE;
 const SPEED = 230; // px/s
 const DOOR_Y = 64; // door centre, from the top of the world
 const SPAWN_Y = 250; // hiker starts below the header, clear of the title + door
@@ -83,8 +87,8 @@ export function InteriorRoom() {
     dir.current = "down";
     frame.current = 0;
     // paint the hiker at spawn synchronously so it never flashes at (0,0)
-    ch.style.transform = `translate(${pos.current.x - SIZE / 2}px, ${SPAWN_Y - SIZE / 2}px)`;
-    ch.style.backgroundPosition = "0px 0px";
+    ch.style.transform = `translate(${pos.current.x - CW / 2}px, ${SPAWN_Y - CH / 2}px)`;
+    ch.style.backgroundPosition = "0px 0px"; // idle frame (column 0)
 
     // move focus into the room (a11y); restored in close()
     backRef.current?.focus();
@@ -173,10 +177,10 @@ export function InteriorRoom() {
       const len = Math.hypot(vx, vy) || 1;
       pos.current.x += (vx / len) * SPEED * dt;
       pos.current.y += (vy / len) * SPEED * dt;
-      const maxX = w.clientWidth - SIZE / 2;
-      const maxY = Math.max(w.clientHeight, sc.clientHeight) - SIZE / 2;
-      pos.current.x = Math.max(SIZE / 2, Math.min(maxX, pos.current.x));
-      pos.current.y = Math.max(SIZE / 2, Math.min(maxY, pos.current.y));
+      const maxX = w.clientWidth - CW / 2;
+      const maxY = Math.max(w.clientHeight, sc.clientHeight) - CH / 2;
+      pos.current.x = Math.max(CW / 2, Math.min(maxX, pos.current.x));
+      pos.current.y = Math.max(CH / 2, Math.min(maxY, pos.current.y));
 
       if (moving) {
         if (Math.abs(vx) > Math.abs(vy)) dir.current = vx < 0 ? "left" : "right";
@@ -190,8 +194,11 @@ export function InteriorRoom() {
         }
       } else frame.current = 0;
 
-      c.style.transform = `translate(${pos.current.x - SIZE / 2}px, ${pos.current.y - SIZE / 2}px)`;
-      c.style.backgroundPosition = `${-frame.current * SIZE}px ${-DIR_ROW[dir.current] * SIZE}px`;
+      // front-only art: column 0 = idle, 1..4 = walk; mirror for left
+      const col = moving ? 1 + (frame.current % 4) : 0;
+      const flip = dir.current === "left" ? " scaleX(-1)" : "";
+      c.style.transform = `translate(${pos.current.x - CW / 2}px, ${pos.current.y - CH / 2}px)${flip}`;
+      c.style.backgroundPosition = `${-col * CW}px 0px`;
 
       sc.scrollTop = pos.current.y - sc.clientHeight / 2;
 
@@ -228,7 +235,7 @@ export function InteriorRoom() {
       role="dialog"
       aria-modal="true"
       aria-labelledby={TITLE_ID}
-      className="fixed inset-0 z-50"
+      className="room-warp-in fixed inset-0 z-50"
     >
       {/* the room: scroll container = camera; world = the walkable hall */}
       <div
@@ -376,8 +383,8 @@ export function InteriorRoom() {
             aria-hidden
             className="pointer-events-none absolute left-0 top-0 z-[30]"
             style={{
-              width: SIZE,
-              height: SIZE,
+              width: CW,
+              height: CH,
               backgroundImage: `url(${SHEET})`,
               backgroundSize: `${SHEET_W}px ${SHEET_H}px`,
               imageRendering: "pixelated",
