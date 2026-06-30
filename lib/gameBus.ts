@@ -30,6 +30,10 @@ export interface ValleyEventMap {
   /** scene -> HUD: player is standing on a door (id) or has left it (null) —
    *  drives the "Enter?" confirmation prompt. Entry is a CHOICE, never automatic. */
   "valley:near": { id: string | null };
+  /** scene -> HUD: viewport (CSS px) anchor for the "Enter?" prompt — the point
+   *  just above the hiker's head at the doorway. Emitted each frame while near a
+   *  door so the prompt floats over the entrance as the camera moves. */
+  "valley:nearpos": { x: number; y: number };
   /** "Enter?" prompt / Enter key -> scene: enter the door the player is on */
   "valley:enter": void;
 }

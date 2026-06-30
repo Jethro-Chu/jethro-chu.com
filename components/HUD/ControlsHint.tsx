@@ -32,14 +32,14 @@ export function ControlsHint() {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3 }}
     >
-      <div className="flex items-center gap-3 rounded-md border border-[var(--color-granite-line)] bg-[color-mix(in_oklab,var(--color-shadow)_88%,transparent)] px-4 py-2.5 shadow-lg">
-        <p className="label-mono flex-1 text-[0.7rem] leading-relaxed text-[var(--color-on-dark)]">
+      <div className="flex items-center gap-3 rounded-md border border-[var(--color-granite-line)] bg-[var(--color-shadow)] px-4 py-2.5 shadow-xl">
+        <p className="label-mono flex-1 text-[0.72rem] leading-relaxed text-[var(--color-on-dark)]!">
           Walk with WASD / arrows or tap · click a district up top to travel · pinch or ± to zoom · step up to a building and choose Enter
         </p>
         <button
           type="button"
           onClick={() => setShow(false)}
-          className="fast-ui label-mono shrink-0 rounded-sm border border-[var(--color-on-dark-muted)] px-2 py-1 text-[0.66rem] text-[var(--color-on-dark)] hover:bg-[var(--color-pine)]"
+          className="fast-ui label-mono shrink-0 rounded-sm border border-[var(--color-on-dark-muted)] px-2 py-1 text-[0.66rem] text-[var(--color-on-dark)]! hover:bg-[var(--color-pine)]"
         >
           Got it
         </button>

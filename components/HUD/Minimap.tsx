@@ -48,8 +48,8 @@ export function Minimap() {
     <div className="fixed bottom-3 right-3 z-40 w-36 select-none sm:w-56">
       <div className="overflow-hidden rounded-md border border-[var(--color-granite-line)] bg-[color-mix(in_oklab,var(--color-shadow)_86%,transparent)] shadow-lg">
         <div className="flex items-center justify-between px-2 pt-1.5">
-          <span className="label-mono text-[0.58rem] text-[var(--color-on-dark-muted)]">Yosemite Village</span>
-          <span className="label-mono text-[0.58rem] text-[#e6bd73]">{found.size}/{landmarks.length}</span>
+          <span className="label-mono text-[0.58rem] text-[var(--color-on-dark-muted)]!">Yosemite Village</span>
+          <span className="label-mono text-[0.58rem] text-[#e6bd73]!">{found.size}/{landmarks.length}</span>
         </div>
 
         <svg viewBox={`0 0 ${W} ${H}`} className="mt-1 block w-full" role="img" aria-label="Village map">

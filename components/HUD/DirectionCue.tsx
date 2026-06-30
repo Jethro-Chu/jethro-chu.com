@@ -72,7 +72,7 @@ export function DirectionCue() {
             strokeLinejoin="round"
           />
         </svg>
-        <span className="label-mono text-[0.72rem] text-[var(--color-on-dark)]">{cue.label}</span>
+        <span className="label-mono text-[0.72rem] text-[var(--color-on-dark)]!">{cue.label}</span>
       </div>
     </div>
   );

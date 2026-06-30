@@ -38,10 +38,10 @@ export function VillageNav() {
                 type="button"
                 onClick={() => go(l.id)}
                 aria-current={on ? "true" : undefined}
-                className={`fast-ui label-mono rounded-sm px-2.5 py-1.5 text-[0.72rem] font-medium hover:bg-[var(--color-pine)] hover:text-[var(--color-on-dark)] ${
+                className={`fast-ui label-mono rounded-sm px-2.5 py-1.5 text-[0.72rem] font-medium hover:bg-[var(--color-pine)] hover:text-[var(--color-on-dark)]! ${
                   on
-                    ? "bg-[var(--color-pine)] text-[var(--color-on-dark)]"
-                    : "text-[var(--color-shadow)]"
+                    ? "bg-[var(--color-pine)] text-[var(--color-on-dark)]!"
+                    : "text-[var(--color-shadow)]!"
                 }`}
               >
                 {l.section}

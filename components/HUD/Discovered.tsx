@@ -28,9 +28,9 @@ export function Discovered() {
     <div
       role="status"
       aria-live="polite"
-      className="pointer-events-none fixed bottom-3 left-3 z-40 rounded-sm bg-[color-mix(in_oklab,var(--color-shadow)_70%,transparent)] px-2.5 py-1.5"
+      className="pointer-events-none fixed bottom-3 left-3 z-40 rounded-sm border border-[var(--color-granite-line)] bg-[var(--color-shadow)] px-2.5 py-1.5 shadow-md"
     >
-      <span className="label-mono tnum text-[0.72rem] text-[var(--color-on-dark)]">
+      <span className="label-mono tnum text-[0.72rem] text-[var(--color-on-dark)]!">
         {found.size} / {landmarks.length} buildings explored
       </span>
     </div>
