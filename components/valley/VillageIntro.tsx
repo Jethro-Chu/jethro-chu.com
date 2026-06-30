@@ -50,16 +50,6 @@ export function VillageIntro({
         }}
       />
 
-      {/* top tagline */}
-      <p className="relative mx-auto max-w-md px-6">
-        <span
-          className="label-mono text-[0.8rem] leading-relaxed"
-          style={{ color: CREAM, textShadow: "0 1px 5px rgba(0,0,0,0.85)" }}
-        >
-          {site.tagline}
-        </span>
-      </p>
-
       {/* title + PLAY */}
       <div className="relative flex flex-col items-center gap-8">
         <div>
