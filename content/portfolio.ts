@@ -133,8 +133,6 @@ export const landmarks: Landmark[] = [
     map: { x: 36, y: 19 },
     title: "Resume",
     faceset: FACE,
-    authoredLine:
-      "JETHRO: one or two lines on what you're looking for (roles, teams, the kind of work).",
     body: [
       `Five clinical rotations, ${status.clinicalHours} hours across pediatric, mental health, oncology, cardiac, and emergency settings. The full breakdown is below.`,
     ],
