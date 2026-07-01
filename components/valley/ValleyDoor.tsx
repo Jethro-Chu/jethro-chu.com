@@ -20,6 +20,12 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { gameBus } from "@/lib/gameBus";
 import { canPlayValley } from "@/lib/canPlayValley";
 
+// lift the pre-paint front-page cover (injected in app/layout.tsx) — a no-op if
+// it was never added (crawler / dismissed / incapable / not the homepage)
+function dropPreloadCover() {
+  document.getElementById("village-preload")?.remove();
+}
+
 const VillageMount = dynamic(() => import("@/components/valley/VillageMount"), {
   ssr: false,
   loading: () => (
@@ -71,13 +77,19 @@ export function ValleyDoor() {
   }, []);
 
   const openOverlay = useCallback(() => {
-    if (!canPlayValley()) return; // reduced-motion / no-WebGL / tiny viewport keep the site
+    if (!canPlayValley()) {
+      dropPreloadCover(); // reduced-motion / no-WebGL / tiny viewport keep the site
+      return;
+    }
     savedScroll.current = window.scrollY;
     lastFocus.current = document.activeElement as HTMLElement;
     window.__lenis?.stop();
     document.body.style.overflow = "hidden";
     setOpen(true);
-  }, []);
+    // keep the pre-paint cover through the fade, then lift it — the overlay is
+    // opaque by now, so the scroll site is never revealed underneath.
+    window.setTimeout(dropPreloadCover, reduce ? 0 : 380);
+  }, [reduce]);
 
   // the entrance affordance (or anything) can still request the overlay
   useEffect(() => gameBus.on("valley:open", openOverlay), [openOverlay]);
@@ -92,7 +104,10 @@ export function ValleyDoor() {
     } catch {
       /* private mode */
     }
-    if (dismissed) return;
+    if (dismissed) {
+      dropPreloadCover(); // they chose the classic site this session — no cover
+      return;
+    }
     const t = window.setTimeout(openOverlay, 50); // let the page settle first
     return () => window.clearTimeout(t);
   }, [openOverlay]);
