@@ -63,14 +63,12 @@ export const landmarks: Landmark[] = [
     landmark: "Visitor Center",
     section: "About",
     map: { x: 21, y: 6 },
-    title: "Who Jethro is",
+    title: "Who Am I?",
     faceset: FACE,
-    authoredLine:
-      "JETHRO: one or two lines introducing yourself as a BSN nurse-in-training and a builder of live software.",
     body: [
-      "Jethro Chu is a nursing student who builds software between clinical shifts. Two paths, walked together: the bedside and the keyboard.",
-      "Most of what I build comes from friction I have actually felt, in a hospital, in research, or in the everyday tools people fight with. Nursing taught me to notice it; building is what I do about it.",
-      "Wander the village. Every building opens a real part of the portfolio, in any order.",
+      "I'm Jethro Chu, a BSN nursing student and I build software for fun. I'm interested in the space between healthcare, research, and technology.",
+      "Most of what I build starts with problems I've actually encountered, in hospitals, labs, or inside everyday tools that should have been easier to use. Nursing taught me to notice what makes systems less efficient.",
+      "This site is a small village of what I'm working on. When you look around, every building opens a real part of my portfolio: projects, experiments, writing, and the systems I'm learning to build.",
     ],
   },
   {
