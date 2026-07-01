@@ -27,6 +27,9 @@ export interface ValleyEventMap {
   "valley:play": void;
   /** zoom buttons -> scene: step the camera zoom level (+1 in / -1 out) */
   "valley:zoom": { dir: number };
+  /** on-screen joystick (touch) -> scene: analog move vector, each component in
+   *  -1..1 (screen axes: +x right, +y down). {0,0} on release / deadzone. */
+  "valley:move": { x: number; y: number };
   /** scene -> HUD: player is standing on a door (id) or has left it (null) —
    *  drives the "Enter?" confirmation prompt. Entry is a CHOICE, never automatic. */
   "valley:near": { id: string | null };

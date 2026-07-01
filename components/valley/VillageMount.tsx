@@ -16,6 +16,7 @@ import { Discovered } from "@/components/HUD/Discovered";
 import { Minimap } from "@/components/HUD/Minimap";
 import { VillageNav } from "@/components/HUD/VillageNav";
 import { ZoomControls } from "@/components/HUD/ZoomControls";
+import { Joystick } from "@/components/HUD/Joystick";
 import { DirectionCue } from "@/components/HUD/DirectionCue";
 import { ControlsHint } from "@/components/HUD/ControlsHint";
 import { EnterPrompt } from "@/components/HUD/EnterPrompt";
@@ -65,6 +66,7 @@ export default function VillageMount() {
           <Minimap />
           <Discovered />
           <ZoomControls />
+          <Joystick />
           <DirectionCue />
           <ControlsHint />
           <EnterPrompt />

@@ -11,10 +11,14 @@
 
 import { useEffect, useRef, useState } from "react";
 import { gameBus } from "@/lib/gameBus";
+import { useIsTouch } from "@/lib/useIsTouch";
 import { landmarks, villageMap } from "@/content/portfolio";
 
 export function DirectionCue() {
   const [cue, setCue] = useState<{ label: string; angle: number } | null>(null);
+  // On touch the bottom corners belong to the minimap + joystick; the map's
+  // markers carry wayfinding, so skip this floating pill. Desktop keeps it.
+  const touch = useIsTouch();
   const found = useRef<Set<string>>(new Set());
   const lastAngle = useRef(999);
   const lastLabel = useRef("");
@@ -52,7 +56,7 @@ export function DirectionCue() {
     };
   }, []);
 
-  if (!cue) return null;
+  if (touch || !cue) return null;
   return (
     <div className="pointer-events-none fixed bottom-16 left-3 z-40 sm:bottom-6 sm:left-1/2 sm:-translate-x-1/2">
       <div className="flex items-center gap-2 rounded-full border border-[var(--color-granite-line)] bg-[color-mix(in_oklab,var(--color-shadow)_82%,transparent)] py-1.5 pl-2.5 pr-3.5 shadow-md">

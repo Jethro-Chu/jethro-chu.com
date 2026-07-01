@@ -205,6 +205,8 @@ export class VillageScene extends Phaser.Scene {
   private paused = false;
   private intro = true; // title-screen mode: scenic camera, controls off
   private zoomIdx = DEFAULT_ZOOM_IDX;
+  private zoomLocked = false; // touch devices: fixed zoomed-out view (no ±/pinch)
+  private joy = { x: 0, y: 0 }; // on-screen joystick vector (touch), -1..1 per axis
   private pinchDist = 0;
   private playLockUntil = 0; // brief input lock after PLAY so the tap can't set a move-target
   private discovered = new Set<string>();
@@ -247,11 +249,11 @@ export class VillageScene extends Phaser.Scene {
     this.cameras.main.roundPixels = true;
     // boot into the title-screen view: a scenic shot of the plaza + fountain,
     // the scene alive (water/NPCs/birds) but the player hidden + controls off.
-    // Phones get a slightly closer default so the town reads at a comfortable
-    // size in the tall portrait frame (the focused-stroll feel of the ref),
-    // rather than the wide desktop overview.
-    if (typeof window !== "undefined" && window.innerHeight > window.innerWidth)
-      this.zoomIdx = Math.min(1, ZOOM_LEVELS.length - 1);
+    // Touch devices get a fixed, zoomed-out view (default 1x): the whole town
+    // reads at a glance and the on-screen joystick drives movement, so lock the
+    // zoom (no ± buttons, no pinch). Desktop keeps wheel / ± / keyboard zoom.
+    this.zoomLocked =
+      typeof window !== "undefined" && !!window.matchMedia?.("(pointer: coarse)").matches;
     this.cameras.main.setZoom(ZOOM_LEVELS[this.zoomIdx]);
     this.cameras.main.centerOn(SPAWN.tx * TILE, (SPAWN.ty - 1) * TILE);
     this.player.setVisible(false);
@@ -1011,6 +1013,7 @@ export class VillageScene extends Phaser.Scene {
       gameBus.on("game:pause", () => {
         this.paused = true;
         this.pinchDist = 0; // don't carry a stale pinch span across an interior room
+        this.joy = { x: 0, y: 0 }; // the room owns the joystick while it's open
         this.player?.body?.setVelocity(0, 0);
         this.stopNpcs();
       })
@@ -1019,6 +1022,7 @@ export class VillageScene extends Phaser.Scene {
       gameBus.on("game:resume", () => {
         this.paused = false;
         this.moveTarget = null;
+        this.joy = { x: 0, y: 0 }; // don't inherit the room joystick's last vector
       })
     );
     // "PLAY": leave the title screen and hand the player control
@@ -1039,6 +1043,15 @@ export class VillageScene extends Phaser.Scene {
     );
     // zoom buttons: step the camera zoom level
     this.busOff.push(gameBus.on("valley:zoom", ({ dir }) => this.applyZoom(this.zoomIdx + dir)));
+    // on-screen joystick (touch): analog move vector; a live push cancels any
+    // tap-to-walk target so the two input modes don't fight.
+    this.busOff.push(
+      gameBus.on("valley:move", (v) => {
+        this.joy.x = v.x;
+        this.joy.y = v.y;
+        if (v.x !== 0 || v.y !== 0) this.moveTarget = null;
+      })
+    );
     // "Enter?" prompt confirmed: enter the door the player is standing on
     this.busOff.push(gameBus.on("valley:enter", () => this.enterNearDoor()));
     // nav teleport: jump the player + camera to the door, then warp in through
@@ -1063,6 +1076,7 @@ export class VillageScene extends Phaser.Scene {
 
   // step the camera zoom level (clamped), tweened so it never snaps
   private applyZoom(idx: number) {
+    if (this.zoomLocked) return; // touch: view is fixed at the zoomed-out default
     const clamped = Phaser.Math.Clamp(idx, 0, ZOOM_LEVELS.length - 1);
     if (clamped === this.zoomIdx) return;
     this.zoomIdx = clamped;
@@ -1115,6 +1129,11 @@ export class VillageScene extends Phaser.Scene {
     if (up) vy = -1;
     else if (down) vy = 1;
     if (vx || vy) this.moveTarget = null; // keyboard overrides + cancels a tap-walk
+    // on-screen joystick (touch): analog direction when the keyboard is idle
+    if (!vx && !vy && (this.joy.x !== 0 || this.joy.y !== 0)) {
+      vx = this.joy.x;
+      vy = this.joy.y;
+    }
     if (!vx && !vy && this.moveTarget) {
       const dx = this.moveTarget.x - this.player.x;
       const dy = this.moveTarget.y - this.player.y;

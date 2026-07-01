@@ -19,6 +19,8 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { gameBus } from "@/lib/gameBus";
 import { landmarkById, projectsForLandmark, type Landmark } from "@/content/portfolio";
+import { Joystick } from "@/components/HUD/Joystick";
+import { useIsTouch } from "@/lib/useIsTouch";
 import { ResumeSheet } from "./ResumeSheet";
 
 // Player ("Jethro"): a horizontal strip of 5 frames (idle, walk1..walk4),
@@ -39,6 +41,7 @@ const TITLE_ID = "interior-room-title";
 
 export function InteriorRoom() {
   const [landmark, setLandmark] = useState<Landmark | null>(null);
+  const touch = useIsTouch();
 
   const rootRef = useRef<HTMLDivElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -50,6 +53,7 @@ export function InteriorRoom() {
 
   const pos = useRef({ x: 0, y: SPAWN_Y });
   const target = useRef<{ x: number; y: number } | null>(null);
+  const joy = useRef({ x: 0, y: 0 }); // on-screen joystick vector (touch)
   const keys = useRef<Record<string, boolean>>({});
   const dir = useRef("down");
   const frame = useRef(0);
@@ -92,6 +96,7 @@ export function InteriorRoom() {
 
     pos.current = { x: scroller.clientWidth / 2, y: SPAWN_Y };
     target.current = null;
+    joy.current = { x: 0, y: 0 };
     keys.current = {};
     dir.current = "down";
     frame.current = 0;
@@ -146,6 +151,11 @@ export function InteriorRoom() {
     const onVisible = () => {
       if (!document.hidden) last = performance.now(); // no dt spike after a hidden stretch
     };
+    // on-screen joystick (touch): analog move vector; a push cancels a tap-walk
+    const offJoy = gameBus.on("valley:move", (v) => {
+      joy.current = v;
+      if (v.x !== 0 || v.y !== 0) target.current = null;
+    });
     window.addEventListener("keydown", onKeyDown);
     window.addEventListener("keyup", onKeyUp);
     scroller.addEventListener("pointerdown", onPointer);
@@ -173,6 +183,11 @@ export function InteriorRoom() {
       if (K["d"] || K["arrowright"]) vx += 1;
       if (K["w"] || K["arrowup"]) vy -= 1;
       if (K["s"] || K["arrowdown"]) vy += 1;
+      // on-screen joystick (touch): analog direction when the keyboard is idle
+      if (!vx && !vy && (joy.current.x !== 0 || joy.current.y !== 0)) {
+        vx = joy.current.x;
+        vy = joy.current.y;
+      }
       if (!vx && !vy && target.current) {
         const dx = target.current.x - pos.current.x;
         const dy = target.current.y - pos.current.y;
@@ -225,6 +240,7 @@ export function InteriorRoom() {
     return () => {
       alive = false;
       cancelAnimationFrame(rafId);
+      offJoy();
       window.removeEventListener("keydown", onKeyDown);
       window.removeEventListener("keyup", onKeyUp);
       scroller.removeEventListener("pointerdown", onPointer);
@@ -415,9 +431,15 @@ export function InteriorRoom() {
       </button>
       <div className="pointer-events-none fixed bottom-3 left-1/2 z-[55] -translate-x-1/2">
         <span className="label-mono rounded-sm bg-[color-mix(in_oklab,#1a120a_72%,transparent)] px-3 py-1.5 text-[0.66rem] text-[var(--color-card)]">
-          WASD / arrows or tap to walk · reach the door to head back
+          {touch
+            ? "Joystick or tap to walk · reach the door to head back"
+            : "WASD / arrows or tap to walk · reach the door to head back"}
         </span>
       </div>
+
+      {/* the same movement stick as the village — walk the room on touch, then
+          reach the door to leave. Touch-only (renders null on desktop). */}
+      <Joystick />
     </div>
   );
 }

@@ -7,10 +7,14 @@
 
 import { useEffect, useState } from "react";
 import { gameBus } from "@/lib/gameBus";
+import { useIsTouch } from "@/lib/useIsTouch";
 import { landmarks } from "@/content/portfolio";
 
 export function Discovered() {
   const [found, setFound] = useState<Set<string>>(new Set());
+  // On touch the minimap sits bottom-left with a "found / total" header, so this
+  // standalone counter is redundant (and would collide with the map). Desktop keeps it.
+  const touch = useIsTouch();
 
   useEffect(
     () =>
@@ -24,6 +28,7 @@ export function Discovered() {
     []
   );
 
+  if (touch) return null;
   return (
     <div
       role="status"

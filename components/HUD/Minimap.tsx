@@ -13,6 +13,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { gameBus } from "@/lib/gameBus";
+import { useIsTouch } from "@/lib/useIsTouch";
 import { landmarks, villageMap } from "@/content/portfolio";
 
 const W = villageMap.w;
@@ -44,8 +45,13 @@ export function Minimap() {
   const px = pos.x * W;
   const py = pos.y * H;
 
+  // Touch: bottom-left (the joystick owns bottom-right). Desktop: bottom-right.
+  const touch = useIsTouch();
+
   return (
-    <div className="fixed bottom-3 right-3 z-40 w-36 select-none sm:w-56">
+    <div
+      className={`fixed bottom-3 z-40 w-36 select-none sm:w-56 ${touch ? "left-3" : "right-3"}`}
+    >
       <div className="overflow-hidden rounded-md border border-[var(--color-granite-line)] bg-[color-mix(in_oklab,var(--color-shadow)_86%,transparent)] shadow-lg">
         <div className="flex items-center justify-between px-2 pt-1.5">
           <span className="label-mono text-[0.58rem] text-[var(--color-on-dark-muted)]!">Yosemite Village</span>
