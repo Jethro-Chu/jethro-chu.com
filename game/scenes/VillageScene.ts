@@ -51,9 +51,17 @@ export function computeGameSize(vw: number, vh: number): { width: number; height
   if (!vw || !vh || vw < 2 || vh < 2) return { width: GAME_W, height: GAME_H };
   const even = (n: number) => Math.max(2, Math.round(n / 2) * 2);
   if (vw >= vh) {
-    // landscape: hold the short side (height) to 432 — desktop 16:9 stays
-    // 768x432; wider screens just reveal more town horizontally.
-    return { width: even(GAME_H * (vw / vh)), height: GAME_H };
+    // landscape: fill any aspect. Anchor the short side (height) to 432 so a
+    // 16:9 screen resolves to exactly 768x432 (the shipped desktop view); cap
+    // the width at 768 so a very wide screen never widens the camera past the
+    // small (736px-wide) town into void — it fills by trimming height instead.
+    let width = GAME_H * (vw / vh);
+    let height = GAME_H;
+    if (width > GAME_W) {
+      width = GAME_W;
+      height = GAME_W * (vh / vw);
+    }
+    return { width: even(width), height: even(height) };
   }
   // portrait: hold the short side (width), derive the tall side from the aspect.
   return { width: even(PORTRAIT_SHORT), height: even(PORTRAIT_SHORT * (vh / vw)) };
@@ -238,7 +246,12 @@ export class VillageScene extends Phaser.Scene {
     this.cameras.main.setBounds(0, 0, MAP_W * TILE, MAP_H * TILE);
     this.cameras.main.roundPixels = true;
     // boot into the title-screen view: a scenic shot of the plaza + fountain,
-    // the scene alive (water/NPCs/birds) but the player hidden + controls off
+    // the scene alive (water/NPCs/birds) but the player hidden + controls off.
+    // Phones get a slightly closer default so the town reads at a comfortable
+    // size in the tall portrait frame (the focused-stroll feel of the ref),
+    // rather than the wide desktop overview.
+    if (typeof window !== "undefined" && window.innerHeight > window.innerWidth)
+      this.zoomIdx = Math.min(1, ZOOM_LEVELS.length - 1);
     this.cameras.main.setZoom(ZOOM_LEVELS[this.zoomIdx]);
     this.cameras.main.centerOn(SPAWN.tx * TILE, (SPAWN.ty - 1) * TILE);
     this.player.setVisible(false);
@@ -626,8 +639,12 @@ export class VillageScene extends Phaser.Scene {
   private placeSigns() {
     const anchors: { id: string; tx: number; ty: number }[] = [
       ...BUILDINGS.map((b) => ({ id: b.id, tx: b.tx + b.rect[3] / 2, ty: b.ty })),
-      { id: "cabins", tx: 12, ty: 23 },
-      { id: "glacier-point", tx: 23, ty: 29 },
+      // the two non-building landmarks: anchor each sign to its structure's
+      // top-centre so it hugs like the building signs (was floating too high).
+      // tents span cols 7..19 (centre 13), top row 24; torii spans cols 22..24
+      // (centre 23), top row 31.
+      { id: "cabins", tx: 13, ty: 24 },
+      { id: "glacier-point", tx: 23, ty: 31 },
     ];
     for (const a of anchors) {
       const l = landmarks.find((x) => x.id === a.id);
