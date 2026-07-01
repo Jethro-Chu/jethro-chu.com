@@ -1117,7 +1117,7 @@ export class VillageScene extends Phaser.Scene {
       return;
     }
     this.handlePinch();
-    const speed = 92; // uniform across the village — the 2x boost now lives inside the Projects/Resume rooms
+    const speed = 115; // 1.25x the old 92 — a brisker stroll through the village (interior rooms keep their own speed)
     let vx = 0;
     let vy = 0;
     const left = this.cursors?.left.isDown || this.keys?.A.isDown;
