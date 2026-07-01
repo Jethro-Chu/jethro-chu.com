@@ -31,10 +31,33 @@ export const TILESETS = [
 ] as const;
 const BASE = "/game/ninja-adventure/tilesets/";
 
-// internal design resolution (Scale.FIT scales this to the viewport). Bigger
-// than before so the camera shows much more of the town at the same zoom.
+// Landscape design resolution (Scale.FIT scales this to the viewport). This is
+// the shipped desktop view and the anchor for the short (height) side.
 export const GAME_W = 768;
 export const GAME_H = 432;
+
+// World-px shown across the short (width) side at 1x on a portrait phone. Small
+// enough to keep tiles chunky and to keep the tall side within the 736x544 town
+// so the camera never reveals void. Tuned to read like a focused stroll.
+const PORTRAIT_SHORT = 216;
+
+// Match the internal resolution to the viewport's aspect ratio so Scale.FIT
+// fills the screen edge-to-edge instead of letterboxing a fixed 16:9 frame into
+// a thin strip on a tall phone. In portrait the camera simply shows a taller,
+// narrower slice of the (small) town; desktop 16:9 resolves to exactly 768x432.
+export function computeGameSize(vw: number, vh: number): { width: number; height: number } {
+  // A not-yet-laid-out container (e.g. a 0-size preview tab) falls back to the
+  // landscape design size so FIT still has a sane frame to scale.
+  if (!vw || !vh || vw < 2 || vh < 2) return { width: GAME_W, height: GAME_H };
+  const even = (n: number) => Math.max(2, Math.round(n / 2) * 2);
+  if (vw >= vh) {
+    // landscape: hold the short side (height) to 432 — desktop 16:9 stays
+    // 768x432; wider screens just reveal more town horizontally.
+    return { width: even(GAME_H * (vw / vh)), height: GAME_H };
+  }
+  // portrait: hold the short side (width), derive the tall side from the aspect.
+  return { width: even(PORTRAIT_SHORT), height: even(PORTRAIT_SHORT * (vh / vw)) };
+}
 // integer camera zoom levels (pixel-perfect). Default = index 0 (1x): the whole
 // town overview (Jethro's pick) — you see the place at a glance. 2x = a focused
 // stroll, 3x = detail. Wheel / pinch / +- buttons / keyboard step between them.
@@ -943,11 +966,15 @@ export class VillageScene extends Phaser.Scene {
       if (this.intro || this.time.now < this.playLockUntil || this.input.pointer2?.isDown) return;
       this.moveTarget = { x: p.worldX, y: p.worldY };
     };
+    // tap-to-walk (same feel as the project rooms): a single tap sets a target
+    // the hiker walks to and stops at. Holding + dragging keeps re-aiming, so a
+    // press-drag still steers. Releasing does NOT cancel the walk — the hiker
+    // finishes the trip; the update loop clears the target on arrival, and
+    // keyboard input cancels it.
     this.input.on("pointerdown", setTarget);
     this.input.on("pointermove", (p: Phaser.Input.Pointer) => {
       if (p.isDown) setTarget(p);
     });
-    this.input.on("pointerup", () => (this.moveTarget = null));
     // mouse wheel -> zoom (desktop)
     this.input.on("wheel", (_p: unknown, _o: unknown, _dx: number, dy: number) => {
       if (!this.intro) this.applyZoom(this.zoomIdx + (dy > 0 ? -1 : 1));
@@ -1070,6 +1097,7 @@ export class VillageScene extends Phaser.Scene {
     else if (right) vx = 1;
     if (up) vy = -1;
     else if (down) vy = 1;
+    if (vx || vy) this.moveTarget = null; // keyboard overrides + cancels a tap-walk
     if (!vx && !vy && this.moveTarget) {
       const dx = this.moveTarget.x - this.player.x;
       const dy = this.moveTarget.y - this.player.y;
@@ -1077,6 +1105,8 @@ export class VillageScene extends Phaser.Scene {
         const len = Math.hypot(dx, dy) || 1;
         vx = dx / len;
         vy = dy / len;
+      } else {
+        this.moveTarget = null; // arrived — settle into idle
       }
     }
     const len = Math.hypot(vx, vy) || 1;
