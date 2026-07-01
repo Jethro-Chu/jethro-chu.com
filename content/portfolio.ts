@@ -45,7 +45,9 @@ export interface Landmark {
   resumeSheet?: boolean;
 }
 
-const FACE = "/game/ninja-adventure/sprites/hunter-face.png";
+// Per-room headshot flag: rooms set this to show Jethro's own character as the
+// panel avatar (the InteriorRoom crops the idle frame from the player sprite).
+const FACE = "/game/jethro/player.png";
 
 export const status = {
   school: resume.education.school,

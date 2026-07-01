@@ -310,15 +310,24 @@ export function InteriorRoom() {
           >
             <header className="flex items-start gap-3">
               {landmark.faceset && (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img
-                  src={landmark.faceset}
-                  alt=""
-                  width={44}
-                  height={44}
-                  className="size-12 shrink-0 rounded-sm border border-[#5c4326]"
-                  style={{ imageRendering: "pixelated" }}
-                />
+                // Jethro's own character as the headshot: the idle frame (col 0)
+                // cropped from the 5-frame player strip and centred in the tile.
+                <div
+                  aria-hidden
+                  className="flex size-12 shrink-0 items-center justify-center overflow-hidden rounded-sm border border-[#5c4326] bg-[#2a1d10]"
+                >
+                  <div
+                    style={{
+                      width: PFW * 1.375,
+                      height: PFH * 1.375,
+                      backgroundImage: `url(${SHEET})`,
+                      backgroundSize: `${PFW * 5 * 1.375}px ${PFH * 1.375}px`,
+                      backgroundPosition: "0px 0px",
+                      backgroundRepeat: "no-repeat",
+                      imageRendering: "pixelated",
+                    }}
+                  />
+                </div>
               )}
               <div>
                 <span className="eyebrow text-[var(--color-golden)]">{landmark.section}</span>
