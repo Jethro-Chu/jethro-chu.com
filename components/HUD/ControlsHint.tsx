@@ -2,8 +2,9 @@
 
 /* ============================================================
    ControlsHint (HUD)  ·  one-time "how to play" on entry
-   Shown once per browser session (sessionStorage), dismissible, and
-   auto-hides after a few seconds. Covers desktop + touch in one line.
+   A slim plaque at the bottom-centre (the top belongs to the nav, and
+   the opening view of the town should stay unobstructed). Shown once
+   per browser session (sessionStorage), dismissible, auto-hides.
    ============================================================ */
 
 import { m } from "framer-motion";
@@ -22,28 +23,28 @@ export function ControlsHint() {
       /* private mode: just show it */
     }
     setShow(true);
-    const t = window.setTimeout(() => setShow(false), 8000);
+    const t = window.setTimeout(() => setShow(false), 6500);
     return () => window.clearTimeout(t);
   }, []);
 
   if (!show) return null;
   return (
     <m.div
-      className="fixed left-1/2 top-20 z-[45] w-[min(92vw,30rem)] -translate-x-1/2"
-      initial={{ opacity: 0, y: -8 }}
+      className="fixed bottom-16 left-1/2 z-[45] w-max max-w-[92vw] -translate-x-1/2 sm:bottom-[4.25rem]"
+      initial={{ opacity: 0, y: 8 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3 }}
     >
-      <div className="flex items-center gap-3 rounded-md border border-[var(--color-granite-line)] bg-[var(--color-shadow)] px-4 py-2.5 shadow-xl">
-        <p className="label-mono flex-1 text-[0.72rem] leading-relaxed text-[var(--color-on-dark)]!">
+      <div className="hud-plaque flex items-center gap-3 px-3.5 py-2">
+        <p className="label-mono flex-1 text-[0.68rem] leading-relaxed text-[var(--color-on-dark)]!">
           {touch
-            ? "Drag the joystick to move (or tap to walk) · tap a district up top to travel · step onto a building and tap Enter"
-            : "Walk with WASD / arrows or tap · click a district up top to travel · pinch or ± to zoom · step up to a building and choose Enter"}
+            ? "Drag the joystick or tap to walk · tap a sign up top to travel"
+            : "WASD / arrows or click to walk · Enter to go in · ± to zoom"}
         </p>
         <button
           type="button"
           onClick={() => setShow(false)}
-          className="fast-ui label-mono shrink-0 rounded-sm border border-[var(--color-on-dark-muted)] px-2 py-1 text-[0.66rem] text-[var(--color-on-dark)]! hover:bg-[var(--color-pine)]"
+          className="fast-ui label-mono shrink-0 rounded-sm border border-[color-mix(in_oklab,var(--color-golden)_45%,transparent)] px-2 py-1 text-[0.64rem] text-[var(--color-golden)]! hover:bg-[color-mix(in_oklab,var(--color-golden)_18%,transparent)]"
         >
           Got it
         </button>

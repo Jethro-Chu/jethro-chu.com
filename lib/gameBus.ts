@@ -42,6 +42,10 @@ export interface ValleyEventMap {
   /** room -> HUD: the interior room is closing; play the exit teleport veil
    *  (the actual unmount + game:resume follow once the veil has covered) */
   "room:exit": void;
+  /** sound-ready hook: a named moment worth a sound effect (teleport, discover,
+   *  play, door prompt). NO audio ships today — a future audio layer can
+   *  subscribe here without touching the scene. */
+  sfx: { id: "play" | "near" | "teleport" | "discover" };
 }
 
 type EventKey = keyof ValleyEventMap;

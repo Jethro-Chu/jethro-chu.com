@@ -42,7 +42,7 @@ export function ValleyDoor() {
   const [roomOpen, setRoomOpen] = useState(false); // a building interior is open over the village
   const savedScroll = useRef(0);
   const lastFocus = useRef<HTMLElement | null>(null);
-  const backRef = useRef<HTMLButtonElement>(null);
+  const dialogRef = useRef<HTMLDivElement>(null);
   const reduce = useReducedMotion();
 
   const close = useCallback(() => {
@@ -116,7 +116,7 @@ export function ValleyDoor() {
   // owns ESC then). Move focus into the overlay on open.
   useEffect(() => {
     if (!open) return;
-    const t = window.setTimeout(() => backRef.current?.focus(), 50);
+    const t = window.setTimeout(() => dialogRef.current?.focus(), 50);
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape" && !roomOpen) {
         e.preventDefault();
@@ -145,28 +145,20 @@ export function ValleyDoor() {
   if (!open) return null;
   return (
     <m.div
+      ref={dialogRef}
+      tabIndex={-1}
       role="dialog"
       aria-modal="true"
       aria-label="Yosemite Village"
-      className="fixed inset-0 z-[60] bg-[#3f7a57]"
+      className="fixed inset-0 z-[60] bg-[#3f7a57] outline-none"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: dur }}
     >
-      <VillageMount />
-      {/* hidden while a building interior is open — the room owns its own
-          "← back to the village" and this would otherwise float over it and
-          tear the whole village down instead of returning to the map */}
-      {!roomOpen && (
-        <button
-          ref={backRef}
-          type="button"
-          onClick={close}
-          className="fast-ui fixed right-3 top-3 z-[61] rounded-sm bg-[color-mix(in_oklab,var(--color-shadow)_90%,transparent)] px-3 py-2 font-mono text-[0.74rem] font-medium tracking-[0.04em] text-[var(--color-on-dark)] shadow-sm"
-        >
-          ← Back to the portfolio
-        </button>
-      )}
+      {/* the exit lives inside the village nav ("← Portfolio"), so the HUD
+          never collides with a floating button; the intro's own skip link
+          covers leaving before PLAY, and ESC works throughout */}
+      <VillageMount onLeave={close} />
     </m.div>
   );
 }

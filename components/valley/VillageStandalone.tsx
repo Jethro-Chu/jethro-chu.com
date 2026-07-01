@@ -96,16 +96,9 @@ export function VillageStandalone() {
 
   return playing ? (
     <div className="z-30 bg-[#3f7a57]" style={{ position: "fixed", inset: 0 }}>
-      <VillageMount />
-      {!roomOpen && (
-        <button
-          type="button"
-          onClick={leaveToSite}
-          className="fast-ui fixed right-3 top-3 z-[45] rounded-sm bg-[color-mix(in_oklab,var(--color-shadow)_90%,transparent)] px-3 py-2 font-mono text-[0.74rem] font-medium tracking-[0.04em] text-[var(--color-on-dark)] shadow-sm"
-        >
-          ← Back to the portfolio
-        </button>
-      )}
+      {/* the exit lives inside the village nav ("← Portfolio"); the intro's
+          skip link covers leaving before PLAY, and ESC works throughout */}
+      <VillageMount onLeave={leaveToSite} />
     </div>
   ) : (
     <button

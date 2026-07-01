@@ -211,12 +211,16 @@ export class VillageScene extends Phaser.Scene {
   private playLockUntil = 0; // brief input lock after PLAY so the tap can't set a move-target
   private discovered = new Set<string>();
   private nearDoor: string | null = null; // door the player is currently standing on (drives the Enter? prompt)
+  private pendingEnter: string | null = null; // building clicked: walk to its door, then enter (manual input cancels)
+  private clickGuard = 0; // a building click this tick — swallow the scene-level tap target
   private teleporting = false; // mid warp-in animation: freeze input until the room opens
   private doors: { id: string; x: number; y: number }[] = [];
   private busOff: Array<() => void> = [];
   private moveTarget: { x: number; y: number } | null = null;
   private lastEmit = 0;
   private signs: Record<string, Phaser.GameObjects.Image> = {};
+  private fogs: Phaser.GameObjects.TileSprite[] = [];
+  private introDrift?: Phaser.Tweens.Tween;
 
   constructor() {
     super("village");
@@ -224,6 +228,9 @@ export class VillageScene extends Phaser.Scene {
 
   preload() {
     for (const t of TILESETS) this.load.image(t.key, `${BASE}${t.file}.png`);
+    // atmosphere FX from the pack (fog sheet + a slanting light ray)
+    this.load.image("fog", "/game/ninja-adventure/fx/Fog.png");
+    this.load.image("raylight", "/game/ninja-adventure/fx/Raylight.png");
     const S = "/game/ninja-adventure/sprites/";
     for (const k of ["bear", "racoon", "frog", "cat", "villager", "oldman"])
       this.load.spritesheet(k, `${S}${k}.png`, { frameWidth: TILE, frameHeight: TILE });
@@ -242,6 +249,7 @@ export class VillageScene extends Phaser.Scene {
     this.buildNpcs();
     this.addAmbientFx();
     this.addBirds();
+    this.addAtmosphere();
     this.bindInput();
     this.bindBus();
 
@@ -256,6 +264,18 @@ export class VillageScene extends Phaser.Scene {
       typeof window !== "undefined" && !!window.matchMedia?.("(pointer: coarse)").matches;
     this.cameras.main.setZoom(ZOOM_LEVELS[this.zoomIdx]);
     this.cameras.main.centerOn(SPAWN.tx * TILE, (SPAWN.ty - 1) * TILE);
+    // title-screen "Ken Burns": an almost-imperceptible camera drift so the
+    // opening shot breathes instead of freezing; killed the moment PLAY hands
+    // the camera to the player.
+    this.introDrift = this.tweens.add({
+      targets: this.cameras.main,
+      scrollX: "+=22",
+      scrollY: "+=12",
+      duration: 11000,
+      yoyo: true,
+      repeat: -1,
+      ease: "Sine.inOut",
+    });
     this.player.setVisible(false);
     this.playerShadow.setVisible(false);
 
@@ -352,6 +372,19 @@ export class VillageScene extends Phaser.Scene {
       const pick = [T.flowerY, T.flowerR, T.flowerW][Math.floor(rnd() * 3)];
       decals.putTileAt(this.gid("nature", pick), x, y);
       f++;
+    }
+
+    // tended flower beds: a garden by the chapel and accents at the plaza
+    // corners — deliberate planting reads as care, not random scatter
+    const beds: [number, number, number][] = [
+      [4, 20, T.flowerW], [5, 22, T.flowerY], [7, 23, T.flowerR],
+      [9, 22, T.flowerW], [11, 21, T.flowerY], [4, 17, T.flowerR],
+      [SPAWN.tx - 6, SPAWN.ty - 4, T.flowerY], [SPAWN.tx + 6, SPAWN.ty - 4, T.flowerR],
+      [SPAWN.tx - 6, SPAWN.ty + 4, T.flowerR], [SPAWN.tx + 6, SPAWN.ty + 4, T.flowerY],
+    ];
+    for (const [x, y, t] of beds) {
+      if (this.solid[y]?.[x] || overlay.getTileAt(x, y)) continue;
+      decals.putTileAt(this.gid("nature", t), x, y);
     }
   }
 
@@ -475,6 +508,40 @@ export class VillageScene extends Phaser.Scene {
         frameRate: 7,
         repeat: -1,
       });
+    // soft radial glow (lit windows, lanterns)
+    mk("glow", 32, 32, (c) => {
+      const g = c.createRadialGradient(16, 16, 2, 16, 16, 15);
+      g.addColorStop(0, "rgba(255,255,255,1)");
+      g.addColorStop(0.55, "rgba(255,255,255,0.35)");
+      g.addColorStop(1, "rgba(255,255,255,0)");
+      c.fillStyle = g;
+      c.fillRect(0, 0, 32, 32);
+    });
+    mk("mote", 3, 3, (c) => {
+      c.fillStyle = "#ffffff";
+      c.fillRect(1, 0, 1, 3);
+      c.fillRect(0, 1, 3, 1);
+    });
+    // butterfly: 2 frames (5x4) white silhouette, tinted per instance
+    mk("butterfly", 10, 4, (c) => {
+      c.fillStyle = "#ffffff";
+      // frame 0 (wings open): cols 0-4
+      [[1, 0], [3, 0], [0, 1], [1, 1], [2, 1], [3, 1], [4, 1], [1, 2], [3, 2], [2, 3]].forEach(([x, y]) => c.fillRect(x, y, 1, 1));
+      // frame 1 (wings folded): cols 5-9
+      [[7, 0], [6, 1], [7, 1], [8, 1], [7, 2], [7, 3]].forEach(([x, y]) => c.fillRect(x, y, 1, 1));
+    });
+    const bf = this.textures.get("butterfly");
+    if (!bf.has("bf0")) {
+      bf.add("bf0", 0, 0, 0, 5, 4);
+      bf.add("bf1", 0, 5, 0, 5, 4);
+    }
+    if (!this.anims.exists("butterfly-flap"))
+      this.anims.create({
+        key: "butterfly-flap",
+        frames: [{ key: "butterfly", frame: "bf0" }, { key: "butterfly", frame: "bf1" }],
+        frameRate: 9,
+        repeat: -1,
+      });
     // fountain 32x32: stone basin + water
     mk("fountain", 32, 32, (c) => {
       const ring = (r: number, col: string) => {
@@ -594,6 +661,182 @@ export class VillageScene extends Phaser.Scene {
     for (let i = 0; i < 3; i++) fly(Math.random() * 4000);
   }
 
+  // ---- cinematic atmosphere: light grade, god rays, fog, lit windows,
+  // chimney smoke, river glints, butterflies, drifting gold motes. Everything
+  // is WORLD-anchored (no screen-fixed overlays), so it stays correct at
+  // every camera zoom, and it all lives in the code-split village chunk. ----
+  private addAtmosphere() {
+    const W = MAP_W * TILE;
+    const H = MAP_H * TILE;
+
+    // golden-hour grade: one warm veil over the whole town, then a cool
+    // blue-shadow vignette that darkens the forest rim and leaves the plaza lit
+    this.add.rectangle(0, 0, W, H, 0xffc87a, 0.05).setOrigin(0).setDepth(9960);
+    const vig = this.textures.createCanvas("vignette", W, H);
+    if (vig) {
+      const c = vig.getContext();
+      const g = c.createRadialGradient(W / 2, H * 0.44, 120, W / 2, H * 0.44, W * 0.62);
+      g.addColorStop(0, "rgba(10,14,26,0)");
+      g.addColorStop(0.72, "rgba(10,14,26,0.16)");
+      g.addColorStop(1, "rgba(8,10,22,0.4)");
+      c.fillStyle = g;
+      c.fillRect(0, 0, W, H);
+      vig.refresh();
+      this.add.image(0, 0, "vignette").setOrigin(0).setDepth(9965);
+    }
+
+    // sun rays slanting through the north treeline + a faint blessing on the plaza
+    const rays: [number, number, number, number][] = [
+      [120, 78, 1.7, 0.1],
+      [408, 66, 2.1, 0.08],
+      [618, 84, 1.6, 0.09],
+      [SPAWN.tx * TILE, SPAWN.ty * TILE - 26, 1.9, 0.05],
+    ];
+    rays.forEach(([x, y, s, a], i) => {
+      const r = this.add
+        .image(x, y, "raylight")
+        .setScale(s)
+        .setAlpha(a)
+        .setBlendMode(Phaser.BlendModes.ADD)
+        .setDepth(9400);
+      this.tweens.add({
+        targets: r,
+        alpha: a * 2.1,
+        duration: 5200 + i * 900,
+        yoyo: true,
+        repeat: -1,
+        ease: "Sine.inOut",
+      });
+    });
+
+    // two counter-drifting fog sheets, barely-there (drifted in update())
+    for (const [alpha, depth] of [[0.055, 9550], [0.038, 9560]] as const) {
+      this.fogs.push(
+        this.add.tileSprite(0, 0, W, H, "fog").setOrigin(0).setAlpha(alpha).setDepth(depth)
+      );
+    }
+
+    // lit windows: a soft warm pulse on every home — the town is inhabited
+    const windows: Record<string, [number, number][]> = {
+      "visitor-center": [[9, 38], [46, 38]],
+      "ranger-station": [[9, 38], [46, 38]],
+      chapel: [[9, 38], [46, 38]],
+      "general-store": [[9, 38], [46, 38]],
+      ahwahnee: [[10, 70], [47, 70]],
+    };
+    const chimneys: Record<string, [number, number]> = {
+      "visitor-center": [50, 4],
+      chapel: [50, 4],
+      ahwahnee: [50, 10],
+    };
+    for (const b of BUILDINGS) {
+      const px = b.tx * TILE;
+      const py = b.ty * TILE;
+      const base = (b.ty + b.rect[4]) * TILE;
+      for (const [dx, dy] of windows[b.id] ?? []) {
+        const gl = this.add
+          .image(px + dx, py + dy, "glow")
+          .setDisplaySize(15, 15)
+          .setTint(0xffd98a)
+          .setAlpha(0.5)
+          .setBlendMode(Phaser.BlendModes.ADD)
+          .setDepth(base + 0.5);
+        this.tweens.add({
+          targets: gl,
+          alpha: 0.72,
+          duration: 1600 + Math.random() * 1200,
+          yoyo: true,
+          repeat: -1,
+          ease: "Sine.inOut",
+        });
+      }
+      const ch = chimneys[b.id];
+      if (ch)
+        this.add
+          .particles(px + ch[0], py + ch[1], "smoke", {
+            speedY: { min: -11, max: -5 },
+            speedX: { min: 2, max: 7 },
+            lifespan: 2600,
+            scale: { start: 0.4, end: 1.5 },
+            alpha: { start: 0.16, end: 0 },
+            frequency: 420,
+            quantity: 1,
+            tint: 0xc4bcab,
+          })
+          .setDepth(9300);
+    }
+
+    // sun glinting off the Merced
+    this.add
+      .particles(0, 0, "ember", {
+        x: { min: 2 * TILE, max: W - 2 * TILE },
+        y: { min: (RIVER_TOP + 1) * TILE, max: H - TILE },
+        lifespan: 950,
+        speedY: 0,
+        speedX: { min: -3, max: 3 },
+        scale: { start: 0.9, end: 0.15 },
+        alpha: { start: 0.85, end: 0 },
+        frequency: 210,
+        quantity: 1,
+        blendMode: Phaser.BlendModes.ADD,
+        tint: [0xfff6d8, 0xffe18d, 0xd6ecf5],
+      })
+      .setDepth(5);
+
+    // butterflies flitting around the gardens (y-sorted so they weave the town)
+    const roosts: [number, number][] = [
+      [7 * TILE, 22 * TILE],
+      [(SPAWN.tx + 4) * TILE, (SPAWN.ty + 3) * TILE],
+      [34 * TILE, 21 * TILE],
+      [12 * TILE, 12 * TILE],
+    ];
+    const tints = [0xfff2c8, 0xffd98a, 0xcfe6ff, 0xf3c6e2];
+    roosts.forEach(([hx, hy], i) => {
+      const b = this.add.sprite(hx, hy, "butterfly", "bf0").setDepth(hy).setTint(tints[i % tints.length]);
+      b.play("butterfly-flap");
+      const flit = () => {
+        if (!b.active || !this.sys?.displayList) return;
+        const nx = hx + (Math.random() * 64 - 32);
+        const ny = hy + (Math.random() * 44 - 22);
+        b.setFlipX(nx < b.x);
+        this.tweens.add({
+          targets: b,
+          x: nx,
+          y: ny,
+          duration: 1000 + Math.random() * 1100,
+          ease: "Sine.inOut",
+          onUpdate: () => b.setDepth(b.y),
+          onComplete: () => flit(),
+        });
+      };
+      flit();
+    });
+
+    // gold motes drifting where the light falls (the quiet "magic dust" layer)
+    const moteSpots: [number, number][] = [
+      [120, 86], [408, 84], [618, 92], [368, 236], [112, 352],
+    ];
+    for (let i = 0; i < 14; i++) {
+      const [ax, ay] = moteSpots[i % moteSpots.length];
+      const m = this.add
+        .image(ax + Math.random() * 56 - 28, ay + Math.random() * 40 - 12, "mote")
+        .setBlendMode(Phaser.BlendModes.ADD)
+        .setTint(0xffe18d)
+        .setAlpha(0)
+        .setDepth(9410);
+      this.tweens.add({
+        targets: m,
+        alpha: { from: 0, to: 0.5 + Math.random() * 0.4 },
+        y: m.y - (6 + Math.random() * 10),
+        duration: 1600 + Math.random() * 1800,
+        delay: Math.random() * 2600,
+        yoyo: true,
+        repeat: -1,
+        ease: "Sine.inOut",
+      });
+    }
+  }
+
   // a readable wooden nameplate, rendered to a canvas texture. Supersampled
   // (S x) and placed at setScale(1/S) so it stays crisp under the FIT upscale.
   private makeSign(key: string, text: string): number {
@@ -617,9 +860,9 @@ export class VillageScene extends Phaser.Scene {
     if (!c) return S;
     c.fillStyle = "#5c4326"; // stake
     c.fillRect(w / 2 - S, plaqueH - S, 2 * S, stake + S);
-    c.fillStyle = "#272a31"; // plaque
+    c.fillStyle = "#2b2114"; // plaque — bark, matching the DOM HUD chrome
     c.fillRect(0, 0, w, plaqueH);
-    c.fillStyle = "#c9a86a"; // border
+    c.fillStyle = "#c98f45"; // border — golden, matching --color-golden
     c.fillRect(0, 0, w, S);
     c.fillRect(0, plaqueH - S, w, S);
     c.fillRect(0, 0, S, plaqueH);
@@ -659,8 +902,58 @@ export class VillageScene extends Phaser.Scene {
         .setOrigin(0.5, 1)
         .setScale(1 / S)
         .setDepth(8800);
+      img.setData("baseY", img.y); // hover-lift restore point (makeEntrance)
       this.signs[a.id] = img;
     }
+  }
+
+  // hover + click affordances on an enterable structure: hand cursor, the
+  // nameplate lifts, a soft glow blooms at its door. Clicking walks the hiker
+  // to the door and enters on arrival (any manual input cancels the errand) —
+  // so the whole building is a target, not just its threshold tile.
+  private makeEntrance(img: Phaser.GameObjects.Image, id: string) {
+    img.setInteractive({ useHandCursor: true });
+    let glow: Phaser.GameObjects.Image | null = null;
+    const door = () => this.doors.find((d) => d.id === id);
+    img.on("pointerover", () => {
+      if (this.intro) return;
+      const d = door();
+      if (!d) return;
+      if (!glow)
+        glow = this.add
+          .image(d.x * TILE + 8, d.y * TILE - 4, "glow")
+          .setDisplaySize(22, 22)
+          .setTint(0xffe18d)
+          .setAlpha(0)
+          .setBlendMode(Phaser.BlendModes.ADD)
+          .setDepth((d.y + 1) * TILE + 1);
+      this.tweens.killTweensOf(glow);
+      this.tweens.add({ targets: glow, alpha: 0.55, duration: 160, ease: "Quad.out" });
+      const sign = this.signs[id];
+      if (sign) {
+        this.tweens.killTweensOf(sign);
+        this.tweens.add({ targets: sign, y: (sign.getData("baseY") as number) - 3, duration: 160, ease: "Quad.out" });
+      }
+    });
+    img.on("pointerout", () => {
+      if (glow) {
+        this.tweens.killTweensOf(glow);
+        this.tweens.add({ targets: glow, alpha: 0, duration: 220, ease: "Quad.out" });
+      }
+      const sign = this.signs[id];
+      if (sign) {
+        this.tweens.killTweensOf(sign);
+        this.tweens.add({ targets: sign, y: sign.getData("baseY") as number, duration: 220, ease: "Quad.out" });
+      }
+    });
+    img.on("pointerdown", () => {
+      if (this.intro || this.paused || this.teleporting || this.time.now < this.playLockUntil) return;
+      const d = door();
+      if (!d) return;
+      this.clickGuard = this.time.now;
+      this.moveTarget = { x: d.x * TILE + 8, y: d.y * TILE + 8 };
+      this.pendingEnter = id;
+    });
   }
 
   // a custom bush: shadow + y-sorted image (decorative, not solid)
@@ -676,16 +969,36 @@ export class VillageScene extends Phaser.Scene {
     const rnd = this.rng(424242);
 
     for (const b of BUILDINGS) {
-      this.obj(b.rect, b.tx, b.ty);
+      const img = this.obj(b.rect, b.tx, b.ty);
+      this.makeEntrance(img, b.id);
       const doorX = b.tx + b.doorDx;
       const doorY = b.ty + b.rect[4] - 1;
       if (this.solid[doorY]) this.solid[doorY][doorX] = false;
       // bushes flank the door (landscaped entrance)
       this.placeBush(doorX - 1, b.ty + b.rect[4] - 1, "bush2");
       this.placeBush(doorX + 1, b.ty + b.rect[4] - 1, "bush1");
+      // a lit lantern by every entrance: a small pool of warm light that makes
+      // each threshold read as inhabited (and lights the way at the door)
+      const lx = doorX - 2;
+      const ly = b.ty + b.rect[4] - 1;
+      if (this.solid[ly] && !this.solid[ly][lx] && !this.isPath[ly]?.[lx] && !this.occupied[ly]?.[lx]) {
+        this.obj(OBJ.lantern, lx, ly);
+        this.reserve(lx, ly, 1, 1);
+        this.warmGlow(lx * TILE + 8, ly * TILE + 10, 13, 0.16, 0.1);
+      }
     }
-    // tents (projects)
-    for (const tent of TENTS) this.obj(tent.rect, tent.tx, tent.ty);
+    // per-building storytelling: the store takes deliveries, the ranger posts
+    // notices, the lodge keeps a lit entrance
+    this.obj(OBJ.barrel, 33, 20);
+    this.obj(OBJ.barrel, 38, 19);
+    this.obj(OBJ.signpost, 12, 7);
+    this.obj(OBJ.rock, 6, 8);
+    this.obj(OBJ.lantern, 31, 9);
+    this.warmGlow(31 * TILE + 8, 9 * TILE + 10, 13, 0.16, 0.1);
+    this.obj(OBJ.lantern, 36, 9);
+    this.warmGlow(36 * TILE + 8, 9 * TILE + 10, 13, 0.16, 0.1);
+    // tents (projects) — each tent is a clickable entrance to the cabins door
+    for (const tent of TENTS) this.makeEntrance(this.obj(tent.rect, tent.tx, tent.ty), "cabins");
     if (this.solid[CABINS_DOOR.ty]) this.solid[CABINS_DOOR.ty][CABINS_DOOR.tx] = false;
     // campground props
     this.obj(OBJ.campfire, 12, 28, false);
@@ -694,7 +1007,7 @@ export class VillageScene extends Phaser.Scene {
     this.obj(OBJ.barrel, 18, 27);
 
     // glacier overlook: torii + a bench-ish + rocks
-    this.obj(OBJ.torii, GLACIER_DOOR.tx - 1, MAP_H - 3, false);
+    this.makeEntrance(this.obj(OBJ.torii, GLACIER_DOOR.tx - 1, MAP_H - 3, false), "glacier-point");
     this.obj(OBJ.rock, GLACIER_DOOR.tx - 4, MAP_H - 2);
     this.obj(OBJ.rock, GLACIER_DOOR.tx + 2, MAP_H - 2);
 
@@ -702,6 +1015,11 @@ export class VillageScene extends Phaser.Scene {
     this.placeFountain(SPAWN.tx - 1, SPAWN.ty - 3);
     this.obj(OBJ.market, SPAWN.tx - 5, SPAWN.ty + 1);
     this.obj(OBJ.barrel, SPAWN.tx + 4, SPAWN.ty + 2);
+    // twin lanterns flank the fountain: the plaza is the town's warm heart
+    this.obj(OBJ.lantern, SPAWN.tx - 3, SPAWN.ty - 3);
+    this.warmGlow((SPAWN.tx - 3) * TILE + 8, (SPAWN.ty - 3) * TILE + 10, 13, 0.16, 0.1);
+    this.obj(OBJ.lantern, SPAWN.tx + 2, SPAWN.ty - 3);
+    this.warmGlow((SPAWN.tx + 2) * TILE + 8, (SPAWN.ty - 3) * TILE + 10, 13, 0.16, 0.1);
     for (const [lx, ly] of [
       [SPAWN.tx - 5, SPAWN.ty - 3],
       [SPAWN.tx + 5, SPAWN.ty - 3],
@@ -766,16 +1084,24 @@ export class VillageScene extends Phaser.Scene {
       this.reserve(x, y, 1, 1);
       bplaced++;
     }
+  }
 
-    // subtle atmosphere: god-ray overlay, screen-fixed, very low alpha
-    if (this.textures.exists("ray")) {
-      /* not loaded; skipped */
-    }
+  // a breathing pool of warm light (campfire, lanterns)
+  private warmGlow(x: number, y: number, radius = 26, alpha = 0.22, pulse = 0.12) {
+    const glow = this.add.circle(x, y, radius, 0xffa028, alpha).setDepth(y - 1).setBlendMode(Phaser.BlendModes.ADD);
+    this.tweens.add({
+      targets: glow,
+      alpha: alpha + pulse,
+      scale: 1.12,
+      duration: 900 + Math.random() * 400,
+      yoyo: true,
+      repeat: -1,
+      ease: "Sine.inOut",
+    });
   }
 
   private campfireGlow(x: number, y: number) {
-    const glow = this.add.circle(x, y, 26, 0xffa028, 0.22).setDepth(y - 1).setBlendMode(Phaser.BlendModes.ADD);
-    this.tweens.add({ targets: glow, alpha: 0.34, scale: 1.12, duration: 900, yoyo: true, repeat: -1, ease: "Sine.inOut" });
+    this.warmGlow(x, y);
   }
 
   private buildPlayer() {
@@ -981,8 +1307,11 @@ export class VillageScene extends Phaser.Scene {
     this.keys = this.input.keyboard?.addKeys("W,A,S,D") as Record<string, Phaser.Input.Keyboard.Key>;
     this.input.addPointer(1); // a 2nd touch pointer so pinch-zoom works on mobile
     const setTarget = (p: Phaser.Input.Pointer) => {
-      // no walk during intro, the post-PLAY lock, or a two-finger pinch
+      // no walk during intro, the post-PLAY lock, or a two-finger pinch — and
+      // a building click this tick owns the target (walk-to-door errand)
       if (this.intro || this.time.now < this.playLockUntil || this.input.pointer2?.isDown) return;
+      if (this.time.now - this.clickGuard < 50) return;
+      this.pendingEnter = null; // a plain ground tap cancels a walk-to-door errand
       this.moveTarget = { x: p.worldX, y: p.worldY };
     };
     // tap-to-walk (same feel as the project rooms): a single tap sets a target
@@ -1030,6 +1359,8 @@ export class VillageScene extends Phaser.Scene {
       gameBus.on("valley:play", () => {
         if (!this.intro) return;
         this.intro = false;
+        this.introDrift?.stop();
+        this.introDrift = undefined;
         this.moveTarget = null;
         this.playLockUntil = this.time.now + 320; // swallow the PLAY tap
         this.player.setVisible(true);
@@ -1039,6 +1370,7 @@ export class VillageScene extends Phaser.Scene {
         cam.startFollow(this.player, true, 0.16, 0.16);
         cam.setDeadzone(48, 36);
         cam.flash(260, 244, 239, 227);
+        gameBus.emit("sfx", { id: "play" });
       })
     );
     // zoom buttons: step the camera zoom level
@@ -1049,7 +1381,10 @@ export class VillageScene extends Phaser.Scene {
       gameBus.on("valley:move", (v) => {
         this.joy.x = v.x;
         this.joy.y = v.y;
-        if (v.x !== 0 || v.y !== 0) this.moveTarget = null;
+        if (v.x !== 0 || v.y !== 0) {
+          this.moveTarget = null;
+          this.pendingEnter = null;
+        }
       })
     );
     // "Enter?" prompt confirmed: enter the door the player is standing on
@@ -1106,6 +1441,10 @@ export class VillageScene extends Phaser.Scene {
   update(time: number, delta: number) {
     if (!this.player) return;
     this.shimmers.forEach((s, i) => (s.tilePositionX += (i === 0 ? 0.32 : -0.22) * (delta / 16)));
+    this.fogs.forEach((f, i) => {
+      f.tilePositionX += (i === 0 ? 0.045 : -0.03) * (delta / 16);
+      f.tilePositionY += (i === 0 ? 0.008 : -0.006) * (delta / 16);
+    });
     if (!this.paused) this.updateNpcs(delta / 1000); // NPCs wander during the intro too (life)
     if (this.intro || this.paused) {
       this.player.body.setVelocity(0, 0);
@@ -1128,7 +1467,10 @@ export class VillageScene extends Phaser.Scene {
     else if (right) vx = 1;
     if (up) vy = -1;
     else if (down) vy = 1;
-    if (vx || vy) this.moveTarget = null; // keyboard overrides + cancels a tap-walk
+    if (vx || vy) {
+      this.moveTarget = null; // keyboard overrides + cancels a tap-walk
+      this.pendingEnter = null;
+    }
     // on-screen joystick (touch): analog direction when the keyboard is idle
     if (!vx && !vy && (this.joy.x !== 0 || this.joy.y !== 0)) {
       vx = this.joy.x;
@@ -1143,6 +1485,12 @@ export class VillageScene extends Phaser.Scene {
         vy = dy / len;
       } else {
         this.moveTarget = null; // arrived — settle into idle
+        // a building click walked us here: enter if we made it to that door
+        if (this.pendingEnter) {
+          const id = this.pendingEnter;
+          this.pendingEnter = null;
+          if (this.nearDoor === id) this.enterNearDoor();
+        }
       }
     }
     const len = Math.hypot(vx, vy) || 1;
@@ -1184,15 +1532,16 @@ export class VillageScene extends Phaser.Scene {
     });
   }
 
-  // Surface the "Enter?" prompt only when the hiker is actually ON the door —
-  // the door tile (d) or the threshold one row up — never a tile early, and
-  // never automatically. Entering is the player's choice (button / Enter key).
+  // Surface the "Enter?" prompt when the hiker steps into the doorway's small
+  // welcome zone (3x3 tiles around the threshold) — approachable from any
+  // side, but never automatic. Entering is the player's choice (prompt /
+  // Enter / E), or the tail end of a building-click walk.
   private checkDoors() {
     const ptx = Math.floor(this.player.x / TILE);
     const pty = Math.floor(this.player.y / TILE);
     let near: string | null = null;
     for (const d of this.doors) {
-      if (ptx === d.x && (pty === d.y || pty === d.y - 1)) {
+      if (Math.abs(ptx - d.x) <= 1 && pty >= d.y - 1 && pty <= d.y + 1) {
         near = d.id;
         break;
       }
@@ -1200,6 +1549,7 @@ export class VillageScene extends Phaser.Scene {
     if (near !== this.nearDoor) {
       this.nearDoor = near;
       gameBus.emit("valley:near", { id: near });
+      if (near) gameBus.emit("sfx", { id: "near" });
     }
   }
 
@@ -1218,9 +1568,11 @@ export class VillageScene extends Phaser.Scene {
     // clear the prompt the moment we commit to the warp
     this.nearDoor = null;
     gameBus.emit("valley:near", { id: null });
+    gameBus.emit("sfx", { id: "teleport" });
     if (!this.discovered.has(id)) {
       this.discovered.add(id);
       gameBus.emit("landmark:discovered", { id });
+      gameBus.emit("sfx", { id: "discover" });
     }
     const open = () => {
       this.teleporting = false;
@@ -1241,6 +1593,12 @@ export class VillageScene extends Phaser.Scene {
   private playTeleport(onDone: () => void) {
     const px = this.player.x;
     const py = this.player.y; // feet (origin 0.92)
+
+    // a gentle camera push toward the door — the "stepping in" focus. The
+    // flash + room veil mask the cut; resetPlayerFx restores the level zoom.
+    const cam = this.cameras.main;
+    this.tweens.killTweensOf(cam);
+    cam.zoomTo(ZOOM_LEVELS[this.zoomIdx] * 1.22, 430, "Quad.easeIn");
 
     const ring = this.add
       .ellipse(px, py, 14, 6, 0xffe18d, 0.85)
@@ -1289,6 +1647,9 @@ export class VillageScene extends Phaser.Scene {
     this.tweens.killTweensOf(this.playerShadow);
     this.player.setScale(1).setAlpha(1).setAngle(0).clearTint();
     this.playerShadow.setScale(1).setAlpha(0.22);
+    // undo the teleport zoom punch (unseen — the room covers the village)
+    this.tweens.killTweensOf(this.cameras.main);
+    this.cameras.main.setZoom(ZOOM_LEVELS[this.zoomIdx]);
   }
 
   // can a w×h decoration sit here? rejects map obstacles (exact footprint) and

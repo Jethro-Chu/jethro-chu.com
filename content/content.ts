@@ -27,6 +27,8 @@ export interface Project {
   stack: string[];
   /** 1-2 plain sentences: what it does and why it matters */
   summary: string;
+  /** short domain tags shown on the village project cards */
+  tags?: string[];
   link?: { href: string; label: string };
   /** optional source repository link */
   repo?: { href: string; label: string };
@@ -83,6 +85,7 @@ export const projects: Project[] = [
     stack: [],
     summary:
       "A daily clinical briefing for bedside nurses. It distills new nursing research, guideline changes, and safety alerts into short briefs, organized by your specialty from the ED to the NICU, with the exact source citation and a bedside takeaway on every one.",
+    tags: ["Healthcare AI", "Nursing"],
     page: "/projects/nursejet",
     link: { href: "https://nursejet.org", label: "nursejet.org" },
     // thumbnail: screenshot of a sample brief (the takeaways + citations layout)
@@ -94,6 +97,7 @@ export const projects: Project[] = [
     stack: ["Vanilla JS", "face-api.js", "TensorFlow.js"],
     summary:
       "Everyone says not to trade with your emotions, so I built a game that does the opposite. Your facial expressions drive simulated trades in a chaotic browser market where every smile, panic, and overreaction can move your portfolio.",
+    tags: ["Experimental", "Computer vision"],
     page: "/projects/emotion-stock-market-game",
     link: {
       href: "https://jethro-chu.github.io/JethroStockMarketGame.github.io/",
@@ -113,6 +117,7 @@ export const projects: Project[] = [
     stack: [],
     summary:
       "I helped shape Lab Logger into a tool that turns messy notes, voice entries, files, and PDFs into organized experiment records. My focus was making the product feel simple, trustworthy, and fast enough for researchers to use in the middle of real work.",
+    tags: ["Research tools", "AI"],
     link: { href: "https://lab-logger.com", label: "lab-logger.com" },
     // thumbnail: screenshot of the notebook view (cream and burnt-orange UI)
   },
@@ -125,6 +130,7 @@ export const projects: Project[] = [
     // [confirm ratemyhospitalfood.com is live]
     summary:
       "A review site for hospital cafeteria food. Search a hospital, read real reviews, and leave your own star rating, with the best and worst cafeterias ranked the way a food app would.",
+    tags: ["Full stack", "For fun"],
     link: {
       href: "https://ratemyhospitalfood.com",
       label: "ratemyhospitalfood.com",

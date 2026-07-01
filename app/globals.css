@@ -35,6 +35,9 @@
   --color-on-dark: #ece4d3;       /* sand-tinted light text (9:1 on shadow) */
   --color-on-dark-muted: #b9b0a0; /* muted light text on shadow (5:1) */
 
+  /* village HUD wood: dark warm bark for in-game plaques (on-dark 11:1, golden 5.6:1) */
+  --color-bark: #2b2114;
+
   /* ---- radii (soft, field-guide) ---- */
   --radius-xs: 3px;
   --radius-sm: 6px;
@@ -306,6 +309,22 @@ html.lenis body {
 :where(html[data-scrolling]) .scroll-cue,
 :where(html[data-scrolling]) .animate-ping {
   animation-play-state: paused;
+}
+
+/* ============================================================
+   VILLAGE HUD  — carved-plaque chrome for the in-game overlay.
+   One shared surface (dark bark + a golden inner hairline) so every
+   HUD piece reads as crafted signage from the same workshop, never
+   default cards. Text on it: on-dark cream / golden accents.
+   ============================================================ */
+
+.hud-plaque {
+  background: color-mix(in oklab, var(--color-bark) 92%, transparent);
+  border: 1px solid color-mix(in oklab, var(--color-golden-deep) 85%, #000);
+  box-shadow:
+    inset 0 0 0 1px color-mix(in oklab, var(--color-golden) 26%, transparent),
+    0 4px 16px rgba(0, 0, 0, 0.38);
+  border-radius: var(--radius-sm);
 }
 
 /* ============================================================

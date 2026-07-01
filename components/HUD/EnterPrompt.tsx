@@ -1,15 +1,16 @@
 "use client";
 
 /* ============================================================
-   EnterPrompt (HUD)  ·  "Enter?" door confirmation
+   EnterPrompt (HUD)  ·  the door invitation
    The scene emits valley:near with a door id the moment the hiker is
-   standing ON a door (never a tile early), or null when they step off,
-   plus valley:nearpos each frame with the viewport anchor just above the
-   hiker's head. This floats a small card RIGHT OVER the entrance — with a
-   caret pointing down at the doorway — so entering is a CHOICE tied to the
-   place: click Enter (or press Enter / E) to go in, or just walk away.
-   The anchor is written straight to the DOM (no per-frame React renders)
-   so it tracks the doorway smoothly as the camera follows the player.
+   standing at a door (never automatically entering), plus
+   valley:nearpos each frame with the viewport anchor just above the
+   hiker's head. This floats one carved plaque BUTTON over the
+   entrance — the place name up top, the action ("Open Resume",
+   "Visit Clinical") as the line you click — with a caret pointing at
+   the doorway. Click it (or press Enter / E) to go in, or walk away.
+   The anchor is written straight to the DOM (no per-frame React
+   renders) so it tracks the doorway smoothly as the camera follows.
    Reads valley:near + valley:nearpos; emits valley:enter.
    ============================================================ */
 
@@ -78,27 +79,31 @@ export function EnterPrompt() {
           transition={{ duration: 0.16 }}
           className="flex flex-col items-center"
         >
-          <div className="pointer-events-auto flex items-center gap-3 rounded-md border border-[var(--color-granite-line)] bg-[var(--color-shadow)] py-2 pl-3.5 pr-2 shadow-xl">
-            <div className="flex flex-col">
-              <span className="eyebrow text-[0.6rem] text-[var(--color-golden)]!">
-                {landmark.section}
+          <button
+            type="button"
+            onClick={() => gameBus.emit("valley:enter")}
+            className="hud-plaque fast-ui pointer-events-auto flex items-center gap-3 py-2 pl-3.5 pr-2.5 text-left hover:brightness-110"
+          >
+            <span className="flex flex-col">
+              <span className="eyebrow text-[0.58rem] text-[var(--color-golden)]!">
+                {landmark.landmark}
               </span>
-              <span className="label-mono text-[0.78rem] font-medium leading-tight text-[var(--color-on-dark)]!">
-                Enter {landmark.landmark}?
+              <span className="label-mono text-[0.8rem] font-medium leading-tight text-[var(--color-on-dark)]!">
+                {landmark.cta ?? `Enter ${landmark.section}`}
               </span>
-            </div>
-            <button
-              type="button"
-              onClick={() => gameBus.emit("valley:enter")}
-              className="fast-ui label-mono shrink-0 rounded-sm bg-[var(--color-pine)] px-3.5 py-2 text-[0.72rem] font-medium text-[var(--color-on-dark)]! hover:brightness-110"
+            </span>
+            <span
+              aria-hidden
+              className="label-mono shrink-0 rounded-sm px-2 py-1.5 text-[0.72rem] font-bold"
+              style={{ background: "var(--color-golden)", color: "#2a2012" }}
             >
-              Enter <span aria-hidden className="opacity-70">⏎</span>
-            </button>
-          </div>
+              ⏎
+            </span>
+          </button>
           {/* caret pointing down at the doorway */}
           <div
             className="-mt-px h-0 w-0 border-x-[7px] border-t-[8px] border-x-transparent drop-shadow"
-            style={{ borderTopColor: "var(--color-shadow)" }}
+            style={{ borderTopColor: "var(--color-bark)" }}
           />
         </m.div>
       </div>

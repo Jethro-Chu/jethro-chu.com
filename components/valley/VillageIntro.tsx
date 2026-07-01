@@ -1,18 +1,23 @@
 "use client";
 
 /* ============================================================
-   VillageIntro  ·  Peter-style title screen over the live scene
+   VillageIntro  ·  the title moment over the live scene
    Renders OVER the running village (which is in scenic "intro" mode:
-   animated water/NPCs/birds, controls off). Big title + PLAY + a skip.
-   Colors are inline styles (not Tailwind arbitrary `var()` classes, which
-   don't always get generated) so they always apply. A flat wash + a
-   centered dark "stage" keep the cream title legible over the bright map.
+   animated water/NPCs/birds + a slow camera drift, controls off).
+   A staged reveal — village eyebrow, the name, PLAY, then one line of
+   instruction — that finishes in about a second, never gates on an
+   animation, and starts on Enter as well as click. Colors are inline
+   styles (not Tailwind arbitrary `var()` classes, which don't always
+   get generated) so they always apply. A flat wash + a centered dark
+   "stage" keep the cream title legible over the bright map.
    ============================================================ */
 
 import { m } from "framer-motion";
+import { useEffect } from "react";
 import { site } from "@/content/content";
 
 const CREAM = "#f4efe3";
+const EASE = [0.22, 1, 0.36, 1] as const;
 
 export function VillageIntro({
   onPlay,
@@ -21,6 +26,24 @@ export function VillageIntro({
   onPlay: () => void;
   onSkip: () => void;
 }) {
+  // Enter starts the walk without hunting for the button
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Enter") {
+        e.preventDefault();
+        onPlay();
+      }
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [onPlay]);
+
+  const rise = (delay: number) => ({
+    initial: { opacity: 0, y: 10 },
+    animate: { opacity: 1, y: 0 },
+    transition: { duration: 0.45, delay, ease: EASE },
+  });
+
   return (
     <m.div
       className="fixed inset-0 z-[58] flex flex-col items-center justify-center py-12 text-center sm:py-16"
@@ -50,10 +73,18 @@ export function VillageIntro({
         }}
       />
 
-      {/* title + PLAY */}
-      <div className="relative flex flex-col items-center gap-8">
+      {/* staged title + PLAY */}
+      <div className="relative flex flex-col items-center gap-7">
         <div>
-          <h1
+          <m.p
+            {...rise(0.1)}
+            className="label-mono mb-3 text-[0.7rem] tracking-[0.42em]"
+            style={{ color: "#e6bd73", textShadow: "0 1px 4px rgba(0,0,0,0.85)" }}
+          >
+            YOSEMITE VILLAGE
+          </m.p>
+          <m.h1
+            {...rise(0.22)}
             className="text-summit"
             style={{
               color: "#f7f2e7",
@@ -63,8 +94,8 @@ export function VillageIntro({
             }}
           >
             {site.name}
-          </h1>
-          <div className="mt-2 flex items-center justify-center gap-3">
+          </m.h1>
+          <m.div {...rise(0.38)} className="mt-2 flex items-center justify-center gap-3">
             <span className="h-px w-12" style={{ background: CREAM, opacity: 0.8 }} />
             <span
               className="label-mono text-[0.72rem] tracking-[0.34em]"
@@ -73,10 +104,11 @@ export function VillageIntro({
               PORTFOLIO
             </span>
             <span className="h-px w-12" style={{ background: CREAM, opacity: 0.8 }} />
-          </div>
+          </m.div>
         </div>
 
-        <button
+        <m.button
+          {...rise(0.52)}
           type="button"
           onClick={onPlay}
           className="fast-ui rounded-md font-display text-2xl font-bold tracking-wide hover:brightness-[1.07] active:translate-y-[3px]"
@@ -89,7 +121,15 @@ export function VillageIntro({
           }}
         >
           PLAY
-        </button>
+        </m.button>
+
+        <m.p
+          {...rise(0.72)}
+          className="label-mono text-[0.74rem]"
+          style={{ color: CREAM, opacity: 0.92, textShadow: "0 1px 4px rgba(0,0,0,0.85)" }}
+        >
+          Wander the village, or choose a destination from the signs.
+        </m.p>
       </div>
 
       {/* bottom skip */}

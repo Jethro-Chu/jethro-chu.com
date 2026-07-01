@@ -2,11 +2,12 @@
 
 /* ============================================================
    DirectionCue (HUD)  ·  "which way do I walk" wayfinding
-   A bottom-centre pill with an arrow that rotates to point toward the
-   nearest UNVISITED building, plus its name. The top-down camera is
-   axis-aligned, so the world direction (atan2 in tile space) is also
-   the on-screen direction. Hides when you're on top of it / all visited.
-   Reads player:move + landmark:discovered. Pointer-events none.
+   A bottom-centre compass plaque whose golden needle rotates to point
+   toward the nearest UNVISITED building, plus its name. The top-down
+   camera is axis-aligned, so the world direction (atan2 in tile space)
+   is also the on-screen direction. Hides when you're on top of it /
+   all visited. Reads player:move + landmark:discovered. Pointer-events
+   none.
    ============================================================ */
 
 import { useEffect, useRef, useState } from "react";
@@ -59,7 +60,7 @@ export function DirectionCue() {
   if (touch || !cue) return null;
   return (
     <div className="pointer-events-none fixed bottom-16 left-3 z-40 sm:bottom-6 sm:left-1/2 sm:-translate-x-1/2">
-      <div className="flex items-center gap-2 rounded-full border border-[var(--color-granite-line)] bg-[color-mix(in_oklab,var(--color-shadow)_82%,transparent)] py-1.5 pl-2.5 pr-3.5 shadow-md">
+      <div className="hud-plaque flex items-center gap-2 rounded-full! py-1.5 pl-2.5 pr-3.5">
         <svg
           width="15"
           height="15"
@@ -76,7 +77,7 @@ export function DirectionCue() {
             strokeLinejoin="round"
           />
         </svg>
-        <span className="label-mono text-[0.72rem] text-[var(--color-on-dark)]!">{cue.label}</span>
+        <span className="label-mono text-[0.7rem] text-[var(--color-on-dark)]!">{cue.label}</span>
       </div>
     </div>
   );

@@ -10,7 +10,29 @@ Lighthouse: `PORT=3100 npm run start` then `npx lighthouse@12 http://localhost:3
 
 ---
 
-## 2026-06-29 — Front page + walkable interior rooms (branch `feat/yosemite-village`)
+## 2026-07-01 — "Fable polish" pass (branch `feat/village-fable-polish`)
+
+Cinematic atmosphere in the scene (golden-hour grade + blue vignette, god rays,
+drifting fog, lit windows, chimney smoke, river glints, butterflies, gold motes,
+door lanterns), the whole HUD rebuilt on one carved-plaque system (nav with
+integrated "← Portfolio" exit, parchment collapsible minimap, action-verb door
+prompts, staged intro), building hover/click-to-enter, and per-room themed
+interiors (healer's station / workshop / machine room / post office / dusk
+overlook) with rewritten copy + facts tables + tagged project cards.
+
+**Measurements (`next build`, node@22):**
+| Route | First Load JS | Δ |
+|---|---|---|
+| `/` (home) | **164 kB** | **+0** |
+| `/village` (initial) | **105 kB** | **+0** |
+
+- Budget held: every addition (scene FX, HUD, room themes) lives in the
+  code-split village chunk; the atmosphere is world-anchored sprites/particles
+  (no shaders, no screen-fixed overlays fighting the camera zoom).
+- Build green, `tsc --noEmit` clean, 15/15 static. Verified in-browser: intro
+  staged reveal + Enter-to-play; plaque nav + exit; minimap collapse persists;
+  prompt verbs per building; rooms themed with AA header inks per wall; door
+  chip legible on light walls; mobile 375x812 canvas fills the viewport.
 
 `/` now auto-opens the village over the SSR scroll site (capable visitors only; the site
 stays the crawler/no-JS/reduced-motion fallback + the "Back to the portfolio" escape).

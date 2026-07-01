@@ -10,7 +10,7 @@ import { gameBus } from "@/lib/gameBus";
 import { useIsTouch } from "@/lib/useIsTouch";
 
 const BTN =
-  "fast-ui flex size-9 items-center justify-center rounded-sm border border-[var(--color-granite-line)] bg-[color-mix(in_oklab,var(--color-shadow)_80%,transparent)] text-xl font-bold leading-none text-[var(--color-on-dark)] hover:bg-[var(--color-pine)]";
+  "hud-plaque fast-ui flex size-9 items-center justify-center text-xl font-bold leading-none text-[var(--color-on-dark)] hover:text-[var(--color-golden)]";
 
 export function ZoomControls() {
   // Touch devices ride a fixed zoomed-out view (the joystick is the control), so
