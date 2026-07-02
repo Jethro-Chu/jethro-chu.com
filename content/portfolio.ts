@@ -97,7 +97,10 @@ export const landmarks: Landmark[] = [
       { k: "Charting", v: "Epic" },
       { k: "Focus", v: "Telemetry, cardiac + CVICU" },
     ],
-    links: [{ label: "Full resume", href: resume.pdf }],
+    links: [
+      { label: "Full resume", href: resume.pdf },
+      { label: "Play Medical Akinator", href: "/medical-akinator" },
+    ],
   },
   {
     id: "cabins",
@@ -110,6 +113,7 @@ export const landmarks: Landmark[] = [
       "Live software, mostly solo, mostly born from healthcare and research. Some serious, some for fun, all shipped.",
     ],
     projects: ["nursejet", "lab-logger", "rate-my-hospital-food", "emotion-stock-market-game"],
+    links: [{ label: "Hidden experiment: Medical Akinator", href: "/medical-akinator" }],
   },
   {
     id: "ahwahnee",

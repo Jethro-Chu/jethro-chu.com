@@ -34,10 +34,17 @@ export const runtime = "nodejs";
 // below are kept short so a turn comfortably finishes within the default timeout.
 
 // Try several models in order so one overloaded model never breaks a turn.
-// flash-lite first (fast, cheap, most available); fall back to other capacity
-// pools (different models = different "high demand" state). All support the JSON
-// schema and are plenty capable for binary medical questions.
-const MODELS = ["gemini-2.5-flash-lite", "gemini-2.5-flash", "gemini-2.0-flash"];
+// Each entry pins the thinking config that keeps that model FAST and prevents
+// the silent failure mode where "thinking" tokens eat the output budget and
+// truncate the JSON (finish=MAX_TOKENS). Verified against ListModels + live
+// calls on 2026-07-01; the trailing "-latest" alias tracks whatever Google
+// ships next, so the chain can never all-404 when a pinned model retires
+// (gemini-2.0-flash did exactly that).
+const MODELS: { id: string; think: Record<string, unknown> | null }[] = [
+  { id: "gemini-3.1-flash-lite", think: { thinkingLevel: "low" } }, // ~1.2s, best fast questions
+  { id: "gemini-2.5-flash-lite", think: { thinkingBudget: 0 } }, // ~0.7s, separate capacity pool
+  { id: "gemini-flash-lite-latest", think: null }, // alias: survives model retirements
+];
 const endpoint = (model: string) => `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`;
 const MODEL_BACKOFF_MS = [0, 350, 700]; // brief wait before each successive model attempt
 const sleep = (ms: number) => (ms > 0 ? new Promise((r) => setTimeout(r, ms)) : Promise.resolve());
@@ -179,6 +186,7 @@ export async function POST(request: Request) {
   // --- validate the request body ------------------------------------------
   let category = "";
   let answers: { question: string; answer: string }[] = [];
+  let prior: { name: string; confidence: number }[] = [];
   let learn = "";
   let gameId = "";
   let debug = false;
@@ -186,6 +194,7 @@ export async function POST(request: Request) {
     const body = (await request.json()) as {
       category?: unknown;
       answers?: unknown;
+      prior?: unknown;
       learn?: unknown;
       gameId?: unknown;
       debug?: unknown;
@@ -193,7 +202,7 @@ export async function POST(request: Request) {
     category = String(body?.category ?? "").toLowerCase().trim();
     learn = String(body?.learn ?? "").slice(0, 120).trim(); // the topic that stumped the engine
     gameId = String(body?.gameId ?? "").slice(0, 64).trim();
-    debug = body?.debug === true; // when true, also return candidateList + reasoning (never shown in the UI)
+    debug = body?.debug === true; // when true, also return the model's reasoning (never shown in the UI)
     const raw = Array.isArray(body?.answers) ? (body.answers as IncomingAnswer[]) : [];
     answers = raw
       .slice(0, MAX_TURNS + 8) // small slack over the cap; we still force a guess below
@@ -202,6 +211,16 @@ export async function POST(request: Request) {
         answer: String(a?.answer ?? "").toLowerCase().trim(),
       }))
       .filter((a) => a.question && ANSWERS.has(a.answer));
+    // the previous turn's ranked candidates, echoed back by the client so the
+    // engine UPDATES its differential instead of re-deriving it from scratch
+    const rawPrior = Array.isArray(body?.prior) ? (body.prior as Candidate[]) : [];
+    prior = rawPrior
+      .slice(0, 10)
+      .map((c) => ({
+        name: typeof c?.name === "string" ? c.name.slice(0, 120).trim() : "",
+        confidence: clamp01(c?.confidence),
+      }))
+      .filter((c) => c.name);
   } catch {
     return NextResponse.json({ error: "bad-request" }, { status: 400 });
   }
@@ -251,6 +270,17 @@ export async function POST(request: Request) {
     (a) => !/^The assistant guessed .* Was that correct\?$/.test(a.question),
   ).length;
 
+  // answers the player has already rejected — the engine must never re-guess
+  // these (deterministic guard; the prompt rule alone is not reliable)
+  const ruledOut = new Set<string>();
+  for (const a of answers) {
+    const m = a.question.match(/^The assistant guessed (.+)\. Was that correct\?$/);
+    if (m && a.answer === "no") ruledOut.add(normName(m[1]));
+  }
+
+  // questions already asked, normalized — used to reject near-duplicate rephrasings
+  const askedSet = new Set(answers.map((a) => normQuestion(a.question)));
+
   const transcript = answers.length
     ? answers.map((a, i) => `${i + 1}. ${a.question} -> ${ANSWER_LABEL[a.answer]}`).join("\n")
     : "(no questions asked yet)";
@@ -287,7 +317,16 @@ export async function POST(request: Request) {
     /* store unavailable → just play normally */
   }
 
-  const userText = `Starting scope (${category}): ${SCOPE[category]}${learnedHint}
+  // hand the engine its own differential from last turn, so each turn UPDATES
+  // a running candidate list instead of re-deriving one from the transcript
+  // (stateless serverless: the client echoes the list back each turn)
+  const priorHint = prior.length
+    ? `\n\nYour ranked candidates after the previous turn (UPDATE this list with the newest answer — do not restart from scratch; drop candidates the newest answer eliminates):\n${prior
+        .map((c) => `- ${c.name} (${c.confidence.toFixed(2)})`)
+        .join("\n")}`
+    : "";
+
+  const userText = `Starting scope (${category}): ${SCOPE[category]}${learnedHint}${priorHint}
 
 Transcript so far (question -> the user's answer):
 ${transcript}
@@ -300,9 +339,30 @@ Respond with JSON only.`;
     if (!parsed) return NextResponse.json({ error: "empty-answer" }, { status: 502 });
 
     let mode: "question" | "guess" = parsed.mode === "guess" || parsed.status === "guess" ? "guess" : "question";
-    const guess = typeof parsed.guess === "string" ? parsed.guess.trim() : "";
+    let guess = typeof parsed.guess === "string" ? parsed.guess.trim() : "";
     // a guess with no name is not a usable guess — fall back to asking
     if (mode === "guess" && !guess) mode = "question";
+
+    // deterministic re-guess guard: the model sometimes re-offers a rejected
+    // answer (or a trivial alias of one). Give it ONE corrective turn; if it
+    // still can't produce a fresh guess, fall through to asking a question.
+    if (mode === "guess" && ruledOut.has(normName(guess))) {
+      console.warn(`[medical-akinator] re-guessed a ruled-out answer, correcting: "${guess}"`);
+      parsed = await askGemini(
+        apiKey,
+        `${userText}
+
+IMPORTANT: You proposed "${guess}", but the transcript shows it was ALREADY guessed and rejected. Pick a DIFFERENT answer that fits every response (mode "guess"), or ask ONE new differentiating yes/no question (mode "question"). Respond with JSON only.`,
+      );
+      if (!parsed) return NextResponse.json({ error: "empty-answer" }, { status: 502 });
+      mode = parsed.mode === "guess" || parsed.status === "guess" ? "guess" : "question";
+      guess = typeof parsed.guess === "string" ? parsed.guess.trim() : "";
+      if (mode === "guess" && (!guess || ruledOut.has(normName(guess)))) mode = "question";
+    }
+
+    // the sanitized differential rides every response; the client echoes it
+    // back next turn (never rendered in the UI unless debug is on)
+    const candidateList = sanitizeCandidates(parsed.candidateList);
 
     // --- guess turn -------------------------------------------------------
     if (mode === "guess") {
@@ -313,20 +373,31 @@ Respond with JSON only.`;
         confidence: topConfidence(parsed),
         summary: sanitizeSummary(parsed.summary),
         message: null,
-        ...(debug ? { candidateList: parsed.candidateList, reasoning: parsed.reasoning } : {}),
+        candidateList,
+        ...(debug ? { reasoning: parsed.reasoning } : {}),
       });
     }
 
-    // --- question turn: must be a single yes/no question ------------------
-    // Reject the model's self-flag (validYesNoQuestion === false) AND anything
-    // our validator catches (either/or, open-ended, multiple-choice). On a
-    // rejection, ask the model to rewrite it as a strict yes/no question.
+    // --- question turn: must be a single, NEW yes/no question -------------
+    // Reject the model's self-flag (validYesNoQuestion === false), anything
+    // our validator catches (either/or, open-ended, multiple-choice), AND a
+    // near-duplicate of a question already asked. On a rejection, ask the
+    // model to rewrite it.
     let question = typeof parsed.question === "string" ? parsed.question.trim() : "";
     let attempts = 0;
-    while (!isValidYesNoQuestion(parsed?.validYesNoQuestion, question) && attempts < MAX_QUESTION_REWRITES) {
+    while (
+      (!isValidYesNoQuestion(parsed?.validYesNoQuestion, question) || askedSet.has(normQuestion(question))) &&
+      attempts < MAX_QUESTION_REWRITES
+    ) {
       attempts++;
-      console.warn(`[medical-akinator] non-binary question, rewriting (attempt ${attempts}): "${question}"`);
-      parsed = await askGemini(apiKey, rewriteUserText(category, question));
+      const dup = askedSet.has(normQuestion(question));
+      console.warn(
+        `[medical-akinator] ${dup ? "duplicate" : "non-binary"} question, rewriting (attempt ${attempts}): "${question}"`,
+      );
+      parsed = await askGemini(
+        apiKey,
+        dup ? duplicateUserText(category, question, answers) : rewriteUserText(category, question),
+      );
       question = parsed && typeof parsed.question === "string" ? parsed.question.trim() : "";
     }
 
@@ -334,6 +405,10 @@ Respond with JSON only.`;
       console.error(`[medical-akinator] could not produce a valid yes/no question: "${question}"`);
       return NextResponse.json({ error: "invalid-question" }, { status: 502 });
     }
+    // a duplicate that survived the rewrites is annoying but not game-breaking —
+    // ship it rather than fail the turn
+    if (askedSet.has(normQuestion(question)))
+      console.warn(`[medical-akinator] duplicate question survived rewrites: "${question}"`);
 
     return NextResponse.json({
       status: "question",
@@ -342,7 +417,8 @@ Respond with JSON only.`;
       confidence: topConfidence(parsed),
       summary: null,
       message: null,
-      ...(debug ? { candidateList: parsed?.candidateList, reasoning: parsed?.reasoning } : {}),
+      candidateList: sanitizeCandidates(parsed?.candidateList),
+      ...(debug ? { reasoning: parsed?.reasoning } : {}),
     });
   } catch (err) {
     console.error("[medical-akinator] request failed:", err);
@@ -363,33 +439,36 @@ async function callGeminiJSON(
   userText: string,
   schema: object,
 ): Promise<Record<string, unknown> | null> {
-  const requestBody = JSON.stringify({
-    systemInstruction: { parts: [{ text: systemText }] },
-    contents: [{ role: "user", parts: [{ text: userText }] }],
-    generationConfig: {
-      temperature: 0.6,
-      topP: 0.95,
-      // generous budget: the 2.5 models spend "thinking" tokens BEFORE the JSON.
-      // Too low a cap truncates the JSON mid-string and the parse fails.
-      maxOutputTokens: 2048,
-      responseMimeType: "application/json",
-      responseSchema: schema,
-    },
-  });
-
   let lastStatus = 0;
   for (let i = 0; i < MODELS.length; i++) {
     await sleep(MODEL_BACKOFF_MS[i] ?? 700);
+    const { id, think } = MODELS[i];
+
+    // per-model body: the thinking config differs per family (thinkingLevel on
+    // 3.x, thinkingBudget on 2.5, none on the alias). 4096 output tokens gives
+    // an alias model that thinks anyway enough headroom to finish the JSON.
+    const requestBody = JSON.stringify({
+      systemInstruction: { parts: [{ text: systemText }] },
+      contents: [{ role: "user", parts: [{ text: userText }] }],
+      generationConfig: {
+        temperature: 0.6,
+        topP: 0.95,
+        maxOutputTokens: 4096,
+        responseMimeType: "application/json",
+        responseSchema: schema,
+        ...(think ? { thinkingConfig: think } : {}),
+      },
+    });
 
     let res: Response;
     try {
-      res = await fetch(endpoint(MODELS[i]), {
+      res = await fetch(endpoint(id), {
         method: "POST",
         headers: { "Content-Type": "application/json", "x-goog-api-key": apiKey },
         body: requestBody,
       });
     } catch (err) {
-      console.warn(`[medical-akinator] ${MODELS[i]} network error, trying next:`, (err as Error).message);
+      console.warn(`[medical-akinator] ${id} network error, trying next:`, (err as Error).message);
       lastStatus = 0;
       continue;
     }
@@ -405,20 +484,22 @@ async function callGeminiJSON(
       // 200 but unparseable (usually a truncated response, finishReason MAX_TOKENS)
       // — log it and fall through to the next model rather than failing the turn
       const finish = data.candidates?.[0]?.finishReason;
-      console.warn(`[medical-akinator] ${MODELS[i]} 200 but unparseable (finish=${finish}, len=${text.length}); trying next`);
+      console.warn(`[medical-akinator] ${id} 200 but unparseable (finish=${finish}, len=${text.length}); trying next`);
       lastStatus = 200;
       continue;
     }
 
     lastStatus = res.status;
     const body = (await res.text()).slice(0, 300);
-    // a real client error (bad key/request) won't be fixed by another model
-    if (res.status === 400 || res.status === 401 || res.status === 403) {
-      console.error(`[medical-akinator] Gemini ${res.status} (${MODELS[i]}):`, body);
+    // only an auth error is unfixable by switching models; a 400 can be a
+    // model-specific config rejection (e.g. an unsupported thinking field on a
+    // future alias target), so it falls through to the next model too
+    if (res.status === 401 || res.status === 403) {
+      console.error(`[medical-akinator] Gemini ${res.status} (${id}):`, body);
       throw new Error(`gemini-${res.status}`);
     }
-    // overload / rate limit / unavailable → fall through to the next model
-    console.warn(`[medical-akinator] ${MODELS[i]} -> ${res.status}, trying next model`);
+    // bad config / overload / rate limit / unavailable → try the next model
+    console.warn(`[medical-akinator] ${id} -> ${res.status}, trying next model`);
   }
 
   console.error(`[medical-akinator] all models unavailable (last status ${lastStatus})`);
@@ -501,6 +582,44 @@ function rewriteUserText(category: string, badQuestion: string): string {
 It must be answerable with only Yes, No, Maybe, or "I don't know", must NOT contain the words "or", "either", "which", "what", "type of", "category", "choose", or "select", and must not ask the user to pick between options or categories.
 Rewrite it as ONE short yes/no question that probes a SINGLE possibility (ask one side at a time), keeping the same diagnostic intent for the scope "${category}".
 Set mode to "question", set "validYesNoQuestion" to true, and respond with JSON only.`;
+}
+
+/** instruction asking the model for a NEW question after it repeated one */
+function duplicateUserText(
+  category: string,
+  dupQuestion: string,
+  answers: { question: string; answer: string }[],
+): string {
+  const asked = answers.map((a, i) => `${i + 1}. ${a.question}`).join("\n");
+  return `You repeated a question that was already asked: "${dupQuestion}".
+Questions already asked in this game (NEVER ask any of these again, or a rephrasing of them):
+${asked}
+Ask ONE NEW short binary yes/no question about a DIFFERENT distinguishing feature, for the scope "${category}". It must be answerable with only Yes, No, Maybe, or "I don't know" and must not contain "or", "either", "which", "what", "type of", "category", "choose", or "select".
+Set mode to "question", set "validYesNoQuestion" to true, and respond with JSON only.`;
+}
+
+/* ---- normalization guards ----------------------------------------------- */
+
+/** normalize an answer/condition name for ruled-out comparisons */
+function normName(s: string): string {
+  return s.toLowerCase().replace(/[^a-z0-9 ]+/g, " ").replace(/\s+/g, " ").trim();
+}
+
+/** normalize a question for duplicate detection (punctuation/case-insensitive) */
+function normQuestion(s: string): string {
+  return s.toLowerCase().replace(/[^a-z0-9 ]+/g, " ").replace(/\s+/g, " ").trim();
+}
+
+/** cap + clean the model's candidate list for the response / next-turn echo */
+function sanitizeCandidates(raw: unknown): { name: string; confidence: number }[] {
+  if (!Array.isArray(raw)) return [];
+  return (raw as Candidate[])
+    .slice(0, 8)
+    .map((c) => ({
+      name: typeof c?.name === "string" ? c.name.slice(0, 120).trim() : "",
+      confidence: clamp01(c?.confidence),
+    }))
+    .filter((c) => c.name);
 }
 
 /* ---- safety ------------------------------------------------------------ */

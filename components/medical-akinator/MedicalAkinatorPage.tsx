@@ -14,7 +14,7 @@
    component only hits the same-origin API route.
    ============================================================ */
 
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { m, useReducedMotion } from "framer-motion";
@@ -44,6 +44,11 @@ interface LearnedProfile {
   times_missed?: number;
 }
 
+interface Candidate {
+  name: string;
+  confidence: number;
+}
+
 interface ApiResponse {
   status: "question" | "guess" | "safety" | "learned";
   question?: string | null;
@@ -51,6 +56,9 @@ interface ApiResponse {
   confidence?: number;
   summary?: Summary | null;
   message?: string | null;
+  // the engine's running differential — echoed back as `prior` on the next
+  // turn so it updates one list across the game (never rendered)
+  candidateList?: Candidate[];
   // learn response
   name?: string;
   profile?: LearnedProfile;
@@ -69,11 +77,11 @@ const CATEGORIES: { key: string; label: string; hint: string }[] = [
   { key: "medical_topic", label: "Medical topic", hint: "any non-medication nursing or medical topic" },
 ];
 
-const ANSWER_OPTIONS: { value: AnswerValue; label: string }[] = [
-  { value: "yes", label: "Yes" },
-  { value: "no", label: "No" },
-  { value: "maybe", label: "Maybe" },
-  { value: "unknown", label: "I don't know" },
+const ANSWER_OPTIONS: { value: AnswerValue; label: string; kbd: string }[] = [
+  { value: "yes", label: "Yes", kbd: "Y" },
+  { value: "no", label: "No", kbd: "N" },
+  { value: "maybe", label: "Maybe", kbd: "M" },
+  { value: "unknown", label: "I don't know", kbd: "D" },
 ];
 
 const categoryLabel = (key: string | null) => CATEGORIES.find((c) => c.key === key)?.label ?? key ?? "";
@@ -131,7 +139,11 @@ export function MedicalAkinatorPage() {
   const [stumped, setStumped] = useState(false);
   const [learnInput, setLearnInput] = useState("");
   const [learned, setLearned] = useState<LearnedProfile | null>(null);
+  const [persisted, setPersisted] = useState(true); // false = learned in-memory only
   const [safety, setSafety] = useState<string | null>(null);
+
+  // the engine's running differential, echoed back each turn (never rendered)
+  const candidatesRef = useRef<Candidate[]>([]);
 
   // real questions asked, excluding the synthetic "wrong guess" markers
   const askedCount = Math.max(0, answers.length - wrongGuesses);
@@ -141,7 +153,8 @@ export function MedicalAkinatorPage() {
     setLoading(true);
     setError(null);
     try {
-      const data = await postAkinator({ category: cat, answers: history });
+      const data = await postAkinator({ category: cat, answers: history, prior: candidatesRef.current });
+      candidatesRef.current = Array.isArray(data.candidateList) ? data.candidateList : [];
       setConfidence(typeof data.confidence === "number" ? data.confidence : 0);
       if (data.status === "guess" && data.guess) {
         setGuess(data.guess);
@@ -175,7 +188,9 @@ export function MedicalAkinatorPage() {
       setStumped(false);
       setLearnInput("");
       setLearned(null);
+      setPersisted(true);
       setSafety(null);
+      candidatesRef.current = [];
       void advance([], cat);
     },
     [advance],
@@ -225,6 +240,7 @@ export function MedicalAkinatorPage() {
         setSafety(data.message || SAFETY_FALLBACK);
       } else if (data.status === "learned") {
         setLearned(data.profile ?? { name: data.name || what });
+        setPersisted(data.persisted !== false);
         setStumped(false);
       } else {
         throw new Error("unexpected-shape");
@@ -256,10 +272,35 @@ export function MedicalAkinatorPage() {
     setStumped(false);
     setLearnInput("");
     setLearned(null);
+    setPersisted(true);
     setSafety(null);
+    candidatesRef.current = [];
   }, []);
 
   const exit = useCallback(() => router.push("/"), [router]);
+
+  // keyboard play: Y/N/M/D answer the current question (1-4 also work); on a
+  // guess, Y confirms and N keeps going. Ignored while typing in an input.
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.metaKey || e.ctrlKey || e.altKey) return;
+      const t = e.target as HTMLElement | null;
+      if (t && (t.tagName === "INPUT" || t.tagName === "TEXTAREA")) return;
+      if (loading || stumped || learned || solved || error) return;
+      const k = e.key.toLowerCase();
+      if (currentQuestion) {
+        if (k === "y" || k === "1") answer("yes");
+        else if (k === "n" || k === "2") answer("no");
+        else if (k === "m" || k === "3") answer("maybe");
+        else if (k === "d" || k === "u" || k === "4") answer("unknown");
+      } else if (guess) {
+        if (k === "y") confirmCorrect();
+        else if (k === "n") keepGoing();
+      }
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [answer, confirmCorrect, currentQuestion, error, guess, keepGoing, learned, loading, solved, stumped]);
 
   // which screen is showing — also used as the animation key so each phase
   // (and each new question) fades in fresh
@@ -316,7 +357,7 @@ export function MedicalAkinatorPage() {
           {!category ? (
             <StartScreen onPick={chooseCategory} />
           ) : learned ? (
-            <LearnedScreen profile={learned} onRestart={restart} />
+            <LearnedScreen profile={learned} persisted={persisted} onRestart={restart} />
           ) : error ? (
             <ErrorScreen message={error} onRetry={retry} onRestart={restart} onExit={exit} />
           ) : solved && guess ? (
@@ -459,9 +500,15 @@ function QuestionScreen({
           <button
             key={o.value}
             onClick={() => onAnswer(o.value)}
-            className="rounded-md border border-[var(--color-granite-line)] bg-[var(--color-card)] px-5 py-4 text-[1.02rem] font-medium text-[var(--color-shadow)] transition-colors hover:border-[var(--color-pine)] hover:text-[var(--color-pine)] active:scale-[0.98]"
+            className="group relative rounded-md border border-[var(--color-granite-line)] bg-[var(--color-card)] px-5 py-4 text-[1.02rem] font-medium text-[var(--color-shadow)] transition-colors hover:border-[var(--color-pine)] hover:text-[var(--color-pine)] active:scale-[0.98]"
           >
             {o.label}
+            <kbd
+              aria-hidden
+              className="label-mono absolute right-3 top-1/2 hidden -translate-y-1/2 rounded-[3px] border border-[var(--color-granite-line)] px-1.5 py-0.5 text-[0.6rem] text-[var(--color-muted)] group-hover:text-[var(--color-pine)] sm:block"
+            >
+              {o.kbd}
+            </kbd>
           </button>
         ))}
       </div>
@@ -508,9 +555,15 @@ function GuessScreen({
         <button onClick={onCorrect} className={`${primaryBtn} flex-1`}>
           <Check size={16} />
           Yes
+          <kbd aria-hidden className="label-mono hidden rounded-[3px] border border-[color-mix(in_oklab,var(--color-on-dark)_45%,transparent)] px-1.5 py-0.5 text-[0.6rem] text-[var(--color-on-dark)]! sm:inline-block">
+            Y
+          </kbd>
         </button>
         <button onClick={onKeepGoing} className={`${secondaryBtn} flex-1`}>
           No, keep going
+          <kbd aria-hidden className="label-mono hidden rounded-[3px] border border-[var(--color-granite-line)] px-1.5 py-0.5 text-[0.6rem] text-[var(--color-muted)] sm:inline-block">
+            N
+          </kbd>
         </button>
       </div>
 
@@ -590,7 +643,15 @@ function LearnScreen({
   );
 }
 
-function LearnedScreen({ profile, onRestart }: { profile: LearnedProfile; onRestart: () => void }) {
+function LearnedScreen({
+  profile,
+  persisted,
+  onRestart,
+}: {
+  profile: LearnedProfile;
+  persisted: boolean;
+  onRestart: () => void;
+}) {
   const features = (profile.hallmark_features ?? []).slice(0, 4);
   return (
     <div className="text-center">
@@ -602,7 +663,9 @@ function LearnedScreen({ profile, onRestart }: { profile: LearnedProfile; onRest
         {profile.name}
       </h2>
       <p className="mx-auto mt-4 max-w-lg text-[0.98rem] leading-relaxed text-[var(--color-muted)]">
-        This medical topic has been added to my knowledge base and I&apos;ll use it in future games.
+        {persisted
+          ? "This medical topic has been added to my knowledge base and I'll use it in future games."
+          : "I'll recognize this topic for a while, but my long-term memory isn't set up yet, so it may fade between visits."}
       </p>
 
       {features.length > 0 && (
