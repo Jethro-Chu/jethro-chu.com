@@ -2,15 +2,17 @@
 
 /* ============================================================
    BOBA RUN CALCULATOR  ·  hidden fun page (route: /boba)
-   How far would you have to run to burn off one boba? Not linked
-   anywhere and noindex'd (see app/boba/page.tsx) — a small treat
-   for anyone who guesses the URL.
+   Tally this week's bobas, and from your body weight it works out how
+   far you'd have to run to burn off the whole week's worth. Not linked
+   anywhere and noindex'd (see app/boba/page.tsx) — a small treat for
+   anyone who guesses the URL.
 
    Aesthetic matches the rest of the site (resume / akinator pages):
    sand wash + route line, hairline rules, monospace labels, pine
    accent, soft radii. All maths run in the browser; no API.
 
-   miles = bobaCalories / (bodyWeightLb * 0.75)
+   totalCalories = bobasThisWeek * caloriesPerBoba
+   miles = totalCalories / (bodyWeightLb * 0.75)
    ============================================================ */
 
 import { useState } from "react";
@@ -36,19 +38,29 @@ function positive(value: string): number | null {
   return Number.isFinite(n) && n > 0 ? n : null;
 }
 
+/** a boba count: a non-negative finite number (0 is a valid, boba-free week) */
+function count(value: string): number | null {
+  const n = parseFloat(value);
+  return Number.isFinite(n) && n >= 0 ? n : null;
+}
+
 export function BobaCalculator() {
   const reduce = useReducedMotion();
+  const [bobas, setBobas] = useState("");
   const [weight, setWeight] = useState("");
   const [calories, setCalories] = useState(String(DEFAULT_BOBA_CALORIES));
 
+  const bobaCount = count(bobas);
   const weightLb = positive(weight);
-  const bobaCalories = positive(calories);
+  const perBoba = positive(calories);
+
+  const totalCalories = bobaCount != null && perBoba != null ? bobaCount * perBoba : null;
 
   // miles rounded to 1 decimal; both the number shown and the line use it so
   // they never disagree (e.g. 3.0 mi reading "light work").
   const miles =
-    weightLb && bobaCalories
-      ? Math.round((bobaCalories / (weightLb * CALORIES_PER_MILE_PER_LB)) * 10) / 10
+    totalCalories != null && weightLb
+      ? Math.round((totalCalories / (weightLb * CALORIES_PER_MILE_PER_LB)) * 10) / 10
       : null;
 
   return (
@@ -84,28 +96,39 @@ export function BobaCalculator() {
               Boba Run Calculator <span aria-hidden>🧋</span>
             </h1>
             <p className="mx-auto mt-3 max-w-sm text-[0.98rem] leading-relaxed text-[var(--color-muted)]">
-              Find out how far you&rsquo;d have to run to earn your milk tea.
+              Count this week&rsquo;s bobas and see how far you&rsquo;d run to burn them off.
             </p>
           </div>
 
-          {/* inputs */}
-          <div className="mt-9 grid grid-cols-1 gap-4 sm:grid-cols-2">
+          {/* inputs — the weekly count is the headline field */}
+          <div className="mt-9 space-y-4">
             <Field
-              id="weight"
-              label="Body weight"
-              unit="lb"
-              value={weight}
-              onChange={setWeight}
-              placeholder="150"
+              id="bobas"
+              label="Bobas this week"
+              unit="bobas"
+              value={bobas}
+              onChange={setBobas}
+              placeholder="3"
+              step="1"
             />
-            <Field
-              id="calories"
-              label="Boba calories"
-              unit="cal"
-              value={calories}
-              onChange={setCalories}
-              placeholder={String(DEFAULT_BOBA_CALORIES)}
-            />
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+              <Field
+                id="weight"
+                label="Body weight"
+                unit="lb"
+                value={weight}
+                onChange={setWeight}
+                placeholder="150"
+              />
+              <Field
+                id="calories"
+                label="Calories per boba"
+                unit="cal"
+                value={calories}
+                onChange={setCalories}
+                placeholder={String(DEFAULT_BOBA_CALORIES)}
+              />
+            </div>
           </div>
 
           {/* result */}
@@ -116,7 +139,7 @@ export function BobaCalculator() {
             <p className="label-mono">Miles to run</p>
             {miles == null ? (
               <p className="mt-3 text-[0.95rem] leading-relaxed text-[var(--color-muted)]">
-                Enter your body weight to see the distance.
+                Add this week&rsquo;s bobas and your body weight to see the distance.
               </p>
             ) : (
               <>
@@ -130,7 +153,10 @@ export function BobaCalculator() {
                   {miles.toFixed(1)}
                   <span className="ml-2 align-baseline text-[1.4rem] font-normal text-[var(--color-muted)]">mi</span>
                 </m.p>
-                <p className="mt-4 text-[0.98rem] leading-relaxed text-[var(--color-pine)]">{runLine(miles)}</p>
+                <p className="label-mono mt-3">
+                  {bobaCount} {bobaCount === 1 ? "boba" : "bobas"} · {totalCalories!.toLocaleString()} cal this week
+                </p>
+                <p className="mt-3 text-[0.98rem] leading-relaxed text-[var(--color-pine)]">{runLine(miles)}</p>
               </>
             )}
           </div>
@@ -161,6 +187,7 @@ function Field({
   value,
   onChange,
   placeholder,
+  step,
 }: {
   id: string;
   label: string;
@@ -168,6 +195,7 @@ function Field({
   value: string;
   onChange: (v: string) => void;
   placeholder?: string;
+  step?: string;
 }) {
   return (
     <div>
@@ -180,7 +208,7 @@ function Field({
           type="number"
           inputMode="decimal"
           min={0}
-          step="any"
+          step={step ?? "any"}
           value={value}
           onChange={(e) => onChange(e.target.value)}
           placeholder={placeholder}
