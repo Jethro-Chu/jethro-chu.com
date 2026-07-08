@@ -202,6 +202,17 @@ export function InteriorRoom() {
       const r = world.getBoundingClientRect();
       target.current = { x: e.clientX - r.left, y: e.clientY - r.top };
     };
+    // wheel / trackpad: OWN the room's vertical scroll so it works even over
+    // Lenis, which preventDefaults the wheel globally while the village is open
+    // (window.__lenis?.stop()). We scroll the container ourselves; the loop then
+    // carries the hiker down the page with it. deltaMode: 0=px, 1=lines, 2=pages.
+    const onWheel = (e: WheelEvent) => {
+      const sc = scrollRef.current;
+      if (!sc || sc.scrollHeight <= sc.clientHeight) return; // nothing to scroll
+      e.preventDefault();
+      const unit = e.deltaMode === 1 ? 16 : e.deltaMode === 2 ? sc.clientHeight : 1;
+      sc.scrollTop += e.deltaY * unit;
+    };
     let last = performance.now();
     const onVisible = () => {
       if (!document.hidden) last = performance.now(); // no dt spike after a hidden stretch
@@ -214,6 +225,7 @@ export function InteriorRoom() {
     window.addEventListener("keydown", onKeyDown);
     window.addEventListener("keyup", onKeyUp);
     scroller.addEventListener("pointerdown", onPointer);
+    scroller.addEventListener("wheel", onWheel, { passive: false });
     document.addEventListener("visibilitychange", onVisible);
 
     // per-run flag + local raf id: StrictMode-safe (run1's cleanup flips its own
@@ -309,6 +321,7 @@ export function InteriorRoom() {
       window.removeEventListener("keydown", onKeyDown);
       window.removeEventListener("keyup", onKeyUp);
       scroller.removeEventListener("pointerdown", onPointer);
+      scroller.removeEventListener("wheel", onWheel);
       document.removeEventListener("visibilitychange", onVisible);
     };
   }, [landmark, close]);
