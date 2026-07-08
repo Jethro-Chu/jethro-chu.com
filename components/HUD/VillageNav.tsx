@@ -32,7 +32,7 @@ export function VillageNav({ onLeave }: { onLeave?: () => void }) {
       aria-label="Village districts"
       className="fixed left-1/2 top-3 z-40 max-w-[96vw] -translate-x-1/2"
     >
-      <ul className="hud-plaque no-scrollbar flex items-stretch gap-0.5 overflow-x-auto p-1">
+      <ul className="hud-plaque flex w-max max-w-[96vw] flex-wrap items-stretch justify-center gap-0.5 p-1">
         {landmarks.map((l) => {
           const on = active === l.id;
           return (
