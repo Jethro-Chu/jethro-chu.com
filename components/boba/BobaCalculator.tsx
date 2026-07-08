@@ -182,7 +182,7 @@ export function BobaCalculator() {
           <div className="bobahp-fields">
             <Field
               id="bobas"
-              label="Bobas this week"
+              label="Boba count this week"
               unit="cups"
               value={bobas}
               onChange={setBobas}
