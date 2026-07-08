@@ -166,12 +166,12 @@ export function BobaCalculator() {
         <Link href="/" className="bobahp-back">
           <span aria-hidden>←</span> {site.name}
         </Link>
-        <span className="bobahp-tag">BOBA//RUN.EXE</span>
+        <span className="bobahp-tag">BOBA.EXE</span>
       </header>
 
       <main id="main" className="bobahp-main">
         <div className="bobahp-panel">
-          <p className="bobahp-kicker">◇ BOBA — RUN CALCULATOR ◇</p>
+          <p className="bobahp-kicker">◇ BOBA CALCULATOR ◇</p>
 
           <div className="bobahp-cup-wrap">
             <Cup fill={fill} pearls={pearls} />
