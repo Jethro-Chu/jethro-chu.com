@@ -108,6 +108,7 @@ export function InteriorRoom() {
   const dir = useRef("down");
   const frame = useRef(0);
   const frameT = useRef(0);
+  const prevScrollTop = useRef(0); // tracks reader-driven scroll between frames
 
   useEffect(
     () =>
@@ -150,6 +151,10 @@ export function InteriorRoom() {
     keys.current = {};
     dir.current = "down";
     frame.current = 0;
+    // centre the camera on the spawn and seed the scroll tracker so the
+    // idle-scroll follow (in the loop) starts from a known position
+    scroller.scrollTop = Math.max(0, SPAWN_Y - scroller.clientHeight / 2);
+    prevScrollTop.current = scroller.scrollTop;
     // paint the hiker at spawn synchronously so it never flashes at (0,0)
     ch.style.transform = `translate(${pos.current.x - CW / 2}px, ${SPAWN_Y - CH / 2}px)`;
     ch.style.backgroundPosition = "0px 0px"; // idle frame (column 0)
@@ -256,6 +261,13 @@ export function InteriorRoom() {
       pos.current.x = Math.max(CW / 2, Math.min(maxX, pos.current.x));
       pos.current.y = Math.max(CH / 2, Math.min(maxY, pos.current.y));
 
+      // idle: let the reader scroll the page (wheel / trackpad) and carry the
+      // hiker DOWN the page with the scroll, so scrolling also navigates.
+      if (!moving) {
+        const scrollDelta = sc.scrollTop - prevScrollTop.current;
+        if (scrollDelta) pos.current.y = Math.max(CH / 2, Math.min(maxY, pos.current.y + scrollDelta));
+      }
+
       if (moving) {
         if (Math.abs(vx) > Math.abs(vy)) dir.current = vx < 0 ? "left" : "right";
         else dir.current = vy < 0 ? "up" : "down";
@@ -274,12 +286,15 @@ export function InteriorRoom() {
       c.style.transform = `translate(${pos.current.x - CW / 2}px, ${pos.current.y - CH / 2}px)${flip}`;
       c.style.backgroundPosition = `${-col * CW}px 0px`;
 
-      sc.scrollTop = pos.current.y - sc.clientHeight / 2;
+      // walking drives the camera; when idle the scroll is the reader's (above)
+      if (moving) sc.scrollTop = pos.current.y - sc.clientHeight / 2;
+      prevScrollTop.current = sc.scrollTop;
 
-      // door proximity (centre-top of the world)
+      // door proximity (centre-top of the world) — only a walk into the door
+      // exits, so scrolling up to re-read the top never boots you out
       const dxd = pos.current.x - w.clientWidth / 2;
       const dyd = pos.current.y - DOOR_Y;
-      if (Math.hypot(dxd, dyd) < 46) {
+      if (moving && Math.hypot(dxd, dyd) < 46) {
         close();
         return;
       }
@@ -596,7 +611,7 @@ export function InteriorRoom() {
         <span className="hud-plaque label-mono block px-3 py-1.5 text-[0.66rem] text-[var(--color-on-dark)]!">
           {touch
             ? "Joystick or tap to walk · reach the door to head back"
-            : "WASD / arrows or tap to walk · reach the door to head back"}
+            : "Scroll, WASD / arrows, or tap to walk · reach the door to head back"}
         </span>
       </div>
 
