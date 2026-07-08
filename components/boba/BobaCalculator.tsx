@@ -177,6 +177,8 @@ export function BobaCalculator() {
             <Cup fill={fill} pearls={pearls} />
           </div>
 
+          <p className="bobahp-sub">How many bobas did you inhale this week?</p>
+
           <div className="bobahp-fields">
             <Field
               id="bobas"
@@ -416,6 +418,8 @@ const CSS = `
 .cup-liquid { fill:rgba(255,46,166,.26); transition:y .55s var(--ease-trail, cubic-bezier(.22,1,.36,1)), height .55s var(--ease-trail, cubic-bezier(.22,1,.36,1)); }
 .cup-liquid-top { fill:rgba(255,46,166,.6); transition:y .55s var(--ease-trail, cubic-bezier(.22,1,.36,1)); }
 .cup-pearl circle:first-child { filter:drop-shadow(0 0 4px rgba(255,196,61,.85)); }
+
+.bobahp-sub { margin:.5rem auto 0; max-width:24rem; font-size:.92rem; line-height:1.55; color:var(--lilac); }
 
 /* inputs */
 .bobahp-fields { margin-top:1.6rem; display:grid; grid-template-columns:1fr 1fr; gap:.9rem; text-align:left; }
