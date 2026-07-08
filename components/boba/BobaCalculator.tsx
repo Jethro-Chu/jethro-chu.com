@@ -177,10 +177,6 @@ export function BobaCalculator() {
             <Cup fill={fill} pearls={pearls} />
           </div>
 
-          <p className="bobahp-sub">
-            How many bobas did you inhale this week? Meet your mileage.
-          </p>
-
           <div className="bobahp-fields">
             <Field
               id="bobas"
@@ -220,7 +216,6 @@ export function BobaCalculator() {
             <p className="bobahp-quip">{miles == null ? " " : quipFor(miles, bobaCount!)}</p>
           </div>
 
-          <p className="bobahp-disc">Just for fun. Food doesn&rsquo;t need to be earned.</p>
         </div>
       </main>
 
@@ -422,8 +417,6 @@ const CSS = `
 .cup-liquid-top { fill:rgba(255,46,166,.6); transition:y .55s var(--ease-trail, cubic-bezier(.22,1,.36,1)); }
 .cup-pearl circle:first-child { filter:drop-shadow(0 0 4px rgba(255,196,61,.85)); }
 
-.bobahp-sub { margin:.5rem auto 0; max-width:24rem; font-size:.92rem; line-height:1.55; color:var(--lilac); }
-
 /* inputs */
 .bobahp-fields { margin-top:1.6rem; display:grid; grid-template-columns:1fr 1fr; gap:.9rem; text-align:left; }
 .bobahp-field label { display:block; margin-bottom:.5rem; font-size:.66rem; letter-spacing:.2em; text-transform:uppercase; color:var(--lilac); }
@@ -463,8 +456,6 @@ const CSS = `
 .bobahp-kicker2 { margin-top:.5rem; font-size:.64rem; letter-spacing:.24em; text-transform:uppercase; color:var(--lilac); }
 .bobahp-quip { margin-top:.9rem; min-height:1.4em; font-family:var(--font-display), serif; font-style:italic;
   font-size:1.08rem; line-height:1.4; color:var(--cyan); text-shadow:0 0 12px rgba(20,240,255,.45); }
-
-.bobahp-disc { margin-top:1.5rem; font-size:.72rem; letter-spacing:.02em; color:rgba(216,204,240,.55); }
 
 /* accessible neon focus ring (overrides the site's pine :focus-visible, invisible here) */
 .bobahp a:focus-visible, .bobahp input:focus-visible, .bobahp button:focus-visible {
