@@ -22,6 +22,7 @@ import { landmarkById, projectsForLandmark, type Landmark } from "@/content/port
 import { Joystick } from "@/components/HUD/Joystick";
 import { useIsTouch } from "@/lib/useIsTouch";
 import { ResumeSheet } from "./ResumeSheet";
+import { ClinicalJourney } from "./ClinicalJourney";
 
 // Player ("Jethro"): a horizontal strip of 5 frames (idle, walk1..walk4),
 // front-facing only — we flip horizontally for left, and reuse the forward
@@ -334,7 +335,11 @@ export function InteriorRoom() {
   // short landmarks (Contact, Overlook) would dangle at the top of a tall empty
   // room — centre their content vertically so the room reads as intentional
   const isShort =
-    !landmark.resumeSheet && projects.length === 0 && !landmark.facts && landmark.body.length <= 2;
+    !landmark.resumeSheet &&
+    !landmark.clinicalJourney &&
+    projects.length === 0 &&
+    !landmark.facts &&
+    landmark.body.length <= 2;
 
   return (
     <div
@@ -419,9 +424,19 @@ export function InteriorRoom() {
                 >
                   {landmark.title}
                 </h2>
-                <p className="label-mono text-[0.66rem]" style={{ color: theme.subInk }}>
-                  {landmark.landmark}
-                </p>
+                {landmark.landmark !== landmark.section && (
+                  <p className="label-mono text-[0.66rem]" style={{ color: theme.subInk }}>
+                    {landmark.landmark}
+                  </p>
+                )}
+                {landmark.subheading && (
+                  <p
+                    className="mt-2 max-w-xl text-[0.9rem] font-medium leading-snug sm:text-[0.98rem]"
+                    style={{ color: theme.subInk }}
+                  >
+                    {landmark.subheading}
+                  </p>
+                )}
               </div>
             </header>
 
@@ -434,18 +449,28 @@ export function InteriorRoom() {
               </p>
             )}
 
-            <div className="mt-6 space-y-5">
-              {landmark.body.map((para, i) => (
-                <p
-                  key={i}
-                  className={`rounded-md border border-[color-mix(in_oklab,var(--color-granite-line)_55%,transparent)] bg-[color-mix(in_oklab,var(--color-card)_96%,transparent)] p-4 leading-relaxed text-[var(--color-shadow)] shadow-md ${
-                    overlook ? "text-center font-display text-[1.02rem]" : "text-[0.95rem]"
-                  }`}
-                >
-                  {para}
-                </p>
-              ))}
-            </div>
+            {landmark.clinicalJourney && (
+              <ClinicalJourney
+                content={landmark.clinicalJourney}
+                links={landmark.links ?? []}
+                idPrefix="room-clinical"
+              />
+            )}
+
+            {landmark.body.length > 0 && (
+              <div className="mt-6 space-y-5">
+                {landmark.body.map((para, i) => (
+                  <p
+                    key={i}
+                    className={`rounded-md border border-[color-mix(in_oklab,var(--color-granite-line)_55%,transparent)] bg-[color-mix(in_oklab,var(--color-card)_96%,transparent)] p-4 leading-relaxed text-[var(--color-shadow)] shadow-md ${
+                      overlook ? "text-center font-display text-[1.02rem]" : "text-[0.95rem]"
+                    }`}
+                  >
+                    {para}
+                  </p>
+                ))}
+              </div>
+            )}
 
             {/* flowsheet-style facts: mono key/value rows (Clinical, Under the hood) */}
             {landmark.facts && (
@@ -537,7 +562,7 @@ export function InteriorRoom() {
 
             {/* Contact: the post office — each way to reach me is a letter */}
             {postOffice && landmark.links && landmark.links.length > 0 ? (
-              <ul className="mt-6 grid gap-3 sm:grid-cols-2">
+              <ul className="mt-6 grid gap-3 sm:grid-cols-2 md:grid-cols-3">
                 {landmark.links.map((l) => (
                   <li key={l.href}>
                     <a
@@ -569,6 +594,7 @@ export function InteriorRoom() {
               </ul>
             ) : (
               !landmark.resumeSheet &&
+              !landmark.clinicalJourney &&
               landmark.links &&
               landmark.links.length > 0 && (
                 <div className={`mt-6 flex flex-wrap gap-2 ${overlook ? "justify-center" : ""}`}>

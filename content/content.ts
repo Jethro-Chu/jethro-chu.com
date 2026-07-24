@@ -166,7 +166,6 @@ export const contact = {
   links: [
     { label: "Email", href: "mailto:jethro.chu@gmail.com" },
     { label: "GitHub", href: "https://github.com/Jethro-Chu" },
-    // LinkedIn intentionally omitted until Jethro provides a real URL
-    // (shipping no link beats shipping a dead "#" one).
+    { label: "LinkedIn", href: "https://www.linkedin.com/in/jethro-chu/" },
   ],
 } as const;

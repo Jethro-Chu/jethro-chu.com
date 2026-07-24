@@ -19,6 +19,13 @@ export interface LandmarkLink {
   href: string;
 }
 
+export interface ClinicalJourneyContent {
+  intro: string;
+  stats: { label: string; value: string }[];
+  sites: { organization: string; experience: string }[];
+  interest: string;
+}
+
 export interface Landmark {
   /** stable id, used by trigger zones + the bridge */
   id: string;
@@ -33,6 +40,8 @@ export interface Landmark {
   map: { x: number; y: number };
   /** panel title */
   title: string;
+  /** optional plain-language line directly below the panel title */
+  subheading?: string;
   /** panel body, one string per paragraph */
   body: string[];
   /** optional outbound links */
@@ -47,6 +56,8 @@ export interface Landmark {
   authoredLine?: string;
   /** when true, the modal renders the full structured resume (ResumeSheet) below the body */
   resumeSheet?: boolean;
+  /** recruiter-focused content used by the clinical journey room */
+  clinicalJourney?: ClinicalJourneyContent;
 }
 
 // Per-room headshot flag: rooms set this to show Jethro's own character as the
@@ -79,27 +90,52 @@ export const landmarks: Landmark[] = [
   },
   {
     id: "chapel",
-    landmark: "The Chapel",
+    landmark: "Clinical Journey",
     section: "Clinical",
-    cta: "Visit Clinical",
+    cta: "View Clinical Journey",
     map: { x: 8, y: 19 },
-    title: "The clinical route",
+    title: "Clinical Experience",
+    subheading: "Building a foundation in cardiac, critical-care, and telemetry nursing",
     faceset: FACE,
-    body: [
-      `${resume.education.degree} at ${resume.education.school}, expected December 2026 (GPA ${resume.education.gpa}, Dean's List).`,
-      "560 hours at the bedside across City of Hope, Children's Hospital Los Angeles, Kaiser Permanente, Huntington Hospital, and the Second Affiliated Hospital of Zhejiang University.",
-      "The through line is telemetry. Reading the trace is reading the patient, and most of what I build carries that habit: watch the signal, catch the change early.",
-    ],
-    facts: [
-      { k: "Hours", v: "560 · five hospital systems" },
-      { k: "Units", v: "PICU · BMT · CV acute · Psych · CVICU · Cardiology · ED" },
-      { k: "Certified", v: "BLS · ACLS" },
-      { k: "Charting", v: "Epic" },
-      { k: "Focus", v: "Telemetry, cardiac + CVICU" },
-    ],
+    body: [],
+    clinicalJourney: {
+      intro:
+        "I am completing my Bachelor of Science in Nursing at Azusa Pacific University and expect to graduate in December 2026. Through more than 560 clinical hours across healthcare institutions in California and China, I have cared for patients in cardiac, critical-care, pediatric, psychiatric, emergency, and medical-surgical settings.",
+      stats: [
+        { label: "Education", value: "BSN, December 2026" },
+        { label: "Experience", value: "560+ clinical hours" },
+        { label: "Certifications", value: "BLS and ACLS" },
+        {
+          label: "Clinical interests",
+          value: "Cardiac, telemetry, and critical care",
+        },
+      ],
+      sites: [
+        { organization: "City of Hope", experience: "Bone Marrow Transplant" },
+        {
+          organization: "Children's Hospital Los Angeles",
+          experience: "Pediatric Intensive Care",
+        },
+        { organization: "Kaiser Permanente", experience: "Clinical rotation" },
+        {
+          organization: "Huntington Hospital",
+          experience: "Medical-surgical, telemetry, GI, and cardiac care",
+        },
+        {
+          organization: "Emanate Health",
+          experience: "DOU and medical-surgical nursing",
+        },
+        {
+          organization: "Second Affiliated Hospital of Zhejiang University",
+          experience: "Emergency, cardiology, cardiac surgery, and orthopedics",
+        },
+      ],
+      interest:
+        "I am especially drawn to cardiac and critical-care nursing, where careful assessment, telemetry interpretation, and early recognition of clinical changes can directly improve patient outcomes.",
+    },
     links: [
-      { label: "Full resume", href: resume.pdf },
-      { label: "Play Medical Akinator", href: "/medical-akinator" },
+      { label: "View Résumé", href: resume.pdf },
+      { label: "Explore Medical Akinator", href: "/medical-akinator" },
     ],
   },
   {
@@ -148,7 +184,7 @@ export const landmarks: Landmark[] = [
     links: [
       { label: "Email", href: "mailto:jethro.chu@gmail.com" },
       { label: "GitHub", href: "https://github.com/Jethro-Chu" },
-      // LinkedIn intentionally omitted until a real URL exists (no dead links).
+      { label: "LinkedIn", href: "https://www.linkedin.com/in/jethro-chu/" },
     ],
   },
   {
@@ -177,7 +213,6 @@ export const landmarks: Landmark[] = [
       "JETHRO: the dual-identity statement. The one or two lines that say who you are as a nurse and a builder, taking in the view.",
     body: [
       "BSN expected December 2026. Building live software now.",
-      "What I'm building toward: healthcare software that respects the people using it. The best tools I've touched at the bedside disappeared into the work; the worst ones made a hard shift harder. I want to build the first kind.",
     ],
     links: [
       { label: "Download resume", href: resume.pdf },

@@ -6,6 +6,7 @@
    ============================================================ */
 
 import { landmarks, projectsForLandmark, status } from "@/content/portfolio";
+import { ClinicalJourney } from "./ClinicalJourney";
 
 export function FlatValley() {
   return (
@@ -36,6 +37,11 @@ export function FlatValley() {
               <h2 id={`${l.id}-h`} className="text-ridge mt-3 text-[var(--color-shadow)]">
                 {l.title}
               </h2>
+              {l.subheading && (
+                <p className="mt-3 max-w-xl font-display text-[1.08rem] leading-snug text-[var(--color-muted)] sm:text-[1.18rem]">
+                  {l.subheading}
+                </p>
+              )}
 
               {l.authoredLine && (
                 <p className="mt-3 rounded-sm border border-dashed border-[var(--color-golden)] bg-[color-mix(in_oklab,var(--color-golden)_8%,transparent)] p-3 text-[0.85rem] italic text-[var(--color-muted)]">
@@ -44,13 +50,24 @@ export function FlatValley() {
                 </p>
               )}
 
-              <div className="mt-3 space-y-3">
-                {l.body.map((para, i) => (
-                  <p key={i} className="max-w-prose leading-relaxed text-[var(--color-shadow)]">
-                    {para}
-                  </p>
-                ))}
-              </div>
+              {l.clinicalJourney && (
+                <ClinicalJourney
+                  content={l.clinicalJourney}
+                  links={l.links ?? []}
+                  idPrefix="flat-clinical"
+                  variant="flat"
+                />
+              )}
+
+              {l.body.length > 0 && (
+                <div className="mt-3 space-y-3">
+                  {l.body.map((para, i) => (
+                    <p key={i} className="max-w-prose leading-relaxed text-[var(--color-shadow)]">
+                      {para}
+                    </p>
+                  ))}
+                </div>
+              )}
 
               {projects.length > 0 && (
                 <ul className="mt-5 space-y-4">
@@ -79,7 +96,7 @@ export function FlatValley() {
                 </ul>
               )}
 
-              {l.links && l.links.length > 0 && (
+              {!l.clinicalJourney && l.links && l.links.length > 0 && (
                 <div className="mt-4 flex flex-wrap gap-2">
                   {l.links.map((link) => (
                     <a
