@@ -533,18 +533,9 @@
   animation: result-in 500ms var(--ease-trail) 760ms both;
 }
 
-.resultStats strong,
-.percentile strong {
+.resultStats strong {
   color: var(--iq-ink);
   font-weight: 500;
-}
-
-.percentile {
-  margin: 0.7rem 0 0;
-  font-family: var(--font-mono);
-  font-size: 0.78rem;
-  color: var(--iq-muted);
-  animation: result-in 500ms var(--ease-trail) 820ms both;
 }
 
 .performanceMessage {
@@ -1141,7 +1132,6 @@
   .resultKicker,
   .performanceLabel,
   .resultStats,
-  .percentile,
   .performanceMessage,
   .perfectHero::before,
   .perfectHero::after {

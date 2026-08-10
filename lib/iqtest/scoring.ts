@@ -8,97 +8,81 @@ export const difficultyWeights = {
   5: 2.5,
 } as const;
 
-const scoreAnchors = [
-  [0.35, 70],
-  [0.45, 80],
-  [0.55, 90],
-  [0.65, 100],
-  [0.72, 109],
-  [0.8, 118],
-  [0.86, 123],
-  [0.92, 126],
-  [0.96, 130],
-  [1, 134],
+export interface ScoreBand {
+  upperBound: number;
+  minimum: number;
+  maximum: number;
+}
+
+export const scoreBands: readonly ScoreBand[] = [
+  { upperBound: 0.1, minimum: 32, maximum: 39 },
+  { upperBound: 0.2, minimum: 40, maximum: 49 },
+  { upperBound: 0.3, minimum: 50, maximum: 59 },
+  { upperBound: 0.4, minimum: 60, maximum: 69 },
+  { upperBound: 0.48, minimum: 70, maximum: 79 },
+  { upperBound: 0.56, minimum: 80, maximum: 89 },
+  { upperBound: 0.64, minimum: 90, maximum: 99 },
+  { upperBound: 0.7, minimum: 100, maximum: 105 },
+  { upperBound: 0.76, minimum: 106, maximum: 110 },
+  { upperBound: 0.82, minimum: 111, maximum: 115 },
+  { upperBound: 0.87, minimum: 116, maximum: 119 },
+  { upperBound: 0.92, minimum: 120, maximum: 122 },
+  { upperBound: 0.96, minimum: 123, maximum: 125 },
+  { upperBound: 1, minimum: 126, maximum: 128 },
 ] as const;
 
 export interface ScoredAttempt {
   correctCount: number;
-  weightedAccuracy: number;
+  weightedPerformance: number;
   weightedPointsEarned: number;
   totalWeightedPoints: number;
   iqScore: number;
-  percentile: number;
   categoryAccuracy: Record<QuestionCategory, number>;
   strongestCategory: QuestionCategory;
   mostChallengingCategory: QuestionCategory;
   missed: IQQuestion[];
 }
 
-export function iqScoreFromAccuracy(accuracy: number) {
-  if (accuracy <= scoreAnchors[0][0]) return 70;
+export function iqScoreFromPerformance(
+  performance: number,
+  randomSource: () => number = Math.random,
+) {
+  const normalizedPerformance = Number.isFinite(performance)
+    ? Math.max(0, Math.min(1, performance))
+    : 0;
+  if (normalizedPerformance === 1) return 129;
 
-  for (let index = 1; index < scoreAnchors.length; index += 1) {
-    const [rightAccuracy, rightScore] = scoreAnchors[index];
-    const [leftAccuracy, leftScore] = scoreAnchors[index - 1];
-    if (accuracy <= rightAccuracy) {
-      const position =
-        (accuracy - leftAccuracy) / (rightAccuracy - leftAccuracy);
-      return Math.round(leftScore + position * (rightScore - leftScore));
-    }
-  }
-
-  return 134;
-}
-
-function erf(value: number) {
-  const sign = value < 0 ? -1 : 1;
-  const x = Math.abs(value);
-  const a1 = 0.254829592;
-  const a2 = -0.284496736;
-  const a3 = 1.421413741;
-  const a4 = -1.453152027;
-  const a5 = 1.061405429;
-  const p = 0.3275911;
-  const t = 1 / (1 + p * x);
-  const y =
-    1 -
-    (((((a5 * t + a4) * t + a3) * t + a2) * t + a1) * t) *
-      Math.exp(-x * x);
-  return sign * y;
-}
-
-export function approximatePercentile(score: number) {
-  const z = (score - 100) / 15;
-  const percentile = 50 * (1 + erf(z / Math.sqrt(2)));
-  return Math.max(1, Math.min(99, Math.round(percentile)));
+  const band =
+    scoreBands.find(
+      ({ upperBound }) => normalizedPerformance < upperBound,
+    ) ?? scoreBands[scoreBands.length - 1];
+  const randomValue = Math.max(
+    0,
+    Math.min(1 - Number.EPSILON, randomSource()),
+  );
+  return (
+    band.minimum +
+    Math.floor(randomValue * (band.maximum - band.minimum + 1))
+  );
 }
 
 export function performanceLabel(score: number) {
-  if (score < 90) return "Developing";
-  if (score < 100) return "Solid";
-  if (score < 110) return "Above Average";
-  if (score < 120) return "Strong";
-  if (score < 130) return "Very Strong";
-  if (score < 138) return "Exceptional";
-  return "Extraordinary";
-}
-
-export function performanceMessage(correctCount: number, score: number) {
-  if (correctCount === 25) return "Okay, you win.";
-  if (correctCount >= 24)
-    return "Either you are frighteningly good at this, or the no-Googling rule meant nothing to you.";
-  if (score >= 130) return "Okay. That was actually impressive.";
-  if (score >= 120)
-    return "You should probably stop taking internet IQ tests while you are ahead.";
-  if (score >= 110) return "Suspiciously competent.";
-  if (score >= 90)
-    return "Your brain appears to be functioning within acceptable parameters.";
-  return "Probability may have won this round.";
+  if (score <= 49) return "Statistically concerning.";
+  if (score <= 69) return "The comeback starts now.";
+  if (score <= 84) return "Probability was not your friend.";
+  if (score <= 94) return "Respectable survival.";
+  if (score <= 104) return "Brain operating normally.";
+  if (score <= 114) return "Suspiciously competent.";
+  if (score <= 119) return "Very strong.";
+  if (score <= 124) return "Okay, you're actually good at this.";
+  if (score <= 128) return "Ridiculous.";
+  return "Perfect.";
 }
 
 export function scoreAttempt(
   questions: IQQuestion[],
   answers: Record<number, string>,
+  randomSource: () => number = Math.random,
 ): ScoredAttempt {
   const categories: QuestionCategory[] = [
     "probability",
@@ -130,8 +114,8 @@ export function scoreAttempt(
     }
   }
 
-  const weightedAccuracy = weightedPointsEarned / totalWeightedPoints;
-  const iqScore = iqScoreFromAccuracy(weightedAccuracy);
+  const weightedPerformance = weightedPointsEarned / totalWeightedPoints;
+  const iqScore = iqScoreFromPerformance(weightedPerformance, randomSource);
   const categoryAccuracy = Object.fromEntries(
     categories.map((category) => [
       category,
@@ -144,11 +128,10 @@ export function scoreAttempt(
 
   return {
     correctCount,
-    weightedAccuracy,
+    weightedPerformance,
     weightedPointsEarned,
     totalWeightedPoints,
     iqScore,
-    percentile: approximatePercentile(iqScore),
     categoryAccuracy,
     strongestCategory: rankedCategories[0],
     mostChallengingCategory: rankedCategories.at(-1) ?? rankedCategories[0],

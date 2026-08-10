@@ -10,7 +10,6 @@ import {
 } from "@/lib/iqtest/questions";
 import {
   performanceLabel,
-  performanceMessage,
   scoreAttempt,
   type ScoredAttempt,
 } from "@/lib/iqtest/scoring";
@@ -31,8 +30,16 @@ interface SavedAttempt {
   score: number;
   correctCount: number;
   completionSeconds: number;
-  weightedAccuracy: number;
+  weightedPerformance: number;
   questionResults: Array<{ id: number; correct: boolean }>;
+}
+
+interface PersistedCompletedAttempt {
+  version: 2;
+  attempt: AttemptQuestion[];
+  answers: AnswerMap;
+  completionSeconds: number;
+  result: ScoredAttempt;
 }
 
 const ORDER_GROUPS = [
@@ -52,8 +59,9 @@ const CATEGORY_ORDER: QuestionCategory[] = [
 ];
 
 const OPTION_LETTERS = ["A", "B", "C", "D"];
-const STORAGE_BEST = "jethro-iq-best-v1";
-const STORAGE_HISTORY = "jethro-iq-history-v1";
+const STORAGE_BEST = "jethro-iq-best-v2";
+const STORAGE_HISTORY = "jethro-iq-history-v2";
+const SESSION_COMPLETED = "jethro-iq-completed-v2";
 
 function shuffled<T>(items: readonly T[]) {
   const copy = [...items];
@@ -80,15 +88,6 @@ function formatTime(seconds: number) {
   return `${minutes}:${remainder.toString().padStart(2, "0")}`;
 }
 
-function ordinal(value: number) {
-  const mod100 = value % 100;
-  if (mod100 >= 11 && mod100 <= 13) return `${value}th`;
-  if (value % 10 === 1) return `${value}st`;
-  if (value % 10 === 2) return `${value}nd`;
-  if (value % 10 === 3) return `${value}rd`;
-  return `${value}th`;
-}
-
 function saveAttempt(
   result: ScoredAttempt,
   answers: AnswerMap,
@@ -102,7 +101,7 @@ function saveAttempt(
       score: result.iqScore,
       correctCount: result.correctCount,
       completionSeconds,
-      weightedAccuracy: result.weightedAccuracy,
+      weightedPerformance: result.weightedPerformance,
       questionResults: iqQuestions.map((question) => ({
         id: question.id,
         correct: answers[question.id] === question.correctAnswer,
@@ -114,6 +113,14 @@ function saveAttempt(
     );
   } catch {
     // Storage can be disabled. The test remains fully functional without it.
+  }
+}
+
+function persistCompletedAttempt(completed: PersistedCompletedAttempt) {
+  try {
+    window.sessionStorage.setItem(SESSION_COMPLETED, JSON.stringify(completed));
+  } catch {
+    // Session persistence is optional.
   }
 }
 
@@ -132,12 +139,32 @@ export function IQTest() {
   const [reviewFilter, setReviewFilter] = useState<ReviewFilter>("all");
   const [copyStatus, setCopyStatus] = useState<string | null>(null);
   const startedAt = useRef<number | null>(null);
+  const submissionLocked = useRef(false);
   const warningCancelButton = useRef<HTMLButtonElement | null>(null);
 
   useEffect(() => {
     try {
       const stored = window.localStorage.getItem(STORAGE_BEST);
       if (stored) setBestScore(Number(stored));
+      const completed = window.sessionStorage.getItem(SESSION_COMPLETED);
+      if (completed) {
+        const parsed = JSON.parse(completed) as PersistedCompletedAttempt;
+        if (
+          parsed.version === 2 &&
+          parsed.attempt?.length === iqQuestions.length &&
+          parsed.answers &&
+          typeof parsed.answers === "object" &&
+          Number.isFinite(parsed.completionSeconds) &&
+          parsed.result?.iqScore >= 32 &&
+          parsed.result.iqScore <= 129
+        ) {
+          setAttempt(parsed.attempt);
+          setAnswers(parsed.answers);
+          setCompletionSeconds(parsed.completionSeconds);
+          setResult(parsed.result);
+          setPhase("results");
+        }
+      }
     } catch {
       // Local persistence is optional.
     }
@@ -170,6 +197,12 @@ export function IQTest() {
       setReviewOpen(false);
       setReviewFilter("all");
       setCopyStatus(null);
+      submissionLocked.current = false;
+      try {
+        window.sessionStorage.removeItem(SESSION_COMPLETED);
+      } catch {
+        // Session persistence is optional.
+      }
       startedAt.current = Date.now();
       setPhase("test");
       trackIQEvent(isRetake ? "iq_test_retake" : "iq_test_started", {
@@ -203,6 +236,8 @@ export function IQTest() {
   );
 
   const finishAttempt = useCallback(() => {
+    if (submissionLocked.current) return;
+    submissionLocked.current = true;
     const finalSeconds = startedAt.current
       ? Math.floor((Date.now() - startedAt.current) / 1000)
       : elapsedSeconds;
@@ -213,6 +248,13 @@ export function IQTest() {
     setShowSubmitWarning(false);
     startedAt.current = null;
     saveAttempt(scored, answers, finalSeconds);
+    persistCompletedAttempt({
+      version: 2,
+      attempt,
+      answers,
+      completionSeconds: finalSeconds,
+      result: scored,
+    });
 
     const nextBest = Math.max(bestScore ?? 0, scored.iqScore);
     setBestScore(nextBest);
@@ -225,7 +267,7 @@ export function IQTest() {
     trackIQEvent("iq_test_completed", {
       total_score: scored.iqScore,
       correct_count: scored.correctCount,
-      weighted_accuracy: Number(scored.weightedAccuracy.toFixed(4)),
+      weighted_performance: Number(scored.weightedPerformance.toFixed(4)),
       completion_time: finalSeconds,
       probability_accuracy: Number(scored.categoryAccuracy.probability.toFixed(4)),
       logic_accuracy: Number(scored.categoryAccuracy.logic.toFixed(4)),
@@ -234,7 +276,7 @@ export function IQTest() {
       spatial_accuracy: Number(scored.categoryAccuracy.spatial.toFixed(4)),
     });
     window.scrollTo({ top: 0, behavior: "instant" });
-  }, [answers, bestScore, elapsedSeconds]);
+  }, [answers, attempt, bestScore, elapsedSeconds]);
 
   const requestSubmit = useCallback(() => {
     const unansweredCount = iqQuestions.length - Object.keys(answers).length;
@@ -286,7 +328,7 @@ export function IQTest() {
 
   const shareChallenge = useCallback(() => {
     if (!result) return;
-    const text = `I got a ${result.iqScore} on the Jethro IQ Test. Beat me: jethrochu.com/iqtest`;
+    const text = `I got an IQ score of ${result.iqScore} on the Jethro IQ Test. Beat me: jethrochu.com/iqtest`;
     void copyText(text, "Challenge copied.");
     trackIQEvent("iq_test_shared", { method: "challenge", score: result.iqScore });
   }, [copyText, result]);
@@ -363,7 +405,7 @@ export function IQTest() {
                 </span>
               </label>
               {bestScore !== null && (
-                <p className={styles.previousBest}>Previous best: {bestScore}</p>
+                <p className={styles.previousBest}>Previous best IQ score: {bestScore}</p>
               )}
               <button
                 type="button"
@@ -467,18 +509,17 @@ export function IQTest() {
             <h1 id="result-title" className={styles.scoreNumber}>{result.iqScore}</h1>
             <p className={styles.performanceLabel}>{performanceLabel(result.iqScore)}</p>
             <div className={styles.resultStats}>
-              <span><strong>{result.correctCount} / 25</strong> correct</span>
+              <span><strong>Questions Correct: {result.correctCount} / 25</strong></span>
               <span>Completed in <strong>{formatTime(completionSeconds)}</strong></span>
               <span>Average <strong>{formatTime(Math.round(completionSeconds / 25))}</strong> per question</span>
             </div>
-            <p className={styles.percentile}>
-              Approximate IQ-style percentile: <strong>{ordinal(result.percentile)}</strong>
-            </p>
-            <p className={styles.performanceMessage}>{performanceMessage(result.correctCount, result.iqScore)}</p>
             {result.correctCount === 25 && (
-              <p className={styles.perfectNote}>
-                I specifically made this difficult so this would not happen.
-              </p>
+              <>
+                <p className={styles.performanceMessage}>Okay. You win.</p>
+                <p className={styles.perfectNote}>
+                  I specifically designed this test so this wouldn't happen.
+                </p>
+              </>
             )}
           </header>
 
@@ -492,7 +533,7 @@ export function IQTest() {
                 <p className={styles.sectionLabel}>Performance profile</p>
                 <h2 id="breakdown-title">Category breakdown</h2>
               </div>
-              {bestScore !== null && <p className={styles.bestResult}>Personal best: {bestScore}</p>}
+              {bestScore !== null && <p className={styles.bestResult}>Personal best IQ score: {bestScore}</p>}
             </div>
             <div className={styles.categoryBars}>
               {CATEGORY_ORDER.map((category) => {
@@ -539,7 +580,7 @@ export function IQTest() {
             <div>
               <p className={styles.sectionLabel}>Pass it on</p>
               <h2 id="share-title">Challenge a Friend</h2>
-              <p>Think someone can beat {result.iqScore}? Send them the hidden route.</p>
+              <p>Think someone can beat an IQ score of {result.iqScore}? Send them the hidden route.</p>
             </div>
             <div className={styles.shareButtons}>
               <button type="button" className={styles.primaryButton} onClick={shareChallenge}>Challenge a Friend</button>
