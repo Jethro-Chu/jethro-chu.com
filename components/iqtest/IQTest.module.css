@@ -286,12 +286,6 @@
   transform: none;
 }
 
-.startNote {
-  margin: 2rem 0 0;
-  font-size: 0.78rem;
-  color: var(--iq-muted);
-}
-
 .testScreen {
   display: flex;
   min-height: 100svh;

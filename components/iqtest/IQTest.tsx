@@ -499,9 +499,6 @@ export function IQTest() {
             </div>
           </div>
 
-          <p className={styles.startNote}>
-            No account. No email. Completed results contribute anonymously to participant comparisons.
-          </p>
         </section>
       )}
 
