@@ -14,11 +14,13 @@ const KV_TOKEN =
   process.env.UPSTASH_REDIS_REST_TOKEN ??
   "";
 
-const ATTEMPTS_KEY = "iqtest:v1:attempts";
-const META_KEY = "iqtest:v1:meta";
-const SCORE_COUNTS_KEY = "iqtest:v1:score-counts";
-const QUESTION_TOTALS_KEY = "iqtest:v1:question-totals";
-const QUESTION_CORRECT_KEY = "iqtest:v1:question-correct";
+// The shared hash tag keeps every key in the same Redis cluster slot, which
+// lets the idempotent EVAL transaction update all aggregates atomically.
+const ATTEMPTS_KEY = "{iqtest}:v1:attempts";
+const META_KEY = "{iqtest}:v1:meta";
+const SCORE_COUNTS_KEY = "{iqtest}:v1:score-counts";
+const QUESTION_TOTALS_KEY = "{iqtest}:v1:question-totals";
+const QUESTION_CORRECT_KEY = "{iqtest}:v1:question-correct";
 
 const SCORE_RANGES = [
   [32, 49],
