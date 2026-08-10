@@ -570,6 +570,7 @@
   color: var(--iq-muted);
 }
 
+.comparison,
 .breakdown,
 .hardestSection,
 .shareSection,
@@ -594,6 +595,134 @@
   font-size: clamp(1.8rem, 4vw, 3rem);
   font-weight: 540;
   line-height: 1.05;
+}
+
+.comparisonStatus {
+  margin: 1.5rem 0 0;
+  padding: 1.2rem 1.25rem;
+  border: 1px solid var(--iq-line);
+  background: var(--iq-surface);
+  color: var(--iq-muted);
+  font-size: 0.88rem;
+}
+
+.comparisonSummary {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1px;
+  margin-top: 1.5rem;
+  border: 1px solid var(--iq-line);
+  background: var(--iq-line);
+}
+
+.comparisonSummary p {
+  display: flex;
+  min-height: 6.4rem;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 0.7rem;
+  margin: 0;
+  padding: 1rem 1.15rem;
+  background: var(--iq-surface);
+}
+
+.comparisonSummary span {
+  font-family: var(--font-mono);
+  font-size: 0.64rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--iq-muted);
+}
+
+.comparisonSummary strong {
+  font-family: var(--font-mono);
+  font-size: clamp(1.4rem, 3vw, 2rem);
+  font-weight: 500;
+  line-height: 1.1;
+  color: var(--iq-ink);
+}
+
+.comparisonSummary .comparisonPhrase {
+  font-family: var(--font-display);
+  font-size: clamp(1.05rem, 2.4vw, 1.4rem);
+  color: var(--iq-accent-deep);
+}
+
+.distributionFigure {
+  margin: 1.5rem 0 0;
+  padding: clamp(1rem, 3vw, 1.5rem);
+  border: 1px solid var(--iq-line);
+  background: var(--iq-surface);
+}
+
+.distributionChart {
+  display: grid;
+  height: 18rem;
+  grid-template-columns: repeat(9, minmax(0, 1fr));
+  gap: clamp(0.3rem, 1.2vw, 0.9rem);
+  align-items: stretch;
+}
+
+.distributionColumn {
+  display: grid;
+  min-width: 0;
+  grid-template-rows: 1.25rem minmax(0, 1fr) 1.25rem 1.15rem;
+  gap: 0.3rem;
+  text-align: center;
+}
+
+.barValue,
+.binLabel,
+.youMarker {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  font-variant-numeric: tabular-nums;
+  color: var(--iq-muted);
+}
+
+.barWell {
+  display: flex;
+  min-height: 0;
+  align-items: flex-end;
+  border-bottom: 1px solid var(--iq-line);
+  background: color-mix(in oklab, var(--iq-line) 18%, transparent);
+}
+
+.barWell span {
+  display: block;
+  width: 100%;
+  background: var(--iq-line);
+  transition: height 500ms var(--ease-trail), background-color 160ms var(--ease-fast);
+}
+
+.distributionColumnActive .barWell {
+  border-bottom-color: var(--iq-accent);
+}
+
+.distributionColumnActive .barWell span {
+  background: var(--iq-accent);
+}
+
+.distributionColumnActive .binLabel,
+.distributionColumnActive .youMarker {
+  color: var(--iq-accent-deep);
+  font-weight: 600;
+}
+
+.youMarker {
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.distributionFigure figcaption,
+.earlySampleNote {
+  margin: 1rem 0 0;
+  font-size: 0.73rem;
+  color: var(--iq-muted);
+}
+
+.earlySampleNote {
+  font-family: var(--font-mono);
 }
 
 .bestResult {
@@ -1105,8 +1234,25 @@
   }
 
   .hardestLinks,
-  .areaSummary {
+  .areaSummary,
+  .comparisonSummary {
     grid-template-columns: 1fr;
+  }
+
+  .comparisonSummary p {
+    min-height: 0;
+  }
+
+  .distributionChart {
+    height: 14rem;
+    gap: 0.2rem;
+  }
+
+  .barValue,
+  .binLabel,
+  .youMarker {
+    font-size: 0.52rem;
+    letter-spacing: -0.03em;
   }
 
   .shareButtons {
@@ -1134,7 +1280,9 @@
   .resultStats,
   .performanceMessage,
   .perfectHero::before,
-  .perfectHero::after {
+  .perfectHero::after,
+  .barWell span {
     animation: none;
+    transition: none;
   }
 }

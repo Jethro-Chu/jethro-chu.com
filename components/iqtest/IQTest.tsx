@@ -14,6 +14,11 @@ import {
   type ScoredAttempt,
 } from "@/lib/iqtest/scoring";
 import { trackIQEvent } from "@/lib/iqtest/analytics";
+import type {
+  IQResultResponse,
+  ParticipantComparison as ParticipantComparisonData,
+} from "@/lib/iqtest/results";
+import { ParticipantComparison } from "./ParticipantComparison";
 import { QuestionDiagram } from "./QuestionDiagram";
 import styles from "./IQTest.module.css";
 
@@ -35,11 +40,13 @@ interface SavedAttempt {
 }
 
 interface PersistedCompletedAttempt {
-  version: 2;
+  version: 2 | 3;
+  attemptId?: string;
   attempt: AttemptQuestion[];
   answers: AnswerMap;
   completionSeconds: number;
   result: ScoredAttempt;
+  comparison?: ParticipantComparisonData;
 }
 
 const ORDER_GROUPS = [
@@ -133,6 +140,11 @@ export function IQTest() {
   const [elapsedSeconds, setElapsedSeconds] = useState(0);
   const [completionSeconds, setCompletionSeconds] = useState(0);
   const [result, setResult] = useState<ScoredAttempt | null>(null);
+  const [attemptId, setAttemptId] = useState("");
+  const [comparison, setComparison] = useState<ParticipantComparisonData | null>(null);
+  const [comparisonStatus, setComparisonStatus] = useState<
+    "idle" | "loading" | "ready" | "unavailable"
+  >("idle");
   const [bestScore, setBestScore] = useState<number | null>(null);
   const [showSubmitWarning, setShowSubmitWarning] = useState(false);
   const [reviewOpen, setReviewOpen] = useState(false);
@@ -150,7 +162,7 @@ export function IQTest() {
       if (completed) {
         const parsed = JSON.parse(completed) as PersistedCompletedAttempt;
         if (
-          parsed.version === 2 &&
+          (parsed.version === 2 || parsed.version === 3) &&
           parsed.attempt?.length === iqQuestions.length &&
           parsed.answers &&
           typeof parsed.answers === "object" &&
@@ -162,6 +174,9 @@ export function IQTest() {
           setAnswers(parsed.answers);
           setCompletionSeconds(parsed.completionSeconds);
           setResult(parsed.result);
+          setAttemptId(parsed.attemptId ?? window.crypto.randomUUID());
+          setComparison(parsed.comparison ?? null);
+          setComparisonStatus(parsed.comparison ? "ready" : "idle");
           setPhase("results");
         }
       }
@@ -194,6 +209,9 @@ export function IQTest() {
       setElapsedSeconds(0);
       setCompletionSeconds(0);
       setResult(null);
+      setAttemptId(window.crypto.randomUUID());
+      setComparison(null);
+      setComparisonStatus("idle");
       setReviewOpen(false);
       setReviewFilter("all");
       setCopyStatus(null);
@@ -242,6 +260,8 @@ export function IQTest() {
       ? Math.floor((Date.now() - startedAt.current) / 1000)
       : elapsedSeconds;
     const scored = scoreAttempt(iqQuestions, answers);
+    const completedAttemptId = attemptId || window.crypto.randomUUID();
+    if (!attemptId) setAttemptId(completedAttemptId);
     setCompletionSeconds(finalSeconds);
     setResult(scored);
     setPhase("results");
@@ -249,7 +269,8 @@ export function IQTest() {
     startedAt.current = null;
     saveAttempt(scored, answers, finalSeconds);
     persistCompletedAttempt({
-      version: 2,
+      version: 3,
+      attemptId: completedAttemptId,
       attempt,
       answers,
       completionSeconds: finalSeconds,
@@ -276,7 +297,68 @@ export function IQTest() {
       spatial_accuracy: Number(scored.categoryAccuracy.spatial.toFixed(4)),
     });
     window.scrollTo({ top: 0, behavior: "instant" });
-  }, [answers, attempt, bestScore, elapsedSeconds]);
+  }, [answers, attempt, attemptId, bestScore, elapsedSeconds]);
+
+  useEffect(() => {
+    if (
+      phase !== "results" ||
+      !result ||
+      !attemptId ||
+      comparisonStatus !== "idle"
+    ) {
+      return;
+    }
+
+    const controller = new AbortController();
+    setComparisonStatus("loading");
+
+    void fetch("/api/iqtest/results", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        attemptId,
+        iqScore: result.iqScore,
+        answers,
+        completionSeconds,
+      }),
+      signal: controller.signal,
+    })
+      .then(async (response) => {
+        if (!response.ok) throw new Error(`Result submission failed: ${response.status}`);
+        return (await response.json()) as IQResultResponse;
+      })
+      .then((response) => {
+        const verifiedResult =
+          response.iqScore === result.iqScore
+            ? result
+            : { ...result, iqScore: response.iqScore };
+        setResult(verifiedResult);
+        setComparison(response.comparison);
+        setComparisonStatus("ready");
+        persistCompletedAttempt({
+          version: 3,
+          attemptId,
+          attempt,
+          answers,
+          completionSeconds,
+          result: verifiedResult,
+          comparison: response.comparison,
+        });
+      })
+      .catch((error: unknown) => {
+        if (error instanceof DOMException && error.name === "AbortError") return;
+        setComparisonStatus("unavailable");
+      });
+
+    return () => controller.abort();
+  }, [
+    answers,
+    attempt,
+    attemptId,
+    completionSeconds,
+    phase,
+    result,
+  ]);
 
   const requestSubmit = useCallback(() => {
     const unansweredCount = iqQuestions.length - Object.keys(answers).length;
@@ -418,7 +500,7 @@ export function IQTest() {
           </div>
 
           <p className={styles.startNote}>
-            No account. No email. Your latest attempts stay in this browser.
+            No account. No email. Completed results contribute anonymously to participant comparisons.
           </p>
         </section>
       )}
@@ -526,6 +608,12 @@ export function IQTest() {
           <p className={styles.disclaimer}>
             This is an entertainment estimate and not a standardized psychological measurement.
           </p>
+
+          <ParticipantComparison
+            comparison={comparison}
+            score={result.iqScore}
+            status={comparisonStatus}
+          />
 
           <section className={styles.breakdown} aria-labelledby="breakdown-title">
             <div className={styles.sectionHeading}>

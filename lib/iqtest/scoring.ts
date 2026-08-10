@@ -31,6 +31,24 @@ export const scoreBands: readonly ScoreBand[] = [
   { upperBound: 1, minimum: 126, maximum: 128 },
 ] as const;
 
+function normalizePerformance(performance: number) {
+  return Number.isFinite(performance)
+    ? Math.max(0, Math.min(1, performance))
+    : 0;
+}
+
+export function scoreBandForPerformance(performance: number): ScoreBand {
+  const normalizedPerformance = normalizePerformance(performance);
+  if (normalizedPerformance === 1) {
+    return { upperBound: 1, minimum: 129, maximum: 129 };
+  }
+
+  return (
+    scoreBands.find(({ upperBound }) => normalizedPerformance < upperBound) ??
+    scoreBands[scoreBands.length - 1]
+  );
+}
+
 export interface ScoredAttempt {
   correctCount: number;
   weightedPerformance: number;
@@ -47,15 +65,8 @@ export function iqScoreFromPerformance(
   performance: number,
   randomSource: () => number = Math.random,
 ) {
-  const normalizedPerformance = Number.isFinite(performance)
-    ? Math.max(0, Math.min(1, performance))
-    : 0;
-  if (normalizedPerformance === 1) return 129;
-
-  const band =
-    scoreBands.find(
-      ({ upperBound }) => normalizedPerformance < upperBound,
-    ) ?? scoreBands[scoreBands.length - 1];
+  const band = scoreBandForPerformance(performance);
+  if (band.minimum === 129) return 129;
   const randomValue = Math.max(
     0,
     Math.min(1 - Number.EPSILON, randomSource()),
