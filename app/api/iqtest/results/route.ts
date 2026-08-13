@@ -18,8 +18,10 @@ import {
   scoreBandForPerformance,
 } from "@/lib/iqtest/scoring";
 import {
+  consumeIQSubmissionRateLimit,
   getParticipantComparison,
   getTimingAnalytics,
+  hasRecordedIQAttempt,
   hasIQResultsStore,
   recordIQAttempt,
 } from "@/lib/iqtest/store";
@@ -33,11 +35,27 @@ export const runtime = "nodejs";
 
 const ATTEMPT_ID_PATTERN = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 
-function noStoreJson(body: unknown, status = 200) {
+function noStoreJson(
+  body: unknown,
+  status = 200,
+  headers: Record<string, string> = {},
+) {
   return NextResponse.json(body, {
     status,
-    headers: { "Cache-Control": "no-store" },
+    headers: { "Cache-Control": "no-store", ...headers },
   });
+}
+
+function clientIdentifier(request: Request) {
+  for (const header of [
+    "x-vercel-forwarded-for",
+    "x-forwarded-for",
+    "x-real-ip",
+  ]) {
+    const value = request.headers.get(header)?.split(",")[0]?.trim();
+    if (value) return value;
+  }
+  return null;
 }
 
 function validSubmission(value: unknown): value is IQResultSubmission {
@@ -161,6 +179,27 @@ export async function POST(request: Request) {
     : iqScoreFromPerformance(result.weightedPerformance);
 
   try {
+    const existingAttempt = await hasRecordedIQAttempt(body.attemptId);
+    const identifier = clientIdentifier(request);
+    let rateLimitHeaders: Record<string, string> = {};
+    if (!existingAttempt && identifier) {
+      const rateLimit = await consumeIQSubmissionRateLimit(identifier);
+      rateLimitHeaders = {
+        "RateLimit-Limit": String(rateLimit.limit),
+        "RateLimit-Remaining": String(rateLimit.remaining),
+      };
+      if (!rateLimit.allowed) {
+        return noStoreJson(
+          { error: "Too many IQ test submissions. Please try again later." },
+          429,
+          {
+            ...rateLimitHeaders,
+            "Retry-After": String(rateLimit.retryAfterSeconds),
+          },
+        );
+      }
+    }
+
     const accepted = await recordIQAttempt({
       attemptId: body.attemptId,
       iqScore,
@@ -182,7 +221,7 @@ export async function POST(request: Request) {
       timing,
       timingAnalytics,
     };
-    return noStoreJson(response, accepted ? 201 : 200);
+    return noStoreJson(response, accepted ? 201 : 200, rateLimitHeaders);
   } catch (error) {
     console.error("[iq-results] submission failed", error);
     return noStoreJson({ error: "Result could not be recorded." }, 503);

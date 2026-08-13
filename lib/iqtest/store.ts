@@ -1,21 +1,27 @@
-import type { IQQuestion, QuestionCategory } from "./questions";
+import { createHmac, randomUUID } from "node:crypto";
+import {
+  iqQuestions,
+  legacyIQQuestions,
+  type IQQuestion,
+  type QuestionCategory,
+} from "./questions.ts";
 import type {
   CompletionTiming,
   ParticipantComparison,
   ScoreDistributionBin,
   TimingAnalytics,
-} from "./results";
-import type { ScoredAttempt } from "./scoring";
+} from "./results.ts";
+import type { ScoredAttempt } from "./scoring.ts";
 import {
   buildPublicIQData,
   type PublicAttemptSort,
   type PublicIQDataResponse,
   type SanitizedStoredAttempt,
-} from "./public-data";
+} from "./public-data.ts";
 import {
   buildTimingAnalytics,
   type StoredTimedAttempt,
-} from "./timing";
+} from "./timing.ts";
 
 const KV_URL =
   process.env.KV_REST_API_URL ??
@@ -36,6 +42,11 @@ const QUESTION_CORRECT_KEY = "{iqtest}:v1:question-correct";
 const RANDOMIZED_QUESTION_TOTALS_KEY = "{iqtest}:v2:question-totals";
 const RANDOMIZED_QUESTION_CORRECT_KEY = "{iqtest}:v2:question-correct";
 const TIMED_ATTEMPTS_KEY = "{iqtest}:v3:timed-attempts";
+const MAINTENANCE_KEY = "{iqtest}:v1:maintenance";
+const RATE_LIMIT_KEY_PREFIX = "{iqtest}:v1:submission-rate";
+
+const DEFAULT_RATE_LIMIT_MAX = 5;
+const DEFAULT_RATE_LIMIT_WINDOW_SECONDS = 60 * 60;
 
 const SCORE_RANGES = [
   [32, 49],
@@ -50,6 +61,10 @@ const SCORE_RANGES = [
 ] as const;
 
 const RECORD_ATTEMPT_SCRIPT = `
+if redis.call("EXISTS", KEYS[7]) == 1 then
+  return -1
+end
+
 local existing = redis.call("HGET", KEYS[1], ARGV[1])
 if existing then
   return 0
@@ -80,7 +95,55 @@ end
 return 1
 `;
 
-interface StoredAttempt {
+const RATE_LIMIT_SCRIPT = `
+local count = redis.call("INCR", KEYS[1])
+if count == 1 then
+  redis.call("EXPIRE", KEYS[1], ARGV[1])
+end
+local ttl = redis.call("TTL", KEYS[1])
+return {count, ttl}
+`;
+
+const REBUILD_AGGREGATES_SCRIPT = `
+if redis.call("GET", KEYS[9]) ~= ARGV[1] then
+  return -1
+end
+
+local attempt_ids = cjson.decode(ARGV[2])
+for _, attempt_id in ipairs(attempt_ids) do
+  redis.call("HDEL", KEYS[1], attempt_id)
+end
+
+for index = 2, 8 do
+  redis.call("DEL", KEYS[index])
+end
+
+local function restore_hash(key, serialized)
+  local values = cjson.decode(serialized)
+  for field, value in pairs(values) do
+    redis.call("HSET", key, field, value)
+  end
+end
+
+restore_hash(KEYS[2], ARGV[3])
+restore_hash(KEYS[3], ARGV[4])
+restore_hash(KEYS[4], ARGV[5])
+restore_hash(KEYS[5], ARGV[6])
+restore_hash(KEYS[6], ARGV[7])
+restore_hash(KEYS[7], ARGV[8])
+restore_hash(KEYS[8], ARGV[9])
+
+return #attempt_ids
+`;
+
+const RELEASE_MAINTENANCE_SCRIPT = `
+if redis.call("GET", KEYS[1]) == ARGV[1] then
+  return redis.call("DEL", KEYS[1])
+end
+return 0
+`;
+
+export interface StoredAttempt {
   version: 1 | 2 | 3;
   testVersion?: 2;
   selectedQuestionIds?: string[];
@@ -94,6 +157,26 @@ interface StoredAttempt {
   weightedPerformance: number;
   categoryAccuracy: Record<QuestionCategory, number>;
   answers: Record<number, string>;
+}
+
+export interface IQAdminAttempt {
+  attemptId: string;
+  completedAt: string;
+  iqScore: number;
+  correctCount: number;
+  completionTimeSeconds: number;
+  testVersion: 1 | 2;
+  questionCount: number;
+}
+
+export interface IQAggregateState {
+  meta: Record<string, number>;
+  scoreCounts: Record<string, number>;
+  questionTotals: Record<string, number>;
+  questionCorrect: Record<string, number>;
+  randomizedQuestionTotals: Record<string, number>;
+  randomizedQuestionCorrect: Record<string, number>;
+  timedAttempts: Record<string, string>;
 }
 
 let publicAttemptsCache:
@@ -128,6 +211,53 @@ async function redis(command: Array<string | number>): Promise<unknown> {
   return payload.result;
 }
 
+function positiveIntegerFromEnv(value: string | undefined, fallback: number) {
+  const parsed = Number(value);
+  return Number.isInteger(parsed) && parsed > 0 ? parsed : fallback;
+}
+
+export function getIQSubmissionRateLimitConfig() {
+  return {
+    limit: positiveIntegerFromEnv(
+      process.env.IQ_RATE_LIMIT_MAX,
+      DEFAULT_RATE_LIMIT_MAX,
+    ),
+    windowSeconds: positiveIntegerFromEnv(
+      process.env.IQ_RATE_LIMIT_WINDOW_SECONDS,
+      DEFAULT_RATE_LIMIT_WINDOW_SECONDS,
+    ),
+  };
+}
+
+export async function hasRecordedIQAttempt(attemptId: string) {
+  return Number(await redis(["HEXISTS", ATTEMPTS_KEY, attemptId])) === 1;
+}
+
+export async function consumeIQSubmissionRateLimit(clientIdentifier: string) {
+  const { limit, windowSeconds } = getIQSubmissionRateLimitConfig();
+  const secret = process.env.IQ_RATE_LIMIT_SECRET ?? KV_TOKEN;
+  const identifierHash = createHmac("sha256", secret)
+    .update(clientIdentifier)
+    .digest("hex")
+    .slice(0, 32);
+  const result = (await redis([
+    "EVAL",
+    RATE_LIMIT_SCRIPT,
+    1,
+    `${RATE_LIMIT_KEY_PREFIX}:${identifierHash}`,
+    windowSeconds,
+  ])) as unknown[];
+  const count = Number(result?.[0]) || 0;
+  const retryAfterSeconds = Math.max(1, Number(result?.[1]) || windowSeconds);
+
+  return {
+    allowed: count <= limit,
+    limit,
+    remaining: Math.max(0, limit - count),
+    retryAfterSeconds,
+  };
+}
+
 function hashFromResult(result: unknown): Record<string, number> {
   if (!result) return {};
   if (!Array.isArray(result) && typeof result === "object") {
@@ -158,6 +288,215 @@ function stringHashFromResult(result: unknown): Record<string, string> {
     parsed[String(result[index])] = String(result[index + 1]);
   }
   return parsed;
+}
+
+function parseStoredAttempt(attemptId: string, value: string): StoredAttempt {
+  let attempt: Partial<StoredAttempt>;
+  try {
+    attempt = JSON.parse(value) as Partial<StoredAttempt>;
+  } catch {
+    throw new Error(`IQ attempt ${attemptId} contains invalid JSON`);
+  }
+
+  if (
+    (attempt.version !== 1 && attempt.version !== 2 && attempt.version !== 3) ||
+    typeof attempt.completedAt !== "string" ||
+    !Number.isFinite(Date.parse(attempt.completedAt)) ||
+    !Number.isInteger(attempt.iqScore) ||
+    !Number.isInteger(attempt.correctCount) ||
+    !Number.isInteger(attempt.completionSeconds) ||
+    !attempt.answers ||
+    typeof attempt.answers !== "object" ||
+    Array.isArray(attempt.answers)
+  ) {
+    throw new Error(`IQ attempt ${attemptId} has an invalid stored shape`);
+  }
+
+  return attempt as StoredAttempt;
+}
+
+function increment(target: Record<string, number>, field: string, amount = 1) {
+  target[field] = (target[field] ?? 0) + amount;
+}
+
+export function buildIQAggregateState(
+  entries: Array<{ attemptId: string; attempt: StoredAttempt }>,
+): IQAggregateState {
+  const state: IQAggregateState = {
+    meta: {
+      attempt_count: 0,
+      score_sum: 0,
+      correct_sum: 0,
+      completion_seconds_sum: 0,
+    },
+    scoreCounts: {},
+    questionTotals: {},
+    questionCorrect: {},
+    randomizedQuestionTotals: {},
+    randomizedQuestionCorrect: {},
+    timedAttempts: {},
+  };
+  const randomizedQuestions = new Map<string, IQQuestion>(
+    iqQuestions.map((question) => [question.stableId, question]),
+  );
+
+  for (const { attemptId, attempt } of entries) {
+    const completionSeconds =
+      attempt.version === 3 && Number.isInteger(attempt.completionTimeSeconds)
+        ? (attempt.completionTimeSeconds as number)
+        : attempt.completionSeconds;
+    increment(state.meta, "attempt_count");
+    increment(state.meta, "score_sum", attempt.iqScore);
+    increment(state.meta, "correct_sum", attempt.correctCount);
+    increment(state.meta, "completion_seconds_sum", completionSeconds);
+    increment(state.scoreCounts, String(attempt.iqScore));
+
+    if (attempt.testVersion === 2) {
+      if (!Array.isArray(attempt.selectedQuestionIds)) {
+        throw new Error(`Randomized IQ attempt ${attemptId} has no question list`);
+      }
+      for (const stableId of attempt.selectedQuestionIds) {
+        const question = randomizedQuestions.get(stableId);
+        if (!question) {
+          throw new Error(
+            `Randomized IQ attempt ${attemptId} references unknown question ${stableId}`,
+          );
+        }
+        increment(state.randomizedQuestionTotals, stableId);
+        if (attempt.answers[question.id] === question.correctAnswer) {
+          increment(state.randomizedQuestionCorrect, stableId);
+        }
+      }
+    } else {
+      for (const question of legacyIQQuestions) {
+        const questionId = String(question.id);
+        increment(state.questionTotals, questionId);
+        if (attempt.answers[question.id] === question.correctAnswer) {
+          increment(state.questionCorrect, questionId);
+        }
+      }
+    }
+
+    if (
+      attempt.version === 3 &&
+      attempt.timingVersion === 1 &&
+      Number.isInteger(attempt.completionTimeSeconds)
+    ) {
+      state.timedAttempts[attemptId] = JSON.stringify({
+        iqScore: attempt.iqScore,
+        correctCount: attempt.correctCount,
+        completionTimeSeconds: attempt.completionTimeSeconds,
+        completedAt: attempt.completedAt,
+      });
+    }
+  }
+
+  return state;
+}
+
+function adminAttempt(
+  attemptId: string,
+  attempt: StoredAttempt,
+): IQAdminAttempt {
+  return {
+    attemptId,
+    completedAt: new Date(attempt.completedAt).toISOString(),
+    iqScore: attempt.iqScore,
+    correctCount: attempt.correctCount,
+    completionTimeSeconds:
+      attempt.version === 3 && Number.isInteger(attempt.completionTimeSeconds)
+        ? (attempt.completionTimeSeconds as number)
+        : attempt.completionSeconds,
+    testVersion: attempt.testVersion === 2 ? 2 : 1,
+    questionCount:
+      attempt.testVersion === 2 && Array.isArray(attempt.selectedQuestionIds)
+        ? attempt.selectedQuestionIds.length
+        : legacyIQQuestions.length,
+  };
+}
+
+export async function listIQAttemptsForAdmin(): Promise<IQAdminAttempt[]> {
+  const stored = stringHashFromResult(await redis(["HGETALL", ATTEMPTS_KEY]));
+  return Object.entries(stored)
+    .map(([attemptId, value]) =>
+      adminAttempt(attemptId, parseStoredAttempt(attemptId, value)),
+    )
+    .sort((a, b) => Date.parse(b.completedAt) - Date.parse(a.completedAt));
+}
+
+export async function deleteIQAttemptsAndRebuild(attemptIds: string[]) {
+  const requestedIds = [...new Set(attemptIds)];
+  if (requestedIds.length === 0) {
+    throw new Error("At least one IQ attempt ID is required");
+  }
+
+  const maintenanceToken = randomUUID();
+  const lockResult = await redis([
+    "SET",
+    MAINTENANCE_KEY,
+    maintenanceToken,
+    "NX",
+    "EX",
+    120,
+  ]);
+  if (lockResult !== "OK") {
+    throw new Error("Another IQ results maintenance operation is already running");
+  }
+
+  try {
+    const stored = stringHashFromResult(await redis(["HGETALL", ATTEMPTS_KEY]));
+    const requested = new Set(requestedIds);
+    const foundIds = requestedIds.filter((attemptId) => attemptId in stored);
+    const remainingEntries = Object.entries(stored)
+      .filter(([attemptId]) => !requested.has(attemptId))
+      .map(([attemptId, value]) => ({
+        attemptId,
+        attempt: parseStoredAttempt(attemptId, value),
+      }));
+    const aggregateState = buildIQAggregateState(remainingEntries);
+
+    const rebuilt = await redis([
+      "EVAL",
+      REBUILD_AGGREGATES_SCRIPT,
+      9,
+      ATTEMPTS_KEY,
+      META_KEY,
+      SCORE_COUNTS_KEY,
+      QUESTION_TOTALS_KEY,
+      QUESTION_CORRECT_KEY,
+      RANDOMIZED_QUESTION_TOTALS_KEY,
+      RANDOMIZED_QUESTION_CORRECT_KEY,
+      TIMED_ATTEMPTS_KEY,
+      MAINTENANCE_KEY,
+      maintenanceToken,
+      JSON.stringify(foundIds),
+      JSON.stringify(aggregateState.meta),
+      JSON.stringify(aggregateState.scoreCounts),
+      JSON.stringify(aggregateState.questionTotals),
+      JSON.stringify(aggregateState.questionCorrect),
+      JSON.stringify(aggregateState.randomizedQuestionTotals),
+      JSON.stringify(aggregateState.randomizedQuestionCorrect),
+      JSON.stringify(aggregateState.timedAttempts),
+    ]);
+    if (Number(rebuilt) === -1) {
+      throw new Error("IQ results maintenance lock expired before the rebuild");
+    }
+
+    publicAttemptsCache = null;
+    return {
+      deleted: Number(rebuilt),
+      notFound: requestedIds.filter((attemptId) => !(attemptId in stored)),
+      remaining: remainingEntries.length,
+    };
+  } finally {
+    await redis([
+      "EVAL",
+      RELEASE_MAINTENANCE_SCRIPT,
+      1,
+      MAINTENANCE_KEY,
+      maintenanceToken,
+    ]).catch(() => undefined);
+  }
 }
 
 function medianFromCounts(counts: Record<string, number>, total: number) {
@@ -238,13 +577,14 @@ export async function recordIQAttempt({
   const inserted = await redis([
     "EVAL",
     RECORD_ATTEMPT_SCRIPT,
-    6,
+    7,
     ATTEMPTS_KEY,
     META_KEY,
     SCORE_COUNTS_KEY,
     testVersion === 2 ? RANDOMIZED_QUESTION_TOTALS_KEY : QUESTION_TOTALS_KEY,
     testVersion === 2 ? RANDOMIZED_QUESTION_CORRECT_KEY : QUESTION_CORRECT_KEY,
     TIMED_ATTEMPTS_KEY,
+    MAINTENANCE_KEY,
     attemptId,
     JSON.stringify(storedAttempt),
     iqScore,
@@ -254,6 +594,9 @@ export async function recordIQAttempt({
     ...questionArguments,
   ]);
 
+  if (Number(inserted) === -1) {
+    throw new Error("IQ results maintenance is in progress");
+  }
   if (Number(inserted) === 1) publicAttemptsCache = null;
 
   return Number(inserted) === 1;
