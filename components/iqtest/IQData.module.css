@@ -121,14 +121,6 @@
   color: var(--data-muted);
 }
 
-.disclaimer {
-  max-width: 45rem;
-  margin: 1.5rem 0 0;
-  font-size: 0.78rem;
-  line-height: 1.6;
-  color: var(--data-muted);
-}
-
 .section {
   margin-top: clamp(5rem, 12vw, 9rem);
 }

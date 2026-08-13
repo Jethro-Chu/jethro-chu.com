@@ -223,10 +223,6 @@ export function IQData({
             <strong>{data?.overview.testsCompleted.toLocaleString() ?? "—"}</strong>
             <span>Tests Completed</span>
           </div>
-          <p className={styles.disclaimer}>
-            This recreational test is not a standardized psychological assessment.
-            No names, emails, or account details are collected or displayed.
-          </p>
         </header>
 
         {status === "unavailable" && !data && (
