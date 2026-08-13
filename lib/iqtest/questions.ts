@@ -18,6 +18,7 @@ export interface IQOption {
 
 export interface IQQuestion {
   id: number;
+  stableId: StableQuestionId;
   category: QuestionCategory;
   question: string;
   detail?: string;
@@ -28,6 +29,13 @@ export interface IQQuestion {
   diagram?: DiagramId;
 }
 
+export type StableQuestionId = `iq_${string}`;
+type QuestionDefinition = Omit<IQQuestion, "stableId">;
+
+export function stableQuestionId(id: number): StableQuestionId {
+  return `iq_${id.toString().padStart(3, "0")}`;
+}
+
 export const categoryLabels: Record<QuestionCategory, string> = {
   probability: "Probability",
   logic: "Logic",
@@ -36,7 +44,7 @@ export const categoryLabels: Record<QuestionCategory, string> = {
   spatial: "Spatial",
 };
 
-export const iqQuestions: IQQuestion[] = [
+const legacyQuestions: QuestionDefinition[] = [
   {
     id: 1,
     category: "patterns",
@@ -448,6 +456,415 @@ export const iqQuestions: IQQuestion[] = [
     diagram: "decagon",
   },
 ];
+
+const newQuestions: QuestionDefinition[] = [
+  {
+    id: 26,
+    category: "probability",
+    question:
+      "Five fair coins are flipped. You are told that at least one coin landed heads. What is the probability that exactly two coins landed heads?",
+    options: [
+      { id: "a", text: "5/16" },
+      { id: "b", text: "10/31" },
+      { id: "c", text: "5/31" },
+      { id: "d", text: "3/8" },
+    ],
+    correctAnswer: "b",
+    difficulty: 3,
+    explanation:
+      "There are 2⁵ − 1 = 31 equally likely outcomes once the all-tails outcome is excluded. Exactly two heads occur in C(5,2) = 10 outcomes, so the conditional probability is 10/31.",
+  },
+  {
+    id: 27,
+    category: "probability",
+    question:
+      "Three fair six-sided dice are rolled. What is the probability that their sum is exactly 10?",
+    options: [
+      { id: "a", text: "1/9" },
+      { id: "b", text: "1/8" },
+      { id: "c", text: "5/36" },
+      { id: "d", text: "7/54" },
+    ],
+    correctAnswer: "b",
+    difficulty: 3,
+    explanation:
+      "Let the dice be x, y, and z. The positive solutions to x+y+z=10 number C(9,2)=36 before enforcing the upper bound of 6. For each die, 6 solutions have that die at least 7, so subtract 18. This leaves 27 valid ordered outcomes out of 216, or 1/8.",
+  },
+  {
+    id: 28,
+    category: "spatial",
+    question:
+      "Three cards are drawn simultaneously from a standard 52-card deck. What is the probability that exactly two are aces?",
+    options: [
+      { id: "a", text: "6/1325" },
+      { id: "b", text: "72/5525" },
+      { id: "c", text: "12/221" },
+      { id: "d", text: "24/5525" },
+    ],
+    correctAnswer: "b",
+    difficulty: 4,
+    explanation:
+      "Choose 2 of the 4 aces and 1 of the 48 non-aces: C(4,2)C(48,1)=288 hands. There are C(52,3)=22,100 total hands, so the probability is 288/22,100 = 72/5525.",
+  },
+  {
+    id: 29,
+    category: "spatial",
+    question:
+      "Six people randomly receive six hats, one belonging to each person. What is the probability that nobody receives their own hat?",
+    options: [
+      { id: "a", text: "53/144" },
+      { id: "b", text: "3/8" },
+      { id: "c", text: "11/30" },
+      { id: "d", text: "265/729" },
+    ],
+    correctAnswer: "a",
+    difficulty: 4,
+    explanation:
+      "By inclusion-exclusion, the number of derangements is 6![1−1/1!+1/2!−1/3!+1/4!−1/5!+1/6!] = 265. Dividing by all 6! = 720 assignments gives 265/720 = 53/144.",
+  },
+  {
+    id: 30,
+    category: "quantitative",
+    question:
+      "An integer is selected uniformly at random from 1 through 1000. What is the probability that it is divisible by 6 or 15, but not both?",
+    options: [
+      { id: "a", text: "1/6" },
+      { id: "b", text: "83/500" },
+      { id: "c", text: "199/1000" },
+      { id: "d", text: "1/5" },
+    ],
+    correctAnswer: "b",
+    difficulty: 3,
+    explanation:
+      "There are ⌊1000/6⌋=166 multiples of 6 and ⌊1000/15⌋=66 multiples of 15. Their common multiples are the 33 multiples of lcm(6,15)=30, and these must be removed from both groups. The exclusive count is 166+66−2·33=166, giving 166/1000=83/500.",
+  },
+  {
+    id: 31,
+    category: "probability",
+    question:
+      "Box A contains 3 red balls and 1 blue ball. Box B contains 2 red balls and 2 blue balls. Box C contains 1 red ball and 3 blue balls. A box is chosen at random, and a red ball is drawn. Without replacing it, what is the probability the next ball from the same box is also red?",
+    options: [
+      { id: "a", text: "1/3" },
+      { id: "b", text: "2/5" },
+      { id: "c", text: "4/9" },
+      { id: "d", text: "1/2" },
+    ],
+    correctAnswer: "c",
+    difficulty: 3,
+    explanation:
+      "After a red draw, the posterior probabilities of A, B, and C are proportional to 3/4, 2/4, and 1/4, so they are 1/2, 1/3, and 1/6. The next-red chances from those boxes are 2/3, 1/3, and 0. Therefore the answer is (1/2)(2/3)+(1/3)(1/3)=4/9.",
+  },
+  {
+    id: 32,
+    category: "spatial",
+    question:
+      "Two fair six-sided dice are rolled. What is the expected value of the larger of the two numbers?",
+    options: [
+      { id: "a", text: "17/4" },
+      { id: "b", text: "161/36" },
+      { id: "c", text: "9/2" },
+      { id: "d", text: "35/8" },
+    ],
+    correctAnswer: "b",
+    difficulty: 4,
+    explanation:
+      "The maximum equals k in k²−(k−1)²=2k−1 of the 36 ordered rolls. Thus E[max]=(1·1+2·3+3·5+4·7+5·9+6·11)/36=161/36.",
+  },
+  {
+    id: 33,
+    category: "patterns",
+    question:
+      "How many binary strings of length 10 contain no two consecutive 1s?",
+    options: [
+      { id: "a", text: "89" },
+      { id: "b", text: "128" },
+      { id: "c", text: "144" },
+      { id: "d", text: "233" },
+    ],
+    correctAnswer: "c",
+    difficulty: 3,
+    explanation:
+      "Let aₙ be the count for length n. A valid string ends in 0 after any valid length-(n−1) string, or in 01 after any valid length-(n−2) string, so aₙ=aₙ₋₁+aₙ₋₂. With a₁=2 and a₂=3, the sequence reaches a₁₀=144.",
+  },
+  {
+    id: 34,
+    category: "quantitative",
+    question:
+      "How many distinct arrangements can be made from the letters in MISSISSIPPI?",
+    options: [
+      { id: "a", text: "17,325" },
+      { id: "b", text: "34,650" },
+      { id: "c", text: "69,300" },
+      { id: "d", text: "138,600" },
+    ],
+    correctAnswer: "b",
+    difficulty: 3,
+    explanation:
+      "MISSISSIPPI has 11 letters: I appears 4 times, S appears 4 times, P appears twice, and M once. The distinct arrangements number 11!/(4!·4!·2!)=34,650.",
+  },
+  {
+    id: 35,
+    category: "spatial",
+    question:
+      "A group contains 8 men and 7 women. A committee of 5 is selected. How many possible committees contain at least two women?",
+    options: [
+      { id: "a", text: "2,457" },
+      { id: "b", text: "2,513" },
+      { id: "c", text: "2,947" },
+      { id: "d", text: "3,003" },
+    ],
+    correctAnswer: "a",
+    difficulty: 4,
+    explanation:
+      "Count committees with 2, 3, 4, or 5 women: C(7,2)C(8,3)+C(7,3)C(8,2)+C(7,4)C(8,1)+C(7,5)C(8,0)=1176+980+280+21=2457.",
+  },
+  {
+    id: 36,
+    category: "quantitative",
+    question:
+      "Find the smallest positive integer n that leaves remainders 1, 2, 3, 4, and 5 when divided by 2, 3, 4, 5, and 6 respectively.",
+    options: [
+      { id: "a", text: "29" },
+      { id: "b", text: "47" },
+      { id: "c", text: "59" },
+      { id: "d", text: "119" },
+    ],
+    correctAnswer: "c",
+    difficulty: 3,
+    explanation:
+      "Every condition says n is one less than a multiple of the divisor. Therefore n+1 must be divisible by lcm(2,3,4,5,6)=60. The smallest positive solution is n=59.",
+  },
+  {
+    id: 37,
+    category: "spatial",
+    question:
+      "How many ordered pairs of positive integers (x,y), with x > y, satisfy x² − y² = 2025?",
+    options: [
+      { id: "a", text: "5" },
+      { id: "b", text: "6" },
+      { id: "c", text: "7" },
+      { id: "d", text: "8" },
+    ],
+    correctAnswer: "c",
+    difficulty: 4,
+    explanation:
+      "Factor as (x−y)(x+y)=2025. Both factors must be positive odd integers, and each factor pair a<b gives exactly one solution x=(a+b)/2, y=(b−a)/2. Since 2025=3⁴·5² has 15 divisors and is a square, it has (15−1)/2=7 unequal factor pairs.",
+  },
+  {
+    id: 38,
+    category: "quantitative",
+    question: "How many trailing zeros does 1000! contain?",
+    options: [
+      { id: "a", text: "199" },
+      { id: "b", text: "200" },
+      { id: "c", text: "249" },
+      { id: "d", text: "250" },
+    ],
+    correctAnswer: "c",
+    difficulty: 3,
+    explanation:
+      "Trailing zeros come from factors of 10, and factors of 5 are scarcer than factors of 2. Their count is ⌊1000/5⌋+⌊1000/25⌋+⌊1000/125⌋+⌊1000/625⌋=200+40+8+1=249.",
+  },
+  {
+    id: 39,
+    category: "patterns",
+    question: "What are the last two digits of 7²⁰²⁶?",
+    options: [
+      { id: "a", text: "01" },
+      { id: "b", text: "07" },
+      { id: "c", text: "43" },
+      { id: "d", text: "49" },
+    ],
+    correctAnswer: "d",
+    difficulty: 4,
+    explanation:
+      "Modulo 100, 7⁴=2401 ends in 01, so the last two digits repeat every four powers. Since 2026 leaves remainder 2 modulo 4, 7²⁰²⁶ has the same final two digits as 7²: 49.",
+  },
+  {
+    id: 40,
+    category: "quantitative",
+    question: "Evaluate gcd(2¹⁰⁰ − 1, 2⁶⁰ − 1).",
+    options: [
+      { id: "a", text: "2¹⁰ − 1" },
+      { id: "b", text: "2²⁰ − 1" },
+      { id: "c", text: "2⁴⁰ − 1" },
+      { id: "d", text: "2⁶⁰ − 1" },
+    ],
+    correctAnswer: "b",
+    difficulty: 4,
+    explanation:
+      "For positive integers m and n, gcd(2ᵐ−1,2ⁿ−1)=2^gcd(m,n)−1. Since gcd(100,60)=20, the result is 2²⁰−1.",
+  },
+  {
+    id: 41,
+    category: "patterns",
+    question: "If x + 1/x = 3, what is x⁵ + 1/x⁵?",
+    options: [
+      { id: "a", text: "99" },
+      { id: "b", text: "108" },
+      { id: "c", text: "123" },
+      { id: "d", text: "243" },
+    ],
+    correctAnswer: "c",
+    difficulty: 4,
+    explanation:
+      "Let Sₙ=xⁿ+x⁻ⁿ. Multiplying by x+x⁻¹ gives the recurrence Sₙ=3Sₙ₋₁−Sₙ₋₂, with S₀=2 and S₁=3. Thus S₂=7, S₃=18, S₄=47, and S₅=123.",
+  },
+  {
+    id: 42,
+    category: "quantitative",
+    question:
+      "How many ordered pairs of positive integers (x,y) satisfy xy = x + y + 19?",
+    options: [
+      { id: "a", text: "3" },
+      { id: "b", text: "4" },
+      { id: "c", text: "6" },
+      { id: "d", text: "8" },
+    ],
+    correctAnswer: "c",
+    difficulty: 4,
+    explanation:
+      "Rearrange to xy−x−y=19, then add 1: (x−1)(y−1)=20. Each positive divisor d of 20 gives one ordered pair x=d+1, y=20/d+1. Since 20 has 6 positive divisors, there are 6 ordered pairs.",
+  },
+  {
+    id: 43,
+    category: "patterns",
+    question: "What is the next number?",
+    detail: "1, 2, 6, 15, 31, 56, ?",
+    options: [
+      { id: "a", text: "82" },
+      { id: "b", text: "87" },
+      { id: "c", text: "92" },
+      { id: "d", text: "97" },
+    ],
+    correctAnswer: "c",
+    difficulty: 3,
+    explanation:
+      "The successive differences are 1, 4, 9, 16, and 25, the consecutive squares. The next difference is 36, so the next term is 56+36=92.",
+  },
+  {
+    id: 44,
+    category: "logic",
+    question:
+      "Four suspects, A, B, C, and D, are questioned. Exactly one person is guilty, and exactly one statement is true. Who is guilty?",
+    detail:
+      "A: B did it.\nB: D did it.\nC: I didn't do it.\nD: B is lying.",
+    options: [
+      { id: "a", text: "A" },
+      { id: "b", text: "B" },
+      { id: "c", text: "C" },
+      { id: "d", text: "D" },
+    ],
+    correctAnswer: "c",
+    difficulty: 3,
+    explanation:
+      "Test each possible culprit. If A, B, or D is guilty, respectively two, three, or two statements are true. If C is guilty, A and B are false, C's claim is false, and D truthfully says B is lying. Exactly one statement is then true, so C is guilty.",
+  },
+  {
+    id: 45,
+    category: "logic",
+    question:
+      "On an island, knights always tell the truth and knaves always lie. Which description is correct?",
+    detail:
+      "A: B is a knave.\nB: C is a knave.\nC: A and B are the same type.",
+    options: [
+      { id: "a", text: "A and C are knights; B is a knave" },
+      { id: "b", text: "A is a knight; B and C are knaves" },
+      { id: "c", text: "B is a knight; A and C are knaves" },
+      { id: "d", text: "All three are knaves" },
+    ],
+    correctAnswer: "c",
+    difficulty: 3,
+    explanation:
+      "A's claim makes A and B opposite types. Therefore C's statement that A and B match is false, so C is a knave. B's statement that C is a knave is true, making B a knight and therefore A a knave.",
+  },
+  {
+    id: 46,
+    category: "spatial",
+    question:
+      "A 5 × 5 × 5 cube is painted on all six exterior faces and then cut into 125 identical unit cubes. How many unit cubes have exactly two painted faces?",
+    options: [
+      { id: "a", text: "24" },
+      { id: "b", text: "32" },
+      { id: "c", text: "36" },
+      { id: "d", text: "54" },
+    ],
+    correctAnswer: "c",
+    difficulty: 2,
+    explanation:
+      "Exactly two painted faces occur on edge cubes that are not corners. Each of the 12 edges contributes 5−2=3 such cubes, for 12·3=36.",
+  },
+  {
+    id: 47,
+    category: "spatial",
+    question:
+      "Seven people sit around a circular table. How many distinct seating arrangements are possible if two particular people, A and B, cannot sit next to each other?",
+    options: [
+      { id: "a", text: "360" },
+      { id: "b", text: "420" },
+      { id: "c", text: "480" },
+      { id: "d", text: "600" },
+    ],
+    correctAnswer: "c",
+    difficulty: 4,
+    explanation:
+      "There are (7−1)!=720 circular arrangements in total. If A and B sit together, treat them as a two-person block: the six units have 5! circular arrangements, and A and B have 2 internal orders, giving 240. Therefore 720−240=480 arrangements keep them apart.",
+  },
+  {
+    id: 48,
+    category: "logic",
+    question:
+      "Seven people attend a party. Is it possible for every person to shake hands with exactly three other people?",
+    options: [
+      { id: "a", text: "Yes, in exactly one configuration" },
+      { id: "b", text: "Yes, in multiple configurations" },
+      { id: "c", text: "No, because the total number of handshakes would not be an integer" },
+      { id: "d", text: "No, because seven people cannot form a connected graph" },
+    ],
+    correctAnswer: "c",
+    difficulty: 3,
+    explanation:
+      "Adding everyone's handshake counts gives 7·3=21, but each handshake is counted once for each of its two participants. The sum must therefore be even. Since 21 is odd, such an arrangement is impossible.",
+  },
+  {
+    id: 49,
+    category: "logic",
+    question:
+      "You have 12 visually identical coins. Exactly one is counterfeit, but you do not know whether it is heavier or lighter. Using only a balance scale, what is the minimum number of weighings sufficient to always identify the coin and determine whether it is heavier or lighter?",
+    options: [
+      { id: "a", text: "2" },
+      { id: "b", text: "3" },
+      { id: "c", text: "4" },
+      { id: "d", text: "5" },
+    ],
+    correctAnswer: "b",
+    difficulty: 3,
+    explanation:
+      "There are 24 possible states: each of 12 coins could be heavy or light. Two weighings have only 3²=9 outcome paths, so they cannot suffice. Three weighings have 27 paths, and the standard balanced branching strategy distinguishes all 24 states, so the minimum is 3.",
+  },
+  {
+    id: 50,
+    category: "patterns",
+    question: "What is the next number?",
+    detail: "2, 10, 30, 68, 130, ?",
+    options: [
+      { id: "a", text: "186" },
+      { id: "b", text: "210" },
+      { id: "c", text: "216" },
+      { id: "d", text: "222" },
+    ],
+    correctAnswer: "d",
+    difficulty: 3,
+    explanation:
+      "The nth term is n³+n: 1³+1=2, 2³+2=10, through 5³+5=130. The next term is 6³+6=222.",
+  },
+];
+
+export const iqQuestions: IQQuestion[] = [...legacyQuestions, ...newQuestions].map(
+  (question) => ({ ...question, stableId: stableQuestionId(question.id) }),
+);
+
+export const legacyIQQuestions = iqQuestions.filter((question) => question.id <= 25);
 
 export function getQuestion(id: number) {
   return iqQuestions.find((question) => question.id === id);

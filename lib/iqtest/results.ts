@@ -17,6 +17,8 @@ export interface IQResultSubmission {
   iqScore: number;
   answers: Record<number, string>;
   completionSeconds: number;
+  testVersion?: number;
+  selectedQuestionIds?: string[];
 }
 
 export interface IQResultResponse {

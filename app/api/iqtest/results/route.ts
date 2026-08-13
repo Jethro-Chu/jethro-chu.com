@@ -1,5 +1,13 @@
 import { NextResponse } from "next/server";
-import { iqQuestions } from "@/lib/iqtest/questions";
+import {
+  iqQuestions,
+  legacyIQQuestions,
+  type StableQuestionId,
+} from "@/lib/iqtest/questions";
+import {
+  RANDOMIZED_TEST_VERSION,
+  resolveRandomizedTest,
+} from "@/lib/iqtest/randomizer";
 import type {
   IQResultResponse,
   IQResultSubmission,
@@ -39,6 +47,9 @@ function validSubmission(value: unknown): value is IQResultSubmission {
     !Number.isInteger(submission.completionSeconds) ||
     (submission.completionSeconds ?? -1) < 0 ||
     (submission.completionSeconds ?? 0) > 21600 ||
+    (submission.testVersion !== undefined &&
+      submission.testVersion !== 1 &&
+      submission.testVersion !== RANDOMIZED_TEST_VERSION) ||
     !submission.answers ||
     typeof submission.answers !== "object" ||
     Array.isArray(submission.answers)
@@ -93,10 +104,38 @@ export async function POST(request: Request) {
     return noStoreJson({ error: "Invalid result submission." }, 400);
   }
 
+  let questions = legacyIQQuestions;
+  if (body.testVersion === RANDOMIZED_TEST_VERSION) {
+    if (
+      !Array.isArray(body.selectedQuestionIds) ||
+      !body.selectedQuestionIds.every(
+        (id): id is StableQuestionId =>
+          typeof id === "string" && /^iq_\d{3}$/.test(id),
+      )
+    ) {
+      return noStoreJson({ error: "Invalid randomized test selection." }, 400);
+    }
+    const randomizedQuestions = resolveRandomizedTest(
+      iqQuestions,
+      body.selectedQuestionIds,
+    );
+    if (!randomizedQuestions) {
+      return noStoreJson({ error: "Invalid randomized test selection." }, 400);
+    }
+    questions = randomizedQuestions;
+  }
+
+  const selectedNumericIds = new Set(
+    questions.map((question) => String(question.id)),
+  );
+  if (Object.keys(body.answers).some((id) => !selectedNumericIds.has(id))) {
+    return noStoreJson({ error: "Answers do not match this test." }, 400);
+  }
+
   const answers = Object.fromEntries(
     Object.entries(body.answers).map(([id, answer]) => [Number(id), answer]),
   );
-  const result = scoreAttempt(iqQuestions, answers, () => 0);
+  const result = scoreAttempt(questions, answers, () => 0);
   const earnedBand = scoreBandForPerformance(result.weightedPerformance);
   const submittedScoreIsValid =
     body.iqScore >= earnedBand.minimum && body.iqScore <= earnedBand.maximum;
@@ -111,7 +150,8 @@ export async function POST(request: Request) {
       answers,
       completionSeconds: body.completionSeconds,
       result,
-      questions: iqQuestions,
+      questions,
+      testVersion: body.testVersion ?? 1,
     });
     const comparison = await getParticipantComparison(iqScore);
     const response: IQResultResponse = { accepted, iqScore, comparison };

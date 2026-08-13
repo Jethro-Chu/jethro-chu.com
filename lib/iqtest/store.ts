@@ -21,6 +21,8 @@ const META_KEY = "{iqtest}:v1:meta";
 const SCORE_COUNTS_KEY = "{iqtest}:v1:score-counts";
 const QUESTION_TOTALS_KEY = "{iqtest}:v1:question-totals";
 const QUESTION_CORRECT_KEY = "{iqtest}:v1:question-correct";
+const RANDOMIZED_QUESTION_TOTALS_KEY = "{iqtest}:v2:question-totals";
+const RANDOMIZED_QUESTION_CORRECT_KEY = "{iqtest}:v2:question-correct";
 
 const SCORE_RANGES = [
   [32, 49],
@@ -62,7 +64,9 @@ return 1
 `;
 
 interface StoredAttempt {
-  version: 1;
+  version: 1 | 2;
+  testVersion?: 2;
+  selectedQuestionIds?: string[];
   completedAt: string;
   iqScore: number;
   correctCount: number;
@@ -142,6 +146,7 @@ export async function recordIQAttempt({
   completionSeconds,
   result,
   questions,
+  testVersion = 1,
 }: {
   attemptId: string;
   iqScore: number;
@@ -149,9 +154,16 @@ export async function recordIQAttempt({
   completionSeconds: number;
   result: ScoredAttempt;
   questions: IQQuestion[];
+  testVersion?: number;
 }) {
   const storedAttempt: StoredAttempt = {
-    version: 1,
+    version: testVersion === 2 ? 2 : 1,
+    ...(testVersion === 2
+      ? {
+          testVersion: 2 as const,
+          selectedQuestionIds: questions.map((question) => question.stableId),
+        }
+      : {}),
     completedAt: new Date().toISOString(),
     iqScore,
     correctCount: result.correctCount,
@@ -161,7 +173,7 @@ export async function recordIQAttempt({
     answers,
   };
   const questionArguments = questions.flatMap((question) => [
-    question.id,
+    testVersion === 2 ? question.stableId : question.id,
     answers[question.id] === question.correctAnswer ? 1 : 0,
   ]);
 
@@ -172,8 +184,8 @@ export async function recordIQAttempt({
     ATTEMPTS_KEY,
     META_KEY,
     SCORE_COUNTS_KEY,
-    QUESTION_TOTALS_KEY,
-    QUESTION_CORRECT_KEY,
+    testVersion === 2 ? RANDOMIZED_QUESTION_TOTALS_KEY : QUESTION_TOTALS_KEY,
+    testVersion === 2 ? RANDOMIZED_QUESTION_CORRECT_KEY : QUESTION_CORRECT_KEY,
     attemptId,
     JSON.stringify(storedAttempt),
     iqScore,
@@ -227,11 +239,18 @@ export async function getParticipantComparison(
   };
 }
 
-export async function getIQCalibrationSnapshot(questions: IQQuestion[]) {
+export async function getIQCalibrationSnapshot(
+  questions: IQQuestion[],
+  testVersion = 1,
+) {
+  const totalsKey =
+    testVersion === 2 ? RANDOMIZED_QUESTION_TOTALS_KEY : QUESTION_TOTALS_KEY;
+  const correctKey =
+    testVersion === 2 ? RANDOMIZED_QUESTION_CORRECT_KEY : QUESTION_CORRECT_KEY;
   const [metaResult, totalsResult, correctResult] = await Promise.all([
     redis(["HGETALL", META_KEY]),
-    redis(["HGETALL", QUESTION_TOTALS_KEY]),
-    redis(["HGETALL", QUESTION_CORRECT_KEY]),
+    redis(["HGETALL", totalsKey]),
+    redis(["HGETALL", correctKey]),
   ]);
   const meta = hashFromResult(metaResult);
   const totals = hashFromResult(totalsResult);
@@ -240,8 +259,10 @@ export async function getIQCalibrationSnapshot(questions: IQQuestion[]) {
 
   const questionAccuracy = Object.fromEntries(
     questions.map((question) => {
-      const total = totals[String(question.id)] ?? 0;
-      return [question.id, total ? (correct[String(question.id)] ?? 0) / total : 0];
+      const questionKey =
+        testVersion === 2 ? question.stableId : String(question.id);
+      const total = totals[questionKey] ?? 0;
+      return [questionKey, total ? (correct[questionKey] ?? 0) / total : 0];
     }),
   );
 
@@ -252,11 +273,19 @@ export async function getIQCalibrationSnapshot(questions: IQQuestion[]) {
           (question) => question.category === category,
         );
         const categoryTotal = categoryQuestions.reduce(
-          (sum, question) => sum + (totals[String(question.id)] ?? 0),
+          (sum, question) =>
+            sum +
+            (totals[
+              testVersion === 2 ? question.stableId : String(question.id)
+            ] ?? 0),
           0,
         );
         const categoryCorrect = categoryQuestions.reduce(
-          (sum, question) => sum + (correct[String(question.id)] ?? 0),
+          (sum, question) =>
+            sum +
+            (correct[
+              testVersion === 2 ? question.stableId : String(question.id)
+            ] ?? 0),
           0,
         );
         return [category, categoryTotal ? categoryCorrect / categoryTotal : 0];

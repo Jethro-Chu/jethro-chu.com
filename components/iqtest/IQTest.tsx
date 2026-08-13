@@ -1,13 +1,20 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import {
   categoryLabels,
   iqQuestions,
+  stableQuestionId,
   type IQOption,
   type IQQuestion,
   type QuestionCategory,
 } from "@/lib/iqtest/questions";
+import {
+  generateBalancedTest,
+  RANDOMIZED_TEST_VERSION,
+  shuffled,
+  TEST_QUESTION_COUNT,
+} from "@/lib/iqtest/randomizer";
 import {
   performanceLabel,
   scoreAttempt,
@@ -31,6 +38,8 @@ interface AttemptQuestion extends IQQuestion {
 }
 
 interface SavedAttempt {
+  testVersion?: number;
+  selectedQuestionIds?: string[];
   completedAt: string;
   score: number;
   correctCount: number;
@@ -40,7 +49,8 @@ interface SavedAttempt {
 }
 
 interface PersistedCompletedAttempt {
-  version: 2 | 3;
+  version: 2 | 3 | 4;
+  testVersion?: number;
   attemptId?: string;
   attempt: AttemptQuestion[];
   answers: AnswerMap;
@@ -48,14 +58,6 @@ interface PersistedCompletedAttempt {
   result: ScoredAttempt;
   comparison?: ParticipantComparisonData;
 }
-
-const ORDER_GROUPS = [
-  [1, 2, 3, 4, 5, 6],
-  [7, 8, 9, 10, 11, 12],
-  [13, 14, 15, 16, 17],
-  [18, 19, 20],
-  [21, 22, 23, 24, 25],
-] as const;
 
 const CATEGORY_ORDER: QuestionCategory[] = [
   "probability",
@@ -70,23 +72,11 @@ const STORAGE_BEST = "jethro-iq-best-v2";
 const STORAGE_HISTORY = "jethro-iq-history-v2";
 const SESSION_COMPLETED = "jethro-iq-completed-v2";
 
-function shuffled<T>(items: readonly T[]) {
-  const copy = [...items];
-  for (let index = copy.length - 1; index > 0; index -= 1) {
-    const swapIndex = Math.floor(Math.random() * (index + 1));
-    [copy[index], copy[swapIndex]] = [copy[swapIndex], copy[index]];
-  }
-  return copy;
-}
-
 function buildAttempt(): AttemptQuestion[] {
-  return ORDER_GROUPS.flatMap((group) =>
-    shuffled(group).map((id) => {
-      const question = iqQuestions.find((item) => item.id === id);
-      if (!question) throw new Error(`Missing IQ question ${id}`);
-      return { ...question, displayOptions: shuffled(question.options) };
-    }),
-  );
+  return generateBalancedTest(iqQuestions).map((question) => ({
+    ...question,
+    displayOptions: shuffled(question.options),
+  }));
 }
 
 function formatTime(seconds: number) {
@@ -99,17 +89,21 @@ function saveAttempt(
   result: ScoredAttempt,
   answers: AnswerMap,
   completionSeconds: number,
+  questions: AttemptQuestion[],
+  testVersion: number,
 ) {
   try {
     const stored = window.localStorage.getItem(STORAGE_HISTORY);
     const history = stored ? (JSON.parse(stored) as SavedAttempt[]) : [];
     const attempt: SavedAttempt = {
+      testVersion,
+      selectedQuestionIds: questions.map((question) => question.stableId),
       completedAt: new Date().toISOString(),
       score: result.iqScore,
       correctCount: result.correctCount,
       completionSeconds,
       weightedPerformance: result.weightedPerformance,
-      questionResults: iqQuestions.map((question) => ({
+      questionResults: questions.map((question) => ({
         id: question.id,
         correct: answers[question.id] === question.correctAnswer,
       })),
@@ -135,6 +129,7 @@ export function IQTest() {
   const [phase, setPhase] = useState<Phase>("start");
   const [showTimer, setShowTimer] = useState(true);
   const [attempt, setAttempt] = useState<AttemptQuestion[]>([]);
+  const [attemptTestVersion, setAttemptTestVersion] = useState(1);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [answers, setAnswers] = useState<AnswerMap>({});
   const [elapsedSeconds, setElapsedSeconds] = useState(0);
@@ -162,15 +157,21 @@ export function IQTest() {
       if (completed) {
         const parsed = JSON.parse(completed) as PersistedCompletedAttempt;
         if (
-          (parsed.version === 2 || parsed.version === 3) &&
-          parsed.attempt?.length === iqQuestions.length &&
+          (parsed.version === 2 || parsed.version === 3 || parsed.version === 4) &&
+          parsed.attempt?.length === TEST_QUESTION_COUNT &&
           parsed.answers &&
           typeof parsed.answers === "object" &&
           Number.isFinite(parsed.completionSeconds) &&
           parsed.result?.iqScore >= 32 &&
           parsed.result.iqScore <= 129
         ) {
-          setAttempt(parsed.attempt);
+          setAttempt(
+            parsed.attempt.map((question) => ({
+              ...question,
+              stableId: question.stableId ?? stableQuestionId(question.id),
+            })),
+          );
+          setAttemptTestVersion(parsed.testVersion ?? 1);
           setAnswers(parsed.answers);
           setCompletionSeconds(parsed.completionSeconds);
           setResult(parsed.result);
@@ -204,6 +205,7 @@ export function IQTest() {
   const beginAttempt = useCallback(
     (isRetake = false) => {
       setAttempt(buildAttempt());
+      setAttemptTestVersion(RANDOMIZED_TEST_VERSION);
       setAnswers({});
       setCurrentIndex(0);
       setElapsedSeconds(0);
@@ -225,6 +227,7 @@ export function IQTest() {
       setPhase("test");
       trackIQEvent(isRetake ? "iq_test_retake" : "iq_test_started", {
         timer_visible: showTimer,
+        test_version: RANDOMIZED_TEST_VERSION,
       });
       window.scrollTo({ top: 0, behavior: "instant" });
     },
@@ -237,7 +240,8 @@ export function IQTest() {
       if (!question) return;
       setAnswers((current) => ({ ...current, [question.id]: optionId }));
       trackIQEvent("iq_question_answered", {
-        question_id: question.id,
+        question_id: question.stableId,
+        displayed_position: currentIndex + 1,
         correct: optionId === question.correctAnswer,
       });
     },
@@ -259,7 +263,7 @@ export function IQTest() {
     const finalSeconds = startedAt.current
       ? Math.floor((Date.now() - startedAt.current) / 1000)
       : elapsedSeconds;
-    const scored = scoreAttempt(iqQuestions, answers);
+    const scored = scoreAttempt(attempt, answers);
     const completedAttemptId = attemptId || window.crypto.randomUUID();
     if (!attemptId) setAttemptId(completedAttemptId);
     setCompletionSeconds(finalSeconds);
@@ -267,9 +271,16 @@ export function IQTest() {
     setPhase("results");
     setShowSubmitWarning(false);
     startedAt.current = null;
-    saveAttempt(scored, answers, finalSeconds);
+    saveAttempt(
+      scored,
+      answers,
+      finalSeconds,
+      attempt,
+      attemptTestVersion,
+    );
     persistCompletedAttempt({
-      version: 3,
+      version: 4,
+      testVersion: attemptTestVersion,
       attemptId: completedAttemptId,
       attempt,
       answers,
@@ -290,6 +301,7 @@ export function IQTest() {
       correct_count: scored.correctCount,
       weighted_performance: Number(scored.weightedPerformance.toFixed(4)),
       completion_time: finalSeconds,
+      test_version: attemptTestVersion,
       probability_accuracy: Number(scored.categoryAccuracy.probability.toFixed(4)),
       logic_accuracy: Number(scored.categoryAccuracy.logic.toFixed(4)),
       patterns_accuracy: Number(scored.categoryAccuracy.patterns.toFixed(4)),
@@ -297,7 +309,14 @@ export function IQTest() {
       spatial_accuracy: Number(scored.categoryAccuracy.spatial.toFixed(4)),
     });
     window.scrollTo({ top: 0, behavior: "instant" });
-  }, [answers, attempt, attemptId, bestScore, elapsedSeconds]);
+  }, [
+    answers,
+    attempt,
+    attemptId,
+    attemptTestVersion,
+    bestScore,
+    elapsedSeconds,
+  ]);
 
   useEffect(() => {
     if (
@@ -320,6 +339,11 @@ export function IQTest() {
         iqScore: result.iqScore,
         answers,
         completionSeconds,
+        testVersion: attemptTestVersion,
+        selectedQuestionIds:
+          attemptTestVersion === RANDOMIZED_TEST_VERSION
+            ? attempt.map((question) => question.stableId)
+            : undefined,
       }),
       signal: controller.signal,
     })
@@ -336,7 +360,8 @@ export function IQTest() {
         setComparison(response.comparison);
         setComparisonStatus("ready");
         persistCompletedAttempt({
-          version: 3,
+          version: 4,
+          testVersion: attemptTestVersion,
           attemptId,
           attempt,
           answers,
@@ -355,16 +380,17 @@ export function IQTest() {
     answers,
     attempt,
     attemptId,
+    attemptTestVersion,
     completionSeconds,
     phase,
     result,
   ]);
 
   const requestSubmit = useCallback(() => {
-    const unansweredCount = iqQuestions.length - Object.keys(answers).length;
+    const unansweredCount = attempt.length - Object.keys(answers).length;
     if (unansweredCount > 0) setShowSubmitWarning(true);
     else finishAttempt();
-  }, [answers, finishAttempt]);
+  }, [answers, attempt.length, finishAttempt]);
 
   useEffect(() => {
     if (phase !== "test") return;
@@ -434,7 +460,7 @@ export function IQTest() {
   }, []);
 
   const currentQuestion = attempt[currentIndex];
-  const unansweredCount = iqQuestions.length - Object.keys(answers).length;
+  const unansweredCount = attempt.length - Object.keys(answers).length;
   const categoryResultsAreTied = result
     ? new Set(Object.values(result.categoryAccuracy)).size === 1
     : false;
