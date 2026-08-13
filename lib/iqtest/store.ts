@@ -7,6 +7,12 @@ import type {
 } from "./results";
 import type { ScoredAttempt } from "./scoring";
 import {
+  buildPublicIQData,
+  type PublicAttemptSort,
+  type PublicIQDataResponse,
+  type SanitizedStoredAttempt,
+} from "./public-data";
+import {
   buildTimingAnalytics,
   type StoredTimedAttempt,
 } from "./timing";
@@ -89,6 +95,11 @@ interface StoredAttempt {
   categoryAccuracy: Record<QuestionCategory, number>;
   answers: Record<number, string>;
 }
+
+let publicAttemptsCache:
+  | { expiresAt: number; attempts: SanitizedStoredAttempt[] }
+  | null = null;
+let publicAttemptsPromise: Promise<SanitizedStoredAttempt[]> | null = null;
 
 export function hasIQResultsStore() {
   return Boolean(KV_URL && KV_TOKEN);
@@ -243,7 +254,84 @@ export async function recordIQAttempt({
     ...questionArguments,
   ]);
 
+  if (Number(inserted) === 1) publicAttemptsCache = null;
+
   return Number(inserted) === 1;
+}
+
+function sanitizedAttempt(value: string): SanitizedStoredAttempt | null {
+  try {
+    const attempt = JSON.parse(value) as Partial<StoredAttempt>;
+    if (
+      !Number.isInteger(attempt.iqScore) ||
+      !Number.isInteger(attempt.correctCount) ||
+      typeof attempt.completedAt !== "string" ||
+      !Number.isFinite(Date.parse(attempt.completedAt))
+    ) {
+      return null;
+    }
+
+    let completionTimeSeconds: number | null = null;
+    if (
+      attempt.version === 3 &&
+      attempt.timingVersion === 1 &&
+      typeof attempt.startedAt === "string" &&
+      Number.isInteger(attempt.completionTimeSeconds)
+    ) {
+      const startedAtMs = Date.parse(attempt.startedAt);
+      const completedAtMs = Date.parse(attempt.completedAt);
+      const elapsedSeconds = Math.floor((completedAtMs - startedAtMs) / 1000);
+      if (
+        Number.isFinite(startedAtMs) &&
+        elapsedSeconds === attempt.completionTimeSeconds
+      ) {
+        completionTimeSeconds = attempt.completionTimeSeconds;
+      }
+    }
+
+    return {
+      iqScore: attempt.iqScore as number,
+      correctCount: attempt.correctCount as number,
+      completedAt: new Date(attempt.completedAt).toISOString().slice(0, 10),
+      completionTimeSeconds,
+    };
+  } catch {
+    return null;
+  }
+}
+
+async function loadSanitizedPublicAttempts() {
+  if (publicAttemptsCache && publicAttemptsCache.expiresAt > Date.now()) {
+    return publicAttemptsCache.attempts;
+  }
+  if (publicAttemptsPromise) return publicAttemptsPromise;
+
+  publicAttemptsPromise = (async () => {
+    const stored = stringHashFromResult(await redis(["HGETALL", ATTEMPTS_KEY]));
+    const attempts = Object.values(stored).flatMap((value) => {
+      const attempt = sanitizedAttempt(value);
+      return attempt ? [attempt] : [];
+    });
+    publicAttemptsCache = {
+      expiresAt: Date.now() + 60_000,
+      attempts,
+    };
+    return attempts;
+  })();
+
+  try {
+    return await publicAttemptsPromise;
+  } finally {
+    publicAttemptsPromise = null;
+  }
+}
+
+export async function getPublicIQData(options: {
+  page?: number;
+  pageSize?: number;
+  sort?: PublicAttemptSort;
+} = {}): Promise<PublicIQDataResponse> {
+  return buildPublicIQData(await loadSanitizedPublicAttempts(), options);
 }
 
 export async function getTimingAnalytics(

@@ -150,6 +150,19 @@
   color: var(--iq-muted);
 }
 
+.dataLink {
+  align-self: flex-start;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--iq-accent-deep);
+  text-decoration: none;
+}
+
+.dataLink:hover {
+  text-decoration: underline;
+  text-underline-offset: 0.3em;
+}
+
 .previousBest {
   color: var(--iq-accent-deep);
 }

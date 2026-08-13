@@ -9,7 +9,8 @@
     "start": "next start",
     "lint": "next lint",
     "verify:iq": "node --no-warnings --experimental-strip-types scripts/verify-iq-randomizer.ts",
-    "verify:iq-timing": "node --no-warnings --experimental-strip-types scripts/verify-iq-timing.ts"
+    "verify:iq-timing": "node --no-warnings --experimental-strip-types scripts/verify-iq-timing.ts",
+    "verify:iq-data": "node --no-warnings --experimental-strip-types scripts/verify-iq-public-data.ts"
   },
   "dependencies": {
     "framer-motion": "^11.18.2",

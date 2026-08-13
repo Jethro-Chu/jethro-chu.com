@@ -1,0 +1,750 @@
+.shell {
+  --data-bg: var(--color-sand);
+  --data-surface: var(--color-card);
+  --data-ink: var(--color-shadow);
+  --data-muted: var(--color-muted);
+  --data-accent: var(--color-pine);
+  --data-accent-deep: var(--color-pine-deep);
+  --data-highlight: var(--color-golden-deep);
+  --data-line: var(--color-granite-line);
+  position: relative;
+  min-height: 100svh;
+  overflow: clip;
+  background: var(--data-bg);
+  color: var(--data-ink);
+}
+
+.routeLine {
+  position: fixed;
+  inset: 0 auto 0 max(1.25rem, calc(50vw - 36rem));
+  width: 1px;
+  background: var(--data-line);
+  opacity: 0.46;
+  pointer-events: none;
+}
+
+.page {
+  width: min(100% - 2.5rem, 68rem);
+  margin-inline: auto;
+  padding: clamp(2rem, 6vw, 4.5rem) 0 6rem;
+}
+
+.hero {
+  position: relative;
+  min-height: min(43rem, 82svh);
+  padding-top: clamp(4rem, 10vh, 7rem);
+  border-bottom: 1px solid var(--data-line);
+}
+
+.routeNav {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--data-line);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.04em;
+}
+
+.routeNav a {
+  color: var(--data-accent-deep);
+  text-decoration: none;
+}
+
+.routeNav a:hover {
+  text-decoration: underline;
+  text-underline-offset: 0.3em;
+}
+
+.routeNav span {
+  color: var(--data-muted);
+}
+
+.kicker,
+.sectionLabel {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  line-height: 1.4;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  color: var(--data-muted);
+}
+
+.kicker::before,
+.sectionLabel::before {
+  content: "";
+  display: inline-block;
+  width: 1.4rem;
+  height: 1px;
+  margin: 0 0.65rem 0.22rem 0;
+  background: var(--color-golden);
+}
+
+.hero h1 {
+  max-width: 12ch;
+  margin: 1.25rem 0 0;
+  font-family: var(--font-display);
+  font-size: clamp(3.6rem, 10vw, 7.8rem);
+  font-weight: 560;
+  line-height: 0.92;
+  letter-spacing: -0.04em;
+}
+
+.intro {
+  max-width: 39rem;
+  margin: 1.5rem 0 0;
+  font-family: var(--font-display);
+  font-size: clamp(1.25rem, 2.8vw, 1.85rem);
+  line-height: 1.25;
+}
+
+.totalCompleted {
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+  margin-top: clamp(3.5rem, 8vh, 6rem);
+}
+
+.totalCompleted strong {
+  font-family: var(--font-mono);
+  font-size: clamp(3.5rem, 10vw, 7rem);
+  font-weight: 500;
+  line-height: 0.9;
+  letter-spacing: -0.06em;
+  font-variant-numeric: tabular-nums;
+}
+
+.totalCompleted span {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--data-muted);
+}
+
+.disclaimer {
+  max-width: 45rem;
+  margin: 1.5rem 0 0;
+  font-size: 0.78rem;
+  line-height: 1.6;
+  color: var(--data-muted);
+}
+
+.section {
+  margin-top: clamp(5rem, 12vw, 9rem);
+}
+
+.sectionHeader {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--data-line);
+}
+
+.sectionHeader h2 {
+  margin: 0.7rem 0 0;
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 5vw, 3.4rem);
+  font-weight: 540;
+  line-height: 1.04;
+  letter-spacing: -0.02em;
+}
+
+.sectionMeta,
+.loading {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--data-muted);
+}
+
+.loading {
+  color: var(--data-accent-deep);
+}
+
+.summaryGrid,
+.detailStats,
+.summaryGridFour {
+  display: grid;
+  gap: 1px;
+  margin-top: 1.5rem;
+  border: 1px solid var(--data-line);
+  background: var(--data-line);
+}
+
+.summaryGrid {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+.detailStats,
+.summaryGridFour {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.summaryCard {
+  display: flex;
+  min-height: 7rem;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 0.8rem;
+  margin: 0;
+  padding: 1rem 1.1rem;
+  background: var(--data-surface);
+}
+
+.summaryCard span {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--data-muted);
+}
+
+.summaryCard strong {
+  font-family: var(--font-mono);
+  font-size: clamp(1.25rem, 2.8vw, 1.9rem);
+  font-weight: 500;
+  line-height: 1.1;
+  font-variant-numeric: tabular-nums;
+}
+
+.figure {
+  margin: 1.5rem 0 0;
+  padding: clamp(1rem, 3vw, 1.5rem);
+  border: 1px solid var(--data-line);
+  background: var(--data-surface);
+}
+
+.figure figcaption {
+  margin-top: 1rem;
+  font-size: 0.73rem;
+  line-height: 1.5;
+  color: var(--data-muted);
+}
+
+.barChart {
+  display: grid;
+  height: 20rem;
+  grid-template-columns: repeat(9, minmax(0, 1fr));
+  gap: clamp(0.25rem, 1vw, 0.8rem);
+  align-items: stretch;
+}
+
+.barChartDense {
+  height: 16rem;
+  grid-template-columns: repeat(26, minmax(0, 1fr));
+  gap: clamp(0.08rem, 0.4vw, 0.32rem);
+}
+
+.barColumn {
+  display: grid;
+  min-width: 0;
+  grid-template-rows: 1.2rem minmax(0, 1fr) 1.5rem;
+  gap: 0.35rem;
+  text-align: center;
+}
+
+.barCount,
+.barLabel {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  font-variant-numeric: tabular-nums;
+  color: var(--data-muted);
+}
+
+.barWell {
+  display: flex;
+  min-height: 0;
+  align-items: flex-end;
+  border-bottom: 1px solid var(--data-line);
+  background: color-mix(in oklab, var(--data-line) 18%, transparent);
+}
+
+.barWell i {
+  display: block;
+  width: 100%;
+  background: var(--data-accent);
+}
+
+.percentileGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1px;
+  margin-top: 1.5rem;
+  border: 1px solid var(--data-line);
+  background: var(--data-line);
+}
+
+.percentileGrid p {
+  display: flex;
+  min-height: 8rem;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1rem;
+  margin: 0;
+  padding: 1.2rem;
+  background: var(--data-surface);
+}
+
+.percentileGrid span {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--data-muted);
+}
+
+.percentileGrid strong {
+  font-family: var(--font-display);
+  font-size: clamp(1.35rem, 3vw, 2rem);
+  font-weight: 540;
+  color: var(--data-accent-deep);
+}
+
+.emptyTiming,
+.status {
+  margin-top: 1.5rem;
+  padding: 1.25rem;
+  border: 1px solid var(--data-line);
+  background: var(--data-surface);
+}
+
+.emptyTiming p,
+.emptyTiming span {
+  margin: 0;
+}
+
+.emptyTiming p {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+}
+
+.emptyTiming span,
+.status {
+  display: block;
+  margin-top: 0.45rem;
+  color: var(--data-muted);
+  font-size: 0.82rem;
+}
+
+.controls {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.controls label:first-child,
+.sortControl {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.controls label > span,
+.sortControl > span {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--data-muted);
+}
+
+.controls select,
+.sortControl select {
+  min-height: 2.75rem;
+  padding: 0 2.4rem 0 0.85rem;
+  border: 1px solid var(--data-line);
+  border-radius: var(--radius-sm);
+  background: var(--data-surface);
+  color: var(--data-ink);
+  font: 500 0.76rem/1 var(--font-mono);
+}
+
+.checkboxLabel {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  min-height: 2.75rem;
+  cursor: pointer;
+}
+
+.checkboxLabel input {
+  width: 1rem;
+  height: 1rem;
+  accent-color: var(--data-accent);
+}
+
+.scatterChart {
+  position: relative;
+  display: grid;
+  height: 25rem;
+  grid-template-columns: 2.2rem minmax(0, 1fr);
+  grid-template-rows: minmax(0, 1fr) 1.5rem;
+  padding: 0.8rem 0.4rem 1.3rem 1.6rem;
+}
+
+.scatterYAxis {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-right: 0.5rem;
+  text-align: right;
+}
+
+.scatterYAxis span,
+.scatterXAxis span,
+.xAxisTitle,
+.yAxisTitle {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  color: var(--data-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.scatterPlot {
+  position: relative;
+  margin: 0.35rem 0.5rem 0;
+  border-left: 1px solid var(--data-line);
+  border-bottom: 1px solid var(--data-line);
+}
+
+.scatterPlot > i {
+  position: absolute;
+  inset-inline: 0;
+  height: 1px;
+  background: color-mix(in oklab, var(--data-line) 45%, transparent);
+}
+
+.scatterPlot > i:nth-child(1) { top: 0; }
+.scatterPlot > i:nth-child(2) { top: 25%; }
+.scatterPlot > i:nth-child(3) { top: 50%; }
+.scatterPlot > i:nth-child(4) { top: 75%; }
+
+.scatterPoint {
+  position: absolute;
+  z-index: 2;
+  width: 0.75rem;
+  height: 0.75rem;
+  padding: 0;
+  border: 2px solid var(--data-surface);
+  border-radius: 50%;
+  background: var(--data-accent);
+  box-shadow: 0 0 0 1px var(--data-accent-deep);
+  transform: translate(-50%, 50%);
+  cursor: pointer;
+}
+
+.scatterPoint:focus-visible {
+  outline: 3px solid var(--data-accent);
+  outline-offset: 4px;
+}
+
+.tooltip {
+  position: absolute;
+  bottom: calc(100% + 0.65rem);
+  left: 50%;
+  z-index: 4;
+  display: none;
+  min-width: 13rem;
+  padding: 0.75rem;
+  border: 1px solid var(--data-line);
+  background: var(--data-ink);
+  color: var(--data-surface);
+  text-align: left;
+  transform: translateX(-50%);
+  box-shadow: var(--shadow-panel);
+}
+
+.tooltip strong,
+.tooltip span {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  line-height: 1.55;
+}
+
+.tooltip strong {
+  margin-bottom: 0.2rem;
+  font-size: 0.75rem;
+}
+
+.scatterPoint:hover .tooltip,
+.scatterPoint:focus .tooltip {
+  display: block;
+}
+
+.scatterXAxis {
+  grid-column: 2;
+  display: flex;
+  justify-content: space-between;
+  padding: 0.4rem 0.4rem 0;
+}
+
+.xAxisTitle,
+.yAxisTitle {
+  position: absolute;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.xAxisTitle {
+  bottom: 0;
+  left: calc(50% + 1.9rem);
+  transform: translateX(-50%);
+}
+
+.yAxisTitle {
+  top: 50%;
+  left: 0;
+  transform: translate(-50%, -50%) rotate(-90deg);
+}
+
+.timingColumns {
+  display: grid;
+  grid-template-columns: minmax(18rem, 0.7fr) minmax(0, 1.3fr);
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.timingColumns > div {
+  padding: 1.25rem;
+  border: 1px solid var(--data-line);
+  background: var(--data-surface);
+}
+
+.timingColumns h3 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 540;
+}
+
+.timingColumns .barChart {
+  height: 12rem;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  margin-top: 1rem;
+}
+
+.telemetryList {
+  margin: 1rem 0 0;
+}
+
+.telemetryList div {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.7rem 0;
+  border-top: 1px solid var(--data-line);
+}
+
+.telemetryList dt,
+.telemetryList dd {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+}
+
+.telemetryList dt { color: var(--data-muted); }
+.telemetryList dd { margin: 0; }
+
+.aboutTime {
+  margin-top: 1.5rem;
+  padding: 1.1rem 1.25rem;
+  border-left: 2px solid var(--data-accent);
+  background: color-mix(in oklab, var(--data-accent) 5%, transparent);
+}
+
+.aboutTime strong {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.aboutTime p {
+  max-width: 52rem;
+  margin: 0.45rem 0 0;
+  font-size: 0.82rem;
+  line-height: 1.6;
+  color: var(--data-muted);
+}
+
+.tableWrap {
+  overflow-x: auto;
+  margin-top: 1.5rem;
+  border: 1px solid var(--data-line);
+  background: var(--data-surface);
+}
+
+.tableWrap table {
+  width: 100%;
+  min-width: 42rem;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.tableWrap th,
+.tableWrap td {
+  padding: 0.9rem 1rem;
+  border-bottom: 1px solid var(--data-line);
+}
+
+.tableWrap th {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--data-muted);
+}
+
+.tableWrap td {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.tableWrap tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.pagination button {
+  min-height: 2.75rem;
+  padding-inline: 1rem;
+  border: 1px solid var(--data-line);
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--data-ink);
+  font: 500 0.75rem/1 var(--font-mono);
+  cursor: pointer;
+}
+
+.pagination button:disabled {
+  opacity: 0.38;
+  cursor: not-allowed;
+}
+
+.pagination span {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--data-muted);
+}
+
+@media (max-width: 720px) {
+  .routeLine { left: 0.75rem; }
+
+  .page {
+    width: min(100% - 2rem, 68rem);
+  }
+
+  .hero {
+    min-height: 42rem;
+    padding-top: 5.5rem;
+  }
+
+  .totalCompleted {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .sectionHeader {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .summaryGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .summaryGrid .summaryCard:last-child {
+    grid-column: 1 / -1;
+  }
+
+  .detailStats,
+  .summaryGridFour,
+  .percentileGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .summaryCard {
+    min-height: 6rem;
+  }
+
+  .barChart {
+    height: 15rem;
+    gap: 0.2rem;
+  }
+
+  .barChartDense {
+    height: 12rem;
+    gap: 0.08rem;
+  }
+
+  .barCount,
+  .barLabel {
+    font-size: 0.5rem;
+  }
+
+  .barLabelMinor {
+    visibility: hidden;
+  }
+
+  .controls {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .controls select,
+  .sortControl select {
+    width: 100%;
+  }
+
+  .scatterChart {
+    height: 19rem;
+    grid-template-columns: 1.8rem minmax(0, 1fr);
+    padding-left: 1.25rem;
+  }
+
+  .scatterPoint {
+    width: 0.85rem;
+    height: 0.85rem;
+  }
+
+  .tooltip {
+    min-width: 11.5rem;
+  }
+
+  .timingColumns {
+    grid-template-columns: 1fr;
+  }
+
+  .sortControl {
+    width: 100%;
+  }
+
+  .pagination button {
+    padding-inline: 0.7rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .barWell i {
+    transition: none;
+  }
+}

@@ -561,6 +561,9 @@ export function IQTest() {
               >
                 Begin Test <span aria-hidden="true">→</span>
               </button>
+              <a className={styles.dataLink} href="/iqtest/data">
+                View Test Data <span aria-hidden="true">→</span>
+              </a>
             </div>
           </div>
 
