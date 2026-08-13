@@ -143,7 +143,6 @@
   gap: 1rem;
 }
 
-.estimate,
 .previousBest {
   margin: 0;
   font-family: var(--font-mono);

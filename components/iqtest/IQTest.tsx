@@ -537,7 +537,6 @@ export function IQTest() {
             </div>
 
             <div className={styles.startControls}>
-              <p className={styles.estimate}>Estimated time: 20–30 minutes</p>
               <label className={styles.timerToggle}>
                 <span>
                   <strong>Show timer</strong>
