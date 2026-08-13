@@ -561,9 +561,6 @@ export function IQTest() {
               >
                 Begin Test <span aria-hidden="true">→</span>
               </button>
-              <a className={styles.dataLink} href="/iqtest/data">
-                View Test Data <span aria-hidden="true">→</span>
-              </a>
             </div>
           </div>
 
@@ -754,6 +751,7 @@ export function IQTest() {
               <button type="button" className={styles.primaryButton} onClick={shareChallenge}>Challenge a Friend</button>
               <button type="button" className={styles.secondaryButton} onClick={copyResult}>Copy Result</button>
               <button type="button" className={styles.textButton} onClick={() => beginAttempt(true)}>Retake Test</button>
+              <a className={styles.dataLink} href="/iqtest/data">View Test Data <span aria-hidden="true">→</span></a>
             </div>
             {copyStatus && <p className={styles.copyStatus} role="status">{copyStatus}</p>}
           </section>
