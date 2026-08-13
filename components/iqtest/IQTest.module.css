@@ -565,6 +565,7 @@
 }
 
 .comparison,
+.timingSection,
 .breakdown,
 .hardestSection,
 .shareSection,
@@ -582,6 +583,7 @@
 }
 
 .sectionHeading h2,
+.timingTableHeader h3,
 .hardestSection h2,
 .shareSection h2 {
   margin: 0.7rem 0 0;
@@ -717,6 +719,276 @@
 
 .earlySampleNote {
   font-family: var(--font-mono);
+}
+
+.timingSummary {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1px;
+  margin-top: 1.5rem;
+  border: 1px solid var(--iq-line);
+  background: var(--iq-line);
+}
+
+.timingSummary p {
+  display: flex;
+  min-height: 6.4rem;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 0.7rem;
+  margin: 0;
+  padding: 1rem 1.15rem;
+  background: var(--iq-surface);
+}
+
+.timingSummary span,
+.timingControls label > span,
+.timingTableHeader label > span {
+  font-family: var(--font-mono);
+  font-size: 0.64rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--iq-muted);
+}
+
+.timingSummary strong {
+  font-family: var(--font-mono);
+  font-size: clamp(1.15rem, 2.5vw, 1.75rem);
+  font-weight: 500;
+  line-height: 1.1;
+  color: var(--iq-ink);
+}
+
+.timingSummary .timingRange {
+  font-size: clamp(0.9rem, 2vw, 1.2rem);
+}
+
+.timingControls,
+.timingTableHeader {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 1rem 2rem;
+  margin-top: 1.5rem;
+}
+
+.timingControls label:first-child,
+.timingTableHeader label {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.timingControls select,
+.timingTableHeader select {
+  min-height: 2.7rem;
+  padding: 0 2.4rem 0 0.8rem;
+  border: 1px solid var(--iq-line);
+  border-radius: var(--radius-sm);
+  background: var(--iq-surface);
+  color: var(--iq-ink);
+  font: 500 0.76rem/1 var(--font-mono);
+}
+
+.longTimeToggle {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  min-height: 2.7rem;
+  cursor: pointer;
+}
+
+.longTimeToggle input {
+  width: 1rem;
+  height: 1rem;
+  accent-color: var(--iq-accent);
+}
+
+.scatterFigure {
+  margin: 1rem 0 0;
+  padding: clamp(1rem, 3vw, 1.5rem);
+  border: 1px solid var(--iq-line);
+  background: var(--iq-surface);
+}
+
+.scatterChart {
+  position: relative;
+  display: grid;
+  height: 24rem;
+  grid-template-columns: 2.2rem minmax(0, 1fr);
+  grid-template-rows: minmax(0, 1fr) 1.5rem;
+  padding: 0.8rem 0.4rem 1.3rem 1.6rem;
+}
+
+.scatterYAxis {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-right: 0.5rem;
+  text-align: right;
+}
+
+.scatterYAxis span,
+.scatterXAxis span,
+.xAxisTitle,
+.yAxisTitle {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  color: var(--iq-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.scatterPlot {
+  position: relative;
+  margin: 0.35rem 0.5rem 0;
+  border-left: 1px solid var(--iq-line);
+  border-bottom: 1px solid var(--iq-line);
+}
+
+.scatterPlot > i {
+  position: absolute;
+  inset-inline: 0;
+  height: 1px;
+  background: color-mix(in oklab, var(--iq-line) 45%, transparent);
+}
+
+.scatterPlot > i:nth-child(1) { top: 0; }
+.scatterPlot > i:nth-child(2) { top: 25%; }
+.scatterPlot > i:nth-child(3) { top: 50%; }
+.scatterPlot > i:nth-child(4) { top: 75%; }
+
+.scatterPoint {
+  position: absolute;
+  z-index: 2;
+  width: 0.72rem;
+  height: 0.72rem;
+  padding: 0;
+  border: 2px solid var(--iq-surface);
+  border-radius: 50%;
+  background: var(--iq-accent);
+  box-shadow: 0 0 0 1px var(--iq-accent-deep);
+  transform: translate(-50%, 50%);
+  cursor: pointer;
+}
+
+.scatterPointCurrent {
+  width: 0.9rem;
+  height: 0.9rem;
+  background: var(--iq-highlight);
+  box-shadow: 0 0 0 2px var(--iq-ink);
+}
+
+.scatterPoint:focus-visible {
+  outline: 3px solid var(--iq-accent);
+  outline-offset: 4px;
+}
+
+.scatterTooltip {
+  position: absolute;
+  bottom: calc(100% + 0.65rem);
+  left: 50%;
+  z-index: 4;
+  display: none;
+  min-width: 13rem;
+  padding: 0.75rem;
+  border: 1px solid var(--iq-line);
+  background: var(--iq-ink);
+  color: var(--iq-surface);
+  text-align: left;
+  transform: translateX(-50%);
+  box-shadow: var(--shadow-panel);
+}
+
+.scatterTooltip strong,
+.scatterTooltip span {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  line-height: 1.55;
+}
+
+.scatterTooltip strong {
+  margin-bottom: 0.2rem;
+  font-size: 0.75rem;
+}
+
+.scatterPoint:hover .scatterTooltip,
+.scatterPoint:focus .scatterTooltip {
+  display: block;
+}
+
+.scatterXAxis {
+  grid-column: 2;
+  display: flex;
+  justify-content: space-between;
+  padding: 0.4rem 0.4rem 0;
+}
+
+.xAxisTitle,
+.yAxisTitle {
+  position: absolute;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.xAxisTitle {
+  bottom: 0;
+  left: calc(50% + 1.9rem);
+  transform: translateX(-50%);
+}
+
+.yAxisTitle {
+  top: 50%;
+  left: 0;
+  transform: translate(-50%, -50%) rotate(-90deg);
+}
+
+.scatterFigure figcaption {
+  margin: 1rem 0 0;
+  font-size: 0.73rem;
+  color: var(--iq-muted);
+}
+
+.timingTableHeader h3 {
+  font-size: clamp(1.25rem, 3vw, 1.7rem);
+}
+
+.timingTableWrap {
+  overflow-x: auto;
+  margin-top: 1rem;
+  border: 1px solid var(--iq-line);
+  background: var(--iq-surface);
+}
+
+.timingTable {
+  width: 100%;
+  min-width: 42rem;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.timingTable th,
+.timingTable td {
+  padding: 0.85rem 1rem;
+  border-bottom: 1px solid var(--iq-line);
+}
+
+.timingTable th {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--iq-muted);
+}
+
+.timingTable td {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.timingTable tbody tr:last-child td {
+  border-bottom: 0;
 }
 
 .bestResult {
@@ -1231,6 +1503,40 @@
   .areaSummary,
   .comparisonSummary {
     grid-template-columns: 1fr;
+  }
+
+  .timingSummary {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .timingSummary p {
+    min-height: 5.5rem;
+  }
+
+  .timingControls,
+  .timingTableHeader {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .timingControls select,
+  .timingTableHeader select {
+    width: 100%;
+  }
+
+  .scatterChart {
+    height: 19rem;
+    grid-template-columns: 1.8rem minmax(0, 1fr);
+    padding-left: 1.25rem;
+  }
+
+  .scatterPoint {
+    width: 0.82rem;
+    height: 0.82rem;
+  }
+
+  .scatterTooltip {
+    min-width: 11.5rem;
   }
 
   .comparisonSummary p {

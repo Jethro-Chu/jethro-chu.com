@@ -1,9 +1,15 @@
 import type { IQQuestion, QuestionCategory } from "./questions";
 import type {
+  CompletionTiming,
   ParticipantComparison,
   ScoreDistributionBin,
+  TimingAnalytics,
 } from "./results";
 import type { ScoredAttempt } from "./scoring";
+import {
+  buildTimingAnalytics,
+  type StoredTimedAttempt,
+} from "./timing";
 
 const KV_URL =
   process.env.KV_REST_API_URL ??
@@ -23,6 +29,7 @@ const QUESTION_TOTALS_KEY = "{iqtest}:v1:question-totals";
 const QUESTION_CORRECT_KEY = "{iqtest}:v1:question-correct";
 const RANDOMIZED_QUESTION_TOTALS_KEY = "{iqtest}:v2:question-totals";
 const RANDOMIZED_QUESTION_CORRECT_KEY = "{iqtest}:v2:question-correct";
+const TIMED_ATTEMPTS_KEY = "{iqtest}:v3:timed-attempts";
 
 const SCORE_RANGES = [
   [32, 49],
@@ -49,7 +56,11 @@ redis.call("HINCRBY", KEYS[2], "correct_sum", ARGV[4])
 redis.call("HINCRBY", KEYS[2], "completion_seconds_sum", ARGV[5])
 redis.call("HINCRBY", KEYS[3], ARGV[3], 1)
 
-local index = 6
+if ARGV[6] ~= "" then
+  redis.call("HSET", KEYS[6], ARGV[1], ARGV[6])
+end
+
+local index = 7
 while index <= #ARGV do
   local question_id = ARGV[index]
   local is_correct = tonumber(ARGV[index + 1])
@@ -64,10 +75,13 @@ return 1
 `;
 
 interface StoredAttempt {
-  version: 1 | 2;
+  version: 1 | 2 | 3;
   testVersion?: 2;
   selectedQuestionIds?: string[];
+  timingVersion?: 1;
+  startedAt?: string;
   completedAt: string;
+  completionTimeSeconds?: number;
   iqScore: number;
   correctCount: number;
   completionSeconds: number;
@@ -119,6 +133,22 @@ function hashFromResult(result: unknown): Record<string, number> {
   return parsed;
 }
 
+function stringHashFromResult(result: unknown): Record<string, string> {
+  if (!result) return {};
+  if (!Array.isArray(result) && typeof result === "object") {
+    return Object.fromEntries(
+      Object.entries(result).map(([key, value]) => [key, String(value)]),
+    );
+  }
+  if (!Array.isArray(result)) return {};
+
+  const parsed: Record<string, string> = {};
+  for (let index = 0; index < result.length; index += 2) {
+    parsed[String(result[index])] = String(result[index + 1]);
+  }
+  return parsed;
+}
+
 function medianFromCounts(counts: Record<string, number>, total: number) {
   if (total <= 0) return 0;
   const lowerPosition = Math.floor((total - 1) / 2) + 1;
@@ -147,6 +177,7 @@ export async function recordIQAttempt({
   result,
   questions,
   testVersion = 1,
+  timing,
 }: {
   attemptId: string;
   iqScore: number;
@@ -155,16 +186,24 @@ export async function recordIQAttempt({
   result: ScoredAttempt;
   questions: IQQuestion[];
   testVersion?: number;
+  timing?: CompletionTiming;
 }) {
   const storedAttempt: StoredAttempt = {
-    version: testVersion === 2 ? 2 : 1,
+    version: timing ? 3 : testVersion === 2 ? 2 : 1,
     ...(testVersion === 2
       ? {
           testVersion: 2 as const,
           selectedQuestionIds: questions.map((question) => question.stableId),
         }
       : {}),
-    completedAt: new Date().toISOString(),
+    ...(timing
+      ? {
+          timingVersion: timing.timingVersion,
+          startedAt: timing.startedAt,
+          completionTimeSeconds: timing.completionTimeSeconds,
+        }
+      : {}),
+    completedAt: timing?.completedAt ?? new Date().toISOString(),
     iqScore,
     correctCount: result.correctCount,
     completionSeconds,
@@ -176,25 +215,58 @@ export async function recordIQAttempt({
     testVersion === 2 ? question.stableId : question.id,
     answers[question.id] === question.correctAnswer ? 1 : 0,
   ]);
+  const timedAttempt = timing
+    ? JSON.stringify({
+        iqScore,
+        correctCount: result.correctCount,
+        completionTimeSeconds: timing.completionTimeSeconds,
+        completedAt: timing.completedAt,
+      })
+    : "";
 
   const inserted = await redis([
     "EVAL",
     RECORD_ATTEMPT_SCRIPT,
-    5,
+    6,
     ATTEMPTS_KEY,
     META_KEY,
     SCORE_COUNTS_KEY,
     testVersion === 2 ? RANDOMIZED_QUESTION_TOTALS_KEY : QUESTION_TOTALS_KEY,
     testVersion === 2 ? RANDOMIZED_QUESTION_CORRECT_KEY : QUESTION_CORRECT_KEY,
+    TIMED_ATTEMPTS_KEY,
     attemptId,
     JSON.stringify(storedAttempt),
     iqScore,
     result.correctCount,
-    completionSeconds,
+    timing?.completionTimeSeconds ?? completionSeconds,
+    timedAttempt,
     ...questionArguments,
   ]);
 
   return Number(inserted) === 1;
+}
+
+export async function getTimingAnalytics(
+  currentAttemptId?: string,
+): Promise<TimingAnalytics> {
+  const stored = stringHashFromResult(
+    await redis(["HGETALL", TIMED_ATTEMPTS_KEY]),
+  );
+  const attempts: StoredTimedAttempt[] = [];
+
+  for (const [attemptId, serialized] of Object.entries(stored)) {
+    try {
+      const parsed = JSON.parse(serialized) as Omit<
+        StoredTimedAttempt,
+        "attemptId"
+      >;
+      attempts.push({ ...parsed, attemptId });
+    } catch {
+      // Ignore a malformed future timing row without affecting IQ analytics.
+    }
+  }
+
+  return buildTimingAnalytics(attempts, currentAttemptId);
 }
 
 export async function getParticipantComparison(

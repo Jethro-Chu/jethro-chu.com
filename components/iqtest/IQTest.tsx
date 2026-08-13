@@ -22,11 +22,14 @@ import {
 } from "@/lib/iqtest/scoring";
 import { trackIQEvent } from "@/lib/iqtest/analytics";
 import type {
+  CompletionTiming,
   IQResultResponse,
   ParticipantComparison as ParticipantComparisonData,
+  TimingAnalytics as TimingAnalyticsData,
 } from "@/lib/iqtest/results";
 import { ParticipantComparison } from "./ParticipantComparison";
 import { QuestionDiagram } from "./QuestionDiagram";
+import { TimingAnalytics } from "./TimingAnalytics";
 import styles from "./IQTest.module.css";
 
 type Phase = "start" | "test" | "results";
@@ -49,7 +52,7 @@ interface SavedAttempt {
 }
 
 interface PersistedCompletedAttempt {
-  version: 2 | 3 | 4;
+  version: 2 | 3 | 4 | 5;
   testVersion?: number;
   attemptId?: string;
   attempt: AttemptQuestion[];
@@ -57,6 +60,8 @@ interface PersistedCompletedAttempt {
   completionSeconds: number;
   result: ScoredAttempt;
   comparison?: ParticipantComparisonData;
+  timing?: CompletionTiming;
+  timingAnalytics?: TimingAnalyticsData;
 }
 
 const CATEGORY_ORDER: QuestionCategory[] = [
@@ -137,6 +142,9 @@ export function IQTest() {
   const [result, setResult] = useState<ScoredAttempt | null>(null);
   const [attemptId, setAttemptId] = useState("");
   const [comparison, setComparison] = useState<ParticipantComparisonData | null>(null);
+  const [timing, setTiming] = useState<CompletionTiming | null>(null);
+  const [timingAnalytics, setTimingAnalytics] =
+    useState<TimingAnalyticsData | null>(null);
   const [comparisonStatus, setComparisonStatus] = useState<
     "idle" | "loading" | "ready" | "unavailable"
   >("idle");
@@ -157,7 +165,10 @@ export function IQTest() {
       if (completed) {
         const parsed = JSON.parse(completed) as PersistedCompletedAttempt;
         if (
-          (parsed.version === 2 || parsed.version === 3 || parsed.version === 4) &&
+          (parsed.version === 2 ||
+            parsed.version === 3 ||
+            parsed.version === 4 ||
+            parsed.version === 5) &&
           parsed.attempt?.length === TEST_QUESTION_COUNT &&
           parsed.answers &&
           typeof parsed.answers === "object" &&
@@ -177,6 +188,8 @@ export function IQTest() {
           setResult(parsed.result);
           setAttemptId(parsed.attemptId ?? window.crypto.randomUUID());
           setComparison(parsed.comparison ?? null);
+          setTiming(parsed.timing ?? null);
+          setTimingAnalytics(parsed.timingAnalytics ?? null);
           setComparisonStatus(parsed.comparison ? "ready" : "idle");
           setPhase("results");
         }
@@ -213,6 +226,8 @@ export function IQTest() {
       setResult(null);
       setAttemptId(window.crypto.randomUUID());
       setComparison(null);
+      setTiming(null);
+      setTimingAnalytics(null);
       setComparisonStatus("idle");
       setReviewOpen(false);
       setReviewFilter("all");
@@ -260,13 +275,22 @@ export function IQTest() {
   const finishAttempt = useCallback(() => {
     if (submissionLocked.current) return;
     submissionLocked.current = true;
+    const completedAtMs = Date.now();
+    const startedAtMs = startedAt.current ?? completedAtMs - elapsedSeconds * 1000;
     const finalSeconds = startedAt.current
-      ? Math.floor((Date.now() - startedAt.current) / 1000)
+      ? Math.floor((completedAtMs - startedAt.current) / 1000)
       : elapsedSeconds;
+    const completedTiming: CompletionTiming = {
+      timingVersion: 1,
+      startedAt: new Date(startedAtMs).toISOString(),
+      completedAt: new Date(completedAtMs).toISOString(),
+      completionTimeSeconds: finalSeconds,
+    };
     const scored = scoreAttempt(attempt, answers);
     const completedAttemptId = attemptId || window.crypto.randomUUID();
     if (!attemptId) setAttemptId(completedAttemptId);
     setCompletionSeconds(finalSeconds);
+    setTiming(completedTiming);
     setResult(scored);
     setPhase("results");
     setShowSubmitWarning(false);
@@ -279,13 +303,14 @@ export function IQTest() {
       attemptTestVersion,
     );
     persistCompletedAttempt({
-      version: 4,
+      version: 5,
       testVersion: attemptTestVersion,
       attemptId: completedAttemptId,
       attempt,
       answers,
       completionSeconds: finalSeconds,
       result: scored,
+      timing: completedTiming,
     });
 
     const nextBest = Math.max(bestScore ?? 0, scored.iqScore);
@@ -301,6 +326,7 @@ export function IQTest() {
       correct_count: scored.correctCount,
       weighted_performance: Number(scored.weightedPerformance.toFixed(4)),
       completion_time: finalSeconds,
+      timing_version: completedTiming.timingVersion,
       test_version: attemptTestVersion,
       probability_accuracy: Number(scored.categoryAccuracy.probability.toFixed(4)),
       logic_accuracy: Number(scored.categoryAccuracy.logic.toFixed(4)),
@@ -344,6 +370,10 @@ export function IQTest() {
           attemptTestVersion === RANDOMIZED_TEST_VERSION
             ? attempt.map((question) => question.stableId)
             : undefined,
+        timingVersion: timing?.timingVersion,
+        startedAt: timing?.startedAt,
+        completedAt: timing?.completedAt,
+        completionTimeSeconds: timing?.completionTimeSeconds,
       }),
       signal: controller.signal,
     })
@@ -358,16 +388,25 @@ export function IQTest() {
             : { ...result, iqScore: response.iqScore };
         setResult(verifiedResult);
         setComparison(response.comparison);
+        const verifiedTiming = response.timing ?? timing;
+        setTiming(verifiedTiming);
+        setTimingAnalytics(response.timingAnalytics ?? null);
+        if (verifiedTiming) {
+          setCompletionSeconds(verifiedTiming.completionTimeSeconds);
+        }
         setComparisonStatus("ready");
         persistCompletedAttempt({
-          version: 4,
+          version: 5,
           testVersion: attemptTestVersion,
           attemptId,
           attempt,
           answers,
-          completionSeconds,
+          completionSeconds:
+            verifiedTiming?.completionTimeSeconds ?? completionSeconds,
           result: verifiedResult,
           comparison: response.comparison,
+          timing: verifiedTiming ?? undefined,
+          timingAnalytics: response.timingAnalytics,
         });
       })
       .catch((error: unknown) => {
@@ -384,6 +423,7 @@ export function IQTest() {
     completionSeconds,
     phase,
     result,
+    timing,
   ]);
 
   const requestSubmit = useCallback(() => {
@@ -617,6 +657,14 @@ export function IQTest() {
               <span><strong>Questions Correct: {result.correctCount} / 25</strong></span>
               <span>Completed in <strong>{formatTime(completionSeconds)}</strong></span>
               <span>Average <strong>{formatTime(Math.round(completionSeconds / 25))}</strong> per question</span>
+              {typeof timingAnalytics?.speedPercentile === "number" && (
+                <span>
+                  Speed percentile{" "}
+                  <strong>
+                    Faster than {timingAnalytics.speedPercentile}% of timed test takers
+                  </strong>
+                </span>
+              )}
             </div>
             {result.correctCount === 25 && (
               <>
@@ -637,6 +685,13 @@ export function IQTest() {
             score={result.iqScore}
             status={comparisonStatus}
           />
+
+          {timing && (
+            <TimingAnalytics
+              analytics={timingAnalytics}
+              status={comparisonStatus}
+            />
+          )}
 
           <section className={styles.breakdown} aria-labelledby="breakdown-title">
             <div className={styles.sectionHeading}>

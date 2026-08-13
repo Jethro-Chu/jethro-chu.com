@@ -19,9 +19,14 @@ import {
 } from "@/lib/iqtest/scoring";
 import {
   getParticipantComparison,
+  getTimingAnalytics,
   hasIQResultsStore,
   recordIQAttempt,
 } from "@/lib/iqtest/store";
+import {
+  TIMING_VERSION,
+  validateCompletionTiming,
+} from "@/lib/iqtest/timing";
 
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
@@ -50,6 +55,8 @@ function validSubmission(value: unknown): value is IQResultSubmission {
     (submission.testVersion !== undefined &&
       submission.testVersion !== 1 &&
       submission.testVersion !== RANDOMIZED_TEST_VERSION) ||
+    (submission.timingVersion !== undefined &&
+      submission.timingVersion !== TIMING_VERSION) ||
     !submission.answers ||
     typeof submission.answers !== "object" ||
     Array.isArray(submission.answers)
@@ -94,6 +101,7 @@ export async function POST(request: Request) {
     return noStoreJson({ error: "Participant comparison is unavailable." }, 503);
   }
 
+  const receivedAtMs = Date.now();
   let body: unknown;
   try {
     body = await request.json();
@@ -103,6 +111,15 @@ export async function POST(request: Request) {
   if (!validSubmission(body)) {
     return noStoreJson({ error: "Invalid result submission." }, 400);
   }
+
+  const validatedTiming =
+    body.timingVersion === TIMING_VERSION
+      ? validateCompletionTiming(body, receivedAtMs)
+      : undefined;
+  if (body.timingVersion === TIMING_VERSION && !validatedTiming) {
+    return noStoreJson({ error: "Invalid completion timing." }, 400);
+  }
+  const timing = validatedTiming ?? undefined;
 
   let questions = legacyIQQuestions;
   if (body.testVersion === RANDOMIZED_TEST_VERSION) {
@@ -152,9 +169,19 @@ export async function POST(request: Request) {
       result,
       questions,
       testVersion: body.testVersion ?? 1,
+      timing,
     });
-    const comparison = await getParticipantComparison(iqScore);
-    const response: IQResultResponse = { accepted, iqScore, comparison };
+    const [comparison, timingAnalytics] = await Promise.all([
+      getParticipantComparison(iqScore),
+      timing ? getTimingAnalytics(body.attemptId) : Promise.resolve(undefined),
+    ]);
+    const response: IQResultResponse = {
+      accepted,
+      iqScore,
+      comparison,
+      timing,
+      timingAnalytics,
+    };
     return noStoreJson(response, accepted ? 201 : 200);
   } catch (error) {
     console.error("[iq-results] submission failed", error);
