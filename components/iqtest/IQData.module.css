@@ -97,14 +97,6 @@
   letter-spacing: -0.04em;
 }
 
-.intro {
-  max-width: 39rem;
-  margin: 1.5rem 0 0;
-  font-family: var(--font-display);
-  font-size: clamp(1.25rem, 2.8vw, 1.85rem);
-  line-height: 1.25;
-}
-
 .totalCompleted {
   display: flex;
   align-items: baseline;

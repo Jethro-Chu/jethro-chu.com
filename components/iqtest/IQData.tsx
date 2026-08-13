@@ -219,9 +219,6 @@ export function IQData({
           </nav>
           <p className={styles.kicker}>Public participant telemetry</p>
           <h1>IQ Test Data</h1>
-          <p className={styles.intro}>
-            Anonymous results from people who have taken the Jethro IQ Test.
-          </p>
           <div className={styles.totalCompleted}>
             <strong>{data?.overview.testsCompleted.toLocaleString() ?? "—"}</strong>
             <span>Tests Completed</span>
