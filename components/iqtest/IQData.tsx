@@ -217,7 +217,7 @@ export function IQData({
             <a href="/iqtest">← Take the Test</a>
             <span aria-current="page">View Data</span>
           </nav>
-          <p className={styles.kicker}>Public participant telemetry</p>
+          <p className={styles.kicker}>Public participant data</p>
           <h1>IQ Test Data</h1>
           <div className={styles.totalCompleted}>
             <strong>{data?.overview.testsCompleted.toLocaleString() ?? "—"}</strong>
