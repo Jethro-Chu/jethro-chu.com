@@ -527,7 +527,7 @@ export function IQTest() {
             <div>
               <p className={styles.sectionLabel}>Rules</p>
               <ul className={styles.rules}>
-                <li>No calculator.</li>
+                <li>You may use pen, paper, and a calculator.</li>
                 <li>No Googling.</li>
                 <li>No AI.</li>
                 <li>No outside help.</li>
