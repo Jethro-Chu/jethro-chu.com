@@ -433,4 +433,418 @@ Institutional Protocol:
       };
     },
   },
+  {
+    id: "heparin-bolus-80units-kg-1000u",
+    category: "heparin",
+    subtype: "heparin-bolus",
+    difficulty: "intermediate",
+    title: "Initial 80 units/kg Heparin IV Bolus Syringe Volume",
+    clinicalContext: "Adult Acute DVT / PE Resuscitation",
+    generate: (rng) => {
+      const weightKg = pick([60, 65, 70, 74, 80, 85, 90], rng);
+      const bolusUnitsKg = 80;
+      const totalUnits = weightKg * bolusUnitsKg;
+      const vialConc = 1000;
+      const volMl = Math.round((totalUnits / vialConc) * 100) / 100;
+
+      return {
+        scenario: `An adult patient weighing ${weightKg} kg diagnosed with acute pulmonary embolism is prescribed an initial IV heparin loading bolus of ${bolusUnitsKg} units/kg.`,
+        orderText: `Heparin ${bolusUnitsKg} units/kg IV bolus stat (Patient weight: ${weightKg} kg)`,
+        availableText: `Heparin sodium vial 1,000 USP units/mL`,
+        patientWeightKg: weightKg,
+        prompt: `Calculate the volume in mL the nurse should draw up for the IV bolus.`,
+        expectedAnswer: volMl,
+        expectedUnit: "mL",
+        roundingMode: "hundredth",
+        roundingInstruction: "State exact number or round to nearest hundredth (e.g. 5.92).",
+        tolerance: 0.01,
+        hints: [
+          `Step 1: Calculate total bolus units: ${weightKg} kg × ${bolusUnitsKg} units/kg = ${totalUnits} units.`,
+          `Step 2: Divide total units by vial concentration (${vialConc} units/mL).`,
+          `Calculate: ${totalUnits} ÷ ${vialConc} = ${volMl} mL.`,
+        ],
+        solutionSteps: [
+          {
+            stepNumber: 1,
+            title: "Calculate Total Bolus Units",
+            formula: "Weight (kg) × Dose (units/kg)",
+            calculation: `${weightKg} kg × ${bolusUnitsKg} units/kg = ${totalUnits} units`,
+            result: `${totalUnits} units`,
+          },
+          {
+            stepNumber: 2,
+            title: "Calculate Syringe Volume",
+            formula: "Total Units ÷ Concentration (1,000 units/mL)",
+            calculation: `${totalUnits} units ÷ 1,000 units/mL = ${volMl} mL`,
+            result: `${volMl} mL`,
+          },
+        ],
+        rawVariables: { weightKg, bolusUnitsKg, totalUnits, vialConc, volMl },
+      };
+    },
+  },
+  {
+    id: "heparin-bolus-60units-kg-acs",
+    category: "heparin",
+    subtype: "heparin-bolus",
+    difficulty: "intermediate",
+    title: "Weight-Based Heparin Bolus for Acute Coronary Syndrome (60 units/kg)",
+    clinicalContext: "Adult CCU Acute Coronary Syndrome Protocol",
+    generate: (rng) => {
+      const weightKg = pick([60, 65, 70, 75, 80, 85], rng);
+      const bolusUnitsKg = 60;
+      const totalUnits = weightKg * bolusUnitsKg;
+      const vialConc = 1000;
+      const volMl = Math.round((totalUnits / vialConc) * 100) / 100;
+
+      return {
+        scenario: `An adult patient weighing ${weightKg} kg with non-ST segment elevation myocardial infarction (NSTEMI) is prescribed an initial ACS heparin bolus of ${bolusUnitsKg} units/kg (maximum 4,000 units).`,
+        orderText: `Heparin ${bolusUnitsKg} units/kg IV bolus stat`,
+        availableText: `Heparin 1,000 USP units/mL vial`,
+        patientWeightKg: weightKg,
+        prompt: `How many units of Heparin should be administered?`,
+        expectedAnswer: totalUnits,
+        expectedUnit: "units",
+        roundingMode: "whole",
+        roundingInstruction: "State whole number of units.",
+        tolerance: 0.1,
+        hints: [
+          `Multiply patient weight by ${bolusUnitsKg} units/kg.`,
+          `Calculate: ${weightKg} kg × ${bolusUnitsKg} units/kg = ${totalUnits} units.`,
+          `Verify that total dose (${totalUnits} units) does not exceed 4,000 units maximum.`,
+        ],
+        solutionSteps: [
+          {
+            stepNumber: 1,
+            title: "Calculate Bolus Dose",
+            formula: "Weight (kg) × 60 units/kg",
+            calculation: `${weightKg} kg × ${bolusUnitsKg} units/kg = ${totalUnits} units`,
+            result: `${totalUnits} units`,
+          },
+        ],
+        rawVariables: { weightKg, bolusUnitsKg, totalUnits, vialConc, volMl },
+      };
+    },
+  },
+  {
+    id: "heparin-infusion-12units-kg-acs",
+    category: "heparin",
+    subtype: "heparin-infusion",
+    difficulty: "intermediate",
+    title: "ACS Heparin Maintenance Infusion Rate (12 units/kg/hr)",
+    clinicalContext: "Adult CCU Myocardial Infarction Management",
+    generate: (rng) => {
+      const weightKg = pick([60, 70, 75, 80, 85, 90], rng);
+      const doseUnitsKgHr = 12;
+      const hourlyUnits = weightKg * doseUnitsKgHr;
+      const concUnitsMl = 100; // 25,000u in 250 mL
+      const rateMlHr = Math.round((hourlyUnits / concUnitsMl) * 10) / 10;
+
+      return {
+        scenario: `An adult coronary care patient weighing ${weightKg} kg is prescribed a continuous ACS heparin infusion at ${doseUnitsKgHr} units/kg/hr (max 1,000 units/hr).`,
+        orderText: `Heparin continuous IV infusion at ${doseUnitsKgHr} units/kg/hr`,
+        availableText: `Heparin 25,000 USP units in 250 mL D5W (${concUnitsMl} units/mL)`,
+        patientWeightKg: weightKg,
+        prompt: `Calculate the IV pump flow rate in mL/hr.`,
+        expectedAnswer: rateMlHr,
+        expectedUnit: "mL/hr",
+        roundingMode: "tenth",
+        roundingInstruction: "Round to nearest tenth.",
+        tolerance: 0.05,
+        hints: [
+          `Step 1: Calculate hourly units: ${weightKg} kg × ${doseUnitsKgHr} units/kg/hr = ${hourlyUnits} units/hr.`,
+          `Step 2: Bag concentration is 25,000 units ÷ 250 mL = 100 units/mL.`,
+          `Step 3: Divide hourly units by concentration: ${hourlyUnits} ÷ 100 = ${rateMlHr} mL/hr.`,
+        ],
+        solutionSteps: [
+          {
+            stepNumber: 1,
+            title: "Calculate Ordered Units per Hour",
+            formula: "Weight (kg) × Dose (units/kg/hr)",
+            calculation: `${weightKg} kg × ${doseUnitsKgHr} units/kg/hr = ${hourlyUnits} units/hr`,
+            result: `${hourlyUnits} units/hr`,
+          },
+          {
+            stepNumber: 2,
+            title: "Calculate Flow Rate",
+            formula: "Units/hr ÷ Concentration (100 units/mL)",
+            calculation: `${hourlyUnits} units/hr ÷ 100 units/mL = ${rateMlHr} mL/hr`,
+            result: `${rateMlHr} mL/hr`,
+          },
+        ],
+        rawVariables: { weightKg, doseUnitsKgHr, hourlyUnits, concUnitsMl, rateMlHr },
+      };
+    },
+  },
+  {
+    id: "heparin-reverse-mlhr-to-units-hr",
+    category: "heparin",
+    subtype: "heparin-infusion",
+    difficulty: "beginner",
+    title: "Reverse Heparin Infusion: Units Delivered per Hour",
+    clinicalContext: "Adult Med-Surg Anticoagulation Chart Audit",
+    generate: (rng) => {
+      const data = pick([
+        { rateMlHr: 24, concUnitsMl: 50, bagUnits: 25000, bagMl: 500, unitsHr: 1200 },
+        { rateMlHr: 28, concUnitsMl: 50, bagUnits: 25000, bagMl: 500, unitsHr: 1400 },
+        { rateMlHr: 20, concUnitsMl: 50, bagUnits: 25000, bagMl: 500, unitsHr: 1000 },
+        { rateMlHr: 14, concUnitsMl: 100, bagUnits: 25000, bagMl: 250, unitsHr: 1400 },
+        { rateMlHr: 10, concUnitsMl: 100, bagUnits: 25000, bagMl: 250, unitsHr: 1000 },
+      ], rng);
+
+      return {
+        scenario: `A continuous heparin infusion is currently infusing on an electronic IV pump at ${data.rateMlHr} mL/hr. The IV bag is labeled ${data.bagUnits.toLocaleString()} units in ${data.bagMl} mL 0.9% Normal Saline (${data.concUnitsMl} units/mL).`,
+        orderText: `Heparin IV infusion running at ${data.rateMlHr} mL/hr`,
+        availableText: `Heparin ${data.bagUnits.toLocaleString()} units / ${data.bagMl} mL`,
+        prompt: `Calculate the dosage rate the patient is currently receiving in units/hr.`,
+        expectedAnswer: data.unitsHr,
+        expectedUnit: "units/hr",
+        roundingMode: "whole",
+        roundingInstruction: "State exact whole number of units/hr.",
+        tolerance: 0.1,
+        hints: [
+          "Multiply the infusion pump rate (mL/hr) by the bag concentration (units/mL).",
+          `Calculate: ${data.rateMlHr} mL/hr × ${data.concUnitsMl} units/mL.`,
+          `${data.rateMlHr} × ${data.concUnitsMl} = ${data.unitsHr} units/hr.`,
+        ],
+        solutionSteps: [
+          {
+            stepNumber: 1,
+            title: "Calculate Hourly Dosage Delivered",
+            formula: "Pump Rate (mL/hr) × Bag Concentration (units/mL)",
+            calculation: `${data.rateMlHr} mL/hr × ${data.concUnitsMl} units/mL = ${data.unitsHr} units/hr`,
+            result: `${data.unitsHr} units/hr`,
+          },
+        ],
+        rawVariables: { ...data },
+      };
+    },
+  },
+  {
+    id: "heparin-reverse-mlhr-to-units-kg-hr",
+    category: "heparin",
+    subtype: "heparin-infusion",
+    difficulty: "advanced",
+    title: "Reverse Heparin Infusion: Weight-Based Rate (units/kg/hr)",
+    clinicalContext: "Adult Inpatient Anticoagulation Safety Reconciliation",
+    generate: (rng) => {
+      const data = pick([
+        { rateMlHr: 28, concUnitsMl: 50, hourlyUnits: 1400, weightKg: 80, doseUnitsKgHr: 17.5 },
+        { rateMlHr: 25, concUnitsMl: 50, hourlyUnits: 1250, weightKg: 70, doseUnitsKgHr: 17.9 },
+        { rateMlHr: 30, concUnitsMl: 50, hourlyUnits: 1500, weightKg: 75, doseUnitsKgHr: 20.0 },
+        { rateMlHr: 16, concUnitsMl: 100, hourlyUnits: 1600, weightKg: 80, doseUnitsKgHr: 20.0 },
+      ], rng);
+
+      return {
+        scenario: `An adult inpatient weighing ${data.weightKg} kg is receiving IV heparin from a bag containing 25,000 units in 500 mL NS (${data.concUnitsMl} units/mL). The pump is set at ${data.rateMlHr} mL/hr.`,
+        orderText: `Heparin infusion at ${data.rateMlHr} mL/hr | Patient weight: ${data.weightKg} kg`,
+        availableText: `Heparin 25,000 units in 500 mL NS (${data.concUnitsMl} units/mL)`,
+        patientWeightKg: data.weightKg,
+        prompt: `Calculate the current weight-based dose the patient is receiving in units/kg/hr.`,
+        expectedAnswer: data.doseUnitsKgHr,
+        expectedUnit: "units/kg/hr",
+        roundingMode: "tenth",
+        roundingInstruction: "Round to nearest tenth (e.g. 17.5).",
+        tolerance: 0.05,
+        hints: [
+          `Step 1: Find hourly units delivered: ${data.rateMlHr} mL/hr × ${data.concUnitsMl} units/mL = ${data.hourlyUnits} units/hr.`,
+          `Step 2: Divide hourly units by patient weight in kg: ${data.hourlyUnits} units/hr ÷ ${data.weightKg} kg.`,
+          `Calculate: ${data.hourlyUnits} ÷ ${data.weightKg} = ${data.doseUnitsKgHr} units/kg/hr.`,
+        ],
+        solutionSteps: [
+          {
+            stepNumber: 1,
+            title: "Calculate Total Units per Hour",
+            formula: "Pump Rate (mL/hr) × Concentration (units/mL)",
+            calculation: `${data.rateMlHr} mL/hr × ${data.concUnitsMl} units/mL = ${data.hourlyUnits} units/hr`,
+            result: `${data.hourlyUnits} units/hr`,
+          },
+          {
+            stepNumber: 2,
+            title: "Calculate Weight-Based Delivery Rate",
+            formula: "Hourly Units ÷ Weight (kg)",
+            calculation: `${data.hourlyUnits} units/hr ÷ ${data.weightKg} kg = ${data.doseUnitsKgHr} units/kg/hr`,
+            result: `${data.doseUnitsKgHr} units/kg/hr`,
+          },
+        ],
+        rawVariables: { ...data },
+      };
+    },
+  },
+  {
+    id: "heparin-reverse-units-delivered-shift",
+    category: "heparin",
+    subtype: "heparin-infusion",
+    difficulty: "beginner",
+    title: "12-Hour Shift Total Heparin Units Delivered",
+    clinicalContext: "Adult Inpatient Shift Intake Reconciliation",
+    generate: (rng) => {
+      const data = pick([
+        { unitsHr: 1100, hrs: 12, totalUnits: 13200 },
+        { unitsHr: 1400, hrs: 12, totalUnits: 16800 },
+        { unitsHr: 1250, hrs: 8, totalUnits: 10000 },
+        { unitsHr: 1500, hrs: 12, totalUnits: 18000 },
+      ], rng);
+
+      return {
+        scenario: `A patient has received a continuous IV heparin infusion infusing at a steady ${data.unitsHr.toLocaleString()} units/hr for ${data.hrs} consecutive hours.`,
+        orderText: `Heparin IV continuous infusion at ${data.unitsHr.toLocaleString()} units/hr`,
+        prompt: `How many total units of heparin did the patient receive over this ${data.hrs}-hour period?`,
+        expectedAnswer: data.totalUnits,
+        expectedUnit: "units",
+        roundingMode: "whole",
+        roundingInstruction: "State exact whole number of units.",
+        tolerance: 0.1,
+        hints: [
+          "Multiply the hourly dose by the number of hours.",
+          `Calculate: ${data.unitsHr} units/hr × ${data.hrs} hr.`,
+          `${data.unitsHr} × ${data.hrs} = ${data.totalUnits} units.`,
+        ],
+        solutionSteps: [
+          {
+            stepNumber: 1,
+            title: "Calculate Total Units Administered",
+            formula: "Hourly Rate (units/hr) × Hours",
+            calculation: `${data.unitsHr} units/hr × ${data.hrs} hr = ${data.totalUnits} units`,
+            result: `${data.totalUnits} units`,
+          },
+        ],
+        rawVariables: { ...data },
+      };
+    },
+  },
+  {
+    id: "heparin-protocol-aptt-rebolus-volume",
+    category: "heparin",
+    subtype: "heparin-bolus",
+    difficulty: "intermediate",
+    title: "Protocol-Driven Subtherapeutic aPTT Re-Bolus Syringe Volume",
+    clinicalContext: "Adult Inpatient Heparin Nomogram Management",
+    generate: (rng) => {
+      const weightKg = pick([65, 70, 75, 80, 85, 90], rng);
+      const rebolusUnitsKg = 40;
+      const totalUnits = weightKg * rebolusUnitsKg;
+      const vialConc = 1000;
+      const volMl = Math.round((totalUnits / vialConc) * 10) / 10;
+
+      return {
+        scenario: `An adult inpatient weighing ${weightKg} kg on a weight-based heparin protocol has an aPTT of 44 seconds (therapeutic target 60–85 sec). The institutional protocol dictates: "Give 40 units/kg IV bolus and increase rate by 2 units/kg/hr."`,
+        orderText: `Heparin ${rebolusUnitsKg} units/kg IV push re-bolus per protocol (Weight: ${weightKg} kg)`,
+        availableText: `Heparin 1,000 USP units/mL vial`,
+        patientWeightKg: weightKg,
+        prompt: `How many mL should the nurse draw up for the IV push re-bolus?`,
+        expectedAnswer: volMl,
+        expectedUnit: "mL",
+        roundingMode: "tenth",
+        roundingInstruction: "Round to nearest tenth.",
+        tolerance: 0.05,
+        hints: [
+          `Step 1: Calculate re-bolus units: ${weightKg} kg × ${rebolusUnitsKg} units/kg = ${totalUnits} units.`,
+          `Step 2: Divide by vial concentration: ${totalUnits} units ÷ 1,000 units/mL = ${volMl} mL.`,
+        ],
+        solutionSteps: [
+          {
+            stepNumber: 1,
+            title: "Calculate Re-Bolus Units",
+            formula: "Weight (kg) × 40 units/kg",
+            calculation: `${weightKg} kg × ${rebolusUnitsKg} units/kg = ${totalUnits} units`,
+            result: `${totalUnits} units`,
+          },
+          {
+            stepNumber: 2,
+            title: "Calculate Syringe Volume",
+            formula: "Total Units ÷ 1,000 units/mL",
+            calculation: `${totalUnits} units ÷ 1,000 units/mL = ${volMl} mL`,
+            result: `${volMl} mL`,
+          },
+        ],
+        rawVariables: { weightKg, rebolusUnitsKg, totalUnits, vialConc, volMl },
+      };
+    },
+  },
+  {
+    id: "heparin-non-weight-fixed-rate",
+    category: "heparin",
+    subtype: "heparin-infusion",
+    difficulty: "beginner",
+    title: "Non-Weight-Based Fixed Heparin Infusion Rate (mL/hr)",
+    clinicalContext: "Adult Cardiology Fixed Anticoagulation Order",
+    generate: (rng) => {
+      const data = pick([
+        { orderedUnitsHr: 1000, bagUnits: 25000, bagMl: 500, concUnitsMl: 50, rateMlHr: 20 },
+        { orderedUnitsHr: 1200, bagUnits: 25000, bagMl: 500, concUnitsMl: 50, rateMlHr: 24 },
+        { orderedUnitsHr: 800, bagUnits: 25000, bagMl: 500, concUnitsMl: 50, rateMlHr: 16 },
+        { orderedUnitsHr: 1500, bagUnits: 25000, bagMl: 500, concUnitsMl: 50, rateMlHr: 30 },
+      ], rng);
+
+      return {
+        scenario: `A cardiologist prescribes a standard non-weight-based continuous heparin infusion at ${data.orderedUnitsHr} units/hr.`,
+        orderText: `Heparin sodium continuous IV infusion at ${data.orderedUnitsHr} units/hr`,
+        availableText: `Heparin ${data.bagUnits.toLocaleString()} units in 500 mL 0.9% NS (${data.concUnitsMl} units/mL)`,
+        prompt: `Calculate the IV pump rate in mL/hr.`,
+        expectedAnswer: data.rateMlHr,
+        expectedUnit: "mL/hr",
+        roundingMode: "whole",
+        roundingInstruction: "State exact whole number.",
+        tolerance: 0.1,
+        hints: [
+          `Find concentration: ${data.bagUnits} units ÷ ${data.bagMl} mL = ${data.concUnitsMl} units/mL.`,
+          `Divide ordered units/hr by concentration: ${data.orderedUnitsHr} units/hr ÷ ${data.concUnitsMl} units/mL.`,
+          `Calculate: ${data.orderedUnitsHr} ÷ ${data.concUnitsMl} = ${data.rateMlHr} mL/hr.`,
+        ],
+        solutionSteps: [
+          {
+            stepNumber: 1,
+            title: "Calculate Flow Rate",
+            formula: "Ordered Units/hr ÷ Bag Concentration (units/mL)",
+            calculation: `${data.orderedUnitsHr} units/hr ÷ ${data.concUnitsMl} units/mL = ${data.rateMlHr} mL/hr`,
+            result: `${data.rateMlHr} mL/hr`,
+          },
+        ],
+        rawVariables: { ...data },
+      };
+    },
+  },
+  {
+    id: "heparin-flush-catheter-lock",
+    category: "heparin",
+    subtype: "subq-prophylaxis",
+    difficulty: "beginner",
+    title: "Central Venous Catheter Heparin Flush Lock Volume",
+    clinicalContext: "Adult Inpatient Central Line Maintenance",
+    generate: (rng) => {
+      const data = pick([
+        { desiredUnits: 300, flushConc: 100, ans: 3.0 },
+        { desiredUnits: 500, flushConc: 100, ans: 5.0 },
+        { desiredUnits: 200, flushConc: 100, ans: 2.0 },
+        { desiredUnits: 100, flushConc: 100, ans: 1.0 },
+      ], rng);
+
+      return {
+        scenario: `A nurse is preparing to lock an adult patient's central venous catheter port per hospital policy using a heparin flush solution (100 units/mL).`,
+        orderText: `Heparin lock ${data.desiredUnits} units into central line catheter lumen`,
+        availableText: `Heparin lock flush 100 USP units/mL vial`,
+        prompt: `How many mL should the nurse draw up to instill ${data.desiredUnits} units?`,
+        expectedAnswer: data.ans,
+        expectedUnit: "mL",
+        roundingMode: "tenth",
+        roundingInstruction: "State exact number.",
+        tolerance: 0.05,
+        hints: [
+          "Divide prescribed units by flush concentration (100 units/mL).",
+          `Calculate: ${data.desiredUnits} units ÷ 100 units/mL = ${data.ans} mL.`,
+        ],
+        solutionSteps: [
+          {
+            stepNumber: 1,
+            title: "Calculate Flush Volume",
+            formula: "Prescribed Units ÷ 100 units/mL",
+            calculation: `${data.desiredUnits} units ÷ 100 units/mL = ${data.ans} mL`,
+            result: `${data.ans} mL`,
+          },
+        ],
+        rawVariables: { ...data },
+      };
+    },
+  },
 ];

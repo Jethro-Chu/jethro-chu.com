@@ -497,4 +497,659 @@ export const insulinTemplates: QuestionTemplate[] = [
       };
     },
   },
+  {
+    id: "insulin-carb-ratio-snack",
+    category: "insulin",
+    subtype: "carbohydrate-coverage",
+    difficulty: "beginner",
+    title: "Carbohydrate Ratio Meal Coverage (1:10)",
+    clinicalContext: "Adult Inpatient Mealtime Insulin Coverage",
+    generate: (rng) => {
+      const data = pick([
+        { carbGrams: 50, ratio: 10, units: 5 },
+        { carbGrams: 70, ratio: 10, units: 7 },
+        { carbGrams: 40, ratio: 10, units: 4 },
+        { carbGrams: 60, ratio: 10, units: 6 },
+        { carbGrams: 80, ratio: 10, units: 8 },
+      ], rng);
+
+      return {
+        scenario: `An adult diabetic inpatient is ordered rapid-acting Lispro insulin before a meal with an insulin-to-carbohydrate ratio of 1 unit for every ${data.ratio} grams of carbohydrates. The meal contains ${data.carbGrams} g of carbohydrates.`,
+        orderText: `Lispro insulin SubQ with meal: 1 unit per ${data.ratio} g carbohydrate intake`,
+        prompt: `How many units of Lispro insulin should the nurse administer to cover this ${data.carbGrams} g meal?`,
+        expectedAnswer: data.units,
+        expectedUnit: "units",
+        roundingMode: "whole",
+        roundingInstruction: "State whole number of units.",
+        tolerance: 0.01,
+        hints: [
+          `Divide total carbohydrate grams by the carbohydrate ratio.`,
+          `Formula: Total Carbs (g) ÷ Carb Ratio (g/unit).`,
+          `Calculate: ${data.carbGrams} ÷ ${data.ratio} = ${data.units} units.`,
+        ],
+        solutionSteps: [
+          {
+            stepNumber: 1,
+            title: "Calculate Mealtime Carb Dose",
+            formula: "Carbohydrates (g) ÷ Carb Ratio (g/unit)",
+            calculation: `${data.carbGrams} g ÷ ${data.ratio} g/unit = ${data.units} units`,
+            result: `${data.units} units`,
+          },
+        ],
+        rawVariables: { ...data },
+      };
+    },
+  },
+  {
+    id: "insulin-carb-ratio-dinner",
+    category: "insulin",
+    subtype: "carbohydrate-coverage",
+    difficulty: "beginner",
+    title: "Carbohydrate Ratio Meal Coverage (1:15)",
+    clinicalContext: "Adult Inpatient Nutrition Coverage",
+    generate: (rng) => {
+      const data = pick([
+        { carbGrams: 60, ratio: 15, units: 4 },
+        { carbGrams: 75, ratio: 15, units: 5 },
+        { carbGrams: 90, ratio: 15, units: 6 },
+        { carbGrams: 45, ratio: 15, units: 3 },
+      ], rng);
+
+      return {
+        scenario: `An adult patient is prescribed rapid-acting Aspart insulin at a ratio of 1 unit per ${data.ratio} grams of dietary carbohydrate. The patient consumes ${data.carbGrams} grams of carbohydrates for dinner.`,
+        orderText: `Aspart insulin SubQ TID with meals per carb ratio 1 unit : ${data.ratio} g carbs`,
+        prompt: `How many units of Aspart insulin should be administered?`,
+        expectedAnswer: data.units,
+        expectedUnit: "units",
+        roundingMode: "whole",
+        roundingInstruction: "State whole number of units.",
+        tolerance: 0.01,
+        hints: [
+          "Apply formula: Total Carbs (g) ÷ Carb Ratio (g/unit).",
+          `Calculate: ${data.carbGrams} ÷ ${data.ratio}.`,
+          `${data.carbGrams} ÷ ${data.ratio} = ${data.units} units.`,
+        ],
+        solutionSteps: [
+          {
+            stepNumber: 1,
+            title: "Calculate Mealtime Dose",
+            formula: "Carbs ÷ Ratio",
+            calculation: `${data.carbGrams} g ÷ ${data.ratio} g/unit = ${data.units} units`,
+            result: `${data.units} units`,
+          },
+        ],
+        rawVariables: { ...data },
+      };
+    },
+  },
+  {
+    id: "insulin-correction-factor-isf",
+    category: "insulin",
+    subtype: "correction-scale",
+    difficulty: "intermediate",
+    title: "Insulin Sensitivity Factor (ISF) Correction Dose",
+    clinicalContext: "Adult Endocrine Correction Protocol",
+    generate: (rng) => {
+      const data = pick([
+        { currentBg: 260, targetBg: 120, isf: 35, bgDiff: 140, units: 4 },
+        { currentBg: 280, targetBg: 130, isf: 50, bgDiff: 150, units: 3 },
+        { currentBg: 320, targetBg: 120, isf: 40, bgDiff: 200, units: 5 },
+        { currentBg: 220, targetBg: 120, isf: 50, bgDiff: 100, units: 2 },
+      ], rng);
+
+      return {
+        scenario: `An adult patient has a pre-meal blood glucose of ${data.currentBg} mg/dL. The endocrinology order provides an Insulin Sensitivity Factor (ISF) of ${data.isf} mg/dL per unit with a target blood glucose of ${data.targetBg} mg/dL.`,
+        orderText: `Correction Dose = (Current BG - ${data.targetBg}) ÷ ${data.isf}`,
+        prompt: `Calculate the correction dose of rapid-acting insulin in units.`,
+        expectedAnswer: data.units,
+        expectedUnit: "units",
+        roundingMode: "whole",
+        roundingInstruction: "State exact whole number of units.",
+        tolerance: 0.01,
+        hints: [
+          `First calculate points above target: ${data.currentBg} - ${data.targetBg} = ${data.bgDiff} mg/dL.`,
+          `Divide difference by the ISF (${data.isf}): ${data.bgDiff} ÷ ${data.isf}.`,
+          `Calculate: ${data.bgDiff} ÷ ${data.isf} = ${data.units} units.`,
+        ],
+        solutionSteps: [
+          {
+            stepNumber: 1,
+            title: "Calculate Blood Glucose Elevation Above Target",
+            formula: "Current BG - Target BG",
+            calculation: `${data.currentBg} mg/dL - ${data.targetBg} mg/dL = ${data.bgDiff} mg/dL`,
+            result: `${data.bgDiff} mg/dL`,
+          },
+          {
+            stepNumber: 2,
+            title: "Apply Insulin Sensitivity Factor",
+            formula: "BG Elevation ÷ ISF",
+            calculation: `${data.bgDiff} mg/dL ÷ ${data.isf} mg/dL/unit = ${data.units} units`,
+            result: `${data.units} units`,
+          },
+        ],
+        rawVariables: { ...data },
+      };
+    },
+  },
+  {
+    id: "insulin-correction-factor-isf-meal",
+    category: "insulin",
+    subtype: "scheduled-plus-correction",
+    difficulty: "advanced",
+    title: "Combined ISF Correction and Carbohydrate Coverage",
+    clinicalContext: "Adult Inpatient Comprehensive Insulin Dosing",
+    generate: (rng) => {
+      const data = pick([
+        { currentBg: 240, targetBg: 120, isf: 40, isfUnits: 3, carbGrams: 60, carbRatio: 15, carbUnits: 4, totalUnits: 7 },
+        { currentBg: 270, targetBg: 120, isf: 50, isfUnits: 3, carbGrams: 75, carbRatio: 15, carbUnits: 5, totalUnits: 8 },
+        { currentBg: 280, targetBg: 130, isf: 30, isfUnits: 5, carbGrams: 50, carbRatio: 10, carbUnits: 5, totalUnits: 10 },
+        { currentBg: 220, targetBg: 120, isf: 50, isfUnits: 2, carbGrams: 60, carbRatio: 12, carbUnits: 5, totalUnits: 7 },
+      ], rng);
+
+      return {
+        scenario: `An adult inpatient before lunch has a point-of-care blood glucose of ${data.currentBg} mg/dL and plans to consume ${data.carbGrams} g of carbohydrates.`,
+        orderText: `• Correction: (Current BG - ${data.targetBg}) ÷ ${data.isf}
+• Meal Coverage: 1 unit per ${data.carbRatio} g carbs
+• Administer total combined dose SubQ pre-meal`,
+        prompt: `Calculate the total units of rapid-acting insulin the nurse should administer.`,
+        expectedAnswer: data.totalUnits,
+        expectedUnit: "units",
+        roundingMode: "whole",
+        roundingInstruction: "State whole number of units.",
+        tolerance: 0.01,
+        hints: [
+          `Step 1 (Correction): (${data.currentBg} - ${data.targetBg}) ÷ ${data.isf} = ${data.isfUnits} units.`,
+          `Step 2 (Carb coverage): ${data.carbGrams} g ÷ ${data.carbRatio} g/unit = ${data.carbUnits} units.`,
+          `Step 3 (Total): ${data.isfUnits} + ${data.carbUnits} = ${data.totalUnits} units.`,
+        ],
+        solutionSteps: [
+          {
+            stepNumber: 1,
+            title: "Calculate Correction Dose",
+            formula: "(Current BG - Target BG) ÷ ISF",
+            calculation: `(${data.currentBg} - ${data.targetBg}) ÷ ${data.isf} = ${data.isfUnits} units`,
+            result: `${data.isfUnits} units`,
+          },
+          {
+            stepNumber: 2,
+            title: "Calculate Meal Coverage Dose",
+            formula: "Carb Grams ÷ Carb Ratio",
+            calculation: `${data.carbGrams} g ÷ ${data.carbRatio} g/unit = ${data.carbUnits} units`,
+            result: `${data.carbUnits} units`,
+          },
+          {
+            stepNumber: 3,
+            title: "Calculate Total Combined Injection",
+            formula: "Correction Units + Carb Coverage Units",
+            calculation: `${data.isfUnits} units + ${data.carbUnits} units = ${data.totalUnits} units`,
+            result: `${data.totalUnits} units`,
+          },
+        ],
+        rawVariables: { ...data },
+      };
+    },
+  },
+  {
+    id: "insulin-infusion-weight-units-kg-hr",
+    category: "insulin",
+    subtype: "infusion-rate",
+    difficulty: "intermediate",
+    title: "Weight-Based Continuous Insulin Infusion (units/kg/hr)",
+    clinicalContext: "Adult ICU Diabetic Ketoacidosis (DKA) Protocol",
+    generate: (rng) => {
+      const data = pick([
+        { weightKg: 80, rateUnitsKgHr: 0.1, hourlyUnits: 8, bagUnits: 100, bagMl: 100, rateMlHr: 8 },
+        { weightKg: 70, rateUnitsKgHr: 0.1, hourlyUnits: 7, bagUnits: 100, bagMl: 100, rateMlHr: 7 },
+        { weightKg: 90, rateUnitsKgHr: 0.14, hourlyUnits: 12.6, bagUnits: 100, bagMl: 100, rateMlHr: 12.6 },
+        { weightKg: 65, rateUnitsKgHr: 0.1, hourlyUnits: 6.5, bagUnits: 100, bagMl: 100, rateMlHr: 6.5 },
+      ], rng);
+
+      return {
+        scenario: `An adult ICU patient with DKA weighing ${data.weightKg} kg is prescribed a continuous regular insulin infusion at ${data.rateUnitsKgHr} units/kg/hr.`,
+        orderText: `Regular Insulin continuous IV infusion at ${data.rateUnitsKgHr} units/kg/hr (Patient weight: ${data.weightKg} kg)`,
+        availableText: `Regular Insulin 100 units in 0.9% Normal Saline 100 mL (1 unit/mL)`,
+        prompt: `Calculate the initial IV pump rate in mL/hr.`,
+        expectedAnswer: data.rateMlHr,
+        expectedUnit: "mL/hr",
+        roundingMode: "tenth",
+        roundingInstruction: "Round to nearest tenth.",
+        tolerance: 0.05,
+        hints: [
+          `Calculate hourly units: ${data.weightKg} kg × ${data.rateUnitsKgHr} units/kg/hr = ${data.hourlyUnits} units/hr.`,
+          `Since the bag concentration is 1 unit/mL, pump rate in mL/hr equals hourly units.`,
+          `Calculate: ${data.hourlyUnits} units/hr ÷ 1 unit/mL = ${data.rateMlHr} mL/hr.`,
+        ],
+        solutionSteps: [
+          {
+            stepNumber: 1,
+            title: "Calculate Total Units per Hour",
+            formula: "Weight (kg) × Dose (units/kg/hr)",
+            calculation: `${data.weightKg} kg × ${data.rateUnitsKgHr} units/kg/hr = ${data.hourlyUnits} units/hr`,
+            result: `${data.hourlyUnits} units/hr`,
+          },
+          {
+            stepNumber: 2,
+            title: "Calculate IV Pump Rate",
+            formula: "Units/hr ÷ Concentration (units/mL)",
+            calculation: `${data.hourlyUnits} units/hr ÷ 1 unit/mL = ${data.rateMlHr} mL/hr`,
+            result: `${data.rateMlHr} mL/hr`,
+          },
+        ],
+        rawVariables: { ...data },
+      };
+    },
+  },
+  {
+    id: "insulin-infusion-weight-bolus-dka",
+    category: "insulin",
+    subtype: "injectable",
+    difficulty: "beginner",
+    title: "Weight-Based Initial IV Insulin Bolus for DKA",
+    clinicalContext: "Adult ICU Initial DKA Resuscitation",
+    generate: (rng) => {
+      const data = pick([
+        { weightKg: 75, bolusUnitsKg: 0.14, totalUnits: 10.5 },
+        { weightKg: 80, bolusUnitsKg: 0.1, totalUnits: 8.0 },
+        { weightKg: 70, bolusUnitsKg: 0.1, totalUnits: 7.0 },
+        { weightKg: 95, bolusUnitsKg: 0.1, totalUnits: 9.5 },
+      ], rng);
+
+      return {
+        scenario: `An adult patient admitted with severe diabetic ketoacidosis weighing ${data.weightKg} kg is ordered an initial IV push bolus of Regular insulin at ${data.bolusUnitsKg} units/kg.`,
+        orderText: `Regular Insulin ${data.bolusUnitsKg} units/kg IV bolus stat (Patient weight: ${data.weightKg} kg)`,
+        availableText: `Regular Insulin U-100 vial (100 units/mL)`,
+        prompt: `How many units of Regular insulin should the nurse administer for this IV bolus?`,
+        expectedAnswer: data.totalUnits,
+        expectedUnit: "units",
+        roundingMode: "tenth",
+        roundingInstruction: "Round to nearest tenth.",
+        tolerance: 0.05,
+        hints: [
+          "Multiply the patient's weight in kg by the ordered units/kg.",
+          `Calculate: ${data.weightKg} kg × ${data.bolusUnitsKg} units/kg.`,
+          `${data.weightKg} × ${data.bolusUnitsKg} = ${data.totalUnits} units.`,
+        ],
+        solutionSteps: [
+          {
+            stepNumber: 1,
+            title: "Calculate IV Bolus Dose",
+            formula: "Weight (kg) × Dose (units/kg)",
+            calculation: `${data.weightKg} kg × ${data.bolusUnitsKg} units/kg = ${data.totalUnits} units`,
+            result: `${data.totalUnits} units`,
+          },
+        ],
+        rawVariables: { ...data },
+      };
+    },
+  },
+  {
+    id: "insulin-reverse-mlhr-to-unitshr",
+    category: "insulin",
+    subtype: "infusion-rate",
+    difficulty: "beginner",
+    title: "Reverse Insulin Infusion: Calculate Units/hr Delivered",
+    clinicalContext: "Adult Critical Care Shift Audit",
+    generate: (rng) => {
+      const data = pick([
+        { rateMlHr: 6.5, concUnitsMl: 1, unitsHr: 6.5 },
+        { rateMlHr: 8.0, concUnitsMl: 1, unitsHr: 8.0 },
+        { rateMlHr: 4.5, concUnitsMl: 1, unitsHr: 4.5 },
+        { rateMlHr: 12.0, concUnitsMl: 1, unitsHr: 12.0 },
+        { rateMlHr: 3.5, concUnitsMl: 1, unitsHr: 3.5 },
+      ], rng);
+
+      return {
+        scenario: `A continuous IV regular insulin infusion is running on an electronic pump at ${data.rateMlHr} mL/hr. The IV bag contains 100 units of Regular insulin in 100 mL of 0.9% Normal Saline (1 unit/mL).`,
+        orderText: `Regular insulin drip running at ${data.rateMlHr} mL/hr`,
+        availableText: `Regular Insulin 100 units / 100 mL NS (1 unit/mL)`,
+        prompt: `How many units/hr of insulin is the patient currently receiving?`,
+        expectedAnswer: data.unitsHr,
+        expectedUnit: "units/hr",
+        roundingMode: "tenth",
+        roundingInstruction: "State exact number or round to nearest tenth.",
+        tolerance: 0.05,
+        hints: [
+          "Multiply the infusion pump rate (mL/hr) by the bag concentration (units/mL).",
+          `Calculate: ${data.rateMlHr} mL/hr × ${data.concUnitsMl} unit/mL.`,
+          `${data.rateMlHr} × 1 = ${data.unitsHr} units/hr.`,
+        ],
+        solutionSteps: [
+          {
+            stepNumber: 1,
+            title: "Calculate Hourly Units Delivered",
+            formula: "Pump Rate (mL/hr) × Concentration (units/mL)",
+            calculation: `${data.rateMlHr} mL/hr × 1 unit/mL = ${data.unitsHr} units/hr`,
+            result: `${data.unitsHr} units/hr`,
+          },
+        ],
+        rawVariables: { ...data },
+      };
+    },
+  },
+  {
+    id: "insulin-reverse-mlhr-to-units-kg-hr",
+    category: "insulin",
+    subtype: "infusion-rate",
+    difficulty: "advanced",
+    title: "Reverse Insulin Infusion: Calculate units/kg/hr from Pump Rate",
+    clinicalContext: "Adult ICU DKA Delivery Rate Audit",
+    generate: (rng) => {
+      const data = pick([
+        { rateMlHr: 7.0, weightKg: 70, unitsHr: 7.0, doseUnitsKgHr: 0.1 },
+        { rateMlHr: 8.0, weightKg: 80, unitsHr: 8.0, doseUnitsKgHr: 0.1 },
+        { rateMlHr: 9.0, weightKg: 60, unitsHr: 9.0, doseUnitsKgHr: 0.15 },
+        { rateMlHr: 12.0, weightKg: 80, unitsHr: 12.0, doseUnitsKgHr: 0.15 },
+      ], rng);
+
+      return {
+        scenario: `An adult DKA patient weighing ${data.weightKg} kg is receiving a regular insulin infusion (1 unit/mL) running at ${data.rateMlHr} mL/hr.`,
+        orderText: `Insulin infusion at ${data.rateMlHr} mL/hr | Patient weight: ${data.weightKg} kg`,
+        availableText: `Regular Insulin 100 units in 100 mL NS (1 unit/mL)`,
+        prompt: `Calculate the current dose delivered to the patient in units/kg/hr.`,
+        expectedAnswer: data.doseUnitsKgHr,
+        expectedUnit: "units/kg/hr",
+        roundingMode: "hundredth",
+        roundingInstruction: "Round to nearest hundredth (e.g. 0.10).",
+        tolerance: 0.01,
+        hints: [
+          `Find units per hour: ${data.rateMlHr} mL/hr × 1 unit/mL = ${data.unitsHr} units/hr.`,
+          `Divide hourly units by patient weight in kg: ${data.unitsHr} units/hr ÷ ${data.weightKg} kg.`,
+          `Calculate: ${data.unitsHr} ÷ ${data.weightKg} = ${data.doseUnitsKgHr} units/kg/hr.`,
+        ],
+        solutionSteps: [
+          {
+            stepNumber: 1,
+            title: "Calculate Total Hourly Units",
+            formula: "Pump Rate (mL/hr) × Concentration (units/mL)",
+            calculation: `${data.rateMlHr} mL/hr × 1 unit/mL = ${data.unitsHr} units/hr`,
+            result: `${data.unitsHr} units/hr`,
+          },
+          {
+            stepNumber: 2,
+            title: "Calculate Weight-Normalized Dose",
+            formula: "Hourly Units ÷ Weight (kg)",
+            calculation: `${data.unitsHr} units/hr ÷ ${data.weightKg} kg = ${data.doseUnitsKgHr} units/kg/hr`,
+            result: `${data.doseUnitsKgHr} units/kg/hr`,
+          },
+        ],
+        rawVariables: { ...data },
+      };
+    },
+  },
+  {
+    id: "insulin-infusion-total-units-delivered",
+    category: "insulin",
+    subtype: "infusion-rate",
+    difficulty: "beginner",
+    title: "Shift Total Insulin Delivery Calculation",
+    clinicalContext: "Adult Inpatient Shift Intake Reconciliation",
+    generate: (rng) => {
+      const data = pick([
+        { rateMlHr: 4.5, hrs: 8, totalUnits: 36 },
+        { rateMlHr: 6.0, hrs: 12, totalUnits: 72 },
+        { rateMlHr: 5.0, hrs: 8, totalUnits: 40 },
+        { rateMlHr: 3.5, hrs: 10, totalUnits: 35 },
+      ], rng);
+
+      return {
+        scenario: `A patient has received a continuous IV Regular insulin infusion (1 unit/mL) running at a steady ${data.rateMlHr} mL/hr for ${data.hrs} hours.`,
+        orderText: `Regular Insulin 1 unit/mL IV at ${data.rateMlHr} mL/hr for ${data.hrs} hours`,
+        prompt: `How many total units of insulin were delivered to the patient during this ${data.hrs}-hour period?`,
+        expectedAnswer: data.totalUnits,
+        expectedUnit: "units",
+        roundingMode: "whole",
+        roundingInstruction: "State whole number of units.",
+        tolerance: 0.1,
+        hints: [
+          "Total units = Hourly rate (units/hr) × Number of hours.",
+          `Calculate: ${data.rateMlHr} units/hr × ${data.hrs} hr.`,
+          `${data.rateMlHr} × ${data.hrs} = ${data.totalUnits} units.`,
+        ],
+        solutionSteps: [
+          {
+            stepNumber: 1,
+            title: "Calculate Total Units Infused",
+            formula: "Hourly Rate (units/hr) × Hours",
+            calculation: `${data.rateMlHr} units/hr × ${data.hrs} hr = ${data.totalUnits} units`,
+            result: `${data.totalUnits} units`,
+          },
+        ],
+        rawVariables: { ...data },
+      };
+    },
+  },
+  {
+    id: "insulin-u500-syringe-volume",
+    category: "insulin",
+    subtype: "injectable",
+    difficulty: "intermediate",
+    title: "High-Potency U-500 Regular Insulin Syringe Volume",
+    clinicalContext: "Adult Severe Insulin Resistance Management",
+    generate: (rng) => {
+      const data = pick([
+        { orderUnits: 150, conc: 500, volMl: 0.3 },
+        { orderUnits: 200, conc: 500, volMl: 0.4 },
+        { orderUnits: 250, conc: 500, volMl: 0.5 },
+        { orderUnits: 100, conc: 500, volMl: 0.2 },
+        { orderUnits: 300, conc: 500, volMl: 0.6 },
+      ], rng);
+
+      return {
+        scenario: `An adult inpatient with severe insulin resistance is prescribed ${data.orderUnits} units of concentrated U-500 Regular Insulin SubQ. The nurse is measuring the dose using a standard 1 mL tuberculin syringe calibrated in milliliters.`,
+        orderText: `Humulin R U-500 ${data.orderUnits} units SubQ BID with meals`,
+        availableText: `Humulin R U-500 vial (500 units/mL)`,
+        prompt: `How many mL should the nurse draw up in the syringe?`,
+        expectedAnswer: data.volMl,
+        expectedUnit: "mL",
+        roundingMode: "tenth",
+        roundingInstruction: "State exact decimal value (e.g. 0.3).",
+        tolerance: 0.01,
+        hints: [
+          "Recall that U-500 insulin contains 500 units per 1 mL.",
+          "Apply formula: Desired Units ÷ Have Units per mL.",
+          `Calculate: ${data.orderUnits} units ÷ 500 units/mL = ${data.volMl} mL.`,
+        ],
+        solutionSteps: [
+          {
+            stepNumber: 1,
+            title: "Calculate U-500 Syringe Volume",
+            formula: "Prescribed Units ÷ 500 units/mL",
+            calculation: `${data.orderUnits} units ÷ 500 units/mL = ${data.volMl} mL`,
+            result: `${data.volMl} mL`,
+          },
+        ],
+        rawVariables: { ...data },
+      };
+    },
+  },
+  {
+    id: "insulin-u500-units-from-volume",
+    category: "insulin",
+    subtype: "injectable",
+    difficulty: "intermediate",
+    title: "Reverse U-500 Calculation: Units Delivered from Syringe Volume",
+    clinicalContext: "Adult Inpatient High-Potency Insulin Verification",
+    generate: (rng) => {
+      const data = pick([
+        { volMl: 0.4, conc: 500, units: 200 },
+        { volMl: 0.35, conc: 500, units: 175 },
+        { volMl: 0.25, conc: 500, units: 125 },
+        { volMl: 0.5, conc: 500, units: 250 },
+      ], rng);
+
+      return {
+        scenario: `An audit reveals a nurse administered ${data.volMl} mL of U-500 Regular Insulin (500 units/mL) to a patient with extreme insulin resistance.`,
+        orderText: `${data.volMl} mL of U-500 Regular Insulin administered`,
+        availableText: `Humulin R U-500 (500 units/mL)`,
+        prompt: `Calculate the total units of insulin the patient received.`,
+        expectedAnswer: data.units,
+        expectedUnit: "units",
+        roundingMode: "whole",
+        roundingInstruction: "State whole number of units.",
+        tolerance: 0.1,
+        hints: [
+          "Multiply volume in mL by 500 units/mL.",
+          `Calculate: ${data.volMl} mL × 500 units/mL.`,
+          `${data.volMl} × 500 = ${data.units} units.`,
+        ],
+        solutionSteps: [
+          {
+            stepNumber: 1,
+            title: "Calculate Units Administered",
+            formula: "Volume (mL) × 500 units/mL",
+            calculation: `${data.volMl} mL × 500 units/mL = ${data.units} units`,
+            result: `${data.units} units`,
+          },
+        ],
+        rawVariables: { ...data },
+      };
+    },
+  },
+  {
+    id: "insulin-detemir-split-dose",
+    category: "insulin",
+    subtype: "scheduled-plus-correction",
+    difficulty: "intermediate",
+    title: "Weight-Based Split Daily Basal Insulin Dosing",
+    clinicalContext: "Adult Med-Surg Basal Insulin Initiation",
+    generate: (rng) => {
+      const data = pick([
+        { weightKg: 80, dailyDoseFactor: 0.4, totalDailyUnits: 32, bidDose: 16 },
+        { weightKg: 70, dailyDoseFactor: 0.4, totalDailyUnits: 28, bidDose: 14 },
+        { weightKg: 90, dailyDoseFactor: 0.4, totalDailyUnits: 36, bidDose: 18 },
+        { weightKg: 75, dailyDoseFactor: 0.4, totalDailyUnits: 30, bidDose: 15 },
+      ], rng);
+
+      return {
+        scenario: `An adult inpatient weighing ${data.weightKg} kg is prescribed long-acting Detemir (Levemir) insulin at ${data.dailyDoseFactor} units/kg/day, to be divided into equal twice-daily (BID) morning and evening doses.`,
+        orderText: `Detemir insulin ${data.dailyDoseFactor} units/kg/day SubQ divided BID (Patient weight: ${data.weightKg} kg)`,
+        availableText: `U-100 Detemir vial (100 units/mL)`,
+        prompt: `How many units should the nurse administer for each single BID dose?`,
+        expectedAnswer: data.bidDose,
+        expectedUnit: "units",
+        roundingMode: "whole",
+        roundingInstruction: "State whole number of units.",
+        tolerance: 0.01,
+        hints: [
+          `Calculate total daily units: ${data.weightKg} kg × ${data.dailyDoseFactor} units/kg/day = ${data.totalDailyUnits} units/day.`,
+          `Divide total daily units by 2 for the BID dose: ${data.totalDailyUnits} ÷ 2.`,
+          `Calculate: ${data.totalDailyUnits} ÷ 2 = ${data.bidDose} units per dose.`,
+        ],
+        solutionSteps: [
+          {
+            stepNumber: 1,
+            title: "Calculate Total Daily Requirement",
+            formula: "Weight (kg) × Daily Factor (units/kg/day)",
+            calculation: `${data.weightKg} kg × ${data.dailyDoseFactor} units/kg/day = ${data.totalDailyUnits} units/day`,
+            result: `${data.totalDailyUnits} units/day`,
+          },
+          {
+            stepNumber: 2,
+            title: "Divide into Equal BID Doses",
+            formula: "Total Daily Units ÷ 2",
+            calculation: `${data.totalDailyUnits} units ÷ 2 = ${data.bidDose} units`,
+            result: `${data.bidDose} units`,
+          },
+        ],
+        rawVariables: { ...data },
+      };
+    },
+  },
+  {
+    id: "insulin-sliding-scale-moderate",
+    category: "insulin",
+    subtype: "correction-scale",
+    difficulty: "beginner",
+    title: "Moderate-Dose Correction Sliding Scale",
+    clinicalContext: "Adult Inpatient Endocrine Protocol",
+    generate: (rng) => {
+      const data = pick([
+        { bg: 218, tier: "201–250 mg/dL", units: 6 },
+        { bg: 274, tier: "251–300 mg/dL", units: 9 },
+        { bg: 165, tier: "150–200 mg/dL", units: 3 },
+        { bg: 320, tier: "301–350 mg/dL", units: 12 },
+      ], rng);
+
+      return {
+        scenario: `An adult inpatient has a point-of-care pre-dinner blood glucose reading of ${data.bg} mg/dL.`,
+        orderText: `Administer SubQ Regular Insulin per Moderate Sliding Scale:
+• BG < 150 mg/dL: 0 units
+• BG 150–200 mg/dL: 3 units
+• BG 201–250 mg/dL: 6 units
+• BG 251–300 mg/dL: 9 units
+• BG 301–350 mg/dL: 12 units
+• BG > 350 mg/dL: 15 units and call provider`,
+        prompt: `How many units of Regular insulin should the nurse administer for a BG of ${data.bg} mg/dL?`,
+        expectedAnswer: data.units,
+        expectedUnit: "units",
+        roundingMode: "whole",
+        roundingInstruction: "State whole number of units.",
+        tolerance: 0.01,
+        hints: [
+          `Find the tier matching ${data.bg} mg/dL.`,
+          `${data.bg} mg/dL falls in the ${data.tier} bracket.`,
+          `Administer ${data.units} units.`,
+        ],
+        solutionSteps: [
+          {
+            stepNumber: 1,
+            title: "Locate Blood Glucose Bracket",
+            explanation: `BG of ${data.bg} mg/dL falls in ${data.tier}.`,
+            calculation: `${data.bg} mg/dL in [${data.tier}] = ${data.units} units`,
+            result: `${data.units} units`,
+          },
+        ],
+        rawVariables: { ...data },
+      };
+    },
+  },
+  {
+    id: "insulin-correction-target-difference",
+    category: "insulin",
+    subtype: "correction-scale",
+    difficulty: "intermediate",
+    title: "Point-Based Linear Stepwise Correction Dose",
+    clinicalContext: "Adult Inpatient Post-Surgical Glycemic Control",
+    generate: (rng) => {
+      const data = pick([
+        { bg: 275, baseBg: 150, stepBg: 25, unitsPerStep: 1, diff: 125, units: 5 },
+        { bg: 250, baseBg: 150, stepBg: 25, unitsPerStep: 1, diff: 100, units: 4 },
+        { bg: 300, baseBg: 150, stepBg: 25, unitsPerStep: 1, diff: 150, units: 6 },
+        { bg: 225, baseBg: 150, stepBg: 25, unitsPerStep: 1, diff: 75, units: 3 },
+      ], rng);
+
+      return {
+        scenario: `An adult surgical patient has a blood glucose of ${data.bg} mg/dL. The physician orders: "Give 1 unit of Humalog insulin for every ${data.stepBg} mg/dL over ${data.baseBg} mg/dL."`,
+        orderText: `Humalog SubQ: 1 unit per ${data.stepBg} mg/dL above ${data.baseBg} mg/dL`,
+        prompt: `Calculate the number of units of Humalog insulin to administer.`,
+        expectedAnswer: data.units,
+        expectedUnit: "units",
+        roundingMode: "whole",
+        roundingInstruction: "State whole number of units.",
+        tolerance: 0.01,
+        hints: [
+          `Find points over ${data.baseBg}: ${data.bg} - ${data.baseBg} = ${data.diff} mg/dL.`,
+          `Divide points above base by step size (${data.stepBg}): ${data.diff} ÷ ${data.stepBg}.`,
+          `Calculate: ${data.diff} ÷ ${data.stepBg} = ${data.units} units.`,
+        ],
+        solutionSteps: [
+          {
+            stepNumber: 1,
+            title: "Calculate Excess Blood Glucose",
+            formula: "Current BG - Base Threshold",
+            calculation: `${data.bg} mg/dL - ${data.baseBg} mg/dL = ${data.diff} mg/dL`,
+            result: `${data.diff} mg/dL`,
+          },
+          {
+            stepNumber: 2,
+            title: "Calculate Stepwise Units",
+            formula: "Excess BG ÷ Step Size",
+            calculation: `${data.diff} mg/dL ÷ ${data.stepBg} mg/dL/unit = ${data.units} units`,
+            result: `${data.units} units`,
+          },
+        ],
+        rawVariables: { ...data },
+      };
+    },
+  },
 ];

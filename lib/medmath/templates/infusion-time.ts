@@ -264,4 +264,313 @@ export const infusionTimeTemplates: QuestionTemplate[] = [
       };
     },
   },
+  {
+    id: "time-total-minutes-from-rate-vol",
+    category: "infusion-time",
+    subtype: "total-hours",
+    difficulty: "intermediate",
+    title: "Small-Volume IVPB Infusion Duration in Minutes",
+    clinicalContext: "Adult Inpatient Short Piggyback Infusion",
+    generate: (rng) => {
+      const data = pick([
+        { volMl: 50, rateMlHr: 150, mins: 20 },
+        { volMl: 50, rateMlHr: 100, mins: 30 },
+        { volMl: 100, rateMlHr: 200, mins: 30 },
+        { volMl: 100, rateMlHr: 300, mins: 20 },
+        { volMl: 25, rateMlHr: 75, mins: 20 },
+      ], rng);
+
+      return {
+        scenario: `An IV piggyback containing ${data.volMl} mL is programmed into an infusion pump at a rate of ${data.rateMlHr} mL/hr.`,
+        orderText: `IVPB ${data.volMl} mL infusing at ${data.rateMlHr} mL/hr`,
+        prompt: `How many minutes will it take for this piggyback to finish infusing?`,
+        expectedAnswer: data.mins,
+        expectedUnit: "minutes",
+        roundingMode: "whole",
+        roundingInstruction: "State exact whole number of minutes.",
+        tolerance: 0.1,
+        hints: [
+          `First calculate duration in hours: ${data.volMl} mL ÷ ${data.rateMlHr} mL/hr = ${data.volMl / data.rateMlHr} hr.`,
+          `Convert hours to minutes by multiplying by 60.`,
+          `Calculate: (${data.volMl} ÷ ${data.rateMlHr}) × 60 = ${data.mins} minutes.`,
+        ],
+        solutionSteps: [
+          {
+            stepNumber: 1,
+            title: "Calculate Hours",
+            formula: "Volume ÷ Rate",
+            calculation: `${data.volMl} mL ÷ ${data.rateMlHr} mL/hr = ${data.volMl / data.rateMlHr} hr`,
+            result: `${data.volMl / data.rateMlHr} hr`,
+          },
+          {
+            stepNumber: 2,
+            title: "Convert Hours to Minutes",
+            formula: "Hours × 60",
+            calculation: `${data.volMl / data.rateMlHr} hr × 60 = ${data.mins} min`,
+            result: `${data.mins} min`,
+          },
+        ],
+        rawVariables: { ...data },
+      };
+    },
+  },
+  {
+    id: "time-reverse-hours-rate-to-initial-vol",
+    category: "infusion-time",
+    subtype: "total-hours",
+    difficulty: "beginner",
+    title: "Reverse Time Calculation: Total Volume Infused over Elapsed Hours",
+    clinicalContext: "Adult Intake Charting Reconciliation",
+    generate: (rng) => {
+      const data = pick([
+        { rateMlHr: 125, hrs: 5.5, vol: 687.5 },
+        { rateMlHr: 100, hrs: 6.5, vol: 650 },
+        { rateMlHr: 75, hrs: 8.5, vol: 637.5 },
+        { rateMlHr: 150, hrs: 3.5, vol: 525 },
+      ], rng);
+
+      return {
+        scenario: `A continuous IV hydration line running at ${data.rateMlHr} mL/hr has been infusing continuously for ${data.hrs} hours.`,
+        orderText: `0.9% NS IV at ${data.rateMlHr} mL/hr for ${data.hrs} hours`,
+        prompt: `Calculate the total volume in mL that has infused into the patient.`,
+        expectedAnswer: data.vol,
+        expectedUnit: "mL",
+        roundingMode: "tenth",
+        roundingInstruction: "State exact number or round to nearest tenth.",
+        tolerance: 0.1,
+        hints: [
+          "To find volume infused: Rate (mL/hr) × Elapsed Time (hours).",
+          `Multiply ${data.rateMlHr} mL/hr by ${data.hrs} hours.`,
+          `Calculate: ${data.rateMlHr} × ${data.hrs} = ${data.vol} mL.`,
+        ],
+        solutionSteps: [
+          {
+            stepNumber: 1,
+            title: "Calculate Infused Volume",
+            formula: "Rate (mL/hr) × Hours",
+            calculation: `${data.rateMlHr} mL/hr × ${data.hrs} hr = ${data.vol} mL`,
+            result: `${data.vol} mL`,
+          },
+        ],
+        rawVariables: { ...data },
+      };
+    },
+  },
+  {
+    id: "time-multi-bag-daily-supply",
+    category: "infusion-time",
+    subtype: "total-hours",
+    difficulty: "beginner",
+    title: "24-Hour IV Bag Quantity Requirement",
+    clinicalContext: "Adult Med-Surg Fluid Supply Planning",
+    generate: (rng) => {
+      const data = pick([
+        { bagSizeMl: 1000, rateMlHr: 125, totalDailyMl: 3000, bagsNeeded: 3 },
+        { bagSizeMl: 1000, rateMlHr: 100, totalDailyMl: 2400, bagsNeeded: 2.4 },
+        { bagSizeMl: 1000, rateMlHr: 83.3, totalDailyMl: 2000, bagsNeeded: 2 },
+        { bagSizeMl: 500, rateMlHr: 125, totalDailyMl: 3000, bagsNeeded: 6 },
+      ], rng);
+
+      return {
+        scenario: `An adult medical inpatient has an IV fluid order running at ${data.rateMlHr} mL/hr around the clock. The hospital pharmacy stocks ${data.bagSizeMl} mL bags.`,
+        orderText: `0.9% Normal Saline IV continuous at ${data.rateMlHr} mL/hr`,
+        prompt: `Calculate the total volume in mL required over a 24-hour period.`,
+        expectedAnswer: data.totalDailyMl,
+        expectedUnit: "mL",
+        roundingMode: "whole",
+        roundingInstruction: "State exact whole number.",
+        tolerance: 0.1,
+        hints: [
+          "Multiply the hourly pump rate by 24 hours to find 24-hour volume.",
+          `Calculate: ${data.rateMlHr} mL/hr × 24 hr.`,
+          `${data.rateMlHr} × 24 = ${data.totalDailyMl} mL.`,
+        ],
+        solutionSteps: [
+          {
+            stepNumber: 1,
+            title: "Calculate 24-Hour Total Volume",
+            formula: "Rate (mL/hr) × 24 Hours",
+            calculation: `${data.rateMlHr} mL/hr × 24 hr = ${data.totalDailyMl} mL`,
+            result: `${data.totalDailyMl} mL`,
+          },
+        ],
+        rawVariables: { ...data },
+      };
+    },
+  },
+  {
+    id: "time-delayed-infusion-finish-clock",
+    category: "infusion-time",
+    subtype: "remaining-hours",
+    difficulty: "intermediate",
+    title: "Decimal Hours to Hours & Minutes Conversion",
+    clinicalContext: "Adult Inpatient Infusion Schedule Planning",
+    generate: (rng) => {
+      const data = pick([
+        { volRem: 750, rateMlHr: 100, decimalHrs: 7.5, wholeHrs: 7, mins: 30 },
+        { volRem: 450, rateMlHr: 120, decimalHrs: 3.75, wholeHrs: 3, mins: 45 },
+        { volRem: 350, rateMlHr: 140, decimalHrs: 2.5, wholeHrs: 2, mins: 30 },
+        { volRem: 250, rateMlHr: 100, decimalHrs: 2.5, wholeHrs: 2, mins: 30 },
+      ], rng);
+
+      return {
+        scenario: `A primary IV bag has ${data.volRem} mL remaining and is infusing at ${data.rateMlHr} mL/hr.`,
+        orderText: `IV running at ${data.rateMlHr} mL/hr | Remaining: ${data.volRem} mL`,
+        prompt: `How many total decimal hours remain until this bag is empty?`,
+        expectedAnswer: data.decimalHrs,
+        expectedUnit: "hours",
+        roundingMode: "hundredth",
+        roundingInstruction: "State exact decimal hours (e.g. 7.5 or 3.75).",
+        tolerance: 0.05,
+        hints: [
+          "Formula: Remaining Volume ÷ Hourly Rate.",
+          `Calculate: ${data.volRem} ÷ ${data.rateMlHr}.`,
+          `${data.volRem} ÷ ${data.rateMlHr} = ${data.decimalHrs} hours (${data.wholeHrs} hr ${data.mins} min).`,
+        ],
+        solutionSteps: [
+          {
+            stepNumber: 1,
+            title: "Calculate Remaining Decimal Hours",
+            formula: "Remaining Volume ÷ Rate",
+            calculation: `${data.volRem} mL ÷ ${data.rateMlHr} mL/hr = ${data.decimalHrs} hours`,
+            result: `${data.decimalHrs} hours`,
+          },
+        ],
+        rawVariables: { ...data },
+      };
+    },
+  },
+  {
+    id: "time-reverse-remaining-volume-from-time",
+    category: "infusion-time",
+    subtype: "remaining-hours",
+    difficulty: "beginner",
+    title: "Reverse Calculation: Volume from Time and Rate",
+    clinicalContext: "Adult Inpatient Shift Bag Audit",
+    generate: (rng) => {
+      const data = pick([
+        { rateMlHr: 100, remainingHrs: 2.5, remainingVol: 250 },
+        { rateMlHr: 125, remainingHrs: 3.2, remainingVol: 400 },
+        { rateMlHr: 75, remainingHrs: 4.0, remainingVol: 300 },
+        { rateMlHr: 80, remainingHrs: 5.5, remainingVol: 440 },
+      ], rng);
+
+      return {
+        scenario: `An infusion pump is running at ${data.rateMlHr} mL/hr. The pump display indicates exactly ${data.remainingHrs} hours of run time remaining.`,
+        orderText: `Pump rate ${data.rateMlHr} mL/hr | Time remaining: ${data.remainingHrs} hours`,
+        prompt: `Calculate the volume in mL remaining in the IV bag.`,
+        expectedAnswer: data.remainingVol,
+        expectedUnit: "mL",
+        roundingMode: "whole",
+        roundingInstruction: "State exact whole number.",
+        tolerance: 0.1,
+        hints: [
+          "To find remaining volume, multiply rate by remaining hours.",
+          `Formula: Rate (mL/hr) × Remaining Hours = Remaining Volume (mL).`,
+          `Calculate: ${data.rateMlHr} × ${data.remainingHrs} = ${data.remainingVol} mL.`,
+        ],
+        solutionSteps: [
+          {
+            stepNumber: 1,
+            title: "Calculate Remaining Volume",
+            formula: "Rate (mL/hr) × Remaining Hours",
+            calculation: `${data.rateMlHr} mL/hr × ${data.remainingHrs} hr = ${data.remainingVol} mL`,
+            result: `${data.remainingVol} mL`,
+          },
+        ],
+        rawVariables: { ...data },
+      };
+    },
+  },
+  {
+    id: "time-infusion-completion-clock-time",
+    category: "infusion-time",
+    subtype: "total-hours",
+    difficulty: "intermediate",
+    title: "IV Infusion Military Completion Time",
+    clinicalContext: "Adult Inpatient Schedule Coordination",
+    generate: (rng) => {
+      const data = pick([
+        { startClock: "0800", startHour: 8, volMl: 1000, rateMlHr: 125, durationHrs: 8, finishHour: 16, finishClock: "1600" },
+        { startClock: "0700", startHour: 7, volMl: 1000, rateMlHr: 100, durationHrs: 10, finishHour: 17, finishClock: "1700" },
+        { startClock: "0600", startHour: 6, volMl: 500, rateMlHr: 125, durationHrs: 4, finishHour: 10, finishClock: "1000" },
+        { startClock: "1200", startHour: 12, volMl: 500, rateMlHr: 100, durationHrs: 5, finishHour: 17, finishClock: "1700" },
+      ], rng);
+
+      return {
+        scenario: `A primary IV infusion of ${data.volMl} mL is initiated at ${data.startClock} military time at a rate of ${data.rateMlHr} mL/hr.`,
+        orderText: `Start ${data.volMl} mL 0.9% NS IV at ${data.startClock} at ${data.rateMlHr} mL/hr`,
+        prompt: `How many total hours will this infusion take to complete?`,
+        expectedAnswer: data.durationHrs,
+        expectedUnit: "hours",
+        roundingMode: "whole",
+        roundingInstruction: "State exact whole number of hours.",
+        tolerance: 0.05,
+        hints: [
+          "Formula: Total Volume ÷ Rate.",
+          `Divide ${data.volMl} mL by ${data.rateMlHr} mL/hr.`,
+          `Calculate: ${data.volMl} ÷ ${data.rateMlHr} = ${data.durationHrs} hours (completes at ${data.finishClock}).`,
+        ],
+        solutionSteps: [
+          {
+            stepNumber: 1,
+            title: "Calculate Total Infusion Duration",
+            formula: "Volume ÷ Rate",
+            calculation: `${data.volMl} mL ÷ ${data.rateMlHr} mL/hr = ${data.durationHrs} hours`,
+            result: `${data.durationHrs} hours`,
+          },
+        ],
+        rawVariables: { ...data },
+      };
+    },
+  },
+  {
+    id: "time-volume-consumed-after-hours",
+    category: "infusion-time",
+    subtype: "total-hours",
+    difficulty: "beginner",
+    title: "Partial Shift Volume Delivery Calculation",
+    clinicalContext: "Adult Intake and Output Charting",
+    generate: (rng) => {
+      const data = pick([
+        { initialBagMl: 1000, rateMlHr: 125, hoursRun: 4, volumeInfused: 500, volumeLeft: 500 },
+        { initialBagMl: 1000, rateMlHr: 80, hoursRun: 5, volumeInfused: 400, volumeLeft: 600 },
+        { initialBagMl: 1000, rateMlHr: 100, hoursRun: 3, volumeInfused: 300, volumeLeft: 700 },
+        { initialBagMl: 500, rateMlHr: 75, hoursRun: 4, volumeInfused: 300, volumeLeft: 200 },
+      ], rng);
+
+      return {
+        scenario: `A ${data.initialBagMl} mL IV bag has been running at ${data.rateMlHr} mL/hr for exactly ${data.hoursRun} hours.`,
+        orderText: `0.9% NS IV at ${data.rateMlHr} mL/hr for ${data.hoursRun} hours`,
+        prompt: `How many mL remain in the IV bag?`,
+        expectedAnswer: data.volumeLeft,
+        expectedUnit: "mL",
+        roundingMode: "whole",
+        roundingInstruction: "State exact whole number.",
+        tolerance: 0.1,
+        hints: [
+          `First find volume infused: ${data.rateMlHr} mL/hr × ${data.hoursRun} hr = ${data.volumeInfused} mL.`,
+          `Subtract from starting volume: ${data.initialBagMl} mL - ${data.volumeInfused} mL = ${data.volumeLeft} mL.`,
+          `Calculate: ${data.initialBagMl} - (${data.rateMlHr} × ${data.hoursRun}) = ${data.volumeLeft} mL.`,
+        ],
+        solutionSteps: [
+          {
+            stepNumber: 1,
+            title: "Calculate Infused Volume",
+            formula: "Rate × Hours",
+            calculation: `${data.rateMlHr} mL/hr × ${data.hoursRun} hr = ${data.volumeInfused} mL`,
+            result: `${data.volumeInfused} mL`,
+          },
+          {
+            stepNumber: 2,
+            title: "Calculate Remaining Volume",
+            formula: "Initial Volume - Infused Volume",
+            calculation: `${data.initialBagMl} mL - ${data.volumeInfused} mL = ${data.volumeLeft} mL`,
+            result: `${data.volumeLeft} mL`,
+          },
+        ],
+        rawVariables: { ...data },
+      };
+    },
+  },
 ];

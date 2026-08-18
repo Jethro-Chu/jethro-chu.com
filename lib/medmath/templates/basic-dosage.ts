@@ -543,4 +543,588 @@ export const basicDosageTemplates: QuestionTemplate[] = [
       };
     },
   },
+  {
+    id: "dose-tabs-multidose-schedule",
+    category: "basic-dosage",
+    subtype: "tablets",
+    difficulty: "intermediate",
+    title: "Daily Total Tablet Consumption Calculation",
+    clinicalContext: "Adult Med-Surg Cardiology Order",
+    generate: (rng) => {
+      const data = pick([
+        { med: "Metoprolol Tartrate", orderMg: 50, tabMg: 25, dosesPerDay: 2, schedule: "BID", tabsPerDose: 2, dailyTabs: 4 },
+        { med: "Gabapentin", orderMg: 300, tabMg: 100, dosesPerDay: 3, schedule: "TID", tabsPerDose: 3, dailyTabs: 9 },
+        { med: "Levetiracetam", orderMg: 500, tabMg: 250, dosesPerDay: 2, schedule: "BID", tabsPerDose: 2, dailyTabs: 4 },
+        { med: "Carvedilol", orderMg: 12.5, tabMg: 6.25, dosesPerDay: 2, schedule: "BID", tabsPerDose: 2, dailyTabs: 4 },
+      ], rng);
+
+      return {
+        scenario: `An adult inpatient is ordered ${data.med} ${data.orderMg} mg PO ${data.schedule}. The supply is ${data.tabMg} mg tablets.`,
+        orderText: `${data.med} ${data.orderMg} mg PO ${data.schedule}`,
+        availableText: `${data.med} ${data.tabMg} mg tablets`,
+        prompt: `How many total tablets will the patient receive in a 24-hour period?`,
+        expectedAnswer: data.dailyTabs,
+        expectedUnit: "tablets",
+        roundingMode: "whole",
+        roundingInstruction: "State exact whole number of tablets.",
+        tolerance: 0.01,
+        hints: [
+          `First calculate the number of tablets per dose: ${data.orderMg} mg ÷ ${data.tabMg} mg = ${data.tabsPerDose} tablets.`,
+          `Then multiply tablets per dose by the number of doses per day (${data.dosesPerDay} doses for ${data.schedule}).`,
+          `Calculate: ${data.tabsPerDose} tablets × ${data.dosesPerDay} doses = ${data.dailyTabs} tablets.`,
+        ],
+        solutionSteps: [
+          {
+            stepNumber: 1,
+            title: "Calculate Tablets Per Dose",
+            formula: "Desired Dose ÷ Available Strength",
+            calculation: `${data.orderMg} mg ÷ ${data.tabMg} mg = ${data.tabsPerDose} tablets`,
+            result: `${data.tabsPerDose} tablets/dose`,
+          },
+          {
+            stepNumber: 2,
+            title: "Calculate Total Daily Tablets",
+            formula: "Tablets/Dose × Doses/Day",
+            calculation: `${data.tabsPerDose} tablets × ${data.dosesPerDay} doses = ${data.dailyTabs} tablets`,
+            result: `${data.dailyTabs} tablets/day`,
+          },
+        ],
+        rawVariables: { ...data },
+      };
+    },
+  },
+  {
+    id: "dose-caps-high-potency",
+    category: "basic-dosage",
+    subtype: "capsules",
+    difficulty: "beginner",
+    title: "Oral Capsule Administration Calculation",
+    clinicalContext: "Adult Inpatient Infectious Disease Order",
+    generate: (rng) => {
+      const data = pick([
+        { med: "Clindamycin", orderMg: 300, capMg: 150, ans: 2 },
+        { med: "Cephalexin", orderMg: 500, capMg: 250, ans: 2 },
+        { med: "Doxycycline", orderMg: 200, capMg: 100, ans: 2 },
+        { med: "Gabapentin", orderMg: 600, capMg: 300, ans: 2 },
+      ], rng);
+
+      return {
+        scenario: `An adult inpatient with a skin and soft tissue infection has an oral capsule prescription.`,
+        orderText: `${data.med} ${data.orderMg} mg PO every 6 hours`,
+        availableText: `${data.med} ${data.capMg} mg capsules`,
+        prompt: `How many capsules should the nurse administer for each dose?`,
+        expectedAnswer: data.ans,
+        expectedUnit: "capsules",
+        roundingMode: "whole",
+        roundingInstruction: "State exact whole number.",
+        tolerance: 0.01,
+        hints: [
+          "Units are already matched in milligrams.",
+          "Apply Desired ÷ Have × 1 capsule.",
+          `Calculate: ${data.orderMg} ÷ ${data.capMg}.`,
+        ],
+        solutionSteps: [
+          {
+            stepNumber: 1,
+            title: "Calculate Capsule Quantity",
+            formula: "Desired ÷ Have × 1 capsule",
+            calculation: `(${data.orderMg} mg ÷ ${data.capMg} mg) × 1 = ${data.ans} capsules`,
+            result: `${data.ans} capsules`,
+          },
+        ],
+        rawVariables: { ...data },
+      };
+    },
+  },
+  {
+    id: "dose-liquid-multidose-syrup",
+    category: "basic-dosage",
+    subtype: "oral-liquid",
+    difficulty: "intermediate",
+    title: "Oral Liquid Suspension with Gram to Milligram Conversion",
+    clinicalContext: "Adult Medical Floor Oral Suspension Order",
+    generate: (rng) => {
+      const data = pick([
+        { med: "Amoxicillin suspension", orderG: 0.5, orderMg: 500, concMg: 250, concMl: 5, ans: 10 },
+        { med: "Cephalexin suspension", orderG: 0.75, orderMg: 750, concMg: 250, concMl: 5, ans: 15 },
+        { med: "Cefuroxime suspension", orderG: 0.5, orderMg: 500, concMg: 125, concMl: 5, ans: 20 },
+        { med: "Erythromycin suspension", orderG: 0.4, orderMg: 400, concMg: 200, concMl: 5, ans: 10 },
+      ], rng);
+
+      return {
+        scenario: `An adult medical inpatient who cannot swallow tablets is ordered an oral antibiotic suspension.`,
+        orderText: `${data.med} ${data.orderG} g PO every 8 hours`,
+        availableText: `${data.med} ${data.concMg} mg per ${data.concMl} mL`,
+        prompt: `How many mL should the nurse prepare for administration?`,
+        expectedAnswer: data.ans,
+        expectedUnit: "mL",
+        roundingMode: "tenth",
+        roundingInstruction: "State exact whole number or decimal.",
+        tolerance: 0.05,
+        hints: [
+          `First convert the ordered dose from grams to milligrams: ${data.orderG} g × 1,000 = ${data.orderMg} mg.`,
+          `Use the formula: (Desired mg ÷ Have mg) × Quantity mL.`,
+          `Calculate: (${data.orderMg} ÷ ${data.concMg}) × ${data.concMl} mL.`,
+        ],
+        solutionSteps: [
+          {
+            stepNumber: 1,
+            title: "Convert Grams to Milligrams",
+            formula: "Grams × 1,000",
+            calculation: `${data.orderG} g × 1,000 = ${data.orderMg} mg`,
+            result: `${data.orderMg} mg`,
+          },
+          {
+            stepNumber: 2,
+            title: "Calculate Volume to Administer",
+            formula: "(Desired ÷ Have) × Volume",
+            calculation: `(${data.orderMg} mg ÷ ${data.concMg} mg) × ${data.concMl} mL = ${data.ans} mL`,
+            result: `${data.ans} mL`,
+          },
+        ],
+        rawVariables: { ...data },
+      };
+    },
+  },
+  {
+    id: "dose-inj-anticoag-syringe",
+    category: "basic-dosage",
+    subtype: "injectable",
+    difficulty: "beginner",
+    title: "Low Molecular Weight Heparin Syringe Volume",
+    clinicalContext: "Adult Surgical VTE Prophylaxis Order",
+    generate: (rng) => {
+      const data = pick([
+        { med: "Enoxaparin (Lovenox)", orderMg: 40, concMg: 40, concMl: 0.4, ans: 0.4 },
+        { med: "Enoxaparin (Lovenox)", orderMg: 60, concMg: 60, concMl: 0.6, ans: 0.6 },
+        { med: "Enoxaparin (Lovenox)", orderMg: 80, concMg: 100, concMl: 1.0, ans: 0.8 },
+        { med: "Enoxaparin (Lovenox)", orderMg: 30, concMg: 100, concMl: 1.0, ans: 0.3 },
+      ], rng);
+
+      return {
+        scenario: `A post-operative adult patient is ordered subcutaneous low molecular weight heparin for deep vein thrombosis prophylaxis.`,
+        orderText: `${data.med} ${data.orderMg} mg SubQ every 12 hours`,
+        availableText: `${data.med} prefilled syringe ${data.concMg} mg / ${data.concMl} mL`,
+        prompt: `Calculate the volume in mL to administer for one dose.`,
+        expectedAnswer: data.ans,
+        expectedUnit: "mL",
+        roundingMode: "tenth",
+        roundingInstruction: "Round to nearest tenth.",
+        tolerance: 0.05,
+        hints: [
+          "Units are already matched in milligrams.",
+          "Apply Desired ÷ Have × Available Volume.",
+          `Calculate: (${data.orderMg} mg ÷ ${data.concMg} mg) × ${data.concMl} mL.`,
+        ],
+        solutionSteps: [
+          {
+            stepNumber: 1,
+            title: "Calculate Syringe Volume",
+            formula: "(Desired ÷ Have) × Volume",
+            calculation: `(${data.orderMg} mg ÷ ${data.concMg} mg) × ${data.concMl} mL = ${data.ans} mL`,
+            result: `${data.ans} mL`,
+          },
+        ],
+        rawVariables: { ...data },
+      };
+    },
+  },
+  {
+    id: "dose-inj-opioid-vial",
+    category: "basic-dosage",
+    subtype: "injectable",
+    difficulty: "beginner",
+    title: "IV Push Opioid Analgesic Volume",
+    clinicalContext: "Adult PACU Acute Post-Op Pain Order",
+    generate: (rng) => {
+      const data = pick([
+        { med: "Morphine sulfate", orderMg: 4, concMg: 10, concMl: 1, ans: 0.4 },
+        { med: "Morphine sulfate", orderMg: 2, concMg: 4, concMl: 1, ans: 0.5 },
+        { med: "Hydromorphone (Dilaudid)", orderMg: 0.5, concMg: 2, concMl: 1, ans: 0.25 },
+        { med: "Hydromorphone (Dilaudid)", orderMg: 1, concMg: 2, concMl: 1, ans: 0.5 },
+      ], rng);
+
+      return {
+        scenario: `An adult patient in the post-anesthesia care unit requires IV push analgesia for acute breakthrough pain.`,
+        orderText: `${data.med} ${data.orderMg} mg IV push every 3 hours PRN severe pain`,
+        availableText: `${data.med} vial ${data.concMg} mg / ${data.concMl} mL`,
+        prompt: `How many mL should the nurse draw into the syringe?`,
+        expectedAnswer: data.ans,
+        expectedUnit: "mL",
+        roundingMode: "hundredth",
+        roundingInstruction: "State exact decimal value or round to nearest hundredth.",
+        tolerance: 0.01,
+        hints: [
+          "Units are in milligrams.",
+          "Apply Desired ÷ Have × Quantity.",
+          `Calculate: (${data.orderMg} mg ÷ ${data.concMg} mg) × ${data.concMl} mL.`,
+        ],
+        solutionSteps: [
+          {
+            stepNumber: 1,
+            title: "Calculate Injection Volume",
+            formula: "(Desired ÷ Have) × Volume",
+            calculation: `(${data.orderMg} mg ÷ ${data.concMg} mg) × ${data.concMl} mL = ${data.ans} mL`,
+            result: `${data.ans} mL`,
+          },
+        ],
+        rawVariables: { ...data },
+      };
+    },
+  },
+  {
+    id: "dose-inj-antiemetic-vial",
+    category: "basic-dosage",
+    subtype: "injectable",
+    difficulty: "beginner",
+    title: "IV Antiemetic Administration Volume",
+    clinicalContext: "Adult Inpatient Oncology / Surgical Order",
+    generate: (rng) => {
+      const data = pick([
+        { med: "Ondansetron (Zofran)", orderMg: 4, concMg: 4, concMl: 2, ans: 2 },
+        { med: "Ondansetron (Zofran)", orderMg: 8, concMg: 4, concMl: 2, ans: 4 },
+        { med: "Metoclopramide (Reglan)", orderMg: 10, concMg: 10, concMl: 2, ans: 2 },
+        { med: "Prochlorperazine", orderMg: 5, concMg: 10, concMl: 2, ans: 1 },
+      ], rng);
+
+      return {
+        scenario: `An adult surgical inpatient experiencing acute nausea is ordered an IV antiemetic.`,
+        orderText: `${data.med} ${data.orderMg} mg IV push every 6 hours PRN nausea`,
+        availableText: `${data.med} vial ${data.concMg} mg in ${data.concMl} mL`,
+        prompt: `How many mL should the nurse administer?`,
+        expectedAnswer: data.ans,
+        expectedUnit: "mL",
+        roundingMode: "tenth",
+        roundingInstruction: "State exact whole number or decimal.",
+        tolerance: 0.05,
+        hints: [
+          "Check that dose and supply units match.",
+          "Apply Desired ÷ Have × Available Volume.",
+          `Calculate: (${data.orderMg} ÷ ${data.concMg}) × ${data.concMl}.`,
+        ],
+        solutionSteps: [
+          {
+            stepNumber: 1,
+            title: "Calculate Syringe Volume",
+            formula: "(Desired ÷ Have) × Volume",
+            calculation: `(${data.orderMg} mg ÷ ${data.concMg} mg) × ${data.concMl} mL = ${data.ans} mL`,
+            result: `${data.ans} mL`,
+          },
+        ],
+        rawVariables: { ...data },
+      };
+    },
+  },
+  {
+    id: "dose-reverse-tablet-potency",
+    category: "basic-dosage",
+    subtype: "tablets",
+    difficulty: "intermediate",
+    title: "Reverse Tablet Calculation: Total Dose Received",
+    clinicalContext: "Adult Cardiology Medication Administration Audit",
+    generate: (rng) => {
+      const data = pick([
+        { med: "Digoxin", tabs: 1.5, strengthMcg: 125, totalMcg: 187.5 },
+        { med: "Metoprolol Succinate", tabs: 2, strengthMg: 25, totalMg: 50 },
+        { med: "Warfarin", tabs: 1.5, strengthMg: 5, totalMg: 7.5 },
+        { med: "Carvedilol", tabs: 2, strengthMg: 6.25, totalMg: 12.5 },
+      ], rng);
+
+      const isMcg = "strengthMcg" in data;
+      const strength = isMcg ? (data as any).strengthMcg : (data as any).strengthMg;
+      const unit = isMcg ? "mcg" : "mg";
+      const total = isMcg ? (data as any).totalMcg : (data as any).totalMg;
+
+      return {
+        scenario: `A nursing chart audit indicates a patient took ${data.tabs} tablets of ${data.med}. Each tablet contains ${strength} ${unit}.`,
+        orderText: `${data.tabs} tablets administered`,
+        availableText: `${data.med} ${strength} ${unit} tablets`,
+        prompt: `Calculate the total ${unit} dose the patient received.`,
+        expectedAnswer: total,
+        expectedUnit: unit,
+        roundingMode: "tenth",
+        roundingInstruction: "State exact number or round to nearest tenth.",
+        tolerance: 0.05,
+        hints: [
+          `To find total dose from tablets, multiply number of tablets by the strength per tablet.`,
+          `Calculate: ${data.tabs} tablets × ${strength} ${unit}/tablet.`,
+          `${data.tabs} × ${strength} = ${total} ${unit}.`,
+        ],
+        solutionSteps: [
+          {
+            stepNumber: 1,
+            title: "Calculate Total Dose Delivered",
+            formula: "Number of Tablets × Strength per Tablet",
+            calculation: `${data.tabs} tabs × ${strength} ${unit} = ${total} ${unit}`,
+            result: `${total} ${unit}`,
+          },
+        ],
+        rawVariables: { med: data.med, tabs: data.tabs, strength, unit, total },
+      };
+    },
+  },
+  {
+    id: "dose-reverse-liquid-volume",
+    category: "basic-dosage",
+    subtype: "oral-liquid",
+    difficulty: "intermediate",
+    title: "Reverse Liquid Calculation: Total Dose Administered",
+    clinicalContext: "Adult Inpatient Intake Charting Verification",
+    generate: (rng) => {
+      const data = pick([
+        { med: "Acetaminophen oral liquid", volMl: 15, concMg: 160, concMl: 5, totalMg: 480 },
+        { med: "Diphenhydramine elixir", volMl: 10, concMg: 12.5, concMl: 5, totalMg: 25 },
+        { med: "Potassium chloride liquid", volMl: 30, concMeq: 20, concMl: 15, totalMeq: 40 },
+        { med: "Lactulose syrup", volMl: 30, concG: 10, concMl: 15, totalG: 20 },
+      ], rng);
+
+      const isMeq = "concMeq" in data;
+      const isG = "concG" in data;
+      const unit = isMeq ? "mEq" : isG ? "g" : "mg";
+      const concAmt = isMeq ? (data as any).concMeq : isG ? (data as any).concG : (data as any).concMg;
+      const total = isMeq ? (data as any).totalMeq : isG ? (data as any).totalG : (data as any).totalMg;
+
+      return {
+        scenario: `A patient took ${data.volMl} mL of ${data.med}. The container is labeled ${concAmt} ${unit} per ${data.concMl} mL.`,
+        orderText: `${data.volMl} mL administered PO`,
+        availableText: `${data.med} ${concAmt} ${unit} / ${data.concMl} mL`,
+        prompt: `How many ${unit} did the patient receive?`,
+        expectedAnswer: total,
+        expectedUnit: unit,
+        roundingMode: "tenth",
+        roundingInstruction: "State exact number.",
+        tolerance: 0.1,
+        hints: [
+          `First find concentration per mL: ${concAmt} ${unit} ÷ ${data.concMl} mL = ${concAmt / data.concMl} ${unit}/mL.`,
+          `Multiply volume taken by concentration per mL: ${data.volMl} mL × ${concAmt / data.concMl} ${unit}/mL.`,
+          `Calculate: (${data.volMl} ÷ ${data.concMl}) × ${concAmt} = ${total} ${unit}.`,
+        ],
+        solutionSteps: [
+          {
+            stepNumber: 1,
+            title: "Calculate Total Dose",
+            formula: "(Administered Volume ÷ Supply Volume) × Supply Dose",
+            calculation: `(${data.volMl} mL ÷ ${data.concMl} mL) × ${concAmt} ${unit} = ${total} ${unit}`,
+            result: `${total} ${unit}`,
+          },
+        ],
+        rawVariables: { med: data.med, volMl: data.volMl, concAmt, concMl: data.concMl, unit, total },
+      };
+    },
+  },
+  {
+    id: "dose-inj-furosemide-ivp",
+    category: "basic-dosage",
+    subtype: "injectable",
+    difficulty: "beginner",
+    title: "Furosemide IV Push Injection Volume",
+    clinicalContext: "Adult Med-Surg Acute Fluid Overload",
+    generate: (rng) => {
+      const data = pick([
+        { orderMg: 20, concMg: 40, concMl: 4, ans: 2 },
+        { orderMg: 40, concMg: 40, concMl: 4, ans: 4 },
+        { orderMg: 60, concMg: 100, concMl: 10, ans: 6 },
+        { orderMg: 80, concMg: 100, concMl: 10, ans: 8 },
+      ], rng);
+
+      return {
+        scenario: `An adult heart failure patient with bilateral lower extremity edema is prescribed IV furosemide.`,
+        orderText: `Furosemide ${data.orderMg} mg IV push stat over 2 minutes`,
+        availableText: `Furosemide vial ${data.concMg} mg in ${data.concMl} mL (10 mg/mL)`,
+        prompt: `How many mL should the nurse draw into the syringe?`,
+        expectedAnswer: data.ans,
+        expectedUnit: "mL",
+        roundingMode: "tenth",
+        roundingInstruction: "State exact number.",
+        tolerance: 0.05,
+        hints: [
+          "Units are already matched in milligrams.",
+          "Apply Desired ÷ Have × Available Volume.",
+          `Calculate: (${data.orderMg} mg ÷ ${data.concMg} mg) × ${data.concMl} mL.`,
+        ],
+        solutionSteps: [
+          {
+            stepNumber: 1,
+            title: "Calculate Syringe Volume",
+            formula: "(Desired ÷ Have) × Volume",
+            calculation: `(${data.orderMg} mg ÷ ${data.concMg} mg) × ${data.concMl} mL = ${data.ans} mL`,
+            result: `${data.ans} mL`,
+          },
+        ],
+        rawVariables: { ...data },
+      };
+    },
+  },
+  {
+    id: "dose-inj-diphenhydramine-vial",
+    category: "basic-dosage",
+    subtype: "injectable",
+    difficulty: "beginner",
+    title: "Diphenhydramine IV Push Volume",
+    clinicalContext: "Adult Inpatient Allergic Reaction Order",
+    generate: (rng) => {
+      const data = pick([
+        { orderMg: 25, concMg: 50, concMl: 1, ans: 0.5 },
+        { orderMg: 50, concMg: 50, concMl: 1, ans: 1.0 },
+        { orderMg: 12.5, concMg: 50, concMl: 1, ans: 0.25 },
+        { orderMg: 25, concMg: 25, concMl: 1, ans: 1.0 },
+      ], rng);
+
+      return {
+        scenario: `An adult patient developing mild pruritus and urticaria following a blood transfusion is prescribed IV diphenhydramine.`,
+        orderText: `Diphenhydramine ${data.orderMg} mg IV push stat`,
+        availableText: `Diphenhydramine vial ${data.concMg} mg / ${data.concMl} mL`,
+        prompt: `How many mL should the nurse administer?`,
+        expectedAnswer: data.ans,
+        expectedUnit: "mL",
+        roundingMode: "hundredth",
+        roundingInstruction: "State exact decimal value.",
+        tolerance: 0.01,
+        hints: [
+          "Check that dose and supply units match.",
+          "Apply Desired ÷ Have × Volume.",
+          `Calculate: (${data.orderMg} mg ÷ ${data.concMg} mg) × ${data.concMl} mL.`,
+        ],
+        solutionSteps: [
+          {
+            stepNumber: 1,
+            title: "Calculate Syringe Volume",
+            formula: "(Desired ÷ Have) × Volume",
+            calculation: `(${data.orderMg} mg ÷ ${data.concMg} mg) × ${data.concMl} mL = ${data.ans} mL`,
+            result: `${data.ans} mL`,
+          },
+        ],
+        rawVariables: { ...data },
+      };
+    },
+  },
+  {
+    id: "dose-oral-lactulose-solution",
+    category: "basic-dosage",
+    subtype: "oral-liquid",
+    difficulty: "beginner",
+    title: "Lactulose Oral Solution Volume Calculation",
+    clinicalContext: "Adult Inpatient Hepatic Encephalopathy Protocol",
+    generate: (rng) => {
+      const data = pick([
+        { orderG: 20, concG: 10, concMl: 15, ans: 30 },
+        { orderG: 30, concG: 10, concMl: 15, ans: 45 },
+        { orderG: 15, concG: 10, concMl: 15, ans: 22.5 },
+        { orderG: 10, concG: 10, concMl: 15, ans: 15 },
+      ], rng);
+
+      return {
+        scenario: `An adult inpatient with chronic cirrhosis and elevated ammonia is prescribed oral lactulose.`,
+        orderText: `Lactulose ${data.orderG} g PO TID`,
+        availableText: `Lactulose oral solution ${data.concG} g per ${data.concMl} mL`,
+        prompt: `How many mL should the nurse measure for one dose?`,
+        expectedAnswer: data.ans,
+        expectedUnit: "mL",
+        roundingMode: "tenth",
+        roundingInstruction: "State exact number or round to nearest tenth.",
+        tolerance: 0.05,
+        hints: [
+          "Units are in grams for both order and supply.",
+          "Apply Desired ÷ Have × Volume.",
+          `Calculate: (${data.orderG} g ÷ ${data.concG} g) × ${data.concMl} mL.`,
+        ],
+        solutionSteps: [
+          {
+            stepNumber: 1,
+            title: "Calculate Dose Volume",
+            formula: "(Desired ÷ Have) × Volume",
+            calculation: `(${data.orderG} g ÷ ${data.concG} g) × ${data.concMl} mL = ${data.ans} mL`,
+            result: `${data.ans} mL`,
+          },
+        ],
+        rawVariables: { ...data },
+      };
+    },
+  },
+  {
+    id: "dose-tabs-warfarin-anticoag",
+    category: "basic-dosage",
+    subtype: "tablets",
+    difficulty: "beginner",
+    title: "Warfarin Oral Anticoagulant Dose Calculation",
+    clinicalContext: "Adult Inpatient INR-Guided Anticoagulation",
+    generate: (rng) => {
+      const data = pick([
+        { orderMg: 7.5, tabMg: 2.5, ans: 3 },
+        { orderMg: 5, tabMg: 2.5, ans: 2 },
+        { orderMg: 10, tabMg: 5, ans: 2 },
+        { orderMg: 3.75, tabMg: 2.5, ans: 1.5 },
+      ], rng);
+
+      return {
+        scenario: `An adult patient with atrial fibrillation has an INR of 2.2 and is prescribed evening warfarin.`,
+        orderText: `Warfarin ${data.orderMg} mg PO daily at 1800`,
+        availableText: `Warfarin ${data.tabMg} mg scored tablets`,
+        prompt: `How many tablets should the nurse administer?`,
+        expectedAnswer: data.ans,
+        expectedUnit: "tablets",
+        roundingMode: "exact",
+        roundingInstruction: "State exact number or half tablet.",
+        tolerance: 0.01,
+        hints: [
+          "Units are already matched in milligrams.",
+          "Apply Desired ÷ Have × 1 tablet.",
+          `Calculate: ${data.orderMg} ÷ ${data.tabMg}.`,
+        ],
+        solutionSteps: [
+          {
+            stepNumber: 1,
+            title: "Calculate Number of Tablets",
+            formula: "Desired ÷ Have × 1 tab",
+            calculation: `(${data.orderMg} mg ÷ ${data.tabMg} mg) × 1 = ${data.ans} tablets`,
+            result: `${data.ans} tablets`,
+          },
+        ],
+        rawVariables: { ...data },
+      };
+    },
+  },
+  {
+    id: "dose-inj-haloperidol-vial",
+    category: "basic-dosage",
+    subtype: "injectable",
+    difficulty: "beginner",
+    title: "Haloperidol Injection Volume Calculation",
+    clinicalContext: "Adult Inpatient Acute Agitation Protocol",
+    generate: (rng) => {
+      const data = pick([
+        { orderMg: 2.5, concMg: 5, concMl: 1, ans: 0.5 },
+        { orderMg: 5, concMg: 5, concMl: 1, ans: 1.0 },
+        { orderMg: 1, concMg: 5, concMl: 1, ans: 0.2 },
+        { orderMg: 2, concMg: 5, concMl: 1, ans: 0.4 },
+      ], rng);
+
+      return {
+        scenario: `An adult inpatient experiencing acute delirium with agitation is prescribed intramuscular haloperidol.`,
+        orderText: `Haloperidol ${data.orderMg} mg IM stat PRN severe agitation`,
+        availableText: `Haloperidol vial ${data.concMg} mg / ${data.concMl} mL`,
+        prompt: `How many mL should the nurse draw into the syringe?`,
+        expectedAnswer: data.ans,
+        expectedUnit: "mL",
+        roundingMode: "tenth",
+        roundingInstruction: "Round to nearest tenth.",
+        tolerance: 0.01,
+        hints: [
+          "Units are in milligrams.",
+          "Apply Desired ÷ Have × Volume.",
+          `Calculate: (${data.orderMg} mg ÷ ${data.concMg} mg) × ${data.concMl} mL.`,
+        ],
+        solutionSteps: [
+          {
+            stepNumber: 1,
+            title: "Calculate Injection Volume",
+            formula: "(Desired ÷ Have) × Volume",
+            calculation: `(${data.orderMg} mg ÷ ${data.concMg} mg) × ${data.concMl} mL = ${data.ans} mL`,
+            result: `${data.ans} mL`,
+          },
+        ],
+        rawVariables: { ...data },
+      };
+    },
+  },
 ];

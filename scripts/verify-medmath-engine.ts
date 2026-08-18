@@ -11,8 +11,8 @@ console.log(`Verifying MedMath Question Engine with ${ALL_QUESTION_TEMPLATES.len
 
 // 1. Verify template count
 assert(
-  ALL_QUESTION_TEMPLATES.length >= 100,
-  `Master template count (${ALL_QUESTION_TEMPLATES.length}) must be at least 100.`,
+  ALL_QUESTION_TEMPLATES.length >= 250,
+  `Master template count (${ALL_QUESTION_TEMPLATES.length}) must be at least 250.`,
 );
 
 // 2. Verify all 13 categories have templates

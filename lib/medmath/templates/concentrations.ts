@@ -394,4 +394,276 @@ export const concentrationTemplates: QuestionTemplate[] = [
       };
     },
   },
+  {
+    id: "conc-percentage-to-mgml",
+    category: "concentrations",
+    subtype: "percentage-solution",
+    difficulty: "beginner",
+    title: "Percentage Solution to mg/mL Conversion",
+    clinicalContext: "Adult Inpatient Anesthetic & Resuscitation Pharmacology",
+    generate: (rng) => {
+      const data = pick([
+        { med: "Lidocaine 1%", percent: 1.0, mgMl: 10 },
+        { med: "Lidocaine 2%", percent: 2.0, mgMl: 20 },
+        { med: "Dextrose 50% (D50W)", percent: 50.0, mgMl: 500 },
+        { med: "Magnesium Sulfate 50%", percent: 50.0, mgMl: 500 },
+        { med: "Sodium Bicarbonate 8.4%", percent: 8.4, mgMl: 84 },
+      ], rng);
+
+      return {
+        scenario: `A nurse is preparing to administer ${data.med}. The concentration is listed as a percentage solution.`,
+        orderText: `${data.med} solution`,
+        prompt: `How many mg/mL of active medication are contained in this ${data.percent}% solution?`,
+        expectedAnswer: data.mgMl,
+        expectedUnit: "mg/mL",
+        roundingMode: "whole",
+        roundingInstruction: "State exact number.",
+        tolerance: 0.1,
+        hints: [
+          "Clinical rule: A 1% solution equals 1 g in 100 mL = 1,000 mg in 100 mL = 10 mg/mL.",
+          "Multiply the percentage number by 10 to find mg/mL.",
+          `Calculate: ${data.percent} × 10 = ${data.mgMl} mg/mL.`,
+        ],
+        solutionSteps: [
+          {
+            stepNumber: 1,
+            title: "Convert Percentage to mg/mL",
+            formula: "Percentage (%) × 10",
+            calculation: `${data.percent}% × 10 = ${data.mgMl} mg/mL`,
+            result: `${data.mgMl} mg/mL`,
+          },
+        ],
+        rawVariables: { ...data },
+      };
+    },
+  },
+  {
+    id: "conc-ratio-strength-to-mcgml",
+    category: "concentrations",
+    subtype: "ratio-strength",
+    difficulty: "intermediate",
+    title: "Ratio Strength to mcg/mL Conversion (Epinephrine)",
+    clinicalContext: "Adult Emergency Resuscitation Pharmacology",
+    generate: (rng) => {
+      const data = pick([
+        { ratio: "1:1,000", grams: 1, ml: 1000, mgMl: 1.0, mcgMl: 1000, context: "IM anaphylaxis ampule" },
+        { ratio: "1:10,000", grams: 1, ml: 10000, mgMl: 0.1, mcgMl: 100, context: "IV cardiac arrest prefilled syringe" },
+        { ratio: "1:100,000", grams: 1, ml: 100000, mgMl: 0.01, mcgMl: 10, context: "local anesthetic vasoconstrictor" },
+      ], rng);
+
+      return {
+        scenario: `During code training, the clinical educator asks the nurse to determine the exact concentration of a ${data.ratio} Epinephrine solution (${data.context}).`,
+        orderText: `Epinephrine ${data.ratio} solution`,
+        prompt: `How many mcg/mL of epinephrine are in this ${data.ratio} solution?`,
+        expectedAnswer: data.mcgMl,
+        expectedUnit: "mcg/mL",
+        roundingMode: "whole",
+        roundingInstruction: "State whole number of mcg/mL.",
+        tolerance: 0.1,
+        hints: [
+          `Recall that a ${data.ratio} ratio means ${data.grams} g in ${data.ml.toLocaleString()} mL.`,
+          `Convert ${data.grams} g to micrograms: ${data.grams} g = 1,000,000 mcg.`,
+          `Divide: 1,000,000 mcg ÷ ${data.ml.toLocaleString()} mL = ${data.mcgMl} mcg/mL.`,
+        ],
+        solutionSteps: [
+          {
+            stepNumber: 1,
+            title: "Convert Grams to Micrograms",
+            formula: "1 g = 1,000,000 mcg",
+            calculation: `1 g = 1,000,000 mcg`,
+            result: `1,000,000 mcg`,
+          },
+          {
+            stepNumber: 2,
+            title: "Calculate Concentration in mcg/mL",
+            formula: "1,000,000 mcg ÷ Total mL",
+            calculation: `1,000,000 mcg ÷ ${data.ml.toLocaleString()} mL = ${data.mcgMl} mcg/mL`,
+            result: `${data.mcgMl} mcg/mL`,
+          },
+        ],
+        rawVariables: { ...data },
+      };
+    },
+  },
+  {
+    id: "conc-meq-ml-electrolytes",
+    category: "concentrations",
+    subtype: "bag-concentration",
+    difficulty: "beginner",
+    title: "Electrolyte Additive Vial Concentration in mEq/mL",
+    clinicalContext: "Adult Inpatient Compounding Verification",
+    generate: (rng) => {
+      const data = pick([
+        { med: "Potassium Chloride", totalMeq: 40, vialMl: 20, concMeqMl: 2.0 },
+        { med: "Potassium Chloride", totalMeq: 20, vialMl: 10, concMeqMl: 2.0 },
+        { med: "Sodium Bicarbonate", totalMeq: 50, vialMl: 50, concMeqMl: 1.0 },
+        { med: "Sodium Acetate", totalMeq: 40, vialMl: 20, concMeqMl: 2.0 },
+      ], rng);
+
+      return {
+        scenario: `A nurse is preparing to add concentrated ${data.med} to a maintenance IV fluid bag. The vial contains ${data.totalMeq} mEq in ${data.vialMl} mL.`,
+        orderText: `${data.med} ${data.totalMeq} mEq / ${data.vialMl} mL vial`,
+        prompt: `What is the concentration of the vial in mEq/mL?`,
+        expectedAnswer: data.concMeqMl,
+        expectedUnit: "mEq/mL",
+        roundingMode: "tenth",
+        roundingInstruction: "State exact number.",
+        tolerance: 0.05,
+        hints: [
+          "Divide total mEq by total vial volume (mL).",
+          `Calculate: ${data.totalMeq} mEq ÷ ${data.vialMl} mL = ${data.concMeqMl} mEq/mL.`,
+        ],
+        solutionSteps: [
+          {
+            stepNumber: 1,
+            title: "Calculate Concentration",
+            formula: "Total mEq ÷ Total mL",
+            calculation: `${data.totalMeq} mEq ÷ ${data.vialMl} mL = ${data.concMeqMl} mEq/mL`,
+            result: `${data.concMeqMl} mEq/mL`,
+          },
+        ],
+        rawVariables: { ...data },
+      };
+    },
+  },
+  {
+    id: "conc-double-strength-infusion",
+    category: "concentrations",
+    subtype: "bag-concentration",
+    difficulty: "beginner",
+    title: "Double-Strength vs Standard Concentration Comparison",
+    clinicalContext: "Adult ICU Fluid Restriction Management",
+    generate: (rng) => {
+      const data = pick([
+        { med: "Norepinephrine", stdMg: 4, stdMl: 250, stdConc: 16, doubleMg: 8, doubleMl: 250, doubleConc: 32 },
+        { med: "Epinephrine", stdMg: 4, stdMl: 250, stdConc: 16, doubleMg: 8, doubleMl: 250, doubleConc: 32 },
+        { med: "Dopamine", stdMg: 400, stdMl: 250, stdConc: 1600, doubleMg: 800, doubleMl: 250, doubleConc: 3200 },
+        { med: "Dobutamine", stdMg: 250, stdMl: 250, stdConc: 1000, doubleMg: 500, doubleMl: 250, doubleConc: 2000 },
+      ], rng);
+
+      return {
+        scenario: `To reduce fluid intake in an adult ICU patient with acute pulmonary edema, pharmacy compounds a double-strength ${data.med} bag containing ${data.doubleMg} mg in ${data.doubleMl} mL D5W.`,
+        orderText: `${data.med} Double-Strength infusion bag (${data.doubleMg} mg in ${data.doubleMl} mL)`,
+        prompt: `Calculate the concentration of this double-strength bag in mcg/mL.`,
+        expectedAnswer: data.doubleConc,
+        expectedUnit: "mcg/mL",
+        roundingMode: "whole",
+        roundingInstruction: "State whole number of mcg/mL.",
+        tolerance: 0.1,
+        hints: [
+          `Step 1: Convert ${data.doubleMg} mg to mcg: ${data.doubleMg} × 1,000 = ${data.doubleMg * 1000} mcg.`,
+          `Step 2: Divide total mcg by ${data.doubleMl} mL: (${data.doubleMg * 1000}) ÷ ${data.doubleMl}.`,
+          `Calculate: ${data.doubleMg * 1000} ÷ ${data.doubleMl} = ${data.doubleConc} mcg/mL.`,
+        ],
+        solutionSteps: [
+          {
+            stepNumber: 1,
+            title: "Convert Milligrams to Micrograms",
+            formula: "mg × 1,000",
+            calculation: `${data.doubleMg} mg × 1,000 = ${data.doubleMg * 1000} mcg`,
+            result: `${data.doubleMg * 1000} mcg`,
+          },
+          {
+            stepNumber: 2,
+            title: "Calculate Concentration",
+            formula: "Total mcg ÷ Total mL",
+            calculation: `${data.doubleMg * 1000} mcg ÷ ${data.doubleMl} mL = ${data.doubleConc} mcg/mL`,
+            result: `${data.doubleConc} mcg/mL`,
+          },
+        ],
+        rawVariables: { ...data },
+      };
+    },
+  },
+  {
+    id: "conc-reverse-volume-from-grams",
+    category: "concentrations",
+    subtype: "percentage-solution",
+    difficulty: "intermediate",
+    title: "Volume Required from Percentage Solution (Mannitol 20%)",
+    clinicalContext: "Adult Neuro-ICU Elevated Intracranial Pressure Order",
+    generate: (rng) => {
+      const data = pick([
+        { desiredGrams: 50, percent: 20, gPerMl: 0.2, volMl: 250 },
+        { desiredGrams: 100, percent: 20, gPerMl: 0.2, volMl: 500 },
+        { desiredGrams: 25, percent: 20, gPerMl: 0.2, volMl: 125 },
+        { desiredGrams: 75, percent: 20, gPerMl: 0.2, volMl: 375 },
+      ], rng);
+
+      return {
+        scenario: `An adult patient with acute cerebral edema secondary to traumatic brain injury is ordered ${data.desiredGrams} g of IV Mannitol over 30 minutes. The pharmacy supplies a 20% Mannitol solution.`,
+        orderText: `Mannitol ${data.desiredGrams} g IV over 30 minutes stat`,
+        availableText: `Mannitol 20% injection (${data.percent} g / 100 mL = ${data.gPerMl} g/mL)`,
+        prompt: `How many mL of the 20% Mannitol solution should the nurse infuse?`,
+        expectedAnswer: data.volMl,
+        expectedUnit: "mL",
+        roundingMode: "whole",
+        roundingInstruction: "State whole number of mL.",
+        tolerance: 0.1,
+        hints: [
+          `Recall: A 20% solution contains 20 g in 100 mL = 0.2 g/mL.`,
+          `Divide desired grams by concentration: ${data.desiredGrams} g ÷ 0.2 g/mL.`,
+          `Calculate: ${data.desiredGrams} ÷ 0.2 = ${data.volMl} mL.`,
+        ],
+        solutionSteps: [
+          {
+            stepNumber: 1,
+            title: "Determine Solution Concentration",
+            formula: "20 g ÷ 100 mL",
+            calculation: `20 g ÷ 100 mL = 0.2 g/mL`,
+            result: `0.2 g/mL`,
+          },
+          {
+            stepNumber: 2,
+            title: "Calculate Volume to Administer",
+            formula: "Prescribed Grams ÷ Concentration (0.2 g/mL)",
+            calculation: `${data.desiredGrams} g ÷ 0.2 g/mL = ${data.volMl} mL`,
+            result: `${data.volMl} mL`,
+          },
+        ],
+        rawVariables: { ...data },
+      };
+    },
+  },
+  {
+    id: "conc-insulin-bag-concentration",
+    category: "concentrations",
+    subtype: "bag-concentration",
+    difficulty: "beginner",
+    title: "Regular Insulin DKA Infusion Concentration (1 unit/mL)",
+    clinicalContext: "Adult Inpatient Endocrine Safety Protocol",
+    generate: (rng) => {
+      const data = pick([
+        { units: 100, bagMl: 100, conc: 1.0 },
+        { units: 250, bagMl: 250, conc: 1.0 },
+        { units: 100, bagMl: 250, conc: 0.4 },
+        { units: 50, bagMl: 50, conc: 1.0 },
+      ], rng);
+
+      return {
+        scenario: `A nurse receives an IV regular insulin infusion bag from pharmacy for a patient in diabetic ketoacidosis. The bag is labeled ${data.units} units of Regular Insulin in ${data.bagMl} mL 0.9% Normal Saline.`,
+        orderText: `Regular Insulin ${data.units} units in ${data.bagMl} mL NS`,
+        prompt: `What is the concentration of the insulin solution in units/mL?`,
+        expectedAnswer: data.conc,
+        expectedUnit: "units/mL",
+        roundingMode: "tenth",
+        roundingInstruction: "State exact number or round to nearest tenth.",
+        tolerance: 0.01,
+        hints: [
+          "Divide total units by total bag volume in mL.",
+          `Calculate: ${data.units} units ÷ ${data.bagMl} mL = ${data.conc} units/mL.`,
+        ],
+        solutionSteps: [
+          {
+            stepNumber: 1,
+            title: "Calculate Concentration",
+            formula: "Total Units ÷ Total Volume (mL)",
+            calculation: `${data.units} units ÷ ${data.bagMl} mL = ${data.conc} units/mL`,
+            result: `${data.conc} units/mL`,
+          },
+        ],
+        rawVariables: { ...data },
+      };
+    },
+  },
 ];
