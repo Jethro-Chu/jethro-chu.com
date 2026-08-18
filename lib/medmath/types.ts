@@ -29,6 +29,40 @@ export type ExamCategorySelection =
   | "critical-care"
   | "custom";
 
+export type ExamMode =
+  | "nursing-med-math"
+  | "critical-care"
+  | "custom";
+
+export type RegularExamDifficulty =
+  | "basic"
+  | "standard"
+  | "hard"
+  | "mixed";
+
+export interface ExamQuestionReview {
+  instanceId: string;
+  templateId: string;
+  category: MedMathCategory;
+  categoryName: string;
+  subtype: string;
+  difficulty: MedMathDifficulty;
+  title: string;
+  clinicalContext?: string;
+  scenario: string;
+  orderText: string;
+  availableText?: string;
+  patientWeightKg?: number;
+  patientWeightLb?: number;
+  prompt: string;
+  expectedUnit: string;
+  roundingInstruction?: string;
+  studentAnswer: string;
+  expectedAnswer: number | string;
+  isCorrect: boolean;
+  solutionSteps: SolutionStep[];
+}
+
 export type RoundingMode =
   | "whole"
   | "tenth"
@@ -189,6 +223,8 @@ export interface StoredSession {
     averageResponseTimeSeconds: number;
   }>;
   weakCategories: MedMathCategory[];
+  examMode?: ExamMode;
+  examReview?: ExamQuestionReview[];
 }
 
 export interface StoredAttemptRecord {

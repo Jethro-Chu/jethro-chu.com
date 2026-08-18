@@ -264,18 +264,25 @@ export function QuestionCard({
         {!isExamMode ? (
           <form onSubmit={handleSubmit} className="space-y-4 pt-2">
             <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
-              <div className="relative flex-1 max-w-xs">
-                <input
-                  ref={inputRef}
-                  type="text"
-                  value={submittedAnswer}
-                  onChange={(e) => setSubmittedAnswer(e.target.value)}
-                  disabled={Boolean(gradeResult?.isCorrect) || isSubmitting}
-                  placeholder="Enter calculation"
-                  className="w-full rounded-sm border border-[var(--color-line)] bg-white/70 px-3.5 py-2.5 pr-16 text-base font-medium text-[var(--color-ink)] focus:border-[var(--color-primary)] focus:outline-hidden disabled:bg-gray-100 disabled:text-gray-500"
-                />
-                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3.5 text-sm font-semibold text-[var(--color-ink-muted)]">
-                  {question.expectedUnit}
+              <div className="flex items-center gap-2">
+                <span className="text-sm font-bold uppercase tracking-wider text-[var(--color-ink)]">
+                  Answer:
+                </span>
+                <div className="relative flex-1 max-w-xs">
+                  <input
+                    ref={inputRef}
+                    type="text"
+                    inputMode="decimal"
+                    pattern="[0-9.]*"
+                    value={submittedAnswer}
+                    onChange={(e) => setSubmittedAnswer(e.target.value)}
+                    disabled={Boolean(gradeResult?.isCorrect) || isSubmitting}
+                    placeholder="Enter value"
+                    className="w-full rounded-sm border border-[var(--color-line)] bg-white/70 px-3.5 py-2.5 pr-20 text-base font-medium text-[var(--color-ink)] focus:border-[var(--color-primary)] focus:outline-hidden disabled:bg-gray-100 disabled:text-gray-500"
+                  />
+                  <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3.5 text-sm font-semibold text-[var(--color-ink-muted)]">
+                    {question.expectedUnit}
+                  </div>
                 </div>
               </div>
 
@@ -348,21 +355,31 @@ export function QuestionCard({
         ) : (
           /* Exam Mode Input */
           <div className="space-y-4 pt-2">
-            <div className="flex items-center max-w-xs relative">
-              <input
-                ref={inputRef}
-                type="text"
-                value={submittedAnswer}
-                onChange={(e) => {
-                  setSubmittedAnswer(e.target.value);
-                  if (onAnswerSavedForExam) onAnswerSavedForExam(e.target.value);
-                }}
-                placeholder="Enter answer"
-                className="w-full rounded-sm border border-[var(--color-line)] bg-white/70 px-3.5 py-2.5 pr-16 text-base font-medium text-[var(--color-ink)] focus:border-[var(--color-primary)] focus:outline-hidden"
-              />
-              <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3.5 text-sm font-semibold text-[var(--color-ink-muted)]">
-                {question.expectedUnit}
+            <div className="flex items-center gap-2.5">
+              <span className="text-sm font-bold uppercase tracking-wider text-[var(--color-ink)]">
+                Answer:
+              </span>
+              <div className="relative flex-1 max-w-xs">
+                <input
+                  ref={inputRef}
+                  type="text"
+                  inputMode="decimal"
+                  pattern="[0-9.]*"
+                  value={submittedAnswer}
+                  onChange={(e) => {
+                    setSubmittedAnswer(e.target.value);
+                    if (onAnswerSavedForExam) onAnswerSavedForExam(e.target.value);
+                  }}
+                  placeholder="Enter value"
+                  className="w-full rounded-sm border border-[var(--color-line)] bg-white/70 px-3.5 py-2.5 pr-20 text-base font-medium text-[var(--color-ink)] focus:border-[var(--color-primary)] focus:outline-hidden"
+                />
+                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3.5 text-sm font-semibold text-[var(--color-ink-muted)]">
+                  {question.expectedUnit}
+                </div>
               </div>
+            </div>
+            <div className="text-xs text-[var(--color-ink-muted)]">
+              Your answer is automatically saved as you navigate between questions.
             </div>
           </div>
         )}

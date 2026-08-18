@@ -9,14 +9,17 @@ export async function POST(req: NextRequest) {
     const body = (await req.json()) as {
       categories?: MedMathCategory[];
       difficulty?: PracticeDifficultySelection;
+      templateIds?: string[];
       excludeTemplateIds?: string[];
       isExam?: boolean;
+      examMode?: "nursing-med-math" | "critical-care" | "custom";
       examCount?: number;
     };
 
     if (body.isExam) {
       const examCount = Math.min(Math.max(body.examCount ?? 20, 5), 50);
-      const { clientViews, instances } = generateExamQuestionSet({
+      const { clientViews } = generateExamQuestionSet({
+        examMode: body.examMode ?? "nursing-med-math",
         categories: body.categories,
         difficulty: body.difficulty,
         count: examCount,
@@ -31,6 +34,7 @@ export async function POST(req: NextRequest) {
     const { clientView } = generateRandomQuestion({
       categories: body.categories,
       difficulty: body.difficulty,
+      templateIds: body.templateIds,
       excludeTemplateIds: body.excludeTemplateIds,
     });
 

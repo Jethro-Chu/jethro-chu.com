@@ -1,7 +1,7 @@
 import { ALL_QUESTION_TEMPLATES, TEMPLATE_MAP } from "../lib/medmath/templates/index.ts";
 import { MEDMATH_CATEGORIES } from "../lib/medmath/categories.ts";
 import { checkAnswerCorrectness } from "../lib/medmath/rounding.ts";
-import { createQuestionInstance } from "../lib/medmath/engine.ts";
+import { createQuestionInstance, generateNursingMedMathExam, generateCriticalCareExam } from "../lib/medmath/engine.ts";
 
 function assert(condition: unknown, message: string): asserts condition {
   if (!condition) throw new Error(message);
@@ -125,6 +125,40 @@ for (const template of ALL_QUESTION_TEMPLATES) {
       `${template.id} wrong answer "${wrongSubmission}" was marked correct!`,
     );
   }
+}
+
+// 5. Test Nursing Med Math Exam generator
+console.log("\nTesting Nursing Med Math Exam generator...");
+for (const count of [10, 20, 25, 50]) {
+  const { instances, clientViews } = generateNursingMedMathExam({ count, difficulty: "standard" });
+  assert(instances.length === count, `Nursing exam returned ${instances.length} questions, expected ${count}`);
+  assert(clientViews.length === count, `Nursing exam clientViews returned ${clientViews.length}, expected ${count}`);
+
+  // Ensure no critical care drips in regular nursing exam
+  const ccCount = instances.filter((q) => q.category === "critical-care").length;
+  assert(ccCount === 0, `Nursing exam contains ${ccCount} critical-care drip questions; expected 0.`);
+
+  // Verify category distribution on standard 20-question exam
+  if (count === 20) {
+    const cats = instances.map((q) => q.category);
+    assert(cats.includes("conversions"), "Nursing exam must include conversions");
+    assert(cats.includes("basic-dosage"), "Nursing exam must include basic-dosage");
+    assert(cats.includes("iv-pump"), "Nursing exam must include iv-pump");
+    assert(cats.includes("gravity-drips"), "Nursing exam must include gravity-drips");
+    assert(cats.includes("insulin"), "Nursing exam must include insulin");
+    assert(cats.includes("weight-based"), "Nursing exam must include weight-based");
+  }
+  console.log(`  ✓ ${count}-question Nursing Med Math Exam generated successfully`);
+}
+
+// 6. Test Critical Care Exam generator
+console.log("\nTesting Critical Care Exam generator...");
+for (const count of [10, 20, 25, 50]) {
+  const { instances } = generateCriticalCareExam({ count, difficulty: "standard" });
+  assert(instances.length === count, `Critical Care exam returned ${instances.length} questions, expected ${count}`);
+  const ccCount = instances.filter((q) => q.category === "critical-care" || q.category === "multi-step" || q.category === "heparin").length;
+  assert(ccCount > 0, "Critical care exam must contain critical care, multi-step, or heparin questions");
+  console.log(`  ✓ ${count}-question Critical Care Exam generated successfully`);
 }
 
 console.log(`\n✅ Successfully verified all ${ALL_QUESTION_TEMPLATES.length} templates across ${totalRuns.toLocaleString()} randomized test runs!`);

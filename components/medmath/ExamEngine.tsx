@@ -9,9 +9,17 @@ interface ExamEngineProps {
   initialQuestions: QuestionClientView[];
   sessionId: string;
   isTimed: boolean;
+  examMode?: "nursing-med-math" | "critical-care" | "custom";
+  examModeTitle?: string;
 }
 
-export function ExamEngine({ initialQuestions, sessionId, isTimed }: ExamEngineProps) {
+export function ExamEngine({
+  initialQuestions,
+  sessionId,
+  isTimed,
+  examMode = "nursing-med-math",
+  examModeTitle = "Nursing Med Math Exam",
+}: ExamEngineProps) {
   const router = useRouter();
   const [questions] = useState<QuestionClientView[]>(initialQuestions);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -22,13 +30,14 @@ export function ExamEngine({ initialQuestions, sessionId, isTimed }: ExamEngineP
 
   const startTimestampRef = useRef<number>(Date.now());
 
-  // Timer interval
+  // Timer interval (runs only if timed mode is active)
   useEffect(() => {
+    if (!isTimed) return;
     const timer = setInterval(() => {
       setElapsedSeconds(Math.floor((Date.now() - startTimestampRef.current) / 1000));
     }, 1000);
     return () => clearInterval(timer);
-  }, []);
+  }, [isTimed]);
 
   const formatTimer = (seconds: number) => {
     const mins = Math.floor(seconds / 60);
@@ -51,7 +60,7 @@ export function ExamEngine({ initialQuestions, sessionId, isTimed }: ExamEngineP
   const handleFinalSubmit = async () => {
     setIsSubmittingExam(true);
     try {
-      // 1. Grade each question by submitting attempts
+      // 1. Grade each question and compile complete review records
       let firstTryCorrect = 0;
       const categoryMap: Record<string, { totalQuestions: number; firstAttemptCorrect: number; eventualCorrect: number; totalAttempts: number; averageResponseTimeSeconds: number }> = {};
       const diffMap: Record<string, { totalQuestions: number; firstAttemptCorrect: number; eventualCorrect: number; totalAttempts: number; averageResponseTimeSeconds: number }> = {};
@@ -69,10 +78,6 @@ export function ExamEngine({ initialQuestions, sessionId, isTimed }: ExamEngineP
         diffMap[diffKey].totalQuestions += 1;
         diffMap[diffKey].totalAttempts += 1;
 
-        if (!studentAns.trim()) {
-          return { q, isCorrect: false };
-        }
-
         const res = await fetch("/api/medmath/attempt", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -83,12 +88,16 @@ export function ExamEngine({ initialQuestions, sessionId, isTimed }: ExamEngineP
             submittedAnswer: studentAns.trim(),
             responseTimeSeconds: Math.round(elapsedSeconds / questions.length),
             hintsUsedCount: 0,
-            solutionRevealed: false,
+            solutionRevealed: true,
           }),
         });
 
         if (res.ok) {
-          const result = (await res.json()) as { isCorrect: boolean };
+          const result = (await res.json()) as {
+            isCorrect: boolean;
+            expectedAnswer?: string | number;
+            solutionSteps?: any[];
+          };
           if (result.isCorrect) {
             firstTryCorrect += 1;
             categoryMap[catKey].firstAttemptCorrect += 1;
@@ -96,36 +105,78 @@ export function ExamEngine({ initialQuestions, sessionId, isTimed }: ExamEngineP
             diffMap[diffKey].firstAttemptCorrect += 1;
             diffMap[diffKey].eventualCorrect += 1;
           }
-          return { q, isCorrect: result.isCorrect };
+
+          return {
+            instanceId: q.instanceId,
+            templateId: q.templateId,
+            category: q.category,
+            categoryName: q.categoryName,
+            subtype: q.subtype,
+            difficulty: q.difficulty,
+            title: q.title,
+            clinicalContext: q.clinicalContext,
+            scenario: q.scenario,
+            orderText: q.orderText,
+            availableText: q.availableText,
+            patientWeightKg: q.patientWeightKg,
+            patientWeightLb: q.patientWeightLb,
+            prompt: q.prompt,
+            expectedUnit: q.expectedUnit,
+            roundingInstruction: q.roundingInstruction,
+            studentAnswer: studentAns.trim(),
+            expectedAnswer: result.expectedAnswer ?? "",
+            isCorrect: Boolean(result.isCorrect),
+            solutionSteps: result.solutionSteps ?? [],
+          };
         }
-        return { q, isCorrect: false };
+
+        return {
+          instanceId: q.instanceId,
+          templateId: q.templateId,
+          category: q.category,
+          categoryName: q.categoryName,
+          subtype: q.subtype,
+          difficulty: q.difficulty,
+          title: q.title,
+          clinicalContext: q.clinicalContext,
+          scenario: q.scenario,
+          orderText: q.orderText,
+          availableText: q.availableText,
+          patientWeightKg: q.patientWeightKg,
+          patientWeightLb: q.patientWeightLb,
+          prompt: q.prompt,
+          expectedUnit: q.expectedUnit,
+          roundingInstruction: q.roundingInstruction,
+          studentAnswer: studentAns.trim(),
+          expectedAnswer: "",
+          isCorrect: false,
+          solutionSteps: [],
+        };
       });
 
-      await Promise.all(gradingPromises);
+      const examReview = await Promise.all(gradingPromises);
 
-      // 2. Finalize session
-      const completeRes = await fetch("/api/medmath/complete", {
+      // 2. Finalize session and persist review data
+      await fetch("/api/medmath/complete", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           sessionId,
           sessionType: "exam",
+          examMode,
           plannedQuestionCount: questions.length,
           completedQuestionCount: questions.length,
           totalAttempts: questions.length,
           firstAttemptCorrectCount: firstTryCorrect,
           eventualCorrectCount: firstTryCorrect,
-          averageResponseTimeSeconds: Math.round(elapsedSeconds / questions.length),
+          averageResponseTimeSeconds: isTimed && elapsedSeconds > 0 ? Math.round(elapsedSeconds / questions.length) : 0,
           categoryBreakdown: categoryMap,
           difficultyBreakdown: diffMap,
+          examReview,
         }),
       });
 
-      if (completeRes.ok) {
-        router.push(`/medmath/results/${sessionId}`);
-      } else {
-        router.push(`/medmath/results/${sessionId}`);
-      }
+      router.push(`/medmath/results/${sessionId}`);
     } catch (err) {
       console.error("Failed to finalize exam:", err);
       router.push(`/medmath/results/${sessionId}`);
@@ -138,11 +189,17 @@ export function ExamEngine({ initialQuestions, sessionId, isTimed }: ExamEngineP
       <div className="flex flex-wrap items-center justify-between gap-3 rounded-md border border-[var(--color-line)] bg-[var(--color-surface)] p-4 sm:p-5 shadow-xs">
         <div className="flex items-center gap-3">
           <div className="text-base font-bold text-[var(--color-ink)]">
-            Exam Mode
+            {examModeTitle}
           </div>
-          <div className="rounded-xs bg-[var(--color-sand)] px-3 py-1 text-sm font-semibold text-[var(--color-primary)]">
-            ⏱ {formatTimer(elapsedSeconds)}
-          </div>
+          {isTimed ? (
+            <div className="rounded-xs bg-[var(--color-sand)] px-3 py-1 text-sm font-semibold text-[var(--color-primary)]">
+              ⏱ {formatTimer(elapsedSeconds)}
+            </div>
+          ) : (
+            <div className="rounded-xs bg-[var(--color-sand)] px-3 py-1 text-xs font-semibold text-[var(--color-ink-muted)]">
+              Untimed Mode
+            </div>
+          )}
         </div>
 
         <div className="flex items-center gap-3">

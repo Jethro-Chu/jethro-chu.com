@@ -22,9 +22,13 @@ function generateSessionUUID(): string {
 function PracticeContent() {
   const searchParams = useSearchParams();
 
-  // Category filter from URL params if present
+  // Category / Template filter from URL params if present
   const initialCategoryParam = searchParams.get("category") as MedMathCategory | null;
   const initialCategoriesParam = searchParams.get("categories");
+  const initialTemplatesParam = searchParams.get("templates");
+  const isMissedPractice = searchParams.get("mode") === "missed";
+
+  const targetTemplates = initialTemplatesParam ? initialTemplatesParam.split(",").filter(Boolean) : undefined;
 
   const [selectedCategories, setSelectedCategories] = useState<MedMathCategory[]>(() => {
     if (initialCategoryParam && MEDMATH_CATEGORIES.some((c) => c.id === initialCategoryParam)) {
@@ -58,8 +62,9 @@ function PracticeContent() {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
-            categories: selectedCategories,
+            categories: targetTemplates && targetTemplates.length > 0 ? undefined : selectedCategories,
             difficulty: selectedDifficulty,
+            templateIds: targetTemplates,
             excludeTemplateIds: excludeId ? [excludeId] : [],
           }),
         });
@@ -74,7 +79,7 @@ function PracticeContent() {
         setIsLoadingQuestion(false);
       }
     },
-    [selectedCategories, selectedDifficulty],
+    [selectedCategories, selectedDifficulty, targetTemplates],
   );
 
   // Fetch first question on load or filter change
@@ -178,6 +183,19 @@ function PracticeContent() {
           {showTrackSelector ? "Hide Focus Filters ▲" : "Focus Filters ▾"}
         </button>
       </div>
+
+      {/* Missed Questions Active Banner */}
+      {isMissedPractice && targetTemplates && targetTemplates.length > 0 && (
+        <div className="flex items-center justify-between gap-3 rounded-md border border-[var(--color-primary)]/30 bg-[var(--color-primary)]/10 px-4 py-3 text-sm text-[var(--color-ink)]">
+          <div className="flex items-center gap-2">
+            <span className="font-bold text-[var(--color-primary)]">🎯 Targeted Remediation:</span>
+            <span>Practicing concepts missed during your recent exam with fresh randomized values.</span>
+          </div>
+          <span className="rounded-xs bg-[var(--color-primary)] px-2.5 py-0.5 text-xs font-semibold text-white">
+            {targetTemplates.length} Concepts
+          </span>
+        </div>
+      )}
 
       {/* Filter Options */}
       {showTrackSelector && (

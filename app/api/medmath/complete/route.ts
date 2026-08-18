@@ -49,6 +49,8 @@ export async function POST(req: NextRequest) {
       categoryBreakdown,
       difficultyBreakdown: payload.difficultyBreakdown || existing.difficultyBreakdown || {},
       weakCategories,
+      examMode: payload.examMode || existing.examMode,
+      examReview: payload.examReview || existing.examReview,
     };
 
     await saveSession(completedSession);
