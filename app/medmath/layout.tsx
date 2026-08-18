@@ -8,9 +8,21 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "MedMath | Adult Clinical Medication Math Lab",
+  title: "MedMath · Adult Clinical Dosage Lab",
   description:
-    "Interactive adult Medical-Surgical and Critical Care medication math practice platform for nursing students and clinicians.",
+    "Practice dosage, drips, insulin, and ICU med math across 270+ validated adult scenarios with immediate step-by-step solutions.",
+  openGraph: {
+    title: "MedMath",
+    description: "Adult Clinical Dosage Lab · Practice dosage, drips, insulin, and ICU med math",
+    url: "https://jethrochu.com/medmath",
+    siteName: "MedMath",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "MedMath",
+    description: "Adult Clinical Dosage Lab · Practice dosage, drips, insulin, and ICU med math",
+  },
   robots: {
     index: false,
     follow: false,
