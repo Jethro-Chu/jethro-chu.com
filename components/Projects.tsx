@@ -1,6 +1,7 @@
 import { projects, sections } from "@/content/content";
 import { ProjectCard } from "@/components/ProjectCard";
 import { ProjectShowcase } from "@/components/ProjectShowcase";
+import { MedMathDestinationCard } from "@/components/medmath/MedMathDestinationCard";
 import { Reveal } from "@/components/motion/Reveal";
 
 const subdome = sections[2];
@@ -38,6 +39,11 @@ export function Projects() {
         </Reveal>
 
         <div className="mt-14 flex flex-col gap-10 sm:mt-20 sm:gap-12">
+          {/* Custom Pixel-Art World Destination Card for MedMath */}
+          <Reveal>
+            <MedMathDestinationCard />
+          </Reveal>
+
           {projects.map((project, i) => (
             <Reveal key={project.id}>
               <ProjectCard project={project} index={i} />
