@@ -8,20 +8,19 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "MedMath · Adult Clinical Dosage Lab",
-  description:
-    "Practice dosage, drips, insulin, and ICU med math across 270+ validated adult scenarios with immediate step-by-step solutions.",
+  title: "Medmath practice",
+  description: "Medmath practice",
   openGraph: {
-    title: "MedMath",
-    description: "Adult Clinical Dosage Lab · Practice dosage, drips, insulin, and ICU med math",
+    title: "Medmath practice",
+    description: "Medmath practice",
     url: "https://jethrochu.com/medmath",
-    siteName: "MedMath",
+    siteName: "Medmath practice",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "MedMath",
-    description: "Adult Clinical Dosage Lab · Practice dosage, drips, insulin, and ICU med math",
+    title: "Medmath practice",
+    description: "Medmath practice",
   },
   robots: {
     index: false,

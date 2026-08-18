@@ -1,6 +1,6 @@
 import { ImageResponse } from "next/og";
 
-export const alt = "MedMath · Adult Clinical Dosage Lab";
+export const alt = "Medmath practice";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 export const runtime = "edge";
@@ -14,16 +14,14 @@ export default function MedMathOpenGraphImage() {
           height: "100%",
           display: "flex",
           flexDirection: "column",
-          justifyContent: "space-between",
           background: "#14211a",
-          color: "#f4efe3",
+          color: "#ffffff",
           fontFamily: "sans-serif",
           position: "relative",
           overflow: "hidden",
-          padding: "48px 56px",
         }}
       >
-        {/* ================= SVG PIXEL ART BACKGROUND SCENE ================= */}
+        {/* ================= FULL SVG PIXEL ART SCENE ================= */}
         <svg
           viewBox="0 0 1200 630"
           width="1200"
@@ -42,7 +40,7 @@ export default function MedMathOpenGraphImage() {
           <rect x="0" y="0" width="1200" height="360" fill="#1a2e23" />
           <rect x="0" y="0" width="1200" height="200" fill="#203a2c" />
 
-          {/* Pixel Stars */}
+          {/* Twinkling Pixel Stars */}
           <rect x="80" y="50" width="4" height="4" fill="#f6efe2" opacity="0.8" />
           <rect x="220" y="90" width="4" height="4" fill="#ffd899" opacity="0.6" />
           <rect x="380" y="40" width="6" height="6" fill="#f6efe2" opacity="0.9" />
@@ -78,15 +76,13 @@ export default function MedMathOpenGraphImage() {
           <rect x="0" y="435" width="1200" height="195" fill="#283a2d" />
           <rect x="0" y="495" width="1200" height="135" fill="#213025" />
 
-          {/* Cobblestone Path to Lab */}
+          {/* Cobblestone Path to Lab Door */}
           <polygon points="510,420 585,420 675,630 435,630" fill="#5a5245" />
           <rect x="525" y="438" width="42" height="18" fill="#756c5c" />
           <rect x="504" y="468" width="48" height="21" fill="#6d6455" />
           <rect x="564" y="474" width="36" height="18" fill="#7d7363" />
           <rect x="486" y="504" width="54" height="24" fill="#756c5c" />
           <rect x="555" y="510" width="48" height="24" fill="#655d4e" />
-          <rect x="468" y="546" width="66" height="27" fill="#7d7363" />
-          <rect x="552" y="552" width="60" height="27" fill="#6d6455" />
 
           {/* ================= THE DOSAGE LAB CLINIC CABIN ================= */}
           {/* Foundation Granite */}
@@ -109,7 +105,7 @@ export default function MedMathOpenGraphImage() {
           <rect x="339" y="228" width="18" height="156" fill="#543419" />
           <rect x="738" y="228" width="18" height="156" fill="#543419" />
 
-          {/* Gabled Pine Roof */}
+          {/* Gabled Pine Green Roof */}
           <polygon points="547.5,114 294,228 801,228" fill="#2d523b" />
           <polygon points="547.5,126 312,228 783,228" fill="#3b6b4e" />
           <line x1="360" y1="204" x2="735" y2="204" stroke="#254230" strokeWidth="6" />
@@ -117,14 +113,14 @@ export default function MedMathOpenGraphImage() {
           <line x1="450" y1="156" x2="645" y2="156" stroke="#254230" strokeWidth="6" />
           <polygon points="547.5,108 282,228 300,234 547.5,120 795,234 813,228" fill="#1e3827" />
 
-          {/* Lab Chimney */}
+          {/* Lab Chimney & Smoke Puffs */}
           <rect x="660" y="108" width="42" height="78" fill="#756c5c" />
           <rect x="654" y="102" width="54" height="12" fill="#5c5446" />
           <circle cx="681" cy="78" r="9" fill="#e2ded4" opacity="0.6" />
           <circle cx="693" cy="54" r="14" fill="#e2ded4" opacity="0.4" />
           <circle cx="708" cy="30" r="18" fill="#e2ded4" opacity="0.25" />
 
-          {/* Warm Glowing Doorway */}
+          {/* Warm Glowing Cabin Doorway */}
           <rect x="516" y="258" width="66" height="132" fill="#3a2211" />
           <rect x="522" y="264" width="54" height="126" fill="#ffa726" />
           <rect x="528" y="270" width="42" height="120" fill="#ffe082" />
@@ -132,7 +128,7 @@ export default function MedMathOpenGraphImage() {
           <rect x="510" y="252" width="9" height="138" fill="#4d2f17" />
           <rect x="579" y="252" width="9" height="138" fill="#4d2f17" />
 
-          {/* Windows with Warm Golden Glow */}
+          {/* Lit Windows */}
           <rect x="384" y="264" width="72" height="66" fill="#2d1c0e" />
           <rect x="390" y="270" width="60" height="54" fill="#ffd54f" />
           <rect x="417" y="270" width="6" height="54" fill="#4d2f17" />
@@ -141,24 +137,21 @@ export default function MedMathOpenGraphImage() {
 
           <rect x="639" y="264" width="72" height="66" fill="#2d1c0e" />
           <rect x="645" y="270" width="60" height="54" fill="#ffd54f" />
-          <rect x="672" y="270" width="6" height="54" fill="#4d2f17" />
+          <rect x="672" y="270" width="60" height="54" fill="#4d2f17" />
           <rect x="645" y="294" width="60" height="6" fill="#4d2f17" />
           <rect x="633" y="330" width="84" height="9" fill="#5a381c" />
 
-          {/* Glowing [ Rx ] Clinic Sign Board */}
+          {/* Glowing [ Rx ] Clinic Sign */}
           <rect x="468" y="198" width="159" height="51" fill="#0f172a" stroke="#38bdf8" strokeWidth="4" rx="6" />
-          {/* Medical Cross Graphic */}
           <rect x="489" y="213" width="21" height="21" fill="#38bdf8" />
           <rect x="495" y="207" width="9" height="33" fill="#38bdf8" />
           <rect x="495" y="219" width="9" height="9" fill="#ffffff" />
           {/* Rx pixel shapes */}
-          {/* R */}
           <rect x="525" y="208" width="6" height="30" fill="#38bdf8" />
           <rect x="531" y="208" width="14" height="6" fill="#38bdf8" />
           <rect x="545" y="214" width="6" height="8" fill="#38bdf8" />
           <rect x="531" y="222" width="14" height="6" fill="#38bdf8" />
           <rect x="539" y="228" width="6" height="10" fill="#38bdf8" />
-          {/* x */}
           <rect x="560" y="218" width="6" height="6" fill="#38bdf8" />
           <rect x="572" y="218" width="6" height="6" fill="#38bdf8" />
           <rect x="566" y="224" width="6" height="6" fill="#38bdf8" />
@@ -191,7 +184,6 @@ export default function MedMathOpenGraphImage() {
           {/* Infusion Pump */}
           <rect x="720" y="426" width="66" height="54" rx="6" fill="#334155" stroke="#1e293b" strokeWidth="3" />
           <rect x="726" y="435" width="54" height="24" fill="#0f172a" />
-          {/* LED pixels for "125" */}
           <rect x="734" y="439" width="3" height="16" fill="#22c55e" />
           <rect x="744" y="439" width="10" height="3" fill="#22c55e" />
           <rect x="751" y="442" width="3" height="6" fill="#22c55e" />
@@ -219,135 +211,42 @@ export default function MedMathOpenGraphImage() {
           <path d="M879,450 L891,450 L897,438 L903,462 L909,432 L915,453 L927,453" stroke="#0284c7" strokeWidth="2.4" fill="none" />
         </svg>
 
-        {/* ================= CARD CONTENT OVERLAY (HTML / CSS) ================= */}
-        {/* Top Header Bar */}
+        {/* ================= CLEAN TITLE OVERLAY: "Medmath practice" ================= */}
         <div
           style={{
+            position: "absolute",
+            bottom: 32,
+            left: 0,
+            right: 0,
             display: "flex",
+            justifyContent: "center",
             alignItems: "center",
-            justifyContent: "space-between",
-            zIndex: 10,
           }}
         >
           <div
             style={{
               display: "flex",
               alignItems: "center",
-              gap: 12,
-              background: "rgba(62, 92, 70, 0.9)",
-              border: "1px solid rgba(171, 159, 139, 0.6)",
-              padding: "10px 20px",
-              borderRadius: 6,
+              justifyContent: "center",
+              background: "rgba(20, 33, 26, 0.9)",
+              border: "2px solid rgba(171, 159, 139, 0.6)",
+              padding: "14px 44px",
+              borderRadius: 12,
+              boxShadow: "0 12px 36px rgba(0,0,0,0.6)",
             }}
           >
             <div
               style={{
-                width: 12,
-                height: 12,
-                borderRadius: "50%",
-                background: "#38bdf8",
-              }}
-            />
-            <span
-              style={{
-                fontFamily: "monospace",
-                fontSize: 18,
-                fontWeight: 700,
-                letterSpacing: "0.1em",
-                color: "#f4efe3",
+                fontFamily: "sans-serif",
+                fontSize: 54,
+                fontWeight: 800,
+                color: "#ffffff",
+                letterSpacing: "-0.02em",
               }}
             >
-              WORLD DESTINATION · CLINICAL DOSAGE LAB
-            </span>
+              Medmath practice
+            </div>
           </div>
-
-          <span
-            style={{
-              fontFamily: "monospace",
-              fontSize: 18,
-              fontWeight: 700,
-              letterSpacing: "0.08em",
-              color: "#e2ddcc",
-              background: "rgba(20, 33, 26, 0.75)",
-              padding: "8px 16px",
-              borderRadius: 4,
-            }}
-          >
-            MEDMATH
-          </span>
-        </div>
-
-        {/* Center Main Card Typography */}
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            zIndex: 10,
-            marginTop: "auto",
-            marginBottom: 24,
-            background: "rgba(20, 33, 26, 0.75)",
-            padding: "24px 32px",
-            borderRadius: 8,
-            border: "1px solid rgba(171, 159, 139, 0.3)",
-          }}
-        >
-          <div
-            style={{
-              display: "flex",
-              fontSize: 88,
-              fontWeight: 900,
-              lineHeight: 1,
-              letterSpacing: "-0.035em",
-              color: "#ffffff",
-            }}
-          >
-            MedMath
-          </div>
-
-          <div
-            style={{
-              display: "flex",
-              marginTop: 14,
-              fontSize: 36,
-              fontWeight: 700,
-              color: "#6ee7b7",
-            }}
-          >
-            Adult Clinical Dosage Lab
-          </div>
-
-          <div
-            style={{
-              display: "flex",
-              marginTop: 12,
-              fontSize: 24,
-              lineHeight: 1.35,
-              color: "#ede6d6",
-              maxWidth: 950,
-            }}
-          >
-            Practice dosage, drips, insulin, and ICU med math across 270+ validated adult clinical templates.
-          </div>
-        </div>
-
-        {/* Bottom Competencies Footer */}
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            paddingTop: 16,
-            borderTop: "1px solid rgba(171, 159, 139, 0.4)",
-            fontSize: 18,
-            fontFamily: "monospace",
-            fontWeight: 600,
-            letterSpacing: "0.04em",
-            color: "#ffd899",
-            zIndex: 10,
-          }}
-        >
-          <span>ADULT MED-SURG · CRITICAL CARE & ICU</span>
-          <span>270+ TEMPLATES · EXAM SIMULATOR</span>
         </div>
       </div>
     ),
