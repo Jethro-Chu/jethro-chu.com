@@ -1,4 +1,4 @@
-import { Fraunces, Hanken_Grotesk, IBM_Plex_Mono } from "next/font/google";
+import { Fraunces, Hanken_Grotesk, IBM_Plex_Mono, Inter } from "next/font/google";
 
 /**
  * Three type roles for the Yosemite Ascent system.
@@ -29,4 +29,10 @@ export const plexMono = IBM_Plex_Mono({
   display: "swap",
   weight: ["400", "500"],
   variable: "--font-plex-mono",
+});
+
+export const inter = Inter({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-inter",
 });

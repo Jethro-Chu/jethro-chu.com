@@ -144,8 +144,8 @@ function PracticeContent() {
   return (
     <div className="space-y-6">
       {/* Top Practice Bar: Session Metrics & Filter Toggle */}
-      <div className="flex flex-wrap items-center justify-between gap-4 rounded-md border border-[var(--color-line)] bg-[var(--color-surface)] p-4 shadow-xs">
-        <div className="flex flex-wrap items-center gap-4 font-mono text-xs">
+      <div className="flex flex-wrap items-center justify-between gap-4 rounded-md border border-[var(--color-line)] bg-[var(--color-surface)] p-4 sm:p-5 shadow-xs">
+        <div className="flex flex-wrap items-center gap-4 sm:gap-6 text-sm">
           <div>
             <span className="text-[var(--color-ink-muted)]">Practiced: </span>
             <span className="font-bold text-[var(--color-ink)]">{questionsAnswered}</span>
@@ -173,7 +173,7 @@ function PracticeContent() {
         <button
           type="button"
           onClick={() => setShowTrackSelector((prev) => !prev)}
-          className="rounded-sm border border-[var(--color-line)] bg-[var(--color-sand)]/60 px-3 py-1.5 font-mono text-xs font-semibold text-[var(--color-ink)] transition-colors hover:bg-[var(--color-sand)]"
+          className="rounded-sm border border-[var(--color-line)] bg-[var(--color-sand)]/60 px-3.5 py-1.5 text-xs sm:text-sm font-semibold text-[var(--color-ink)] transition-colors hover:bg-[var(--color-sand)]"
         >
           {showTrackSelector ? "Hide Focus Filters ▲" : "Focus Filters ▾"}
         </button>
@@ -192,7 +192,7 @@ function PracticeContent() {
       {/* Question Presentation */}
       {isLoadingQuestion ? (
         <div className="flex min-h-[300px] items-center justify-center rounded-md border border-[var(--color-line)] bg-[var(--color-surface)] p-12">
-          <div className="flex flex-col items-center gap-2 font-mono text-xs text-[var(--color-ink-muted)]">
+          <div className="flex flex-col items-center gap-2.5 text-sm text-[var(--color-ink-muted)]">
             <div className="h-6 w-6 animate-spin rounded-full border-2 border-[var(--color-primary)] border-t-transparent" />
             <span>Loading Clinical Scenario...</span>
           </div>
@@ -205,7 +205,7 @@ function PracticeContent() {
         />
       ) : (
         <div className="rounded-md border border-[var(--color-line)] bg-[var(--color-surface)] p-8 text-center">
-          <p className="font-body text-sm text-[var(--color-ink)]">
+          <p className="text-base text-[var(--color-ink)]">
             No questions available for the selected filters.
           </p>
           <button
@@ -214,7 +214,7 @@ function PracticeContent() {
               setSelectedCategories(MEDMATH_CATEGORIES.map((c) => c.id));
               setSelectedDifficulty("mixed");
             }}
-            className="mt-4 rounded-sm bg-[var(--color-pine)] px-4 py-2 font-mono text-xs font-semibold uppercase tracking-wider text-white"
+            className="mt-4 rounded-sm bg-[var(--color-pine)] px-5 py-2.5 text-sm font-semibold text-white shadow-xs"
           >
             Reset Filters
           </button>
@@ -229,7 +229,7 @@ export default function MedMathPracticePage() {
     <Suspense
       fallback={
         <div className="flex min-h-[300px] items-center justify-center">
-          <span className="font-mono text-xs text-[var(--color-ink-muted)]">Loading MedMath Practice...</span>
+          <span className="text-sm text-[var(--color-ink-muted)]">Loading MedMath Practice...</span>
         </div>
       }
     >

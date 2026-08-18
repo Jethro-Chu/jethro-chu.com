@@ -32,7 +32,7 @@ export default function MedMathDataPage() {
     <div className="space-y-6 py-4">
       {isLoading && !data ? (
         <div className="flex min-h-[400px] items-center justify-center rounded-md border border-[var(--color-line)] bg-[var(--color-surface)] p-12">
-          <div className="flex flex-col items-center gap-2 font-mono text-xs text-[var(--color-ink-muted)]">
+          <div className="flex flex-col items-center gap-2.5 text-sm text-[var(--color-ink-muted)]">
             <div className="h-6 w-6 animate-spin rounded-full border-2 border-[var(--color-primary)] border-t-transparent" />
             <span>Computing Aggregate Analytics...</span>
           </div>

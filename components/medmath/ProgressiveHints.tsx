@@ -19,19 +19,19 @@ export function ProgressiveHints({
   const canRevealMore = currentCount < totalHints;
 
   return (
-    <div className="mt-4 space-y-3">
+    <div className="mt-5 space-y-3">
       {revealedHints.length > 0 && (
-        <div className="space-y-2">
+        <div className="space-y-2.5">
           {revealedHints.map((hint, idx) => (
             <div
               key={idx}
-              className="flex items-start gap-2.5 rounded-sm border border-[var(--color-line)] bg-[var(--color-surface)] p-3 text-xs leading-relaxed text-[var(--color-ink)] transition-all"
+              className="flex items-start gap-3 rounded-sm border border-[var(--color-line)] bg-[var(--color-surface)] p-3.5 text-sm sm:text-base leading-relaxed text-[var(--color-ink)] transition-all"
             >
-              <div className="mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded-xs bg-[var(--color-primary)]/15 font-mono text-[10px] font-bold text-[var(--color-primary)]">
+              <div className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-xs bg-[var(--color-primary)]/15 text-xs font-bold text-[var(--color-primary)]">
                 {idx + 1}
               </div>
-              <div className="flex-1 font-body">
-                <span className="font-mono text-[11px] font-semibold text-[var(--color-ink-muted)]">
+              <div className="flex-1">
+                <span className="font-semibold text-[var(--color-ink)]">
                   Hint {idx + 1}:{" "}
                 </span>
                 <span>{hint}</span>
@@ -46,7 +46,7 @@ export function ProgressiveHints({
           type="button"
           onClick={onRevealNextHint}
           disabled={disabled || isLoading}
-          className="inline-flex items-center gap-1.5 rounded-sm border border-[var(--color-line)] bg-[var(--color-surface)] px-3 py-1.5 font-mono text-xs font-medium text-[var(--color-ink)] transition-colors hover:bg-[var(--color-sand)] hover:border-[var(--color-primary)] disabled:cursor-not-allowed disabled:opacity-50"
+          className="inline-flex items-center gap-2 rounded-sm border border-[var(--color-line)] bg-[var(--color-surface)] px-3.5 py-2 text-sm font-medium text-[var(--color-ink)] transition-colors hover:bg-[var(--color-sand)] hover:border-[var(--color-primary)] disabled:cursor-not-allowed disabled:opacity-50"
         >
           <span>💡</span>
           <span>

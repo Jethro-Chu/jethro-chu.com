@@ -18,7 +18,6 @@ export function DataCharts({ data, timeRange, onSelectTimeRange }: DataChartsPro
     difficulties,
     attemptsDistribution,
     trackComparison,
-    hintStats,
   } = data;
 
   const hasData = summary.totalQuestionsAnswered > 0;
@@ -26,16 +25,16 @@ export function DataCharts({ data, timeRange, onSelectTimeRange }: DataChartsPro
   return (
     <div className="space-y-8">
       {/* Time Range Filter Toolbar */}
-      <div className="flex flex-wrap items-center justify-between gap-3 border-b border-[var(--color-line)] pb-4">
+      <div className="flex flex-wrap items-center justify-between gap-3 border-b border-[var(--color-line)] pb-5">
         <div>
-          <span className="font-mono text-xs font-bold uppercase tracking-wider text-[var(--color-ink)]">
+          <h2 className="text-base font-bold text-[var(--color-ink)]">
             Aggregate Platform Analytics
-          </span>
-          <p className="font-body text-xs text-[var(--color-ink-muted)]">
+          </h2>
+          <p className="text-sm text-[var(--color-ink-muted)] mt-0.5 leading-relaxed">
             Anonymous aggregate performance data from nursing students and clinicians practicing MedMath.
           </p>
         </div>
-        <div className="flex items-center gap-1">
+        <div className="flex items-center gap-1.5">
           {(
             [
               { id: "7d", label: "7 Days" },
@@ -48,7 +47,7 @@ export function DataCharts({ data, timeRange, onSelectTimeRange }: DataChartsPro
               key={t.id}
               type="button"
               onClick={() => onSelectTimeRange(t.id)}
-              className={`rounded-sm px-3 py-1.5 font-mono text-xs transition-colors ${
+              className={`rounded-sm px-3.5 py-1.5 text-xs sm:text-sm font-medium transition-colors ${
                 timeRange === t.id
                   ? "bg-[var(--color-pine)] text-white font-semibold shadow-xs"
                   : "border border-[var(--color-line)] bg-[var(--color-surface)] text-[var(--color-ink-muted)] hover:text-[var(--color-ink)]"
@@ -62,47 +61,47 @@ export function DataCharts({ data, timeRange, onSelectTimeRange }: DataChartsPro
 
       {/* Summary KPI Cards */}
       <div className="grid grid-cols-2 gap-3 sm:grid-cols-5 sm:gap-4">
-        <div className="rounded-md border border-[var(--color-line)] bg-[var(--color-surface)] p-4 shadow-xs">
-          <div className="font-mono text-[11px] uppercase tracking-wider text-[var(--color-ink-muted)]">
+        <div className="rounded-md border border-[var(--color-line)] bg-[var(--color-surface)] p-4 sm:p-5 shadow-xs">
+          <div className="text-xs font-semibold uppercase tracking-wider text-[var(--color-ink-muted)]">
             Questions Answered
           </div>
-          <div className="mt-1.5 font-mono text-2xl font-bold text-[var(--color-ink)]">
+          <div className="mt-2 text-2xl sm:text-3xl font-bold tracking-tight text-[var(--color-ink)]">
             {summary.totalQuestionsAnswered.toLocaleString()}
           </div>
         </div>
 
-        <div className="rounded-md border border-[var(--color-line)] bg-[var(--color-surface)] p-4 shadow-xs">
-          <div className="font-mono text-[11px] uppercase tracking-wider text-[var(--color-ink-muted)]">
+        <div className="rounded-md border border-[var(--color-line)] bg-[var(--color-surface)] p-4 sm:p-5 shadow-xs">
+          <div className="text-xs font-semibold uppercase tracking-wider text-[var(--color-ink-muted)]">
             Practice Sessions
           </div>
-          <div className="mt-1.5 font-mono text-2xl font-bold text-[var(--color-ink)]">
+          <div className="mt-2 text-2xl sm:text-3xl font-bold tracking-tight text-[var(--color-ink)]">
             {summary.totalPracticeSessions.toLocaleString()}
           </div>
         </div>
 
-        <div className="rounded-md border border-[var(--color-line)] bg-[var(--color-surface)] p-4 shadow-xs">
-          <div className="font-mono text-[11px] uppercase tracking-wider text-[var(--color-ink-muted)]">
+        <div className="rounded-md border border-[var(--color-line)] bg-[var(--color-surface)] p-4 sm:p-5 shadow-xs">
+          <div className="text-xs font-semibold uppercase tracking-wider text-[var(--color-ink-muted)]">
             1st-Try Accuracy
           </div>
-          <div className="mt-1.5 font-mono text-2xl font-bold text-[var(--color-primary)]">
+          <div className="mt-2 text-2xl sm:text-3xl font-bold tracking-tight text-[var(--color-primary)]">
             {hasData ? `${summary.firstAttemptAccuracy}%` : "—"}
           </div>
         </div>
 
-        <div className="rounded-md border border-[var(--color-line)] bg-[var(--color-surface)] p-4 shadow-xs">
-          <div className="font-mono text-[11px] uppercase tracking-wider text-[var(--color-ink-muted)]">
+        <div className="rounded-md border border-[var(--color-line)] bg-[var(--color-surface)] p-4 sm:p-5 shadow-xs">
+          <div className="text-xs font-semibold uppercase tracking-wider text-[var(--color-ink-muted)]">
             Eventual Accuracy
           </div>
-          <div className="mt-1.5 font-mono text-2xl font-bold text-[var(--color-ink)]">
+          <div className="mt-2 text-2xl sm:text-3xl font-bold tracking-tight text-[var(--color-ink)]">
             {hasData ? `${summary.eventualAccuracy}%` : "—"}
           </div>
         </div>
 
-        <div className="col-span-2 sm:col-span-1 rounded-md border border-[var(--color-line)] bg-[var(--color-surface)] p-4 shadow-xs">
-          <div className="font-mono text-[11px] uppercase tracking-wider text-[var(--color-ink-muted)]">
+        <div className="col-span-2 sm:col-span-1 rounded-md border border-[var(--color-line)] bg-[var(--color-surface)] p-4 sm:p-5 shadow-xs">
+          <div className="text-xs font-semibold uppercase tracking-wider text-[var(--color-ink-muted)]">
             Median Solve Time
           </div>
-          <div className="mt-1.5 font-mono text-2xl font-bold text-[var(--color-ink)]">
+          <div className="mt-2 text-2xl sm:text-3xl font-bold tracking-tight text-[var(--color-ink)]">
             {hasData && summary.medianResponseTimeSeconds > 0
               ? `${summary.medianResponseTimeSeconds}s`
               : "—"}
@@ -112,33 +111,33 @@ export function DataCharts({ data, timeRange, onSelectTimeRange }: DataChartsPro
 
       {/* Track Comparison Cards (Med-Surg Floor vs ICU Critical Care) */}
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-        <div className="rounded-md border border-[var(--color-line)] bg-[var(--color-surface)] p-5 shadow-xs">
+        <div className="rounded-md border border-[var(--color-line)] bg-[var(--color-surface)] p-5 sm:p-6 shadow-xs">
           <div className="flex items-center justify-between border-b border-[var(--color-line)] pb-3">
-            <span className="font-mono text-xs font-bold uppercase tracking-wider text-[var(--color-ink)]">
+            <span className="text-sm font-bold uppercase tracking-wider text-[var(--color-ink)]">
               Med-Surg Floor Track
             </span>
-            <span className="rounded-xs bg-[var(--color-sand)] px-2 py-0.5 font-mono text-[10px] text-[var(--color-ink-muted)]">
+            <span className="rounded-xs bg-[var(--color-sand)] px-2.5 py-0.5 text-xs text-[var(--color-ink-muted)]">
               Oral · IVPB · Gravity · Insulin
             </span>
           </div>
-          <div className="mt-4 grid grid-cols-3 gap-2">
+          <div className="mt-4 grid grid-cols-3 gap-3">
             <div>
-              <div className="font-mono text-[10px] uppercase text-[var(--color-ink-muted)]">Questions</div>
-              <div className="mt-1 font-mono text-lg font-bold text-[var(--color-ink)]">
+              <div className="text-xs font-medium text-[var(--color-ink-muted)]">Questions</div>
+              <div className="mt-1 text-xl font-bold text-[var(--color-ink)]">
                 {trackComparison.medSurg.questionsAttempted.toLocaleString()}
               </div>
             </div>
             <div>
-              <div className="font-mono text-[10px] uppercase text-[var(--color-ink-muted)]">1st Attempt</div>
-              <div className="mt-1 font-mono text-lg font-bold text-[var(--color-primary)]">
+              <div className="text-xs font-medium text-[var(--color-ink-muted)]">1st Attempt</div>
+              <div className="mt-1 text-xl font-bold text-[var(--color-primary)]">
                 {trackComparison.medSurg.questionsAttempted > 0
                   ? `${trackComparison.medSurg.firstAttemptAccuracy}%`
                   : "—"}
               </div>
             </div>
             <div>
-              <div className="font-mono text-[10px] uppercase text-[var(--color-ink-muted)]">Median Time</div>
-              <div className="mt-1 font-mono text-lg font-bold text-[var(--color-ink)]">
+              <div className="text-xs font-medium text-[var(--color-ink-muted)]">Median Time</div>
+              <div className="mt-1 text-xl font-bold text-[var(--color-ink)]">
                 {trackComparison.medSurg.questionsAttempted > 0
                   ? `${trackComparison.medSurg.medianResponseTimeSeconds}s`
                   : "—"}
@@ -147,33 +146,33 @@ export function DataCharts({ data, timeRange, onSelectTimeRange }: DataChartsPro
           </div>
         </div>
 
-        <div className="rounded-md border border-[var(--color-line)] bg-[var(--color-surface)] p-5 shadow-xs">
+        <div className="rounded-md border border-[var(--color-line)] bg-[var(--color-surface)] p-5 sm:p-6 shadow-xs">
           <div className="flex items-center justify-between border-b border-[var(--color-line)] pb-3">
-            <span className="font-mono text-xs font-bold uppercase tracking-wider text-[var(--color-ink)]">
+            <span className="text-sm font-bold uppercase tracking-wider text-[var(--color-ink)]">
               Critical Care & ICU Track
             </span>
-            <span className="rounded-xs bg-[var(--color-sand)] px-2 py-0.5 font-mono text-[10px] text-[var(--color-ink-muted)]">
+            <span className="rounded-xs bg-[var(--color-sand)] px-2.5 py-0.5 text-xs text-[var(--color-ink-muted)]">
               Vasopressors · Inotropes · Sedation · Multi-Step
             </span>
           </div>
-          <div className="mt-4 grid grid-cols-3 gap-2">
+          <div className="mt-4 grid grid-cols-3 gap-3">
             <div>
-              <div className="font-mono text-[10px] uppercase text-[var(--color-ink-muted)]">Questions</div>
-              <div className="mt-1 font-mono text-lg font-bold text-[var(--color-ink)]">
+              <div className="text-xs font-medium text-[var(--color-ink-muted)]">Questions</div>
+              <div className="mt-1 text-xl font-bold text-[var(--color-ink)]">
                 {trackComparison.criticalCare.questionsAttempted.toLocaleString()}
               </div>
             </div>
             <div>
-              <div className="font-mono text-[10px] uppercase text-[var(--color-ink-muted)]">1st Attempt</div>
-              <div className="mt-1 font-mono text-lg font-bold text-[var(--color-primary)]">
+              <div className="text-xs font-medium text-[var(--color-ink-muted)]">1st Attempt</div>
+              <div className="mt-1 text-xl font-bold text-[var(--color-primary)]">
                 {trackComparison.criticalCare.questionsAttempted > 0
                   ? `${trackComparison.criticalCare.firstAttemptAccuracy}%`
                   : "—"}
               </div>
             </div>
             <div>
-              <div className="font-mono text-[10px] uppercase text-[var(--color-ink-muted)]">Median Time</div>
-              <div className="mt-1 font-mono text-lg font-bold text-[var(--color-ink)]">
+              <div className="text-xs font-medium text-[var(--color-ink-muted)]">Median Time</div>
+              <div className="mt-1 text-xl font-bold text-[var(--color-ink)]">
                 {trackComparison.criticalCare.questionsAttempted > 0
                   ? `${trackComparison.criticalCare.medianResponseTimeSeconds}s`
                   : "—"}
@@ -186,47 +185,47 @@ export function DataCharts({ data, timeRange, onSelectTimeRange }: DataChartsPro
       {/* Category Performance Breakdown Table */}
       <div className="rounded-md border border-[var(--color-line)] bg-[var(--color-surface)] shadow-xs overflow-hidden">
         <div className="border-b border-[var(--color-line)] bg-[var(--color-sand)]/40 px-5 py-3.5">
-          <h3 className="font-display text-sm font-semibold text-[var(--color-ink)] sm:text-base">
+          <h3 className="text-base font-bold text-[var(--color-ink)]">
             Performance by Clinical Topic (All 13 Adult Categories)
           </h3>
         </div>
         <div className="overflow-x-auto">
-          <table className="w-full text-left font-mono text-xs">
-            <thead className="border-b border-[var(--color-line)] bg-[var(--color-sand)]/20 text-[11px] text-[var(--color-ink-muted)]">
+          <table className="w-full text-left text-sm">
+            <thead className="border-b border-[var(--color-line)] bg-[var(--color-sand)]/20 text-xs font-semibold text-[var(--color-ink-muted)]">
               <tr>
-                <th className="px-4 py-2.5 font-semibold">Category</th>
-                <th className="px-3 py-2.5 font-semibold">Track</th>
-                <th className="px-3 py-2.5 font-semibold text-right">Practiced</th>
-                <th className="px-3 py-2.5 font-semibold text-right">1st-Try %</th>
-                <th className="px-3 py-2.5 font-semibold text-right">Eventual %</th>
-                <th className="px-3 py-2.5 font-semibold text-right">Median Time</th>
-                <th className="px-4 py-2.5 font-semibold text-right">Hint Rate</th>
+                <th className="px-4 py-3">Category</th>
+                <th className="px-3 py-3">Track</th>
+                <th className="px-3 py-3 text-right">Practiced</th>
+                <th className="px-3 py-3 text-right">1st-Try %</th>
+                <th className="px-3 py-3 text-right">Eventual %</th>
+                <th className="px-3 py-3 text-right">Median Time</th>
+                <th className="px-4 py-3 text-right">Hint Rate</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-[var(--color-line)]/60">
               {categories.map((cat) => (
                 <tr key={cat.category} className="hover:bg-[var(--color-sand)]/20 transition-colors">
-                  <td className="px-4 py-3 font-semibold text-[var(--color-ink)]">
+                  <td className="px-4 py-3.5 font-medium text-[var(--color-ink)]">
                     {cat.name}
                   </td>
-                  <td className="px-3 py-3 text-[var(--color-ink-muted)]">
+                  <td className="px-3 py-3.5 text-xs text-[var(--color-ink-muted)]">
                     {cat.track === "med-surg" ? "Med-Surg" : "ICU"}
                   </td>
-                  <td className="px-3 py-3 text-right text-[var(--color-ink)]">
+                  <td className="px-3 py-3.5 text-right font-medium text-[var(--color-ink)]">
                     {cat.totalQuestions.toLocaleString()}
                   </td>
-                  <td className="px-3 py-3 text-right font-semibold text-[var(--color-primary)]">
+                  <td className="px-3 py-3.5 text-right font-bold text-[var(--color-primary)]">
                     {cat.totalQuestions > 0 ? `${cat.firstAttemptAccuracy}%` : "—"}
                   </td>
-                  <td className="px-3 py-3 text-right text-[var(--color-ink)]">
+                  <td className="px-3 py-3.5 text-right text-[var(--color-ink)]">
                     {cat.totalQuestions > 0 ? `${cat.eventualAccuracy}%` : "—"}
                   </td>
-                  <td className="px-3 py-3 text-right text-[var(--color-ink-muted)]">
+                  <td className="px-3 py-3.5 text-right text-[var(--color-ink-muted)]">
                     {cat.totalQuestions > 0 && cat.medianResponseTimeSeconds > 0
                       ? `${cat.medianResponseTimeSeconds}s`
                       : "—"}
                   </td>
-                  <td className="px-4 py-3 text-right text-[var(--color-ink-muted)]">
+                  <td className="px-4 py-3.5 text-right text-[var(--color-ink-muted)]">
                     {cat.totalQuestions > 0 ? `${cat.hintUsageRate}%` : "—"}
                   </td>
                 </tr>
@@ -236,18 +235,18 @@ export function DataCharts({ data, timeRange, onSelectTimeRange }: DataChartsPro
         </div>
       </div>
 
-      {/* Hardest Topics & Most Missed Subtypes */}
+      {/* Hardest Topics & Difficulty Breakdown */}
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
         {/* Hardest Topics */}
-        <div className="rounded-md border border-[var(--color-line)] bg-[var(--color-surface)] p-5 shadow-xs">
-          <h3 className="font-display text-sm font-semibold text-[var(--color-ink)] mb-3">
+        <div className="rounded-md border border-[var(--color-line)] bg-[var(--color-surface)] p-5 sm:p-6 shadow-xs">
+          <h3 className="text-base font-bold text-[var(--color-ink)] mb-3">
             Hardest Adult Topics (Lowest 1st-Attempt Accuracy)
           </h3>
           {hardestTopics.length > 0 ? (
-            <div className="space-y-3">
+            <div className="space-y-3.5">
               {hardestTopics.slice(0, 5).map((topic, idx) => (
-                <div key={topic.category} className="space-y-1">
-                  <div className="flex items-center justify-between font-mono text-xs">
+                <div key={topic.category} className="space-y-1.5">
+                  <div className="flex items-center justify-between text-sm">
                     <span className="font-medium text-[var(--color-ink)]">
                       {idx + 1}. {topic.name}
                     </span>
@@ -255,9 +254,9 @@ export function DataCharts({ data, timeRange, onSelectTimeRange }: DataChartsPro
                       {topic.firstAttemptAccuracy}%
                     </span>
                   </div>
-                  <div className="h-1.5 w-full rounded-full bg-[var(--color-sand)] overflow-hidden">
+                  <div className="h-2 w-full rounded-full bg-[var(--color-sand)] overflow-hidden">
                     <div
-                      className="h-full bg-[var(--color-pine)] rounded-full"
+                      className="h-full bg-[var(--color-pine)] rounded-full transition-all"
                       style={{ width: `${Math.max(5, topic.firstAttemptAccuracy)}%` }}
                     />
                   </div>
@@ -265,28 +264,28 @@ export function DataCharts({ data, timeRange, onSelectTimeRange }: DataChartsPro
               ))}
             </div>
           ) : (
-            <p className="font-body text-xs text-[var(--color-ink-muted)]">
+            <p className="text-xs text-[var(--color-ink-muted)] leading-relaxed">
               Requires at least 5 questions per category to rank hardest topics.
             </p>
           )}
         </div>
 
         {/* Difficulty Breakdown */}
-        <div className="rounded-md border border-[var(--color-line)] bg-[var(--color-surface)] p-5 shadow-xs">
-          <h3 className="font-display text-sm font-semibold text-[var(--color-ink)] mb-3">
+        <div className="rounded-md border border-[var(--color-line)] bg-[var(--color-surface)] p-5 sm:p-6 shadow-xs">
+          <h3 className="text-base font-bold text-[var(--color-ink)] mb-3">
             Performance by Difficulty Tier
           </h3>
-          <div className="space-y-3 font-mono text-xs">
+          <div className="space-y-3 text-sm">
             {difficulties.map((diff) => (
               <div
                 key={diff.difficulty}
-                className="flex items-center justify-between rounded-sm border border-[var(--color-line)]/60 bg-[var(--color-sand)]/30 p-2.5"
+                className="flex items-center justify-between rounded-sm border border-[var(--color-line)]/60 bg-[var(--color-sand)]/30 p-3"
               >
                 <div className="capitalize font-semibold text-[var(--color-ink)]">
                   {diff.difficulty.replace("-", " ")}
                 </div>
                 <div className="flex items-center gap-4">
-                  <span className="text-[var(--color-ink-muted)]">
+                  <span className="text-xs text-[var(--color-ink-muted)]">
                     {diff.totalQuestions} questions
                   </span>
                   <span className="font-bold text-[var(--color-primary)]">
@@ -299,13 +298,13 @@ export function DataCharts({ data, timeRange, onSelectTimeRange }: DataChartsPro
         </div>
       </div>
 
-      {/* Attempts Required & Hint Statistics */}
+      {/* Attempts Required & Subtype Insights */}
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
-        <div className="rounded-md border border-[var(--color-line)] bg-[var(--color-surface)] p-5 shadow-xs">
-          <h3 className="font-display text-sm font-semibold text-[var(--color-ink)] mb-3">
+        <div className="rounded-md border border-[var(--color-line)] bg-[var(--color-surface)] p-5 sm:p-6 shadow-xs">
+          <h3 className="text-base font-bold text-[var(--color-ink)] mb-3">
             Attempt Distribution
           </h3>
-          <div className="space-y-2 font-mono text-xs">
+          <div className="space-y-2.5 text-sm">
             <div className="flex items-center justify-between">
               <span className="text-[var(--color-ink-muted)]">Solved on 1st Attempt:</span>
               <span className="font-bold text-[var(--color-ink)]">{attemptsDistribution.firstAttemptPercent}%</span>
@@ -325,21 +324,21 @@ export function DataCharts({ data, timeRange, onSelectTimeRange }: DataChartsPro
           </div>
         </div>
 
-        <div className="rounded-md border border-[var(--color-line)] bg-[var(--color-surface)] p-5 shadow-xs">
-          <h3 className="font-display text-sm font-semibold text-[var(--color-ink)] mb-3">
+        <div className="rounded-md border border-[var(--color-line)] bg-[var(--color-surface)] p-5 sm:p-6 shadow-xs">
+          <h3 className="text-base font-bold text-[var(--color-ink)] mb-3">
             Most Challenging Question Types
           </h3>
           {mostMissedSubtypes.length > 0 ? (
-            <div className="space-y-2 font-mono text-xs">
+            <div className="space-y-2.5 text-sm">
               {mostMissedSubtypes.slice(0, 4).map((sub) => (
-                <div key={sub.subtype} className="flex items-center justify-between border-b border-[var(--color-line)]/40 pb-1.5">
-                  <span className="text-[var(--color-ink)]">{sub.title}</span>
+                <div key={sub.subtype} className="flex items-center justify-between border-b border-[var(--color-line)]/40 pb-2">
+                  <span className="text-[var(--color-ink)] font-medium">{sub.title}</span>
                   <span className="font-bold text-[var(--color-primary)]">{sub.firstAttemptAccuracy}%</span>
                 </div>
               ))}
             </div>
           ) : (
-            <p className="font-body text-xs text-[var(--color-ink-muted)]">
+            <p className="text-xs text-[var(--color-ink-muted)] leading-relaxed">
               Specific subtype listing requires sample-size protection (minimum 20 aggregate attempts per question format).
             </p>
           )}

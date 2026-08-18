@@ -135,18 +135,18 @@ export function ExamEngine({ initialQuestions, sessionId, isTimed }: ExamEngineP
   return (
     <div className="space-y-6">
       {/* Top Exam Navigation Bar */}
-      <div className="flex flex-wrap items-center justify-between gap-3 rounded-md border border-[var(--color-line)] bg-[var(--color-surface)] p-4 shadow-xs">
+      <div className="flex flex-wrap items-center justify-between gap-3 rounded-md border border-[var(--color-line)] bg-[var(--color-surface)] p-4 sm:p-5 shadow-xs">
         <div className="flex items-center gap-3">
-          <div className="font-mono text-sm font-bold text-[var(--color-ink)]">
+          <div className="text-base font-bold text-[var(--color-ink)]">
             Exam Mode
           </div>
-          <div className="rounded-xs bg-[var(--color-sand)] px-2.5 py-1 font-mono text-xs font-semibold text-[var(--color-primary)]">
+          <div className="rounded-xs bg-[var(--color-sand)] px-3 py-1 text-sm font-semibold text-[var(--color-primary)]">
             ⏱ {formatTimer(elapsedSeconds)}
           </div>
         </div>
 
-        <div className="flex items-center gap-2">
-          <div className="font-mono text-xs text-[var(--color-ink-muted)]">
+        <div className="flex items-center gap-3">
+          <div className="text-sm text-[var(--color-ink-muted)]">
             {answeredCount} of {questions.length} answered
           </div>
           <button
@@ -156,7 +156,7 @@ export function ExamEngine({ initialQuestions, sessionId, isTimed }: ExamEngineP
               else handleFinalSubmit();
             }}
             disabled={isSubmittingExam}
-            className="rounded-sm bg-[var(--color-pine)] px-4 py-1.5 font-mono text-xs font-semibold uppercase tracking-wider text-white shadow-xs transition-colors hover:bg-[var(--color-pine)]/90 disabled:opacity-50"
+            className="rounded-sm bg-[var(--color-pine)] px-4 py-2 text-xs sm:text-sm font-semibold text-white shadow-xs transition-colors hover:bg-[var(--color-pine)]/90 disabled:opacity-50"
           >
             {isSubmittingExam ? "Submitting..." : "Submit Exam"}
           </button>
@@ -164,8 +164,8 @@ export function ExamEngine({ initialQuestions, sessionId, isTimed }: ExamEngineP
       </div>
 
       {/* Question Palette Buttons */}
-      <div className="rounded-md border border-[var(--color-line)] bg-[var(--color-surface)] p-3">
-        <div className="flex flex-wrap gap-1.5">
+      <div className="rounded-md border border-[var(--color-line)] bg-[var(--color-surface)] p-3 sm:p-4">
+        <div className="flex flex-wrap gap-2">
           {questions.map((q, idx) => {
             const hasAnswer = Boolean(savedAnswers[q.instanceId]?.trim());
             const isCurrent = idx === currentIndex;
@@ -174,12 +174,12 @@ export function ExamEngine({ initialQuestions, sessionId, isTimed }: ExamEngineP
                 key={q.instanceId}
                 type="button"
                 onClick={() => setCurrentIndex(idx)}
-                className={`flex h-8 w-8 items-center justify-center rounded-sm font-mono text-xs transition-colors ${
+                className={`flex h-9 w-9 items-center justify-center rounded-sm text-xs font-semibold transition-colors ${
                   isCurrent
                     ? "border-2 border-[var(--color-pine)] bg-[var(--color-pine)] text-white font-bold"
                     : hasAnswer
-                    ? "border border-[var(--color-primary)] bg-[var(--color-primary)]/10 font-semibold text-[var(--color-primary)]"
-                    : "border border-[var(--color-line)] bg-[var(--color-sand)]/40 text-[var(--color-ink-muted)] hover:bg-[var(--color-sand)]"
+                    ? "border border-[var(--color-primary)] bg-[var(--color-primary)]/10 text-[var(--color-primary)]"
+                    : "border border-[var(--color-line)] bg-[var(--color-sand)]/40 text-[var(--color-ink-muted)] hover:bg-[var(--color-sand)] hover:text-[var(--color-ink)]"
                 }`}
               >
                 {idx + 1}
@@ -211,7 +211,7 @@ export function ExamEngine({ initialQuestions, sessionId, isTimed }: ExamEngineP
           type="button"
           onClick={() => setCurrentIndex((prev) => Math.max(0, prev - 1))}
           disabled={currentIndex === 0}
-          className="rounded-sm border border-[var(--color-line)] bg-[var(--color-surface)] px-4 py-2 font-mono text-xs font-medium text-[var(--color-ink)] transition-colors hover:bg-[var(--color-sand)] disabled:opacity-40"
+          className="rounded-sm border border-[var(--color-line)] bg-[var(--color-surface)] px-4 py-2 text-sm font-medium text-[var(--color-ink)] transition-colors hover:bg-[var(--color-sand)] disabled:opacity-40"
         >
           ← Previous
         </button>
@@ -220,7 +220,7 @@ export function ExamEngine({ initialQuestions, sessionId, isTimed }: ExamEngineP
           <button
             type="button"
             onClick={() => setCurrentIndex((prev) => Math.min(questions.length - 1, prev + 1))}
-            className="rounded-sm bg-[var(--color-pine)] px-5 py-2 font-mono text-xs font-semibold uppercase tracking-wider text-white transition-colors hover:bg-[var(--color-pine)]/90"
+            className="rounded-sm bg-[var(--color-pine)] px-5 py-2 text-sm font-semibold text-white transition-colors hover:bg-[var(--color-pine)]/90"
           >
             Next →
           </button>
@@ -232,7 +232,7 @@ export function ExamEngine({ initialQuestions, sessionId, isTimed }: ExamEngineP
               else handleFinalSubmit();
             }}
             disabled={isSubmittingExam}
-            className="rounded-sm bg-[var(--color-pine)] px-5 py-2 font-mono text-xs font-semibold uppercase tracking-wider text-white shadow-xs transition-colors hover:bg-[var(--color-pine)]/90 disabled:opacity-50"
+            className="rounded-sm bg-[var(--color-pine)] px-5 py-2 text-sm font-semibold text-white shadow-xs transition-colors hover:bg-[var(--color-pine)]/90 disabled:opacity-50"
           >
             {isSubmittingExam ? "Submitting..." : "Finish & Score Exam"}
           </button>
@@ -243,17 +243,17 @@ export function ExamEngine({ initialQuestions, sessionId, isTimed }: ExamEngineP
       {showConfirmModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 backdrop-blur-xs">
           <div className="w-full max-w-md rounded-md border border-[var(--color-line)] bg-[var(--color-surface)] p-6 shadow-lg">
-            <h3 className="font-display text-lg font-bold text-[var(--color-ink)]">
+            <h3 className="text-lg font-bold text-[var(--color-ink)]">
               Unanswered Questions
             </h3>
-            <p className="mt-2 font-body text-sm text-[var(--color-ink-muted)]">
+            <p className="mt-2 text-sm text-[var(--color-ink-muted)] leading-relaxed">
               You have {unansweredCount} unanswered question{unansweredCount > 1 ? "s" : ""}. Unanswered questions will be scored as incorrect. Are you ready to submit?
             </p>
             <div className="mt-6 flex justify-end gap-3">
               <button
                 type="button"
                 onClick={() => setShowConfirmModal(false)}
-                className="rounded-sm border border-[var(--color-line)] bg-[var(--color-sand)] px-4 py-2 font-mono text-xs font-medium text-[var(--color-ink)] hover:bg-[var(--color-surface)]"
+                className="rounded-sm border border-[var(--color-line)] bg-[var(--color-sand)] px-4 py-2 text-sm font-medium text-[var(--color-ink)] hover:bg-[var(--color-surface)]"
               >
                 Return to Exam
               </button>
@@ -263,7 +263,7 @@ export function ExamEngine({ initialQuestions, sessionId, isTimed }: ExamEngineP
                   setShowConfirmModal(false);
                   handleFinalSubmit();
                 }}
-                className="rounded-sm bg-[var(--color-pine)] px-4 py-2 font-mono text-xs font-semibold uppercase tracking-wider text-white hover:bg-[var(--color-pine)]/90"
+                className="rounded-sm bg-[var(--color-pine)] px-4 py-2 text-sm font-semibold text-white hover:bg-[var(--color-pine)]/90"
               >
                 Submit Anyway
               </button>

@@ -1,5 +1,11 @@
 import type { Metadata } from "next";
+import { Inter } from "next/font/google";
 import { MedMathHeader } from "@/components/medmath/MedMathHeader";
+
+const inter = Inter({
+  subsets: ["latin"],
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   title: "MedMath | Adult Clinical Medication Math Lab",
@@ -17,15 +23,17 @@ export default function MedMathLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="min-h-screen bg-[var(--color-sand)] text-[var(--color-ink)] flex flex-col selection:bg-[var(--color-primary)]/20">
+    <div
+      className={`min-h-screen bg-[var(--color-sand)] text-[var(--color-ink)] flex flex-col selection:bg-[var(--color-primary)]/20 text-base leading-relaxed ${inter.className}`}
+    >
       <MedMathHeader />
-      <main className="flex-1 w-full max-w-6xl mx-auto px-4 py-8 sm:px-6">
+      <main className="flex-1 w-full max-w-5xl mx-auto px-4 py-8 sm:px-6">
         {children}
       </main>
       <footer className="border-t border-[var(--color-line)] bg-[var(--color-surface)] py-6 mt-12">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-[var(--color-ink-muted)]">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-[var(--color-ink-muted)]">
           <div>
-            <span>MedMath · Adult Clinical Dosage Lab</span>
+            <span className="font-medium text-[var(--color-ink)]">MedMath</span> · Adult Clinical Dosage Lab
           </div>
           <div>
             <span>Strict Adult Med-Surg & ICU Formulas · Practice & Exam Simulator</span>

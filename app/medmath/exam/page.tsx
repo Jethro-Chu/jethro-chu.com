@@ -100,13 +100,13 @@ export default function MedMathExamPage() {
     <div className="max-w-2xl mx-auto space-y-8 py-4">
       {/* Exam Setup Header */}
       <div className="space-y-2 border-b border-[var(--color-line)] pb-6">
-        <div className="inline-flex items-center gap-2 rounded-xs bg-[var(--color-pine)] px-2.5 py-1 font-mono text-[11px] font-semibold uppercase tracking-wider text-white">
+        <div className="inline-flex items-center gap-2 rounded-xs bg-[var(--color-pine)] px-3 py-1 text-xs font-semibold text-white">
           <span>Examination Engine</span>
         </div>
-        <h1 className="font-display text-2xl font-bold text-[var(--color-ink)] sm:text-4xl">
+        <h1 className="text-2xl sm:text-4xl font-bold text-[var(--color-ink)]">
           Configure Practice Exam
         </h1>
-        <p className="font-body text-sm text-[var(--color-ink-muted)] leading-relaxed">
+        <p className="text-base text-[var(--color-ink-muted)] leading-relaxed">
           Simulate standard nursing school medication calculation examinations. Test across adult Medical-Surgical and Critical Care competencies with diagnostic results.
         </p>
       </div>
@@ -115,7 +115,7 @@ export default function MedMathExamPage() {
       <div className="space-y-6">
         {/* Question Count */}
         <div className="space-y-2.5">
-          <label className="font-mono text-xs font-bold uppercase tracking-wider text-[var(--color-ink)]">
+          <label className="text-xs font-bold uppercase tracking-wider text-[var(--color-ink)]">
             Question Count
           </label>
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
@@ -137,10 +137,10 @@ export default function MedMathExamPage() {
                     : "border-[var(--color-line)] bg-[var(--color-surface)] hover:bg-[var(--color-sand)]"
                 }`}
               >
-                <div className="font-mono text-sm font-bold text-[var(--color-ink)]">
+                <div className="text-sm font-bold text-[var(--color-ink)]">
                   {opt.label}
                 </div>
-                <div className="mt-1 font-body text-[11px] text-[var(--color-ink-muted)]">
+                <div className="mt-1 text-xs text-[var(--color-ink-muted)]">
                   {opt.note}
                 </div>
               </button>
@@ -150,7 +150,7 @@ export default function MedMathExamPage() {
 
         {/* Track Focus */}
         <div className="space-y-2.5">
-          <label className="font-mono text-xs font-bold uppercase tracking-wider text-[var(--color-ink)]">
+          <label className="text-xs font-bold uppercase tracking-wider text-[var(--color-ink)]">
             Curriculum Focus
           </label>
           <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
@@ -183,10 +183,10 @@ export default function MedMathExamPage() {
                     : "border-[var(--color-line)] bg-[var(--color-surface)] hover:bg-[var(--color-sand)]"
                 }`}
               >
-                <div className="font-mono text-xs font-bold text-[var(--color-ink)]">
+                <div className="text-sm font-bold text-[var(--color-ink)]">
                   {t.title}
                 </div>
-                <div className="mt-1 font-body text-xs text-[var(--color-ink-muted)] leading-relaxed">
+                <div className="mt-1 text-xs text-[var(--color-ink-muted)] leading-relaxed">
                   {t.desc}
                 </div>
               </button>
@@ -196,23 +196,23 @@ export default function MedMathExamPage() {
 
         {/* Exam Mode (Timed vs Untimed) */}
         <div className="space-y-2.5">
-          <label className="font-mono text-xs font-bold uppercase tracking-wider text-[var(--color-ink)]">
+          <label className="text-xs font-bold uppercase tracking-wider text-[var(--color-ink)]">
             Timing Format
           </label>
           <div className="grid grid-cols-2 gap-3">
             <button
               type="button"
               onClick={() => setIsTimed(true)}
-              className={`rounded-md border p-3.5 text-left transition-all ${
+              className={`rounded-md border p-4 text-left transition-all ${
                 isTimed
                   ? "border-[var(--color-pine)] bg-[var(--color-pine)]/10 shadow-xs ring-1 ring-[var(--color-pine)]"
                   : "border-[var(--color-line)] bg-[var(--color-surface)] hover:bg-[var(--color-sand)]"
               }`}
             >
-              <div className="font-mono text-xs font-bold text-[var(--color-ink)]">
+              <div className="text-sm font-bold text-[var(--color-ink)]">
                 ⏱ Standard Timed Mode
               </div>
-              <div className="mt-1 font-body text-xs text-[var(--color-ink-muted)]">
+              <div className="mt-1 text-xs text-[var(--color-ink-muted)] leading-relaxed">
                 Tracks total elapsed time and per-question response velocity.
               </div>
             </button>
@@ -220,16 +220,16 @@ export default function MedMathExamPage() {
             <button
               type="button"
               onClick={() => setIsTimed(false)}
-              className={`rounded-md border p-3.5 text-left transition-all ${
+              className={`rounded-md border p-4 text-left transition-all ${
                 !isTimed
                   ? "border-[var(--color-pine)] bg-[var(--color-pine)]/10 shadow-xs ring-1 ring-[var(--color-pine)]"
                   : "border-[var(--color-line)] bg-[var(--color-surface)] hover:bg-[var(--color-sand)]"
               }`}
             >
-              <div className="font-mono text-xs font-bold text-[var(--color-ink)]">
+              <div className="text-sm font-bold text-[var(--color-ink)]">
                 Untimed Practice Exam
               </div>
-              <div className="mt-1 font-body text-xs text-[var(--color-ink-muted)]">
+              <div className="mt-1 text-xs text-[var(--color-ink-muted)] leading-relaxed">
                 Self-paced testing without clock pressure.
               </div>
             </button>
@@ -242,7 +242,7 @@ export default function MedMathExamPage() {
             type="button"
             onClick={handleStartExam}
             disabled={isLoadingExam}
-            className="w-full rounded-sm bg-[var(--color-pine)] py-4 font-mono text-sm font-semibold uppercase tracking-wider text-white shadow-sm transition-all hover:bg-[var(--color-pine)]/90 disabled:opacity-50"
+            className="w-full rounded-sm bg-[var(--color-pine)] py-3.5 text-sm sm:text-base font-semibold text-white shadow-xs transition-all hover:bg-[var(--color-pine)]/90 disabled:opacity-50"
           >
             {isLoadingExam ? "Generating Question Set..." : `Begin ${questionCount}-Question Exam →`}
           </button>

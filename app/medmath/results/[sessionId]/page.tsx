@@ -36,30 +36,30 @@ export default async function MedMathResultsPage({ params }: ResultsPageProps) {
     <div className="max-w-3xl mx-auto space-y-8 py-4">
       {/* Top Results Card */}
       <div className="rounded-md border border-[var(--color-line)] bg-[var(--color-surface)] p-6 sm:p-8 shadow-xs text-center space-y-4">
-        <div className="inline-flex items-center gap-2 rounded-xs bg-[var(--color-pine)] px-2.5 py-1 font-mono text-[11px] font-semibold uppercase tracking-wider text-white">
+        <div className="inline-flex items-center gap-2 rounded-xs bg-[var(--color-pine)] px-3 py-1 text-xs font-semibold text-white">
           <span>Official Score Report</span>
         </div>
 
         <div>
-          <div className="font-mono text-5xl sm:text-6xl font-extrabold text-[var(--color-ink)]">
+          <div className="text-5xl sm:text-6xl font-extrabold text-[var(--color-ink)]">
             {scorePercent}%
           </div>
-          <div className="mt-1 font-mono text-sm text-[var(--color-ink-muted)]">
+          <div className="mt-1.5 text-sm sm:text-base text-[var(--color-ink-muted)]">
             {correct} of {total} questions correct on first attempt
           </div>
         </div>
 
         <div className="pt-2">
-          <div className={`font-display text-xl font-bold ${verdict.color}`}>
+          <div className={`text-xl sm:text-2xl font-bold ${verdict.color}`}>
             {verdict.title}
           </div>
-          <p className="font-body text-xs text-[var(--color-ink-muted)] mt-1">
+          <p className="text-sm text-[var(--color-ink-muted)] mt-1 max-w-md mx-auto leading-relaxed">
             {verdict.note}
           </p>
         </div>
 
         {session.averageResponseTimeSeconds > 0 && (
-          <div className="pt-2 font-mono text-xs text-[var(--color-ink-muted)]">
+          <div className="pt-2 text-xs text-[var(--color-ink-muted)]">
             Average response time: {session.averageResponseTimeSeconds} seconds per calculation
           </div>
         )}
@@ -68,10 +68,10 @@ export default async function MedMathResultsPage({ params }: ResultsPageProps) {
       {/* Weak Areas Diagnostics & 1-Click Practice Routing */}
       {weakCategories.length > 0 && (
         <div className="rounded-md border border-amber-300 bg-amber-50/70 p-5 sm:p-6 space-y-4">
-          <div className="flex items-center gap-2 font-mono text-xs font-bold uppercase tracking-wider text-amber-900">
+          <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-amber-900">
             <span>⚠ Identified Weak Areas</span>
           </div>
-          <p className="font-body text-xs text-amber-900 leading-relaxed">
+          <p className="text-sm text-amber-900 leading-relaxed">
             The following categories fell below the 75% accuracy threshold during this session:
           </p>
 
@@ -81,7 +81,7 @@ export default async function MedMathResultsPage({ params }: ResultsPageProps) {
               return (
                 <span
                   key={catKey}
-                  className="rounded-xs border border-amber-300 bg-white px-2.5 py-1 font-mono text-xs font-medium text-amber-950"
+                  className="rounded-xs border border-amber-300 bg-white px-3 py-1 text-xs font-semibold text-amber-950"
                 >
                   {meta?.name ?? catKey}
                 </span>
@@ -92,7 +92,7 @@ export default async function MedMathResultsPage({ params }: ResultsPageProps) {
           <div className="pt-2">
             <Link
               href={`/medmath/practice?categories=${weakCategories.join(",")}`}
-              className="inline-flex items-center rounded-sm bg-amber-900 px-4 py-2 font-mono text-xs font-semibold uppercase tracking-wider text-white shadow-xs transition-colors hover:bg-amber-950"
+              className="inline-flex items-center rounded-sm bg-amber-900 px-4 py-2 text-xs sm:text-sm font-semibold text-white shadow-xs transition-colors hover:bg-amber-950"
             >
               Practice These Weak Areas Now →
             </Link>
@@ -104,17 +104,17 @@ export default async function MedMathResultsPage({ params }: ResultsPageProps) {
       {session.categoryBreakdown && Object.keys(session.categoryBreakdown).length > 0 && (
         <div className="rounded-md border border-[var(--color-line)] bg-[var(--color-surface)] shadow-xs overflow-hidden">
           <div className="border-b border-[var(--color-line)] bg-[var(--color-sand)]/40 px-5 py-3.5">
-            <h3 className="font-display text-sm font-semibold text-[var(--color-ink)] sm:text-base">
+            <h3 className="text-base font-bold text-[var(--color-ink)]">
               Performance by Tested Competency
             </h3>
           </div>
-          <table className="w-full text-left font-mono text-xs">
-            <thead className="border-b border-[var(--color-line)] bg-[var(--color-sand)]/20 text-[11px] text-[var(--color-ink-muted)]">
+          <table className="w-full text-left text-sm">
+            <thead className="border-b border-[var(--color-line)] bg-[var(--color-sand)]/20 text-xs font-semibold text-[var(--color-ink-muted)]">
               <tr>
-                <th className="px-4 py-2.5 font-semibold">Category</th>
-                <th className="px-3 py-2.5 font-semibold text-right">Attempted</th>
-                <th className="px-3 py-2.5 font-semibold text-right">Correct</th>
-                <th className="px-4 py-2.5 font-semibold text-right">Accuracy</th>
+                <th className="px-4 py-3">Category</th>
+                <th className="px-3 py-3 text-right">Attempted</th>
+                <th className="px-3 py-3 text-right">Correct</th>
+                <th className="px-4 py-3 text-right">Accuracy</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-[var(--color-line)]/60">
@@ -126,16 +126,16 @@ export default async function MedMathResultsPage({ params }: ResultsPageProps) {
                     : 0;
                 return (
                   <tr key={catKey} className="hover:bg-[var(--color-sand)]/20">
-                    <td className="px-4 py-3 font-semibold text-[var(--color-ink)]">
+                    <td className="px-4 py-3.5 font-medium text-[var(--color-ink)]">
                       {meta?.name ?? catKey}
                     </td>
-                    <td className="px-3 py-3 text-right text-[var(--color-ink)]">
+                    <td className="px-3 py-3.5 text-right font-medium text-[var(--color-ink)]">
                       {stats.totalQuestions}
                     </td>
-                    <td className="px-3 py-3 text-right text-[var(--color-ink)]">
+                    <td className="px-3 py-3.5 text-right text-[var(--color-ink)]">
                       {stats.firstAttemptCorrect}
                     </td>
-                    <td className="px-4 py-3 text-right font-bold text-[var(--color-primary)]">
+                    <td className="px-4 py-3.5 text-right font-bold text-[var(--color-primary)]">
                       {catAcc}%
                     </td>
                   </tr>
@@ -150,20 +150,20 @@ export default async function MedMathResultsPage({ params }: ResultsPageProps) {
       <div className="flex flex-wrap items-center justify-between gap-3 pt-4 border-t border-[var(--color-line)]">
         <Link
           href="/medmath/exam"
-          className="rounded-sm bg-[var(--color-pine)] px-5 py-2.5 font-mono text-xs font-semibold uppercase tracking-wider text-white shadow-xs hover:bg-[var(--color-pine)]/90"
+          className="rounded-sm bg-[var(--color-pine)] px-5 py-2.5 text-sm font-semibold text-white shadow-xs hover:bg-[var(--color-pine)]/90"
         >
           Take Another Exam
         </Link>
         <div className="flex items-center gap-2">
           <Link
             href="/medmath/practice"
-            className="rounded-sm border border-[var(--color-line)] bg-[var(--color-surface)] px-4 py-2.5 font-mono text-xs font-medium text-[var(--color-ink)] hover:bg-[var(--color-sand)]"
+            className="rounded-sm border border-[var(--color-line)] bg-[var(--color-surface)] px-4 py-2.5 text-sm font-medium text-[var(--color-ink)] hover:bg-[var(--color-sand)]"
           >
             Practice Mode
           </Link>
           <Link
             href="/medmath/data"
-            className="rounded-sm border border-[var(--color-line)] bg-[var(--color-surface)] px-4 py-2.5 font-mono text-xs font-medium text-[var(--color-ink-muted)] hover:text-[var(--color-ink)] hover:bg-[var(--color-sand)]"
+            className="rounded-sm border border-[var(--color-line)] bg-[var(--color-surface)] px-4 py-2.5 text-sm font-medium text-[var(--color-ink-muted)] hover:text-[var(--color-ink)] hover:bg-[var(--color-sand)]"
           >
             Public Analytics
           </Link>

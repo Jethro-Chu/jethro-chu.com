@@ -44,19 +44,19 @@ export function TrackSelector({
   };
 
   return (
-    <div className="rounded-md border border-[var(--color-line)] bg-[var(--color-surface)] p-4 sm:p-5 shadow-xs">
+    <div className="rounded-md border border-[var(--color-line)] bg-[var(--color-surface)] p-4 sm:p-6 shadow-xs">
       {/* Quick Track Toggles */}
       <div className="flex flex-col gap-3 pb-4 border-b border-[var(--color-line)] sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <span className="font-mono text-xs font-bold uppercase tracking-wider text-[var(--color-ink)]">
+          <span className="text-sm font-bold uppercase tracking-wider text-[var(--color-ink)]">
             Clinical Focus Track
           </span>
         </div>
-        <div className="flex flex-wrap gap-1.5">
+        <div className="flex flex-wrap gap-2">
           <button
             type="button"
             onClick={() => handleSelectTrack("all")}
-            className={`rounded-sm px-3 py-1 font-mono text-xs font-medium transition-colors ${
+            className={`rounded-sm px-3.5 py-1.5 text-xs font-semibold transition-colors ${
               isAllSelected
                 ? "bg-[var(--color-pine)] text-white shadow-xs"
                 : "border border-[var(--color-line)] bg-[var(--color-sand)]/50 text-[var(--color-ink)] hover:bg-[var(--color-sand)]"
@@ -67,7 +67,7 @@ export function TrackSelector({
           <button
             type="button"
             onClick={() => handleSelectTrack("med-surg")}
-            className={`rounded-sm px-3 py-1 font-mono text-xs font-medium transition-colors ${
+            className={`rounded-sm px-3.5 py-1.5 text-xs font-semibold transition-colors ${
               isMedSurgSelected
                 ? "bg-[var(--color-pine)] text-white shadow-xs"
                 : "border border-[var(--color-line)] bg-[var(--color-sand)]/50 text-[var(--color-ink)] hover:bg-[var(--color-sand)]"
@@ -78,7 +78,7 @@ export function TrackSelector({
           <button
             type="button"
             onClick={() => handleSelectTrack("critical-care")}
-            className={`rounded-sm px-3 py-1 font-mono text-xs font-medium transition-colors ${
+            className={`rounded-sm px-3.5 py-1.5 text-xs font-semibold transition-colors ${
               isCriticalCareSelected
                 ? "bg-[var(--color-pine)] text-white shadow-xs"
                 : "border border-[var(--color-line)] bg-[var(--color-sand)]/50 text-[var(--color-ink)] hover:bg-[var(--color-sand)]"
@@ -91,10 +91,10 @@ export function TrackSelector({
 
       {/* Individual Topic Checkbox Pills */}
       <div className="pt-4">
-        <div className="mb-2 font-mono text-[11px] font-semibold uppercase tracking-wider text-[var(--color-ink-muted)]">
+        <div className="mb-2.5 text-xs font-semibold uppercase tracking-wider text-[var(--color-ink-muted)]">
           Selected Categories ({selectedCategories.length} of {MEDMATH_CATEGORIES.length})
         </div>
-        <div className="flex flex-wrap gap-1.5">
+        <div className="flex flex-wrap gap-2">
           {MEDMATH_CATEGORIES.map((cat) => {
             const isSelected = selectedCategories.includes(cat.id);
             return (
@@ -102,10 +102,10 @@ export function TrackSelector({
                 key={cat.id}
                 type="button"
                 onClick={() => handleToggleCategory(cat.id)}
-                className={`rounded-sm px-2.5 py-1 font-mono text-xs transition-colors ${
+                className={`rounded-sm px-3 py-1.5 text-xs transition-colors ${
                   isSelected
                     ? "border border-[var(--color-pine)] bg-[var(--color-pine)]/10 font-semibold text-[var(--color-pine)]"
-                    : "border border-[var(--color-line)] bg-[var(--color-surface)] text-[var(--color-ink-muted)] hover:border-gray-400"
+                    : "border border-[var(--color-line)] bg-[var(--color-surface)] text-[var(--color-ink-muted)] hover:border-gray-400 hover:text-[var(--color-ink)]"
                 }`}
               >
                 {isSelected ? "✓ " : "+ "}
@@ -117,11 +117,11 @@ export function TrackSelector({
       </div>
 
       {/* Difficulty Level Selector */}
-      <div className="mt-4 border-t border-[var(--color-line)] pt-4 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-        <div className="font-mono text-[11px] font-semibold uppercase tracking-wider text-[var(--color-ink-muted)]">
+      <div className="mt-5 border-t border-[var(--color-line)] pt-4 flex flex-col gap-2.5 sm:flex-row sm:items-center sm:justify-between">
+        <div className="text-xs font-semibold uppercase tracking-wider text-[var(--color-ink-muted)]">
           Difficulty Mode
         </div>
-        <div className="flex flex-wrap gap-1.5">
+        <div className="flex flex-wrap gap-2">
           {(
             [
               { id: "mixed", label: "Mixed / Adaptive" },
@@ -135,7 +135,7 @@ export function TrackSelector({
               key={diff.id}
               type="button"
               onClick={() => onSelectDifficulty(diff.id)}
-              className={`rounded-sm px-2.5 py-1 font-mono text-xs transition-colors ${
+              className={`rounded-sm px-3 py-1.5 text-xs transition-colors ${
                 selectedDifficulty === diff.id
                   ? "bg-[var(--color-pine)] text-white font-semibold shadow-xs"
                   : "border border-[var(--color-line)] bg-[var(--color-surface)] text-[var(--color-ink-muted)] hover:text-[var(--color-ink)]"
