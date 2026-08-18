@@ -1,0 +1,239 @@
+"use client";
+
+import React, { useState, useEffect, useCallback, useRef, Suspense } from "react";
+import { useSearchParams } from "next/navigation";
+import type {
+  AttemptResult,
+  MedMathCategory,
+  PracticeDifficultySelection,
+  QuestionClientView,
+} from "@/lib/medmath/types";
+import { MEDMATH_CATEGORIES } from "@/lib/medmath/categories";
+import { TrackSelector } from "@/components/medmath/TrackSelector";
+import { QuestionCard } from "@/components/medmath/QuestionCard";
+
+function generateSessionUUID(): string {
+  if (typeof crypto !== "undefined" && typeof crypto.randomUUID === "function") {
+    return crypto.randomUUID();
+  }
+  return "sess-" + Math.random().toString(36).substring(2, 12);
+}
+
+function PracticeContent() {
+  const searchParams = useSearchParams();
+
+  // Category filter from URL params if present
+  const initialCategoryParam = searchParams.get("category") as MedMathCategory | null;
+  const initialCategoriesParam = searchParams.get("categories");
+
+  const [selectedCategories, setSelectedCategories] = useState<MedMathCategory[]>(() => {
+    if (initialCategoryParam && MEDMATH_CATEGORIES.some((c) => c.id === initialCategoryParam)) {
+      return [initialCategoryParam];
+    }
+    if (initialCategoriesParam) {
+      const parsed = initialCategoriesParam.split(",") as MedMathCategory[];
+      const valid = parsed.filter((c) => MEDMATH_CATEGORIES.some((meta) => meta.id === c));
+      if (valid.length > 0) return valid;
+    }
+    return MEDMATH_CATEGORIES.map((c) => c.id);
+  });
+
+  const [selectedDifficulty, setSelectedDifficulty] = useState<PracticeDifficultySelection>("mixed");
+  const [currentQuestion, setCurrentQuestion] = useState<QuestionClientView | null>(null);
+  const [isLoadingQuestion, setIsLoadingQuestion] = useState(true);
+  const [showTrackSelector, setShowTrackSelector] = useState(false);
+
+  // Session KPI state
+  const sessionIdRef = useRef<string>(generateSessionUUID());
+  const [questionsAnswered, setQuestionsAnswered] = useState(0);
+  const [correctFirstTryCount, setCorrectFirstTryCount] = useState(0);
+  const [currentStreak, setCurrentStreak] = useState(0);
+  const [bestStreak, setBestStreak] = useState(0);
+
+  const fetchNextQuestion = useCallback(
+    async (excludeId?: string) => {
+      setIsLoadingQuestion(true);
+      try {
+        const res = await fetch("/api/medmath/question", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            categories: selectedCategories,
+            difficulty: selectedDifficulty,
+            excludeTemplateIds: excludeId ? [excludeId] : [],
+          }),
+        });
+
+        if (res.ok) {
+          const data = (await res.json()) as { question: QuestionClientView };
+          setCurrentQuestion(data.question);
+        }
+      } catch (err) {
+        console.error("Failed to load question:", err);
+      } finally {
+        setIsLoadingQuestion(false);
+      }
+    },
+    [selectedCategories, selectedDifficulty],
+  );
+
+  // Fetch first question on load or filter change
+  useEffect(() => {
+    fetchNextQuestion();
+  }, [fetchNextQuestion]);
+
+  const handleGradeAttempt = async (
+    submittedAnswer: string,
+    attemptNumber: number,
+    responseTimeSeconds: number,
+    hintsUsedCount: number,
+    solutionRevealed: boolean,
+  ): Promise<AttemptResult | null> => {
+    if (!currentQuestion) return null;
+
+    try {
+      const res = await fetch("/api/medmath/attempt", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          instanceId: currentQuestion.instanceId,
+          sessionId: sessionIdRef.current,
+          attemptNumber,
+          submittedAnswer,
+          responseTimeSeconds,
+          hintsUsedCount,
+          solutionRevealed,
+        }),
+      });
+
+      if (!res.ok) return null;
+      const result = (await res.json()) as AttemptResult;
+
+      if (attemptNumber === 1) {
+        setQuestionsAnswered((prev) => prev + 1);
+        if (result.isCorrect) {
+          setCorrectFirstTryCount((prev) => prev + 1);
+          setCurrentStreak((prev) => {
+            const next = prev + 1;
+            setBestStreak((b) => Math.max(b, next));
+            return next;
+          });
+        } else {
+          setCurrentStreak(0);
+        }
+      }
+
+      return result;
+    } catch (err) {
+      console.error("Failed to grade attempt:", err);
+      return null;
+    }
+  };
+
+  const handleNext = () => {
+    if (currentQuestion) {
+      fetchNextQuestion(currentQuestion.templateId);
+    } else {
+      fetchNextQuestion();
+    }
+  };
+
+  const firstTryPercent =
+    questionsAnswered > 0 ? Math.round((correctFirstTryCount / questionsAnswered) * 100) : 0;
+
+  return (
+    <div className="space-y-6">
+      {/* Top Practice Bar: Session Metrics & Filter Toggle */}
+      <div className="flex flex-wrap items-center justify-between gap-4 rounded-md border border-[var(--color-line)] bg-[var(--color-surface)] p-4 shadow-xs">
+        <div className="flex flex-wrap items-center gap-4 font-mono text-xs">
+          <div>
+            <span className="text-[var(--color-ink-muted)]">Practiced: </span>
+            <span className="font-bold text-[var(--color-ink)]">{questionsAnswered}</span>
+          </div>
+          <div>
+            <span className="text-[var(--color-ink-muted)]">1st Try: </span>
+            <span className="font-bold text-[var(--color-primary)]">
+              {questionsAnswered > 0 ? `${firstTryPercent}%` : "—"}
+            </span>
+          </div>
+          <div>
+            <span className="text-[var(--color-ink-muted)]">Streak: </span>
+            <span className="font-bold text-[var(--color-ink)]">
+              {currentStreak} {currentStreak > 0 ? "🔥" : ""}
+            </span>
+          </div>
+          {bestStreak > 0 && (
+            <div className="hidden sm:block">
+              <span className="text-[var(--color-ink-muted)]">Best: </span>
+              <span className="font-bold text-[var(--color-ink)]">{bestStreak}</span>
+            </div>
+          )}
+        </div>
+
+        <button
+          type="button"
+          onClick={() => setShowTrackSelector((prev) => !prev)}
+          className="rounded-sm border border-[var(--color-line)] bg-[var(--color-sand)]/60 px-3 py-1.5 font-mono text-xs font-semibold text-[var(--color-ink)] transition-colors hover:bg-[var(--color-sand)]"
+        >
+          {showTrackSelector ? "Hide Focus Filters ▲" : "Focus Filters ▾"}
+        </button>
+      </div>
+
+      {/* Filter Options */}
+      {showTrackSelector && (
+        <TrackSelector
+          selectedCategories={selectedCategories}
+          onSelectCategories={setSelectedCategories}
+          selectedDifficulty={selectedDifficulty}
+          onSelectDifficulty={setSelectedDifficulty}
+        />
+      )}
+
+      {/* Question Presentation */}
+      {isLoadingQuestion ? (
+        <div className="flex min-h-[300px] items-center justify-center rounded-md border border-[var(--color-line)] bg-[var(--color-surface)] p-12">
+          <div className="flex flex-col items-center gap-2 font-mono text-xs text-[var(--color-ink-muted)]">
+            <div className="h-6 w-6 animate-spin rounded-full border-2 border-[var(--color-primary)] border-t-transparent" />
+            <span>Loading Clinical Scenario...</span>
+          </div>
+        </div>
+      ) : currentQuestion ? (
+        <QuestionCard
+          question={currentQuestion}
+          onGradeAttempt={handleGradeAttempt}
+          onNextQuestion={handleNext}
+        />
+      ) : (
+        <div className="rounded-md border border-[var(--color-line)] bg-[var(--color-surface)] p-8 text-center">
+          <p className="font-body text-sm text-[var(--color-ink)]">
+            No questions available for the selected filters.
+          </p>
+          <button
+            type="button"
+            onClick={() => {
+              setSelectedCategories(MEDMATH_CATEGORIES.map((c) => c.id));
+              setSelectedDifficulty("mixed");
+            }}
+            className="mt-4 rounded-sm bg-[var(--color-pine)] px-4 py-2 font-mono text-xs font-semibold uppercase tracking-wider text-white"
+          >
+            Reset Filters
+          </button>
+        </div>
+      )}
+    </div>
+  );
+}
+
+export default function MedMathPracticePage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="flex min-h-[300px] items-center justify-center">
+          <span className="font-mono text-xs text-[var(--color-ink-muted)]">Loading MedMath Practice...</span>
+        </div>
+      }
+    >
+      <PracticeContent />
+    </Suspense>
+  );
+}

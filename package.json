@@ -10,7 +10,9 @@
     "lint": "next lint",
     "verify:iq": "node --no-warnings --experimental-strip-types scripts/verify-iq-randomizer.ts",
     "verify:iq-timing": "node --no-warnings --experimental-strip-types scripts/verify-iq-timing.ts",
-    "verify:iq-data": "node --no-warnings --experimental-strip-types scripts/verify-iq-public-data.ts"
+    "verify:iq-data": "node --no-warnings --experimental-strip-types scripts/verify-iq-public-data.ts",
+    "verify:medmath": "node --no-warnings --experimental-strip-types scripts/verify-medmath-engine.ts",
+    "verify:medmath-store": "node --no-warnings --experimental-strip-types scripts/verify-medmath-store.ts"
   },
   "dependencies": {
     "framer-motion": "^11.18.2",
