@@ -95,7 +95,9 @@ export function ExamEngine({
         if (res.ok) {
           const result = (await res.json()) as {
             isCorrect: boolean;
-            expectedAnswer?: string | number;
+            correctAnswer?: number;
+            answerUnit?: string;
+            answerPrecision?: number;
             solutionSteps?: any[];
           };
           if (result.isCorrect) {
@@ -121,10 +123,11 @@ export function ExamEngine({
             patientWeightKg: q.patientWeightKg,
             patientWeightLb: q.patientWeightLb,
             prompt: q.prompt,
-            expectedUnit: q.expectedUnit,
+            answerUnit: q.answerUnit,
+            answerPrecision: q.answerPrecision,
             roundingInstruction: q.roundingInstruction,
             studentAnswer: studentAns.trim(),
-            expectedAnswer: result.expectedAnswer ?? "",
+            correctAnswer: result.correctAnswer ?? 0,
             isCorrect: Boolean(result.isCorrect),
             solutionSteps: result.solutionSteps ?? [],
           };
@@ -145,10 +148,11 @@ export function ExamEngine({
           patientWeightKg: q.patientWeightKg,
           patientWeightLb: q.patientWeightLb,
           prompt: q.prompt,
-          expectedUnit: q.expectedUnit,
+          answerUnit: q.answerUnit,
+          answerPrecision: q.answerPrecision,
           roundingInstruction: q.roundingInstruction,
           studentAnswer: studentAns.trim(),
-          expectedAnswer: "",
+          correctAnswer: 0,
           isCorrect: false,
           solutionSteps: [],
         };

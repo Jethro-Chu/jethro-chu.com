@@ -55,21 +55,14 @@ export interface ExamQuestionReview {
   patientWeightKg?: number;
   patientWeightLb?: number;
   prompt: string;
-  expectedUnit: string;
+  answerUnit: string;
+  answerPrecision: number;
   roundingInstruction?: string;
   studentAnswer: string;
-  expectedAnswer: number | string;
+  correctAnswer: number;
   isCorrect: boolean;
   solutionSteps: SolutionStep[];
 }
-
-export type RoundingMode =
-  | "whole"
-  | "tenth"
-  | "hundredth"
-  | "drop"
-  | "exact"
-  | "time-hours-mins";
 
 export interface CategoryMeta {
   id: MedMathCategory;
@@ -106,11 +99,10 @@ export interface GeneratedQuestionData {
   patientWeightKg?: number;
   patientWeightLb?: number;
   prompt: string;
-  expectedAnswer: number | string;
-  expectedUnit: string;
-  roundingMode: RoundingMode;
-  roundingInstruction: string;
-  tolerance: number;
+  correctAnswer: number;
+  answerUnit: string;
+  answerPrecision: number;
+  roundingInstruction?: string;
   hints: string[];
   solutionSteps: SolutionStep[];
   rawVariables: Record<string, unknown>;
@@ -130,13 +122,12 @@ export interface QuestionInstance {
   patientWeightKg?: number;
   patientWeightLb?: number;
   prompt: string;
-  expectedUnit: string;
-  roundingMode: RoundingMode;
-  roundingInstruction: string;
-  tolerance: number;
+  correctAnswer: number;
+  answerUnit: string;
+  answerPrecision: number;
+  roundingInstruction?: string;
   hints: string[];
   solutionSteps: SolutionStep[];
-  expectedAnswer: number | string;
   rawVariables: Record<string, unknown>;
   createdAt: string;
 }
@@ -156,8 +147,9 @@ export interface QuestionClientView {
   patientWeightKg?: number;
   patientWeightLb?: number;
   prompt: string;
-  expectedUnit: string;
-  roundingInstruction: string;
+  answerUnit: string;
+  answerPrecision: number;
+  roundingInstruction?: string;
 }
 
 export interface AttemptSubmission {
@@ -177,8 +169,9 @@ export interface AttemptResult {
   attemptNumber: number;
   feedback: string;
   solutionSteps?: SolutionStep[];
-  expectedAnswer?: number | string;
-  expectedUnit?: string;
+  correctAnswer?: number;
+  answerUnit?: string;
+  answerPrecision?: number;
 }
 
 export type SessionType = "practice" | "exam" | "study-exam" | "adaptive";

@@ -32,8 +32,9 @@ export async function POST(req: NextRequest) {
     if (body.action === "reveal-solution") {
       return NextResponse.json({
         solutionSteps: instance.solutionSteps,
-        expectedAnswer: instance.expectedAnswer,
-        expectedUnit: instance.expectedUnit,
+        correctAnswer: instance.correctAnswer,
+        answerUnit: instance.answerUnit,
+        answerPrecision: instance.answerPrecision,
       });
     }
 

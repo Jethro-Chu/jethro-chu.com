@@ -112,10 +112,22 @@ export function QuestionCard({
       if (res.ok) {
         const data = (await res.json()) as {
           solutionSteps: SolutionStep[];
-          expectedAnswer: string | number;
-          expectedUnit: string;
+          correctAnswer: number;
+          answerUnit: string;
+          answerPrecision: number;
         };
         setSolutionSteps(data.solutionSteps);
+        setGradeResult((prev) => ({
+          attemptId: prev?.attemptId ?? "revealed",
+          instanceId: question.instanceId,
+          isCorrect: prev?.isCorrect ?? false,
+          attemptNumber: prev?.attemptNumber ?? 1,
+          feedback: "Solution revealed.",
+          solutionSteps: data.solutionSteps,
+          correctAnswer: data.correctAnswer,
+          answerUnit: data.answerUnit,
+          answerPrecision: data.answerPrecision,
+        }));
         setSolutionRevealedManually(true);
       }
     } catch (e) {
@@ -281,7 +293,7 @@ export function QuestionCard({
                     className="w-full rounded-sm border border-[var(--color-line)] bg-white/70 px-3.5 py-2.5 pr-20 text-base font-medium text-[var(--color-ink)] focus:border-[var(--color-primary)] focus:outline-hidden disabled:bg-gray-100 disabled:text-gray-500"
                   />
                   <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3.5 text-sm font-semibold text-[var(--color-ink-muted)]">
-                    {question.expectedUnit}
+                    {question.answerUnit}
                   </div>
                 </div>
               </div>
@@ -374,7 +386,7 @@ export function QuestionCard({
                   className="w-full rounded-sm border border-[var(--color-line)] bg-white/70 px-3.5 py-2.5 pr-20 text-base font-medium text-[var(--color-ink)] focus:border-[var(--color-primary)] focus:outline-hidden"
                 />
                 <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3.5 text-sm font-semibold text-[var(--color-ink-muted)]">
-                  {question.expectedUnit}
+                  {question.answerUnit}
                 </div>
               </div>
             </div>
@@ -388,8 +400,9 @@ export function QuestionCard({
         {solutionSteps && (
           <StepByStepSolution
             steps={solutionSteps}
-            expectedAnswer={gradeResult?.expectedAnswer}
-            expectedUnit={gradeResult?.expectedUnit ?? question.expectedUnit}
+            correctAnswer={gradeResult?.correctAnswer}
+            answerUnit={gradeResult?.answerUnit ?? question.answerUnit}
+            answerPrecision={gradeResult?.answerPrecision ?? question.answerPrecision}
           />
         )}
       </div>

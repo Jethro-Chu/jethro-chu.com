@@ -305,7 +305,7 @@ export default async function MedMathResultsPage({ params }: ResultsPageProps) {
                       Your Submitted Answer
                     </div>
                     <div className={`mt-1 text-base font-bold ${item.isCorrect ? "text-emerald-700" : "text-red-700"}`}>
-                      {item.studentAnswer ? `${item.studentAnswer} ${item.expectedUnit}` : "No answer submitted (blank)"}
+                      {item.studentAnswer ? `${item.studentAnswer} ${item.answerUnit}` : "No answer submitted (blank)"}
                     </div>
                   </div>
 
@@ -313,8 +313,8 @@ export default async function MedMathResultsPage({ params }: ResultsPageProps) {
                     <div className="text-xs font-bold uppercase tracking-wider text-[var(--color-ink-muted)]">
                       Correct Answer
                     </div>
-                    <div className="mt-1 text-base font-bold text-[var(--color-primary)]">
-                      {item.expectedAnswer} {item.expectedUnit}
+                    <div className="mt-1 text-base font-bold text-emerald-700">
+                      {typeof item.correctAnswer === "number" ? `${item.correctAnswer.toFixed(item.answerPrecision ?? 1)} ${item.answerUnit}` : "—"}
                     </div>
                   </div>
                 </div>
@@ -323,8 +323,9 @@ export default async function MedMathResultsPage({ params }: ResultsPageProps) {
                 {item.solutionSteps && item.solutionSteps.length > 0 && (
                   <StepByStepSolution
                     steps={item.solutionSteps}
-                    expectedAnswer={item.expectedAnswer}
-                    expectedUnit={item.expectedUnit}
+                    correctAnswer={item.correctAnswer}
+                    answerUnit={item.answerUnit}
+                    answerPrecision={item.answerPrecision}
                   />
                 )}
               </div>

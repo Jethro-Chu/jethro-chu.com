@@ -4,14 +4,16 @@ import type { SolutionStep } from "@/lib/medmath/types";
 
 interface StepByStepSolutionProps {
   steps: SolutionStep[];
-  expectedAnswer?: number | string;
-  expectedUnit?: string;
+  correctAnswer?: number;
+  answerUnit?: string;
+  answerPrecision?: number;
 }
 
 export function StepByStepSolution({
   steps,
-  expectedAnswer,
-  expectedUnit,
+  correctAnswer,
+  answerUnit,
+  answerPrecision = 1,
 }: StepByStepSolutionProps) {
   if (!steps || steps.length === 0) return null;
 
@@ -23,11 +25,11 @@ export function StepByStepSolution({
             Step-by-Step Clinical Solution
           </span>
         </div>
-        {expectedAnswer !== undefined && (
+        {typeof correctAnswer === "number" && (
           <div className="flex items-center gap-2 text-sm font-semibold text-[var(--color-ink)]">
-            <span>Target:</span>
-            <span className="rounded-xs bg-[var(--color-sand)] px-2.5 py-0.5 font-bold text-[var(--color-primary)]">
-              {expectedAnswer} {expectedUnit}
+            <span>Correct Answer:</span>
+            <span className="rounded-xs bg-[var(--color-sand)] px-2.5 py-0.5 font-bold text-emerald-700">
+              {correctAnswer.toFixed(answerPrecision)} {answerUnit}
             </span>
           </div>
         )}

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useCallback, useRef, Suspense } from "react";
+import React, { useState, useEffect, useCallback, useRef, useMemo, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import type {
   AttemptResult,
@@ -28,7 +28,11 @@ function PracticeContent() {
   const initialTemplatesParam = searchParams.get("templates");
   const isMissedPractice = searchParams.get("mode") === "missed";
 
-  const targetTemplates = initialTemplatesParam ? initialTemplatesParam.split(",").filter(Boolean) : undefined;
+  const targetTemplates = useMemo(() => {
+    if (!initialTemplatesParam) return undefined;
+    const list = initialTemplatesParam.split(",").filter(Boolean);
+    return list.length > 0 ? list : undefined;
+  }, [initialTemplatesParam]);
 
   const [selectedCategories, setSelectedCategories] = useState<MedMathCategory[]>(() => {
     if (initialCategoryParam && MEDMATH_CATEGORIES.some((c) => c.id === initialCategoryParam)) {
@@ -63,7 +67,7 @@ function PracticeContent() {
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             categories: targetTemplates && targetTemplates.length > 0 ? undefined : selectedCategories,
-            difficulty: selectedDifficulty,
+            difficulty: targetTemplates && targetTemplates.length > 0 ? undefined : selectedDifficulty,
             templateIds: targetTemplates,
             excludeTemplateIds: excludeId ? [excludeId] : [],
           }),
@@ -71,7 +75,9 @@ function PracticeContent() {
 
         if (res.ok) {
           const data = (await res.json()) as { question: QuestionClientView };
-          setCurrentQuestion(data.question);
+          if (data.question) {
+            setCurrentQuestion(data.question);
+          }
         }
       } catch (err) {
         console.error("Failed to load question:", err);
