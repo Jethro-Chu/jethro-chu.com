@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { saveSession, getSession } from "@/lib/medmath/store";
-import type { MedMathCategory, StoredSession } from "@/lib/medmath/types";
+import { getStoredQuestion } from "@/lib/medmath/engine";
+import { gradeAnswer } from "@/lib/medmath/rounding";
+import type { ExamQuestionReview, MedMathCategory, StoredSession } from "@/lib/medmath/types";
 
 export const dynamic = "force-dynamic";
 
@@ -10,6 +12,39 @@ export async function POST(req: NextRequest) {
 
     if (!payload.sessionId) {
       return NextResponse.json({ error: "Missing sessionId" }, { status: 400 });
+    }
+
+    if (payload.examReview !== undefined) {
+      if (!Array.isArray(payload.examReview)) {
+        return NextResponse.json(
+          { error: "examReview must be an array" },
+          { status: 400 },
+        );
+      }
+
+      for (const item of payload.examReview as ExamQuestionReview[]) {
+        const storedQuestion = getStoredQuestion(item.templateId);
+        if (!storedQuestion) {
+          return NextResponse.json(
+            { error: `Unknown MedMath question ${item.templateId}` },
+            { status: 400 },
+          );
+        }
+        if (
+          !Number.isFinite(item.correctAnswer) ||
+          item.correctAnswer !== storedQuestion.correctAnswer ||
+          item.answerUnit !== storedQuestion.answerUnit ||
+          item.answerPrecision !== storedQuestion.answerPrecision ||
+          !Array.isArray(item.solutionSteps) ||
+          item.solutionSteps.length === 0 ||
+          item.isCorrect !== gradeAnswer(storedQuestion, item.studentAnswer)
+        ) {
+          return NextResponse.json(
+            { error: `Invalid stored answer payload for ${item.templateId}` },
+            { status: 400 },
+          );
+        }
+      }
     }
 
     const existing = (await getSession(payload.sessionId)) || ({} as StoredSession);
@@ -50,7 +85,7 @@ export async function POST(req: NextRequest) {
       difficultyBreakdown: payload.difficultyBreakdown || existing.difficultyBreakdown || {},
       weakCategories,
       examMode: payload.examMode || existing.examMode,
-      examReview: payload.examReview || existing.examReview,
+      examReview: payload.examReview ?? existing.examReview,
     };
 
     await saveSession(completedSession);

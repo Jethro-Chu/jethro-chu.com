@@ -14,8 +14,21 @@ export function gradeAnswer(
   question: { correctAnswer: number; answerPrecision: number },
   userAnswer: string | number,
 ): boolean {
+  if (!Number.isFinite(question.correctAnswer)) {
+    throw new Error(`Invalid stored correctAnswer: ${question.correctAnswer}`);
+  }
+  if (
+    !Number.isInteger(question.answerPrecision) ||
+    question.answerPrecision < 0
+  ) {
+    throw new Error(
+      `Invalid stored answerPrecision: ${question.answerPrecision}`,
+    );
+  }
+
   if (typeof userAnswer === "string") {
     userAnswer = userAnswer.trim().replace(/,/g, "");
+    if (!userAnswer) return false;
     // Support simple fractions like "1/2" or "3/4"
     if (/^\d+\/\d+$/.test(userAnswer)) {
       const [num, den] = userAnswer.split("/").map(Number);
@@ -39,6 +52,11 @@ export function gradeAnswer(
  * Formats a numeric answer to a clean string with exact precision.
  */
 export function formatAnswer(value: number, precision: number): string {
-  if (!Number.isFinite(value)) return "0";
+  if (!Number.isFinite(value)) {
+    throw new Error(`Cannot format invalid stored answer: ${value}`);
+  }
+  if (!Number.isInteger(precision) || precision < 0) {
+    throw new Error(`Cannot format answer with invalid precision: ${precision}`);
+  }
   return value.toFixed(precision);
 }

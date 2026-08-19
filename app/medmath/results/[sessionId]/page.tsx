@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getSession } from "@/lib/medmath/store";
 import { CATEGORY_MAP } from "@/lib/medmath/categories";
+import { formatAnswer } from "@/lib/medmath/rounding";
 import type { ExamQuestionReview, MedMathCategory } from "@/lib/medmath/types";
 import { StepByStepSolution } from "@/components/medmath/StepByStepSolution";
 
@@ -17,6 +18,38 @@ export default async function MedMathResultsPage({ params }: ResultsPageProps) {
 
   if (!session) {
     return notFound();
+  }
+
+  if (session.isInvalidated) {
+    return (
+      <div className="mx-auto max-w-2xl py-10">
+        <div className="space-y-5 rounded-md border border-amber-300 bg-amber-50 p-6 sm:p-8">
+          <div className="text-xs font-bold uppercase tracking-wider text-amber-900">
+            Result invalidated
+          </div>
+          <h1 className="text-2xl font-bold text-[var(--color-ink)]">
+            This exam cannot be graded reliably.
+          </h1>
+          <p className="leading-relaxed text-[var(--color-ink-muted)]">
+            {session.invalidationReason}
+          </p>
+          <div className="flex flex-wrap gap-3 pt-2">
+            <Link
+              href="/medmath/exam"
+              className="rounded-sm bg-[var(--color-pine)] px-5 py-2.5 text-sm font-semibold text-white"
+            >
+              Retake the exam
+            </Link>
+            <Link
+              href="/medmath/practice"
+              className="rounded-sm border border-[var(--color-line)] bg-white px-5 py-2.5 text-sm font-semibold text-[var(--color-ink)]"
+            >
+              Practice first
+            </Link>
+          </div>
+        </div>
+      </div>
+    );
   }
 
   const total = session.plannedQuestionCount || session.completedQuestionCount || 1;
@@ -314,7 +347,7 @@ export default async function MedMathResultsPage({ params }: ResultsPageProps) {
                       Correct Answer
                     </div>
                     <div className="mt-1 text-base font-bold text-emerald-700">
-                      {typeof item.correctAnswer === "number" ? `${item.correctAnswer.toFixed(item.answerPrecision ?? 1)} ${item.answerUnit}` : "—"}
+                      {formatAnswer(item.correctAnswer, item.answerPrecision)} {item.answerUnit}
                     </div>
                   </div>
                 </div>

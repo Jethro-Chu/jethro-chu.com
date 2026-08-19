@@ -1,6 +1,7 @@
 import { buildPublicMedMathData } from "../lib/medmath/public-data.ts";
+import { STORED_MEDMATH_QUESTIONS } from "../lib/medmath/question-bank.generated.ts";
 import { saveSession, getSession, recordAttempt, getPublicMedMathData } from "../lib/medmath/store.ts";
-import type { StoredAttemptRecord, StoredSession } from "../lib/medmath/types.ts";
+import type { ExamQuestionReview, StoredAttemptRecord, StoredSession } from "../lib/medmath/types.ts";
 
 function assert(condition: unknown, message: string): asserts condition {
   if (!condition) throw new Error(message);
@@ -45,6 +46,29 @@ const retrieved = await getSession("test-sess-001");
 assert(retrieved !== null, "Session must be retrieved");
 assert(retrieved.sessionId === "test-sess-001", "Retrieved session ID must match");
 console.log("  ✓ Session save and retrieve verified");
+
+const storedQuestion = STORED_MEDMATH_QUESTIONS[0];
+const brokenReview = {
+  ...storedQuestion,
+  instanceId: `${storedQuestion.id}::legacy-result`,
+  templateId: storedQuestion.id,
+  categoryName: "Conversions",
+  studentAnswer: String(storedQuestion.correctAnswer),
+  correctAnswer: 0,
+  isCorrect: false,
+  solutionSteps: [],
+} satisfies ExamQuestionReview;
+const brokenSession: StoredSession = {
+  ...testSession,
+  sessionId: "test-sess-broken-result",
+  sessionType: "exam",
+  examReview: [brokenReview],
+};
+await saveSession(brokenSession);
+const invalidated = await getSession(brokenSession.sessionId);
+assert(invalidated?.isInvalidated, "Broken historical result must be invalidated");
+assert(invalidated.examReview?.length === 0, "Broken answer must not reach results UI");
+console.log("  ✓ Broken historical result is invalidated without displaying zero");
 
 // Record sample attempts
 const testAttempts: StoredAttemptRecord[] = [

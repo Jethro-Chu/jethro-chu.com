@@ -1,6 +1,6 @@
 import { CATEGORY_MAP } from "./categories.ts";
-import { formatAnswer, gradeAnswer, roundTo } from "./rounding.ts";
-import { ALL_QUESTION_TEMPLATES, TEMPLATE_MAP } from "./templates/index.ts";
+import { gradeAnswer } from "./rounding.ts";
+import { STORED_MEDMATH_QUESTIONS } from "./question-bank.generated.ts";
 import type {
   AttemptResult,
   AttemptSubmission,
@@ -9,8 +9,18 @@ import type {
   PracticeDifficultySelection,
   QuestionClientView,
   QuestionInstance,
-  QuestionTemplate,
+  StoredNumericQuestion,
 } from "./types.ts";
+
+const QUESTION_MAP = new Map(
+  STORED_MEDMATH_QUESTIONS.map((question) => [question.id, question]),
+);
+
+export function getStoredQuestion(
+  questionId: string,
+): StoredNumericQuestion | undefined {
+  return QUESTION_MAP.get(questionId);
+}
 
 function generateUUID(): string {
   if (typeof crypto !== "undefined" && typeof crypto.randomUUID === "function") {
@@ -27,55 +37,50 @@ function generateUUID(): string {
 const activeInstances = new Map<string, QuestionInstance>();
 
 export function createQuestionInstance(
-  template: QuestionTemplate,
-  rng: () => number = Math.random,
+  question: StoredNumericQuestion,
+  instanceId = `${question.id}::${generateUUID()}`,
 ): QuestionInstance {
-  const generated = template.generate(rng);
-
-  if (!Number.isFinite(generated.correctAnswer)) {
+  if (!Number.isFinite(question.correctAnswer)) {
     throw new Error(
-      `Missing or invalid correctAnswer for question ${template.id}`
+      `Missing or invalid correctAnswer for question ${question.id}: ${question.correctAnswer}`,
     );
   }
-  if (typeof generated.answerUnit !== "string" || !generated.answerUnit) {
+  if (typeof question.answerUnit !== "string" || !question.answerUnit) {
     throw new Error(
-      `Missing or invalid answerUnit for question ${template.id}`
+      `Missing or invalid answerUnit for question ${question.id}`,
     );
   }
   if (
-    typeof generated.answerPrecision !== "number" ||
-    !Number.isInteger(generated.answerPrecision) ||
-    generated.answerPrecision < 0
+    typeof question.answerPrecision !== "number" ||
+    !Number.isInteger(question.answerPrecision) ||
+    question.answerPrecision < 0
   ) {
     throw new Error(
-      `Missing or invalid answerPrecision for question ${template.id}`
+      `Missing or invalid answerPrecision for question ${question.id}`,
     );
   }
 
-  const cleanCorrectAnswer = roundTo(generated.correctAnswer, generated.answerPrecision);
-  const instanceId = generateUUID();
-
   const instance: QuestionInstance = {
     instanceId,
-    templateId: template.id,
-    category: template.category,
-    subtype: template.subtype,
-    difficulty: template.difficulty,
-    title: template.title,
-    clinicalContext: template.clinicalContext,
-    scenario: generated.scenario,
-    orderText: generated.orderText,
-    availableText: generated.availableText,
-    patientWeightKg: generated.patientWeightKg,
-    patientWeightLb: generated.patientWeightLb,
-    prompt: generated.prompt,
-    correctAnswer: cleanCorrectAnswer,
-    answerUnit: generated.answerUnit,
-    answerPrecision: generated.answerPrecision,
-    roundingInstruction: generated.roundingInstruction,
-    hints: generated.hints,
-    solutionSteps: generated.solutionSteps,
-    rawVariables: generated.rawVariables,
+    templateId: question.id,
+    category: question.category,
+    subtype: question.subtype,
+    difficulty: question.difficulty,
+    title: question.title,
+    clinicalContext: question.clinicalContext,
+    scenario: question.scenario,
+    orderText: question.orderText,
+    availableText: question.availableText,
+    patientWeightKg: question.patientWeightKg,
+    patientWeightLb: question.patientWeightLb,
+    prompt: question.prompt,
+    correctAnswer: question.correctAnswer,
+    answerUnit: question.answerUnit,
+    answerPrecision: question.answerPrecision,
+    roundingInstruction: question.roundingInstruction,
+    hints: question.hints,
+    solutionSteps: question.solutionSteps,
+    rawVariables: question.rawVariables,
     createdAt: new Date().toISOString(),
   };
 
@@ -90,7 +95,17 @@ export function createQuestionInstance(
 }
 
 export function getCachedQuestionInstance(instanceId: string): QuestionInstance | undefined {
-  return activeInstances.get(instanceId);
+  const cached = activeInstances.get(instanceId);
+  if (cached) return cached;
+
+  // Vercel can execute question creation and grading in different function
+  // processes. Rehydrate the exact materialized question from the stable ID
+  // instead of depending on process-local memory.
+  const questionId = instanceId.split("::", 1)[0];
+  const storedQuestion = QUESTION_MAP.get(questionId);
+  return storedQuestion
+    ? createQuestionInstance(storedQuestion, instanceId)
+    : undefined;
 }
 
 export function toClientView(instance: QuestionInstance): QuestionClientView {
@@ -116,7 +131,7 @@ export function toClientView(instance: QuestionInstance): QuestionClientView {
   };
 }
 
-export function selectTemplatesForFilter({
+export function selectQuestionsForFilter({
   categories,
   difficulty,
   templateIds,
@@ -124,8 +139,8 @@ export function selectTemplatesForFilter({
   categories?: MedMathCategory[];
   difficulty?: PracticeDifficultySelection | "basic" | "standard" | "hard";
   templateIds?: string[];
-}): QuestionTemplate[] {
-  let list = ALL_QUESTION_TEMPLATES;
+}): StoredNumericQuestion[] {
+  let list = STORED_MEDMATH_QUESTIONS;
 
   if (templateIds && templateIds.length > 0) {
     const set = new Set(templateIds);
@@ -150,7 +165,7 @@ export function selectTemplatesForFilter({
     }
   }
 
-  return list.length > 0 ? list : ALL_QUESTION_TEMPLATES;
+  return list.length > 0 ? list : STORED_MEDMATH_QUESTIONS;
 }
 
 export function generateRandomQuestion({
@@ -166,7 +181,7 @@ export function generateRandomQuestion({
   excludeTemplateIds?: string[];
   rng?: () => number;
 }): { instance: QuestionInstance; clientView: QuestionClientView } {
-  let candidates = selectTemplatesForFilter({ categories, difficulty, templateIds });
+  let candidates = selectQuestionsForFilter({ categories, difficulty, templateIds });
   
   if (excludeTemplateIds.length > 0) {
     const excludeSet = new Set(excludeTemplateIds);
@@ -174,8 +189,8 @@ export function generateRandomQuestion({
     if (nonExcluded.length > 0) candidates = nonExcluded;
   }
 
-  const selectedTemplate = candidates[Math.floor(rng() * candidates.length)];
-  const instance = createQuestionInstance(selectedTemplate, rng);
+  const selectedQuestion = candidates[Math.floor(rng() * candidates.length)];
+  const instance = createQuestionInstance(selectedQuestion);
   return {
     instance,
     clientView: toClientView(instance),
@@ -225,13 +240,13 @@ export function generateNursingMedMathExam({
     { category: "electrolytes", weight: 1 },
   ];
 
-  const selectedTemplates: QuestionTemplate[] = [];
+  const selectedQuestions: StoredNumericQuestion[] = [];
   const usedTemplateIds = new Set<string>();
 
   // Select proportionally
   for (const { category, weight } of categoryWeights) {
     const quota = Math.max(1, Math.round((weight / 20) * count));
-    const available = ALL_QUESTION_TEMPLATES.filter(
+    const available = STORED_MEDMATH_QUESTIONS.filter(
       (t) => t.category === category && !usedTemplateIds.has(t.id),
     );
 
@@ -244,34 +259,34 @@ export function generateNursingMedMathExam({
 
     if (candidates.length === 0) candidates = available;
 
-    for (let i = 0; i < quota && candidates.length > 0 && selectedTemplates.length < count; i++) {
+    for (let i = 0; i < quota && candidates.length > 0 && selectedQuestions.length < count; i++) {
       const idx = Math.floor(rng() * candidates.length);
       const chosen = candidates[idx];
-      selectedTemplates.push(chosen);
+      selectedQuestions.push(chosen);
       usedTemplateIds.add(chosen.id);
       candidates.splice(idx, 1);
     }
   }
 
   // Fill remainder if needed
-  while (selectedTemplates.length < count) {
-    const remaining = ALL_QUESTION_TEMPLATES.filter(
+  while (selectedQuestions.length < count) {
+    const remaining = STORED_MEDMATH_QUESTIONS.filter(
       (t) => medSurgCategories.includes(t.category) && !usedTemplateIds.has(t.id),
     );
     if (remaining.length === 0) break;
     const idx = Math.floor(rng() * remaining.length);
     const chosen = remaining[idx];
-    selectedTemplates.push(chosen);
+    selectedQuestions.push(chosen);
     usedTemplateIds.add(chosen.id);
   }
 
   // Shuffle selected questions
-  for (let i = selectedTemplates.length - 1; i > 0; i--) {
+  for (let i = selectedQuestions.length - 1; i > 0; i--) {
     const j = Math.floor(rng() * (i + 1));
-    [selectedTemplates[i], selectedTemplates[j]] = [selectedTemplates[j], selectedTemplates[i]];
+    [selectedQuestions[i], selectedQuestions[j]] = [selectedQuestions[j], selectedQuestions[i]];
   }
 
-  const instances = selectedTemplates.map((t) => createQuestionInstance(t, rng));
+  const instances = selectedQuestions.map((question) => createQuestionInstance(question));
   const clientViews = instances.map(toClientView);
 
   return { instances, clientViews };
@@ -310,12 +325,12 @@ export function generateCriticalCareExam({
     { category: "electrolytes", weight: 1 },
   ];
 
-  const selectedTemplates: QuestionTemplate[] = [];
+  const selectedQuestions: StoredNumericQuestion[] = [];
   const usedTemplateIds = new Set<string>();
 
   for (const { category, weight } of categoryWeights) {
     const quota = Math.max(1, Math.round((weight / 20) * count));
-    const available = ALL_QUESTION_TEMPLATES.filter(
+    const available = STORED_MEDMATH_QUESTIONS.filter(
       (t) => t.category === category && !usedTemplateIds.has(t.id),
     );
 
@@ -326,32 +341,32 @@ export function generateCriticalCareExam({
 
     if (candidates.length === 0) candidates = available;
 
-    for (let i = 0; i < quota && candidates.length > 0 && selectedTemplates.length < count; i++) {
+    for (let i = 0; i < quota && candidates.length > 0 && selectedQuestions.length < count; i++) {
       const idx = Math.floor(rng() * candidates.length);
       const chosen = candidates[idx];
-      selectedTemplates.push(chosen);
+      selectedQuestions.push(chosen);
       usedTemplateIds.add(chosen.id);
       candidates.splice(idx, 1);
     }
   }
 
-  while (selectedTemplates.length < count) {
-    const remaining = ALL_QUESTION_TEMPLATES.filter(
+  while (selectedQuestions.length < count) {
+    const remaining = STORED_MEDMATH_QUESTIONS.filter(
       (t) => ccCategories.includes(t.category) && !usedTemplateIds.has(t.id),
     );
     if (remaining.length === 0) break;
     const idx = Math.floor(rng() * remaining.length);
     const chosen = remaining[idx];
-    selectedTemplates.push(chosen);
+    selectedQuestions.push(chosen);
     usedTemplateIds.add(chosen.id);
   }
 
-  for (let i = selectedTemplates.length - 1; i > 0; i--) {
+  for (let i = selectedQuestions.length - 1; i > 0; i--) {
     const j = Math.floor(rng() * (i + 1));
-    [selectedTemplates[i], selectedTemplates[j]] = [selectedTemplates[j], selectedTemplates[i]];
+    [selectedQuestions[i], selectedQuestions[j]] = [selectedQuestions[j], selectedQuestions[i]];
   }
 
-  const instances = selectedTemplates.map((t) => createQuestionInstance(t, rng));
+  const instances = selectedQuestions.map((question) => createQuestionInstance(question));
   const clientViews = instances.map(toClientView);
 
   return { instances, clientViews };
@@ -383,21 +398,21 @@ export function generateExamQuestionSet({
 
   // Custom Exam Mode: Filter by user-selected categories and difficulty
   const targetCategories = categories && categories.length > 0 ? categories : undefined;
-  const filteredTemplates = selectTemplatesForFilter({
+  const filteredQuestions = selectQuestionsForFilter({
     categories: targetCategories,
     difficulty,
   });
 
-  const pool = [...filteredTemplates];
-  const selectedTemplates: QuestionTemplate[] = [];
+  const pool = [...filteredQuestions];
+  const selectedQuestions: StoredNumericQuestion[] = [];
 
   for (let i = 0; i < count && pool.length > 0; i++) {
     const idx = Math.floor(rng() * pool.length);
-    selectedTemplates.push(pool[idx]);
+    selectedQuestions.push(pool[idx]);
     pool.splice(idx, 1);
   }
 
-  const instances = selectedTemplates.map((t) => createQuestionInstance(t, rng));
+  const instances = selectedQuestions.map((question) => createQuestionInstance(question));
   const clientViews = instances.map(toClientView);
 
   return { instances, clientViews };

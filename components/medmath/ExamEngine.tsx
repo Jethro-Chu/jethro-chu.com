@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
-import type { QuestionClientView, StoredSession } from "@/lib/medmath/types";
+import type { QuestionClientView, SolutionStep } from "@/lib/medmath/types";
 import { QuestionCard } from "./QuestionCard";
 
 interface ExamEngineProps {
@@ -27,6 +27,7 @@ export function ExamEngine({
   const [isSubmittingExam, setIsSubmittingExam] = useState(false);
   const [elapsedSeconds, setElapsedSeconds] = useState(0);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const [submissionError, setSubmissionError] = useState<string | null>(null);
 
   const startTimestampRef = useRef<number>(Date.now());
 
@@ -59,6 +60,7 @@ export function ExamEngine({
 
   const handleFinalSubmit = async () => {
     setIsSubmittingExam(true);
+    setSubmissionError(null);
     try {
       // 1. Grade each question and compile complete review records
       let firstTryCorrect = 0;
@@ -92,45 +94,45 @@ export function ExamEngine({
           }),
         });
 
-        if (res.ok) {
-          const result = (await res.json()) as {
-            isCorrect: boolean;
-            correctAnswer?: number;
-            answerUnit?: string;
-            answerPrecision?: number;
-            solutionSteps?: any[];
-          };
-          if (result.isCorrect) {
-            firstTryCorrect += 1;
-            categoryMap[catKey].firstAttemptCorrect += 1;
-            categoryMap[catKey].eventualCorrect += 1;
-            diffMap[diffKey].firstAttemptCorrect += 1;
-            diffMap[diffKey].eventualCorrect += 1;
-          }
+        if (!res.ok) {
+          const failure = (await res.json().catch(() => null)) as
+            | { error?: string }
+            | null;
+          throw new Error(
+            failure?.error ??
+              `Unable to grade ${q.templateId} (HTTP ${res.status})`,
+          );
+        }
 
-          return {
-            instanceId: q.instanceId,
-            templateId: q.templateId,
-            category: q.category,
-            categoryName: q.categoryName,
-            subtype: q.subtype,
-            difficulty: q.difficulty,
-            title: q.title,
-            clinicalContext: q.clinicalContext,
-            scenario: q.scenario,
-            orderText: q.orderText,
-            availableText: q.availableText,
-            patientWeightKg: q.patientWeightKg,
-            patientWeightLb: q.patientWeightLb,
-            prompt: q.prompt,
-            answerUnit: q.answerUnit,
-            answerPrecision: q.answerPrecision,
-            roundingInstruction: q.roundingInstruction,
-            studentAnswer: studentAns.trim(),
-            correctAnswer: result.correctAnswer ?? 0,
-            isCorrect: Boolean(result.isCorrect),
-            solutionSteps: result.solutionSteps ?? [],
-          };
+        const result = (await res.json()) as {
+          isCorrect: boolean;
+          correctAnswer?: number;
+          answerUnit?: string;
+          answerPrecision?: number;
+          solutionSteps?: SolutionStep[];
+        };
+        const correctAnswer = result.correctAnswer;
+        if (typeof correctAnswer !== "number" || !Number.isFinite(correctAnswer)) {
+          throw new Error(
+            `Missing or invalid correctAnswer returned for ${q.templateId}: ${result.correctAnswer}`,
+          );
+        }
+        if (
+          result.answerUnit !== q.answerUnit ||
+          result.answerPrecision !== q.answerPrecision
+        ) {
+          throw new Error(`Stored answer schema mismatch for ${q.templateId}`);
+        }
+        if (!Array.isArray(result.solutionSteps) || result.solutionSteps.length === 0) {
+          throw new Error(`Missing stored solution for ${q.templateId}`);
+        }
+
+        if (result.isCorrect) {
+          firstTryCorrect += 1;
+          categoryMap[catKey].firstAttemptCorrect += 1;
+          categoryMap[catKey].eventualCorrect += 1;
+          diffMap[diffKey].firstAttemptCorrect += 1;
+          diffMap[diffKey].eventualCorrect += 1;
         }
 
         return {
@@ -152,16 +154,16 @@ export function ExamEngine({
           answerPrecision: q.answerPrecision,
           roundingInstruction: q.roundingInstruction,
           studentAnswer: studentAns.trim(),
-          correctAnswer: 0,
-          isCorrect: false,
-          solutionSteps: [],
+          correctAnswer,
+          isCorrect: Boolean(result.isCorrect),
+          solutionSteps: result.solutionSteps,
         };
       });
 
       const examReview = await Promise.all(gradingPromises);
 
       // 2. Finalize session and persist review data
-      await fetch("/api/medmath/complete", {
+      const completeResponse = await fetch("/api/medmath/complete", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -179,16 +181,35 @@ export function ExamEngine({
           examReview,
         }),
       });
+      if (!completeResponse.ok) {
+        throw new Error(
+          `Unable to save the completed exam (HTTP ${completeResponse.status})`,
+        );
+      }
 
       router.push(`/medmath/results/${sessionId}`);
     } catch (err) {
       console.error("Failed to finalize exam:", err);
-      router.push(`/medmath/results/${sessionId}`);
+      setSubmissionError(
+        err instanceof Error
+          ? err.message
+          : "The exam could not be graded. Your answers are still on this page; please try again.",
+      );
+    } finally {
+      setIsSubmittingExam(false);
     }
   };
 
   return (
     <div className="space-y-6">
+      {submissionError && (
+        <div
+          role="alert"
+          className="rounded-md border border-red-300 bg-red-50 px-4 py-3 text-sm font-medium text-red-800"
+        >
+          The exam was not saved because grading failed: {submissionError}
+        </div>
+      )}
       {/* Top Exam Navigation Bar */}
       <div className="flex flex-wrap items-center justify-between gap-3 rounded-md border border-[var(--color-line)] bg-[var(--color-surface)] p-4 sm:p-5 shadow-xs">
         <div className="flex items-center gap-3">

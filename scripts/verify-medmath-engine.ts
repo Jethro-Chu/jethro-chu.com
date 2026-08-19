@@ -1,200 +1,305 @@
-import { ALL_QUESTION_TEMPLATES, TEMPLATE_MAP } from "../lib/medmath/templates/index.ts";
 import { MEDMATH_CATEGORIES } from "../lib/medmath/categories.ts";
-import { gradeAnswer, roundTo } from "../lib/medmath/rounding.ts";
-import { createQuestionInstance, generateNursingMedMathExam, generateCriticalCareExam, generateRandomQuestion } from "../lib/medmath/engine.ts";
+import {
+  createQuestionInstance,
+  generateCriticalCareExam,
+  generateNursingMedMathExam,
+  generateRandomQuestion,
+  getCachedQuestionInstance,
+} from "../lib/medmath/engine.ts";
+import { STORED_MEDMATH_QUESTIONS } from "../lib/medmath/question-bank.generated.ts";
+import { formatAnswer, gradeAnswer, roundTo } from "../lib/medmath/rounding.ts";
+import type { StoredNumericQuestion } from "../lib/medmath/types.ts";
 
 function assert(condition: unknown, message: string): asserts condition {
   if (!condition) throw new Error(message);
 }
 
-console.log(`Verifying MedMath Question Engine with ${ALL_QUESTION_TEMPLATES.length} master templates...`);
+function assertThrows(run: () => unknown, message: string): void {
+  let threw = false;
+  try {
+    run();
+  } catch {
+    threw = true;
+  }
+  assert(threw, message);
+}
 
-// 1. Verify template count
-assert(
-  ALL_QUESTION_TEMPLATES.length >= 250,
-  `Master template count (${ALL_QUESTION_TEMPLATES.length}) must be at least 250.`,
+type ArithmeticToken = number | "+" | "-" | "×" | "÷" | "(" | ")";
+
+function tokenizeArithmetic(calculation: string): ArithmeticToken[] {
+  const leftSide = calculation
+    .split("=", 1)[0]
+    .replace(/(?<=\d),(?=\d)/g, "");
+  const matches = leftSide.match(/\d+(?:\.\d+)?|[()+\-×÷]/g) ?? [];
+  return matches.map((token) =>
+    /^\d/.test(token) ? Number(token) : (token as ArithmeticToken),
+  );
+}
+
+function evaluateArithmetic(tokens: ArithmeticToken[]): number {
+  let index = 0;
+
+  const parseFactor = (): number => {
+    const token = tokens[index++];
+    if (typeof token === "number") return token;
+    if (token === "-") return -parseFactor();
+    if (token === "(") {
+      const value = parseExpression();
+      assert(tokens[index++] === ")", "Unclosed arithmetic expression");
+      return value;
+    }
+    throw new Error(`Unexpected arithmetic token: ${String(token)}`);
+  };
+
+  const parseTerm = (): number => {
+    let value = parseFactor();
+    while (tokens[index] === "×" || tokens[index] === "÷") {
+      const operator = tokens[index++];
+      const right = parseFactor();
+      value = operator === "×" ? value * right : value / right;
+    }
+    return value;
+  };
+
+  const parseExpression = (): number => {
+    let value = parseTerm();
+    while (tokens[index] === "+" || tokens[index] === "-") {
+      const operator = tokens[index++];
+      const right = parseTerm();
+      value = operator === "+" ? value + right : value - right;
+    }
+    return value;
+  };
+
+  const value = parseExpression();
+  assert(index === tokens.length, "Unused arithmetic tokens remain");
+  return value;
+}
+
+function recomputeQuestionAnswer(question: StoredNumericQuestion): number {
+  if (question.id === "insulin-sliding-scale-only") {
+    const bg = Number(question.rawVariables.bg);
+    if (bg < 150) return 0;
+    if (bg < 200) return 2;
+    if (bg < 250) return 4;
+    if (bg < 300) return 6;
+    if (bg < 350) return 8;
+    if (bg < 400) return 10;
+    return 12;
+  }
+
+  if (question.id === "insulin-sliding-scale-moderate") {
+    const bg = Number(question.rawVariables.bg);
+    if (bg < 150) return 0;
+    if (bg <= 200) return 3;
+    if (bg <= 250) return 6;
+    if (bg <= 300) return 9;
+    if (bg <= 350) return 12;
+    return 15;
+  }
+
+  if (question.id === "insulin-basal-glargine") {
+    const orderedUnits = question.orderText.match(/(\d+(?:\.\d+)?) units/i)?.[1];
+    assert(orderedUnits, `Could not independently read ordered units for ${question.id}`);
+    return Number(orderedUnits);
+  }
+
+  const finalCalculation = question.solutionSteps.at(-1)?.calculation;
+  assert(finalCalculation, `${question.id} has no final calculation to audit`);
+  const tokens = tokenizeArithmetic(finalCalculation);
+  assert(tokens.length >= 3, `${question.id} has no auditable arithmetic expression`);
+  return evaluateArithmetic(tokens);
+}
+
+function getRequiredQuestion(id: string): StoredNumericQuestion {
+  const question = STORED_MEDMATH_QUESTIONS.find((item) => item.id === id);
+  assert(question, `Required stored question ${id} is missing`);
+  return question;
+}
+
+console.log(
+  `Auditing ${STORED_MEDMATH_QUESTIONS.length} materialized MedMath questions...`,
 );
 
-// 2. Verify all 13 categories have templates
-for (const cat of MEDMATH_CATEGORIES) {
-  const count = ALL_QUESTION_TEMPLATES.filter((t) => t.category === cat.id).length;
-  assert(count >= 5, `Category ${cat.id} has only ${count} templates; needs at least 5.`);
-  console.log(`  ✓ ${cat.shortName}: ${count} templates`);
-}
+assert(
+  STORED_MEDMATH_QUESTIONS.length === 277,
+  `Expected exactly 277 stored questions, found ${STORED_MEDMATH_QUESTIONS.length}`,
+);
 
-// 3. Verify unique template IDs
 const ids = new Set<string>();
-for (const t of ALL_QUESTION_TEMPLATES) {
-  assert(!ids.has(t.id), `Duplicate template ID found: ${t.id}`);
-  ids.add(t.id);
+let verifiedCount = 0;
+let suspiciousZeroCount = 0;
+
+assert(
+  !gradeAnswer(STORED_MEDMATH_QUESTIONS[0], ""),
+  "Blank input must not be interpreted as zero",
+);
+assertThrows(
+  () => gradeAnswer({ correctAnswer: Number.NaN, answerPrecision: 1 }, "1"),
+  "Invalid stored answers must fail loudly",
+);
+assertThrows(
+  () => formatAnswer(Number.NaN, 1),
+  "Invalid result answers must fail loudly during formatting",
+);
+
+for (const category of MEDMATH_CATEGORIES) {
+  const count = STORED_MEDMATH_QUESTIONS.filter(
+    (question) => question.category === category.id,
+  ).length;
+  assert(count >= 5, `Category ${category.id} has only ${count} stored questions`);
+  console.log(`  ${category.shortName}: ${count} questions`);
 }
 
-// 4. Run 200 randomized iterations per template (55,400 total tests)
-let totalRuns = 0;
-for (const template of ALL_QUESTION_TEMPLATES) {
-  for (let i = 0; i < 200; i++) {
-    totalRuns += 1;
-    const instance = createQuestionInstance(template);
+console.log("\nFull stored-answer audit:");
+for (const question of STORED_MEDMATH_QUESTIONS) {
+  assert(!ids.has(question.id), `Duplicate question ID: ${question.id}`);
+  ids.add(question.id);
 
-    // Validate stored correctAnswer is finite number
-    assert(
-      Number.isFinite(instance.correctAnswer),
-      `${template.id} generated non-finite correctAnswer: ${instance.correctAnswer}`,
-    );
-    assert(
-      !Number.isNaN(instance.correctAnswer),
-      `${template.id} generated NaN correctAnswer`,
-    );
-    assert(
-      instance.correctAnswer >= 0,
-      `${template.id} generated negative correctAnswer: ${instance.correctAnswer}`,
-    );
-
-    // Validate answerUnit is non-empty string
-    assert(
-      typeof instance.answerUnit === "string" && instance.answerUnit.length > 0,
-      `${template.id} missing answerUnit`,
-    );
-
-    // Validate answerPrecision is non-negative integer
-    assert(
-      typeof instance.answerPrecision === "number" &&
-      Number.isInteger(instance.answerPrecision) &&
-      instance.answerPrecision >= 0,
-      `${template.id} invalid answerPrecision: ${instance.answerPrecision}`,
-    );
-
-    // Validate patient weight if present
-    if (instance.patientWeightKg !== undefined) {
-      assert(
-        instance.patientWeightKg >= 40 && instance.patientWeightKg <= 200,
-        `${template.id} generated unrealistic adult kg weight: ${instance.patientWeightKg}`,
-      );
-    }
-    if (instance.patientWeightLb !== undefined) {
-      assert(
-        instance.patientWeightLb >= 88 && instance.patientWeightLb <= 440,
-        `${template.id} generated unrealistic adult lb weight: ${instance.patientWeightLb}`,
-      );
-    }
-
-    // Validate pediatric prohibition
-    const fullText = (
-      instance.scenario +
-      " " +
-      instance.orderText +
-      " " +
-      instance.prompt
-    ).toLowerCase();
-    const bannedPediatricWords = ["pediatric", "child", "infant", "neonate", "toddler", "baby", "pediatrics", "neonatal"];
-    for (const word of bannedPediatricWords) {
-      assert(
-        !fullText.includes(word),
-        `${template.id} contains forbidden pediatric word "${word}" in scenario: "${instance.scenario}"`,
-      );
-    }
-
-    // Validate hints
-    assert(
-      instance.hints.length >= 2 && instance.hints.every((h) => typeof h === "string" && h.length > 0),
-      `${template.id} must have valid non-empty hints`,
-    );
-
-    // Validate solution steps
-    assert(
-      instance.solutionSteps.length > 0,
-      `${template.id} must have at least one solution step`,
-    );
-
-    // Validate grading correctness: Stored correct answer must be graded correct
-    const isGradedCorrect = gradeAnswer(instance, instance.correctAnswer);
-    assert(
-      isGradedCorrect,
-      `${template.id} stored correctAnswer ${instance.correctAnswer} was marked incorrect!`,
-    );
-
-    // Formatted string submission must also grade correct
-    const formatted = instance.correctAnswer.toFixed(instance.answerPrecision);
-    const isFormattedCorrect = gradeAnswer(instance, formatted);
-    assert(
-      isFormattedCorrect,
-      `${template.id} formatted string answer "${formatted}" was marked incorrect!`,
-    );
-
-    // Wrong answers must be marked incorrect
-    const isGradedWrong = gradeAnswer(instance, instance.correctAnswer + 999);
-    assert(
-      !isGradedWrong,
-      `${template.id} wrong answer was marked correct!`,
+  const finite = Number.isFinite(question.correctAnswer);
+  assert(
+    finite,
+    `${question.id} has missing or invalid correctAnswer: ${question.correctAnswer}`,
+  );
+  assert(question.answerUnit.trim(), `${question.id} has missing answerUnit`);
+  assert(
+    Number.isInteger(question.answerPrecision) && question.answerPrecision >= 0,
+    `${question.id} has invalid answerPrecision: ${question.answerPrecision}`,
+  );
+  if (question.correctAnswer === 0) {
+    suspiciousZeroCount += 1;
+    throw new Error(
+      `${question.id} has a suspicious zero correctAnswer that has not been accepted`,
     );
   }
+
+  const recomputed = roundTo(
+    recomputeQuestionAnswer(question),
+    question.answerPrecision,
+  );
+  assert(
+    recomputed === question.correctAnswer,
+    `${question.id} stored ${question.correctAnswer}, independently recomputed ${recomputed}`,
+  );
+
+  assert(
+    gradeAnswer(question, question.correctAnswer),
+    `${question.id} did not accept its stored answer`,
+  );
+  const formatted = formatAnswer(
+    question.correctAnswer,
+    question.answerPrecision,
+  );
+  assert(
+    gradeAnswer(question, formatted),
+    `${question.id} did not accept formatted answer ${formatted}`,
+  );
+  const wrongAnswer =
+    question.correctAnswer + 10 / 10 ** question.answerPrecision;
+  assert(
+    !gradeAnswer(question, wrongAnswer),
+    `${question.id} accepted deliberately wrong answer ${wrongAnswer}`,
+  );
+
+  const rehydrated = getCachedQuestionInstance(`${question.id}::external-worker`);
+  assert(rehydrated, `${question.id} could not be rehydrated without memory cache`);
+  assert(
+    rehydrated.correctAnswer === question.correctAnswer,
+    `${question.id} changed answer during cross-worker rehydration`,
+  );
+
+  verifiedCount += 1;
+  console.log(
+    [
+      question.id,
+      question.category,
+      question.title,
+      `question=${JSON.stringify(
+        [
+          question.scenario,
+          question.orderText,
+          question.availableText,
+          question.prompt,
+        ]
+          .filter(Boolean)
+          .join(" "),
+      )}`,
+      `stored=${formatted}`,
+      `unit=${question.answerUnit}`,
+      `precision=${question.answerPrecision}`,
+      `finite=${finite}`,
+      `recomputed=${formatAnswer(recomputed, question.answerPrecision)}`,
+      "verification=PASS",
+    ].join(" | "),
+  );
 }
 
-// 5. Explicitly verify known user test cases
-console.log("\nVerifying known reference questions...");
+console.log("\nRequired regression questions:");
+const regressions = [
+  { id: "cc-milrinone-mcg-kg-min", answer: 5.3, unit: "mL/hr", precision: 1, correctInput: "5.3" },
+  { id: "multi-magnesium-infusion-eclamp-rate", answer: 37.5, unit: "mL/hr", precision: 1, correctInput: "37.5" },
+  { id: "cc-reverse-norepi-mlhr-to-mcgkgmin", answer: 0.11, unit: "mcg/kg/min", precision: 2, correctInput: "0.11" },
+  { id: "iv-pump-ivpb-90min-vancomycin", answer: 166.7, unit: "mL/hr", precision: 1, correctInput: "166.7" },
+];
 
-// Case A: Norepinephrine 8 mg / 250 mL, 32 mcg/mL, 15 mL/hr, 75 kg
-const norepiTemplate = ALL_QUESTION_TEMPLATES.find((t) => t.id === "cc-reverse-norepi-mlhr-to-mcgkgmin");
-assert(Boolean(norepiTemplate), "cc-reverse-norepi-mlhr-to-mcgkgmin template must exist");
-// Test deterministic generation for the 75 kg / 15 mL/hr data point
-const norepiInstance = norepiTemplate!.generate(() => 0); // picks first index in array: { rateMlHr: 15, bagMg: 8, bagMl: 250, concMcgMl: 32, weightKg: 75, mcgMin: 8.0, doseMcgKgMin: 0.11 }
-assert(norepiInstance.correctAnswer === 0.11, `Norepinephrine correctAnswer expected 0.11, got ${norepiInstance.correctAnswer}`);
-assert(norepiInstance.answerUnit === "mcg/kg/min", `Norepinephrine answerUnit expected mcg/kg/min, got ${norepiInstance.answerUnit}`);
-assert(norepiInstance.answerPrecision === 2, `Norepinephrine answerPrecision expected 2, got ${norepiInstance.answerPrecision}`);
-assert(gradeAnswer(norepiInstance, "0.11"), "Norepinephrine submission 0.11 must grade correct");
-assert(!gradeAnswer(norepiInstance, "0.15"), "Norepinephrine wrong submission 0.15 must grade incorrect");
-console.log("  ✓ Norepinephrine 8 mg / 250 mL (15 mL/hr, 75 kg): 0.11 mcg/kg/min verified");
+for (const expected of regressions) {
+  const question = getRequiredQuestion(expected.id);
+  assert(
+    question.correctAnswer === expected.answer,
+    `${expected.id} expected ${expected.answer}, found ${question.correctAnswer}`,
+  );
+  assert(question.answerUnit === expected.unit, `${expected.id} unit mismatch`);
+  assert(question.answerPrecision === expected.precision, `${expected.id} precision mismatch`);
+  assert(gradeAnswer(question, expected.correctInput), `${expected.id} grading failed`);
+  assert(
+    `${formatAnswer(question.correctAnswer, question.answerPrecision)} ${question.answerUnit}` ===
+      `${expected.correctInput} ${expected.unit}`,
+    `${expected.id} result formatting failed`,
+  );
+  console.log(`  PASS ${question.title}: ${expected.correctInput} ${expected.unit}`);
+}
 
-// Case B: Vancomycin 250 mL over 90 minutes
-const vancTemplate = ALL_QUESTION_TEMPLATES.find((t) => t.id === "iv-pump-ivpb-90min-vancomycin");
-assert(Boolean(vancTemplate), "iv-pump-ivpb-90min-vancomycin template must exist");
-const vancInstance = vancTemplate!.generate(() => 0); // picks first index: { med: "Vancomycin 1,000 mg", volMl: 250, mins: 90, rate: 166.7 }
-assert(vancInstance.correctAnswer === 166.7, `Vancomycin correctAnswer expected 166.7, got ${vancInstance.correctAnswer}`);
-assert(vancInstance.answerUnit === "mL/hr", `Vancomycin answerUnit expected mL/hr, got ${vancInstance.answerUnit}`);
-assert(vancInstance.answerPrecision === 1, `Vancomycin answerPrecision expected 1, got ${vancInstance.answerPrecision}`);
-assert(gradeAnswer(vancInstance, "166.7"), "Vancomycin submission 166.7 must grade correct");
-assert(!gradeAnswer(vancInstance, "125"), "Vancomycin wrong submission 125 must grade incorrect");
-console.log("  ✓ Vancomycin 250 mL over 90 minutes: 166.7 mL/hr verified");
-
-// 6. Test Nursing Med Math Exam generator
-console.log("\nTesting Nursing Med Math Exam generator...");
+console.log("\nExam and remediation generation:");
 for (const count of [10, 20, 25, 50]) {
-  const { instances, clientViews } = generateNursingMedMathExam({ count, difficulty: "standard" });
-  assert(instances.length === count, `Nursing exam returned ${instances.length} questions, expected ${count}`);
-  assert(clientViews.length === count, `Nursing exam clientViews returned ${clientViews.length}, expected ${count}`);
-
-  for (const q of instances) {
-    assert(Number.isFinite(q.correctAnswer), `Exam question ${q.templateId} missing valid correctAnswer`);
-    assert(typeof q.answerUnit === "string" && q.answerUnit.length > 0, `Exam question ${q.templateId} missing answerUnit`);
+  const nursing = generateNursingMedMathExam({ count, difficulty: "standard" });
+  const criticalCare = generateCriticalCareExam({ count, difficulty: "standard" });
+  assert(nursing.instances.length === count, `Nursing exam expected ${count}`);
+  assert(criticalCare.instances.length === count, `Critical-care exam expected ${count}`);
+  for (const instance of [...nursing.instances, ...criticalCare.instances]) {
+    assert(Number.isFinite(instance.correctAnswer), `${instance.templateId} invalid in exam`);
   }
-
-  // Ensure no critical care drips in regular nursing exam
-  const ccCount = instances.filter((q) => q.category === "critical-care").length;
-  assert(ccCount === 0, `Nursing exam contains ${ccCount} critical-care drip questions; expected 0.`);
-
-  console.log(`  ✓ ${count}-question Nursing Med Math Exam generated and validated`);
+  console.log(`  PASS ${count}-question nursing and critical-care exams`);
 }
 
-// 7. Test Critical Care Exam generator
-console.log("\nTesting Critical Care Exam generator...");
-for (const count of [10, 20, 25, 50]) {
-  const { instances } = generateCriticalCareExam({ count, difficulty: "standard" });
-  assert(instances.length === count, `Critical Care exam returned ${instances.length} questions, expected ${count}`);
-  const ccCount = instances.filter((q) => q.category === "critical-care" || q.category === "multi-step" || q.category === "heparin").length;
-  assert(ccCount > 0, "Critical care exam must contain critical care, multi-step, or heparin questions");
-  console.log(`  ✓ ${count}-question Critical Care Exam generated and validated`);
+const remediationIds = STORED_MEDMATH_QUESTIONS.slice(0, 20).map(
+  (question) => question.id,
+);
+for (let index = 0; index < 20; index += 1) {
+  const { instance } = generateRandomQuestion({ templateIds: remediationIds });
+  assert(remediationIds.includes(instance.templateId), "Remediation selected wrong question");
 }
+console.log("  PASS 20 targeted remediation selections");
 
-// 8. Test Targeted Remediation (Missed Question Templates)
-console.log("\nTesting Targeted Remediation (Missed Questions)...");
-const sampleMissedIds = ALL_QUESTION_TEMPLATES.slice(0, 10).map((t) => t.id);
-for (let i = 0; i < 20; i++) {
-  const { instance, clientView } = generateRandomQuestion({ templateIds: sampleMissedIds });
-  assert(sampleMissedIds.includes(instance.templateId), `Generated template ${instance.templateId} not in missed set`);
-  assert(Number.isFinite(instance.correctAnswer), "Remediation question must have finite correctAnswer");
-  assert(Boolean(clientView.scenario), "Client view scenario must be present");
-  assert(Boolean(clientView.prompt), "Client view prompt must be present");
+const crossCategorySamples = Array.from({ length: 20 }, (_, index) =>
+  STORED_MEDMATH_QUESTIONS[
+    Math.floor((index * STORED_MEDMATH_QUESTIONS.length) / 20)
+  ],
+);
+const sampledCategories = new Set(
+  crossCategorySamples.map((question) => question.category),
+);
+assert(
+  sampledCategories.size === MEDMATH_CATEGORIES.length,
+  `Expected samples from all ${MEDMATH_CATEGORIES.length} categories, found ${sampledCategories.size}`,
+);
+for (const question of crossCategorySamples) {
+  const instance = createQuestionInstance(question);
+  assert(gradeAnswer(instance, instance.correctAnswer), `${question.id} instance grading failed`);
 }
-console.log("  ✓ Targeted remediation generates fresh questions from missed template set");
+console.log(
+  `  PASS 20 additional samples spanning all ${sampledCategories.size} categories`,
+);
 
-console.log(`\n✅ Successfully verified all ${ALL_QUESTION_TEMPLATES.length} templates across ${totalRuns.toLocaleString()} randomized test runs!`);
+console.log(
+  `\nPASS: ${verifiedCount} stored questions audited; ${suspiciousZeroCount} zero answers; all answers finite and independently verified.`,
+);

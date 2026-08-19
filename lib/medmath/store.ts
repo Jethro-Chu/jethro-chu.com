@@ -1,4 +1,5 @@
 import { buildPublicMedMathData, type DataFilterOptions } from "./public-data.ts";
+import { STORED_MEDMATH_QUESTIONS } from "./question-bank.generated.ts";
 import type { PublicMedMathData, StoredAttemptRecord, StoredSession } from "./types.ts";
 
 const KV_URL =
@@ -13,9 +14,70 @@ const KV_TOKEN =
 const SESSIONS_KEY = "{medmath}:v1:sessions";
 const ATTEMPTS_KEY = "{medmath}:v1:attempts";
 
-// In-memory fallbacks when Upstash Redis is not connected
-const memSessions = new Map<string, StoredSession>();
-const memAttempts = new Map<string, StoredAttemptRecord>();
+// Process-wide fallbacks when Upstash Redis is not connected. Next.js can
+// evaluate route and page bundles as separate module instances, so module-local
+// maps would make a session visible to an API route but invisible to results.
+const medMathGlobal = globalThis as typeof globalThis & {
+  __medMathSessions?: Map<string, StoredSession>;
+  __medMathAttempts?: Map<string, StoredAttemptRecord>;
+};
+const memSessions =
+  medMathGlobal.__medMathSessions ?? new Map<string, StoredSession>();
+const memAttempts =
+  medMathGlobal.__medMathAttempts ?? new Map<string, StoredAttemptRecord>();
+medMathGlobal.__medMathSessions = memSessions;
+medMathGlobal.__medMathAttempts = memAttempts;
+const storedQuestionMap = new Map(
+  STORED_MEDMATH_QUESTIONS.map((question) => [question.id, question]),
+);
+
+function normalizeStoredSession(session: StoredSession): StoredSession {
+  if (!Array.isArray(session.examReview) || session.examReview.length === 0) {
+    return session;
+  }
+
+  const hasBrokenReview = session.examReview.some((item) => {
+    const storedQuestion = storedQuestionMap.get(item.templateId);
+    return (
+      !storedQuestion ||
+      !Number.isFinite(item.correctAnswer) ||
+      item.correctAnswer !== storedQuestion.correctAnswer ||
+      item.answerUnit !== storedQuestion.answerUnit ||
+      item.answerPrecision !== storedQuestion.answerPrecision ||
+      !Array.isArray(item.solutionSteps) ||
+      item.solutionSteps.length === 0
+    );
+  });
+
+  if (!hasBrokenReview) return session;
+
+  return {
+    ...session,
+    examReview: [],
+    isInvalidated: true,
+    invalidationReason:
+      "This result was created while the grading service could not resolve its stored question answers. Retake the exam for a verified score.",
+  };
+}
+
+function removeInvalidSessionsFromAnalytics(
+  attempts: StoredAttemptRecord[],
+  sessions: StoredSession[],
+): { attempts: StoredAttemptRecord[]; sessions: StoredSession[] } {
+  const normalizedSessions = sessions.map(normalizeStoredSession);
+  const invalidSessionIds = new Set(
+    normalizedSessions
+      .filter((session) => session.isInvalidated)
+      .map((session) => session.sessionId),
+  );
+
+  return {
+    sessions: normalizedSessions.filter((session) => !session.isInvalidated),
+    attempts: attempts.filter(
+      (attempt) => !invalidSessionIds.has(attempt.sessionId),
+    ),
+  };
+}
 
 export function hasMedMathStore(): boolean {
   return Boolean(KV_URL && KV_TOKEN);
@@ -75,15 +137,20 @@ export async function saveSession(session: StoredSession): Promise<void> {
 
 export async function getSession(sessionId: string): Promise<StoredSession | null> {
   if (!hasMedMathStore()) {
-    return memSessions.get(sessionId) ?? null;
+    const session = memSessions.get(sessionId);
+    return session ? normalizeStoredSession(session) : null;
   }
   try {
     const result = await redis(["HGET", SESSIONS_KEY, sessionId]);
-    if (!result) return memSessions.get(sessionId) ?? null;
-    return JSON.parse(String(result)) as StoredSession;
+    if (!result) {
+      const session = memSessions.get(sessionId);
+      return session ? normalizeStoredSession(session) : null;
+    }
+    return normalizeStoredSession(JSON.parse(String(result)) as StoredSession);
   } catch (error) {
     console.error("[medmath-store] getSession failed:", error);
-    return memSessions.get(sessionId) ?? null;
+    const session = memSessions.get(sessionId);
+    return session ? normalizeStoredSession(session) : null;
   }
 }
 
@@ -147,7 +214,12 @@ export async function getPublicMedMathData(
     }
   }
 
-  const computed = buildPublicMedMathData(attempts, sessions, filters);
+  const verifiedData = removeInvalidSessionsFromAnalytics(attempts, sessions);
+  const computed = buildPublicMedMathData(
+    verifiedData.attempts,
+    verifiedData.sessions,
+    filters,
+  );
 
   publicDataCache = {
     filterKey,

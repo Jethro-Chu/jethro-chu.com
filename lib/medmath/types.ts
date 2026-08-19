@@ -92,6 +92,20 @@ export interface QuestionTemplate {
   generate: (rng: () => number) => GeneratedQuestionData;
 }
 
+/**
+ * A complete numeric question stored in the production question bank.
+ * Runtime selection and grading consume this object directly; generators are
+ * development-only inputs used to materialize this bank ahead of time.
+ */
+export interface StoredNumericQuestion extends GeneratedQuestionData {
+  id: string;
+  category: MedMathCategory;
+  subtype: string;
+  difficulty: MedMathDifficulty;
+  title: string;
+  clinicalContext?: string;
+}
+
 export interface GeneratedQuestionData {
   scenario: string;
   orderText: string;
@@ -218,6 +232,8 @@ export interface StoredSession {
   weakCategories: MedMathCategory[];
   examMode?: ExamMode;
   examReview?: ExamQuestionReview[];
+  isInvalidated?: boolean;
+  invalidationReason?: string;
 }
 
 export interface StoredAttemptRecord {
