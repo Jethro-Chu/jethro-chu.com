@@ -1,0 +1,834 @@
+.canvasPage,
+.assessmentPage,
+.resultsPage,
+.reviewPage,
+.loadingPanel {
+  --canvas-bg: #f4f6f4;
+  --canvas-surface: #fcfdfc;
+  --canvas-sunk: #ecf0ee;
+  --canvas-ink: #0e1a16;
+  --canvas-muted: #51605a;
+  --canvas-line: #c9d2ce;
+  --canvas-line-strong: #74817b;
+  --canvas-primary: #0b6e59;
+  --canvas-primary-deep: #07533f;
+  --canvas-primary-wash: #e2eee9;
+  --canvas-critical: #b3261e;
+  min-height: 36rem;
+  color: var(--canvas-ink);
+  background: var(--canvas-bg);
+  border: 1px solid var(--canvas-line);
+  font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+}
+
+.canvasPage,
+.resultsPage,
+.reviewPage,
+.loadingPanel {
+  padding: clamp(1.5rem, 5vw, 3.5rem);
+}
+
+.assessmentPage {
+  padding: clamp(1rem, 3vw, 2rem);
+}
+
+.canvasPage h1,
+.canvasPage h2,
+.assessmentPage h1,
+.assessmentPage h2,
+.resultsPage h1,
+.reviewPage h1,
+.loadingPanel h1 {
+  margin: 0;
+  font-family: var(--font-canvas-display), ui-sans-serif, sans-serif;
+  letter-spacing: -0.025em;
+}
+
+.eyebrow,
+.optionNumber,
+.optionMeta,
+.headerFacts,
+.questionCardHeader,
+.clinicalLine span,
+.answerReview dt,
+.resultBanner span,
+.resultBanner strong,
+.questionNavigation button,
+.roundingRule {
+  font-family: var(--font-canvas-mono), ui-monospace, monospace;
+  font-variant-numeric: tabular-nums;
+}
+
+.eyebrow {
+  margin: 0 0 0.7rem;
+  color: var(--canvas-primary-deep);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.landingHeader {
+  max-width: 45rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid var(--canvas-line-strong);
+}
+
+.landingHeader h1 {
+  font-size: clamp(2rem, 6vw, 3.4rem);
+  line-height: 1.05;
+}
+
+.landingHeader > p:last-child,
+.loadingPanel > p {
+  max-width: 42rem;
+  margin: 1rem 0 0;
+  color: var(--canvas-muted);
+  line-height: 1.7;
+}
+
+.optionList {
+  margin-top: 0.5rem;
+}
+
+.optionRow {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 2rem;
+  padding: 2rem 0;
+  border-bottom: 1px solid var(--canvas-line);
+}
+
+.optionNumber {
+  margin: 0 0 0.45rem;
+  color: var(--canvas-primary-deep);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.optionRow h2 {
+  font-size: clamp(1.35rem, 3vw, 1.75rem);
+}
+
+.optionMeta {
+  margin: 0.55rem 0 0;
+  color: var(--canvas-ink);
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.optionDescription {
+  margin: 0.65rem 0 0;
+  color: var(--canvas-muted);
+}
+
+.landingNote {
+  margin: 1.5rem 0 0;
+  color: var(--canvas-muted);
+  font-size: 0.85rem;
+}
+
+.primaryButton,
+.secondaryButton,
+.submitQuizButton {
+  display: inline-flex;
+  min-height: 2.75rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 3px;
+  padding: 0.7rem 1.15rem;
+  font: 700 0.9rem/1.2 Inter, ui-sans-serif, system-ui, sans-serif;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.primaryButton {
+  border: 1px solid var(--canvas-primary);
+  color: white;
+  background: var(--canvas-primary);
+}
+
+.primaryButton:hover {
+  border-color: var(--canvas-primary-deep);
+  background: var(--canvas-primary-deep);
+}
+
+.secondaryButton {
+  border: 1px solid var(--canvas-line-strong);
+  color: var(--canvas-ink);
+  background: var(--canvas-surface);
+}
+
+.secondaryButton:hover {
+  background: var(--canvas-sunk);
+}
+
+.submitQuizButton {
+  border: 1px solid var(--canvas-critical);
+  color: white;
+  background: var(--canvas-critical);
+}
+
+.primaryButton:disabled,
+.secondaryButton:disabled,
+.submitQuizButton:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.assessmentHeader {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 2rem;
+  margin-bottom: 1.25rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid var(--canvas-line-strong);
+}
+
+.assessmentHeader h1 {
+  font-size: clamp(1.65rem, 4vw, 2.35rem);
+  line-height: 1.1;
+}
+
+.headerFacts {
+  display: grid;
+  gap: 0.2rem;
+  min-width: 14rem;
+  color: var(--canvas-muted);
+  font-size: 0.72rem;
+  text-align: right;
+}
+
+.headerFacts strong {
+  color: var(--canvas-ink);
+}
+
+.assessmentGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 15rem;
+  align-items: start;
+  gap: 1.5rem;
+}
+
+.questionColumn {
+  min-width: 0;
+}
+
+.questionCard {
+  overflow: hidden;
+  border: 1px solid var(--canvas-line-strong);
+  background: var(--canvas-surface);
+}
+
+.questionCardHeader {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.85rem 1rem;
+  border-bottom: 1px solid var(--canvas-line);
+  background: var(--canvas-sunk);
+  font-size: 0.78rem;
+}
+
+.questionBody {
+  padding: clamp(1.25rem, 4vw, 2rem);
+}
+
+.questionStem > p {
+  margin: 0 0 1.25rem;
+  font-size: 1.05rem;
+  line-height: 1.7;
+}
+
+.questionStem h2 {
+  margin: 1.75rem 0 0;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--canvas-line);
+  font-size: clamp(1.15rem, 3vw, 1.4rem);
+  line-height: 1.45;
+}
+
+.clinicalLine {
+  display: grid;
+  grid-template-columns: 6.5rem minmax(0, 1fr);
+  gap: 0.75rem;
+  padding: 0.85rem 0;
+  border-top: 1px solid var(--canvas-line);
+}
+
+.clinicalLine span {
+  color: var(--canvas-muted);
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.clinicalLine strong {
+  font-size: 0.95rem;
+  line-height: 1.55;
+}
+
+.answerBlock {
+  margin-top: 1.75rem;
+}
+
+.answerBlock label {
+  display: block;
+  margin-bottom: 0.65rem;
+  font-weight: 700;
+}
+
+.inputRow {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.inputRow input {
+  width: min(100%, 16rem);
+  min-height: 3rem;
+  border: 1px solid var(--canvas-line-strong);
+  border-radius: 3px;
+  padding: 0.65rem 0.8rem;
+  color: var(--canvas-ink);
+  background: white;
+  font-family: var(--font-canvas-mono), ui-monospace, monospace;
+  font-size: 1rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.inputRow input:disabled {
+  color: var(--canvas-muted);
+  background: var(--canvas-sunk);
+}
+
+.inputRow span {
+  color: var(--canvas-muted);
+  font-family: var(--font-canvas-mono), ui-monospace, monospace;
+  font-size: 0.82rem;
+}
+
+.roundingRule {
+  margin: 0.65rem 0 0;
+  color: var(--canvas-muted);
+  font-size: 0.72rem;
+}
+
+.answerBlock + .primaryButton {
+  margin-top: 1.25rem;
+}
+
+.questionActions {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.questionActions:has(> :only-child) {
+  justify-content: flex-end;
+}
+
+.submitQuizLink {
+  display: block;
+  margin: 1.25rem 0 0 auto;
+  border: 0;
+  color: var(--canvas-critical);
+  background: transparent;
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+
+.desktopNavigation {
+  position: sticky;
+  top: 5.5rem;
+  border: 1px solid var(--canvas-line-strong);
+  padding: 1rem;
+  background: var(--canvas-surface);
+}
+
+.desktopNavigation h2 {
+  margin-bottom: 0.9rem;
+  font-size: 1rem;
+  letter-spacing: 0;
+}
+
+.desktopNavigation > p {
+  margin: 1rem 0 0;
+  color: var(--canvas-muted);
+  font-size: 0.8rem;
+}
+
+.questionNavigation {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 0.4rem;
+}
+
+.questionNavigation button {
+  aspect-ratio: 1;
+  min-width: 0;
+  border: 1px solid var(--canvas-line-strong);
+  border-radius: 2px;
+  color: var(--canvas-ink);
+  background: white;
+  font-size: 0.72rem;
+  cursor: pointer;
+}
+
+.questionNavigation button:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.questionNavigation .navAnswered {
+  border-color: var(--canvas-primary);
+  background: var(--canvas-primary-wash);
+}
+
+.questionNavigation .navCurrent {
+  border: 2px solid var(--canvas-primary-deep);
+  color: white;
+  background: var(--canvas-primary);
+}
+
+.navigationLegend {
+  display: grid;
+  gap: 0.35rem;
+  margin-top: 1rem;
+  padding-top: 0.8rem;
+  border-top: 1px solid var(--canvas-line);
+  color: var(--canvas-muted);
+  font-size: 0.72rem;
+}
+
+.navigationLegend span {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.navigationLegend i {
+  display: block;
+  width: 0.75rem;
+  height: 0.75rem;
+  border: 1px solid var(--canvas-line-strong);
+}
+
+.legendCurrent {
+  border-color: var(--canvas-primary-deep) !important;
+  background: var(--canvas-primary) !important;
+}
+
+.legendAnswered {
+  border-color: var(--canvas-primary) !important;
+  background: var(--canvas-primary-wash) !important;
+}
+
+.legendUnanswered {
+  background: white;
+}
+
+.mobileNavigation {
+  display: none;
+}
+
+.feedbackPanel {
+  margin-top: 1.5rem;
+  border: 1px solid var(--canvas-line-strong);
+  padding: 1.25rem;
+}
+
+.feedbackPanel h2 {
+  font-size: 1.35rem;
+}
+
+.feedbackPanel > p {
+  margin: 0.65rem 0 0;
+  font-weight: 700;
+}
+
+.correctPanel {
+  border-left: 5px solid var(--canvas-primary);
+  background: var(--canvas-primary-wash);
+}
+
+.incorrectPanel {
+  border-left: 5px solid var(--canvas-critical);
+  background: #fff7f6;
+}
+
+.solution {
+  display: grid;
+  gap: 0.8rem;
+  margin-top: 1rem;
+}
+
+.solution > div {
+  border-top: 1px solid var(--canvas-line);
+  padding-top: 0.8rem;
+}
+
+.solution h3,
+.solution p {
+  margin: 0;
+}
+
+.solution h3 {
+  font: 700 0.9rem/1.4 Inter, ui-sans-serif, system-ui, sans-serif;
+}
+
+.solution p {
+  margin-top: 0.35rem;
+  color: var(--canvas-muted);
+  font-size: 0.88rem;
+  line-height: 1.55;
+}
+
+.solution .formula,
+.solution .calculation,
+.solution .solutionResult {
+  color: var(--canvas-ink);
+  font-family: var(--font-canvas-mono), ui-monospace, monospace;
+  font-size: 0.78rem;
+}
+
+.modalBackdrop {
+  position: fixed;
+  z-index: 100;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+  background: rgb(14 26 22 / 58%);
+}
+
+.confirmationDialog {
+  width: min(100%, 31rem);
+  border: 1px solid var(--canvas-line-strong);
+  padding: 1.5rem;
+  background: var(--canvas-surface);
+  box-shadow: 0 18px 50px rgb(14 26 22 / 18%);
+}
+
+.confirmationDialog h2 {
+  font-size: 1.35rem;
+  line-height: 1.25;
+}
+
+.confirmationDialog p {
+  margin: 0.8rem 0 0;
+  color: var(--canvas-muted);
+  line-height: 1.6;
+}
+
+.dialogActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+
+.errorMessage {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin: 0 0 1rem;
+  border: 1px solid var(--canvas-critical);
+  padding: 0.85rem 1rem;
+  color: var(--canvas-critical);
+  background: #fff7f6;
+  font-weight: 700;
+}
+
+.errorMessage button {
+  flex: none;
+  border: 1px solid currentColor;
+  padding: 0.4rem 0.65rem;
+  color: inherit;
+  background: white;
+  font-weight: 700;
+}
+
+.loadingPanel h1 {
+  font-size: clamp(1.7rem, 4vw, 2.4rem);
+}
+
+.resultsPage,
+.reviewPage {
+  min-height: 38rem;
+}
+
+.resultsPage > h1 {
+  font-size: clamp(2.75rem, 9vw, 5rem);
+  line-height: 1;
+}
+
+.resultBanner {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin-top: 2rem;
+  border: 1px solid var(--canvas-line-strong);
+}
+
+.resultBanner > div {
+  display: grid;
+  gap: 0.3rem;
+  padding: 1.25rem;
+  border-right: 1px solid var(--canvas-line);
+}
+
+.resultBanner > div:last-child {
+  border-right: 0;
+}
+
+.resultBanner span {
+  color: var(--canvas-muted);
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.resultBanner strong {
+  font-size: clamp(1.25rem, 4vw, 2rem);
+}
+
+.passBanner {
+  border-top: 8px solid var(--canvas-primary);
+  background: var(--canvas-primary-wash);
+}
+
+.failBanner {
+  border-top: 8px solid var(--canvas-critical);
+  background: #fff7f6;
+}
+
+.practiceBanner {
+  border-top: 8px solid var(--canvas-primary-deep);
+  background: var(--canvas-surface);
+}
+
+.resultCopy {
+  max-width: 42rem;
+  margin: 1.5rem 0 0;
+  color: var(--canvas-muted);
+  font-weight: 600;
+  line-height: 1.7;
+}
+
+.resultCopy p {
+  margin: 0.35rem 0 0;
+}
+
+.resultActions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 2rem;
+}
+
+.textLink {
+  color: var(--canvas-primary-deep);
+  font-weight: 700;
+  text-underline-offset: 3px;
+}
+
+.reviewHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--canvas-line-strong);
+}
+
+.reviewHeader h1 {
+  font-size: clamp(1.8rem, 5vw, 2.8rem);
+}
+
+.reviewList {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.reviewCard {
+  border: 1px solid var(--canvas-line-strong);
+  padding: clamp(1.25rem, 4vw, 2rem);
+  background: var(--canvas-surface);
+}
+
+.reviewCard > header {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  padding-bottom: 0.8rem;
+  border-bottom: 1px solid var(--canvas-line);
+  font-family: var(--font-canvas-mono), ui-monospace, monospace;
+  font-size: 0.8rem;
+}
+
+.correctText {
+  color: var(--canvas-primary-deep);
+}
+
+.incorrectText {
+  color: var(--canvas-critical);
+}
+
+.answerReview {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  margin: 1.5rem 0 0;
+}
+
+.answerReview > div {
+  border: 1px solid var(--canvas-line);
+  padding: 0.85rem;
+}
+
+.answerReview dt {
+  color: var(--canvas-muted);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+}
+
+.answerReview dd {
+  margin: 0.3rem 0 0;
+  font-weight: 700;
+}
+
+.emptyReview {
+  border: 1px solid var(--canvas-line-strong);
+  padding: 2rem;
+  background: var(--canvas-primary-wash);
+}
+
+@media (max-width: 760px) {
+  .optionRow {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  .optionRow .primaryButton,
+  .optionRow .secondaryButton {
+    width: 100%;
+  }
+
+  .assessmentHeader {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .headerFacts {
+    min-width: 0;
+    text-align: left;
+  }
+
+  .assessmentGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .desktopNavigation {
+    display: none;
+  }
+
+  .mobileNavigation {
+    display: block;
+    margin-bottom: 1rem;
+    border: 1px solid var(--canvas-line-strong);
+    background: var(--canvas-surface);
+  }
+
+  .mobileNavigation summary {
+    padding: 0.85rem 1rem;
+    font-weight: 700;
+    cursor: pointer;
+  }
+
+  .mobileNavigation .questionNavigation {
+    padding: 0 1rem 1rem;
+  }
+
+  .questionNavigation button {
+    min-height: 2.65rem;
+    aspect-ratio: auto;
+  }
+
+  .clinicalLine {
+    grid-template-columns: 1fr;
+    gap: 0.25rem;
+  }
+
+  .questionActions > button {
+    min-width: 7rem;
+  }
+
+  .resultBanner {
+    grid-template-columns: 1fr;
+  }
+
+  .resultBanner > div {
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    border-right: 0;
+    border-bottom: 1px solid var(--canvas-line);
+  }
+
+  .resultBanner > div:last-child {
+    border-bottom: 0;
+  }
+
+  .reviewHeader,
+  .dialogActions,
+  .errorMessage {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .answerReview {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 420px) {
+  .canvasPage,
+  .assessmentPage,
+  .resultsPage,
+  .reviewPage,
+  .loadingPanel {
+    margin-inline: -0.5rem;
+  }
+
+  .inputRow {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .inputRow input {
+    width: 100%;
+  }
+
+  .questionActions {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .questionActions > :only-child {
+    grid-column: 1 / -1;
+  }
+
+  .resultActions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+}

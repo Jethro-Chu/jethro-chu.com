@@ -1,5 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
-import { generateRandomQuestion, generateExamQuestionSet } from "@/lib/medmath/engine";
+import {
+  generateCanvasMedMathExam,
+  generateRandomQuestion,
+  generateExamQuestionSet,
+} from "@/lib/medmath/engine";
 import type { MedMathCategory, PracticeDifficultySelection } from "@/lib/medmath/types";
 
 export const dynamic = "force-dynamic";
@@ -12,9 +16,19 @@ export async function POST(req: NextRequest) {
       templateIds?: string[];
       excludeTemplateIds?: string[];
       isExam?: boolean;
+      canvasExam?: boolean;
       examMode?: "nursing-med-math" | "critical-care" | "custom";
       examCount?: number;
     };
+
+    if (body.canvasExam) {
+      const { clientViews } = generateCanvasMedMathExam();
+
+      return NextResponse.json({
+        questions: clientViews,
+        count: clientViews.length,
+      });
+    }
 
     if (body.isExam) {
       const examCount = Math.min(Math.max(body.examCount ?? 20, 5), 50);

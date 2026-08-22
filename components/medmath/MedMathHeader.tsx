@@ -9,6 +9,7 @@ export function MedMathHeader() {
   const isPractice = pathname === "/medmath/practice";
   const isExam = pathname.startsWith("/medmath/exam");
   const isData = pathname === "/medmath/data";
+  const isCanvas = pathname.startsWith("/medmath/canvas");
 
   return (
     <header className="sticky top-0 z-40 w-full border-b border-[var(--color-line)] bg-[var(--color-sand)]/95 backdrop-blur-md transition-colors">
@@ -30,7 +31,9 @@ export function MedMathHeader() {
           </div>
         </Link>
 
-        <nav className="flex items-center gap-1.5 sm:gap-2.5">
+        <nav
+          className={`${isCanvas ? "hidden sm:flex" : "flex"} items-center gap-1.5 sm:gap-2.5`}
+        >
           <Link
             href="/medmath/practice"
             className={`rounded-sm px-3.5 py-1.5 text-sm font-medium transition-colors ${

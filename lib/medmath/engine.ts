@@ -293,6 +293,138 @@ export function generateNursingMedMathExam({
 }
 
 /**
+ * Canvas competency/practice blueprint.
+ *
+ * This intentionally uses a narrower adult nursing-school pool than the main
+ * MedMath exam. It excludes ICU, titratable infusion, pediatric, and advanced
+ * insulin material while keeping a fixed, balanced 30-question distribution.
+ */
+export function generateCanvasMedMathExam({
+  rng = Math.random,
+}: {
+  rng?: () => number;
+} = {}): { instances: QuestionInstance[]; clientViews: QuestionClientView[] } {
+  const conversionSubtypes = new Set([
+    "g-to-mg",
+    "mg-to-g",
+    "mg-to-mcg",
+    "mcg-to-mg",
+    "l-to-ml",
+    "ml-to-l",
+    "lb-to-kg",
+    "kg-to-lb",
+    "hours-to-mins",
+    "mins-to-hours",
+    "household-to-metric",
+  ]);
+  const basicInsulinIds = new Set([
+    "insulin-sliding-scale-only",
+    "insulin-scheduled-plus-correction",
+    "insulin-carb-ratio-coverage",
+    "insulin-basal-glargine",
+    "insulin-nph-regular-mix",
+    "insulin-carb-ratio-snack",
+    "insulin-carb-ratio-dinner",
+    "insulin-sliding-scale-moderate",
+    "insulin-correction-target-difference",
+  ]);
+  const blockedClinicalLanguage =
+    /\b(ICU|critical care|vasopressor|titration|DKA|intubat|sedation|mcg\/kg\/min)\b/i;
+
+  const isRegularQuestion = (question: StoredNumericQuestion) => {
+    if (
+      question.difficulty === "advanced" ||
+      question.difficulty === "critical-care"
+    ) {
+      return false;
+    }
+
+    const searchableText = [
+      question.title,
+      question.clinicalContext,
+      question.scenario,
+      question.orderText,
+      question.availableText,
+      question.prompt,
+    ]
+      .filter(Boolean)
+      .join(" ");
+
+    return !blockedClinicalLanguage.test(searchableText);
+  };
+
+  const blueprint: Array<{
+    category: MedMathCategory;
+    count: number;
+    include?: (question: StoredNumericQuestion) => boolean;
+  }> = [
+    {
+      category: "conversions",
+      count: 5,
+      include: (question) => conversionSubtypes.has(question.subtype),
+    },
+    { category: "basic-dosage", count: 7 },
+    { category: "iv-pump", count: 5 },
+    { category: "gravity-drips", count: 4 },
+    { category: "infusion-time", count: 3 },
+    {
+      category: "insulin",
+      count: 3,
+      include: (question) => basicInsulinIds.has(question.id),
+    },
+    { category: "reconstitution", count: 3 },
+  ];
+
+  const selectedQuestions: StoredNumericQuestion[] = [];
+
+  for (const item of blueprint) {
+    const candidates = STORED_MEDMATH_QUESTIONS.filter(
+      (question) =>
+        question.category === item.category &&
+        isRegularQuestion(question) &&
+        (item.include?.(question) ?? true),
+    );
+
+    if (candidates.length < item.count) {
+      throw new Error(
+        `Canvas exam pool for ${item.category} has ${candidates.length} questions; ${item.count} required`,
+      );
+    }
+
+    for (let index = candidates.length - 1; index > 0; index -= 1) {
+      const swapIndex = Math.floor(rng() * (index + 1));
+      [candidates[index], candidates[swapIndex]] = [
+        candidates[swapIndex],
+        candidates[index],
+      ];
+    }
+
+    selectedQuestions.push(...candidates.slice(0, item.count));
+  }
+
+  for (let index = selectedQuestions.length - 1; index > 0; index -= 1) {
+    const swapIndex = Math.floor(rng() * (index + 1));
+    [selectedQuestions[index], selectedQuestions[swapIndex]] = [
+      selectedQuestions[swapIndex],
+      selectedQuestions[index],
+    ];
+  }
+
+  if (
+    selectedQuestions.length !== 30 ||
+    new Set(selectedQuestions.map((question) => question.id)).size !== 30
+  ) {
+    throw new Error("Canvas exam generation must produce 30 unique questions");
+  }
+
+  const instances = selectedQuestions.map((question) =>
+    createQuestionInstance(question),
+  );
+
+  return { instances, clientViews: instances.map(toClientView) };
+}
+
+/**
  * Critical Care Exam generator.
  * Dedicated simulation exam focusing on high-acuity adult critical care calculations (vasoactive infusions,
  * multi-step ICU titrations, weight-based drips, insulin protocols, and heparin adjustments).
