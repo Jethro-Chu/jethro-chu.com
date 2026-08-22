@@ -451,78 +451,107 @@ export function CanvasAssessment({ mode }: { mode: AssessmentMode }) {
 
   if (stage === "results") {
     const isPass = mode === "competency" && isCanvasCompetencyPass(correctCount);
+    const assessmentTitle =
+      mode === "competency"
+        ? "Med Math Competency Exam"
+        : "Med Math Practice Exam";
+    const resultLabel =
+      mode === "competency" ? (isPass ? "PASS" : "FAIL") : "Complete";
     return (
       <div className={styles.resultsPage}>
-        <p className={styles.eyebrow}>
-          {mode === "competency" ? "Quiz Results" : "Practice Complete"}
-        </p>
-        <h1>
-          {mode === "competency"
-            ? isPass
-              ? "PASS"
-              : "FAIL"
-            : "Practice Complete"}
-        </h1>
+        <div className={styles.resultsGrid}>
+          <section className={styles.resultsMain} aria-labelledby="results-title">
+            <h1 id="results-title">{assessmentTitle}</h1>
+            <div
+              className={`${styles.resultStatus} ${
+                mode === "competency"
+                  ? isPass
+                    ? styles.passBanner
+                    : styles.failBanner
+                  : styles.practiceBanner
+              }`}
+            >
+              <strong>{resultLabel}</strong>
+              <span>
+                {correctCount} / 30 · {percentage(correctCount)}
+              </span>
+            </div>
 
-        <div
-          className={`${styles.resultBanner} ${
-            mode === "competency"
-              ? isPass
-                ? styles.passBanner
-                : styles.failBanner
-              : styles.practiceBanner
-          }`}
-        >
-          <div>
-            <span>Attempt Score</span>
-            <strong>{correctCount} / 30</strong>
-          </div>
-          <div>
-            <span>Percentage</span>
-            <strong>{percentage(correctCount)}</strong>
-          </div>
-          <div>
-            <span>{mode === "competency" ? "Result" : "Incorrect"}</span>
-            <strong>
-              {mode === "competency" ? (isPass ? "PASS" : "FAIL") : incorrectCount}
-            </strong>
-          </div>
-        </div>
+            <h2>Instructions</h2>
+            {mode === "competency" ? (
+              <div className={styles.resultCopy}>
+                <p>This assessment requires a score of 100% to pass.</p>
+                <p>
+                  {isPass
+                    ? "Congratulations. You passed the Med Math Competency Exam."
+                    : "A score of 100% is required to pass this exam."}
+                </p>
+              </div>
+            ) : (
+              <p className={styles.resultCopy}>
+                {correctCount} correct · {incorrectCount} incorrect
+              </p>
+            )}
 
-        {mode === "competency" ? (
-          <div className={styles.resultCopy}>
-            <p>This assessment requires a score of 100% to pass.</p>
-            <p>
-              {isPass
-                ? "Congratulations. You passed the Med Math Competency Exam."
-                : "A score of 100% is required to pass this exam."}
-            </p>
-          </div>
-        ) : (
-          <p className={styles.resultCopy}>
-            {correctCount} correct · {incorrectCount} incorrect
-          </p>
-        )}
+            <div className={styles.resultActions}>
+              <button
+                type="button"
+                className={styles.primaryButton}
+                onClick={() => setStage("review")}
+              >
+                {mode === "competency"
+                  ? "Review Questions"
+                  : "Review Missed Questions"}
+              </button>
+            </div>
 
-        <div className={styles.resultActions}>
-          <button
-            type="button"
-            className={styles.primaryButton}
-            onClick={() => setStage("review")}
-          >
-            {mode === "competency" ? "Review Questions" : "Review Missed Questions"}
-          </button>
-          <button
-            type="button"
-            className={styles.secondaryButton}
-            onClick={resetAssessment}
-            disabled={isSubmitting}
-          >
-            {mode === "competency" ? "Retake Exam" : "Start Another Practice Exam"}
-          </button>
-          <Link className={styles.textLink} href="/medmath/canvas">
-            Return to testing modes
-          </Link>
+            <h2 className={styles.attemptHistoryTitle}>Attempt History</h2>
+            <div className={styles.attemptTable} role="table" aria-label="Attempt history">
+              <div role="row" className={styles.attemptTableHeader}>
+                <span role="columnheader">Attempt</span>
+                <span role="columnheader">Score</span>
+                <span role="columnheader">Result</span>
+              </div>
+              <div role="row">
+                <span role="cell">Attempt 1</span>
+                <span role="cell">{correctCount} out of 30</span>
+                <strong role="cell">{resultLabel}</strong>
+              </div>
+            </div>
+          </section>
+
+          <aside className={styles.attemptDetails} aria-label="Last Attempt Details">
+            <h2>Last Attempt Details:</h2>
+            <dl>
+              <div>
+                <dt>Questions:</dt>
+                <dd>30</dd>
+              </div>
+              <div>
+                <dt>Current Score:</dt>
+                <dd>{correctCount} out of 30</dd>
+              </div>
+              <div>
+                <dt>Percentage:</dt>
+                <dd>{percentage(correctCount)}</dd>
+              </div>
+              <div>
+                <dt>Result:</dt>
+                <dd>{resultLabel}</dd>
+              </div>
+            </dl>
+            <button
+              type="button"
+              className={styles.textButton}
+              onClick={resetAssessment}
+              disabled={isSubmitting}
+            >
+              {mode === "competency" ? "Take the Quiz Again" : "Start Another Practice Exam"}
+            </button>
+            <Link className={styles.textLink} href="/medmath/canvas">
+              Return to testing modes
+            </Link>
+          </aside>
         </div>
       </div>
     );
@@ -603,26 +632,22 @@ export function CanvasAssessment({ mode }: { mode: AssessmentMode }) {
   return (
     <div className={styles.assessmentPage}>
       <header className={styles.assessmentHeader}>
-        <div>
-          <p className={styles.eyebrow}>Quiz Instructions</p>
-          <h1>
-            {mode === "competency"
-              ? "Med Math Competency Exam"
-              : "Med Math Practice Exam"}
-          </h1>
-        </div>
-        <div className={styles.headerFacts} aria-label="Assessment information">
-          <span>30 Questions</span>
-          <span>
-            {mode === "competency"
-              ? "Passing Score: 100%"
-              : "Immediate Feedback Enabled"}
-          </span>
-          <strong>Question {currentIndex + 1} of 30</strong>
-          {mode === "practice" && (
-            <span>{correctCount} Correct · {incorrectCount} Incorrect</span>
-          )}
-        </div>
+        <h1>
+          {mode === "competency"
+            ? "Med Math Competency Exam"
+            : "Med Math Practice Exam"}
+        </h1>
+        <p className={styles.attemptLabel}>Attempt 1</p>
+        <h2>Quiz Instructions</h2>
+        <p className={styles.instructionsCopy}>
+          {mode === "competency"
+            ? "Complete all 30 questions. A score of 100% is required to pass. Results and explanations are shown after you submit the quiz."
+            : "Complete 30 nursing medication-math questions. Submit each answer to receive immediate feedback and a worked calculation."}
+        </p>
+        <p className={styles.quizSummary}>
+          30 Questions · {mode === "competency" ? "100% Required" : "Immediate Feedback"}
+          {mode === "practice" && ` · ${correctCount} Correct · ${incorrectCount} Incorrect`}
+        </p>
       </header>
 
       {error && (
@@ -641,9 +666,10 @@ export function CanvasAssessment({ mode }: { mode: AssessmentMode }) {
       />
 
       <div className={styles.assessmentGrid}>
-        <main className={styles.questionColumn}>
+        <section className={styles.questionColumn} aria-label="Quiz questions">
           <article className={styles.questionCard}>
             <header className={styles.questionCardHeader}>
+              <span className={styles.questionFlag} aria-hidden="true" />
               <strong>Question {currentIndex + 1}</strong>
               <span>1 pts</span>
             </header>
@@ -728,24 +754,14 @@ export function CanvasAssessment({ mode }: { mode: AssessmentMode }) {
                 >
                   Previous
                 </button>
-                {currentIndex < 29 ? (
-                  <button
-                    type="button"
-                    className={styles.primaryButton}
-                    onClick={() => setCurrentIndex((value) => Math.min(29, value + 1))}
-                  >
-                    Next
-                  </button>
-                ) : (
-                  <button
-                    type="button"
-                    className={styles.submitQuizButton}
-                    onClick={() => setShowConfirmation(true)}
-                    disabled={isSubmitting}
-                  >
-                    Submit Quiz
-                  </button>
-                )}
+                <button
+                  type="button"
+                  className={styles.secondaryButton}
+                  onClick={() => setCurrentIndex((value) => Math.min(29, value + 1))}
+                  disabled={currentIndex === 29}
+                >
+                  Next
+                </button>
               </>
             ) : currentFeedback ? (
               <button
@@ -765,20 +781,23 @@ export function CanvasAssessment({ mode }: { mode: AssessmentMode }) {
             ) : null}
           </div>
 
-          {mode === "competency" && currentIndex < 29 && (
-            <button
-              type="button"
-              className={styles.submitQuizLink}
-              onClick={() => setShowConfirmation(true)}
-              disabled={isSubmitting}
-            >
-              Submit Quiz
-            </button>
+          {mode === "competency" && (
+            <div className={styles.submissionBar}>
+              <span>Quiz saved automatically</span>
+              <button
+                type="button"
+                className={styles.submitQuizButton}
+                onClick={() => setShowConfirmation(true)}
+                disabled={isSubmitting}
+              >
+                Submit Quiz
+              </button>
+            </div>
           )}
-        </main>
+        </section>
 
         <aside className={styles.desktopNavigation} aria-label="Quiz Navigation">
-          <h2>Quiz Navigation</h2>
+          <h2>Questions</h2>
           <QuestionNavigation
             mode={mode}
             questions={questions}
@@ -787,14 +806,12 @@ export function CanvasAssessment({ mode }: { mode: AssessmentMode }) {
             currentIndex={currentIndex}
             onSelect={setCurrentIndex}
           />
-          <div className={styles.navigationLegend}>
-            <span><i className={styles.legendCurrent} />Current</span>
-            <span><i className={styles.legendAnswered} />Answered</span>
-            <span><i className={styles.legendUnanswered} />Unanswered</span>
+          <div className={styles.sidebarAttemptDetails}>
+            <strong>Attempt 1</strong>
+            <span>{answeredCount} of 30 answered</span>
+            <span>Time Elapsed: Untimed</span>
+            <span>Question {currentIndex + 1} of 30</span>
           </div>
-          {mode === "competency" && (
-            <p>{answeredCount} of 30 answered</p>
-          )}
         </aside>
       </div>
 
@@ -806,11 +823,13 @@ export function CanvasAssessment({ mode }: { mode: AssessmentMode }) {
             aria-modal="true"
             aria-labelledby="confirmation-title"
           >
-            <h2 id="confirmation-title">Are you sure you want to submit this quiz?</h2>
+            <header>
+              <h2 id="confirmation-title">Submit Quiz</h2>
+            </header>
             <p>
               {unansweredCount > 0
                 ? `You have ${unansweredCount} unanswered question${unansweredCount === 1 ? "" : "s"}. Unanswered responses will be scored as incorrect.`
-                : "All 30 questions have an answer."}
+                : "Are you sure you want to submit this quiz?"}
             </p>
             <div className={styles.dialogActions}>
               <button
@@ -874,7 +893,10 @@ function QuestionNavigation({
             onClick={() => onSelect(index)}
             disabled={!isAvailable}
           >
-            {index + 1}
+            <span className={styles.navStatus} aria-hidden="true">
+              {isAnswered ? "✓" : "?"}
+            </span>
+            <span>Question {index + 1}</span>
           </button>
         );
       })}
@@ -885,7 +907,7 @@ function QuestionNavigation({
 function MobileNavigation(props: Parameters<typeof QuestionNavigation>[0]) {
   return (
     <details className={styles.mobileNavigation}>
-      <summary>Quiz Navigation</summary>
+      <summary>Questions</summary>
       <QuestionNavigation {...props} />
     </details>
   );
