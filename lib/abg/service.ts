@@ -1,5 +1,5 @@
 import { randomUUID } from "node:crypto";
-import { generateABGQuestion, generateABGSet } from "./generator.ts";
+import { generateABGSet } from "./generator.ts";
 import { interpretABG } from "./engine.ts";
 import { applyRatingChange, calculateRatingChange } from "./rating.ts";
 import {
@@ -87,27 +87,18 @@ function shuffle<T>(values: T[]): T[] {
 export async function startSession(
   playerId: string,
   mode: ABGMode,
-  options: { difficulty?: "beginner" | "intermediate" | "all"; category?: "respiratory" | "metabolic" | "compensation" | "all" } = {},
 ): Promise<{ session: ABGSession; question: PublicABGQuestion }> {
   const player = await getPlayer(playerId);
   if (!player) throw new Error("Player not found.");
-  let questions: ABGQuestion[];
-  if (mode === "ranked") {
-    questions = shuffle([
-      ...generateABGSet(9, { difficulty: "beginner" }),
-      ...generateABGSet(11, { difficulty: "intermediate" }),
-    ]);
-  } else if (mode === "practice") {
-    questions = generateABGSet(20, { difficulty: options.difficulty ?? "all", category: options.category ?? "all" });
-  } else {
-    questions = [generateABGQuestion({ survivalLevel: 0 })];
-  }
+  const questions: ABGQuestion[] = shuffle([
+    ...generateABGSet(4, { difficulty: "beginner" }),
+    ...generateABGSet(6, { difficulty: "intermediate" }),
+  ]);
   const now = new Date().toISOString();
   const session: ABGSession = {
     id: randomUUID(), playerId, mode, questions, currentIndex: 0, correct: 0, incorrect: 0,
     currentStreak: 0, bestStreak: 0, totalResponseTimeMs: 0, startingRating: player.rating,
-    endingRating: player.rating, completed: false, practiceDifficulty: options.difficulty,
-    practiceCategory: options.category, startedAt: now, updatedAt: now,
+    endingRating: player.rating, completed: false, startedAt: now, updatedAt: now,
   };
   player.activeSessionId = session.id;
   player.updatedAt = now;
@@ -125,7 +116,7 @@ export function publicQuestion(session: ABGSession): PublicABGQuestion {
     hco3: question.hco3,
     difficulty: question.difficulty,
     number: session.currentIndex + 1,
-    total: session.mode === "survival" ? null : session.questions.length,
+    total: session.questions.length,
   };
 }
 
@@ -150,10 +141,8 @@ export async function submitAnswer(playerId: string, sessionId: string, question
   const correct = answer.disorder === question.disorder && answer.compensation === question.compensation;
   const interpretation = interpretABG(question);
   const ratingBefore = player.rating;
-  const ratingChange = session.mode === "ranked"
-    ? calculateRatingChange(player.rating, question.difficultyRating, correct)
-    : 0;
-  if (session.mode === "ranked") player.rating = applyRatingChange(player.rating, ratingChange);
+  const ratingChange = calculateRatingChange(player.rating, question.difficultyRating, correct);
+  player.rating = applyRatingChange(player.rating, ratingChange);
 
   session.correct += correct ? 1 : 0;
   session.incorrect += correct ? 0 : 1;
@@ -167,27 +156,20 @@ export async function submitAnswer(playerId: string, sessionId: string, question
   player.totalResponseTimeMs += responseTimeMs;
   player.currentStreak = correct ? player.currentStreak + 1 : 0;
   player.bestStreak = Math.max(player.bestStreak, player.currentStreak);
-  if (session.mode === "ranked") {
-    player.rankedQuestionsAnswered += 1;
-    player.rankedQuestionsCorrect += correct ? 1 : 0;
-    player.ratingHistory = [...player.ratingHistory, { rating: player.rating, at: new Date(nowMs).toISOString() }].slice(-60);
-  }
-  if (session.mode === "practice") player.practiceQuestionsCompleted += 1;
+  player.rankedQuestionsAnswered += 1;
+  player.rankedQuestionsCorrect += correct ? 1 : 0;
+  player.ratingHistory = [...player.ratingHistory, { rating: player.rating, at: new Date(nowMs).toISOString() }].slice(-60);
   updateStat(player, question.category, correct);
   if (question.compensation !== "Uncompensated" && question.disorder !== "Normal") updateStat(player, "compensation", correct);
   if (question.compensation === "Fully Compensated") updateStat(player, "full-compensation", correct);
 
-  const isSurvivalFailure = session.mode === "survival" && !correct;
-  const reachedEnd = session.mode !== "survival" && session.currentIndex + 1 >= session.questions.length;
-  session.completed = isSurvivalFailure || reachedEnd;
+  session.completed = session.currentIndex + 1 >= session.questions.length;
   if (session.completed) {
     session.completedAt = new Date(nowMs).toISOString();
     player.activeSessionId = undefined;
-    if (session.mode === "ranked") player.rankedGamesCompleted += 1;
-    if (session.mode === "survival") player.survivalBest = Math.max(player.survivalBest, session.correct);
+    player.rankedGamesCompleted += 1;
   } else {
     session.currentIndex += 1;
-    if (session.mode === "survival") session.questions.push(generateABGQuestion({ survivalLevel: session.correct }));
   }
   session.updatedAt = new Date(nowMs).toISOString();
   player.updatedAt = session.updatedAt;
@@ -210,7 +192,7 @@ export async function submitAnswer(playerId: string, sessionId: string, question
       createdAt: session.updatedAt,
     }),
   ]);
-  const rank = await getRank(player.id, session.mode === "survival" ? "survival" : "rating");
+  const rank = await getRank(player.id, "rating");
 
   return {
     correct,
@@ -234,7 +216,7 @@ export function sessionSummary(session: ABGSession, rank: number | null = null) 
     correct: session.correct,
     incorrect: session.incorrect,
     answered,
-    total: session.mode === "survival" ? null : session.questions.length,
+    total: session.questions.length,
     accuracy: answered ? session.correct / answered : 0,
     currentStreak: session.currentStreak,
     bestStreak: session.bestStreak,

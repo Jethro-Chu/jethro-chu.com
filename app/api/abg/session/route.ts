@@ -10,13 +10,9 @@ export async function POST(request: NextRequest) {
     const playerId = request.cookies.get("abg_player")?.value;
     if (!playerId || !await getPlayer(playerId)) return NextResponse.json({ error: "Create an ABG name first." }, { status: 401 });
     if (!await checkRateLimit(playerId, "session", 12)) return NextResponse.json({ error: "Please wait before starting another session." }, { status: 429 });
-    const body = await request.json() as {
-      mode?: "ranked" | "practice" | "survival";
-      difficulty?: "beginner" | "intermediate" | "all";
-      category?: "respiratory" | "metabolic" | "compensation" | "all";
-    };
-    if (!body.mode || !["ranked", "practice", "survival"].includes(body.mode)) return NextResponse.json({ error: "Invalid game mode." }, { status: 400 });
-    const result = await startSession(playerId, body.mode, { difficulty: body.difficulty, category: body.category });
+    const body = await request.json() as { mode?: "ranked" };
+    if (body.mode !== "ranked") return NextResponse.json({ error: "Only Ranked mode is available." }, { status: 400 });
+    const result = await startSession(playerId, "ranked");
     return NextResponse.json({ session: sessionSummary(result.session), question: result.question });
   } catch (error) {
     return NextResponse.json({ error: error instanceof Error ? error.message : "Could not start session." }, { status: 400 });
@@ -30,7 +26,7 @@ export async function GET(request: NextRequest) {
     if (!playerId || !sessionId) return NextResponse.json({ error: "Session not found." }, { status: 404 });
     const session = await getSession(sessionId);
     if (!session || session.playerId !== playerId) return NextResponse.json({ error: "Session not found." }, { status: 404 });
-    const rank = await getRank(playerId, session.mode === "survival" ? "survival" : "rating");
+    const rank = await getRank(playerId, "rating");
     return NextResponse.json({
       session: sessionSummary(session, rank),
       question: session.completed ? null : publicQuestion(session),
@@ -39,4 +35,3 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ error: "Could not restore the session." }, { status: 500 });
   }
 }
-

@@ -176,7 +176,6 @@
 @media (max-width: 430px) {
   .brandMark { width: 34px; height: 34px; }
   .brand strong { font-size: .92rem; }
-  .nav a:last-child { display: none; }
   .main { width: calc(100% - 20px); padding-bottom: 48px; }
   .hero h1 { font-size: clamp(3.2rem, 18vw, 4.4rem); }
   .statsBand .stat { padding: 16px 14px; }
