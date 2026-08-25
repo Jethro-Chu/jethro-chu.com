@@ -57,6 +57,38 @@ export function ABGArena() {
     refreshPlayer().catch(() => setError("Player data is temporarily unavailable.")).finally(() => setLoading(false));
   }, [refreshPlayer]);
 
+  const isSimple = disorder === "Normal" || disorder === "Mixed Disorder";
+
+  const handleSelectDisorder = useCallback((item: Disorder) => {
+    setDisorder(item);
+    if (item === "Normal" || item === "Mixed Disorder") {
+      setCompensation("Mixed / Not Applicable");
+    } else if (compensation === "Mixed / Not Applicable") {
+      setCompensation(null);
+    }
+  }, [compensation]);
+
+  const submit = useCallback(async () => {
+    const effectiveCompensation = isSimple ? "Mixed / Not Applicable" : compensation;
+    if (!session || !question || !disorder || !effectiveCompensation || feedback || busy) return;
+    setBusy(true); setError("");
+    try {
+      const data = await api<Feedback>("/api/abg/attempt", {
+        method: "POST", body: JSON.stringify({ sessionId: session.id, questionId: question.id, disorder, compensation: effectiveCompensation }),
+      });
+      setFeedback(data); setSession(data.session);
+    } catch (caught) { setError(caught instanceof Error ? caught.message : "Could not submit answer."); }
+    finally { setBusy(false); }
+  }, [session, question, disorder, compensation, isSimple, feedback, busy]);
+
+  const continueGame = useCallback(async () => {
+    if (!feedback) return;
+    if (feedback.session.complete) {
+      setSession(feedback.session); setScreen("report"); await refreshPlayer(); return;
+    }
+    setQuestion(feedback.nextQuestion); setFeedback(null); setDisorder(null); setCompensation(null);
+  }, [feedback, refreshPlayer]);
+
   useEffect(() => {
     if (!question || feedback) return;
     setElapsed(0);
@@ -66,18 +98,34 @@ export function ABGArena() {
   }, [question?.id, feedback]);
 
   useEffect(() => {
-    if (!question || feedback || screen !== "game") return;
+    if (screen !== "game") return;
     const onKey = (event: KeyboardEvent) => {
       if (event.target instanceof HTMLInputElement || event.target instanceof HTMLTextAreaElement) return;
+      if (feedback) {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          continueGame();
+        }
+        return;
+      }
+      if (!question) return;
       const number = Number(event.key);
-      if (number >= 1 && number <= DISORDERS.length) setDisorder(DISORDERS[number - 1]);
-      if (["q", "w", "e", "r"].includes(event.key.toLowerCase())) {
-        setCompensation(COMPENSATIONS[["q", "w", "e", "r"].indexOf(event.key.toLowerCase())]);
+      if (number >= 1 && number <= DISORDERS.length) {
+        handleSelectDisorder(DISORDERS[number - 1]);
+      }
+      if (["q", "w", "e"].includes(event.key.toLowerCase())) {
+        const compOptions = ["Uncompensated", "Partially Compensated", "Fully Compensated"] as const;
+        const index = ["q", "w", "e"].indexOf(event.key.toLowerCase());
+        setCompensation(compOptions[index]);
+      }
+      if (event.key === "Enter") {
+        event.preventDefault();
+        submit();
       }
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [question, feedback, screen]);
+  }, [question, feedback, screen, handleSelectDisorder, continueGame, submit]);
 
   async function createProfile(event: React.FormEvent) {
     event.preventDefault(); setBusy(true); setError("");
@@ -107,26 +155,6 @@ export function ABGArena() {
       setSession(data.session); setQuestion(data.question); setFeedback(null); setScreen(data.session.complete ? "report" : "game");
     } catch (caught) { setError(caught instanceof Error ? caught.message : "Could not restore game."); }
     finally { setBusy(false); }
-  }
-
-  async function submit() {
-    if (!session || !question || !disorder || !compensation || feedback) return;
-    setBusy(true); setError("");
-    try {
-      const data = await api<Feedback>("/api/abg/attempt", {
-        method: "POST", body: JSON.stringify({ sessionId: session.id, questionId: question.id, disorder, compensation }),
-      });
-      setFeedback(data); setSession(data.session);
-    } catch (caught) { setError(caught instanceof Error ? caught.message : "Could not submit answer."); }
-    finally { setBusy(false); }
-  }
-
-  async function continueGame() {
-    if (!feedback) return;
-    if (feedback.session.complete) {
-      setSession(feedback.session); setScreen("report"); await refreshPlayer(); return;
-    }
-    setQuestion(feedback.nextQuestion); setFeedback(null); setDisorder(null); setCompensation(null);
   }
 
   function returnHome() {
@@ -190,9 +218,49 @@ export function ABGArena() {
           </div>
         ) : (
           <div className={styles.answers}>
-            <fieldset><legend>1. Identify the primary disorder</legend><div className={styles.answerGrid}>{DISORDERS.map((item, index) => <button type="button" key={item} aria-pressed={disorder === item} onClick={() => setDisorder(item)}><kbd>{index + 1}</kbd>{item}</button>)}</div></fieldset>
-            <fieldset><legend>2. Choose compensation</legend><div className={styles.compGrid}>{COMPENSATIONS.map((item, index) => <button type="button" key={item} aria-pressed={compensation === item} onClick={() => setCompensation(item)}><kbd>{["Q", "W", "E", "R"][index]}</kbd>{item}</button>)}</div></fieldset>
-            <button className={styles.primaryButton} disabled={!disorder || !compensation || busy} onClick={submit}>{busy ? "Checking…" : "Lock in interpretation"}</button>
+            <fieldset>
+              <legend>1. Identify the primary disorder</legend>
+              <div className={styles.answerGrid}>
+                {DISORDERS.map((item, index) => (
+                  <button
+                    type="button"
+                    key={item}
+                    aria-pressed={disorder === item}
+                    onClick={() => handleSelectDisorder(item)}
+                  >
+                    <kbd>{index + 1}</kbd>{item}
+                  </button>
+                ))}
+              </div>
+            </fieldset>
+            <fieldset>
+              <legend>2. Choose compensation</legend>
+              {isSimple ? (
+                <div className={styles.compensationNote}>
+                  <span><strong>{disorder}</strong> does not have an opposing compensatory response.</span>
+                </div>
+              ) : (
+                <div className={styles.compGrid}>
+                  {(["Uncompensated", "Partially Compensated", "Fully Compensated"] as const).map((item, index) => (
+                    <button
+                      type="button"
+                      key={item}
+                      aria-pressed={compensation === item}
+                      onClick={() => setCompensation(item)}
+                    >
+                      <kbd>{["Q", "W", "E"][index]}</kbd>{item}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </fieldset>
+            <button
+              className={styles.primaryButton}
+              disabled={!disorder || (!isSimple && !compensation) || busy}
+              onClick={submit}
+            >
+              {busy ? "Checking…" : "Lock in interpretation"}
+            </button>
           </div>
         )}
         {error && <p className={styles.error} role="alert">{error}</p>}
@@ -260,3 +328,4 @@ export function ABGArena() {
     </>
   );
 }
+

@@ -130,8 +130,9 @@
 .answerGrid button, .compGrid button { min-height: 58px; display: flex; align-items: center; gap: 14px; border: 1px solid var(--abg-line); background: var(--abg-surface); color: var(--abg-ink); padding: 10px 14px; text-align: left; cursor: pointer; }
 .answerGrid button:hover, .compGrid button:hover { border-color: var(--abg-line-strong); }
 .answerGrid button[aria-pressed="true"], .compGrid button[aria-pressed="true"] { border-color: var(--abg-primary); background: var(--abg-primary-wash); box-shadow: inset 4px 0 0 var(--abg-primary); }
-.answers kbd { min-width: 24px; color: var(--abg-muted); font-family: var(--abg-font-mono), monospace; font-size: .65rem; }
 .answers > .primaryButton { width: 100%; margin-top: 8px; }
+.compensationNote { display: flex; align-items: center; gap: 10px; margin-top: 12px; border: 1px dashed var(--abg-line-strong); padding: 16px 18px; background: var(--abg-sunk); color: var(--abg-muted); font-size: .88rem; }
+.compensationNote strong { color: var(--abg-ink); }
 
 .feedback { border-top: 5px solid var(--abg-primary); background: var(--abg-surface); padding: clamp(24px, 5vw, 44px); }
 .feedback.incorrect { border-top-color: var(--abg-critical); }

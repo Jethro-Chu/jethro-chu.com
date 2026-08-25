@@ -13,11 +13,11 @@ await assert.rejects(() => createPlayer(rankedPlayer.displayName), /already take
 await updateDisplayName(rankedPlayer.id, `RN ${suffix}`);
 assert.equal((await getPlayer(rankedPlayer.id))?.displayName, `RN ${suffix}`);
 const rankedStart = await startSession(rankedPlayer.id, "ranked");
-assert.equal(rankedStart.session.questions.length, 10);
+assert.equal(rankedStart.session.questions.length, 20);
 assert.equal("disorder" in rankedStart.question, false, "The public question must not expose its answer");
 
 let lastRankedResult;
-for (let index = 0; index < 10; index += 1) {
+for (let index = 0; index < 20; index += 1) {
   const stored = await getSession(rankedStart.session.id);
   assert.ok(stored);
   const question = stored.questions[stored.currentIndex];
@@ -28,20 +28,70 @@ for (let index = 0; index < 10; index += 1) {
 }
 assert.ok(lastRankedResult?.sessionComplete || lastRankedResult?.session.complete);
 const afterRanked = await getPlayer(rankedPlayer.id);
-assert.equal(afterRanked?.rankedQuestionsAnswered, 10);
-assert.equal(afterRanked?.rankedQuestionsCorrect, 10);
+assert.equal(afterRanked?.rankedQuestionsAnswered, 20);
+assert.equal(afterRanked?.rankedQuestionsCorrect, 20);
 assert.equal(afterRanked?.rankedGamesCompleted, 1);
 assert.ok((afterRanked?.rating ?? 0) > 1000);
 
-const duplicateSession = await startSession(await createPlayer(`Double ${suffix}`).then((player) => player.id), "ranked");
-const duplicateQuestion = duplicateSession.session.questions[0];
-await submitAnswer(duplicateSession.session.playerId, duplicateSession.session.id, duplicateQuestion.id, {
-  disorder: duplicateQuestion.disorder,
-  compensation: duplicateQuestion.compensation,
+const practicePlayer = await createPlayer(`Practice ${suffix}`);
+const practiceStart = await startSession(practicePlayer.id, "practice", { difficulty: "intermediate", category: "compensation" });
+const practiceStored = await getSession(practiceStart.session.id);
+assert.ok(practiceStored);
+const practiceQuestion = practiceStored.questions[0];
+const practiceResult = await submitAnswer(practicePlayer.id, practiceStored.id, practiceQuestion.id, {
+  disorder: practiceQuestion.disorder,
+  compensation: practiceQuestion.compensation,
 });
+assert.equal(practiceResult.ratingChange, 0);
+assert.equal((await getPlayer(practicePlayer.id))?.rating, 1000);
 await assert.rejects(
-  () => submitAnswer(duplicateSession.session.playerId, duplicateSession.session.id, duplicateQuestion.id, { disorder: duplicateQuestion.disorder, compensation: duplicateQuestion.compensation }),
+  () => submitAnswer(practicePlayer.id, practiceStored.id, practiceQuestion.id, { disorder: practiceQuestion.disorder, compensation: practiceQuestion.compensation }),
   /no longer active|already submitted/,
 );
 
-console.log("ABG service verified: anonymous identity, duplicate names, 10-question Ranked completion, server rating, and duplicate protection.");
+const survivalPlayer = await createPlayer(`Survival ${suffix}`);
+const survivalStart = await startSession(survivalPlayer.id, "survival");
+let survivalStored = await getSession(survivalStart.session.id);
+assert.ok(survivalStored);
+let survivalQuestion = survivalStored.questions[survivalStored.currentIndex];
+const correctSurvival = await submitAnswer(survivalPlayer.id, survivalStored.id, survivalQuestion.id, {
+  disorder: survivalQuestion.disorder,
+  compensation: survivalQuestion.compensation,
+});
+assert.equal(correctSurvival.session.complete, false);
+survivalStored = await getSession(survivalStart.session.id);
+assert.ok(survivalStored);
+survivalQuestion = survivalStored.questions[survivalStored.currentIndex];
+const wrongDisorder = survivalQuestion.disorder === "Normal" ? "Respiratory Acidosis" : "Normal";
+const failedSurvival = await submitAnswer(survivalPlayer.id, survivalStored.id, survivalQuestion.id, {
+  disorder: wrongDisorder,
+  compensation: "Mixed / Not Applicable",
+});
+assert.equal(failedSurvival.correct, false);
+assert.equal(failedSurvival.session.complete, true);
+assert.equal((await getPlayer(survivalPlayer.id))?.survivalBest, 1);
+
+// Verify Normal ABG grading resilience
+const testNormalSession = await startSession(await createPlayer(`NormalTest ${suffix}`).then((player) => player.id), "ranked");
+const storedNormalSession = await getSession(testNormalSession.session.id);
+assert.ok(storedNormalSession);
+storedNormalSession.questions[0] = {
+  id: storedNormalSession.questions[0].id,
+  disorder: "Normal",
+  compensation: "Mixed / Not Applicable",
+  difficulty: "beginner",
+  difficultyRating: 900,
+  category: "normal",
+  ph: 7.40,
+  paco2: 42,
+  hco3: 23,
+};
+const normalResult = await submitAnswer(testNormalSession.session.playerId, testNormalSession.session.id, storedNormalSession.questions[0].id, {
+  disorder: "Normal",
+  compensation: "Fully Compensated", // Frontend compensation should be ignored for Normal
+});
+assert.equal(normalResult.correct, true, "Normal ABG must be graded as correct when Normal is chosen");
+assert.equal(normalResult.yourAnswer, "Normal", "yourAnswer for Normal should be 'Normal'");
+
+console.log("ABG service verified: anonymous identity, duplicate names, 20-question Ranked completion, Normal grading resilience, Practice isolation, duplicate protection, and Survival game over.");
+
