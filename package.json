@@ -15,7 +15,9 @@
     "verify:medmath": "node --no-warnings --experimental-strip-types scripts/verify-medmath-engine.ts",
     "verify:medmath-store": "node --no-warnings --experimental-strip-types scripts/verify-medmath-store.ts",
     "verify:medmath-http": "node --no-warnings --experimental-strip-types scripts/verify-medmath-http.ts",
-    "verify:medmath-canvas": "node --no-warnings --experimental-strip-types scripts/verify-medmath-canvas.ts"
+    "verify:medmath-canvas": "node --no-warnings --experimental-strip-types scripts/verify-medmath-canvas.ts",
+    "verify:abg": "node --no-warnings --experimental-strip-types scripts/verify-abg.ts",
+    "verify:abg-service": "node --no-warnings --experimental-strip-types scripts/verify-abg-service.ts"
   },
   "dependencies": {
     "framer-motion": "^11.18.2",
