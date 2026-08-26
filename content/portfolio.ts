@@ -135,7 +135,6 @@ export const landmarks: Landmark[] = [
     },
     links: [
       { label: "View Résumé", href: resume.pdf },
-      { label: "Explore Medical Akinator", href: "/medical-akinator" },
     ],
   },
   {
@@ -149,7 +148,6 @@ export const landmarks: Landmark[] = [
       "Live software, mostly solo, mostly born from healthcare and research. Some serious, some for fun, all shipped.",
     ],
     projects: ["nursejet", "lab-logger", "rate-my-hospital-food", "emotion-stock-market-game"],
-    links: [{ label: "Hidden experiment: Medical Akinator", href: "/medical-akinator" }],
   },
   {
     id: "ahwahnee",
