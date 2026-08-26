@@ -54,7 +54,8 @@
 .playerTag span { color: var(--abg-muted); font-family: var(--abg-font-mono), monospace; font-size: .62rem; letter-spacing: .13em; }
 .playerTag strong { margin-top: 3px; font-family: var(--abg-font-display), sans-serif; font-size: 1.15rem; }
 
-.statsBand { display: grid; grid-template-columns: repeat(5, 1fr); border-top: 1px solid var(--abg-line-strong); border-bottom: 1px solid var(--abg-line-strong); background: var(--abg-surface); }
+.statsBand { display: grid; grid-template-columns: repeat(5, 1fr); scroll-margin-top: 96px; border-top: 1px solid var(--abg-line-strong); border-bottom: 1px solid var(--abg-line-strong); background: var(--abg-surface); }
+.statsBand:target { outline: 3px solid var(--abg-primary); outline-offset: 3px; }
 .stat { min-width: 0; padding: 20px 22px; border-right: 1px solid var(--abg-line); }
 .stat:last-child { border-right: 0; }
 .stat span, .stat strong { display: block; }

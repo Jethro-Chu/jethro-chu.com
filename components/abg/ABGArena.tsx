@@ -262,7 +262,7 @@ export function ABGArena() {
         <div className={styles.playerTag}><span>PLAYING AS</span><strong>{player.displayName}</strong></div>
       </section>
 
-      <section className={styles.statsBand} aria-label="Your ABG statistics">
+      <section className={styles.statsBand} id="ranks" aria-label="Your ABG rating and rank">
         <Stat label="ABG rating" value={player.rating} />
         <Stat label="Global rank" value={player.rank ? `#${player.rank}` : "Unranked"} />
         <Stat label="Accuracy" value={player.rankedQuestionsAnswered ? `${Math.round(player.accuracy * 100)}%` : "New"} />
