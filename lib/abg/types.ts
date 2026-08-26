@@ -17,7 +17,7 @@ export const ABG_COMPENSATIONS = [
 export type ABGDisorder = (typeof ABG_DISORDERS)[number];
 export type ABGCompensation = (typeof ABG_COMPENSATIONS)[number];
 export type ABGDifficulty = "beginner" | "intermediate";
-export type ABGMode = "ranked" | "practice" | "survival";
+export type ABGMode = "ranked";
 export type ABGCategory = "respiratory" | "metabolic" | "compensation" | "normal";
 
 export type ABGValues = {
@@ -64,10 +64,7 @@ export type ABGPlayer = {
   totalQuestionsCorrect: number;
   currentStreak: number;
   bestStreak: number;
-  survivalBest: number;
   totalResponseTimeMs: number;
-  rankedGamesCompleted: number;
-  practiceQuestionsCompleted: number;
   categoryStats: Record<string, { answered: number; correct: number }>;
   ratingHistory: Array<{ rating: number; at: string }>;
   activeSessionId?: string;
@@ -89,9 +86,6 @@ export type ABGSession = {
   startingRating: number;
   endingRating: number;
   completed: boolean;
-  practiceDifficulty?: "beginner" | "intermediate" | "all";
-  practiceCategory?: "respiratory" | "metabolic" | "compensation" | "all";
   startedAt: string;
   updatedAt: string;
-  completedAt?: string;
 };

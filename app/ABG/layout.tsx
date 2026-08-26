@@ -9,7 +9,7 @@ const mono = Space_Mono({ subsets: ["latin"], variable: "--abg-font-mono", weigh
 
 export const metadata: Metadata = {
   title: "ABG Arena · Nursing ABG Trainer",
-  description: "Build speed and accuracy interpreting arterial blood gases in a 10-question ranked challenge.",
+  description: "Build speed and accuracy with continuous ranked arterial blood gas interpretation.",
   openGraph: {
     title: "ABG Arena",
     description: "How fast can you interpret an arterial blood gas?",
@@ -30,7 +30,7 @@ export default function ABGLayout({ children }: { children: React.ReactNode }) {
           </Link>
           <nav className={styles.nav} aria-label="ABG Arena navigation">
             <Link href="/ABG">Play</Link>
-            <Link href="/ABG/leaderboard">Ranks</Link>
+            <Link href="/">Portfolio</Link>
           </nav>
         </div>
       </header>

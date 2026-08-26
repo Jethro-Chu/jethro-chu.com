@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import styles from "./ABGArena.module.css";
 
@@ -12,10 +11,10 @@ type Compensation = typeof COMPENSATIONS[number];
 type Player = {
   displayName: string; rating: number; rank: number | null; accuracy: number;
   rankedQuestionsAnswered: number; rankedQuestionsCorrect: number; totalQuestionsAnswered: number;
-  bestStreak: number; survivalBest: number; activeSessionId?: string;
+  bestStreak: number; activeSessionId?: string;
 };
 type Question = { id: string; ph: number; paco2: number; hco3: number; difficulty: string; number: number; total: number | null };
-type Session = { id: string; mode: "ranked" | "practice" | "survival"; correct: number; incorrect: number; answered: number; total: number | null; accuracy: number; currentStreak: number; bestStreak: number; averageResponseTimeMs: number; startingRating: number; endingRating: number; ratingChange: number; complete: boolean; rank: number | null };
+type Session = { id: string; mode: "ranked"; correct: number; incorrect: number; answered: number; total: null; accuracy: number; currentStreak: number; bestStreak: number; averageResponseTimeMs: number; startingRating: number; endingRating: number; ratingChange: number; complete: false; rank: number | null };
 type Feedback = {
   correct: boolean; answer: { label: string; explanation: string[] }; yourAnswer: string;
   ratingBefore: number; ratingAfter: number; ratingChange: number; nextQuestion: Question | null; session: Session;
@@ -36,7 +35,7 @@ export function ABGArena() {
   const [player, setPlayer] = useState<Player | null>(null);
   const [loading, setLoading] = useState(true);
   const [name, setName] = useState("");
-  const [screen, setScreen] = useState<"home" | "practice" | "game" | "report">("home");
+  const [screen, setScreen] = useState<"home" | "game">("home");
   const [session, setSession] = useState<Session | null>(null);
   const [question, setQuestion] = useState<Question | null>(null);
   const [disorder, setDisorder] = useState<Disorder | null>(null);
@@ -45,8 +44,7 @@ export function ABGArena() {
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
   const [elapsed, setElapsed] = useState(0);
-  const [difficulty, setDifficulty] = useState<"beginner" | "intermediate" | "all">("all");
-  const [category, setCategory] = useState<"respiratory" | "metabolic" | "compensation" | "all">("all");
+  const [showRank, setShowRank] = useState(false);
 
   const refreshPlayer = useCallback(async () => {
     const data = await api<{ player: Player | null }>("/api/abg/player");
@@ -83,11 +81,8 @@ export function ABGArena() {
 
   const continueGame = useCallback(async () => {
     if (!feedback) return;
-    if (feedback.session.complete) {
-      setSession(feedback.session); setScreen("report"); await refreshPlayer(); return;
-    }
     setQuestion(feedback.nextQuestion); setFeedback(null); setDisorder(null); setCompensation(null);
-  }, [feedback, refreshPlayer]);
+  }, [feedback]);
 
   useEffect(() => {
     if (!question || feedback) return;
@@ -136,13 +131,13 @@ export function ABGArena() {
     finally { setBusy(false); }
   }
 
-  async function start(mode: "ranked" | "practice" | "survival") {
+  async function start() {
     setBusy(true); setError("");
     try {
       const data = await api<{ session: Session; question: Question }>("/api/abg/session", {
-        method: "POST", body: JSON.stringify({ mode, difficulty, category }),
+        method: "POST", body: JSON.stringify({ mode: "ranked" }),
       });
-      setSession(data.session); setQuestion(data.question); setFeedback(null); setDisorder(null); setCompensation(null); setScreen("game");
+      setSession(data.session); setQuestion(data.question); setFeedback(null); setDisorder(null); setCompensation(null); setShowRank(false); setScreen("game");
     } catch (caught) { setError(caught instanceof Error ? caught.message : "Could not start game."); }
     finally { setBusy(false); }
   }
@@ -152,13 +147,9 @@ export function ABGArena() {
     setBusy(true); setError("");
     try {
       const data = await api<{ session: Session; question: Question | null }>(`/api/abg/session?sessionId=${encodeURIComponent(player.activeSessionId)}`);
-      setSession(data.session); setQuestion(data.question); setFeedback(null); setScreen(data.session.complete ? "report" : "game");
+      setSession(data.session); setQuestion(data.question); setFeedback(null); setScreen("game");
     } catch (caught) { setError(caught instanceof Error ? caught.message : "Could not restore game."); }
     finally { setBusy(false); }
-  }
-
-  function returnHome() {
-    setScreen("home"); setSession(null); setQuestion(null); setFeedback(null); setError(""); refreshPlayer().catch(() => undefined);
   }
 
   if (loading) return <div className={styles.loading}>Calibrating ABG Arena…</div>;
@@ -170,24 +161,10 @@ export function ABGArena() {
         <h1>Choose your ABG name</h1>
         <p>Your public display name saves your rating, accuracy, and streaks on this device. No full account is required.</p>
         <form onSubmit={createProfile} className={styles.nameForm}>
-          <label htmlFor="abg-name">Leaderboard display name</label>
+          <label htmlFor="abg-name">Ranked display name</label>
           <input id="abg-name" value={name} onChange={(event) => setName(event.target.value)} maxLength={20} autoComplete="nickname" placeholder="Jethro" autoFocus />
           <button className={styles.primaryButton} disabled={busy}>{busy ? "Creating…" : "Start playing"}</button>
         </form>
-        {error && <p className={styles.error} role="alert">{error}</p>}
-      </section>
-    );
-  }
-
-  if (screen === "practice") {
-    return (
-      <section className={styles.setup}>
-        <button className={styles.textButton} onClick={() => setScreen("home")}>Back to arena</button>
-        <p className={styles.eyebrow}>PRACTICE SETUP</p>
-        <h1>Build one pattern at a time.</h1>
-        <fieldset><legend>Difficulty</legend><div className={styles.segmented}>{(["beginner", "intermediate", "all"] as const).map((item) => <button type="button" key={item} aria-pressed={difficulty === item} onClick={() => setDifficulty(item)}>{item}</button>)}</div></fieldset>
-        <fieldset><legend>Category</legend><div className={styles.segmented}>{(["respiratory", "metabolic", "compensation", "all"] as const).map((item) => <button type="button" key={item} aria-pressed={category === item} onClick={() => setCategory(item)}>{item === "all" ? "All ABGs" : item}</button>)}</div></fieldset>
-        <button className={styles.primaryButton} onClick={() => start("practice")} disabled={busy}>{busy ? "Preparing…" : "Begin practice"}</button>
         {error && <p className={styles.error} role="alert">{error}</p>}
       </section>
     );
@@ -197,10 +174,13 @@ export function ABGArena() {
     return (
       <section className={styles.game}>
         <div className={styles.gameTop}>
-          <div><span>{session.mode === "survival" ? "ABG Survival" : `${session.mode} · ABG ${question.number}${question.total ? ` / ${question.total}` : ""}`}</span><strong>{session.mode === "survival" ? `Streak ${session.currentStreak}` : `${session.correct} correct`}</strong></div>
-          <div className={styles.timer}><span>TIME</span><strong>{elapsed}s</strong></div>
+          <div><span>RANKED</span><strong>{session.correct} correct</strong></div>
+          <div className={styles.gameControls}>
+            <button type="button" className={styles.rankButton} aria-expanded={showRank} onClick={() => setShowRank((visible) => !visible)}>Ranks</button>
+            <div className={styles.timer}><span>TIME</span><strong>{elapsed}s</strong></div>
+          </div>
         </div>
-        <div className={styles.progress} aria-hidden="true"><i style={{ width: question.total ? `${((question.number - 1) / question.total) * 100}%` : `${Math.min(100, session.correct * 4)}%` }} /></div>
+        {showRank && <div className={styles.rankPeek} role="status"><span>Global rank <strong>{session.rank ? `#${session.rank}` : "Unranked"}</strong></span><span>ABG rating <strong>{session.endingRating}</strong></span></div>}
         <div className={styles.values} aria-label={`pH ${question.ph.toFixed(2)}, PaCO2 ${question.paco2} millimeters of mercury, bicarbonate ${question.hco3} milliequivalents per liter`}>
           <div><span>pH</span><strong>{question.ph.toFixed(2)}</strong><small>7.35–7.45</small></div>
           <div><span>PaCO₂</span><strong>{question.paco2}</strong><small>mmHg</small></div>
@@ -213,8 +193,8 @@ export function ABGArena() {
             <h2>{feedback.answer.label}</h2>
             {!feedback.correct && <p>Your answer: <strong>{feedback.yourAnswer}</strong></p>}
             <ul>{feedback.answer.explanation.map((line) => <li key={line}>{line}</li>)}</ul>
-            {session.mode === "ranked" && <div className={styles.ratingDelta}><span>ABG rating</span><strong>{feedback.ratingBefore} → {feedback.ratingAfter} <em>{feedback.ratingChange >= 0 ? "+" : ""}{feedback.ratingChange}</em></strong></div>}
-            <button className={styles.primaryButton} onClick={continueGame}>{feedback.session.complete ? (session.mode === "survival" ? "See game over" : "See report") : "Next ABG"}</button>
+            <div className={styles.ratingDelta}><span>ABG rating</span><strong>{feedback.ratingBefore} → {feedback.ratingAfter} <em>{feedback.ratingChange >= 0 ? "+" : ""}{feedback.ratingChange}</em></strong></div>
+            <button className={styles.primaryButton} onClick={continueGame}>Next ABG</button>
           </div>
         ) : (
           <div className={styles.answers}>
@@ -268,34 +248,11 @@ export function ABGArena() {
     );
   }
 
-  if (screen === "report" && session) {
-    const survival = session.mode === "survival";
-    return (
-      <section className={styles.report}>
-        <p className={styles.eyebrow}>{survival ? "GAME OVER" : `${session.mode.toUpperCase()} COMPLETE`}</p>
-        <h1>{survival ? `${session.correct} ${session.correct === 1 ? "ABG" : "ABGs"} correct` : `${session.correct} / ${session.answered}`}</h1>
-        <p className={styles.reportLead}>{Math.round(session.accuracy * 100)}% accuracy</p>
-        <div className={styles.reportGrid}>
-          <Stat label={survival ? "Best run" : "Rating"} value={survival ? session.bestStreak : `${session.startingRating} → ${session.endingRating}`} />
-          <Stat label="Average time" value={`${(session.averageResponseTimeMs / 1000).toFixed(1)} sec`} />
-          <Stat label="Longest streak" value={session.bestStreak} />
-          <Stat label="Global rank" value={session.rank ? `#${session.rank}` : "Unranked"} />
-        </div>
-        <div className={styles.reportActions}>
-          <button className={styles.primaryButton} onClick={() => start(session.mode)} disabled={busy}>Play again</button>
-          <button className={styles.secondaryButton} onClick={() => setScreen("practice")}>Practice weak areas</button>
-          <Link className={styles.secondaryButton} href="/ABG/leaderboard">View leaderboard</Link>
-          <button className={styles.textButton} onClick={returnHome}>Return home</button>
-        </div>
-      </section>
-    );
-  }
-
   return (
     <>
       <section className={styles.hero}>
         <div>
-          <p className={styles.eyebrow}>ABG INTERPRETATION · COMPETITIVE PRACTICE</p>
+          <p className={styles.eyebrow}>ABG INTERPRETATION · CONTINUOUS RANKED PLAY</p>
           <h1>ABG <span>Arena</span></h1>
           <p className={styles.subtitle}>How fast can you interpret an arterial blood gas?</p>
         </div>
@@ -312,12 +269,9 @@ export function ABGArena() {
 
       {player.activeSessionId && <div className={styles.resume}><div><span>SESSION FOUND</span><strong>Continue where you left off</strong></div><button onClick={restore} disabled={busy}>Resume</button></div>}
 
-      <section className={styles.modes} aria-labelledby="choose-mode">
-        <p className={styles.eyebrow} id="choose-mode">CHOOSE MODE</p>
-        <button className={styles.modeRow} onClick={() => start("ranked")} disabled={busy}><span className={styles.modeNumber}>01</span><span><strong>Ranked</strong><small>20 validated ABGs · Rating on the line</small></span><i>Start</i></button>
-        <button className={styles.modeRow} onClick={() => setScreen("practice")}><span className={styles.modeNumber}>02</span><span><strong>Practice</strong><small>Choose your difficulty and clinical pattern</small></span><i>Set up</i></button>
-        <button className={styles.modeRow} onClick={() => start("survival")} disabled={busy}><span className={styles.modeNumber}>03</span><span><strong>ABG Survival</strong><small>One wrong answer ends the run</small></span><i>Enter</i></button>
-        <Link className={styles.modeRow} href="/ABG/leaderboard"><span className={styles.modeNumber}>04</span><span><strong>Leaderboard</strong><small>Rating · Accuracy · Most correct · Survival</small></span><i>View</i></Link>
+      <section className={styles.modes} aria-labelledby="ranked-mode">
+        <p className={styles.eyebrow} id="ranked-mode">RANKED</p>
+        <button className={styles.modeRow} onClick={start} disabled={busy}><span className={styles.modeNumber}>R</span><span><strong>Enter ranked</strong><small>Keep interpreting ABGs for as long as you want · Rating updates after every answer</small></span><i>Start</i></button>
       </section>
 
       <details className={styles.normals}>
@@ -328,4 +282,3 @@ export function ABGArena() {
     </>
   );
 }
-

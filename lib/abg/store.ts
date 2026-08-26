@@ -8,12 +8,7 @@ const SESSION_PREFIX = "{abg}:v1:session:";
 const ATTEMPT_PREFIX = "{abg}:v1:attempt:";
 const RATE_PREFIX = "{abg}:v1:rate:";
 const NAMES_KEY = "{abg}:v1:names";
-const BOARDS = {
-  rating: "{abg}:v1:board:rating",
-  accuracy: "{abg}:v1:board:accuracy",
-  correct: "{abg}:v1:board:correct",
-  survival: "{abg}:v1:board:survival",
-} as const;
+const RATING_BOARD = "{abg}:v1:board:rating";
 
 const state = globalThis as typeof globalThis & {
   __abgPlayers?: Map<string, ABGPlayer>;
@@ -98,20 +93,6 @@ export async function getPlayer(id: string): Promise<ABGPlayer | null> {
   }
 }
 
-export async function getPlayerByName(name: string): Promise<ABGPlayer | null> {
-  const normalized = normalizeDisplayName(decodeURIComponent(name));
-  let id = memNames.get(normalized);
-  if (KV_URL && KV_TOKEN) {
-    try {
-      const result = await redis(["HGET", NAMES_KEY, normalized]);
-      if (result) id = String(result);
-    } catch (error) {
-      console.error("[abg-store] getPlayerByName failed:", error);
-    }
-  }
-  return id ? getPlayer(id) : null;
-}
-
 export async function savePlayer(player: ABGPlayer): Promise<void> {
   memPlayers.set(player.id, player);
   memNames.set(normalizeDisplayName(player.displayName), player.id);
@@ -119,12 +100,7 @@ export async function savePlayer(player: ABGPlayer): Promise<void> {
   try {
     await Promise.all([
       redis(["SET", `${PLAYER_PREFIX}${player.id}`, JSON.stringify(player)]),
-      redis(["ZADD", BOARDS.rating, player.rating, player.id]),
-      redis(["ZADD", BOARDS.correct, player.rankedQuestionsCorrect, player.id]),
-      redis(["ZADD", BOARDS.survival, player.survivalBest, player.id]),
-      player.rankedQuestionsAnswered >= 50
-        ? redis(["ZADD", BOARDS.accuracy, player.rankedQuestionsCorrect / player.rankedQuestionsAnswered, player.id])
-        : redis(["ZREM", BOARDS.accuracy, player.id]),
+      redis(["ZADD", RATING_BOARD, player.rating, player.id]),
     ]);
   } catch (error) {
     console.error("[abg-store] savePlayer failed:", error);
@@ -181,45 +157,17 @@ export async function saveAttempt(questionId: string, payload: unknown): Promise
   }
 }
 
-export type LeaderboardTab = keyof typeof BOARDS;
-
-export async function getRank(playerId: string, tab: LeaderboardTab = "rating"): Promise<number | null> {
+export async function getRank(playerId: string): Promise<number | null> {
   if (!KV_URL || !KV_TOKEN) {
-    const players = Array.from(memPlayers.values()).sort((a, b) => boardScore(b, tab) - boardScore(a, tab));
+    const players = Array.from(memPlayers.values()).sort((a, b) => b.rating - a.rating || a.createdAt.localeCompare(b.createdAt));
     const index = players.findIndex((player) => player.id === playerId);
     return index < 0 ? null : index + 1;
   }
   try {
-    const rank = await redis(["ZREVRANK", BOARDS[tab], playerId]);
+    const rank = await redis(["ZREVRANK", RATING_BOARD, playerId]);
     return rank === null ? null : Number(rank) + 1;
   } catch {
     return null;
-  }
-}
-
-function boardScore(player: ABGPlayer, tab: LeaderboardTab): number {
-  if (tab === "rating") return player.rating;
-  if (tab === "correct") return player.rankedQuestionsCorrect;
-  if (tab === "survival") return player.survivalBest;
-  return player.rankedQuestionsAnswered >= 50 ? player.rankedQuestionsCorrect / player.rankedQuestionsAnswered : -1;
-}
-
-export async function getLeaderboard(tab: LeaderboardTab, limit = 50): Promise<Array<{ rank: number; player: ABGPlayer }>> {
-  if (!KV_URL || !KV_TOKEN) {
-    return Array.from(memPlayers.values())
-      .filter((player) => tab !== "accuracy" || player.rankedQuestionsAnswered >= 50)
-      .sort((a, b) => boardScore(b, tab) - boardScore(a, tab) || a.createdAt.localeCompare(b.createdAt))
-      .slice(0, limit)
-      .map((player, index) => ({ rank: index + 1, player }));
-  }
-  try {
-    const result = await redis(["ZREVRANGE", BOARDS[tab], 0, limit - 1]);
-    const ids = Array.isArray(result) ? result.map(String) : [];
-    const players = await Promise.all(ids.map(getPlayer));
-    return players.flatMap((player, index) => player ? [{ rank: index + 1, player }] : []);
-  } catch (error) {
-    console.error("[abg-store] getLeaderboard failed:", error);
-    return [];
   }
 }
 

@@ -18,13 +18,9 @@ export function publicPlayer(player: ABGPlayer, rank: number | null = null) {
     totalQuestionsCorrect: player.totalQuestionsCorrect,
     currentStreak: player.currentStreak,
     bestStreak: player.bestStreak,
-    survivalBest: player.survivalBest,
     averageResponseTimeMs,
-    rankedGamesCompleted: player.rankedGamesCompleted,
-    practiceQuestionsCompleted: player.practiceQuestionsCompleted,
     categoryStats: player.categoryStats,
     ratingHistory: player.ratingHistory,
     activeSessionId: player.activeSessionId,
   };
 }
-

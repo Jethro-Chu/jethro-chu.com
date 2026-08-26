@@ -46,7 +46,6 @@ function phBetween([min, max]: [number, number]): number {
 export type GenerateOptions = {
   difficulty?: "beginner" | "intermediate" | "all";
   category?: "respiratory" | "metabolic" | "compensation" | "all";
-  survivalLevel?: number;
 };
 
 export function generateABGQuestion(options: GenerateOptions = {}): ABGQuestion {
@@ -55,8 +54,6 @@ export function generateABGQuestion(options: GenerateOptions = {}): ABGQuestion 
     if (options.category === "respiratory" && !template.disorder.startsWith("Respiratory")) return false;
     if (options.category === "metabolic" && !template.disorder.startsWith("Metabolic")) return false;
     if (options.category === "compensation" && !["Partially Compensated", "Fully Compensated"].includes(template.compensation)) return false;
-    if (options.survivalLevel !== undefined && options.survivalLevel < 5 && template.compensation === "Fully Compensated") return false;
-    if (options.survivalLevel !== undefined && options.survivalLevel < 2 && template.difficulty === "intermediate") return false;
     return true;
   });
 
