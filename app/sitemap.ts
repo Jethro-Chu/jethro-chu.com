@@ -9,6 +9,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/resume",
     "/iqtest/data",
     "/ABG",
+    "/ABG/ranks",
     "/projects/nursejet",
     "/projects/emotion-stock-market-game",
   ];

@@ -171,6 +171,24 @@ export async function getRank(playerId: string): Promise<number | null> {
   }
 }
 
+export async function getLeaderboard(limit = 50): Promise<Array<{ rank: number; player: ABGPlayer }>> {
+  if (!KV_URL || !KV_TOKEN) {
+    return Array.from(memPlayers.values())
+      .sort((a, b) => b.rating - a.rating || a.createdAt.localeCompare(b.createdAt))
+      .slice(0, limit)
+      .map((player, index) => ({ rank: index + 1, player }));
+  }
+  try {
+    const result = await redis(["ZREVRANGE", RATING_BOARD, 0, limit - 1]);
+    const ids = Array.isArray(result) ? result.map(String) : [];
+    const players = await Promise.all(ids.map(getPlayer));
+    return players.flatMap((player, index) => player ? [{ rank: index + 1, player }] : []);
+  } catch (error) {
+    console.error("[abg-store] getLeaderboard failed:", error);
+    return [];
+  }
+}
+
 export async function checkRateLimit(playerId: string, action: string, max = 90): Promise<boolean> {
   const key = `${playerId}:${action}`;
   if (!KV_URL || !KV_TOKEN) {

@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { createPlayer, startSession, submitAnswer, updateDisplayName, validateDisplayName } from "../lib/abg/service.ts";
-import { getPlayer, getSession } from "../lib/abg/store.ts";
+import { getLeaderboard, getPlayer, getSession } from "../lib/abg/store.ts";
 
 assert.equal(validateDisplayName("<script>").ok, false);
 assert.equal(validateDisplayName(" ").ok, false);
@@ -36,6 +36,9 @@ assert.equal(afterRun?.rankedQuestionsAnswered, 25);
 assert.equal(afterRun?.rankedQuestionsCorrect, 25);
 assert.ok((afterRun?.rating ?? 0) > 1000);
 assert.equal(afterRun?.activeSessionId, started.session.id);
+const ranks = await getLeaderboard();
+assert.equal(ranks[0]?.rank, 1);
+assert.equal(ranks[0]?.player.id, player.id);
 
 const duplicatePlayer = await createPlayer(`Double ${suffix}`);
 const duplicateSession = await startSession(duplicatePlayer.id, "ranked");
@@ -52,4 +55,4 @@ await assert.rejects(
   /no longer active|already submitted/,
 );
 
-console.log("ABG service verified: anonymous identity, continuous Ranked play, live rating, no question limit, and duplicate protection.");
+console.log("ABG service verified: anonymous identity, continuous Ranked play, global ranks, live rating, no question limit, and duplicate protection.");
