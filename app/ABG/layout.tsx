@@ -30,7 +30,6 @@ export default function ABGLayout({ children }: { children: React.ReactNode }) {
           </Link>
           <nav className={styles.nav} aria-label="ABG Arena navigation">
             <Link href="/ABG">Play</Link>
-            <Link href="/">Portfolio</Link>
           </nav>
         </div>
       </header>
