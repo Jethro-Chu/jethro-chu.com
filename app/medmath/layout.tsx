@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { MedMathHeader } from "@/components/medmath/MedMathHeader";
+import { MEDICATION_EDUCATION_DISCLAIMER } from "@/lib/medmath/medication-facts";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -49,6 +50,9 @@ export default function MedMathLayout({
           <div>
             <span>Strict Adult Med-Surg & ICU Formulas · Practice & Exam Simulator</span>
           </div>
+          <p className="max-w-md text-center text-xs leading-relaxed sm:text-right">
+            {MEDICATION_EDUCATION_DISCLAIMER}
+          </p>
         </div>
       </footer>
     </div>

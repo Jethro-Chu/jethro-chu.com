@@ -4878,6 +4878,78 @@ export const STORED_MEDMATH_QUESTIONS: StoredNumericQuestion[] = [
     }
   },
   {
+    "id": "insulin-u100-volume-calculation",
+    "category": "insulin",
+    "subtype": "insulin-concentration",
+    "difficulty": "beginner",
+    "title": "U-100 Insulin Syringe Volume Calculation",
+    "clinicalContext": "Adult Inpatient Insulin Administration",
+    "scenario": "A nurse is preparing to administer 35 units of Regular U-100 insulin subcutaneously using a 1 mL syringe calibrated in milliliters.",
+    "orderText": "Regular Insulin U-100 35 units SubQ stat",
+    "availableText": "Regular Insulin U-100 vial (100 units/mL)",
+    "prompt": "How many mL should the nurse draw into the syringe?",
+    "correctAnswer": 0.35,
+    "answerUnit": "mL",
+    "answerPrecision": 2,
+    "roundingInstruction": "State exact decimal value (e.g. 0.35 or 0.6).",
+    "safetyPearl": "U-100 means 100 units per mL. Whenever possible, use an insulin syringe calibrated directly in units to minimize calculation errors.",
+    "hints": [
+      "Recall that U-100 insulin contains 100 units per mL.",
+      "Apply formula: Desired Units ÷ 100 units/mL.",
+      "Calculate: 35 units ÷ 100 units/mL = 0.35 mL."
+    ],
+    "solutionSteps": [
+      {
+        "stepNumber": 1,
+        "title": "Calculate Volume in Milliliters",
+        "formula": "Prescribed Units ÷ 100 units/mL",
+        "calculation": "35 units ÷ 100 units/mL = 0.35 mL",
+        "result": "0.35 mL"
+      }
+    ],
+    "rawVariables": {
+      "units": 35,
+      "conc": 100,
+      "volMl": 0.35
+    }
+  },
+  {
+    "id": "insulin-u100-units-from-volume",
+    "category": "insulin",
+    "subtype": "insulin-concentration",
+    "difficulty": "beginner",
+    "title": "Reverse U-100 Calculation: Units Delivered from Syringe Volume",
+    "clinicalContext": "Adult Inpatient Medication Safety Audit",
+    "scenario": "A medication audit notes that a patient received 0.4 mL of U-100 Regular Insulin (100 units/mL).",
+    "orderText": "0.4 mL of Regular U-100 Insulin administered",
+    "availableText": "Regular Insulin U-100 (100 units/mL)",
+    "prompt": "How many units of insulin were administered?",
+    "correctAnswer": 40,
+    "answerUnit": "units",
+    "answerPrecision": 0,
+    "roundingInstruction": "State whole number of units.",
+    "safetyPearl": "Always double-check both the insulin vial concentration (U-100 vs U-500) and the syringe calibration before administering insulin.",
+    "hints": [
+      "Multiply volume in mL by 100 units/mL.",
+      "Calculate: 0.4 mL × 100 units/mL.",
+      "0.4 × 100 = 40 units."
+    ],
+    "solutionSteps": [
+      {
+        "stepNumber": 1,
+        "title": "Calculate Units Administered",
+        "formula": "Volume (mL) × 100 units/mL",
+        "calculation": "0.4 mL × 100 units/mL = 40 units",
+        "result": "40 units"
+      }
+    ],
+    "rawVariables": {
+      "volMl": 0.4,
+      "conc": 100,
+      "units": 40
+    }
+  },
+  {
     "id": "wt-cefazolin-mg-kg-lb",
     "category": "weight-based",
     "subtype": "mg-kg-dose",
@@ -5580,7 +5652,7 @@ export const STORED_MEDMATH_QUESTIONS: StoredNumericQuestion[] = [
   },
   {
     "id": "heparin-infusion-rate-500ml",
-    "category": "heparin",
+    "category": "anticoagulants",
     "subtype": "heparin-infusion",
     "difficulty": "intermediate",
     "title": "Heparin Weight-Based Infusion Rate (25,000 units / 500 mL)",
@@ -5632,7 +5704,7 @@ export const STORED_MEDMATH_QUESTIONS: StoredNumericQuestion[] = [
   },
   {
     "id": "heparin-infusion-rate-250ml",
-    "category": "heparin",
+    "category": "anticoagulants",
     "subtype": "heparin-infusion",
     "difficulty": "intermediate",
     "title": "Heparin Weight-Based Infusion Rate (25,000 units / 250 mL)",
@@ -5684,7 +5756,7 @@ export const STORED_MEDMATH_QUESTIONS: StoredNumericQuestion[] = [
   },
   {
     "id": "heparin-bolus-volume-1000u-ml",
-    "category": "heparin",
+    "category": "anticoagulants",
     "subtype": "heparin-bolus",
     "difficulty": "intermediate",
     "title": "Heparin IV Loading Bolus Dose & Volume",
@@ -5729,7 +5801,7 @@ export const STORED_MEDMATH_QUESTIONS: StoredNumericQuestion[] = [
   },
   {
     "id": "heparin-infusion-from-pounds",
-    "category": "heparin",
+    "category": "anticoagulants",
     "subtype": "heparin-infusion",
     "difficulty": "advanced",
     "title": "Heparin Infusion with Pound to Kilogram Conversion",
@@ -5783,7 +5855,7 @@ export const STORED_MEDMATH_QUESTIONS: StoredNumericQuestion[] = [
   },
   {
     "id": "heparin-reverse-units-delivered",
-    "category": "heparin",
+    "category": "anticoagulants",
     "subtype": "reverse-calculation",
     "difficulty": "intermediate",
     "title": "Determine Units Delivered from Pump Rate",
@@ -5818,7 +5890,7 @@ export const STORED_MEDMATH_QUESTIONS: StoredNumericQuestion[] = [
   },
   {
     "id": "heparin-titration-aptt-increase",
-    "category": "heparin",
+    "category": "anticoagulants",
     "subtype": "titration-protocol",
     "difficulty": "advanced",
     "title": "Heparin Titration: Subtherapeutic aPTT Rate Increase",
@@ -5871,7 +5943,7 @@ export const STORED_MEDMATH_QUESTIONS: StoredNumericQuestion[] = [
   },
   {
     "id": "heparin-titration-aptt-decrease",
-    "category": "heparin",
+    "category": "anticoagulants",
     "subtype": "titration-protocol",
     "difficulty": "advanced",
     "title": "Heparin Titration: Supratherapeutic aPTT Rate Decrease",
@@ -5924,7 +5996,7 @@ export const STORED_MEDMATH_QUESTIONS: StoredNumericQuestion[] = [
   },
   {
     "id": "heparin-prophylaxis-fixed-dose",
-    "category": "heparin",
+    "category": "anticoagulants",
     "subtype": "subq-prophylaxis",
     "difficulty": "beginner",
     "title": "Subcutaneous Heparin DVT Prophylaxis Volume",
@@ -5959,7 +6031,7 @@ export const STORED_MEDMATH_QUESTIONS: StoredNumericQuestion[] = [
   },
   {
     "id": "heparin-bolus-80units-kg-1000u",
-    "category": "heparin",
+    "category": "anticoagulants",
     "subtype": "heparin-bolus",
     "difficulty": "intermediate",
     "title": "Initial 80 units/kg Heparin IV Bolus Syringe Volume",
@@ -6004,7 +6076,7 @@ export const STORED_MEDMATH_QUESTIONS: StoredNumericQuestion[] = [
   },
   {
     "id": "heparin-bolus-60units-kg-acs",
-    "category": "heparin",
+    "category": "anticoagulants",
     "subtype": "heparin-bolus",
     "difficulty": "intermediate",
     "title": "Weight-Based Heparin Bolus for Acute Coronary Syndrome (60 units/kg)",
@@ -6042,7 +6114,7 @@ export const STORED_MEDMATH_QUESTIONS: StoredNumericQuestion[] = [
   },
   {
     "id": "heparin-infusion-12units-kg-acs",
-    "category": "heparin",
+    "category": "anticoagulants",
     "subtype": "heparin-infusion",
     "difficulty": "intermediate",
     "title": "ACS Heparin Maintenance Infusion Rate (12 units/kg/hr)",
@@ -6087,7 +6159,7 @@ export const STORED_MEDMATH_QUESTIONS: StoredNumericQuestion[] = [
   },
   {
     "id": "heparin-reverse-mlhr-to-units-hr",
-    "category": "heparin",
+    "category": "anticoagulants",
     "subtype": "heparin-infusion",
     "difficulty": "beginner",
     "title": "Reverse Heparin Infusion: Units Delivered per Hour",
@@ -6124,7 +6196,7 @@ export const STORED_MEDMATH_QUESTIONS: StoredNumericQuestion[] = [
   },
   {
     "id": "heparin-reverse-mlhr-to-units-kg-hr",
-    "category": "heparin",
+    "category": "anticoagulants",
     "subtype": "heparin-infusion",
     "difficulty": "advanced",
     "title": "Reverse Heparin Infusion: Weight-Based Rate (units/kg/hr)",
@@ -6169,7 +6241,7 @@ export const STORED_MEDMATH_QUESTIONS: StoredNumericQuestion[] = [
   },
   {
     "id": "heparin-reverse-units-delivered-shift",
-    "category": "heparin",
+    "category": "anticoagulants",
     "subtype": "heparin-infusion",
     "difficulty": "beginner",
     "title": "12-Hour Shift Total Heparin Units Delivered",
@@ -6203,7 +6275,7 @@ export const STORED_MEDMATH_QUESTIONS: StoredNumericQuestion[] = [
   },
   {
     "id": "heparin-protocol-aptt-rebolus-volume",
-    "category": "heparin",
+    "category": "anticoagulants",
     "subtype": "heparin-bolus",
     "difficulty": "intermediate",
     "title": "Protocol-Driven Subtherapeutic aPTT Re-Bolus Syringe Volume",
@@ -6247,7 +6319,7 @@ export const STORED_MEDMATH_QUESTIONS: StoredNumericQuestion[] = [
   },
   {
     "id": "heparin-non-weight-fixed-rate",
-    "category": "heparin",
+    "category": "anticoagulants",
     "subtype": "heparin-infusion",
     "difficulty": "beginner",
     "title": "Non-Weight-Based Fixed Heparin Infusion Rate (mL/hr)",
@@ -6284,7 +6356,7 @@ export const STORED_MEDMATH_QUESTIONS: StoredNumericQuestion[] = [
   },
   {
     "id": "heparin-flush-catheter-lock",
-    "category": "heparin",
+    "category": "anticoagulants",
     "subtype": "subq-prophylaxis",
     "difficulty": "beginner",
     "title": "Central Venous Catheter Heparin Flush Lock Volume",
@@ -6297,6 +6369,7 @@ export const STORED_MEDMATH_QUESTIONS: StoredNumericQuestion[] = [
     "answerUnit": "mL",
     "answerPrecision": 1,
     "roundingInstruction": "State exact number.",
+    "safetyPearl": "Catheter flush concentrations (e.g. 10 to 100 units/mL) must never be confused with therapeutic heparin concentrations (e.g. 1,000 to 25,000 units/mL).",
     "hints": [
       "Divide prescribed units by flush concentration (100 units/mL).",
       "Calculate: 300 units ÷ 100 units/mL = 3 mL."
@@ -6314,6 +6387,190 @@ export const STORED_MEDMATH_QUESTIONS: StoredNumericQuestion[] = [
       "desiredUnits": 300,
       "flushConc": 100,
       "ans": 3
+    }
+  },
+  {
+    "id": "enoxaparin-weight-based-mg",
+    "category": "anticoagulants",
+    "subtype": "enoxaparin-dosing",
+    "difficulty": "beginner",
+    "title": "Weight-Based Enoxaparin (Lovenox) Therapeutic Dosing",
+    "clinicalContext": "Adult Inpatient DVT / PE Therapeutic Anticoagulation",
+    "scenario": "An adult inpatient weighing 82 kg is diagnosed with acute deep vein thrombosis. The physician orders therapeutic enoxaparin (Lovenox) at 1 mg/kg subcutaneously.",
+    "orderText": "Enoxaparin 1 mg/kg SubQ q12h (Patient weight: 82 kg)",
+    "availableText": "Enoxaparin injection 100 mg/mL prefilled syringes",
+    "patientWeightKg": 82,
+    "prompt": "How many mg of enoxaparin should the nurse administer for this dose?",
+    "correctAnswer": 82,
+    "answerUnit": "mg",
+    "answerPrecision": 0,
+    "roundingInstruction": "State whole number of mg.",
+    "safetyPearl": "Do not expel the air bubble in prefilled enoxaparin syringes before administration unless adjusting dose.",
+    "hints": [
+      "Multiply patient weight in kg by the ordered dose in mg/kg.",
+      "Calculate: 82 kg × 1 mg/kg.",
+      "82 × 1 = 82 mg."
+    ],
+    "solutionSteps": [
+      {
+        "stepNumber": 1,
+        "title": "Calculate Therapeutic Enoxaparin Dose",
+        "formula": "Weight (kg) × Dose (mg/kg)",
+        "calculation": "82 kg × 1 mg/kg = 82 mg",
+        "result": "82 mg"
+      }
+    ],
+    "rawVariables": {
+      "weightKg": 82,
+      "doseMgKg": 1,
+      "totalMg": 82
+    }
+  },
+  {
+    "id": "enoxaparin-syringe-volume-ml",
+    "category": "anticoagulants",
+    "subtype": "enoxaparin-dosing",
+    "difficulty": "intermediate",
+    "title": "Enoxaparin Subcutaneous Syringe Volume",
+    "clinicalContext": "Adult Inpatient Anticoagulation Administration",
+    "scenario": "An adult inpatient weighing 80 kg is prescribed enoxaparin 1 mg/kg subcutaneously. The pharmacy supplies enoxaparin at a concentration of 100 mg/mL.",
+    "orderText": "Enoxaparin 1 mg/kg SubQ q12h for patient weight 80 kg",
+    "availableText": "Enoxaparin 100 mg/mL syringe",
+    "patientWeightKg": 80,
+    "prompt": "How many mL should the nurse prepare to deliver the ordered dose?",
+    "correctAnswer": 0.8,
+    "answerUnit": "mL",
+    "answerPrecision": 1,
+    "roundingInstruction": "State exact decimal value (e.g. 0.8).",
+    "safetyPearl": "Administer enoxaparin in the abdominal subcutaneous tissue, at least 2 inches away from the umbilicus.",
+    "hints": [
+      "Step 1: Calculate ordered mg: 80 kg × 1 mg/kg = 80 mg.",
+      "Step 2: Divide ordered mg by concentration (100 mg/mL).",
+      "Calculate: 80 mg ÷ 100 mg/mL = 0.8 mL."
+    ],
+    "solutionSteps": [
+      {
+        "stepNumber": 1,
+        "title": "Calculate Total Dose in Milligrams",
+        "formula": "Weight (kg) × 1 mg/kg",
+        "calculation": "80 kg × 1 mg/kg = 80 mg",
+        "result": "80 mg"
+      },
+      {
+        "stepNumber": 2,
+        "title": "Calculate Syringe Volume",
+        "formula": "Dose (mg) ÷ Concentration (mg/mL)",
+        "calculation": "80 mg ÷ 100 mg/mL = 0.8 mL",
+        "result": "0.8 mL"
+      }
+    ],
+    "rawVariables": {
+      "weightKg": 80,
+      "doseMgKg": 1,
+      "totalMg": 80,
+      "concMgMl": 100,
+      "volMl": 0.8
+    }
+  },
+  {
+    "id": "heparin-bolus-from-pounds-units",
+    "category": "anticoagulants",
+    "subtype": "heparin-bolus",
+    "difficulty": "intermediate",
+    "title": "Heparin IV Loading Bolus from Patient Weight in Pounds",
+    "clinicalContext": "Adult Inpatient Anticoagulation Protocol Initiation",
+    "scenario": "An adult inpatient weighing 176 lb is admitted with acute deep vein thrombosis and ordered an initial IV heparin loading bolus of 80 units/kg.",
+    "orderText": "Heparin 80 units/kg IV bolus stat (Patient weight: 176 lb)",
+    "availableText": "Heparin sodium 1,000 USP units/mL vial",
+    "patientWeightLb": 176,
+    "patientWeightKg": 80,
+    "prompt": "How many total units of Heparin should the nurse administer for this bolus?",
+    "correctAnswer": 6400,
+    "answerUnit": "units",
+    "answerPrecision": 0,
+    "roundingInstruction": "State whole number of units.",
+    "safetyPearl": "Always convert patient weight accurately from pounds to kilograms (divide by 2.2) before calculating weight-based heparin doses.",
+    "hints": [
+      "Step 1: Convert pounds to kilograms: 176 lb ÷ 2.2 = 80 kg.",
+      "Step 2: Multiply kg by 80 units/kg: 80 kg × 80 units/kg.",
+      "Calculate: 80 × 80 = 6400 units."
+    ],
+    "solutionSteps": [
+      {
+        "stepNumber": 1,
+        "title": "Convert Weight to Kilograms",
+        "formula": "Weight (lb) ÷ 2.2",
+        "calculation": "176 lb ÷ 2.2 = 80 kg",
+        "result": "80 kg"
+      },
+      {
+        "stepNumber": 2,
+        "title": "Calculate Bolus Units",
+        "formula": "Weight (kg) × Bolus Dose (units/kg)",
+        "calculation": "80 kg × 80 units/kg = 6400 units",
+        "result": "6400 units"
+      }
+    ],
+    "rawVariables": {
+      "lb": 176,
+      "kg": 80,
+      "bolusUnitsKg": 80,
+      "totalUnits": 6400
+    }
+  },
+  {
+    "id": "heparin-protocol-rate-increase-from-units-hr",
+    "category": "anticoagulants",
+    "subtype": "titration-protocol",
+    "difficulty": "advanced",
+    "title": "Heparin Protocol Titration: Increase from Units/hr Infusion",
+    "clinicalContext": "Adult Inpatient Weight-Based Titration Protocol",
+    "scenario": "An adult patient weighing 75 kg is receiving a continuous heparin infusion currently running at 1200 units/hr. The 6-hour aPTT is subtherapeutic. The protocol directs the nurse to increase the infusion by 2 units/kg/hr. The IV bag contains 25,000 units in 500 mL Normal Saline (50 units/mL).",
+    "orderText": "Adjust heparin infusion: increase current rate by 2 units/kg/hr (Weight: 75 kg)",
+    "availableText": "Heparin 25,000 units in 500 mL NS (50 units/mL)",
+    "patientWeightKg": 75,
+    "prompt": "Calculate the NEW pump rate in mL/hr.",
+    "correctAnswer": 27,
+    "answerUnit": "mL/hr",
+    "answerPrecision": 1,
+    "roundingInstruction": "Round to nearest tenth.",
+    "safetyPearl": "Unfractionated heparin is monitored via aPTT or anti-Xa protocols. Independent double-checks are critical when changing pump infusion rates.",
+    "hints": [
+      "Step 1: Calculate rate increase: 75 kg × 2 units/kg/hr = 150 units/hr.",
+      "Step 2: Add to current rate: 1200 + 150 = 1350 units/hr.",
+      "Step 3: Convert to mL/hr: 1350 units/hr ÷ 50 units/mL = 27 mL/hr."
+    ],
+    "solutionSteps": [
+      {
+        "stepNumber": 1,
+        "title": "Calculate Hourly Rate Increase",
+        "formula": "Weight (kg) × Rate Increase (units/kg/hr)",
+        "calculation": "75 kg × 2 units/kg/hr = 150 units/hr",
+        "result": "150 units/hr"
+      },
+      {
+        "stepNumber": 2,
+        "title": "Calculate New Total Units per Hour",
+        "formula": "Current Units/hr + Hourly Increase",
+        "calculation": "1200 units/hr + 150 units/hr = 1350 units/hr",
+        "result": "1350 units/hr"
+      },
+      {
+        "stepNumber": 3,
+        "title": "Calculate New Pump Rate",
+        "formula": "New Units/hr ÷ Concentration (units/mL)",
+        "calculation": "1350 units/hr ÷ 50 units/mL = 27 mL/hr",
+        "result": "27 mL/hr"
+      }
+    ],
+    "rawVariables": {
+      "weightKg": 75,
+      "currentUnitsHr": 1200,
+      "increaseUnitsKgHr": 2,
+      "deltaUnitsHr": 150,
+      "newUnitsHr": 1350,
+      "concUnitsMl": 50,
+      "newRateMlHr": 27
     }
   },
   {
@@ -11473,6 +11730,4776 @@ export const STORED_MEDMATH_QUESTIONS: StoredNumericQuestion[] = [
       "ampMl": 10,
       "concMgMl": 100,
       "ansMl": 10
+    }
+  },
+  {
+    "id": "ins-know-lispro-peak",
+    "category": "insulin",
+    "subtype": "rapid-acting-timing",
+    "difficulty": "intermediate",
+    "title": "Lispro Peak Risk Window",
+    "clinicalContext": "Adult nursing medication education",
+    "scenario": "Lispro is administered at 0730 before breakfast.",
+    "orderText": "Apply medication knowledge and nursing safety principles.",
+    "prompt": "During which time window is hypoglycemia risk greatest based on the course peak range?",
+    "correctAnswer": 1,
+    "answerUnit": "choice",
+    "answerPrecision": 0,
+    "responseType": "multiple-choice",
+    "questionKind": "clinical-application",
+    "options": [
+      {
+        "id": "0",
+        "label": "0740 to 0745"
+      },
+      {
+        "id": "1",
+        "label": "0800 to 0900"
+      },
+      {
+        "id": "2",
+        "label": "0930 to 1030"
+      },
+      {
+        "id": "3",
+        "label": "1130 to 1530"
+      }
+    ],
+    "correctAnswerLabel": "0800 to 0900",
+    "tags": [
+      "lispro",
+      "peak",
+      "hypoglycemia",
+      "timing"
+    ],
+    "safetyPearl": "Peak action is the period of greatest hypoglycemia concern.",
+    "hints": [
+      "Focus on lispro and peak.",
+      "Separate the medication's action from the nursing monitoring priority.",
+      "Eliminate choices that conflict with this safety principle: Peak action is the period of greatest hypoglycemia concern."
+    ],
+    "solutionSteps": [
+      {
+        "stepNumber": 1,
+        "title": "Clinical reasoning",
+        "calculation": "0800 to 0900",
+        "explanation": "Rapid-acting insulin peaks about 30 to 90 minutes after administration.",
+        "result": "0800 to 0900"
+      },
+      {
+        "stepNumber": 2,
+        "title": "Safety pearl",
+        "calculation": "",
+        "explanation": "Peak action is the period of greatest hypoglycemia concern.",
+        "result": "Apply the safety check before administration."
+      }
+    ],
+    "rawVariables": {
+      "correctOptionIndexes": 1,
+      "tags": [
+        "lispro",
+        "peak",
+        "hypoglycemia",
+        "timing"
+      ]
+    }
+  },
+  {
+    "id": "ins-know-rapid-meal",
+    "category": "insulin",
+    "subtype": "rapid-acting-meal-safety",
+    "difficulty": "beginner",
+    "title": "Rapid Insulin and Meal Availability",
+    "clinicalContext": "Adult nursing medication education",
+    "scenario": "The nurse is preparing lispro, but the breakfast tray has not arrived.",
+    "orderText": "Apply medication knowledge and nursing safety principles.",
+    "prompt": "What is the safest immediate action?",
+    "correctAnswer": 1,
+    "answerUnit": "choice",
+    "answerPrecision": 0,
+    "responseType": "multiple-choice",
+    "questionKind": "clinical-application",
+    "options": [
+      {
+        "id": "0",
+        "label": "Give the lispro now and wait for the tray"
+      },
+      {
+        "id": "1",
+        "label": "Verify the meal is available before giving the dose"
+      },
+      {
+        "id": "2",
+        "label": "Substitute NPH for lispro"
+      },
+      {
+        "id": "3",
+        "label": "Hold all insulin for the day"
+      }
+    ],
+    "correctAnswerLabel": "Verify the meal is available before giving the dose",
+    "tags": [
+      "lispro",
+      "meal timing",
+      "hypoglycemia",
+      "safety"
+    ],
+    "safetyPearl": "Administer with the meal available, generally within 15 minutes before eating or as product labeling directs.",
+    "hints": [
+      "Focus on lispro and meal timing.",
+      "Separate the medication's action from the nursing monitoring priority.",
+      "Eliminate choices that conflict with this safety principle: Administer with the meal available, generally within 15 minutes before eating or as product labeling directs."
+    ],
+    "solutionSteps": [
+      {
+        "stepNumber": 1,
+        "title": "Clinical reasoning",
+        "calculation": "Verify the meal is available before giving the dose",
+        "explanation": "Rapid-acting insulin should be coordinated closely with food intake.",
+        "result": "Verify the meal is available before giving the dose"
+      },
+      {
+        "stepNumber": 2,
+        "title": "Safety pearl",
+        "calculation": "",
+        "explanation": "Administer with the meal available, generally within 15 minutes before eating or as product labeling directs.",
+        "result": "Apply the safety check before administration."
+      }
+    ],
+    "rawVariables": {
+      "correctOptionIndexes": 1,
+      "tags": [
+        "lispro",
+        "meal timing",
+        "hypoglycemia",
+        "safety"
+      ]
+    }
+  },
+  {
+    "id": "ins-know-rapid-generics",
+    "category": "insulin",
+    "subtype": "rapid-acting-identification",
+    "difficulty": "beginner",
+    "title": "Rapid-Acting Insulin Identification",
+    "clinicalContext": "Adult nursing medication education",
+    "scenario": "A student reviews common rapid-acting insulin names.",
+    "orderText": "Apply medication knowledge and nursing safety principles.",
+    "prompt": "Which medication is rapid acting?",
+    "correctAnswer": 0,
+    "answerUnit": "choice",
+    "answerPrecision": 0,
+    "responseType": "multiple-choice",
+    "questionKind": "knowledge",
+    "options": [
+      {
+        "id": "0",
+        "label": "Insulin lispro"
+      },
+      {
+        "id": "1",
+        "label": "NPH insulin"
+      },
+      {
+        "id": "2",
+        "label": "Insulin glargine"
+      },
+      {
+        "id": "3",
+        "label": "Insulin degludec"
+      }
+    ],
+    "correctAnswerLabel": "Insulin lispro",
+    "tags": [
+      "lispro",
+      "rapid acting",
+      "identification"
+    ],
+    "safetyPearl": "Always verify both the generic name and concentration before administration.",
+    "hints": [
+      "Focus on lispro and rapid acting.",
+      "Separate the medication's action from the nursing monitoring priority.",
+      "Eliminate choices that conflict with this safety principle: Always verify both the generic name and concentration before administration."
+    ],
+    "solutionSteps": [
+      {
+        "stepNumber": 1,
+        "title": "Clinical reasoning",
+        "calculation": "Insulin lispro",
+        "explanation": "Lispro is a rapid-acting insulin analog.",
+        "result": "Insulin lispro"
+      },
+      {
+        "stepNumber": 2,
+        "title": "Safety pearl",
+        "calculation": "",
+        "explanation": "Always verify both the generic name and concentration before administration.",
+        "result": "Apply the safety check before administration."
+      }
+    ],
+    "rawVariables": {
+      "correctOptionIndexes": 0,
+      "tags": [
+        "lispro",
+        "rapid acting",
+        "identification"
+      ]
+    }
+  },
+  {
+    "id": "ins-know-aspart-brand",
+    "category": "insulin",
+    "subtype": "rapid-acting-identification",
+    "difficulty": "beginner",
+    "title": "Aspart Brand Recognition",
+    "clinicalContext": "Adult nursing medication education",
+    "scenario": "The medication record lists NovoLog.",
+    "orderText": "Apply medication knowledge and nursing safety principles.",
+    "prompt": "Which generic insulin is NovoLog?",
+    "correctAnswer": 0,
+    "answerUnit": "choice",
+    "answerPrecision": 0,
+    "responseType": "multiple-choice",
+    "questionKind": "knowledge",
+    "options": [
+      {
+        "id": "0",
+        "label": "Aspart"
+      },
+      {
+        "id": "1",
+        "label": "Lispro"
+      },
+      {
+        "id": "2",
+        "label": "Glulisine"
+      },
+      {
+        "id": "3",
+        "label": "Regular insulin"
+      }
+    ],
+    "correctAnswerLabel": "Aspart",
+    "tags": [
+      "aspart",
+      "NovoLog",
+      "brand"
+    ],
+    "safetyPearl": "Brand recognition never replaces checking the insulin label.",
+    "hints": [
+      "Focus on aspart and NovoLog.",
+      "Separate the medication's action from the nursing monitoring priority.",
+      "Eliminate choices that conflict with this safety principle: Brand recognition never replaces checking the insulin label."
+    ],
+    "solutionSteps": [
+      {
+        "stepNumber": 1,
+        "title": "Clinical reasoning",
+        "calculation": "Aspart",
+        "explanation": "NovoLog is a brand of insulin aspart.",
+        "result": "Aspart"
+      },
+      {
+        "stepNumber": 2,
+        "title": "Safety pearl",
+        "calculation": "",
+        "explanation": "Brand recognition never replaces checking the insulin label.",
+        "result": "Apply the safety check before administration."
+      }
+    ],
+    "rawVariables": {
+      "correctOptionIndexes": 0,
+      "tags": [
+        "aspart",
+        "NovoLog",
+        "brand"
+      ]
+    }
+  },
+  {
+    "id": "ins-know-glulisine-brand",
+    "category": "insulin",
+    "subtype": "rapid-acting-identification",
+    "difficulty": "beginner",
+    "title": "Glulisine Brand Recognition",
+    "clinicalContext": "Adult nursing medication education",
+    "scenario": "The order lists Apidra.",
+    "orderText": "Apply medication knowledge and nursing safety principles.",
+    "prompt": "Which generic insulin is Apidra?",
+    "correctAnswer": 1,
+    "answerUnit": "choice",
+    "answerPrecision": 0,
+    "responseType": "multiple-choice",
+    "questionKind": "knowledge",
+    "options": [
+      {
+        "id": "0",
+        "label": "Glargine"
+      },
+      {
+        "id": "1",
+        "label": "Glulisine"
+      },
+      {
+        "id": "2",
+        "label": "Degludec"
+      },
+      {
+        "id": "3",
+        "label": "Detemir"
+      }
+    ],
+    "correctAnswerLabel": "Glulisine",
+    "tags": [
+      "glulisine",
+      "Apidra",
+      "brand"
+    ],
+    "safetyPearl": "Confirm the insulin type before selecting an administration time.",
+    "hints": [
+      "Focus on glulisine and Apidra.",
+      "Separate the medication's action from the nursing monitoring priority.",
+      "Eliminate choices that conflict with this safety principle: Confirm the insulin type before selecting an administration time."
+    ],
+    "solutionSteps": [
+      {
+        "stepNumber": 1,
+        "title": "Clinical reasoning",
+        "calculation": "Glulisine",
+        "explanation": "Apidra is insulin glulisine.",
+        "result": "Glulisine"
+      },
+      {
+        "stepNumber": 2,
+        "title": "Safety pearl",
+        "calculation": "",
+        "explanation": "Confirm the insulin type before selecting an administration time.",
+        "result": "Apply the safety check before administration."
+      }
+    ],
+    "rawVariables": {
+      "correctOptionIndexes": 1,
+      "tags": [
+        "glulisine",
+        "Apidra",
+        "brand"
+      ]
+    }
+  },
+  {
+    "id": "ins-know-rapid-onset",
+    "category": "insulin",
+    "subtype": "rapid-acting-timing",
+    "difficulty": "beginner",
+    "title": "Rapid-Acting Onset",
+    "clinicalContext": "Adult nursing medication education",
+    "scenario": "A patient receives a rapid-acting insulin analog.",
+    "orderText": "Apply medication knowledge and nursing safety principles.",
+    "prompt": "Which onset range matches the supplied course reference?",
+    "correctAnswer": 0,
+    "answerUnit": "choice",
+    "answerPrecision": 0,
+    "responseType": "multiple-choice",
+    "questionKind": "knowledge",
+    "options": [
+      {
+        "id": "0",
+        "label": "10 to 15 minutes"
+      },
+      {
+        "id": "1",
+        "label": "30 to 60 minutes"
+      },
+      {
+        "id": "2",
+        "label": "2 to 4 hours"
+      },
+      {
+        "id": "3",
+        "label": "4 to 12 hours"
+      }
+    ],
+    "correctAnswerLabel": "10 to 15 minutes",
+    "tags": [
+      "rapid acting",
+      "onset",
+      "timing"
+    ],
+    "safetyPearl": "Onset is when action begins. Peak is when effect is strongest.",
+    "hints": [
+      "Focus on rapid acting and onset.",
+      "Separate the medication's action from the nursing monitoring priority.",
+      "Eliminate choices that conflict with this safety principle: Onset is when action begins. Peak is when effect is strongest."
+    ],
+    "solutionSteps": [
+      {
+        "stepNumber": 1,
+        "title": "Clinical reasoning",
+        "calculation": "10 to 15 minutes",
+        "explanation": "The course reference lists an onset of about 10 to 15 minutes.",
+        "result": "10 to 15 minutes"
+      },
+      {
+        "stepNumber": 2,
+        "title": "Safety pearl",
+        "calculation": "",
+        "explanation": "Onset is when action begins. Peak is when effect is strongest.",
+        "result": "Apply the safety check before administration."
+      }
+    ],
+    "rawVariables": {
+      "correctOptionIndexes": 0,
+      "tags": [
+        "rapid acting",
+        "onset",
+        "timing"
+      ]
+    }
+  },
+  {
+    "id": "ins-know-regular-peak",
+    "category": "insulin",
+    "subtype": "regular-insulin-timing",
+    "difficulty": "intermediate",
+    "title": "Regular Insulin Peak",
+    "clinicalContext": "Adult nursing medication education",
+    "scenario": "Regular insulin is administered subcutaneously at 0800.",
+    "orderText": "Apply medication knowledge and nursing safety principles.",
+    "prompt": "When should the nurse monitor most closely for peak-related hypoglycemia?",
+    "correctAnswer": 2,
+    "answerUnit": "choice",
+    "answerPrecision": 0,
+    "responseType": "multiple-choice",
+    "questionKind": "clinical-application",
+    "options": [
+      {
+        "id": "0",
+        "label": "0810 to 0815"
+      },
+      {
+        "id": "1",
+        "label": "0830 to 0900"
+      },
+      {
+        "id": "2",
+        "label": "1000 to 1100"
+      },
+      {
+        "id": "3",
+        "label": "1600 to 2000"
+      }
+    ],
+    "correctAnswerLabel": "1000 to 1100",
+    "tags": [
+      "regular insulin",
+      "peak",
+      "hypoglycemia",
+      "timing"
+    ],
+    "safetyPearl": "Use the medication's peak, not its onset, to identify the highest hypoglycemia-risk window.",
+    "hints": [
+      "Focus on regular insulin and peak.",
+      "Separate the medication's action from the nursing monitoring priority.",
+      "Eliminate choices that conflict with this safety principle: Use the medication's peak, not its onset, to identify the highest hypoglycemia-risk window."
+    ],
+    "solutionSteps": [
+      {
+        "stepNumber": 1,
+        "title": "Clinical reasoning",
+        "calculation": "1000 to 1100",
+        "explanation": "Regular insulin peaks about 2 to 3 hours after administration.",
+        "result": "1000 to 1100"
+      },
+      {
+        "stepNumber": 2,
+        "title": "Safety pearl",
+        "calculation": "",
+        "explanation": "Use the medication's peak, not its onset, to identify the highest hypoglycemia-risk window.",
+        "result": "Apply the safety check before administration."
+      }
+    ],
+    "rawVariables": {
+      "correctOptionIndexes": 2,
+      "tags": [
+        "regular insulin",
+        "peak",
+        "hypoglycemia",
+        "timing"
+      ]
+    }
+  },
+  {
+    "id": "ins-know-regular-iv",
+    "category": "insulin",
+    "subtype": "regular-insulin-safety",
+    "difficulty": "beginner",
+    "title": "Insulin Route Recognition",
+    "clinicalContext": "Adult nursing medication education",
+    "scenario": "An adult patient requires an IV insulin infusion under protocol.",
+    "orderText": "Apply medication knowledge and nursing safety principles.",
+    "prompt": "Which insulin is used for the IV infusion?",
+    "correctAnswer": 0,
+    "answerUnit": "choice",
+    "answerPrecision": 0,
+    "responseType": "multiple-choice",
+    "questionKind": "knowledge",
+    "options": [
+      {
+        "id": "0",
+        "label": "Regular insulin"
+      },
+      {
+        "id": "1",
+        "label": "NPH insulin"
+      },
+      {
+        "id": "2",
+        "label": "Insulin glargine"
+      },
+      {
+        "id": "3",
+        "label": "Insulin degludec"
+      }
+    ],
+    "correctAnswerLabel": "Regular insulin",
+    "tags": [
+      "regular insulin",
+      "IV",
+      "infusion",
+      "safety"
+    ],
+    "safetyPearl": "IV insulin requires a validated protocol, pump programming, and frequent glucose monitoring.",
+    "hints": [
+      "Focus on regular insulin and IV.",
+      "Separate the medication's action from the nursing monitoring priority.",
+      "Eliminate choices that conflict with this safety principle: IV insulin requires a validated protocol, pump programming, and frequent glucose monitoring."
+    ],
+    "solutionSteps": [
+      {
+        "stepNumber": 1,
+        "title": "Clinical reasoning",
+        "calculation": "Regular insulin",
+        "explanation": "Regular insulin can be administered intravenously and used for insulin infusions.",
+        "result": "Regular insulin"
+      },
+      {
+        "stepNumber": 2,
+        "title": "Safety pearl",
+        "calculation": "",
+        "explanation": "IV insulin requires a validated protocol, pump programming, and frequent glucose monitoring.",
+        "result": "Apply the safety check before administration."
+      }
+    ],
+    "rawVariables": {
+      "correctOptionIndexes": 0,
+      "tags": [
+        "regular insulin",
+        "IV",
+        "infusion",
+        "safety"
+      ]
+    }
+  },
+  {
+    "id": "ins-know-clear-cloudy",
+    "category": "insulin",
+    "subtype": "insulin-mixing",
+    "difficulty": "beginner",
+    "title": "Clear Before Cloudy",
+    "clinicalContext": "Adult nursing medication education",
+    "scenario": "Regular insulin and NPH are prescribed in one syringe.",
+    "orderText": "Apply medication knowledge and nursing safety principles.",
+    "prompt": "Which insulin should the nurse draw up first?",
+    "correctAnswer": 1,
+    "answerUnit": "choice",
+    "answerPrecision": 0,
+    "responseType": "multiple-choice",
+    "questionKind": "knowledge",
+    "options": [
+      {
+        "id": "0",
+        "label": "Cloudy NPH"
+      },
+      {
+        "id": "1",
+        "label": "Clear regular insulin"
+      },
+      {
+        "id": "2",
+        "label": "Either insulin in any order"
+      },
+      {
+        "id": "3",
+        "label": "Glargine first"
+      }
+    ],
+    "correctAnswerLabel": "Clear regular insulin",
+    "tags": [
+      "regular insulin",
+      "NPH",
+      "mixing",
+      "clear before cloudy"
+    ],
+    "safetyPearl": "Clear before cloudy helps prevent contaminating regular insulin with NPH.",
+    "hints": [
+      "Focus on regular insulin and NPH.",
+      "Separate the medication's action from the nursing monitoring priority.",
+      "Eliminate choices that conflict with this safety principle: Clear before cloudy helps prevent contaminating regular insulin with NPH."
+    ],
+    "solutionSteps": [
+      {
+        "stepNumber": 1,
+        "title": "Clinical reasoning",
+        "calculation": "Clear regular insulin",
+        "explanation": "Draw clear regular insulin before cloudy NPH insulin.",
+        "result": "Clear regular insulin"
+      },
+      {
+        "stepNumber": 2,
+        "title": "Safety pearl",
+        "calculation": "",
+        "explanation": "Clear before cloudy helps prevent contaminating regular insulin with NPH.",
+        "result": "Apply the safety check before administration."
+      }
+    ],
+    "rawVariables": {
+      "correctOptionIndexes": 1,
+      "tags": [
+        "regular insulin",
+        "NPH",
+        "mixing",
+        "clear before cloudy"
+      ]
+    }
+  },
+  {
+    "id": "ins-know-nph-appearance",
+    "category": "insulin",
+    "subtype": "nph-safety",
+    "difficulty": "beginner",
+    "title": "NPH Appearance",
+    "clinicalContext": "Adult nursing medication education",
+    "scenario": "The nurse inspects an NPH vial before preparing a dose.",
+    "orderText": "Apply medication knowledge and nursing safety principles.",
+    "prompt": "Which appearance is expected after gentle resuspension?",
+    "correctAnswer": 0,
+    "answerUnit": "choice",
+    "answerPrecision": 0,
+    "responseType": "multiple-choice",
+    "questionKind": "knowledge",
+    "options": [
+      {
+        "id": "0",
+        "label": "Cloudy"
+      },
+      {
+        "id": "1",
+        "label": "Bright red"
+      },
+      {
+        "id": "2",
+        "label": "Completely clear"
+      },
+      {
+        "id": "3",
+        "label": "Blue tinted"
+      }
+    ],
+    "correctAnswerLabel": "Cloudy",
+    "tags": [
+      "NPH",
+      "appearance",
+      "cloudy",
+      "safety"
+    ],
+    "safetyPearl": "Do not confuse expected NPH cloudiness with particulate contamination in a normally clear insulin.",
+    "hints": [
+      "Focus on NPH and appearance.",
+      "Separate the medication's action from the nursing monitoring priority.",
+      "Eliminate choices that conflict with this safety principle: Do not confuse expected NPH cloudiness with particulate contamination in a normally clear insulin."
+    ],
+    "solutionSteps": [
+      {
+        "stepNumber": 1,
+        "title": "Clinical reasoning",
+        "calculation": "Cloudy",
+        "explanation": "NPH is an intermediate-acting insulin with a cloudy appearance.",
+        "result": "Cloudy"
+      },
+      {
+        "stepNumber": 2,
+        "title": "Safety pearl",
+        "calculation": "",
+        "explanation": "Do not confuse expected NPH cloudiness with particulate contamination in a normally clear insulin.",
+        "result": "Apply the safety check before administration."
+      }
+    ],
+    "rawVariables": {
+      "correctOptionIndexes": 0,
+      "tags": [
+        "NPH",
+        "appearance",
+        "cloudy",
+        "safety"
+      ]
+    }
+  },
+  {
+    "id": "ins-know-nph-peak",
+    "category": "insulin",
+    "subtype": "nph-timing",
+    "difficulty": "intermediate",
+    "title": "NPH Peak Window",
+    "clinicalContext": "Adult nursing medication education",
+    "scenario": "NPH is administered at 0700.",
+    "orderText": "Apply medication knowledge and nursing safety principles.",
+    "prompt": "Which window matches its approximate peak from the supplied course reference?",
+    "correctAnswer": 2,
+    "answerUnit": "choice",
+    "answerPrecision": 0,
+    "responseType": "multiple-choice",
+    "questionKind": "clinical-application",
+    "options": [
+      {
+        "id": "0",
+        "label": "0710 to 0715"
+      },
+      {
+        "id": "1",
+        "label": "0730 to 0830"
+      },
+      {
+        "id": "2",
+        "label": "1100 to 1900"
+      },
+      {
+        "id": "3",
+        "label": "2300 to 0700 the next day only"
+      }
+    ],
+    "correctAnswerLabel": "1100 to 1900",
+    "tags": [
+      "NPH",
+      "peak",
+      "hypoglycemia",
+      "timing"
+    ],
+    "safetyPearl": "Plan glucose monitoring and nutrition around the broad NPH peak window.",
+    "hints": [
+      "Focus on NPH and peak.",
+      "Separate the medication's action from the nursing monitoring priority.",
+      "Eliminate choices that conflict with this safety principle: Plan glucose monitoring and nutrition around the broad NPH peak window."
+    ],
+    "solutionSteps": [
+      {
+        "stepNumber": 1,
+        "title": "Clinical reasoning",
+        "calculation": "1100 to 1900",
+        "explanation": "NPH peaks about 4 to 12 hours after administration.",
+        "result": "1100 to 1900"
+      },
+      {
+        "stepNumber": 2,
+        "title": "Safety pearl",
+        "calculation": "",
+        "explanation": "Plan glucose monitoring and nutrition around the broad NPH peak window.",
+        "result": "Apply the safety check before administration."
+      }
+    ],
+    "rawVariables": {
+      "correctOptionIndexes": 2,
+      "tags": [
+        "NPH",
+        "peak",
+        "hypoglycemia",
+        "timing"
+      ]
+    }
+  },
+  {
+    "id": "ins-know-nph-class",
+    "category": "insulin",
+    "subtype": "nph-identification",
+    "difficulty": "beginner",
+    "title": "NPH Classification",
+    "clinicalContext": "Adult nursing medication education",
+    "scenario": "The nurse reviews the insulin profile before administration.",
+    "orderText": "Apply medication knowledge and nursing safety principles.",
+    "prompt": "How is NPH classified?",
+    "correctAnswer": 2,
+    "answerUnit": "choice",
+    "answerPrecision": 0,
+    "responseType": "multiple-choice",
+    "questionKind": "knowledge",
+    "options": [
+      {
+        "id": "0",
+        "label": "Rapid acting"
+      },
+      {
+        "id": "1",
+        "label": "Short acting"
+      },
+      {
+        "id": "2",
+        "label": "Intermediate acting"
+      },
+      {
+        "id": "3",
+        "label": "Ultra-long acting"
+      }
+    ],
+    "correctAnswerLabel": "Intermediate acting",
+    "tags": [
+      "NPH",
+      "intermediate acting",
+      "classification"
+    ],
+    "safetyPearl": "Classification helps connect onset, peak, and duration to bedside risk.",
+    "hints": [
+      "Focus on NPH and intermediate acting.",
+      "Separate the medication's action from the nursing monitoring priority.",
+      "Eliminate choices that conflict with this safety principle: Classification helps connect onset, peak, and duration to bedside risk."
+    ],
+    "solutionSteps": [
+      {
+        "stepNumber": 1,
+        "title": "Clinical reasoning",
+        "calculation": "Intermediate acting",
+        "explanation": "NPH is intermediate acting.",
+        "result": "Intermediate acting"
+      },
+      {
+        "stepNumber": 2,
+        "title": "Safety pearl",
+        "calculation": "",
+        "explanation": "Classification helps connect onset, peak, and duration to bedside risk.",
+        "result": "Apply the safety check before administration."
+      }
+    ],
+    "rawVariables": {
+      "correctOptionIndexes": 2,
+      "tags": [
+        "NPH",
+        "intermediate acting",
+        "classification"
+      ]
+    }
+  },
+  {
+    "id": "ins-know-glargine-mix",
+    "category": "insulin",
+    "subtype": "long-acting-safety",
+    "difficulty": "beginner",
+    "title": "Glargine Mixing Safety",
+    "clinicalContext": "Adult nursing medication education",
+    "scenario": "The patient has orders for glargine and lispro at the same medication pass.",
+    "orderText": "Apply medication knowledge and nursing safety principles.",
+    "prompt": "Which action is correct?",
+    "correctAnswer": 2,
+    "answerUnit": "choice",
+    "answerPrecision": 0,
+    "responseType": "multiple-choice",
+    "questionKind": "knowledge",
+    "options": [
+      {
+        "id": "0",
+        "label": "Mix both in one syringe"
+      },
+      {
+        "id": "1",
+        "label": "Mix glargine only with NPH"
+      },
+      {
+        "id": "2",
+        "label": "Administer glargine separately"
+      },
+      {
+        "id": "3",
+        "label": "Draw glargine first, then lispro"
+      }
+    ],
+    "correctAnswerLabel": "Administer glargine separately",
+    "tags": [
+      "glargine",
+      "mixing",
+      "safety"
+    ],
+    "safetyPearl": "Glargine must not be diluted or mixed with another insulin or solution.",
+    "hints": [
+      "Focus on glargine and mixing.",
+      "Separate the medication's action from the nursing monitoring priority.",
+      "Eliminate choices that conflict with this safety principle: Glargine must not be diluted or mixed with another insulin or solution."
+    ],
+    "solutionSteps": [
+      {
+        "stepNumber": 1,
+        "title": "Clinical reasoning",
+        "calculation": "Administer glargine separately",
+        "explanation": "Do not mix insulin glargine with another insulin or solution.",
+        "result": "Administer glargine separately"
+      },
+      {
+        "stepNumber": 2,
+        "title": "Safety pearl",
+        "calculation": "",
+        "explanation": "Glargine must not be diluted or mixed with another insulin or solution.",
+        "result": "Apply the safety check before administration."
+      }
+    ],
+    "rawVariables": {
+      "correctOptionIndexes": 2,
+      "tags": [
+        "glargine",
+        "mixing",
+        "safety"
+      ]
+    }
+  },
+  {
+    "id": "ins-know-long-peak",
+    "category": "insulin",
+    "subtype": "long-acting-timing",
+    "difficulty": "beginner",
+    "title": "Long-Acting Peak Profile",
+    "clinicalContext": "Adult nursing medication education",
+    "scenario": "The nurse teaches a patient about basal insulin glargine.",
+    "orderText": "Apply medication knowledge and nursing safety principles.",
+    "prompt": "Which action profile is expected?",
+    "correctAnswer": 2,
+    "answerUnit": "choice",
+    "answerPrecision": 0,
+    "responseType": "multiple-choice",
+    "questionKind": "knowledge",
+    "options": [
+      {
+        "id": "0",
+        "label": "A pronounced peak at 30 minutes"
+      },
+      {
+        "id": "1",
+        "label": "A pronounced peak at 2 hours"
+      },
+      {
+        "id": "2",
+        "label": "Minimal or no pronounced peak"
+      },
+      {
+        "id": "3",
+        "label": "No glucose-lowering action"
+      }
+    ],
+    "correctAnswerLabel": "Minimal or no pronounced peak",
+    "tags": [
+      "glargine",
+      "long acting",
+      "peak"
+    ],
+    "safetyPearl": "A flat profile does not eliminate hypoglycemia risk.",
+    "hints": [
+      "Focus on glargine and long acting.",
+      "Separate the medication's action from the nursing monitoring priority.",
+      "Eliminate choices that conflict with this safety principle: A flat profile does not eliminate hypoglycemia risk."
+    ],
+    "solutionSteps": [
+      {
+        "stepNumber": 1,
+        "title": "Clinical reasoning",
+        "calculation": "Minimal or no pronounced peak",
+        "explanation": "minimal or no pronounced peak",
+        "result": "Minimal or no pronounced peak"
+      },
+      {
+        "stepNumber": 2,
+        "title": "Safety pearl",
+        "calculation": "",
+        "explanation": "A flat profile does not eliminate hypoglycemia risk.",
+        "result": "Apply the safety check before administration."
+      }
+    ],
+    "rawVariables": {
+      "correctOptionIndexes": 2,
+      "tags": [
+        "glargine",
+        "long acting",
+        "peak"
+      ]
+    }
+  },
+  {
+    "id": "ins-know-degludec-class",
+    "category": "insulin",
+    "subtype": "ultra-long-identification",
+    "difficulty": "beginner",
+    "title": "Degludec Classification",
+    "clinicalContext": "Adult nursing medication education",
+    "scenario": "The medication list includes Tresiba.",
+    "orderText": "Apply medication knowledge and nursing safety principles.",
+    "prompt": "Which insulin type is Tresiba (degludec)?",
+    "correctAnswer": 3,
+    "answerUnit": "choice",
+    "answerPrecision": 0,
+    "responseType": "multiple-choice",
+    "questionKind": "knowledge",
+    "options": [
+      {
+        "id": "0",
+        "label": "Rapid acting"
+      },
+      {
+        "id": "1",
+        "label": "Short acting"
+      },
+      {
+        "id": "2",
+        "label": "Intermediate acting"
+      },
+      {
+        "id": "3",
+        "label": "Ultra-long acting"
+      }
+    ],
+    "correctAnswerLabel": "Ultra-long acting",
+    "tags": [
+      "degludec",
+      "Tresiba",
+      "ultra-long"
+    ],
+    "safetyPearl": "Verify concentrated insulin products and delivery devices carefully.",
+    "hints": [
+      "Focus on degludec and Tresiba.",
+      "Separate the medication's action from the nursing monitoring priority.",
+      "Eliminate choices that conflict with this safety principle: Verify concentrated insulin products and delivery devices carefully."
+    ],
+    "solutionSteps": [
+      {
+        "stepNumber": 1,
+        "title": "Clinical reasoning",
+        "calculation": "Ultra-long acting",
+        "explanation": "Degludec is an ultra-long-acting basal insulin.",
+        "result": "Ultra-long acting"
+      },
+      {
+        "stepNumber": 2,
+        "title": "Safety pearl",
+        "calculation": "",
+        "explanation": "Verify concentrated insulin products and delivery devices carefully.",
+        "result": "Apply the safety check before administration."
+      }
+    ],
+    "rawVariables": {
+      "correctOptionIndexes": 3,
+      "tags": [
+        "degludec",
+        "Tresiba",
+        "ultra-long"
+      ]
+    }
+  },
+  {
+    "id": "ins-know-toujeo",
+    "category": "insulin",
+    "subtype": "ultra-long-identification",
+    "difficulty": "intermediate",
+    "title": "Glargine U-300 Recognition",
+    "clinicalContext": "Adult nursing medication education",
+    "scenario": "The medication record lists Toujeo.",
+    "orderText": "Apply medication knowledge and nursing safety principles.",
+    "prompt": "Which description is correct?",
+    "correctAnswer": 2,
+    "answerUnit": "choice",
+    "answerPrecision": 0,
+    "responseType": "multiple-choice",
+    "questionKind": "knowledge",
+    "options": [
+      {
+        "id": "0",
+        "label": "Rapid-acting lispro U-100"
+      },
+      {
+        "id": "1",
+        "label": "Intermediate NPH"
+      },
+      {
+        "id": "2",
+        "label": "Ultra-long glargine U-300"
+      },
+      {
+        "id": "3",
+        "label": "Regular insulin for IV infusion"
+      }
+    ],
+    "correctAnswerLabel": "Ultra-long glargine U-300",
+    "tags": [
+      "Toujeo",
+      "glargine U-300",
+      "concentration"
+    ],
+    "safetyPearl": "Never assume all glargine products have the same concentration.",
+    "hints": [
+      "Focus on Toujeo and glargine U-300.",
+      "Separate the medication's action from the nursing monitoring priority.",
+      "Eliminate choices that conflict with this safety principle: Never assume all glargine products have the same concentration."
+    ],
+    "solutionSteps": [
+      {
+        "stepNumber": 1,
+        "title": "Clinical reasoning",
+        "calculation": "Ultra-long glargine U-300",
+        "explanation": "Toujeo is insulin glargine U-300 with a prolonged basal profile.",
+        "result": "Ultra-long glargine U-300"
+      },
+      {
+        "stepNumber": 2,
+        "title": "Safety pearl",
+        "calculation": "",
+        "explanation": "Never assume all glargine products have the same concentration.",
+        "result": "Apply the safety check before administration."
+      }
+    ],
+    "rawVariables": {
+      "correctOptionIndexes": 2,
+      "tags": [
+        "Toujeo",
+        "glargine U-300",
+        "concentration"
+      ]
+    }
+  },
+  {
+    "id": "ins-know-u100",
+    "category": "insulin",
+    "subtype": "insulin-concentration",
+    "difficulty": "beginner",
+    "title": "U-100 Interpretation",
+    "clinicalContext": "Adult nursing medication education",
+    "scenario": "A vial is labeled U-100 insulin.",
+    "orderText": "Apply medication knowledge and nursing safety principles.",
+    "prompt": "What concentration does U-100 indicate?",
+    "correctAnswer": 2,
+    "answerUnit": "choice",
+    "answerPrecision": 0,
+    "responseType": "multiple-choice",
+    "questionKind": "knowledge",
+    "options": [
+      {
+        "id": "0",
+        "label": "10 units/mL"
+      },
+      {
+        "id": "1",
+        "label": "50 units/mL"
+      },
+      {
+        "id": "2",
+        "label": "100 units/mL"
+      },
+      {
+        "id": "3",
+        "label": "500 units/mL"
+      }
+    ],
+    "correctAnswerLabel": "100 units/mL",
+    "tags": [
+      "U-100",
+      "concentration",
+      "units per mL"
+    ],
+    "safetyPearl": "Match the ordered units, insulin concentration, and delivery device.",
+    "hints": [
+      "Focus on U-100 and concentration.",
+      "Separate the medication's action from the nursing monitoring priority.",
+      "Eliminate choices that conflict with this safety principle: Match the ordered units, insulin concentration, and delivery device."
+    ],
+    "solutionSteps": [
+      {
+        "stepNumber": 1,
+        "title": "Clinical reasoning",
+        "calculation": "100 units/mL",
+        "explanation": "U-100 contains 100 units per mL.",
+        "result": "100 units/mL"
+      },
+      {
+        "stepNumber": 2,
+        "title": "Safety pearl",
+        "calculation": "",
+        "explanation": "Match the ordered units, insulin concentration, and delivery device.",
+        "result": "Apply the safety check before administration."
+      }
+    ],
+    "rawVariables": {
+      "correctOptionIndexes": 2,
+      "tags": [
+        "U-100",
+        "concentration",
+        "units per mL"
+      ]
+    }
+  },
+  {
+    "id": "ins-know-peak-meaning",
+    "category": "insulin",
+    "subtype": "insulin-timing-concepts",
+    "difficulty": "beginner",
+    "title": "Meaning of Peak",
+    "clinicalContext": "Adult nursing medication education",
+    "scenario": "A student compares onset, peak, and duration.",
+    "orderText": "Apply medication knowledge and nursing safety principles.",
+    "prompt": "What does peak describe?",
+    "correctAnswer": 1,
+    "answerUnit": "choice",
+    "answerPrecision": 0,
+    "responseType": "multiple-choice",
+    "questionKind": "knowledge",
+    "options": [
+      {
+        "id": "0",
+        "label": "When the medication first begins working"
+      },
+      {
+        "id": "1",
+        "label": "When the medication effect is strongest"
+      },
+      {
+        "id": "2",
+        "label": "How long the vial remains open"
+      },
+      {
+        "id": "3",
+        "label": "When the medication is eliminated completely"
+      }
+    ],
+    "correctAnswerLabel": "When the medication effect is strongest",
+    "tags": [
+      "peak",
+      "onset",
+      "duration",
+      "hypoglycemia"
+    ],
+    "safetyPearl": "For insulin, the peak commonly identifies the greatest hypoglycemia concern.",
+    "hints": [
+      "Focus on peak and onset.",
+      "Separate the medication's action from the nursing monitoring priority.",
+      "Eliminate choices that conflict with this safety principle: For insulin, the peak commonly identifies the greatest hypoglycemia concern."
+    ],
+    "solutionSteps": [
+      {
+        "stepNumber": 1,
+        "title": "Clinical reasoning",
+        "calculation": "When the medication effect is strongest",
+        "explanation": "Peak is the period of strongest medication effect.",
+        "result": "When the medication effect is strongest"
+      },
+      {
+        "stepNumber": 2,
+        "title": "Safety pearl",
+        "calculation": "",
+        "explanation": "For insulin, the peak commonly identifies the greatest hypoglycemia concern.",
+        "result": "Apply the safety check before administration."
+      }
+    ],
+    "rawVariables": {
+      "correctOptionIndexes": 1,
+      "tags": [
+        "peak",
+        "onset",
+        "duration",
+        "hypoglycemia"
+      ]
+    }
+  },
+  {
+    "id": "ins-know-duration-meaning",
+    "category": "insulin",
+    "subtype": "insulin-timing-concepts",
+    "difficulty": "beginner",
+    "title": "Meaning of Duration",
+    "clinicalContext": "Adult nursing medication education",
+    "scenario": "A student reviews an insulin action profile.",
+    "orderText": "Apply medication knowledge and nursing safety principles.",
+    "prompt": "What does duration describe?",
+    "correctAnswer": 2,
+    "answerUnit": "choice",
+    "answerPrecision": 0,
+    "responseType": "multiple-choice",
+    "questionKind": "knowledge",
+    "options": [
+      {
+        "id": "0",
+        "label": "Time until action begins"
+      },
+      {
+        "id": "1",
+        "label": "Time of strongest effect"
+      },
+      {
+        "id": "2",
+        "label": "Approximate length of action"
+      },
+      {
+        "id": "3",
+        "label": "Time needed to draw up the dose"
+      }
+    ],
+    "correctAnswerLabel": "Approximate length of action",
+    "tags": [
+      "duration",
+      "onset",
+      "peak"
+    ],
+    "safetyPearl": "Onset, peak, and duration answer different clinical questions.",
+    "hints": [
+      "Focus on duration and onset.",
+      "Separate the medication's action from the nursing monitoring priority.",
+      "Eliminate choices that conflict with this safety principle: Onset, peak, and duration answer different clinical questions."
+    ],
+    "solutionSteps": [
+      {
+        "stepNumber": 1,
+        "title": "Clinical reasoning",
+        "calculation": "Approximate length of action",
+        "explanation": "Duration is the approximate length of the medication's action.",
+        "result": "Approximate length of action"
+      },
+      {
+        "stepNumber": 2,
+        "title": "Safety pearl",
+        "calculation": "",
+        "explanation": "Onset, peak, and duration answer different clinical questions.",
+        "result": "Apply the safety check before administration."
+      }
+    ],
+    "rawVariables": {
+      "correctOptionIndexes": 2,
+      "tags": [
+        "duration",
+        "onset",
+        "peak"
+      ]
+    }
+  },
+  {
+    "id": "ins-know-missed-meal",
+    "category": "insulin",
+    "subtype": "rapid-acting-meal-safety",
+    "difficulty": "intermediate",
+    "title": "Rapid Insulin Without a Meal",
+    "clinicalContext": "Adult nursing medication education",
+    "scenario": "Lispro was administered, and the meal tray is unexpectedly delayed.",
+    "orderText": "Apply medication knowledge and nursing safety principles.",
+    "prompt": "What is the priority concern?",
+    "correctAnswer": 1,
+    "answerUnit": "choice",
+    "answerPrecision": 0,
+    "responseType": "multiple-choice",
+    "questionKind": "clinical-application",
+    "options": [
+      {
+        "id": "0",
+        "label": "Hypertension"
+      },
+      {
+        "id": "1",
+        "label": "Hypoglycemia"
+      },
+      {
+        "id": "2",
+        "label": "Hyperkalemia"
+      },
+      {
+        "id": "3",
+        "label": "Constipation"
+      }
+    ],
+    "correctAnswerLabel": "Hypoglycemia",
+    "tags": [
+      "lispro",
+      "meal delay",
+      "hypoglycemia",
+      "priority"
+    ],
+    "safetyPearl": "Assess glucose and obtain a carbohydrate source per facility protocol when a meal is delayed.",
+    "hints": [
+      "Focus on lispro and meal delay.",
+      "Separate the medication's action from the nursing monitoring priority.",
+      "Eliminate choices that conflict with this safety principle: Assess glucose and obtain a carbohydrate source per facility protocol when a meal is delayed."
+    ],
+    "solutionSteps": [
+      {
+        "stepNumber": 1,
+        "title": "Clinical reasoning",
+        "calculation": "Hypoglycemia",
+        "explanation": "Rapid insulin can lower glucose before carbohydrate is available.",
+        "result": "Hypoglycemia"
+      },
+      {
+        "stepNumber": 2,
+        "title": "Safety pearl",
+        "calculation": "",
+        "explanation": "Assess glucose and obtain a carbohydrate source per facility protocol when a meal is delayed.",
+        "result": "Apply the safety check before administration."
+      }
+    ],
+    "rawVariables": {
+      "correctOptionIndexes": 1,
+      "tags": [
+        "lispro",
+        "meal delay",
+        "hypoglycemia",
+        "priority"
+      ]
+    }
+  },
+  {
+    "id": "ins-know-bg-check",
+    "category": "insulin",
+    "subtype": "insulin-administration-safety",
+    "difficulty": "beginner",
+    "title": "Pre-Administration Safety Check",
+    "clinicalContext": "Adult nursing medication education",
+    "scenario": "The nurse prepares a scheduled insulin dose.",
+    "orderText": "Apply medication knowledge and nursing safety principles.",
+    "prompt": "Which assessment is essential before selecting the dose?",
+    "correctAnswer": 0,
+    "answerUnit": "choice",
+    "answerPrecision": 0,
+    "responseType": "multiple-choice",
+    "questionKind": "knowledge",
+    "options": [
+      {
+        "id": "0",
+        "label": "Current blood glucose and the active order"
+      },
+      {
+        "id": "1",
+        "label": "Patient's height only"
+      },
+      {
+        "id": "2",
+        "label": "Last month's weight only"
+      },
+      {
+        "id": "3",
+        "label": "Room temperature"
+      }
+    ],
+    "correctAnswerLabel": "Current blood glucose and the active order",
+    "tags": [
+      "blood glucose",
+      "dose selection",
+      "safety"
+    ],
+    "safetyPearl": "Verify the insulin name, concentration, dose, route, timing, and current glucose.",
+    "hints": [
+      "Focus on blood glucose and dose selection.",
+      "Separate the medication's action from the nursing monitoring priority.",
+      "Eliminate choices that conflict with this safety principle: Verify the insulin name, concentration, dose, route, timing, and current glucose."
+    ],
+    "solutionSteps": [
+      {
+        "stepNumber": 1,
+        "title": "Clinical reasoning",
+        "calculation": "Current blood glucose and the active order",
+        "explanation": "The current glucose and active medication order guide safe insulin dose selection.",
+        "result": "Current blood glucose and the active order"
+      },
+      {
+        "stepNumber": 2,
+        "title": "Safety pearl",
+        "calculation": "",
+        "explanation": "Verify the insulin name, concentration, dose, route, timing, and current glucose.",
+        "result": "Apply the safety check before administration."
+      }
+    ],
+    "rawVariables": {
+      "correctOptionIndexes": 0,
+      "tags": [
+        "blood glucose",
+        "dose selection",
+        "safety"
+      ]
+    }
+  },
+  {
+    "id": "ins-know-double-check",
+    "category": "insulin",
+    "subtype": "insulin-administration-safety",
+    "difficulty": "intermediate",
+    "title": "Insulin Dose Verification",
+    "clinicalContext": "Adult nursing medication education",
+    "scenario": "A high-alert medication policy requires an independent check for insulin.",
+    "orderText": "Apply medication knowledge and nursing safety principles.",
+    "prompt": "What should the second nurse independently verify?",
+    "correctAnswer": 1,
+    "answerUnit": "choice",
+    "answerPrecision": 0,
+    "responseType": "multiple-choice",
+    "questionKind": "knowledge",
+    "options": [
+      {
+        "id": "0",
+        "label": "Only the patient's room number"
+      },
+      {
+        "id": "1",
+        "label": "The order, insulin product, concentration, dose, and patient"
+      },
+      {
+        "id": "2",
+        "label": "Only the syringe color"
+      },
+      {
+        "id": "3",
+        "label": "Only the meal choice"
+      }
+    ],
+    "correctAnswerLabel": "The order, insulin product, concentration, dose, and patient",
+    "tags": [
+      "double check",
+      "high alert",
+      "insulin safety"
+    ],
+    "safetyPearl": "Follow the facility's high-alert medication verification policy.",
+    "hints": [
+      "Focus on double check and high alert.",
+      "Separate the medication's action from the nursing monitoring priority.",
+      "Eliminate choices that conflict with this safety principle: Follow the facility's high-alert medication verification policy."
+    ],
+    "solutionSteps": [
+      {
+        "stepNumber": 1,
+        "title": "Clinical reasoning",
+        "calculation": "The order, insulin product, concentration, dose, and patient",
+        "explanation": "An independent check should cover the elements that can cause a medication error.",
+        "result": "The order, insulin product, concentration, dose, and patient"
+      },
+      {
+        "stepNumber": 2,
+        "title": "Safety pearl",
+        "calculation": "",
+        "explanation": "Follow the facility's high-alert medication verification policy.",
+        "result": "Apply the safety check before administration."
+      }
+    ],
+    "rawVariables": {
+      "correctOptionIndexes": 1,
+      "tags": [
+        "double check",
+        "high alert",
+        "insulin safety"
+      ]
+    }
+  },
+  {
+    "id": "ins-know-regular-nph-sata",
+    "category": "insulin",
+    "subtype": "insulin-mixing",
+    "difficulty": "intermediate",
+    "title": "Regular and NPH Safety",
+    "clinicalContext": "Adult nursing medication education",
+    "scenario": "The nurse will prepare compatible regular and NPH insulin in one syringe.",
+    "orderText": "Apply medication knowledge and nursing safety principles.",
+    "prompt": "Which statements are correct? Select all that apply.",
+    "correctAnswer": 11,
+    "answerUnit": "choice",
+    "answerPrecision": 0,
+    "responseType": "select-all",
+    "questionKind": "knowledge",
+    "options": [
+      {
+        "id": "0",
+        "label": "Regular insulin is clear"
+      },
+      {
+        "id": "1",
+        "label": "NPH insulin is cloudy"
+      },
+      {
+        "id": "2",
+        "label": "Draw NPH before regular"
+      },
+      {
+        "id": "3",
+        "label": "Draw regular before NPH"
+      }
+    ],
+    "correctAnswerLabel": "Regular insulin is clear; NPH insulin is cloudy; Draw regular before NPH",
+    "tags": [
+      "regular insulin",
+      "NPH",
+      "mixing",
+      "select all"
+    ],
+    "safetyPearl": "Clear before cloudy.",
+    "hints": [
+      "Focus on regular insulin and NPH.",
+      "Separate the medication's action from the nursing monitoring priority.",
+      "Eliminate choices that conflict with this safety principle: Clear before cloudy."
+    ],
+    "solutionSteps": [
+      {
+        "stepNumber": 1,
+        "title": "Clinical reasoning",
+        "calculation": "Regular insulin is clear; NPH insulin is cloudy; Draw regular before NPH",
+        "explanation": "Regular insulin is clear, NPH is cloudy, and regular is drawn first.",
+        "result": "Regular insulin is clear; NPH insulin is cloudy; Draw regular before NPH"
+      },
+      {
+        "stepNumber": 2,
+        "title": "Safety pearl",
+        "calculation": "",
+        "explanation": "Clear before cloudy.",
+        "result": "Apply the safety check before administration."
+      }
+    ],
+    "rawVariables": {
+      "correctOptionIndexes": [
+        0,
+        1,
+        3
+      ],
+      "tags": [
+        "regular insulin",
+        "NPH",
+        "mixing",
+        "select all"
+      ]
+    }
+  },
+  {
+    "id": "ins-know-rapid-sata",
+    "category": "insulin",
+    "subtype": "rapid-acting-safety",
+    "difficulty": "intermediate",
+    "title": "Rapid-Acting Nursing Priorities",
+    "clinicalContext": "Adult nursing medication education",
+    "scenario": "A patient is scheduled to receive rapid-acting insulin with breakfast.",
+    "orderText": "Apply medication knowledge and nursing safety principles.",
+    "prompt": "Which actions support safe administration? Select all that apply.",
+    "correctAnswer": 11,
+    "answerUnit": "choice",
+    "answerPrecision": 0,
+    "responseType": "select-all",
+    "questionKind": "knowledge",
+    "options": [
+      {
+        "id": "0",
+        "label": "Check the current glucose"
+      },
+      {
+        "id": "1",
+        "label": "Confirm the meal is available"
+      },
+      {
+        "id": "2",
+        "label": "Delay glucose monitoring until tomorrow"
+      },
+      {
+        "id": "3",
+        "label": "Verify the ordered dose"
+      }
+    ],
+    "correctAnswerLabel": "Check the current glucose; Confirm the meal is available; Verify the ordered dose",
+    "tags": [
+      "rapid acting",
+      "meal timing",
+      "glucose",
+      "select all"
+    ],
+    "safetyPearl": "Rapid insulin should be tightly coordinated with nutrition and monitoring.",
+    "hints": [
+      "Focus on rapid acting and meal timing.",
+      "Separate the medication's action from the nursing monitoring priority.",
+      "Eliminate choices that conflict with this safety principle: Rapid insulin should be tightly coordinated with nutrition and monitoring."
+    ],
+    "solutionSteps": [
+      {
+        "stepNumber": 1,
+        "title": "Clinical reasoning",
+        "calculation": "Check the current glucose; Confirm the meal is available; Verify the ordered dose",
+        "explanation": "Current glucose, meal coordination, and order verification reduce error and hypoglycemia risk.",
+        "result": "Check the current glucose; Confirm the meal is available; Verify the ordered dose"
+      },
+      {
+        "stepNumber": 2,
+        "title": "Safety pearl",
+        "calculation": "",
+        "explanation": "Rapid insulin should be tightly coordinated with nutrition and monitoring.",
+        "result": "Apply the safety check before administration."
+      }
+    ],
+    "rawVariables": {
+      "correctOptionIndexes": [
+        0,
+        1,
+        3
+      ],
+      "tags": [
+        "rapid acting",
+        "meal timing",
+        "glucose",
+        "select all"
+      ]
+    }
+  },
+  {
+    "id": "ins-know-regular-onset",
+    "category": "insulin",
+    "subtype": "regular-insulin-timing",
+    "difficulty": "beginner",
+    "title": "Regular Insulin Onset",
+    "clinicalContext": "Adult nursing medication education",
+    "scenario": "Regular insulin is administered subcutaneously.",
+    "orderText": "Apply medication knowledge and nursing safety principles.",
+    "prompt": "Which approximate onset matches the supplied course reference?",
+    "correctAnswer": 1,
+    "answerUnit": "choice",
+    "answerPrecision": 0,
+    "responseType": "multiple-choice",
+    "questionKind": "knowledge",
+    "options": [
+      {
+        "id": "0",
+        "label": "10 to 15 minutes"
+      },
+      {
+        "id": "1",
+        "label": "30 minutes"
+      },
+      {
+        "id": "2",
+        "label": "2 to 4 hours"
+      },
+      {
+        "id": "3",
+        "label": "4 to 12 hours"
+      }
+    ],
+    "correctAnswerLabel": "30 minutes",
+    "tags": [
+      "regular insulin",
+      "onset",
+      "timing"
+    ],
+    "safetyPearl": "Do not confuse regular insulin onset with its 2 to 3 hour peak.",
+    "hints": [
+      "Focus on regular insulin and onset.",
+      "Separate the medication's action from the nursing monitoring priority.",
+      "Eliminate choices that conflict with this safety principle: Do not confuse regular insulin onset with its 2 to 3 hour peak."
+    ],
+    "solutionSteps": [
+      {
+        "stepNumber": 1,
+        "title": "Clinical reasoning",
+        "calculation": "30 minutes",
+        "explanation": "Regular insulin begins acting in about 30 minutes.",
+        "result": "30 minutes"
+      },
+      {
+        "stepNumber": 2,
+        "title": "Safety pearl",
+        "calculation": "",
+        "explanation": "Do not confuse regular insulin onset with its 2 to 3 hour peak.",
+        "result": "Apply the safety check before administration."
+      }
+    ],
+    "rawVariables": {
+      "correctOptionIndexes": 1,
+      "tags": [
+        "regular insulin",
+        "onset",
+        "timing"
+      ]
+    }
+  },
+  {
+    "id": "ins-know-regular-duration",
+    "category": "insulin",
+    "subtype": "regular-insulin-timing",
+    "difficulty": "beginner",
+    "title": "Regular Insulin Duration",
+    "clinicalContext": "Adult nursing medication education",
+    "scenario": "The nurse reviews the expected action profile of subcutaneous regular insulin.",
+    "orderText": "Apply medication knowledge and nursing safety principles.",
+    "prompt": "Which approximate duration matches the course reference?",
+    "correctAnswer": 2,
+    "answerUnit": "choice",
+    "answerPrecision": 0,
+    "responseType": "multiple-choice",
+    "questionKind": "knowledge",
+    "options": [
+      {
+        "id": "0",
+        "label": "30 to 90 minutes"
+      },
+      {
+        "id": "1",
+        "label": "2 to 4 hours"
+      },
+      {
+        "id": "2",
+        "label": "3 to 6 hours"
+      },
+      {
+        "id": "3",
+        "label": "12 to 18 hours"
+      }
+    ],
+    "correctAnswerLabel": "3 to 6 hours",
+    "tags": [
+      "regular insulin",
+      "duration",
+      "timing"
+    ],
+    "safetyPearl": "Use the complete action profile when planning monitoring.",
+    "hints": [
+      "Focus on regular insulin and duration.",
+      "Separate the medication's action from the nursing monitoring priority.",
+      "Eliminate choices that conflict with this safety principle: Use the complete action profile when planning monitoring."
+    ],
+    "solutionSteps": [
+      {
+        "stepNumber": 1,
+        "title": "Clinical reasoning",
+        "calculation": "3 to 6 hours",
+        "explanation": "The course reference lists about 3 to 6 hours.",
+        "result": "3 to 6 hours"
+      },
+      {
+        "stepNumber": 2,
+        "title": "Safety pearl",
+        "calculation": "",
+        "explanation": "Use the complete action profile when planning monitoring.",
+        "result": "Apply the safety check before administration."
+      }
+    ],
+    "rawVariables": {
+      "correctOptionIndexes": 2,
+      "tags": [
+        "regular insulin",
+        "duration",
+        "timing"
+      ]
+    }
+  },
+  {
+    "id": "ins-know-nph-duration",
+    "category": "insulin",
+    "subtype": "nph-timing",
+    "difficulty": "beginner",
+    "title": "NPH Duration",
+    "clinicalContext": "Adult nursing medication education",
+    "scenario": "The nurse reviews the action profile of NPH.",
+    "orderText": "Apply medication knowledge and nursing safety principles.",
+    "prompt": "Which approximate duration matches the supplied course reference?",
+    "correctAnswer": 2,
+    "answerUnit": "choice",
+    "answerPrecision": 0,
+    "responseType": "multiple-choice",
+    "questionKind": "knowledge",
+    "options": [
+      {
+        "id": "0",
+        "label": "2 to 4 hours"
+      },
+      {
+        "id": "1",
+        "label": "3 to 6 hours"
+      },
+      {
+        "id": "2",
+        "label": "12 to 18 hours"
+      },
+      {
+        "id": "3",
+        "label": "More than 72 hours"
+      }
+    ],
+    "correctAnswerLabel": "12 to 18 hours",
+    "tags": [
+      "NPH",
+      "duration",
+      "timing"
+    ],
+    "safetyPearl": "The broad NPH peak requires ongoing hypoglycemia awareness.",
+    "hints": [
+      "Focus on NPH and duration.",
+      "Separate the medication's action from the nursing monitoring priority.",
+      "Eliminate choices that conflict with this safety principle: The broad NPH peak requires ongoing hypoglycemia awareness."
+    ],
+    "solutionSteps": [
+      {
+        "stepNumber": 1,
+        "title": "Clinical reasoning",
+        "calculation": "12 to 18 hours",
+        "explanation": "NPH duration is about 12 to 18 hours.",
+        "result": "12 to 18 hours"
+      },
+      {
+        "stepNumber": 2,
+        "title": "Safety pearl",
+        "calculation": "",
+        "explanation": "The broad NPH peak requires ongoing hypoglycemia awareness.",
+        "result": "Apply the safety check before administration."
+      }
+    ],
+    "rawVariables": {
+      "correctOptionIndexes": 2,
+      "tags": [
+        "NPH",
+        "duration",
+        "timing"
+      ]
+    }
+  },
+  {
+    "id": "ins-know-glargine-route",
+    "category": "insulin",
+    "subtype": "long-acting-safety",
+    "difficulty": "intermediate",
+    "title": "Glargine Administration",
+    "clinicalContext": "Adult nursing medication education",
+    "scenario": "A patient has a basal insulin glargine order.",
+    "orderText": "Apply medication knowledge and nursing safety principles.",
+    "prompt": "Which administration statement is correct?",
+    "correctAnswer": 1,
+    "answerUnit": "choice",
+    "answerPrecision": 0,
+    "responseType": "multiple-choice",
+    "questionKind": "knowledge",
+    "options": [
+      {
+        "id": "0",
+        "label": "Give as an IV push"
+      },
+      {
+        "id": "1",
+        "label": "Administer subcutaneously as ordered and do not mix"
+      },
+      {
+        "id": "2",
+        "label": "Use only in an insulin infusion"
+      },
+      {
+        "id": "3",
+        "label": "Mix with regular insulin to reduce injections"
+      }
+    ],
+    "correctAnswerLabel": "Administer subcutaneously as ordered and do not mix",
+    "tags": [
+      "glargine",
+      "route",
+      "mixing",
+      "safety"
+    ],
+    "safetyPearl": "Glargine is not used for IV treatment of diabetic ketoacidosis.",
+    "hints": [
+      "Focus on glargine and route.",
+      "Separate the medication's action from the nursing monitoring priority.",
+      "Eliminate choices that conflict with this safety principle: Glargine is not used for IV treatment of diabetic ketoacidosis."
+    ],
+    "solutionSteps": [
+      {
+        "stepNumber": 1,
+        "title": "Clinical reasoning",
+        "calculation": "Administer subcutaneously as ordered and do not mix",
+        "explanation": "Insulin glargine is administered subcutaneously and should not be mixed.",
+        "result": "Administer subcutaneously as ordered and do not mix"
+      },
+      {
+        "stepNumber": 2,
+        "title": "Safety pearl",
+        "calculation": "",
+        "explanation": "Glargine is not used for IV treatment of diabetic ketoacidosis.",
+        "result": "Apply the safety check before administration."
+      }
+    ],
+    "rawVariables": {
+      "correctOptionIndexes": 1,
+      "tags": [
+        "glargine",
+        "route",
+        "mixing",
+        "safety"
+      ]
+    }
+  },
+  {
+    "id": "ins-know-timing-compare",
+    "category": "insulin",
+    "subtype": "insulin-timing-comparison",
+    "difficulty": "advanced",
+    "title": "Insulin Timing Comparison",
+    "clinicalContext": "Adult nursing medication education",
+    "scenario": "A nurse compares lispro, regular insulin, NPH, and glargine.",
+    "orderText": "Apply medication knowledge and nursing safety principles.",
+    "prompt": "Which insulin has the broadest pronounced peak window in the supplied course reference?",
+    "correctAnswer": 2,
+    "answerUnit": "choice",
+    "answerPrecision": 0,
+    "responseType": "multiple-choice",
+    "questionKind": "knowledge",
+    "options": [
+      {
+        "id": "0",
+        "label": "Lispro"
+      },
+      {
+        "id": "1",
+        "label": "Regular insulin"
+      },
+      {
+        "id": "2",
+        "label": "NPH"
+      },
+      {
+        "id": "3",
+        "label": "Glargine"
+      }
+    ],
+    "correctAnswerLabel": "NPH",
+    "tags": [
+      "NPH",
+      "peak",
+      "comparison"
+    ],
+    "safetyPearl": "The width and timing of the peak shape glucose-monitoring priorities.",
+    "hints": [
+      "Focus on NPH and peak.",
+      "Separate the medication's action from the nursing monitoring priority.",
+      "Eliminate choices that conflict with this safety principle: The width and timing of the peak shape glucose-monitoring priorities."
+    ],
+    "solutionSteps": [
+      {
+        "stepNumber": 1,
+        "title": "Clinical reasoning",
+        "calculation": "NPH",
+        "explanation": "NPH has a broad approximate peak of 4 to 12 hours. Glargine has minimal or no pronounced peak.",
+        "result": "NPH"
+      },
+      {
+        "stepNumber": 2,
+        "title": "Safety pearl",
+        "calculation": "",
+        "explanation": "The width and timing of the peak shape glucose-monitoring priorities.",
+        "result": "Apply the safety check before administration."
+      }
+    ],
+    "rawVariables": {
+      "correctOptionIndexes": 2,
+      "tags": [
+        "NPH",
+        "peak",
+        "comparison"
+      ]
+    }
+  },
+  {
+    "id": "ins-know-no-pronounced-peak",
+    "category": "insulin",
+    "subtype": "long-acting-timing",
+    "difficulty": "intermediate",
+    "title": "No Pronounced Peak",
+    "clinicalContext": "Adult nursing medication education",
+    "scenario": "The nurse selects the insulin with a basal profile and minimal pronounced peak.",
+    "orderText": "Apply medication knowledge and nursing safety principles.",
+    "prompt": "Which choice best fits that description?",
+    "correctAnswer": 3,
+    "answerUnit": "choice",
+    "answerPrecision": 0,
+    "responseType": "multiple-choice",
+    "questionKind": "knowledge",
+    "options": [
+      {
+        "id": "0",
+        "label": "Lispro"
+      },
+      {
+        "id": "1",
+        "label": "Regular insulin"
+      },
+      {
+        "id": "2",
+        "label": "NPH"
+      },
+      {
+        "id": "3",
+        "label": "Glargine"
+      }
+    ],
+    "correctAnswerLabel": "Glargine",
+    "tags": [
+      "glargine",
+      "basal",
+      "peak"
+    ],
+    "safetyPearl": "Patients receiving basal insulin still need monitoring for hypoglycemia.",
+    "hints": [
+      "Focus on glargine and basal.",
+      "Separate the medication's action from the nursing monitoring priority.",
+      "Eliminate choices that conflict with this safety principle: Patients receiving basal insulin still need monitoring for hypoglycemia."
+    ],
+    "solutionSteps": [
+      {
+        "stepNumber": 1,
+        "title": "Clinical reasoning",
+        "calculation": "Glargine",
+        "explanation": "Glargine provides a long basal profile with minimal or no pronounced peak.",
+        "result": "Glargine"
+      },
+      {
+        "stepNumber": 2,
+        "title": "Safety pearl",
+        "calculation": "",
+        "explanation": "Patients receiving basal insulin still need monitoring for hypoglycemia.",
+        "result": "Apply the safety check before administration."
+      }
+    ],
+    "rawVariables": {
+      "correctOptionIndexes": 3,
+      "tags": [
+        "glargine",
+        "basal",
+        "peak"
+      ]
+    }
+  },
+  {
+    "id": "ac-know-heparin-monitor",
+    "category": "anticoagulants",
+    "subtype": "heparin-lab-monitoring",
+    "difficulty": "beginner",
+    "title": "Heparin Laboratory Monitoring",
+    "clinicalContext": "Adult nursing medication education",
+    "scenario": "An adult patient is receiving an IV unfractionated heparin infusion.",
+    "orderText": "Apply medication knowledge and nursing safety principles.",
+    "prompt": "Which laboratory test is most directly associated with routine protocol monitoring?",
+    "correctAnswer": 1,
+    "answerUnit": "choice",
+    "answerPrecision": 0,
+    "responseType": "multiple-choice",
+    "questionKind": "knowledge",
+    "options": [
+      {
+        "id": "0",
+        "label": "PT/INR"
+      },
+      {
+        "id": "1",
+        "label": "aPTT/PTT"
+      },
+      {
+        "id": "2",
+        "label": "Hemoglobin A1c"
+      },
+      {
+        "id": "3",
+        "label": "Serum amylase"
+      }
+    ],
+    "correctAnswerLabel": "aPTT/PTT",
+    "tags": [
+      "heparin",
+      "aPTT",
+      "monitoring"
+    ],
+    "safetyPearl": "Follow the institution's heparin protocol and verify whether it uses aPTT or anti-Xa.",
+    "hints": [
+      "Focus on heparin and aPTT.",
+      "Separate the medication's action from the nursing monitoring priority.",
+      "Eliminate choices that conflict with this safety principle: Follow the institution's heparin protocol and verify whether it uses aPTT or anti-Xa."
+    ],
+    "solutionSteps": [
+      {
+        "stepNumber": 1,
+        "title": "Clinical reasoning",
+        "calculation": "aPTT/PTT",
+        "explanation": "aPTT or an institution-specific anti-Xa protocol",
+        "result": "aPTT/PTT"
+      },
+      {
+        "stepNumber": 2,
+        "title": "Safety pearl",
+        "calculation": "",
+        "explanation": "Follow the institution's heparin protocol and verify whether it uses aPTT or anti-Xa.",
+        "result": "Apply the safety check before administration."
+      }
+    ],
+    "rawVariables": {
+      "correctOptionIndexes": 1,
+      "tags": [
+        "heparin",
+        "aPTT",
+        "monitoring"
+      ]
+    }
+  },
+  {
+    "id": "ac-know-warfarin-monitor",
+    "category": "anticoagulants",
+    "subtype": "warfarin-lab-monitoring",
+    "difficulty": "beginner",
+    "title": "Warfarin Laboratory Monitoring",
+    "clinicalContext": "Adult nursing medication education",
+    "scenario": "An adult patient takes warfarin.",
+    "orderText": "Apply medication knowledge and nursing safety principles.",
+    "prompt": "Which test is commonly used to monitor therapy?",
+    "correctAnswer": 0,
+    "answerUnit": "choice",
+    "answerPrecision": 0,
+    "responseType": "multiple-choice",
+    "questionKind": "knowledge",
+    "options": [
+      {
+        "id": "0",
+        "label": "PT/INR"
+      },
+      {
+        "id": "1",
+        "label": "aPTT only"
+      },
+      {
+        "id": "2",
+        "label": "Platelet aggregation time"
+      },
+      {
+        "id": "3",
+        "label": "Troponin"
+      }
+    ],
+    "correctAnswerLabel": "PT/INR",
+    "tags": [
+      "warfarin",
+      "PT",
+      "INR",
+      "monitoring"
+    ],
+    "safetyPearl": "Interpret the INR against the indication-specific ordered goal and current clinical picture.",
+    "hints": [
+      "Focus on warfarin and PT.",
+      "Separate the medication's action from the nursing monitoring priority.",
+      "Eliminate choices that conflict with this safety principle: Interpret the INR against the indication-specific ordered goal and current clinical picture."
+    ],
+    "solutionSteps": [
+      {
+        "stepNumber": 1,
+        "title": "Clinical reasoning",
+        "calculation": "PT/INR",
+        "explanation": "Warfarin is monitored with PT/INR.",
+        "result": "PT/INR"
+      },
+      {
+        "stepNumber": 2,
+        "title": "Safety pearl",
+        "calculation": "",
+        "explanation": "Interpret the INR against the indication-specific ordered goal and current clinical picture.",
+        "result": "Apply the safety check before administration."
+      }
+    ],
+    "rawVariables": {
+      "correctOptionIndexes": 0,
+      "tags": [
+        "warfarin",
+        "PT",
+        "INR",
+        "monitoring"
+      ]
+    }
+  },
+  {
+    "id": "ac-know-heparin-reversal",
+    "category": "anticoagulants",
+    "subtype": "heparin-reversal",
+    "difficulty": "beginner",
+    "title": "Heparin Reversal",
+    "clinicalContext": "Adult nursing medication education",
+    "scenario": "A patient has serious bleeding associated with unfractionated heparin.",
+    "orderText": "Apply medication knowledge and nursing safety principles.",
+    "prompt": "Which medication is the specific reversal agent?",
+    "correctAnswer": 1,
+    "answerUnit": "choice",
+    "answerPrecision": 0,
+    "responseType": "multiple-choice",
+    "questionKind": "knowledge",
+    "options": [
+      {
+        "id": "0",
+        "label": "Vitamin K"
+      },
+      {
+        "id": "1",
+        "label": "Protamine sulfate"
+      },
+      {
+        "id": "2",
+        "label": "Idarucizumab"
+      },
+      {
+        "id": "3",
+        "label": "Naloxone"
+      }
+    ],
+    "correctAnswerLabel": "Protamine sulfate",
+    "tags": [
+      "heparin",
+      "protamine",
+      "reversal"
+    ],
+    "safetyPearl": "Reversal dosing and monitoring depend on the heparin exposure and facility protocol.",
+    "hints": [
+      "Focus on heparin and protamine.",
+      "Separate the medication's action from the nursing monitoring priority.",
+      "Eliminate choices that conflict with this safety principle: Reversal dosing and monitoring depend on the heparin exposure and facility protocol."
+    ],
+    "solutionSteps": [
+      {
+        "stepNumber": 1,
+        "title": "Clinical reasoning",
+        "calculation": "Protamine sulfate",
+        "explanation": "The reversal agent is protamine sulfate.",
+        "result": "Protamine sulfate"
+      },
+      {
+        "stepNumber": 2,
+        "title": "Safety pearl",
+        "calculation": "",
+        "explanation": "Reversal dosing and monitoring depend on the heparin exposure and facility protocol.",
+        "result": "Apply the safety check before administration."
+      }
+    ],
+    "rawVariables": {
+      "correctOptionIndexes": 1,
+      "tags": [
+        "heparin",
+        "protamine",
+        "reversal"
+      ]
+    }
+  },
+  {
+    "id": "ac-know-warfarin-reversal",
+    "category": "anticoagulants",
+    "subtype": "warfarin-reversal",
+    "difficulty": "beginner",
+    "title": "Warfarin Reversal Concept",
+    "clinicalContext": "Adult nursing medication education",
+    "scenario": "An adult taking warfarin has major bleeding and a markedly elevated INR.",
+    "orderText": "Apply medication knowledge and nursing safety principles.",
+    "prompt": "Which agent directly restores vitamin K availability?",
+    "correctAnswer": 1,
+    "answerUnit": "choice",
+    "answerPrecision": 0,
+    "responseType": "multiple-choice",
+    "questionKind": "knowledge",
+    "options": [
+      {
+        "id": "0",
+        "label": "Protamine sulfate"
+      },
+      {
+        "id": "1",
+        "label": "Vitamin K"
+      },
+      {
+        "id": "2",
+        "label": "Idarucizumab"
+      },
+      {
+        "id": "3",
+        "label": "Insulin"
+      }
+    ],
+    "correctAnswerLabel": "Vitamin K",
+    "tags": [
+      "warfarin",
+      "vitamin K",
+      "reversal",
+      "INR"
+    ],
+    "safetyPearl": "Major bleeding may require additional reversal products according to an urgent protocol.",
+    "hints": [
+      "Focus on warfarin and vitamin K.",
+      "Separate the medication's action from the nursing monitoring priority.",
+      "Eliminate choices that conflict with this safety principle: Major bleeding may require additional reversal products according to an urgent protocol."
+    ],
+    "solutionSteps": [
+      {
+        "stepNumber": 1,
+        "title": "Clinical reasoning",
+        "calculation": "Vitamin K",
+        "explanation": "vitamin K, with additional reversal products based on urgency and protocol",
+        "result": "Vitamin K"
+      },
+      {
+        "stepNumber": 2,
+        "title": "Safety pearl",
+        "calculation": "",
+        "explanation": "Major bleeding may require additional reversal products according to an urgent protocol.",
+        "result": "Apply the safety check before administration."
+      }
+    ],
+    "rawVariables": {
+      "correctOptionIndexes": 1,
+      "tags": [
+        "warfarin",
+        "vitamin K",
+        "reversal",
+        "INR"
+      ]
+    }
+  },
+  {
+    "id": "ac-know-dabigatran-class",
+    "category": "anticoagulants",
+    "subtype": "dabigatran-knowledge",
+    "difficulty": "beginner",
+    "title": "Dabigatran Drug Class",
+    "clinicalContext": "Adult nursing medication education",
+    "scenario": "The medication record lists dabigatran (Pradaxa).",
+    "orderText": "Apply medication knowledge and nursing safety principles.",
+    "prompt": "How is dabigatran classified?",
+    "correctAnswer": 1,
+    "answerUnit": "choice",
+    "answerPrecision": 0,
+    "responseType": "multiple-choice",
+    "questionKind": "knowledge",
+    "options": [
+      {
+        "id": "0",
+        "label": "Vitamin K antagonist"
+      },
+      {
+        "id": "1",
+        "label": "Direct thrombin inhibitor"
+      },
+      {
+        "id": "2",
+        "label": "Factor Xa inhibitor"
+      },
+      {
+        "id": "3",
+        "label": "Antiplatelet P2Y12 inhibitor"
+      }
+    ],
+    "correctAnswerLabel": "Direct thrombin inhibitor",
+    "tags": [
+      "dabigatran",
+      "Pradaxa",
+      "direct thrombin inhibitor"
+    ],
+    "safetyPearl": "Assess bleeding risk and renal function when caring for a patient taking dabigatran.",
+    "hints": [
+      "Focus on dabigatran and Pradaxa.",
+      "Separate the medication's action from the nursing monitoring priority.",
+      "Eliminate choices that conflict with this safety principle: Assess bleeding risk and renal function when caring for a patient taking dabigatran."
+    ],
+    "solutionSteps": [
+      {
+        "stepNumber": 1,
+        "title": "Clinical reasoning",
+        "calculation": "Direct thrombin inhibitor",
+        "explanation": "Dabigatran is a direct thrombin inhibitor.",
+        "result": "Direct thrombin inhibitor"
+      },
+      {
+        "stepNumber": 2,
+        "title": "Safety pearl",
+        "calculation": "",
+        "explanation": "Assess bleeding risk and renal function when caring for a patient taking dabigatran.",
+        "result": "Apply the safety check before administration."
+      }
+    ],
+    "rawVariables": {
+      "correctOptionIndexes": 1,
+      "tags": [
+        "dabigatran",
+        "Pradaxa",
+        "direct thrombin inhibitor"
+      ]
+    }
+  },
+  {
+    "id": "ac-know-dabigatran-reversal",
+    "category": "anticoagulants",
+    "subtype": "dabigatran-reversal",
+    "difficulty": "intermediate",
+    "title": "Dabigatran Reversal",
+    "clinicalContext": "Adult nursing medication education",
+    "scenario": "A patient taking dabigatran has life-threatening bleeding.",
+    "orderText": "Apply medication knowledge and nursing safety principles.",
+    "prompt": "Which specific reversal agent is associated with dabigatran?",
+    "correctAnswer": 2,
+    "answerUnit": "choice",
+    "answerPrecision": 0,
+    "responseType": "multiple-choice",
+    "questionKind": "knowledge",
+    "options": [
+      {
+        "id": "0",
+        "label": "Protamine sulfate"
+      },
+      {
+        "id": "1",
+        "label": "Vitamin K"
+      },
+      {
+        "id": "2",
+        "label": "Idarucizumab"
+      },
+      {
+        "id": "3",
+        "label": "Atropine"
+      }
+    ],
+    "correctAnswerLabel": "Idarucizumab",
+    "tags": [
+      "dabigatran",
+      "idarucizumab",
+      "reversal"
+    ],
+    "safetyPearl": "Urgent reversal requires provider and protocol-directed management.",
+    "hints": [
+      "Focus on dabigatran and idarucizumab.",
+      "Separate the medication's action from the nursing monitoring priority.",
+      "Eliminate choices that conflict with this safety principle: Urgent reversal requires provider and protocol-directed management."
+    ],
+    "solutionSteps": [
+      {
+        "stepNumber": 1,
+        "title": "Clinical reasoning",
+        "calculation": "Idarucizumab",
+        "explanation": "Dabigatran can be reversed with idarucizumab.",
+        "result": "Idarucizumab"
+      },
+      {
+        "stepNumber": 2,
+        "title": "Safety pearl",
+        "calculation": "",
+        "explanation": "Urgent reversal requires provider and protocol-directed management.",
+        "result": "Apply the safety check before administration."
+      }
+    ],
+    "rawVariables": {
+      "correctOptionIndexes": 2,
+      "tags": [
+        "dabigatran",
+        "idarucizumab",
+        "reversal"
+      ]
+    }
+  },
+  {
+    "id": "ac-know-apixaban-class",
+    "category": "anticoagulants",
+    "subtype": "factor-xa-knowledge",
+    "difficulty": "beginner",
+    "title": "Apixaban Drug Class",
+    "clinicalContext": "Adult nursing medication education",
+    "scenario": "The medication list includes apixaban (Eliquis).",
+    "orderText": "Apply medication knowledge and nursing safety principles.",
+    "prompt": "Which mechanism best describes apixaban?",
+    "correctAnswer": 0,
+    "answerUnit": "choice",
+    "answerPrecision": 0,
+    "responseType": "multiple-choice",
+    "questionKind": "knowledge",
+    "options": [
+      {
+        "id": "0",
+        "label": "Direct factor Xa inhibition"
+      },
+      {
+        "id": "1",
+        "label": "Direct thrombin inhibition"
+      },
+      {
+        "id": "2",
+        "label": "Vitamin K antagonism"
+      },
+      {
+        "id": "3",
+        "label": "Platelet COX inhibition"
+      }
+    ],
+    "correctAnswerLabel": "Direct factor Xa inhibition",
+    "tags": [
+      "apixaban",
+      "Eliquis",
+      "factor Xa"
+    ],
+    "safetyPearl": "Bleeding assessment and renal considerations remain important even without routine INR titration.",
+    "hints": [
+      "Focus on apixaban and Eliquis.",
+      "Separate the medication's action from the nursing monitoring priority.",
+      "Eliminate choices that conflict with this safety principle: Bleeding assessment and renal considerations remain important even without routine INR titration."
+    ],
+    "solutionSteps": [
+      {
+        "stepNumber": 1,
+        "title": "Clinical reasoning",
+        "calculation": "Direct factor Xa inhibition",
+        "explanation": "Apixaban is a direct factor Xa inhibitor.",
+        "result": "Direct factor Xa inhibition"
+      },
+      {
+        "stepNumber": 2,
+        "title": "Safety pearl",
+        "calculation": "",
+        "explanation": "Bleeding assessment and renal considerations remain important even without routine INR titration.",
+        "result": "Apply the safety check before administration."
+      }
+    ],
+    "rawVariables": {
+      "correctOptionIndexes": 0,
+      "tags": [
+        "apixaban",
+        "Eliquis",
+        "factor Xa"
+      ]
+    }
+  },
+  {
+    "id": "ac-know-rivaroxaban-class",
+    "category": "anticoagulants",
+    "subtype": "factor-xa-knowledge",
+    "difficulty": "beginner",
+    "title": "Rivaroxaban Drug Class",
+    "clinicalContext": "Adult nursing medication education",
+    "scenario": "The medication record lists rivaroxaban (Xarelto).",
+    "orderText": "Apply medication knowledge and nursing safety principles.",
+    "prompt": "Which mechanism best describes rivaroxaban?",
+    "correctAnswer": 0,
+    "answerUnit": "choice",
+    "answerPrecision": 0,
+    "responseType": "multiple-choice",
+    "questionKind": "knowledge",
+    "options": [
+      {
+        "id": "0",
+        "label": "Factor Xa inhibition"
+      },
+      {
+        "id": "1",
+        "label": "Thrombin activation"
+      },
+      {
+        "id": "2",
+        "label": "Vitamin K replacement"
+      },
+      {
+        "id": "3",
+        "label": "Platelet production stimulation"
+      }
+    ],
+    "correctAnswerLabel": "Factor Xa inhibition",
+    "tags": [
+      "rivaroxaban",
+      "Xarelto",
+      "factor Xa"
+    ],
+    "safetyPearl": "Verify the indication, dose, renal considerations, and bleeding risk.",
+    "hints": [
+      "Focus on rivaroxaban and Xarelto.",
+      "Separate the medication's action from the nursing monitoring priority.",
+      "Eliminate choices that conflict with this safety principle: Verify the indication, dose, renal considerations, and bleeding risk."
+    ],
+    "solutionSteps": [
+      {
+        "stepNumber": 1,
+        "title": "Clinical reasoning",
+        "calculation": "Factor Xa inhibition",
+        "explanation": "Rivaroxaban is a direct factor Xa inhibitor.",
+        "result": "Factor Xa inhibition"
+      },
+      {
+        "stepNumber": 2,
+        "title": "Safety pearl",
+        "calculation": "",
+        "explanation": "Verify the indication, dose, renal considerations, and bleeding risk.",
+        "result": "Apply the safety check before administration."
+      }
+    ],
+    "rawVariables": {
+      "correctOptionIndexes": 0,
+      "tags": [
+        "rivaroxaban",
+        "Xarelto",
+        "factor Xa"
+      ]
+    }
+  },
+  {
+    "id": "ac-know-enoxaparin-class",
+    "category": "anticoagulants",
+    "subtype": "enoxaparin-knowledge",
+    "difficulty": "beginner",
+    "title": "Enoxaparin Classification",
+    "clinicalContext": "Adult nursing medication education",
+    "scenario": "The order lists enoxaparin (Lovenox).",
+    "orderText": "Apply medication knowledge and nursing safety principles.",
+    "prompt": "How is enoxaparin classified?",
+    "correctAnswer": 0,
+    "answerUnit": "choice",
+    "answerPrecision": 0,
+    "responseType": "multiple-choice",
+    "questionKind": "knowledge",
+    "options": [
+      {
+        "id": "0",
+        "label": "Low-molecular-weight heparin"
+      },
+      {
+        "id": "1",
+        "label": "Vitamin K antagonist"
+      },
+      {
+        "id": "2",
+        "label": "Direct thrombin inhibitor"
+      },
+      {
+        "id": "3",
+        "label": "Thrombolytic"
+      }
+    ],
+    "correctAnswerLabel": "Low-molecular-weight heparin",
+    "tags": [
+      "enoxaparin",
+      "Lovenox",
+      "LMWH"
+    ],
+    "safetyPearl": "Do not interchange enoxaparin dosing with unfractionated heparin dosing.",
+    "hints": [
+      "Focus on enoxaparin and Lovenox.",
+      "Separate the medication's action from the nursing monitoring priority.",
+      "Eliminate choices that conflict with this safety principle: Do not interchange enoxaparin dosing with unfractionated heparin dosing."
+    ],
+    "solutionSteps": [
+      {
+        "stepNumber": 1,
+        "title": "Clinical reasoning",
+        "calculation": "Low-molecular-weight heparin",
+        "explanation": "Enoxaparin is a low-molecular-weight heparin.",
+        "result": "Low-molecular-weight heparin"
+      },
+      {
+        "stepNumber": 2,
+        "title": "Safety pearl",
+        "calculation": "",
+        "explanation": "Do not interchange enoxaparin dosing with unfractionated heparin dosing.",
+        "result": "Apply the safety check before administration."
+      }
+    ],
+    "rawVariables": {
+      "correctOptionIndexes": 0,
+      "tags": [
+        "enoxaparin",
+        "Lovenox",
+        "LMWH"
+      ]
+    }
+  },
+  {
+    "id": "ac-know-enoxaparin-route",
+    "category": "anticoagulants",
+    "subtype": "enoxaparin-administration",
+    "difficulty": "beginner",
+    "title": "Enoxaparin Route",
+    "clinicalContext": "Adult nursing medication education",
+    "scenario": "An adult receives enoxaparin for VTE prophylaxis.",
+    "orderText": "Apply medication knowledge and nursing safety principles.",
+    "prompt": "Which route is expected for routine administration?",
+    "correctAnswer": 0,
+    "answerUnit": "choice",
+    "answerPrecision": 0,
+    "responseType": "multiple-choice",
+    "questionKind": "knowledge",
+    "options": [
+      {
+        "id": "0",
+        "label": "Subcutaneous"
+      },
+      {
+        "id": "1",
+        "label": "Intramuscular"
+      },
+      {
+        "id": "2",
+        "label": "Sublingual"
+      },
+      {
+        "id": "3",
+        "label": "Inhaled"
+      }
+    ],
+    "correctAnswerLabel": "Subcutaneous",
+    "tags": [
+      "enoxaparin",
+      "subcutaneous",
+      "administration"
+    ],
+    "safetyPearl": "Avoid intramuscular administration in an anticoagulated patient unless specifically directed.",
+    "hints": [
+      "Focus on enoxaparin and subcutaneous.",
+      "Separate the medication's action from the nursing monitoring priority.",
+      "Eliminate choices that conflict with this safety principle: Avoid intramuscular administration in an anticoagulated patient unless specifically directed."
+    ],
+    "solutionSteps": [
+      {
+        "stepNumber": 1,
+        "title": "Clinical reasoning",
+        "calculation": "Subcutaneous",
+        "explanation": "Enoxaparin is given subcutaneous.",
+        "result": "Subcutaneous"
+      },
+      {
+        "stepNumber": 2,
+        "title": "Safety pearl",
+        "calculation": "",
+        "explanation": "Avoid intramuscular administration in an anticoagulated patient unless specifically directed.",
+        "result": "Apply the safety check before administration."
+      }
+    ],
+    "rawVariables": {
+      "correctOptionIndexes": 0,
+      "tags": [
+        "enoxaparin",
+        "subcutaneous",
+        "administration"
+      ]
+    }
+  },
+  {
+    "id": "ac-know-hit-priority",
+    "category": "anticoagulants",
+    "subtype": "heparin-hit",
+    "difficulty": "intermediate",
+    "title": "Possible Heparin-Induced Thrombocytopenia",
+    "clinicalContext": "Adult nursing medication education",
+    "scenario": "A patient's platelet count falls substantially several days after starting heparin.",
+    "orderText": "Apply medication knowledge and nursing safety principles.",
+    "prompt": "Which complication should the nurse suspect and report promptly?",
+    "correctAnswer": 0,
+    "answerUnit": "choice",
+    "answerPrecision": 0,
+    "responseType": "multiple-choice",
+    "questionKind": "clinical-application",
+    "options": [
+      {
+        "id": "0",
+        "label": "Heparin-induced thrombocytopenia"
+      },
+      {
+        "id": "1",
+        "label": "Iron-deficiency anemia"
+      },
+      {
+        "id": "2",
+        "label": "Hyperglycemia"
+      },
+      {
+        "id": "3",
+        "label": "Pancreatitis"
+      }
+    ],
+    "correctAnswerLabel": "Heparin-induced thrombocytopenia",
+    "tags": [
+      "heparin",
+      "HIT",
+      "platelets",
+      "safety"
+    ],
+    "safetyPearl": "HIT is a prothrombotic emergency. Stop-and-substitute decisions require immediate protocol-directed evaluation.",
+    "hints": [
+      "Focus on heparin and HIT.",
+      "Separate the medication's action from the nursing monitoring priority.",
+      "Eliminate choices that conflict with this safety principle: HIT is a prothrombotic emergency. Stop-and-substitute decisions require immediate protocol-directed evaluation."
+    ],
+    "solutionSteps": [
+      {
+        "stepNumber": 1,
+        "title": "Clinical reasoning",
+        "calculation": "Heparin-induced thrombocytopenia",
+        "explanation": "A significant platelet decline during heparin exposure can signal HIT.",
+        "result": "Heparin-induced thrombocytopenia"
+      },
+      {
+        "stepNumber": 2,
+        "title": "Safety pearl",
+        "calculation": "",
+        "explanation": "HIT is a prothrombotic emergency. Stop-and-substitute decisions require immediate protocol-directed evaluation.",
+        "result": "Apply the safety check before administration."
+      }
+    ],
+    "rawVariables": {
+      "correctOptionIndexes": 0,
+      "tags": [
+        "heparin",
+        "HIT",
+        "platelets",
+        "safety"
+      ]
+    }
+  },
+  {
+    "id": "ac-know-bleeding-sign",
+    "category": "anticoagulants",
+    "subtype": "anticoagulant-safety",
+    "difficulty": "beginner",
+    "title": "Bleeding Assessment",
+    "clinicalContext": "Adult nursing medication education",
+    "scenario": "A patient is receiving therapeutic anticoagulation.",
+    "orderText": "Apply medication knowledge and nursing safety principles.",
+    "prompt": "Which finding requires prompt bleeding evaluation?",
+    "correctAnswer": 0,
+    "answerUnit": "choice",
+    "answerPrecision": 0,
+    "responseType": "multiple-choice",
+    "questionKind": "knowledge",
+    "options": [
+      {
+        "id": "0",
+        "label": "Black tarry stool"
+      },
+      {
+        "id": "1",
+        "label": "Clear urine"
+      },
+      {
+        "id": "2",
+        "label": "Warm dry skin"
+      },
+      {
+        "id": "3",
+        "label": "Pulse 72/min"
+      }
+    ],
+    "correctAnswerLabel": "Black tarry stool",
+    "tags": [
+      "bleeding",
+      "melena",
+      "safety"
+    ],
+    "safetyPearl": "Assess visible and occult bleeding, vital signs, and relevant laboratory trends.",
+    "hints": [
+      "Focus on bleeding and melena.",
+      "Separate the medication's action from the nursing monitoring priority.",
+      "Eliminate choices that conflict with this safety principle: Assess visible and occult bleeding, vital signs, and relevant laboratory trends."
+    ],
+    "solutionSteps": [
+      {
+        "stepNumber": 1,
+        "title": "Clinical reasoning",
+        "calculation": "Black tarry stool",
+        "explanation": "Melena can indicate gastrointestinal bleeding.",
+        "result": "Black tarry stool"
+      },
+      {
+        "stepNumber": 2,
+        "title": "Safety pearl",
+        "calculation": "",
+        "explanation": "Assess visible and occult bleeding, vital signs, and relevant laboratory trends.",
+        "result": "Apply the safety check before administration."
+      }
+    ],
+    "rawVariables": {
+      "correctOptionIndexes": 0,
+      "tags": [
+        "bleeding",
+        "melena",
+        "safety"
+      ]
+    }
+  },
+  {
+    "id": "ac-know-heparin-rapid",
+    "category": "anticoagulants",
+    "subtype": "heparin-knowledge",
+    "difficulty": "beginner",
+    "title": "Rapid IV Heparin Effect",
+    "clinicalContext": "Adult nursing medication education",
+    "scenario": "An adult requires anticoagulation with a rapidly titratable IV medication.",
+    "orderText": "Apply medication knowledge and nursing safety principles.",
+    "prompt": "Which medication has a rapid IV effect and can be continuously infused?",
+    "correctAnswer": 0,
+    "answerUnit": "choice",
+    "answerPrecision": 0,
+    "responseType": "multiple-choice",
+    "questionKind": "knowledge",
+    "options": [
+      {
+        "id": "0",
+        "label": "Unfractionated heparin"
+      },
+      {
+        "id": "1",
+        "label": "Warfarin"
+      },
+      {
+        "id": "2",
+        "label": "Oral vitamin K"
+      },
+      {
+        "id": "3",
+        "label": "Aspirin enteric coated"
+      }
+    ],
+    "correctAnswerLabel": "Unfractionated heparin",
+    "tags": [
+      "heparin",
+      "IV",
+      "rapid effect",
+      "infusion"
+    ],
+    "safetyPearl": "Confirm bolus, concentration, units per hour, pump rate, and monitoring schedule.",
+    "hints": [
+      "Focus on heparin and IV.",
+      "Separate the medication's action from the nursing monitoring priority.",
+      "Eliminate choices that conflict with this safety principle: Confirm bolus, concentration, units per hour, pump rate, and monitoring schedule."
+    ],
+    "solutionSteps": [
+      {
+        "stepNumber": 1,
+        "title": "Clinical reasoning",
+        "calculation": "Unfractionated heparin",
+        "explanation": "IV unfractionated heparin has a rapid effect and can be titrated by protocol.",
+        "result": "Unfractionated heparin"
+      },
+      {
+        "stepNumber": 2,
+        "title": "Safety pearl",
+        "calculation": "",
+        "explanation": "Confirm bolus, concentration, units per hour, pump rate, and monitoring schedule.",
+        "result": "Apply the safety check before administration."
+      }
+    ],
+    "rawVariables": {
+      "correctOptionIndexes": 0,
+      "tags": [
+        "heparin",
+        "IV",
+        "rapid effect",
+        "infusion"
+      ]
+    }
+  },
+  {
+    "id": "ac-know-warfarin-onset",
+    "category": "anticoagulants",
+    "subtype": "warfarin-knowledge",
+    "difficulty": "beginner",
+    "title": "Warfarin Onset",
+    "clinicalContext": "Adult nursing medication education",
+    "scenario": "A patient begins warfarin therapy.",
+    "orderText": "Apply medication knowledge and nursing safety principles.",
+    "prompt": "Which onset description is most accurate?",
+    "correctAnswer": 1,
+    "answerUnit": "choice",
+    "answerPrecision": 0,
+    "responseType": "multiple-choice",
+    "questionKind": "knowledge",
+    "options": [
+      {
+        "id": "0",
+        "label": "Immediate within seconds"
+      },
+      {
+        "id": "1",
+        "label": "Delayed"
+      },
+      {
+        "id": "2",
+        "label": "Only active when given IV"
+      },
+      {
+        "id": "3",
+        "label": "No anticoagulant effect"
+      }
+    ],
+    "correctAnswerLabel": "Delayed",
+    "tags": [
+      "warfarin",
+      "delayed onset",
+      "safety"
+    ],
+    "safetyPearl": "Do not assume an oral warfarin dose creates immediate therapeutic anticoagulation.",
+    "hints": [
+      "Focus on warfarin and delayed onset.",
+      "Separate the medication's action from the nursing monitoring priority.",
+      "Eliminate choices that conflict with this safety principle: Do not assume an oral warfarin dose creates immediate therapeutic anticoagulation."
+    ],
+    "solutionSteps": [
+      {
+        "stepNumber": 1,
+        "title": "Clinical reasoning",
+        "calculation": "Delayed",
+        "explanation": "Warfarin has a delayed onset because existing clotting factors must decline.",
+        "result": "Delayed"
+      },
+      {
+        "stepNumber": 2,
+        "title": "Safety pearl",
+        "calculation": "",
+        "explanation": "Do not assume an oral warfarin dose creates immediate therapeutic anticoagulation.",
+        "result": "Apply the safety check before administration."
+      }
+    ],
+    "rawVariables": {
+      "correctOptionIndexes": 1,
+      "tags": [
+        "warfarin",
+        "delayed onset",
+        "safety"
+      ]
+    }
+  },
+  {
+    "id": "ac-know-warfarin-mechanism",
+    "category": "anticoagulants",
+    "subtype": "warfarin-knowledge",
+    "difficulty": "beginner",
+    "title": "Warfarin Mechanism",
+    "clinicalContext": "Adult nursing medication education",
+    "scenario": "The nurse explains why INR is monitored during warfarin therapy.",
+    "orderText": "Apply medication knowledge and nursing safety principles.",
+    "prompt": "Which mechanism describes warfarin?",
+    "correctAnswer": 0,
+    "answerUnit": "choice",
+    "answerPrecision": 0,
+    "responseType": "multiple-choice",
+    "questionKind": "knowledge",
+    "options": [
+      {
+        "id": "0",
+        "label": "Vitamin K antagonist"
+      },
+      {
+        "id": "1",
+        "label": "Direct factor Xa inhibitor"
+      },
+      {
+        "id": "2",
+        "label": "Direct thrombin inhibitor"
+      },
+      {
+        "id": "3",
+        "label": "Platelet transfusion stimulant"
+      }
+    ],
+    "correctAnswerLabel": "Vitamin K antagonist",
+    "tags": [
+      "warfarin",
+      "vitamin K antagonist",
+      "mechanism"
+    ],
+    "safetyPearl": "Medication and dietary interactions can change anticoagulant effect.",
+    "hints": [
+      "Focus on warfarin and vitamin K antagonist.",
+      "Separate the medication's action from the nursing monitoring priority.",
+      "Eliminate choices that conflict with this safety principle: Medication and dietary interactions can change anticoagulant effect."
+    ],
+    "solutionSteps": [
+      {
+        "stepNumber": 1,
+        "title": "Clinical reasoning",
+        "calculation": "Vitamin K antagonist",
+        "explanation": "vitamin K antagonist",
+        "result": "Vitamin K antagonist"
+      },
+      {
+        "stepNumber": 2,
+        "title": "Safety pearl",
+        "calculation": "",
+        "explanation": "Medication and dietary interactions can change anticoagulant effect.",
+        "result": "Apply the safety check before administration."
+      }
+    ],
+    "rawVariables": {
+      "correctOptionIndexes": 0,
+      "tags": [
+        "warfarin",
+        "vitamin K antagonist",
+        "mechanism"
+      ]
+    }
+  },
+  {
+    "id": "ac-know-lab-match",
+    "category": "anticoagulants",
+    "subtype": "anticoagulant-lab-association",
+    "difficulty": "intermediate",
+    "title": "Medication and Laboratory Match",
+    "clinicalContext": "Adult nursing medication education",
+    "scenario": "The nurse compares common monitoring associations.",
+    "orderText": "Apply medication knowledge and nursing safety principles.",
+    "prompt": "Which pairing is correct?",
+    "correctAnswer": 1,
+    "answerUnit": "choice",
+    "answerPrecision": 0,
+    "responseType": "multiple-choice",
+    "questionKind": "knowledge",
+    "options": [
+      {
+        "id": "0",
+        "label": "Warfarin and aPTT only"
+      },
+      {
+        "id": "1",
+        "label": "IV unfractionated heparin and aPTT"
+      },
+      {
+        "id": "2",
+        "label": "Apixaban and routine INR titration"
+      },
+      {
+        "id": "3",
+        "label": "Enoxaparin and hemoglobin A1c"
+      }
+    ],
+    "correctAnswerLabel": "IV unfractionated heparin and aPTT",
+    "tags": [
+      "heparin",
+      "warfarin",
+      "aPTT",
+      "INR"
+    ],
+    "safetyPearl": "Always follow the medication-specific and institution-specific monitoring plan.",
+    "hints": [
+      "Focus on heparin and warfarin.",
+      "Separate the medication's action from the nursing monitoring priority.",
+      "Eliminate choices that conflict with this safety principle: Always follow the medication-specific and institution-specific monitoring plan."
+    ],
+    "solutionSteps": [
+      {
+        "stepNumber": 1,
+        "title": "Clinical reasoning",
+        "calculation": "IV unfractionated heparin and aPTT",
+        "explanation": "aPTT is commonly used for IV unfractionated heparin protocols, while PT/INR monitors warfarin.",
+        "result": "IV unfractionated heparin and aPTT"
+      },
+      {
+        "stepNumber": 2,
+        "title": "Safety pearl",
+        "calculation": "",
+        "explanation": "Always follow the medication-specific and institution-specific monitoring plan.",
+        "result": "Apply the safety check before administration."
+      }
+    ],
+    "rawVariables": {
+      "correctOptionIndexes": 1,
+      "tags": [
+        "heparin",
+        "warfarin",
+        "aPTT",
+        "INR"
+      ]
+    }
+  },
+  {
+    "id": "ac-know-high-aptt",
+    "category": "anticoagulants",
+    "subtype": "heparin-lab-interpretation",
+    "difficulty": "intermediate",
+    "title": "Supratherapeutic aPTT",
+    "clinicalContext": "Adult nursing medication education",
+    "scenario": "A patient on IV heparin has an aPTT above the protocol target and new oozing at the IV site.",
+    "orderText": "Apply medication knowledge and nursing safety principles.",
+    "prompt": "What is the nurse's priority?",
+    "correctAnswer": 1,
+    "answerUnit": "choice",
+    "answerPrecision": 0,
+    "responseType": "multiple-choice",
+    "questionKind": "clinical-application",
+    "options": [
+      {
+        "id": "0",
+        "label": "Increase the infusion without checking the protocol"
+      },
+      {
+        "id": "1",
+        "label": "Recognize bleeding risk and follow the heparin protocol"
+      },
+      {
+        "id": "2",
+        "label": "Give vitamin K independently"
+      },
+      {
+        "id": "3",
+        "label": "Ignore the result because aPTT is unrelated"
+      }
+    ],
+    "correctAnswerLabel": "Recognize bleeding risk and follow the heparin protocol",
+    "tags": [
+      "heparin",
+      "aPTT",
+      "bleeding",
+      "protocol"
+    ],
+    "safetyPearl": "Do not independently improvise heparin titration outside the ordered protocol.",
+    "hints": [
+      "Focus on heparin and aPTT.",
+      "Separate the medication's action from the nursing monitoring priority.",
+      "Eliminate choices that conflict with this safety principle: Do not independently improvise heparin titration outside the ordered protocol."
+    ],
+    "solutionSteps": [
+      {
+        "stepNumber": 1,
+        "title": "Clinical reasoning",
+        "calculation": "Recognize bleeding risk and follow the heparin protocol",
+        "explanation": "A high aPTT plus bleeding signs requires immediate protocol-guided action and escalation.",
+        "result": "Recognize bleeding risk and follow the heparin protocol"
+      },
+      {
+        "stepNumber": 2,
+        "title": "Safety pearl",
+        "calculation": "",
+        "explanation": "Do not independently improvise heparin titration outside the ordered protocol.",
+        "result": "Apply the safety check before administration."
+      }
+    ],
+    "rawVariables": {
+      "correctOptionIndexes": 1,
+      "tags": [
+        "heparin",
+        "aPTT",
+        "bleeding",
+        "protocol"
+      ]
+    }
+  },
+  {
+    "id": "ac-know-high-inr",
+    "category": "anticoagulants",
+    "subtype": "warfarin-lab-interpretation",
+    "difficulty": "intermediate",
+    "title": "High INR and Bleeding",
+    "clinicalContext": "Adult nursing medication education",
+    "scenario": "A patient taking warfarin has an INR above the ordered goal and reports nosebleeds.",
+    "orderText": "Apply medication knowledge and nursing safety principles.",
+    "prompt": "Which interpretation is most appropriate?",
+    "correctAnswer": 1,
+    "answerUnit": "choice",
+    "answerPrecision": 0,
+    "responseType": "multiple-choice",
+    "questionKind": "clinical-application",
+    "options": [
+      {
+        "id": "0",
+        "label": "Reduced bleeding risk"
+      },
+      {
+        "id": "1",
+        "label": "Possible excessive anticoagulation and bleeding risk"
+      },
+      {
+        "id": "2",
+        "label": "Expected glucose effect"
+      },
+      {
+        "id": "3",
+        "label": "Evidence of HIT"
+      }
+    ],
+    "correctAnswerLabel": "Possible excessive anticoagulation and bleeding risk",
+    "tags": [
+      "warfarin",
+      "INR",
+      "bleeding",
+      "interpretation"
+    ],
+    "safetyPearl": "Hold or reversal decisions require the prescriber's order and current protocol.",
+    "hints": [
+      "Focus on warfarin and INR.",
+      "Separate the medication's action from the nursing monitoring priority.",
+      "Eliminate choices that conflict with this safety principle: Hold or reversal decisions require the prescriber's order and current protocol."
+    ],
+    "solutionSteps": [
+      {
+        "stepNumber": 1,
+        "title": "Clinical reasoning",
+        "calculation": "Possible excessive anticoagulation and bleeding risk",
+        "explanation": "An INR above the ordered therapeutic goal can reflect excessive anticoagulation.",
+        "result": "Possible excessive anticoagulation and bleeding risk"
+      },
+      {
+        "stepNumber": 2,
+        "title": "Safety pearl",
+        "calculation": "",
+        "explanation": "Hold or reversal decisions require the prescriber's order and current protocol.",
+        "result": "Apply the safety check before administration."
+      }
+    ],
+    "rawVariables": {
+      "correctOptionIndexes": 1,
+      "tags": [
+        "warfarin",
+        "INR",
+        "bleeding",
+        "interpretation"
+      ]
+    }
+  },
+  {
+    "id": "ac-know-enoxaparin-uses",
+    "category": "anticoagulants",
+    "subtype": "enoxaparin-knowledge",
+    "difficulty": "beginner",
+    "title": "Enoxaparin Uses",
+    "clinicalContext": "Adult nursing medication education",
+    "scenario": "The nurse reviews indications for low-molecular-weight heparin.",
+    "orderText": "Apply medication knowledge and nursing safety principles.",
+    "prompt": "Which is a common use of enoxaparin?",
+    "correctAnswer": 0,
+    "answerUnit": "choice",
+    "answerPrecision": 0,
+    "responseType": "multiple-choice",
+    "questionKind": "knowledge",
+    "options": [
+      {
+        "id": "0",
+        "label": "VTE prophylaxis"
+      },
+      {
+        "id": "1",
+        "label": "Treatment of hypoglycemia"
+      },
+      {
+        "id": "2",
+        "label": "Reversal of warfarin"
+      },
+      {
+        "id": "3",
+        "label": "Treatment of bacterial pneumonia"
+      }
+    ],
+    "correctAnswerLabel": "VTE prophylaxis",
+    "tags": [
+      "enoxaparin",
+      "VTE prophylaxis",
+      "DVT",
+      "PE"
+    ],
+    "safetyPearl": "Prophylaxis and treatment regimens are not interchangeable.",
+    "hints": [
+      "Focus on enoxaparin and VTE prophylaxis.",
+      "Separate the medication's action from the nursing monitoring priority.",
+      "Eliminate choices that conflict with this safety principle: Prophylaxis and treatment regimens are not interchangeable."
+    ],
+    "solutionSteps": [
+      {
+        "stepNumber": 1,
+        "title": "Clinical reasoning",
+        "calculation": "VTE prophylaxis",
+        "explanation": "Enoxaparin is commonly used for VTE prophylaxis and for treatment in appropriate DVT or PE scenarios.",
+        "result": "VTE prophylaxis"
+      },
+      {
+        "stepNumber": 2,
+        "title": "Safety pearl",
+        "calculation": "",
+        "explanation": "Prophylaxis and treatment regimens are not interchangeable.",
+        "result": "Apply the safety check before administration."
+      }
+    ],
+    "rawVariables": {
+      "correctOptionIndexes": 0,
+      "tags": [
+        "enoxaparin",
+        "VTE prophylaxis",
+        "DVT",
+        "PE"
+      ]
+    }
+  },
+  {
+    "id": "ac-know-renal",
+    "category": "anticoagulants",
+    "subtype": "doac-safety",
+    "difficulty": "intermediate",
+    "title": "Renal Function and Anticoagulants",
+    "clinicalContext": "Adult nursing medication education",
+    "scenario": "An older adult with reduced renal function takes an oral anticoagulant.",
+    "orderText": "Apply medication knowledge and nursing safety principles.",
+    "prompt": "Which nursing action is appropriate?",
+    "correctAnswer": 1,
+    "answerUnit": "choice",
+    "answerPrecision": 0,
+    "responseType": "multiple-choice",
+    "questionKind": "knowledge",
+    "options": [
+      {
+        "id": "0",
+        "label": "Ignore renal function"
+      },
+      {
+        "id": "1",
+        "label": "Verify renal function and the ordered regimen"
+      },
+      {
+        "id": "2",
+        "label": "Double the dose automatically"
+      },
+      {
+        "id": "3",
+        "label": "Replace the drug with warfarin without an order"
+      }
+    ],
+    "correctAnswerLabel": "Verify renal function and the ordered regimen",
+    "tags": [
+      "renal function",
+      "DOAC",
+      "safety"
+    ],
+    "safetyPearl": "Do not make independent dose changes. Verify the order and escalate concerns.",
+    "hints": [
+      "Focus on renal function and DOAC.",
+      "Separate the medication's action from the nursing monitoring priority.",
+      "Eliminate choices that conflict with this safety principle: Do not make independent dose changes. Verify the order and escalate concerns."
+    ],
+    "solutionSteps": [
+      {
+        "stepNumber": 1,
+        "title": "Clinical reasoning",
+        "calculation": "Verify renal function and the ordered regimen",
+        "explanation": "Renal function can affect exposure and dosing decisions for several anticoagulants.",
+        "result": "Verify renal function and the ordered regimen"
+      },
+      {
+        "stepNumber": 2,
+        "title": "Safety pearl",
+        "calculation": "",
+        "explanation": "Do not make independent dose changes. Verify the order and escalate concerns.",
+        "result": "Apply the safety check before administration."
+      }
+    ],
+    "rawVariables": {
+      "correctOptionIndexes": 1,
+      "tags": [
+        "renal function",
+        "DOAC",
+        "safety"
+      ]
+    }
+  },
+  {
+    "id": "ac-know-doac-inr",
+    "category": "anticoagulants",
+    "subtype": "doac-monitoring",
+    "difficulty": "intermediate",
+    "title": "DOAC Monitoring Concept",
+    "clinicalContext": "Adult nursing medication education",
+    "scenario": "A patient takes apixaban for an appropriate atrial fibrillation indication.",
+    "orderText": "Apply medication knowledge and nursing safety principles.",
+    "prompt": "Which statement is correct?",
+    "correctAnswer": 1,
+    "answerUnit": "choice",
+    "answerPrecision": 0,
+    "responseType": "multiple-choice",
+    "questionKind": "knowledge",
+    "options": [
+      {
+        "id": "0",
+        "label": "Routine INR titration is used exactly like warfarin"
+      },
+      {
+        "id": "1",
+        "label": "Bleeding and renal function still require assessment"
+      },
+      {
+        "id": "2",
+        "label": "aPTT determines every outpatient dose"
+      },
+      {
+        "id": "3",
+        "label": "No medication reconciliation is needed"
+      }
+    ],
+    "correctAnswerLabel": "Bleeding and renal function still require assessment",
+    "tags": [
+      "apixaban",
+      "DOAC",
+      "INR",
+      "monitoring"
+    ],
+    "safetyPearl": "Absence of routine INR titration does not mean absence of bleeding risk.",
+    "hints": [
+      "Focus on apixaban and DOAC.",
+      "Separate the medication's action from the nursing monitoring priority.",
+      "Eliminate choices that conflict with this safety principle: Absence of routine INR titration does not mean absence of bleeding risk."
+    ],
+    "solutionSteps": [
+      {
+        "stepNumber": 1,
+        "title": "Clinical reasoning",
+        "calculation": "Bleeding and renal function still require assessment",
+        "explanation": "Direct oral anticoagulants are not routinely titrated to INR like warfarin, but safety monitoring remains essential.",
+        "result": "Bleeding and renal function still require assessment"
+      },
+      {
+        "stepNumber": 2,
+        "title": "Safety pearl",
+        "calculation": "",
+        "explanation": "Absence of routine INR titration does not mean absence of bleeding risk.",
+        "result": "Apply the safety check before administration."
+      }
+    ],
+    "rawVariables": {
+      "correctOptionIndexes": 1,
+      "tags": [
+        "apixaban",
+        "DOAC",
+        "INR",
+        "monitoring"
+      ]
+    }
+  },
+  {
+    "id": "ac-know-af-use",
+    "category": "anticoagulants",
+    "subtype": "doac-indications",
+    "difficulty": "beginner",
+    "title": "Factor Xa Inhibitor Use",
+    "clinicalContext": "Adult nursing medication education",
+    "scenario": "An adult with appropriate non-valvular atrial fibrillation needs stroke-risk reduction.",
+    "orderText": "Apply medication knowledge and nursing safety principles.",
+    "prompt": "Which medication is a direct factor Xa inhibitor used in such scenarios?",
+    "correctAnswer": 0,
+    "answerUnit": "choice",
+    "answerPrecision": 0,
+    "responseType": "multiple-choice",
+    "questionKind": "knowledge",
+    "options": [
+      {
+        "id": "0",
+        "label": "Apixaban"
+      },
+      {
+        "id": "1",
+        "label": "Protamine sulfate"
+      },
+      {
+        "id": "2",
+        "label": "Vitamin K"
+      },
+      {
+        "id": "3",
+        "label": "Regular insulin"
+      }
+    ],
+    "correctAnswerLabel": "Apixaban",
+    "tags": [
+      "apixaban",
+      "atrial fibrillation",
+      "stroke prevention"
+    ],
+    "safetyPearl": "Confirm the indication and patient-specific contraindications before administration.",
+    "hints": [
+      "Focus on apixaban and atrial fibrillation.",
+      "Separate the medication's action from the nursing monitoring priority.",
+      "Eliminate choices that conflict with this safety principle: Confirm the indication and patient-specific contraindications before administration."
+    ],
+    "solutionSteps": [
+      {
+        "stepNumber": 1,
+        "title": "Clinical reasoning",
+        "calculation": "Apixaban",
+        "explanation": "Apixaban is a direct factor Xa inhibitor used for stroke and systemic embolism risk reduction in appropriate patients.",
+        "result": "Apixaban"
+      },
+      {
+        "stepNumber": 2,
+        "title": "Safety pearl",
+        "calculation": "",
+        "explanation": "Confirm the indication and patient-specific contraindications before administration.",
+        "result": "Apply the safety check before administration."
+      }
+    ],
+    "rawVariables": {
+      "correctOptionIndexes": 0,
+      "tags": [
+        "apixaban",
+        "atrial fibrillation",
+        "stroke prevention"
+      ]
+    }
+  },
+  {
+    "id": "ac-know-dabigatran-use",
+    "category": "anticoagulants",
+    "subtype": "dabigatran-knowledge",
+    "difficulty": "beginner",
+    "title": "Dabigatran Common Use",
+    "clinicalContext": "Adult nursing medication education",
+    "scenario": "The nurse reviews dabigatran therapy.",
+    "orderText": "Apply medication knowledge and nursing safety principles.",
+    "prompt": "Which is a common use in appropriate adults?",
+    "correctAnswer": 0,
+    "answerUnit": "choice",
+    "answerPrecision": 0,
+    "responseType": "multiple-choice",
+    "questionKind": "knowledge",
+    "options": [
+      {
+        "id": "0",
+        "label": "Risk reduction for stroke and systemic embolism in non-valvular atrial fibrillation"
+      },
+      {
+        "id": "1",
+        "label": "Reversal of heparin"
+      },
+      {
+        "id": "2",
+        "label": "Treatment of hypoglycemia"
+      },
+      {
+        "id": "3",
+        "label": "Platelet transfusion"
+      }
+    ],
+    "correctAnswerLabel": "Risk reduction for stroke and systemic embolism in non-valvular atrial fibrillation",
+    "tags": [
+      "dabigatran",
+      "atrial fibrillation",
+      "stroke prevention"
+    ],
+    "safetyPearl": "Verify renal function, bleeding risk, and the exact indication.",
+    "hints": [
+      "Focus on dabigatran and atrial fibrillation.",
+      "Separate the medication's action from the nursing monitoring priority.",
+      "Eliminate choices that conflict with this safety principle: Verify renal function, bleeding risk, and the exact indication."
+    ],
+    "solutionSteps": [
+      {
+        "stepNumber": 1,
+        "title": "Clinical reasoning",
+        "calculation": "Risk reduction for stroke and systemic embolism in non-valvular atrial fibrillation",
+        "explanation": "stroke and systemic embolism risk reduction in appropriate adults with non-valvular atrial fibrillation",
+        "result": "Risk reduction for stroke and systemic embolism in non-valvular atrial fibrillation"
+      },
+      {
+        "stepNumber": 2,
+        "title": "Safety pearl",
+        "calculation": "",
+        "explanation": "Verify renal function, bleeding risk, and the exact indication.",
+        "result": "Apply the safety check before administration."
+      }
+    ],
+    "rawVariables": {
+      "correctOptionIndexes": 0,
+      "tags": [
+        "dabigatran",
+        "atrial fibrillation",
+        "stroke prevention"
+      ]
+    }
+  },
+  {
+    "id": "ac-know-safety-sata",
+    "category": "anticoagulants",
+    "subtype": "anticoagulant-safety",
+    "difficulty": "intermediate",
+    "title": "Anticoagulant Safety Assessment",
+    "clinicalContext": "Adult nursing medication education",
+    "scenario": "The nurse assesses a patient receiving anticoagulation.",
+    "orderText": "Apply medication knowledge and nursing safety principles.",
+    "prompt": "Which findings should be reported as possible bleeding? Select all that apply.",
+    "correctAnswer": 7,
+    "answerUnit": "choice",
+    "answerPrecision": 0,
+    "responseType": "select-all",
+    "questionKind": "knowledge",
+    "options": [
+      {
+        "id": "0",
+        "label": "Hematuria"
+      },
+      {
+        "id": "1",
+        "label": "Melena"
+      },
+      {
+        "id": "2",
+        "label": "New unexplained bruising"
+      },
+      {
+        "id": "3",
+        "label": "Stable appetite"
+      }
+    ],
+    "correctAnswerLabel": "Hematuria; Melena; New unexplained bruising",
+    "tags": [
+      "bleeding",
+      "hematuria",
+      "melena",
+      "select all"
+    ],
+    "safetyPearl": "Trend symptoms, vital signs, hemoglobin, and medication exposure together.",
+    "hints": [
+      "Focus on bleeding and hematuria.",
+      "Separate the medication's action from the nursing monitoring priority.",
+      "Eliminate choices that conflict with this safety principle: Trend symptoms, vital signs, hemoglobin, and medication exposure together."
+    ],
+    "solutionSteps": [
+      {
+        "stepNumber": 1,
+        "title": "Clinical reasoning",
+        "calculation": "Hematuria; Melena; New unexplained bruising",
+        "explanation": "Blood in urine, black tarry stool, and new unexplained bruising can indicate bleeding.",
+        "result": "Hematuria; Melena; New unexplained bruising"
+      },
+      {
+        "stepNumber": 2,
+        "title": "Safety pearl",
+        "calculation": "",
+        "explanation": "Trend symptoms, vital signs, hemoglobin, and medication exposure together.",
+        "result": "Apply the safety check before administration."
+      }
+    ],
+    "rawVariables": {
+      "correctOptionIndexes": [
+        0,
+        1,
+        2
+      ],
+      "tags": [
+        "bleeding",
+        "hematuria",
+        "melena",
+        "select all"
+      ]
+    }
+  },
+  {
+    "id": "ac-know-hit-sata",
+    "category": "anticoagulants",
+    "subtype": "heparin-hit",
+    "difficulty": "advanced",
+    "title": "HIT Recognition",
+    "clinicalContext": "Adult nursing medication education",
+    "scenario": "A patient receiving heparin develops a substantial platelet decline and a new painful swollen leg.",
+    "orderText": "Apply medication knowledge and nursing safety principles.",
+    "prompt": "Which findings support concern for HIT? Select all that apply.",
+    "correctAnswer": 11,
+    "answerUnit": "choice",
+    "answerPrecision": 0,
+    "responseType": "select-all",
+    "questionKind": "knowledge",
+    "options": [
+      {
+        "id": "0",
+        "label": "Platelet decline"
+      },
+      {
+        "id": "1",
+        "label": "New thrombosis"
+      },
+      {
+        "id": "2",
+        "label": "Improved appetite"
+      },
+      {
+        "id": "3",
+        "label": "Recent heparin exposure"
+      }
+    ],
+    "correctAnswerLabel": "Platelet decline; New thrombosis; Recent heparin exposure",
+    "tags": [
+      "HIT",
+      "platelets",
+      "thrombosis",
+      "select all"
+    ],
+    "safetyPearl": "HIT can cause thrombosis despite thrombocytopenia and requires urgent evaluation.",
+    "hints": [
+      "Focus on HIT and platelets.",
+      "Separate the medication's action from the nursing monitoring priority.",
+      "Eliminate choices that conflict with this safety principle: HIT can cause thrombosis despite thrombocytopenia and requires urgent evaluation."
+    ],
+    "solutionSteps": [
+      {
+        "stepNumber": 1,
+        "title": "Clinical reasoning",
+        "calculation": "Platelet decline; New thrombosis; Recent heparin exposure",
+        "explanation": "HIT concern increases with heparin exposure, platelet decline, and new thrombosis.",
+        "result": "Platelet decline; New thrombosis; Recent heparin exposure"
+      },
+      {
+        "stepNumber": 2,
+        "title": "Safety pearl",
+        "calculation": "",
+        "explanation": "HIT can cause thrombosis despite thrombocytopenia and requires urgent evaluation.",
+        "result": "Apply the safety check before administration."
+      }
+    ],
+    "rawVariables": {
+      "correctOptionIndexes": [
+        0,
+        1,
+        3
+      ],
+      "tags": [
+        "HIT",
+        "platelets",
+        "thrombosis",
+        "select all"
+      ]
+    }
+  },
+  {
+    "id": "ac-know-protamine-lmwh",
+    "category": "anticoagulants",
+    "subtype": "enoxaparin-reversal",
+    "difficulty": "advanced",
+    "title": "Enoxaparin Reversal Concept",
+    "clinicalContext": "Adult nursing medication education",
+    "scenario": "A patient has serious bleeding after enoxaparin.",
+    "orderText": "Apply medication knowledge and nursing safety principles.",
+    "prompt": "Which statement about protamine is most accurate?",
+    "correctAnswer": 1,
+    "answerUnit": "choice",
+    "answerPrecision": 0,
+    "responseType": "multiple-choice",
+    "questionKind": "knowledge",
+    "options": [
+      {
+        "id": "0",
+        "label": "It provides complete reversal in every case"
+      },
+      {
+        "id": "1",
+        "label": "It can provide partial reversal"
+      },
+      {
+        "id": "2",
+        "label": "It is the reversal agent for warfarin"
+      },
+      {
+        "id": "3",
+        "label": "It increases factor Xa inhibition"
+      }
+    ],
+    "correctAnswerLabel": "It can provide partial reversal",
+    "tags": [
+      "enoxaparin",
+      "protamine",
+      "partial reversal"
+    ],
+    "safetyPearl": "LMWH reversal is incomplete and must follow time-sensitive protocol guidance.",
+    "hints": [
+      "Focus on enoxaparin and protamine.",
+      "Separate the medication's action from the nursing monitoring priority.",
+      "Eliminate choices that conflict with this safety principle: LMWH reversal is incomplete and must follow time-sensitive protocol guidance."
+    ],
+    "solutionSteps": [
+      {
+        "stepNumber": 1,
+        "title": "Clinical reasoning",
+        "calculation": "It can provide partial reversal",
+        "explanation": "protamine sulfate provides partial reversal",
+        "result": "It can provide partial reversal"
+      },
+      {
+        "stepNumber": 2,
+        "title": "Safety pearl",
+        "calculation": "",
+        "explanation": "LMWH reversal is incomplete and must follow time-sensitive protocol guidance.",
+        "result": "Apply the safety check before administration."
+      }
+    ],
+    "rawVariables": {
+      "correctOptionIndexes": 1,
+      "tags": [
+        "enoxaparin",
+        "protamine",
+        "partial reversal"
+      ]
+    }
+  },
+  {
+    "id": "ac-know-platelets",
+    "category": "anticoagulants",
+    "subtype": "heparin-monitoring",
+    "difficulty": "beginner",
+    "title": "Platelet Monitoring",
+    "clinicalContext": "Adult nursing medication education",
+    "scenario": "A patient begins unfractionated heparin therapy.",
+    "orderText": "Apply medication knowledge and nursing safety principles.",
+    "prompt": "Which trend is particularly important for HIT surveillance?",
+    "correctAnswer": 0,
+    "answerUnit": "choice",
+    "answerPrecision": 0,
+    "responseType": "multiple-choice",
+    "questionKind": "knowledge",
+    "options": [
+      {
+        "id": "0",
+        "label": "Platelet count"
+      },
+      {
+        "id": "1",
+        "label": "Hemoglobin A1c"
+      },
+      {
+        "id": "2",
+        "label": "Lipase"
+      },
+      {
+        "id": "3",
+        "label": "TSH"
+      }
+    ],
+    "correctAnswerLabel": "Platelet count",
+    "tags": [
+      "heparin",
+      "platelets",
+      "HIT",
+      "monitoring"
+    ],
+    "safetyPearl": "Evaluate the magnitude and timing of platelet decline, not a single value alone.",
+    "hints": [
+      "Focus on heparin and platelets.",
+      "Separate the medication's action from the nursing monitoring priority.",
+      "Eliminate choices that conflict with this safety principle: Evaluate the magnitude and timing of platelet decline, not a single value alone."
+    ],
+    "solutionSteps": [
+      {
+        "stepNumber": 1,
+        "title": "Clinical reasoning",
+        "calculation": "Platelet count",
+        "explanation": "Platelet trends help identify possible heparin-induced thrombocytopenia.",
+        "result": "Platelet count"
+      },
+      {
+        "stepNumber": 2,
+        "title": "Safety pearl",
+        "calculation": "",
+        "explanation": "Evaluate the magnitude and timing of platelet decline, not a single value alone.",
+        "result": "Apply the safety check before administration."
+      }
+    ],
+    "rawVariables": {
+      "correctOptionIndexes": 0,
+      "tags": [
+        "heparin",
+        "platelets",
+        "HIT",
+        "monitoring"
+      ]
+    }
+  },
+  {
+    "id": "ac-know-warfarin-interaction",
+    "category": "anticoagulants",
+    "subtype": "warfarin-safety",
+    "difficulty": "intermediate",
+    "title": "Warfarin Interaction Safety",
+    "clinicalContext": "Adult nursing medication education",
+    "scenario": "A patient taking warfarin is prescribed a new medication.",
+    "orderText": "Apply medication knowledge and nursing safety principles.",
+    "prompt": "Which action is safest?",
+    "correctAnswer": 1,
+    "answerUnit": "choice",
+    "answerPrecision": 0,
+    "responseType": "multiple-choice",
+    "questionKind": "knowledge",
+    "options": [
+      {
+        "id": "0",
+        "label": "Assume no interaction is possible"
+      },
+      {
+        "id": "1",
+        "label": "Review the medication for interaction and monitor as ordered"
+      },
+      {
+        "id": "2",
+        "label": "Stop warfarin permanently without an order"
+      },
+      {
+        "id": "3",
+        "label": "Skip medication reconciliation"
+      }
+    ],
+    "correctAnswerLabel": "Review the medication for interaction and monitor as ordered",
+    "tags": [
+      "warfarin",
+      "interactions",
+      "safety"
+    ],
+    "safetyPearl": "Report new prescriptions, over-the-counter products, and supplements for interaction review.",
+    "hints": [
+      "Focus on warfarin and interactions.",
+      "Separate the medication's action from the nursing monitoring priority.",
+      "Eliminate choices that conflict with this safety principle: Report new prescriptions, over-the-counter products, and supplements for interaction review."
+    ],
+    "solutionSteps": [
+      {
+        "stepNumber": 1,
+        "title": "Clinical reasoning",
+        "calculation": "Review the medication for interaction and monitor as ordered",
+        "explanation": "Many medications and changes in vitamin K intake can affect warfarin response.",
+        "result": "Review the medication for interaction and monitor as ordered"
+      },
+      {
+        "stepNumber": 2,
+        "title": "Safety pearl",
+        "calculation": "",
+        "explanation": "Report new prescriptions, over-the-counter products, and supplements for interaction review.",
+        "result": "Apply the safety check before administration."
+      }
+    ],
+    "rawVariables": {
+      "correctOptionIndexes": 1,
+      "tags": [
+        "warfarin",
+        "interactions",
+        "safety"
+      ]
+    }
+  },
+  {
+    "id": "ac-know-im-injection",
+    "category": "anticoagulants",
+    "subtype": "anticoagulant-safety",
+    "difficulty": "intermediate",
+    "title": "Injection Bleeding Precaution",
+    "clinicalContext": "Adult nursing medication education",
+    "scenario": "A patient is therapeutically anticoagulated and an IM injection is considered.",
+    "orderText": "Apply medication knowledge and nursing safety principles.",
+    "prompt": "Which principle is appropriate?",
+    "correctAnswer": 1,
+    "answerUnit": "choice",
+    "answerPrecision": 0,
+    "responseType": "multiple-choice",
+    "questionKind": "knowledge",
+    "options": [
+      {
+        "id": "0",
+        "label": "IM injections have no bleeding risk"
+      },
+      {
+        "id": "1",
+        "label": "Avoid unnecessary IM injections and verify the plan"
+      },
+      {
+        "id": "2",
+        "label": "Massage every injection site vigorously"
+      },
+      {
+        "id": "3",
+        "label": "Stop anticoagulation independently"
+      }
+    ],
+    "correctAnswerLabel": "Avoid unnecessary IM injections and verify the plan",
+    "tags": [
+      "bleeding precautions",
+      "IM injection",
+      "safety"
+    ],
+    "safetyPearl": "Use an alternative route when appropriate and ordered.",
+    "hints": [
+      "Focus on bleeding precautions and IM injection.",
+      "Separate the medication's action from the nursing monitoring priority.",
+      "Eliminate choices that conflict with this safety principle: Use an alternative route when appropriate and ordered."
+    ],
+    "solutionSteps": [
+      {
+        "stepNumber": 1,
+        "title": "Clinical reasoning",
+        "calculation": "Avoid unnecessary IM injections and verify the plan",
+        "explanation": "Intramuscular injections can increase local bleeding and hematoma risk.",
+        "result": "Avoid unnecessary IM injections and verify the plan"
+      },
+      {
+        "stepNumber": 2,
+        "title": "Safety pearl",
+        "calculation": "",
+        "explanation": "Use an alternative route when appropriate and ordered.",
+        "result": "Apply the safety check before administration."
+      }
+    ],
+    "rawVariables": {
+      "correctOptionIndexes": 1,
+      "tags": [
+        "bleeding precautions",
+        "IM injection",
+        "safety"
+      ]
+    }
+  },
+  {
+    "id": "ac-know-heparin-routes",
+    "category": "anticoagulants",
+    "subtype": "heparin-knowledge",
+    "difficulty": "beginner",
+    "title": "Unfractionated Heparin Routes",
+    "clinicalContext": "Adult nursing medication education",
+    "scenario": "The nurse reviews common unfractionated heparin routes.",
+    "orderText": "Apply medication knowledge and nursing safety principles.",
+    "prompt": "Which routes are used?",
+    "correctAnswer": 0,
+    "answerUnit": "choice",
+    "answerPrecision": 0,
+    "responseType": "multiple-choice",
+    "questionKind": "knowledge",
+    "options": [
+      {
+        "id": "0",
+        "label": "IV and subcutaneous"
+      },
+      {
+        "id": "1",
+        "label": "Oral and inhaled"
+      },
+      {
+        "id": "2",
+        "label": "Intranasal only"
+      },
+      {
+        "id": "3",
+        "label": "Topical only"
+      }
+    ],
+    "correctAnswerLabel": "IV and subcutaneous",
+    "tags": [
+      "heparin",
+      "IV",
+      "subcutaneous",
+      "route"
+    ],
+    "safetyPearl": "Never substitute a route or concentration without a verified order.",
+    "hints": [
+      "Focus on heparin and IV.",
+      "Separate the medication's action from the nursing monitoring priority.",
+      "Eliminate choices that conflict with this safety principle: Never substitute a route or concentration without a verified order."
+    ],
+    "solutionSteps": [
+      {
+        "stepNumber": 1,
+        "title": "Clinical reasoning",
+        "calculation": "IV and subcutaneous",
+        "explanation": "Unfractionated heparin may be administered IV or subcutaneously depending on the indication.",
+        "result": "IV and subcutaneous"
+      },
+      {
+        "stepNumber": 2,
+        "title": "Safety pearl",
+        "calculation": "",
+        "explanation": "Never substitute a route or concentration without a verified order.",
+        "result": "Apply the safety check before administration."
+      }
+    ],
+    "rawVariables": {
+      "correctOptionIndexes": 0,
+      "tags": [
+        "heparin",
+        "IV",
+        "subcutaneous",
+        "route"
+      ]
+    }
+  },
+  {
+    "id": "ac-know-enoxaparin-hit",
+    "category": "anticoagulants",
+    "subtype": "enoxaparin-safety",
+    "difficulty": "intermediate",
+    "title": "LMWH Thrombocytopenia Concern",
+    "clinicalContext": "Adult nursing medication education",
+    "scenario": "A patient receiving enoxaparin develops a major platelet decline.",
+    "orderText": "Apply medication knowledge and nursing safety principles.",
+    "prompt": "Which action is appropriate?",
+    "correctAnswer": 1,
+    "answerUnit": "choice",
+    "answerPrecision": 0,
+    "responseType": "multiple-choice",
+    "questionKind": "knowledge",
+    "options": [
+      {
+        "id": "0",
+        "label": "Dismiss the trend because LMWH cannot affect platelets"
+      },
+      {
+        "id": "1",
+        "label": "Report concern for heparin-associated thrombocytopenia"
+      },
+      {
+        "id": "2",
+        "label": "Give an extra dose"
+      },
+      {
+        "id": "3",
+        "label": "Change to IM administration"
+      }
+    ],
+    "correctAnswerLabel": "Report concern for heparin-associated thrombocytopenia",
+    "tags": [
+      "enoxaparin",
+      "platelets",
+      "HIT",
+      "safety"
+    ],
+    "safetyPearl": "Escalate a significant platelet decline promptly.",
+    "hints": [
+      "Focus on enoxaparin and platelets.",
+      "Separate the medication's action from the nursing monitoring priority.",
+      "Eliminate choices that conflict with this safety principle: Escalate a significant platelet decline promptly."
+    ],
+    "solutionSteps": [
+      {
+        "stepNumber": 1,
+        "title": "Clinical reasoning",
+        "calculation": "Report concern for heparin-associated thrombocytopenia",
+        "explanation": "LMWH still carries thrombocytopenia and HIT concerns.",
+        "result": "Report concern for heparin-associated thrombocytopenia"
+      },
+      {
+        "stepNumber": 2,
+        "title": "Safety pearl",
+        "calculation": "",
+        "explanation": "Escalate a significant platelet decline promptly.",
+        "result": "Apply the safety check before administration."
+      }
+    ],
+    "rawVariables": {
+      "correctOptionIndexes": 1,
+      "tags": [
+        "enoxaparin",
+        "platelets",
+        "HIT",
+        "safety"
+      ]
+    }
+  },
+  {
+    "id": "ac-know-med-match",
+    "category": "anticoagulants",
+    "subtype": "anticoagulant-identification",
+    "difficulty": "intermediate",
+    "title": "Medication Class Match",
+    "clinicalContext": "Adult nursing medication education",
+    "scenario": "The nurse compares anticoagulant classes.",
+    "orderText": "Apply medication knowledge and nursing safety principles.",
+    "prompt": "Which pairing is correct?",
+    "correctAnswer": 0,
+    "answerUnit": "choice",
+    "answerPrecision": 0,
+    "responseType": "multiple-choice",
+    "questionKind": "knowledge",
+    "options": [
+      {
+        "id": "0",
+        "label": "Dabigatran: direct thrombin inhibitor"
+      },
+      {
+        "id": "1",
+        "label": "Warfarin: direct factor Xa inhibitor"
+      },
+      {
+        "id": "2",
+        "label": "Apixaban: vitamin K antagonist"
+      },
+      {
+        "id": "3",
+        "label": "Heparin: oral DOAC"
+      }
+    ],
+    "correctAnswerLabel": "Dabigatran: direct thrombin inhibitor",
+    "tags": [
+      "dabigatran",
+      "warfarin",
+      "apixaban",
+      "class"
+    ],
+    "safetyPearl": "Class identification helps connect monitoring and reversal concepts.",
+    "hints": [
+      "Focus on dabigatran and warfarin.",
+      "Separate the medication's action from the nursing monitoring priority.",
+      "Eliminate choices that conflict with this safety principle: Class identification helps connect monitoring and reversal concepts."
+    ],
+    "solutionSteps": [
+      {
+        "stepNumber": 1,
+        "title": "Clinical reasoning",
+        "calculation": "Dabigatran: direct thrombin inhibitor",
+        "explanation": "Dabigatran directly inhibits thrombin.",
+        "result": "Dabigatran: direct thrombin inhibitor"
+      },
+      {
+        "stepNumber": 2,
+        "title": "Safety pearl",
+        "calculation": "",
+        "explanation": "Class identification helps connect monitoring and reversal concepts.",
+        "result": "Apply the safety check before administration."
+      }
+    ],
+    "rawVariables": {
+      "correctOptionIndexes": 0,
+      "tags": [
+        "dabigatran",
+        "warfarin",
+        "apixaban",
+        "class"
+      ]
+    }
+  },
+  {
+    "id": "ac-know-reversal-match",
+    "category": "anticoagulants",
+    "subtype": "anticoagulant-reversal",
+    "difficulty": "advanced",
+    "title": "Reversal Agent Match",
+    "clinicalContext": "Adult nursing medication education",
+    "scenario": "The nurse matches an anticoagulant with a reversal concept.",
+    "orderText": "Apply medication knowledge and nursing safety principles.",
+    "prompt": "Which pairing is correct?",
+    "correctAnswer": 0,
+    "answerUnit": "choice",
+    "answerPrecision": 0,
+    "responseType": "multiple-choice",
+    "questionKind": "knowledge",
+    "options": [
+      {
+        "id": "0",
+        "label": "Unfractionated heparin: protamine sulfate"
+      },
+      {
+        "id": "1",
+        "label": "Warfarin: idarucizumab"
+      },
+      {
+        "id": "2",
+        "label": "Dabigatran: vitamin K"
+      },
+      {
+        "id": "3",
+        "label": "Enoxaparin: naloxone"
+      }
+    ],
+    "correctAnswerLabel": "Unfractionated heparin: protamine sulfate",
+    "tags": [
+      "reversal",
+      "heparin",
+      "warfarin",
+      "dabigatran"
+    ],
+    "safetyPearl": "Reversal urgency and adjunct products depend on the clinical situation and protocol.",
+    "hints": [
+      "Focus on reversal and heparin.",
+      "Separate the medication's action from the nursing monitoring priority.",
+      "Eliminate choices that conflict with this safety principle: Reversal urgency and adjunct products depend on the clinical situation and protocol."
+    ],
+    "solutionSteps": [
+      {
+        "stepNumber": 1,
+        "title": "Clinical reasoning",
+        "calculation": "Unfractionated heparin: protamine sulfate",
+        "explanation": "Protamine sulfate reverses unfractionated heparin. Vitamin K is used for warfarin, and idarucizumab reverses dabigatran.",
+        "result": "Unfractionated heparin: protamine sulfate"
+      },
+      {
+        "stepNumber": 2,
+        "title": "Safety pearl",
+        "calculation": "",
+        "explanation": "Reversal urgency and adjunct products depend on the clinical situation and protocol.",
+        "result": "Apply the safety check before administration."
+      }
+    ],
+    "rawVariables": {
+      "correctOptionIndexes": 0,
+      "tags": [
+        "reversal",
+        "heparin",
+        "warfarin",
+        "dabigatran"
+      ]
+    }
+  },
+  {
+    "id": "ac-know-pump-safety",
+    "category": "anticoagulants",
+    "subtype": "heparin-infusion-safety",
+    "difficulty": "intermediate",
+    "title": "Heparin Pump Programming Safety",
+    "clinicalContext": "Adult nursing medication education",
+    "scenario": "The nurse prepares a continuous heparin infusion.",
+    "orderText": "Apply medication knowledge and nursing safety principles.",
+    "prompt": "Which values must be reconciled before starting the pump?",
+    "correctAnswer": 0,
+    "answerUnit": "choice",
+    "answerPrecision": 0,
+    "responseType": "multiple-choice",
+    "questionKind": "knowledge",
+    "options": [
+      {
+        "id": "0",
+        "label": "Bag concentration, ordered units per hour, and calculated mL/hr"
+      },
+      {
+        "id": "1",
+        "label": "Only the patient's room number"
+      },
+      {
+        "id": "2",
+        "label": "Only the bag volume"
+      },
+      {
+        "id": "3",
+        "label": "Only the pump brand"
+      }
+    ],
+    "correctAnswerLabel": "Bag concentration, ordered units per hour, and calculated mL/hr",
+    "tags": [
+      "heparin",
+      "infusion",
+      "pump",
+      "double check"
+    ],
+    "safetyPearl": "Independently verify units, concentration, patient weight when used, and mL/hr per policy.",
+    "hints": [
+      "Focus on heparin and infusion.",
+      "Separate the medication's action from the nursing monitoring priority.",
+      "Eliminate choices that conflict with this safety principle: Independently verify units, concentration, patient weight when used, and mL/hr per policy."
+    ],
+    "solutionSteps": [
+      {
+        "stepNumber": 1,
+        "title": "Clinical reasoning",
+        "calculation": "Bag concentration, ordered units per hour, and calculated mL/hr",
+        "explanation": "The concentration and ordered dose determine the pump rate.",
+        "result": "Bag concentration, ordered units per hour, and calculated mL/hr"
+      },
+      {
+        "stepNumber": 2,
+        "title": "Safety pearl",
+        "calculation": "",
+        "explanation": "Independently verify units, concentration, patient weight when used, and mL/hr per policy.",
+        "result": "Apply the safety check before administration."
+      }
+    ],
+    "rawVariables": {
+      "correctOptionIndexes": 0,
+      "tags": [
+        "heparin",
+        "infusion",
+        "pump",
+        "double check"
+      ]
+    }
+  },
+  {
+    "id": "ac-know-dose-types",
+    "category": "anticoagulants",
+    "subtype": "enoxaparin-knowledge",
+    "difficulty": "intermediate",
+    "title": "Enoxaparin Regimen Purpose",
+    "clinicalContext": "Adult nursing medication education",
+    "scenario": "The nurse compares prophylactic and treatment enoxaparin regimens.",
+    "orderText": "Apply medication knowledge and nursing safety principles.",
+    "prompt": "Which statement is correct?",
+    "correctAnswer": 1,
+    "answerUnit": "choice",
+    "answerPrecision": 0,
+    "responseType": "multiple-choice",
+    "questionKind": "knowledge",
+    "options": [
+      {
+        "id": "0",
+        "label": "All indications use the same dose"
+      },
+      {
+        "id": "1",
+        "label": "Prophylaxis and treatment regimens can differ"
+      },
+      {
+        "id": "2",
+        "label": "Enoxaparin is never weight based"
+      },
+      {
+        "id": "3",
+        "label": "Enoxaparin is given orally"
+      }
+    ],
+    "correctAnswerLabel": "Prophylaxis and treatment regimens can differ",
+    "tags": [
+      "enoxaparin",
+      "prophylaxis",
+      "treatment",
+      "weight based"
+    ],
+    "safetyPearl": "Verify the indication before evaluating whether a dose is appropriate.",
+    "hints": [
+      "Focus on enoxaparin and prophylaxis.",
+      "Separate the medication's action from the nursing monitoring priority.",
+      "Eliminate choices that conflict with this safety principle: Verify the indication before evaluating whether a dose is appropriate."
+    ],
+    "solutionSteps": [
+      {
+        "stepNumber": 1,
+        "title": "Clinical reasoning",
+        "calculation": "Prophylaxis and treatment regimens can differ",
+        "explanation": "Treatment dosing may be weight based, while prophylaxis commonly uses a different regimen.",
+        "result": "Prophylaxis and treatment regimens can differ"
+      },
+      {
+        "stepNumber": 2,
+        "title": "Safety pearl",
+        "calculation": "",
+        "explanation": "Verify the indication before evaluating whether a dose is appropriate.",
+        "result": "Apply the safety check before administration."
+      }
+    ],
+    "rawVariables": {
+      "correctOptionIndexes": 1,
+      "tags": [
+        "enoxaparin",
+        "prophylaxis",
+        "treatment",
+        "weight based"
+      ]
+    }
+  },
+  {
+    "id": "ac-know-lab-priority",
+    "category": "anticoagulants",
+    "subtype": "anticoagulant-lab-association",
+    "difficulty": "advanced",
+    "title": "Monitoring Priority Comparison",
+    "clinicalContext": "Adult nursing medication education",
+    "scenario": "One patient receives IV unfractionated heparin and another takes warfarin.",
+    "orderText": "Apply medication knowledge and nursing safety principles.",
+    "prompt": "Which monitoring pair is correct?",
+    "correctAnswer": 0,
+    "answerUnit": "choice",
+    "answerPrecision": 0,
+    "responseType": "multiple-choice",
+    "questionKind": "knowledge",
+    "options": [
+      {
+        "id": "0",
+        "label": "Heparin: aPTT protocol; warfarin: PT/INR"
+      },
+      {
+        "id": "1",
+        "label": "Heparin: INR only; warfarin: aPTT only"
+      },
+      {
+        "id": "2",
+        "label": "Both: hemoglobin A1c"
+      },
+      {
+        "id": "3",
+        "label": "Neither requires bleeding assessment"
+      }
+    ],
+    "correctAnswerLabel": "Heparin: aPTT protocol; warfarin: PT/INR",
+    "tags": [
+      "heparin",
+      "warfarin",
+      "aPTT",
+      "INR"
+    ],
+    "safetyPearl": "Laboratory values complement, but never replace, assessment for bleeding.",
+    "hints": [
+      "Focus on heparin and warfarin.",
+      "Separate the medication's action from the nursing monitoring priority.",
+      "Eliminate choices that conflict with this safety principle: Laboratory values complement, but never replace, assessment for bleeding."
+    ],
+    "solutionSteps": [
+      {
+        "stepNumber": 1,
+        "title": "Clinical reasoning",
+        "calculation": "Heparin: aPTT protocol; warfarin: PT/INR",
+        "explanation": "IV heparin is commonly protocol-monitored with aPTT or anti-Xa, while warfarin uses PT/INR.",
+        "result": "Heparin: aPTT protocol; warfarin: PT/INR"
+      },
+      {
+        "stepNumber": 2,
+        "title": "Safety pearl",
+        "calculation": "",
+        "explanation": "Laboratory values complement, but never replace, assessment for bleeding.",
+        "result": "Apply the safety check before administration."
+      }
+    ],
+    "rawVariables": {
+      "correctOptionIndexes": 0,
+      "tags": [
+        "heparin",
+        "warfarin",
+        "aPTT",
+        "INR"
+      ]
+    }
+  },
+  {
+    "id": "ac-know-no-peds",
+    "category": "anticoagulants",
+    "subtype": "adult-weight-based",
+    "difficulty": "intermediate",
+    "title": "Adult Weight-Based Anticoagulation",
+    "clinicalContext": "Adult nursing medication education",
+    "scenario": "An adult heparin protocol uses units/kg/hr.",
+    "orderText": "Apply medication knowledge and nursing safety principles.",
+    "prompt": "Which statement is appropriate?",
+    "correctAnswer": 1,
+    "answerUnit": "choice",
+    "answerPrecision": 0,
+    "responseType": "multiple-choice",
+    "questionKind": "knowledge",
+    "options": [
+      {
+        "id": "0",
+        "label": "Adult weight-based dosing is a pediatric safe-dose-range question"
+      },
+      {
+        "id": "1",
+        "label": "Adult weight-based heparin calculations are appropriate MedMath practice"
+      },
+      {
+        "id": "2",
+        "label": "All adults receive the same infusion rate"
+      },
+      {
+        "id": "3",
+        "label": "Weight should be ignored"
+      }
+    ],
+    "correctAnswerLabel": "Adult weight-based heparin calculations are appropriate MedMath practice",
+    "tags": [
+      "adult",
+      "weight based",
+      "heparin",
+      "scope"
+    ],
+    "safetyPearl": "Use the protocol-specified dosing weight and units.",
+    "hints": [
+      "Focus on adult and weight based.",
+      "Separate the medication's action from the nursing monitoring priority.",
+      "Eliminate choices that conflict with this safety principle: Use the protocol-specified dosing weight and units."
+    ],
+    "solutionSteps": [
+      {
+        "stepNumber": 1,
+        "title": "Clinical reasoning",
+        "calculation": "Adult weight-based heparin calculations are appropriate MedMath practice",
+        "explanation": "Adult heparin protocols commonly require weight-based calculations.",
+        "result": "Adult weight-based heparin calculations are appropriate MedMath practice"
+      },
+      {
+        "stepNumber": 2,
+        "title": "Safety pearl",
+        "calculation": "",
+        "explanation": "Use the protocol-specified dosing weight and units.",
+        "result": "Apply the safety check before administration."
+      }
+    ],
+    "rawVariables": {
+      "correctOptionIndexes": 1,
+      "tags": [
+        "adult",
+        "weight based",
+        "heparin",
+        "scope"
+      ]
     }
   }
 ];

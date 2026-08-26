@@ -43,11 +43,11 @@ export const MEDMATH_CATEGORIES: CategoryMeta[] = [
   },
   {
     id: "insulin",
-    name: "Insulin Calculations",
+    name: "Insulin",
     shortName: "Insulin",
-    description: "Scheduled mealtime doses, correction sliding scales, carb ratios, and regular insulin IV drips.",
+    description: "Insulin types, onset/peak/duration, administration safety, sliding scales, scheduled doses, and insulin calculations.",
     track: "med-surg",
-    defaultUnit: "units / mL/hr",
+    defaultUnit: "units • mL • timing",
   },
   {
     id: "weight-based",
@@ -58,12 +58,12 @@ export const MEDMATH_CATEGORIES: CategoryMeta[] = [
     defaultUnit: "mg / mcg / units",
   },
   {
-    id: "heparin",
-    name: "Heparin & Anticoagulation",
-    shortName: "Heparin",
-    description: "Weight-based heparin boluses, maintenance infusions (units/kg/hr), and protocol adjustments.",
+    id: "anticoagulants",
+    name: "Anticoagulants",
+    shortName: "Anticoagulants",
+    description: "Heparin, LMWH, warfarin, DOACs, laboratory monitoring, reversal agents, safety, and anticoagulant calculations.",
     track: "critical-care",
-    defaultUnit: "units / mL / mL/hr",
+    defaultUnit: "units • mg • mL/hr • labs",
   },
   {
     id: "critical-care",

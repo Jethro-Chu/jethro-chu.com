@@ -29,6 +29,80 @@ interface QuestionCardProps {
   examSavedAnswer?: string;
 }
 
+function AnswerControl({
+  question,
+  value,
+  onChange,
+  disabled,
+  inputRef,
+}: {
+  question: QuestionClientView;
+  value: string;
+  onChange: (value: string) => void;
+  disabled?: boolean;
+  inputRef: React.RefObject<HTMLInputElement | null>;
+}) {
+  if (question.responseType === "numeric") {
+    return (
+      <div className="relative flex-1 max-w-xs">
+        <input
+          ref={inputRef}
+          type="text"
+          inputMode="decimal"
+          pattern="[0-9.]*"
+          value={value}
+          onChange={(event) => onChange(event.target.value)}
+          disabled={disabled}
+          placeholder="Enter value"
+          className="w-full rounded-sm border border-[var(--color-line)] bg-white/70 px-3.5 py-2.5 pr-20 text-base font-medium text-[var(--color-ink)] focus:border-[var(--color-primary)] focus:outline-hidden disabled:bg-gray-100 disabled:text-gray-500"
+        />
+        <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3.5 text-sm font-semibold text-[var(--color-ink-muted)]">
+          {question.answerUnit}
+        </div>
+      </div>
+    );
+  }
+
+  const selectedMask = Number(value || 0);
+  return (
+    <fieldset className="w-full space-y-2" disabled={disabled}>
+      <legend className="sr-only">
+        {question.responseType === "select-all" ? "Select all correct answers" : "Select one answer"}
+      </legend>
+      {question.options?.map((option, index) => {
+        const checked = question.responseType === "select-all"
+          ? Boolean(selectedMask & (1 << index))
+          : value === option.id;
+        return (
+          <label
+            key={option.id}
+            className={`flex cursor-pointer items-start gap-3 rounded-sm border px-4 py-3 text-sm leading-relaxed transition-colors ${
+              checked
+                ? "border-[var(--color-pine)] bg-[var(--color-pine)]/10 text-[var(--color-ink)]"
+                : "border-[var(--color-line)] bg-white/60 text-[var(--color-ink)] hover:bg-[var(--color-sand)]/60"
+            }`}
+          >
+            <input
+              type={question.responseType === "select-all" ? "checkbox" : "radio"}
+              name={`answer-${question.instanceId}`}
+              checked={checked}
+              onChange={() => {
+                if (question.responseType === "select-all") {
+                  onChange(String(selectedMask ^ (1 << index)));
+                } else {
+                  onChange(option.id);
+                }
+              }}
+              className="mt-0.5 h-4 w-4 accent-[var(--color-pine)]"
+            />
+            <span>{option.label}</span>
+          </label>
+        );
+      })}
+    </fieldset>
+  );
+}
+
 export function QuestionCard({
   question,
   onGradeAttempt,
@@ -113,8 +187,10 @@ export function QuestionCard({
         const data = (await res.json()) as {
           solutionSteps: SolutionStep[];
           correctAnswer: number;
+          correctAnswerLabel?: string;
           answerUnit: string;
           answerPrecision: number;
+          safetyPearl?: string;
         };
         setSolutionSteps(data.solutionSteps);
         setGradeResult((prev) => ({
@@ -125,8 +201,10 @@ export function QuestionCard({
           feedback: "Solution revealed.",
           solutionSteps: data.solutionSteps,
           correctAnswer: data.correctAnswer,
+          correctAnswerLabel: data.correctAnswerLabel,
           answerUnit: data.answerUnit,
           answerPrecision: data.answerPrecision,
+          safetyPearl: data.safetyPearl,
         }));
         setSolutionRevealedManually(true);
       }
@@ -181,6 +259,13 @@ export function QuestionCard({
   };
 
   const catMeta = CATEGORY_MAP.get(question.category);
+  const hasAnswer = question.responseType === "select-all"
+    ? Number(submittedAnswer) > 0
+    : Boolean(submittedAnswer.trim());
+  const updateAnswer = (value: string) => {
+    setSubmittedAnswer(value);
+    if (isExamMode) onAnswerSavedForExam?.(value);
+  };
 
   return (
     <div className="w-full rounded-md border border-[var(--color-line)] bg-[var(--color-surface)] shadow-xs">
@@ -213,14 +298,14 @@ export function QuestionCard({
           {question.scenario}
         </p>
 
-        {/* Clinical Medication Order Banner */}
+        {/* Clinical information or medication order */}
         <div className="rounded-md border border-[var(--color-line)] bg-[var(--color-sand)]/80 p-4 sm:p-5">
           <div className="mb-2 flex items-center gap-2">
             <span className="flex h-5 w-5 items-center justify-center rounded-full bg-[var(--color-pine)] text-[10px] font-bold text-white">
               Rx
             </span>
             <span className="text-xs font-bold uppercase tracking-wider text-[var(--color-ink)]">
-              Physician Order
+              {question.questionKind === "calculation" ? "Physician Order" : "Clinical Focus"}
             </span>
           </div>
           <div className="text-base sm:text-lg font-semibold text-[var(--color-ink)] leading-snug">
@@ -280,28 +365,19 @@ export function QuestionCard({
                 <span className="text-sm font-bold uppercase tracking-wider text-[var(--color-ink)]">
                   Answer:
                 </span>
-                <div className="relative flex-1 max-w-xs">
-                  <input
-                    ref={inputRef}
-                    type="text"
-                    inputMode="decimal"
-                    pattern="[0-9.]*"
-                    value={submittedAnswer}
-                    onChange={(e) => setSubmittedAnswer(e.target.value)}
-                    disabled={Boolean(gradeResult?.isCorrect) || isSubmitting}
-                    placeholder="Enter value"
-                    className="w-full rounded-sm border border-[var(--color-line)] bg-white/70 px-3.5 py-2.5 pr-20 text-base font-medium text-[var(--color-ink)] focus:border-[var(--color-primary)] focus:outline-hidden disabled:bg-gray-100 disabled:text-gray-500"
-                  />
-                  <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3.5 text-sm font-semibold text-[var(--color-ink-muted)]">
-                    {question.answerUnit}
-                  </div>
-                </div>
+                <AnswerControl
+                  question={question}
+                  value={submittedAnswer}
+                  onChange={updateAnswer}
+                  disabled={Boolean(gradeResult?.isCorrect) || isSubmitting}
+                  inputRef={inputRef}
+                />
               </div>
 
               {!gradeResult ? (
                 <button
                   type="submit"
-                  disabled={!submittedAnswer.trim() || isSubmitting}
+                  disabled={!hasAnswer || isSubmitting}
                   className="inline-flex items-center justify-center rounded-sm bg-[var(--color-pine)] px-5 py-2.5 text-sm font-semibold text-white shadow-xs transition-colors hover:bg-[var(--color-pine)]/90 disabled:cursor-not-allowed disabled:opacity-40"
                 >
                   {isSubmitting ? "Checking..." : "Check Answer"}
@@ -371,24 +447,12 @@ export function QuestionCard({
               <span className="text-sm font-bold uppercase tracking-wider text-[var(--color-ink)]">
                 Answer:
               </span>
-              <div className="relative flex-1 max-w-xs">
-                <input
-                  ref={inputRef}
-                  type="text"
-                  inputMode="decimal"
-                  pattern="[0-9.]*"
-                  value={submittedAnswer}
-                  onChange={(e) => {
-                    setSubmittedAnswer(e.target.value);
-                    if (onAnswerSavedForExam) onAnswerSavedForExam(e.target.value);
-                  }}
-                  placeholder="Enter value"
-                  className="w-full rounded-sm border border-[var(--color-line)] bg-white/70 px-3.5 py-2.5 pr-20 text-base font-medium text-[var(--color-ink)] focus:border-[var(--color-primary)] focus:outline-hidden"
-                />
-                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3.5 text-sm font-semibold text-[var(--color-ink-muted)]">
-                  {question.answerUnit}
-                </div>
-              </div>
+              <AnswerControl
+                question={question}
+                value={submittedAnswer}
+                onChange={updateAnswer}
+                inputRef={inputRef}
+              />
             </div>
             <div className="text-xs text-[var(--color-ink-muted)]">
               Your answer is automatically saved as you navigate between questions.
@@ -401,8 +465,10 @@ export function QuestionCard({
           <StepByStepSolution
             steps={solutionSteps}
             correctAnswer={gradeResult?.correctAnswer}
+            correctAnswerLabel={gradeResult?.correctAnswerLabel}
             answerUnit={gradeResult?.answerUnit ?? question.answerUnit}
             answerPrecision={gradeResult?.answerPrecision ?? question.answerPrecision}
+            safetyPearl={gradeResult?.safetyPearl}
           />
         )}
       </div>

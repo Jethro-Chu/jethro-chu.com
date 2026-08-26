@@ -4,7 +4,7 @@ import { pick, ADULT_WEIGHTS_LB, ADULT_WEIGHTS_KG } from "./helpers.ts";
 export const heparinTemplates: QuestionTemplate[] = [
   {
     id: "heparin-infusion-rate-500ml",
-    category: "heparin",
+    category: "anticoagulants",
     subtype: "heparin-infusion",
     difficulty: "intermediate",
     title: "Heparin Weight-Based Infusion Rate (25,000 units / 500 mL)",
@@ -60,7 +60,7 @@ export const heparinTemplates: QuestionTemplate[] = [
   },
   {
     id: "heparin-infusion-rate-250ml",
-    category: "heparin",
+    category: "anticoagulants",
     subtype: "heparin-infusion",
     difficulty: "intermediate",
     title: "Heparin Weight-Based Infusion Rate (25,000 units / 250 mL)",
@@ -116,7 +116,7 @@ export const heparinTemplates: QuestionTemplate[] = [
   },
   {
     id: "heparin-bolus-volume-1000u-ml",
-    category: "heparin",
+    category: "anticoagulants",
     subtype: "heparin-bolus",
     difficulty: "intermediate",
     title: "Heparin IV Loading Bolus Dose & Volume",
@@ -165,7 +165,7 @@ export const heparinTemplates: QuestionTemplate[] = [
   },
   {
     id: "heparin-infusion-from-pounds",
-    category: "heparin",
+    category: "anticoagulants",
     subtype: "heparin-infusion",
     difficulty: "advanced",
     title: "Heparin Infusion with Pound to Kilogram Conversion",
@@ -222,7 +222,7 @@ export const heparinTemplates: QuestionTemplate[] = [
   },
   {
     id: "heparin-reverse-units-delivered",
-    category: "heparin",
+    category: "anticoagulants",
     subtype: "reverse-calculation",
     difficulty: "intermediate",
     title: "Determine Units Delivered from Pump Rate",
@@ -265,7 +265,7 @@ export const heparinTemplates: QuestionTemplate[] = [
   },
   {
     id: "heparin-titration-aptt-increase",
-    category: "heparin",
+    category: "anticoagulants",
     subtype: "titration-protocol",
     difficulty: "advanced",
     title: "Heparin Titration: Subtherapeutic aPTT Rate Increase",
@@ -325,7 +325,7 @@ Institutional Titration Protocol specifies:
   },
   {
     id: "heparin-titration-aptt-decrease",
-    category: "heparin",
+    category: "anticoagulants",
     subtype: "titration-protocol",
     difficulty: "advanced",
     title: "Heparin Titration: Supratherapeutic aPTT Rate Decrease",
@@ -385,7 +385,7 @@ Institutional Protocol:
   },
   {
     id: "heparin-prophylaxis-fixed-dose",
-    category: "heparin",
+    category: "anticoagulants",
     subtype: "subq-prophylaxis",
     difficulty: "beginner",
     title: "Subcutaneous Heparin DVT Prophylaxis Volume",
@@ -427,7 +427,7 @@ Institutional Protocol:
   },
   {
     id: "heparin-bolus-80units-kg-1000u",
-    category: "heparin",
+    category: "anticoagulants",
     subtype: "heparin-bolus",
     difficulty: "intermediate",
     title: "Initial 80 units/kg Heparin IV Bolus Syringe Volume",
@@ -476,7 +476,7 @@ Institutional Protocol:
   },
   {
     id: "heparin-bolus-60units-kg-acs",
-    category: "heparin",
+    category: "anticoagulants",
     subtype: "heparin-bolus",
     difficulty: "intermediate",
     title: "Weight-Based Heparin Bolus for Acute Coronary Syndrome (60 units/kg)",
@@ -518,7 +518,7 @@ Institutional Protocol:
   },
   {
     id: "heparin-infusion-12units-kg-acs",
-    category: "heparin",
+    category: "anticoagulants",
     subtype: "heparin-infusion",
     difficulty: "intermediate",
     title: "ACS Heparin Maintenance Infusion Rate (12 units/kg/hr)",
@@ -567,7 +567,7 @@ Institutional Protocol:
   },
   {
     id: "heparin-reverse-mlhr-to-units-hr",
-    category: "heparin",
+    category: "anticoagulants",
     subtype: "heparin-infusion",
     difficulty: "beginner",
     title: "Reverse Heparin Infusion: Units Delivered per Hour",
@@ -610,7 +610,7 @@ Institutional Protocol:
   },
   {
     id: "heparin-reverse-mlhr-to-units-kg-hr",
-    category: "heparin",
+    category: "anticoagulants",
     subtype: "heparin-infusion",
     difficulty: "advanced",
     title: "Reverse Heparin Infusion: Weight-Based Rate (units/kg/hr)",
@@ -660,7 +660,7 @@ Institutional Protocol:
   },
   {
     id: "heparin-reverse-units-delivered-shift",
-    category: "heparin",
+    category: "anticoagulants",
     subtype: "heparin-infusion",
     difficulty: "beginner",
     title: "12-Hour Shift Total Heparin Units Delivered",
@@ -701,7 +701,7 @@ Institutional Protocol:
   },
   {
     id: "heparin-protocol-aptt-rebolus-volume",
-    category: "heparin",
+    category: "anticoagulants",
     subtype: "heparin-bolus",
     difficulty: "intermediate",
     title: "Protocol-Driven Subtherapeutic aPTT Re-Bolus Syringe Volume",
@@ -749,7 +749,7 @@ Institutional Protocol:
   },
   {
     id: "heparin-non-weight-fixed-rate",
-    category: "heparin",
+    category: "anticoagulants",
     subtype: "heparin-infusion",
     difficulty: "beginner",
     title: "Non-Weight-Based Fixed Heparin Infusion Rate (mL/hr)",
@@ -791,7 +791,7 @@ Institutional Protocol:
   },
   {
     id: "heparin-flush-catheter-lock",
-    category: "heparin",
+    category: "anticoagulants",
     subtype: "subq-prophylaxis",
     difficulty: "beginner",
     title: "Central Venous Catheter Heparin Flush Lock Volume",
@@ -813,6 +813,7 @@ Institutional Protocol:
         answerUnit: "mL",
         answerPrecision: 1,
         roundingInstruction: "State exact number.",
+        safetyPearl: "Catheter flush concentrations (e.g. 10 to 100 units/mL) must never be confused with therapeutic heparin concentrations (e.g. 1,000 to 25,000 units/mL).",
         hints: [
           "Divide prescribed units by flush concentration (100 units/mL).",
           `Calculate: ${data.desiredUnits} units ÷ 100 units/mL = ${data.ans} mL.`,
@@ -824,6 +825,213 @@ Institutional Protocol:
             formula: "Prescribed Units ÷ 100 units/mL",
             calculation: `${data.desiredUnits} units ÷ 100 units/mL = ${data.ans} mL`,
             result: `${data.ans} mL`,
+          },
+        ],
+        rawVariables: { ...data },
+      };
+    },
+  },
+  {
+    id: "enoxaparin-weight-based-mg",
+    category: "anticoagulants",
+    subtype: "enoxaparin-dosing",
+    difficulty: "beginner",
+    title: "Weight-Based Enoxaparin (Lovenox) Therapeutic Dosing",
+    clinicalContext: "Adult Inpatient DVT / PE Therapeutic Anticoagulation",
+    generate: (rng) => {
+      const data = pick([
+        { weightKg: 82, doseMgKg: 1, totalMg: 82 },
+        { weightKg: 70, doseMgKg: 1, totalMg: 70 },
+        { weightKg: 95, doseMgKg: 1, totalMg: 95 },
+        { weightKg: 64, doseMgKg: 1, totalMg: 64 },
+        { weightKg: 80, doseMgKg: 1.5, totalMg: 120 },
+      ], rng);
+
+      return {
+        scenario: `An adult inpatient weighing ${data.weightKg} kg is diagnosed with acute deep vein thrombosis. The physician orders therapeutic enoxaparin (Lovenox) at ${data.doseMgKg} mg/kg subcutaneously.`,
+        orderText: `Enoxaparin ${data.doseMgKg} mg/kg SubQ q12h (Patient weight: ${data.weightKg} kg)`,
+        availableText: `Enoxaparin injection 100 mg/mL prefilled syringes`,
+        patientWeightKg: data.weightKg,
+        prompt: `How many mg of enoxaparin should the nurse administer for this dose?`,
+        correctAnswer: data.totalMg,
+        answerUnit: "mg",
+        answerPrecision: 0,
+        roundingInstruction: "State whole number of mg.",
+        safetyPearl: "Do not expel the air bubble in prefilled enoxaparin syringes before administration unless adjusting dose.",
+        hints: [
+          "Multiply patient weight in kg by the ordered dose in mg/kg.",
+          `Calculate: ${data.weightKg} kg × ${data.doseMgKg} mg/kg.`,
+          `${data.weightKg} × ${data.doseMgKg} = ${data.totalMg} mg.`,
+        ],
+        solutionSteps: [
+          {
+            stepNumber: 1,
+            title: "Calculate Therapeutic Enoxaparin Dose",
+            formula: "Weight (kg) × Dose (mg/kg)",
+            calculation: `${data.weightKg} kg × ${data.doseMgKg} mg/kg = ${data.totalMg} mg`,
+            result: `${data.totalMg} mg`,
+          },
+        ],
+        rawVariables: { ...data },
+      };
+    },
+  },
+  {
+    id: "enoxaparin-syringe-volume-ml",
+    category: "anticoagulants",
+    subtype: "enoxaparin-dosing",
+    difficulty: "intermediate",
+    title: "Enoxaparin Subcutaneous Syringe Volume",
+    clinicalContext: "Adult Inpatient Anticoagulation Administration",
+    generate: (rng) => {
+      const data = pick([
+        { weightKg: 80, doseMgKg: 1, totalMg: 80, concMgMl: 100, volMl: 0.8 },
+        { weightKg: 60, doseMgKg: 1, totalMg: 60, concMgMl: 100, volMl: 0.6 },
+        { weightKg: 70, doseMgKg: 1, totalMg: 70, concMgMl: 100, volMl: 0.7 },
+        { weightKg: 90, doseMgKg: 1, totalMg: 90, concMgMl: 100, volMl: 0.9 },
+        { weightKg: 100, doseMgKg: 1, totalMg: 100, concMgMl: 100, volMl: 1.0 },
+      ], rng);
+
+      return {
+        scenario: `An adult inpatient weighing ${data.weightKg} kg is prescribed enoxaparin 1 mg/kg subcutaneously. The pharmacy supplies enoxaparin at a concentration of ${data.concMgMl} mg/mL.`,
+        orderText: `Enoxaparin 1 mg/kg SubQ q12h for patient weight ${data.weightKg} kg`,
+        availableText: `Enoxaparin ${data.concMgMl} mg/mL syringe`,
+        patientWeightKg: data.weightKg,
+        prompt: `How many mL should the nurse prepare to deliver the ordered dose?`,
+        correctAnswer: data.volMl,
+        answerUnit: "mL",
+        answerPrecision: 1,
+        roundingInstruction: "State exact decimal value (e.g. 0.8).",
+        safetyPearl: "Administer enoxaparin in the abdominal subcutaneous tissue, at least 2 inches away from the umbilicus.",
+        hints: [
+          `Step 1: Calculate ordered mg: ${data.weightKg} kg × 1 mg/kg = ${data.totalMg} mg.`,
+          `Step 2: Divide ordered mg by concentration (${data.concMgMl} mg/mL).`,
+          `Calculate: ${data.totalMg} mg ÷ ${data.concMgMl} mg/mL = ${data.volMl} mL.`,
+        ],
+        solutionSteps: [
+          {
+            stepNumber: 1,
+            title: "Calculate Total Dose in Milligrams",
+            formula: "Weight (kg) × 1 mg/kg",
+            calculation: `${data.weightKg} kg × 1 mg/kg = ${data.totalMg} mg`,
+            result: `${data.totalMg} mg`,
+          },
+          {
+            stepNumber: 2,
+            title: "Calculate Syringe Volume",
+            formula: "Dose (mg) ÷ Concentration (mg/mL)",
+            calculation: `${data.totalMg} mg ÷ ${data.concMgMl} mg/mL = ${data.volMl} mL`,
+            result: `${data.volMl} mL`,
+          },
+        ],
+        rawVariables: { ...data },
+      };
+    },
+  },
+  {
+    id: "heparin-bolus-from-pounds-units",
+    category: "anticoagulants",
+    subtype: "heparin-bolus",
+    difficulty: "intermediate",
+    title: "Heparin IV Loading Bolus from Patient Weight in Pounds",
+    clinicalContext: "Adult Inpatient Anticoagulation Protocol Initiation",
+    generate: (rng) => {
+      const data = pick([
+        { lb: 176, kg: 80, bolusUnitsKg: 80, totalUnits: 6400 },
+        { lb: 198, kg: 90, bolusUnitsKg: 80, totalUnits: 7200 },
+        { lb: 154, kg: 70, bolusUnitsKg: 80, totalUnits: 5600 },
+        { lb: 132, kg: 60, bolusUnitsKg: 80, totalUnits: 4800 },
+      ], rng);
+
+      return {
+        scenario: `An adult inpatient weighing ${data.lb} lb is admitted with acute deep vein thrombosis and ordered an initial IV heparin loading bolus of ${data.bolusUnitsKg} units/kg.`,
+        orderText: `Heparin ${data.bolusUnitsKg} units/kg IV bolus stat (Patient weight: ${data.lb} lb)`,
+        availableText: `Heparin sodium 1,000 USP units/mL vial`,
+        patientWeightLb: data.lb,
+        patientWeightKg: data.kg,
+        prompt: `How many total units of Heparin should the nurse administer for this bolus?`,
+        correctAnswer: data.totalUnits,
+        answerUnit: "units",
+        answerPrecision: 0,
+        roundingInstruction: "State whole number of units.",
+        safetyPearl: "Always convert patient weight accurately from pounds to kilograms (divide by 2.2) before calculating weight-based heparin doses.",
+        hints: [
+          `Step 1: Convert pounds to kilograms: ${data.lb} lb ÷ 2.2 = ${data.kg} kg.`,
+          `Step 2: Multiply kg by ${data.bolusUnitsKg} units/kg: ${data.kg} kg × ${data.bolusUnitsKg} units/kg.`,
+          `Calculate: ${data.kg} × ${data.bolusUnitsKg} = ${data.totalUnits} units.`,
+        ],
+        solutionSteps: [
+          {
+            stepNumber: 1,
+            title: "Convert Weight to Kilograms",
+            formula: "Weight (lb) ÷ 2.2",
+            calculation: `${data.lb} lb ÷ 2.2 = ${data.kg} kg`,
+            result: `${data.kg} kg`,
+          },
+          {
+            stepNumber: 2,
+            title: "Calculate Bolus Units",
+            formula: "Weight (kg) × Bolus Dose (units/kg)",
+            calculation: `${data.kg} kg × ${data.bolusUnitsKg} units/kg = ${data.totalUnits} units`,
+            result: `${data.totalUnits} units`,
+          },
+        ],
+        rawVariables: { ...data },
+      };
+    },
+  },
+  {
+    id: "heparin-protocol-rate-increase-from-units-hr",
+    category: "anticoagulants",
+    subtype: "titration-protocol",
+    difficulty: "advanced",
+    title: "Heparin Protocol Titration: Increase from Units/hr Infusion",
+    clinicalContext: "Adult Inpatient Weight-Based Titration Protocol",
+    generate: (rng) => {
+      const data = pick([
+        { weightKg: 75, currentUnitsHr: 1200, increaseUnitsKgHr: 2, deltaUnitsHr: 150, newUnitsHr: 1350, concUnitsMl: 50, newRateMlHr: 27 },
+        { weightKg: 70, currentUnitsHr: 1100, increaseUnitsKgHr: 2, deltaUnitsHr: 140, newUnitsHr: 1240, concUnitsMl: 50, newRateMlHr: 24.8 },
+        { weightKg: 80, currentUnitsHr: 1300, increaseUnitsKgHr: 2, deltaUnitsHr: 160, newUnitsHr: 1460, concUnitsMl: 50, newRateMlHr: 29.2 },
+        { weightKg: 85, currentUnitsHr: 1200, increaseUnitsKgHr: 2, deltaUnitsHr: 170, newUnitsHr: 1370, concUnitsMl: 50, newRateMlHr: 27.4 },
+      ], rng);
+
+      return {
+        scenario: `An adult patient weighing ${data.weightKg} kg is receiving a continuous heparin infusion currently running at ${data.currentUnitsHr} units/hr. The 6-hour aPTT is subtherapeutic. The protocol directs the nurse to increase the infusion by ${data.increaseUnitsKgHr} units/kg/hr. The IV bag contains 25,000 units in 500 mL Normal Saline (${data.concUnitsMl} units/mL).`,
+        orderText: `Adjust heparin infusion: increase current rate by ${data.increaseUnitsKgHr} units/kg/hr (Weight: ${data.weightKg} kg)`,
+        availableText: `Heparin 25,000 units in 500 mL NS (${data.concUnitsMl} units/mL)`,
+        patientWeightKg: data.weightKg,
+        prompt: `Calculate the NEW pump rate in mL/hr.`,
+        correctAnswer: data.newRateMlHr,
+        answerUnit: "mL/hr",
+        answerPrecision: 1,
+        roundingInstruction: "Round to nearest tenth.",
+        safetyPearl: "Unfractionated heparin is monitored via aPTT or anti-Xa protocols. Independent double-checks are critical when changing pump infusion rates.",
+        hints: [
+          `Step 1: Calculate rate increase: ${data.weightKg} kg × ${data.increaseUnitsKgHr} units/kg/hr = ${data.deltaUnitsHr} units/hr.`,
+          `Step 2: Add to current rate: ${data.currentUnitsHr} + ${data.deltaUnitsHr} = ${data.newUnitsHr} units/hr.`,
+          `Step 3: Convert to mL/hr: ${data.newUnitsHr} units/hr ÷ ${data.concUnitsMl} units/mL = ${data.newRateMlHr} mL/hr.`,
+        ],
+        solutionSteps: [
+          {
+            stepNumber: 1,
+            title: "Calculate Hourly Rate Increase",
+            formula: "Weight (kg) × Rate Increase (units/kg/hr)",
+            calculation: `${data.weightKg} kg × ${data.increaseUnitsKgHr} units/kg/hr = ${data.deltaUnitsHr} units/hr`,
+            result: `${data.deltaUnitsHr} units/hr`,
+          },
+          {
+            stepNumber: 2,
+            title: "Calculate New Total Units per Hour",
+            formula: "Current Units/hr + Hourly Increase",
+            calculation: `${data.currentUnitsHr} units/hr + ${data.deltaUnitsHr} units/hr = ${data.newUnitsHr} units/hr`,
+            result: `${data.newUnitsHr} units/hr`,
+          },
+          {
+            stepNumber: 3,
+            title: "Calculate New Pump Rate",
+            formula: "New Units/hr ÷ Concentration (units/mL)",
+            calculation: `${data.newUnitsHr} units/hr ÷ ${data.concUnitsMl} units/mL = ${data.newRateMlHr} mL/hr`,
+            result: `${data.newRateMlHr} mL/hr`,
           },
         ],
         rawVariables: { ...data },

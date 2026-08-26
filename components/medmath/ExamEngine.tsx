@@ -47,7 +47,12 @@ export function ExamEngine({
   };
 
   const currentQuestion = questions[currentIndex];
-  const answeredCount = Object.keys(savedAnswers).filter((k) => Boolean(savedAnswers[k]?.trim())).length;
+  const hasSavedAnswer = (question: QuestionClientView) => {
+    const value = savedAnswers[question.instanceId];
+    if (value === undefined || value === "") return false;
+    return question.responseType !== "select-all" || Number(value) > 0;
+  };
+  const answeredCount = questions.filter(hasSavedAnswer).length;
   const unansweredCount = questions.length - answeredCount;
 
   const handleSaveAnswer = (answer: string) => {
@@ -107,6 +112,8 @@ export function ExamEngine({
         const result = (await res.json()) as {
           isCorrect: boolean;
           correctAnswer?: number;
+          correctAnswerLabel?: string;
+          safetyPearl?: string;
           answerUnit?: string;
           answerPrecision?: number;
           solutionSteps?: SolutionStep[];
@@ -153,6 +160,12 @@ export function ExamEngine({
           answerUnit: q.answerUnit,
           answerPrecision: q.answerPrecision,
           roundingInstruction: q.roundingInstruction,
+          responseType: q.responseType,
+          questionKind: q.questionKind,
+          options: q.options,
+          tags: q.tags,
+          correctAnswerLabel: result.correctAnswerLabel,
+          safetyPearl: result.safetyPearl,
           studentAnswer: studentAns.trim(),
           correctAnswer,
           isCorrect: Boolean(result.isCorrect),
@@ -249,7 +262,7 @@ export function ExamEngine({
       <div className="rounded-md border border-[var(--color-line)] bg-[var(--color-surface)] p-3 sm:p-4">
         <div className="flex flex-wrap gap-2">
           {questions.map((q, idx) => {
-            const hasAnswer = Boolean(savedAnswers[q.instanceId]?.trim());
+            const hasAnswer = hasSavedAnswer(q);
             const isCurrent = idx === currentIndex;
             return (
               <button

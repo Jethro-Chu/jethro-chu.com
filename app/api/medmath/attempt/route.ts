@@ -33,8 +33,10 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({
         solutionSteps: instance.solutionSteps,
         correctAnswer: instance.correctAnswer,
+        correctAnswerLabel: instance.correctAnswerLabel,
         answerUnit: instance.answerUnit,
         answerPrecision: instance.answerPrecision,
+        safetyPearl: instance.safetyPearl,
       });
     }
 
@@ -49,6 +51,7 @@ export async function POST(req: NextRequest) {
       templateId: instance.templateId,
       category: instance.category,
       subtype: instance.subtype,
+      questionKind: instance.questionKind,
       difficulty: instance.difficulty,
       attemptNumber: body.attemptNumber,
       submittedAnswer: body.submittedAnswer,

@@ -12,6 +12,7 @@ import { multiStepTemplates } from "./multi-step.ts";
 import { concentrationTemplates } from "./concentrations.ts";
 import { reconstitutionTemplates } from "./reconstitution.ts";
 import { electrolyteTemplates } from "./electrolytes.ts";
+import { medicationKnowledgeTemplates } from "./medication-knowledge.ts";
 
 export const ALL_QUESTION_TEMPLATES: QuestionTemplate[] = [
   ...conversionTemplates,
@@ -27,6 +28,7 @@ export const ALL_QUESTION_TEMPLATES: QuestionTemplate[] = [
   ...concentrationTemplates,
   ...reconstitutionTemplates,
   ...electrolyteTemplates,
+  ...medicationKnowledgeTemplates,
 ];
 
 export const TEMPLATE_MAP = new Map<string, QuestionTemplate>(

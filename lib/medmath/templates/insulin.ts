@@ -1128,4 +1128,91 @@ export const insulinTemplates: QuestionTemplate[] = [
       };
     },
   },
+  {
+    id: "insulin-u100-volume-calculation",
+    category: "insulin",
+    subtype: "insulin-concentration",
+    difficulty: "beginner",
+    title: "U-100 Insulin Syringe Volume Calculation",
+    clinicalContext: "Adult Inpatient Insulin Administration",
+    generate: (rng) => {
+      const data = pick([
+        { units: 35, conc: 100, volMl: 0.35 },
+        { units: 45, conc: 100, volMl: 0.45 },
+        { units: 25, conc: 100, volMl: 0.25 },
+        { units: 60, conc: 100, volMl: 0.6 },
+        { units: 15, conc: 100, volMl: 0.15 },
+      ], rng);
+
+      return {
+        scenario: `A nurse is preparing to administer ${data.units} units of Regular U-100 insulin subcutaneously using a 1 mL syringe calibrated in milliliters.`,
+        orderText: `Regular Insulin U-100 ${data.units} units SubQ stat`,
+        availableText: `Regular Insulin U-100 vial (${data.conc} units/mL)`,
+        prompt: `How many mL should the nurse draw into the syringe?`,
+        correctAnswer: data.volMl,
+        answerUnit: "mL",
+        answerPrecision: 2,
+        roundingInstruction: "State exact decimal value (e.g. 0.35 or 0.6).",
+        safetyPearl: "U-100 means 100 units per mL. Whenever possible, use an insulin syringe calibrated directly in units to minimize calculation errors.",
+        hints: [
+          `Recall that U-100 insulin contains 100 units per mL.`,
+          `Apply formula: Desired Units ÷ 100 units/mL.`,
+          `Calculate: ${data.units} units ÷ 100 units/mL = ${data.volMl} mL.`,
+        ],
+        solutionSteps: [
+          {
+            stepNumber: 1,
+            title: "Calculate Volume in Milliliters",
+            formula: "Prescribed Units ÷ 100 units/mL",
+            calculation: `${data.units} units ÷ 100 units/mL = ${data.volMl} mL`,
+            result: `${data.volMl} mL`,
+          },
+        ],
+        rawVariables: { ...data },
+      };
+    },
+  },
+  {
+    id: "insulin-u100-units-from-volume",
+    category: "insulin",
+    subtype: "insulin-concentration",
+    difficulty: "beginner",
+    title: "Reverse U-100 Calculation: Units Delivered from Syringe Volume",
+    clinicalContext: "Adult Inpatient Medication Safety Audit",
+    generate: (rng) => {
+      const data = pick([
+        { volMl: 0.4, conc: 100, units: 40 },
+        { volMl: 0.25, conc: 100, units: 25 },
+        { volMl: 0.5, conc: 100, units: 50 },
+        { volMl: 0.18, conc: 100, units: 18 },
+      ], rng);
+
+      return {
+        scenario: `A medication audit notes that a patient received ${data.volMl} mL of U-100 Regular Insulin (100 units/mL).`,
+        orderText: `${data.volMl} mL of Regular U-100 Insulin administered`,
+        availableText: `Regular Insulin U-100 (100 units/mL)`,
+        prompt: `How many units of insulin were administered?`,
+        correctAnswer: data.units,
+        answerUnit: "units",
+        answerPrecision: 0,
+        roundingInstruction: "State whole number of units.",
+        safetyPearl: "Always double-check both the insulin vial concentration (U-100 vs U-500) and the syringe calibration before administering insulin.",
+        hints: [
+          "Multiply volume in mL by 100 units/mL.",
+          `Calculate: ${data.volMl} mL × 100 units/mL.`,
+          `${data.volMl} × 100 = ${data.units} units.`,
+        ],
+        solutionSteps: [
+          {
+            stepNumber: 1,
+            title: "Calculate Units Administered",
+            formula: "Volume (mL) × 100 units/mL",
+            calculation: `${data.volMl} mL × 100 units/mL = ${data.units} units`,
+            result: `${data.units} units`,
+          },
+        ],
+        rawVariables: { ...data },
+      };
+    },
+  },
 ];

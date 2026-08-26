@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { saveSession, getSession } from "@/lib/medmath/store";
-import { getStoredQuestion } from "@/lib/medmath/engine";
-import { gradeAnswer } from "@/lib/medmath/rounding";
+import { getStoredQuestion, gradeQuestionAnswer, createQuestionInstance } from "@/lib/medmath/engine";
 import type { ExamQuestionReview, MedMathCategory, StoredSession } from "@/lib/medmath/types";
 
 export const dynamic = "force-dynamic";
@@ -37,7 +36,7 @@ export async function POST(req: NextRequest) {
           item.answerPrecision !== storedQuestion.answerPrecision ||
           !Array.isArray(item.solutionSteps) ||
           item.solutionSteps.length === 0 ||
-          item.isCorrect !== gradeAnswer(storedQuestion, item.studentAnswer)
+          item.isCorrect !== gradeQuestionAnswer(createQuestionInstance(storedQuestion), item.studentAnswer)
         ) {
           return NextResponse.json(
             { error: `Invalid stored answer payload for ${item.templateId}` },

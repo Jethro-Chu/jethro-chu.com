@@ -9,6 +9,7 @@ import type {
   PracticeDifficultySelection,
   QuestionClientView,
   QuestionInstance,
+  QuestionResponseType,
   StoredNumericQuestion,
 } from "./types.ts";
 
@@ -78,6 +79,12 @@ export function createQuestionInstance(
     answerUnit: question.answerUnit,
     answerPrecision: question.answerPrecision,
     roundingInstruction: question.roundingInstruction,
+    responseType: question.responseType ?? "numeric",
+    questionKind: question.questionKind ?? "calculation",
+    options: question.options,
+    correctAnswerLabel: question.correctAnswerLabel,
+    tags: question.tags ?? [],
+    safetyPearl: question.safetyPearl,
     hints: question.hints,
     solutionSteps: question.solutionSteps,
     rawVariables: question.rawVariables,
@@ -128,6 +135,10 @@ export function toClientView(instance: QuestionInstance): QuestionClientView {
     answerUnit: instance.answerUnit,
     answerPrecision: instance.answerPrecision,
     roundingInstruction: instance.roundingInstruction,
+    responseType: instance.responseType,
+    questionKind: instance.questionKind,
+    options: instance.options,
+    tags: instance.tags,
   };
 }
 
@@ -149,7 +160,10 @@ export function selectQuestionsForFilter({
   }
 
   if (categories && categories.length > 0) {
-    const set = new Set(categories);
+    const mappedCategories = categories.map((category) =>
+      category === "heparin" ? "anticoagulants" : category,
+    );
+    const set = new Set<string>(mappedCategories);
     list = list.filter((t) => set.has(t.category));
   }
 
@@ -205,10 +219,12 @@ export function generateRandomQuestion({
 export function generateNursingMedMathExam({
   count = 20,
   difficulty = "standard",
+  additionalMedicationTopics = [],
   rng = Math.random,
 }: {
   count?: number;
   difficulty?: PracticeDifficultySelection | "basic" | "standard" | "hard";
+  additionalMedicationTopics?: Array<"insulin" | "anticoagulants">;
   rng?: () => number;
 }): { instances: QuestionInstance[]; clientViews: QuestionClientView[] } {
   // Core Med-Surg Categories (strictly adult inpatient, no complex vasoactive drips)
@@ -220,7 +236,7 @@ export function generateNursingMedMathExam({
     "infusion-time",
     "insulin",
     "weight-based",
-    "heparin",
+    "anticoagulants",
     "concentrations",
     "reconstitution",
     "electrolytes",
@@ -235,7 +251,7 @@ export function generateNursingMedMathExam({
     { category: "infusion-time", weight: 1 },
     { category: "insulin", weight: 2 },
     { category: "weight-based", weight: 2 },
-    { category: "heparin", weight: 1 },
+    { category: "anticoagulants", weight: 1 },
     { category: "reconstitution", weight: 1 },
     { category: "electrolytes", weight: 1 },
   ];
@@ -247,7 +263,9 @@ export function generateNursingMedMathExam({
   for (const { category, weight } of categoryWeights) {
     const quota = Math.max(1, Math.round((weight / 20) * count));
     const available = STORED_MEDMATH_QUESTIONS.filter(
-      (t) => t.category === category && !usedTemplateIds.has(t.id),
+      (t) => t.category === category &&
+        (t.questionKind ?? "calculation") === "calculation" &&
+        !usedTemplateIds.has(t.id),
     );
 
     let candidates = available;
@@ -271,13 +289,62 @@ export function generateNursingMedMathExam({
   // Fill remainder if needed
   while (selectedQuestions.length < count) {
     const remaining = STORED_MEDMATH_QUESTIONS.filter(
-      (t) => medSurgCategories.includes(t.category) && !usedTemplateIds.has(t.id),
+      (t) => medSurgCategories.includes(t.category) &&
+        (t.questionKind ?? "calculation") === "calculation" &&
+        !usedTemplateIds.has(t.id),
     );
     if (remaining.length === 0) break;
     const idx = Math.floor(rng() * remaining.length);
     const chosen = remaining[idx];
     selectedQuestions.push(chosen);
     usedTemplateIds.add(chosen.id);
+  }
+
+  if (additionalMedicationTopics.length > 0) {
+    const topicQuotas = new Map<MedMathCategory, number>();
+    if (additionalMedicationTopics.length === 1) {
+      topicQuotas.set(additionalMedicationTopics[0], Math.max(1, Math.min(6, Math.round(count / 6))));
+    } else {
+      const each = Math.max(1, Math.min(5, Math.round(count / 8)));
+      for (const topic of additionalMedicationTopics) topicQuotas.set(topic, each);
+    }
+
+    const topicSet = new Set(topicQuotas.keys());
+    const medicationCount = Array.from(topicQuotas.values()).reduce((sum, value) => sum + value, 0);
+    const baseTarget = count - medicationCount;
+    const retained = selectedQuestions.filter((question) => !topicSet.has(question.category));
+
+    while (retained.length < baseTarget) {
+      const remaining = STORED_MEDMATH_QUESTIONS.filter(
+        (question) =>
+          medSurgCategories.includes(question.category) &&
+          !topicSet.has(question.category) &&
+          (question.questionKind ?? "calculation") === "calculation" &&
+          !retained.some((selected) => selected.id === question.id),
+      );
+      if (remaining.length === 0) break;
+      retained.push(remaining[Math.floor(rng() * remaining.length)]);
+    }
+
+    selectedQuestions.splice(0, selectedQuestions.length, ...retained.slice(0, baseTarget));
+    for (const [topic, quota] of topicQuotas) {
+      const knowledge = STORED_MEDMATH_QUESTIONS.filter(
+        (question) => question.category === topic && question.questionKind !== "calculation",
+      );
+      const calculations = STORED_MEDMATH_QUESTIONS.filter(
+        (question) => question.category === topic && (question.questionKind ?? "calculation") === "calculation",
+      );
+      const topicQuestions: StoredNumericQuestion[] = [];
+      const pools = [knowledge, calculations];
+      for (let index = 0; index < quota; index += 1) {
+        const preferred = pools[index % pools.length];
+        const available = preferred.filter((question) => !topicQuestions.some((item) => item.id === question.id));
+        const fallback = [...knowledge, ...calculations].filter((question) => !topicQuestions.some((item) => item.id === question.id));
+        const pool = available.length > 0 ? available : fallback;
+        topicQuestions.push(pool[Math.floor(rng() * pool.length)]);
+      }
+      selectedQuestions.push(...topicQuestions);
+    }
   }
 
   // Shuffle selected questions
@@ -441,7 +508,7 @@ export function generateCriticalCareExam({
   const ccCategories: MedMathCategory[] = [
     "critical-care",
     "multi-step",
-    "heparin",
+    "anticoagulants",
     "insulin",
     "weight-based",
     "concentrations",
@@ -451,7 +518,7 @@ export function generateCriticalCareExam({
   const categoryWeights: { category: MedMathCategory; weight: number }[] = [
     { category: "critical-care", weight: 8 },
     { category: "multi-step", weight: 4 },
-    { category: "heparin", weight: 3 },
+    { category: "anticoagulants", weight: 3 },
     { category: "insulin", weight: 2 },
     { category: "weight-based", weight: 2 },
     { category: "electrolytes", weight: 1 },
@@ -463,7 +530,9 @@ export function generateCriticalCareExam({
   for (const { category, weight } of categoryWeights) {
     const quota = Math.max(1, Math.round((weight / 20) * count));
     const available = STORED_MEDMATH_QUESTIONS.filter(
-      (t) => t.category === category && !usedTemplateIds.has(t.id),
+      (t) => t.category === category &&
+        (t.questionKind ?? "calculation") === "calculation" &&
+        !usedTemplateIds.has(t.id),
     );
 
     let candidates = available;
@@ -484,7 +553,9 @@ export function generateCriticalCareExam({
 
   while (selectedQuestions.length < count) {
     const remaining = STORED_MEDMATH_QUESTIONS.filter(
-      (t) => ccCategories.includes(t.category) && !usedTemplateIds.has(t.id),
+      (t) => ccCategories.includes(t.category) &&
+        (t.questionKind ?? "calculation") === "calculation" &&
+        !usedTemplateIds.has(t.id),
     );
     if (remaining.length === 0) break;
     const idx = Math.floor(rng() * remaining.length);
@@ -512,16 +583,18 @@ export function generateExamQuestionSet({
   categories,
   difficulty = "standard",
   count = 20,
+  additionalMedicationTopics = [],
   rng = Math.random,
 }: {
   examMode?: "nursing-med-math" | "critical-care" | "custom";
   categories?: MedMathCategory[];
   difficulty?: PracticeDifficultySelection | "basic" | "standard" | "hard";
   count?: number;
+  additionalMedicationTopics?: Array<"insulin" | "anticoagulants">;
   rng?: () => number;
 }): { instances: QuestionInstance[]; clientViews: QuestionClientView[] } {
   if (examMode === "nursing-med-math") {
-    return generateNursingMedMathExam({ count, difficulty, rng });
+    return generateNursingMedMathExam({ count, difficulty, additionalMedicationTopics, rng });
   }
 
   if (examMode === "critical-care") {
@@ -566,7 +639,7 @@ export function gradeAttempt(
     };
   }
 
-  const isCorrect = gradeAnswer(targetInstance, submission.submittedAnswer);
+  const isCorrect = gradeQuestionAnswer(targetInstance, submission.submittedAnswer);
 
   return {
     attemptId: generateUUID(),
@@ -576,7 +649,25 @@ export function gradeAttempt(
     feedback: isCorrect ? "Correct" : "Not quite.",
     solutionSteps: isCorrect || submission.solutionRevealed ? targetInstance.solutionSteps : undefined,
     correctAnswer: isCorrect || submission.solutionRevealed ? targetInstance.correctAnswer : undefined,
+    correctAnswerLabel: isCorrect || submission.solutionRevealed ? targetInstance.correctAnswerLabel : undefined,
     answerUnit: targetInstance.answerUnit,
     answerPrecision: targetInstance.answerPrecision,
+    safetyPearl: isCorrect || submission.solutionRevealed ? targetInstance.safetyPearl : undefined,
   };
+}
+
+export function gradeQuestionAnswer(
+  question: {
+    correctAnswer: number;
+    answerPrecision: number;
+    responseType?: QuestionResponseType;
+  },
+  userAnswer: string | number,
+): boolean {
+  if ((question.responseType ?? "numeric") === "numeric") {
+    return gradeAnswer(question, userAnswer);
+  }
+
+  const submitted = typeof userAnswer === "number" ? userAnswer : Number(userAnswer.trim());
+  return Number.isInteger(submitted) && submitted === question.correctAnswer;
 }

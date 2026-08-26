@@ -7,6 +7,7 @@ export type MedMathCategory =
   | "insulin"
   | "weight-based"
   | "heparin"
+  | "anticoagulants"
   | "critical-care"
   | "multi-step"
   | "concentrations"
@@ -40,6 +41,18 @@ export type RegularExamDifficulty =
   | "hard"
   | "mixed";
 
+export type QuestionResponseType =
+  | "numeric"
+  | "multiple-choice"
+  | "select-all";
+
+export type QuestionKind = "calculation" | "knowledge" | "clinical-application";
+
+export interface QuestionOption {
+  id: string;
+  label: string;
+}
+
 export interface ExamQuestionReview {
   instanceId: string;
   templateId: string;
@@ -58,6 +71,12 @@ export interface ExamQuestionReview {
   answerUnit: string;
   answerPrecision: number;
   roundingInstruction?: string;
+  responseType?: QuestionResponseType;
+  questionKind?: QuestionKind;
+  options?: QuestionOption[];
+  correctAnswerLabel?: string;
+  tags?: string[];
+  safetyPearl?: string;
   studentAnswer: string;
   correctAnswer: number;
   isCorrect: boolean;
@@ -117,6 +136,12 @@ export interface GeneratedQuestionData {
   answerUnit: string;
   answerPrecision: number;
   roundingInstruction?: string;
+  responseType?: QuestionResponseType;
+  questionKind?: QuestionKind;
+  options?: QuestionOption[];
+  correctAnswerLabel?: string;
+  tags?: string[];
+  safetyPearl?: string;
   hints: string[];
   solutionSteps: SolutionStep[];
   rawVariables: Record<string, unknown>;
@@ -140,6 +165,12 @@ export interface QuestionInstance {
   answerUnit: string;
   answerPrecision: number;
   roundingInstruction?: string;
+  responseType: QuestionResponseType;
+  questionKind: QuestionKind;
+  options?: QuestionOption[];
+  correctAnswerLabel?: string;
+  tags: string[];
+  safetyPearl?: string;
   hints: string[];
   solutionSteps: SolutionStep[];
   rawVariables: Record<string, unknown>;
@@ -164,6 +195,10 @@ export interface QuestionClientView {
   answerUnit: string;
   answerPrecision: number;
   roundingInstruction?: string;
+  responseType: QuestionResponseType;
+  questionKind: QuestionKind;
+  options?: QuestionOption[];
+  tags: string[];
 }
 
 export interface AttemptSubmission {
@@ -184,8 +219,10 @@ export interface AttemptResult {
   feedback: string;
   solutionSteps?: SolutionStep[];
   correctAnswer?: number;
+  correctAnswerLabel?: string;
   answerUnit?: string;
   answerPrecision?: number;
+  safetyPearl?: string;
 }
 
 export type SessionType = "practice" | "exam" | "study-exam" | "adaptive";
@@ -196,6 +233,7 @@ export interface SessionConfig {
   selectedDifficulty: PracticeDifficultySelection;
   questionCount: number;
   isAdaptive?: boolean;
+  additionalMedicationTopics?: Array<"insulin" | "anticoagulants">;
 }
 
 export interface StoredSession {
@@ -230,6 +268,7 @@ export interface StoredSession {
     averageResponseTimeSeconds: number;
   }>;
   weakCategories: MedMathCategory[];
+  additionalMedicationTopics?: Array<"insulin" | "anticoagulants">;
   examMode?: ExamMode;
   examReview?: ExamQuestionReview[];
   isInvalidated?: boolean;
@@ -243,6 +282,7 @@ export interface StoredAttemptRecord {
   templateId: string;
   category: MedMathCategory;
   subtype: string;
+  questionKind?: QuestionKind;
   difficulty: MedMathDifficulty;
   attemptNumber: number;
   submittedAnswer: string;

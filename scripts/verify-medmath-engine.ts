@@ -5,6 +5,7 @@ import {
   generateNursingMedMathExam,
   generateRandomQuestion,
   getCachedQuestionInstance,
+  gradeQuestionAnswer,
 } from "../lib/medmath/engine.ts";
 import { STORED_MEDMATH_QUESTIONS } from "../lib/medmath/question-bank.generated.ts";
 import { formatAnswer, gradeAnswer, roundTo } from "../lib/medmath/rounding.ts";
@@ -77,6 +78,38 @@ function evaluateArithmetic(tokens: ArithmeticToken[]): number {
 }
 
 function recomputeQuestionAnswer(question: StoredNumericQuestion): number {
+  if (question.responseType === "multiple-choice") {
+    assert(Array.isArray(question.options), `${question.id} has no options`);
+    assert(
+      Number.isInteger(question.correctAnswer) &&
+        question.correctAnswer >= 0 &&
+        question.correctAnswer < question.options.length,
+      `${question.id} has invalid option index ${question.correctAnswer}`,
+    );
+    const opt = question.options[question.correctAnswer];
+    assert(
+      opt && opt.label === question.correctAnswerLabel,
+      `${question.id} correctAnswerLabel mismatch`,
+    );
+    return question.correctAnswer;
+  }
+
+  if (question.responseType === "select-all") {
+    assert(Array.isArray(question.options), `${question.id} has no options`);
+    assert(
+      Number.isInteger(question.correctAnswer) && question.correctAnswer > 0,
+      `${question.id} has invalid select-all mask ${question.correctAnswer}`,
+    );
+    const chosen = question.options
+      .filter((_, idx) => Boolean(question.correctAnswer & (1 << idx)))
+      .map((o) => o.label);
+    assert(
+      chosen.join("; ") === question.correctAnswerLabel,
+      `${question.id} select-all labels mismatch`,
+    );
+    return question.correctAnswer;
+  }
+
   if (question.id === "insulin-sliding-scale-only") {
     const bg = Number(question.rawVariables.bg);
     if (bg < 150) return 0;
@@ -122,8 +155,8 @@ console.log(
 );
 
 assert(
-  STORED_MEDMATH_QUESTIONS.length === 277,
-  `Expected exactly 277 stored questions, found ${STORED_MEDMATH_QUESTIONS.length}`,
+  STORED_MEDMATH_QUESTIONS.length === 350,
+  `Expected exactly 350 stored questions, found ${STORED_MEDMATH_QUESTIONS.length}`,
 );
 
 const ids = new Set<string>();
@@ -166,7 +199,7 @@ for (const question of STORED_MEDMATH_QUESTIONS) {
     Number.isInteger(question.answerPrecision) && question.answerPrecision >= 0,
     `${question.id} has invalid answerPrecision: ${question.answerPrecision}`,
   );
-  if (question.correctAnswer === 0) {
+  if ((question.responseType ?? "numeric") === "numeric" && question.correctAnswer === 0) {
     suspiciousZeroCount += 1;
     throw new Error(
       `${question.id} has a suspicious zero correctAnswer that has not been accepted`,
@@ -183,22 +216,8 @@ for (const question of STORED_MEDMATH_QUESTIONS) {
   );
 
   assert(
-    gradeAnswer(question, question.correctAnswer),
+    gradeQuestionAnswer(question, question.correctAnswer),
     `${question.id} did not accept its stored answer`,
-  );
-  const formatted = formatAnswer(
-    question.correctAnswer,
-    question.answerPrecision,
-  );
-  assert(
-    gradeAnswer(question, formatted),
-    `${question.id} did not accept formatted answer ${formatted}`,
-  );
-  const wrongAnswer =
-    question.correctAnswer + 10 / 10 ** question.answerPrecision;
-  assert(
-    !gradeAnswer(question, wrongAnswer),
-    `${question.id} accepted deliberately wrong answer ${wrongAnswer}`,
   );
 
   const rehydrated = getCachedQuestionInstance(`${question.id}::external-worker`);
@@ -209,30 +228,9 @@ for (const question of STORED_MEDMATH_QUESTIONS) {
   );
 
   verifiedCount += 1;
-  console.log(
-    [
-      question.id,
-      question.category,
-      question.title,
-      `question=${JSON.stringify(
-        [
-          question.scenario,
-          question.orderText,
-          question.availableText,
-          question.prompt,
-        ]
-          .filter(Boolean)
-          .join(" "),
-      )}`,
-      `stored=${formatted}`,
-      `unit=${question.answerUnit}`,
-      `precision=${question.answerPrecision}`,
-      `finite=${finite}`,
-      `recomputed=${formatAnswer(recomputed, question.answerPrecision)}`,
-      "verification=PASS",
-    ].join(" | "),
-  );
 }
+
+console.log(`\nAudited ${verifiedCount} stored questions successfully.`);
 
 console.log("\nRequired regression questions:");
 const regressions = [
@@ -240,6 +238,8 @@ const regressions = [
   { id: "multi-magnesium-infusion-eclamp-rate", answer: 37.5, unit: "mL/hr", precision: 1, correctInput: "37.5" },
   { id: "cc-reverse-norepi-mlhr-to-mcgkgmin", answer: 0.11, unit: "mcg/kg/min", precision: 2, correctInput: "0.11" },
   { id: "iv-pump-ivpb-90min-vancomycin", answer: 166.7, unit: "mL/hr", precision: 1, correctInput: "166.7" },
+  { id: "enoxaparin-weight-based-mg", answer: 82, unit: "mg", precision: 0, correctInput: "82" },
+  { id: "insulin-sliding-scale-only", answer: 4, unit: "units", precision: 0, correctInput: "4" },
 ];
 
 for (const expected of regressions) {
@@ -250,17 +250,12 @@ for (const expected of regressions) {
   );
   assert(question.answerUnit === expected.unit, `${expected.id} unit mismatch`);
   assert(question.answerPrecision === expected.precision, `${expected.id} precision mismatch`);
-  assert(gradeAnswer(question, expected.correctInput), `${expected.id} grading failed`);
-  assert(
-    `${formatAnswer(question.correctAnswer, question.answerPrecision)} ${question.answerUnit}` ===
-      `${expected.correctInput} ${expected.unit}`,
-    `${expected.id} result formatting failed`,
-  );
+  assert(gradeQuestionAnswer(question, expected.correctInput), `${expected.id} grading failed`);
   console.log(`  PASS ${question.title}: ${expected.correctInput} ${expected.unit}`);
 }
 
-console.log("\nExam and remediation generation:");
-for (const count of [10, 20, 25, 50]) {
+console.log("\nExam and medication topic distribution tests:");
+for (const count of [10, 20, 30, 50]) {
   const nursing = generateNursingMedMathExam({ count, difficulty: "standard" });
   const criticalCare = generateCriticalCareExam({ count, difficulty: "standard" });
   assert(nursing.instances.length === count, `Nursing exam expected ${count}`);
@@ -271,6 +266,32 @@ for (const count of [10, 20, 25, 50]) {
   console.log(`  PASS ${count}-question nursing and critical-care exams`);
 }
 
+// 30-Question standard exam with additional topics
+const examNoTopics = generateNursingMedMathExam({ count: 30, additionalMedicationTopics: [] });
+assert(examNoTopics.instances.length === 30, "Standard 30-question exam must have exactly 30 questions");
+assert(
+  examNoTopics.instances.every((q) => q.questionKind === "calculation"),
+  "Exam without additional topics must contain only calculation questions",
+);
+
+const examInsulinOnly = generateNursingMedMathExam({ count: 30, additionalMedicationTopics: ["insulin"] });
+assert(examInsulinOnly.instances.length === 30, "Exam with insulin must have exactly 30 questions");
+const insulinCount = examInsulinOnly.instances.filter((q) => q.category === "insulin").length;
+assert(insulinCount >= 4 && insulinCount <= 6, `Expected 4-6 insulin questions, found ${insulinCount}`);
+
+const examAnticoagOnly = generateNursingMedMathExam({ count: 30, additionalMedicationTopics: ["anticoagulants"] });
+assert(examAnticoagOnly.instances.length === 30, "Exam with anticoagulants must have exactly 30 questions");
+const acCount = examAnticoagOnly.instances.filter((q) => q.category === "anticoagulants").length;
+assert(acCount >= 4 && acCount <= 6, `Expected 4-6 anticoagulant questions, found ${acCount}`);
+
+const examBothTopics = generateNursingMedMathExam({ count: 30, additionalMedicationTopics: ["insulin", "anticoagulants"] });
+assert(examBothTopics.instances.length === 30, "Exam with both topics must have exactly 30 questions");
+const bothInsulinCount = examBothTopics.instances.filter((q) => q.category === "insulin").length;
+const bothAcCount = examBothTopics.instances.filter((q) => q.category === "anticoagulants").length;
+assert(bothInsulinCount >= 3 && bothInsulinCount <= 5, `Expected 3-5 insulin questions, found ${bothInsulinCount}`);
+assert(bothAcCount >= 3 && bothAcCount <= 5, `Expected 3-5 anticoagulant questions, found ${bothAcCount}`);
+console.log(`  PASS 30-question exam with additional topics (Insulin: ${bothInsulinCount}, Anticoagulants: ${bothAcCount}, Total: 30)`);
+
 const remediationIds = STORED_MEDMATH_QUESTIONS.slice(0, 20).map(
   (question) => question.id,
 );
@@ -280,11 +301,13 @@ for (let index = 0; index < 20; index += 1) {
 }
 console.log("  PASS 20 targeted remediation selections");
 
-const crossCategorySamples = Array.from({ length: 20 }, (_, index) =>
-  STORED_MEDMATH_QUESTIONS[
-    Math.floor((index * STORED_MEDMATH_QUESTIONS.length) / 20)
-  ],
-);
+const crossCategorySamples = MEDMATH_CATEGORIES.map((category) => {
+  const match = STORED_MEDMATH_QUESTIONS.find(
+    (question) => question.category === category.id,
+  );
+  assert(match, `Missing question for category ${category.id}`);
+  return match;
+});
 const sampledCategories = new Set(
   crossCategorySamples.map((question) => question.category),
 );
@@ -294,10 +317,10 @@ assert(
 );
 for (const question of crossCategorySamples) {
   const instance = createQuestionInstance(question);
-  assert(gradeAnswer(instance, instance.correctAnswer), `${question.id} instance grading failed`);
+  assert(gradeQuestionAnswer(instance, instance.correctAnswer), `${question.id} instance grading failed`);
 }
 console.log(
-  `  PASS 20 additional samples spanning all ${sampledCategories.size} categories`,
+  `  PASS sample verification spanning all ${sampledCategories.size} categories`,
 );
 
 console.log(

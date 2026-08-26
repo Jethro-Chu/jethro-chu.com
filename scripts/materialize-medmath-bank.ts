@@ -4,7 +4,7 @@ import { ALL_QUESTION_TEMPLATES } from "../lib/medmath/templates/index.ts";
 import { roundTo } from "../lib/medmath/rounding.ts";
 import type { StoredNumericQuestion } from "../lib/medmath/types.ts";
 
-const EXPECTED_QUESTION_COUNT = 277;
+const EXPECTED_QUESTION_COUNT = 350;
 
 const rngOverrides: Record<string, number[]> = {
   // Required regression fixtures.
@@ -26,7 +26,7 @@ function assertStoredQuestion(question: StoredNumericQuestion): void {
       `Missing or invalid correctAnswer for question ${question.id}: ${question.correctAnswer}`,
     );
   }
-  if (question.correctAnswer === 0) {
+  if ((question.responseType ?? "numeric") === "numeric" && question.correctAnswer === 0) {
     throw new Error(
       `Suspicious zero correctAnswer requires manual verification for question ${question.id}`,
     );

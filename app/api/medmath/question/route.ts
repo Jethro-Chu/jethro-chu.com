@@ -19,6 +19,7 @@ export async function POST(req: NextRequest) {
       canvasExam?: boolean;
       examMode?: "nursing-med-math" | "critical-care" | "custom";
       examCount?: number;
+      additionalMedicationTopics?: Array<"insulin" | "anticoagulants">;
     };
 
     if (body.canvasExam) {
@@ -37,6 +38,7 @@ export async function POST(req: NextRequest) {
         categories: body.categories,
         difficulty: body.difficulty,
         count: examCount,
+        additionalMedicationTopics: body.additionalMedicationTopics,
       });
 
       return NextResponse.json({

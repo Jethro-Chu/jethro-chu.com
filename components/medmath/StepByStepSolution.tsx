@@ -5,15 +5,19 @@ import type { SolutionStep } from "@/lib/medmath/types";
 interface StepByStepSolutionProps {
   steps: SolutionStep[];
   correctAnswer?: number;
+  correctAnswerLabel?: string;
   answerUnit?: string;
   answerPrecision?: number;
+  safetyPearl?: string;
 }
 
 export function StepByStepSolution({
   steps,
   correctAnswer,
+  correctAnswerLabel,
   answerUnit,
   answerPrecision = 1,
+  safetyPearl,
 }: StepByStepSolutionProps) {
   if (!steps || steps.length === 0) return null;
 
@@ -25,11 +29,11 @@ export function StepByStepSolution({
             Step-by-Step Clinical Solution
           </span>
         </div>
-        {typeof correctAnswer === "number" && (
+        {(typeof correctAnswer === "number" || correctAnswerLabel) && (
           <div className="flex items-center gap-2 text-sm font-semibold text-[var(--color-ink)]">
             <span>Correct Answer:</span>
             <span className="rounded-xs bg-[var(--color-sand)] px-2.5 py-0.5 font-bold text-emerald-700">
-              {correctAnswer.toFixed(answerPrecision)} {answerUnit}
+              {correctAnswerLabel ?? `${correctAnswer?.toFixed(answerPrecision)} ${answerUnit}`}
             </span>
           </div>
         )}
@@ -82,6 +86,17 @@ export function StepByStepSolution({
             )}
           </div>
         ))}
+
+        {safetyPearl && (
+          <div className="rounded-sm border border-amber-300 bg-amber-50/80 p-4">
+            <div className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-amber-900 mb-1">
+              <span>💡 Clinical Pearl:</span>
+            </div>
+            <p className="text-sm leading-relaxed text-[var(--color-ink)]">
+              {safetyPearl}
+            </p>
+          </div>
+        )}
       </div>
     </div>
   );

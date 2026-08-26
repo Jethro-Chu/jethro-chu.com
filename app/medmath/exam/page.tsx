@@ -21,9 +21,10 @@ function generateSessionUUID(): string {
 export default function MedMathExamPage() {
   const [isExamActive, setIsExamActive] = useState(false);
   const [examMode, setExamMode] = useState<ExamMode>("nursing-med-math");
-  const [questionCount, setQuestionCount] = useState<number>(20);
+  const [questionCount, setQuestionCount] = useState<number>(30);
   const [difficulty, setDifficulty] = useState<RegularExamDifficulty>("standard");
   const [isTimed, setIsTimed] = useState<boolean>(true);
+  const [additionalMedicationTopics, setAdditionalMedicationTopics] = useState<Array<"insulin" | "anticoagulants">>([]);
   const [customCategories, setCustomCategories] = useState<MedMathCategory[]>(
     MEDMATH_CATEGORIES.map((c) => c.id),
   );
@@ -55,6 +56,7 @@ export default function MedMathExamPage() {
           examCount: questionCount,
           categories,
           difficulty,
+          additionalMedicationTopics: examMode === "nursing-med-math" ? additionalMedicationTopics : [],
         }),
       });
 
@@ -73,6 +75,7 @@ export default function MedMathExamPage() {
             selectedCategories: categories,
             selectedDifficulty: difficulty,
             plannedQuestionCount: data.questions.length,
+            additionalMedicationTopics: examMode === "nursing-med-math" ? additionalMedicationTopics : [],
             completedQuestionCount: 0,
             startedAt: new Date().toISOString(),
             isCompleted: false,
@@ -280,6 +283,60 @@ export default function MedMathExamPage() {
           </div>
         )}
 
+        {examMode === "nursing-med-math" && (
+          <div className="rounded-md border border-[var(--color-line)] bg-[var(--color-surface)] p-5 shadow-xs">
+            <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+              <div>
+                <div className="text-xs font-bold uppercase tracking-wider text-[var(--color-ink)]">
+                  Additional Medication Topics
+                </div>
+                <p className="mt-1 text-xs leading-relaxed text-[var(--color-ink-muted)]">
+                  Optional medication knowledge and clinical application. Both are off by default, and the exam length stays unchanged.
+                </p>
+              </div>
+              <button
+                type="button"
+                onClick={() => setAdditionalMedicationTopics(
+                  additionalMedicationTopics.length === 2 ? [] : ["insulin", "anticoagulants"],
+                )}
+                className="text-left text-xs font-semibold text-[var(--color-primary)] hover:underline"
+              >
+                {additionalMedicationTopics.length === 2 ? "Clear additional topics" : "Select all additional topics"}
+              </button>
+            </div>
+            <div className="mt-4 grid grid-cols-1 gap-2 sm:grid-cols-2">
+              {([
+                ["insulin", "Include Insulin"],
+                ["anticoagulants", "Include Anticoagulants"],
+              ] as const).map(([topic, label]) => {
+                const checked = additionalMedicationTopics.includes(topic);
+                return (
+                  <label
+                    key={topic}
+                    className={`flex cursor-pointer items-center gap-3 rounded-sm border p-3 text-sm font-medium ${
+                      checked
+                        ? "border-[var(--color-pine)] bg-[var(--color-pine)]/10 text-[var(--color-ink)]"
+                        : "border-[var(--color-line)] text-[var(--color-ink-muted)]"
+                    }`}
+                  >
+                    <input
+                      type="checkbox"
+                      checked={checked}
+                      onChange={() => setAdditionalMedicationTopics((current) =>
+                        current.includes(topic)
+                          ? current.filter((item) => item !== topic)
+                          : [...current, topic],
+                      )}
+                      className="h-4 w-4 accent-[var(--color-pine)]"
+                    />
+                    <span>{label}</span>
+                  </label>
+                );
+              })}
+            </div>
+          </div>
+        )}
+
         {/* Question Count Selector */}
         <div className="space-y-2.5">
           <label className="text-xs font-bold uppercase tracking-wider text-[var(--color-ink)]">
@@ -289,9 +346,9 @@ export default function MedMathExamPage() {
             {(
               [
                 { count: 10, label: "10 Questions", note: "Quick Diagnostic (~15 min)" },
-                { count: 20, label: "20 Questions", note: "Standard Exam (~30 min)" },
-                { count: 25, label: "25 Questions", note: "Comprehensive Mock (~40 min)" },
-                { count: 50, label: "50 Questions", note: "Full Exam (~75 min)" },
+                { count: 20, label: "20 Questions", note: "Short Exam (~30 min)" },
+                { count: 30, label: "30 Questions", note: "Standard Exam (~45 min)" },
+                { count: 50, label: "50 Questions", note: "Comprehensive Exam (~75 min)" },
               ] as const
             ).map((opt) => (
               <button
@@ -306,7 +363,7 @@ export default function MedMathExamPage() {
               >
                 <div className="text-sm font-bold text-[var(--color-ink)]">
                   {opt.label}
-                  {opt.count === 20 && (
+                  {opt.count === 30 && (
                     <span className="ml-1.5 rounded-xs bg-[var(--color-pine)] px-1.5 py-0.5 text-[9px] font-bold text-white uppercase">
                       Default
                     </span>

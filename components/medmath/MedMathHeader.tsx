@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 export function MedMathHeader() {
   const pathname = usePathname();
 
-  const isPractice = pathname === "/medmath/practice";
+  const isPractice = pathname === "/medmath/practice" || pathname === "/medmath/insulin" || pathname === "/medmath/anticoagulants";
   const isExam = pathname.startsWith("/medmath/exam");
   const isData = pathname === "/medmath/data";
   const isCanvas = pathname.startsWith("/medmath/canvas");

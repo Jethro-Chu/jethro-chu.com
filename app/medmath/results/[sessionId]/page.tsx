@@ -68,6 +68,32 @@ export default async function MedMathResultsPage({ params }: ResultsPageProps) {
   const verdict = getVerdict(scorePercent);
   const weakCategories = session.weakCategories || [];
   const examReview: ExamQuestionReview[] = session.examReview || [];
+  const formatReviewAnswer = (item: ExamQuestionReview, submitted: string) => {
+    if (!submitted) return "No answer submitted (blank)";
+    if ((item.responseType ?? "numeric") === "numeric") return `${submitted} ${item.answerUnit}`;
+    if (item.responseType === "multiple-choice") {
+      return item.options?.find((option) => option.id === submitted)?.label ?? submitted;
+    }
+    const mask = Number(submitted);
+    return item.options
+      ?.filter((_, index) => Boolean(mask & (1 << index)))
+      .map((option) => option.label)
+      .join("; ") || "No answer submitted (blank)";
+  };
+  const subtypePerformance = new Map<string, { title: string; total: number; correct: number }>();
+  for (const item of examReview) {
+    const current = subtypePerformance.get(item.subtype) ?? {
+      title: item.title,
+      total: 0,
+      correct: 0,
+    };
+    current.total += 1;
+    if (item.isCorrect) current.correct += 1;
+    subtypePerformance.set(item.subtype, current);
+  }
+  const weakSubtypes = Array.from(subtypePerformance.values()).filter(
+    (item) => item.total >= 2 && item.correct / item.total < 0.75,
+  );
 
   // Extract unique template IDs of missed questions for targeted practice
   const missedTemplateIds = examReview
@@ -189,6 +215,17 @@ export default async function MedMathResultsPage({ params }: ResultsPageProps) {
         </div>
       )}
 
+      {weakSubtypes.length > 0 && (
+        <div className="rounded-md border border-[var(--color-line)] bg-[var(--color-surface)] p-5 sm:p-6">
+          <h3 className="text-sm font-bold text-[var(--color-ink)]">Needs Review</h3>
+          <ul className="mt-3 space-y-2 text-sm text-[var(--color-ink-muted)]">
+            {weakSubtypes.map((item) => (
+              <li key={item.title}>{item.title}: {item.correct} of {item.total} correct</li>
+            ))}
+          </ul>
+        </div>
+      )}
+
       {/* Category Performance Breakdown Table */}
       {session.categoryBreakdown && Object.keys(session.categoryBreakdown).length > 0 && (
         <div className="rounded-md border border-[var(--color-line)] bg-[var(--color-surface)] shadow-xs overflow-hidden">
@@ -292,7 +329,7 @@ export default async function MedMathResultsPage({ params }: ResultsPageProps) {
                 {/* Rx Order */}
                 <div className="rounded-md border border-[var(--color-line)] bg-[var(--color-sand)]/70 p-3.5 sm:p-4">
                   <div className="text-xs font-bold uppercase tracking-wider text-[var(--color-ink-muted)] mb-1">
-                    Physician Order
+                    {item.questionKind === "calculation" ? "Physician Order" : "Clinical Focus"}
                   </div>
                   <div className="text-base font-semibold text-[var(--color-ink)]">
                     {item.orderText}
@@ -338,7 +375,7 @@ export default async function MedMathResultsPage({ params }: ResultsPageProps) {
                       Your Submitted Answer
                     </div>
                     <div className={`mt-1 text-base font-bold ${item.isCorrect ? "text-emerald-700" : "text-red-700"}`}>
-                      {item.studentAnswer ? `${item.studentAnswer} ${item.answerUnit}` : "No answer submitted (blank)"}
+                      {formatReviewAnswer(item, item.studentAnswer)}
                     </div>
                   </div>
 
@@ -347,7 +384,7 @@ export default async function MedMathResultsPage({ params }: ResultsPageProps) {
                       Correct Answer
                     </div>
                     <div className="mt-1 text-base font-bold text-emerald-700">
-                      {formatAnswer(item.correctAnswer, item.answerPrecision)} {item.answerUnit}
+                      {item.correctAnswerLabel ?? `${formatAnswer(item.correctAnswer, item.answerPrecision)} ${item.answerUnit}`}
                     </div>
                   </div>
                 </div>
@@ -357,8 +394,10 @@ export default async function MedMathResultsPage({ params }: ResultsPageProps) {
                   <StepByStepSolution
                     steps={item.solutionSteps}
                     correctAnswer={item.correctAnswer}
+                    correctAnswerLabel={item.correctAnswerLabel}
                     answerUnit={item.answerUnit}
                     answerPrecision={item.answerPrecision}
+                    safetyPearl={item.safetyPearl}
                   />
                 )}
               </div>

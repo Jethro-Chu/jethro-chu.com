@@ -13,7 +13,7 @@ export default function MedMathLandingPage() {
           Adult Med-Surg & Critical Care Medication Math
         </h1>
         <p className="text-base sm:text-lg leading-relaxed text-[var(--color-ink-muted)]">
-          Master high-stakes medication calculations through 270+ validated adult clinical question templates across 13 core competencies.
+          Master adult medication calculations and high-yield medication knowledge through 340+ validated clinical questions across 13 core competencies.
           Features progressive educational hints, worked step-by-step solutions, full-length simulation exams, and anonymous analytics.
         </p>
 
@@ -150,7 +150,9 @@ export default function MedMathLandingPage() {
                       : "bg-[var(--color-pine)]/10 text-[var(--color-pine)] border border-[var(--color-pine)]/30"
                   }`}
                 >
-                  {cat.track === "critical-care" ? "ICU Track" : "Med-Surg Track"}
+                  {cat.id === "insulin" || cat.id === "anticoagulants"
+                    ? "Medication + Math"
+                    : cat.track === "critical-care" ? "ICU Track" : "Med-Surg Track"}
                 </span>
                 <span className="text-xs font-medium text-[var(--color-ink-muted)]">
                   {cat.defaultUnit}
@@ -166,7 +168,9 @@ export default function MedMathLandingPage() {
 
               <div className="pt-1">
                 <Link
-                  href={`/medmath/practice?category=${cat.id}`}
+                  href={cat.id === "insulin" || cat.id === "anticoagulants"
+                    ? `/medmath/${cat.id}`
+                    : `/medmath/practice?category=${cat.id}`}
                   className="text-xs font-semibold text-[var(--color-primary)] hover:underline"
                 >
                   Practice {cat.shortName} →
