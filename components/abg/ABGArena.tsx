@@ -1,6 +1,8 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
+import type { ABGCompensation, ABGDisorder } from "@/lib/abg/types";
+import { ClinicalInterventions } from "./ClinicalInterventions";
 import styles from "./ABGArena.module.css";
 
 const DISORDERS = ["Normal", "Respiratory Acidosis", "Respiratory Alkalosis", "Metabolic Acidosis", "Metabolic Alkalosis", "Mixed Disorder"] as const;
@@ -16,7 +18,7 @@ type Player = {
 type Question = { id: string; ph: number; paco2: number; hco3: number; difficulty: string; number: number; total: number | null };
 type Session = { id: string; mode: "ranked"; correct: number; incorrect: number; answered: number; total: null; accuracy: number; currentStreak: number; bestStreak: number; averageResponseTimeMs: number; startingRating: number; endingRating: number; ratingChange: number; complete: false; rank: number | null };
 type Feedback = {
-  correct: boolean; answer: { label: string; explanation: string[] }; yourAnswer: string;
+  correct: boolean; answer: { disorder: ABGDisorder; compensation: ABGCompensation; label: string; explanation: string[] }; yourAnswer: string;
   ratingBefore: number; ratingAfter: number; ratingChange: number; nextQuestion: Question | null; session: Session;
 };
 
@@ -188,11 +190,12 @@ export function ABGArena() {
         </div>
 
         {feedback ? (
-          <div className={`${styles.feedback} ${feedback.correct ? styles.correct : styles.incorrect}`} role="status" aria-live="polite">
-            <p className={styles.feedbackState}>{feedback.correct ? "CORRECT" : "INCORRECT"}</p>
+          <div className={`${styles.feedback} ${feedback.correct ? styles.correct : styles.incorrect}`}>
+            <p className={styles.feedbackState} role="status" aria-live="polite">{feedback.correct ? "CORRECT" : "INCORRECT"}</p>
             <h2>{feedback.answer.label}</h2>
             {!feedback.correct && <p>Your answer: <strong>{feedback.yourAnswer}</strong></p>}
             <ul>{feedback.answer.explanation.map((line) => <li key={line}>{line}</li>)}</ul>
+            <ClinicalInterventions disorder={feedback.answer.disorder} compensation={feedback.answer.compensation} />
             <div className={styles.ratingDelta}><span>ABG rating</span><strong>{feedback.ratingBefore} → {feedback.ratingAfter} <em>{feedback.ratingChange >= 0 ? "+" : ""}{feedback.ratingChange}</em></strong></div>
             <button className={styles.primaryButton} onClick={continueGame}>Next ABG</button>
           </div>

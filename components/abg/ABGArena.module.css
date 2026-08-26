@@ -140,6 +140,24 @@
 .feedback > p:not(.feedbackState) { color: var(--abg-muted); }
 .feedback ul { margin: 26px 0; padding: 0; list-style: none; border-top: 1px solid var(--abg-line); }
 .feedback li { padding: 10px 0; border-bottom: 1px solid var(--abg-line); color: var(--abg-muted); }
+.interventions { margin-top: 34px; padding-top: 30px; border-top: 1px solid var(--abg-line-strong); }
+.interventions h3 { margin: 0 0 26px; color: var(--abg-ink); font-family: var(--abg-font-display), sans-serif; font-size: clamp(1.45rem, 4vw, 2rem); line-height: 1.1; }
+.interventions h4 { margin: 0 0 7px; color: var(--abg-primary-deep); font-family: var(--abg-font-mono), monospace; font-size: .66rem; font-weight: 700; letter-spacing: .11em; text-transform: uppercase; }
+.interventions p { margin: 0; }
+.interventionPriority { padding: 16px 18px; border-left: 4px solid var(--abg-primary); background: var(--abg-primary-wash); }
+.interventionPriority p { color: var(--abg-ink); font-weight: 700; }
+.interventionBlock { padding: 24px 0; border-bottom: 1px solid var(--abg-line); }
+.interventions .interventionBlock ul { margin: 12px 0 0; padding-left: 20px; border: 0; list-style: disc; }
+.interventions .interventionBlock li { padding: 3px 0 3px 5px; border: 0; color: var(--abg-muted); }
+.treatmentLead { color: var(--abg-muted); font-size: .9rem; }
+.interventionSafety { margin-top: 14px !important; padding: 11px 14px; border-left: 2px solid var(--abg-line-strong); background: var(--abg-sunk); color: var(--abg-muted); font-size: .84rem; }
+.interventionMonitor, .interventionRemember { padding: 24px 0; border-bottom: 1px solid var(--abg-line); }
+.interventionMonitor p { display: flex; flex-wrap: wrap; gap: 5px 0; color: var(--abg-muted); font-family: var(--abg-font-mono), monospace; font-size: .74rem; line-height: 1.65; }
+.interventionMonitor span { display: inline-flex; align-items: center; }
+.interventionMonitor i { margin: 0 9px; color: var(--abg-line-strong); font-style: normal; }
+.interventionRemember p { color: var(--abg-ink); font-weight: 700; }
+.compensationTeaching { margin-top: 20px !important; color: var(--abg-primary-deep); font-size: .88rem; font-weight: 650; }
+.interventionDisclaimer { margin-top: 20px !important; color: var(--abg-muted); font-size: .7rem; line-height: 1.55; }
 .ratingDelta { display: flex; align-items: center; justify-content: space-between; gap: 20px; margin: 22px 0; padding: 16px 18px; background: var(--abg-sunk); }
 .ratingDelta span { color: var(--abg-muted); font-family: var(--abg-font-mono), monospace; font-size: .68rem; text-transform: uppercase; }
 .ratingDelta strong { font-family: var(--abg-font-mono), monospace; font-variant-numeric: tabular-nums; }
@@ -188,6 +206,10 @@
   .values strong { font-size: clamp(1.8rem, 12vw, 2.8rem); }
   .values small { font-size: .56rem; }
   .feedback { padding: 24px 18px; }
+  .interventions { margin-top: 28px; padding-top: 24px; }
+  .interventionPriority { padding: 14px 15px; }
+  .interventionBlock, .interventionMonitor, .interventionRemember { padding: 20px 0; }
+  .interventions .interventionBlock ul { padding-left: 18px; }
   .ratingDelta { align-items: flex-start; flex-direction: column; gap: 6px; }
 }
 

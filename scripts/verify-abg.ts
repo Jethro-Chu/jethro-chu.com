@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import { interpretABG } from "../lib/abg/engine.ts";
 import { generateABGQuestion, validateGeneratedQuestion } from "../lib/abg/generator.ts";
+import { getABGIntervention } from "../lib/abg/interventions.ts";
 import { applyRatingChange, calculateRatingChange, expectedScore } from "../lib/abg/rating.ts";
 
 const cases = [
@@ -28,6 +29,15 @@ for (const [values, disorder, compensation] of cases) {
   assert.equal(result.disorder, disorder, JSON.stringify(values));
   assert.equal(result.compensation, compensation, JSON.stringify(values));
   assert.equal(result.explanation.length, 4);
+  const intervention = getABGIntervention(result.disorder, result.compensation);
+  assert.ok(intervention.priority.length > 0);
+  assert.ok(intervention.nursingInterventions.length >= 3);
+  assert.ok(intervention.possibleTreatments.length >= 2);
+  assert.ok(intervention.monitor.length >= 4);
+  assert.ok(intervention.remember.length > 0);
+  if (!["Normal", "Mixed Disorder"].includes(result.disorder)) {
+    assert.ok(intervention.compensationTeaching);
+  }
 }
 
 const boundaryNormals = [
@@ -51,5 +61,4 @@ assert.ok(calculateRatingChange(1000, 900, false) < calculateRatingChange(1000, 
 assert.ok(Math.abs(calculateRatingChange(1000, 1500, true)) <= 24);
 assert.equal(applyRatingChange(405, -24), 400);
 
-console.log(`ABG engine verified: ${cases.length} clinical patterns, ${boundaryNormals.length} boundary cases, 3000 generated questions, and rating safeguards.`);
-
+console.log(`ABG engine verified: ${cases.length} clinical patterns with curated interventions, ${boundaryNormals.length} boundary cases, 3000 generated questions, and rating safeguards.`);
