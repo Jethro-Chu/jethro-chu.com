@@ -83,7 +83,7 @@ export default function EmotionStockMarketGamePage() {
       <ProjectSection n="05" label="more">
         <p>See the rest of the work, from clinical tools to research software.</p>
         <div className="pt-1">
-          <Link href="/#projects" className={secondaryBtn}>
+          <Link href="/website#projects" className={secondaryBtn}>
             Back to projects
           </Link>
         </div>

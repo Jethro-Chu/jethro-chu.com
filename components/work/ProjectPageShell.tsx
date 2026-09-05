@@ -59,10 +59,10 @@ export function ProjectPageShell({
       {/* minimal footer */}
       <footer className="border-t border-[var(--color-granite-line)] px-6 py-8 sm:px-10 lg:px-16">
         <div className="mx-auto flex max-w-3xl flex-wrap items-center justify-between gap-4">
-          <Link href="/#projects" className="label-mono inline-flex items-center gap-2 transition-colors hover:text-[var(--color-pine)]">
+          <Link href="/website#projects" className="label-mono inline-flex items-center gap-2 transition-colors hover:text-[var(--color-pine)]">
             ← All projects
           </Link>
-          <Link href="/" className="label-mono inline-flex items-center gap-2 transition-colors hover:text-[var(--color-pine)]">
+          <Link href="/website" className="label-mono inline-flex items-center gap-2 transition-colors hover:text-[var(--color-pine)]">
             Back to portfolio
           </Link>
         </div>

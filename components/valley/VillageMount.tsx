@@ -5,13 +5,13 @@
    The ssr:false Phaser mount + the title screen (intro) and, once
    playing, the in-village DOM chrome (nav, minimap, panel).
    Phaser is dynamically imported here, so it stays code-split and loads
-   only when this mounts (after the homepage "Enter" click, or /village).
+   only when this mounts on the homepage.
    The parent provides the fixed full-screen container.
    ============================================================ */
 
 import dynamic from "next/dynamic";
 import { useState } from "react";
-import { gameBus } from "@/lib/gameBus";
+import { useRouter } from "next/navigation";
 import { Minimap } from "@/components/HUD/Minimap";
 import { VillageNav } from "@/components/HUD/VillageNav";
 import { ZoomControls } from "@/components/HUD/ZoomControls";
@@ -35,29 +35,18 @@ const PhaserVillage = dynamic(() => import("@/game/PhaserVillage"), {
 });
 
 export default function VillageMount({ onLeave }: { onLeave?: () => void }) {
-  const [intro, setIntro] = useState(true);
+  const [intro] = useState(true);
+  const router = useRouter();
 
-  // "Read the portfolio" -> the original scroll site at /. Set the session flag
-  // first so / shows the site instead of re-opening the village over it.
-  const leaveToSite = () => {
-    try {
-      sessionStorage.setItem("village-closed", "1");
-    } catch {
-      /* private mode */
-    }
-    window.location.assign("/");
-  };
+  const openWebsite = () => router.push("/website");
 
   return (
     <>
       <PhaserVillage />
       {intro ? (
         <VillageIntro
-          onPlay={() => {
-            setIntro(false);
-            gameBus.emit("valley:play");
-          }}
-          onSkip={leaveToSite}
+          onPlay={openWebsite}
+          onSkip={openWebsite}
         />
       ) : (
         <>

@@ -17,9 +17,13 @@ const nextConfig = {
   images: {
     formats: ["image/avif", "image/webp"],
   },
-  // the old /valley prototype is retired; send any lingering links to the village
+  // Old direct game routes now resolve to the game-first homepage.
   async redirects() {
-    return [{ source: "/valley", destination: "/village", permanent: true }];
+    return [
+      { source: "/valley", destination: "/", permanent: true },
+      { source: "/village", destination: "/", permanent: true },
+      { source: "/portfolio", destination: "/website", permanent: true },
+    ];
   },
 };
 

@@ -80,7 +80,7 @@ export default function NurseJetPage() {
               <path d="M7 17 17 7M9 7h8v8" />
             </svg>
           </a>
-          <Link href="/#projects" className={secondaryBtn}>
+          <Link href="/website#projects" className={secondaryBtn}>
             Back to projects
           </Link>
         </div>

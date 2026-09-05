@@ -1,11 +1,10 @@
 "use client";
 
 /* ============================================================
-   VillageStandalone  ·  the /village route's interactive layer
-   Mounts the shared VillageMount full-screen (title screen, then play).
-   Mirrors the homepage overlay but as a standalone route + direct preview
-   link, including its OWN exit chrome (back button + ESC -> the scroll
-   site at /), which the homepage gets from ValleyDoor. Gate is WebGL +
+   VillageStandalone  ·  the homepage's interactive layer
+   Mounts the shared VillageMount full-screen (title screen, then play),
+   including its own exit chrome (back button + ESC -> the scroll site at
+   /website). Gate is WebGL +
    motion only; reduced-motion / no-WebGL get the SSR'd flat content with a
    re-enter affordance.
    ============================================================ */
@@ -41,11 +40,11 @@ function leaveToSite() {
   } catch {
     /* private mode */
   }
-  window.location.assign("/");
+  window.location.assign("/website");
 }
 
 export function VillageStandalone() {
-  const [playing, setPlaying] = useState(false);
+  const [playing, setPlaying] = useState(true);
   const [capable, setCapable] = useState(true);
   const [roomOpen, setRoomOpen] = useState(false);
 
@@ -65,8 +64,8 @@ export function VillageStandalone() {
     };
   }, []);
 
-  // lock body scroll while the full-screen game is up (mirrors the homepage
-  // overlay) so wheel-zoom can't scroll the flat page behind it
+  // lock body scroll while the full-screen game is up so wheel-zoom cannot
+  // scroll the flat page behind it
   useEffect(() => {
     if (!playing) return;
     const lenis = (window as unknown as { __lenis?: { stop?: () => void; start?: () => void } }).__lenis;

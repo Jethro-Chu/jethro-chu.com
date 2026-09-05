@@ -411,7 +411,7 @@ export function MedicalAkinatorPage() {
             Restart
           </button>
         ) : (
-          <Link href="/" className="label-mono transition-colors hover:text-[var(--color-pine)]">
+          <Link href="/website" className="label-mono transition-colors hover:text-[var(--color-pine)]">
             ← Back to portfolio
           </Link>
         )}

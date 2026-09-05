@@ -1,11 +1,12 @@
 import type { MetadataRoute } from "next";
 import { site } from "@/content/content";
 
-// Static routes (kept in sync with the app router). The emotion game lives at its
-// own /projects route; the home page is the primary entry.
+// Static routes kept in sync with the app router. The village is the primary
+// entry, while the reading and chatbot experience lives at /website.
 export default function sitemap(): MetadataRoute.Sitemap {
   const routes = [
     "",
+    "/website",
     "/resume",
     "/iqtest/data",
     "/ABG",
@@ -16,6 +17,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return routes.map((path) => ({
     url: `${site.url}${path}`,
     changeFrequency: "monthly",
-    priority: path === "" ? 1 : 0.7,
+    priority: path === "" ? 1 : path === "/website" ? 0.9 : 0.7,
   }));
 }
