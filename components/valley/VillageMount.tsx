@@ -11,7 +11,7 @@
 
 import dynamic from "next/dynamic";
 import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { gameBus } from "@/lib/gameBus";
 import { Minimap } from "@/components/HUD/Minimap";
 import { VillageNav } from "@/components/HUD/VillageNav";
 import { ZoomControls } from "@/components/HUD/ZoomControls";
@@ -35,18 +35,18 @@ const PhaserVillage = dynamic(() => import("@/game/PhaserVillage"), {
 });
 
 export default function VillageMount({ onLeave }: { onLeave?: () => void }) {
-  const [intro] = useState(true);
-  const router = useRouter();
-
-  const openWebsite = () => router.push("/website");
+  const [intro, setIntro] = useState(true);
 
   return (
     <>
       <PhaserVillage />
       {intro ? (
         <VillageIntro
-          onPlay={openWebsite}
-          onSkip={openWebsite}
+          onPlay={() => {
+            setIntro(false);
+            gameBus.emit("valley:play");
+          }}
+          onSkip={() => window.location.assign("/website")}
         />
       ) : (
         <>
