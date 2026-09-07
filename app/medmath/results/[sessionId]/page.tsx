@@ -432,12 +432,6 @@ export default async function MedMathResultsPage({ params }: ResultsPageProps) {
           >
             Practice by Category
           </Link>
-          <Link
-            href="/medmath/data"
-            className="rounded-sm border border-[var(--color-line)] bg-[var(--color-surface)] px-4 py-2.5 text-sm font-medium text-[var(--color-ink-muted)] hover:text-[var(--color-ink)] hover:bg-[var(--color-sand)]"
-          >
-            Public Analytics
-          </Link>
         </div>
       </div>
     </div>

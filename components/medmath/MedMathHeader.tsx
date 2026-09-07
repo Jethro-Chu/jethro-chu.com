@@ -8,7 +8,6 @@ export function MedMathHeader() {
 
   const isPractice = pathname === "/medmath/practice" || pathname === "/medmath/insulin" || pathname === "/medmath/anticoagulants";
   const isExam = pathname.startsWith("/medmath/exam");
-  const isData = pathname === "/medmath/data";
   const isCanvas = pathname.startsWith("/medmath/canvas");
 
   return (
@@ -53,16 +52,6 @@ export function MedMathHeader() {
             }`}
           >
             Exam
-          </Link>
-          <Link
-            href="/medmath/data"
-            className={`rounded-sm px-3.5 py-1.5 text-sm font-medium transition-colors ${
-              isData
-                ? "bg-[var(--color-pine)] text-white shadow-xs font-semibold"
-                : "text-[var(--color-ink-muted)] hover:bg-[var(--color-surface)] hover:text-[var(--color-ink)]"
-            }`}
-          >
-            Analytics
           </Link>
         </nav>
       </div>

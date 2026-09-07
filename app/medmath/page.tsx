@@ -30,12 +30,6 @@ export default function MedMathLandingPage() {
           >
             Practice by Category
           </Link>
-          <Link
-            href="/medmath/data"
-            className="rounded-sm border border-[var(--color-line)] bg-[var(--color-surface)] px-5 py-3 text-sm font-medium text-[var(--color-ink-muted)] transition-colors hover:text-[var(--color-ink)] hover:bg-[var(--color-sand)]"
-          >
-            Public Analytics
-          </Link>
         </div>
       </section>
 
