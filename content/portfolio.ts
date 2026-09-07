@@ -147,7 +147,14 @@ export const landmarks: Landmark[] = [
     body: [
       "Live software, mostly solo, mostly born from healthcare and research. Some serious, some for fun, all shipped.",
     ],
-    projects: ["nursejet", "lab-logger", "rate-my-hospital-food", "emotion-stock-market-game"],
+    projects: [
+      "nursejet",
+      "medmath",
+      "abg-arena",
+      "lab-logger",
+      "rate-my-hospital-food",
+      "emotion-stock-market-game",
+    ],
   },
   {
     id: "ahwahnee",

@@ -135,6 +135,72 @@ const intel: Record<string, ProjectIntel> = {
     designRelated: true,
     screenshot: "/shots/nursejet.jpg",
   },
+  medmath: {
+    id: "medmath",
+    subtitle: "Adult medication math practice lab",
+    builderRole: "solo: product design and full-stack build",
+    categories: ["healthcare", "design"],
+    status: "Live",
+    year: "2026",
+    oneLine:
+      "An adult medication-math practice lab with med-surg and critical-care calculations, category drills, progressive hints, worked solutions, and full-length exams.",
+    whyItMatters:
+      "Medication calculations need both accuracy and clinical context. MedMath gives nursing learners repeated, structured practice across common adult-care scenarios without presenting itself as a clinical decision tool.",
+    features: [
+      "Adult med-surg and critical-care medication calculations",
+      "Targeted practice across 13 core competencies",
+      "Progressive hints and worked step-by-step solutions",
+      "Full-length nursing and critical-care simulation exams",
+    ],
+    caseStudy: {
+      problem:
+        "Dosage-calculation practice is often fragmented across worksheets and isolated question sets.",
+      insight:
+        "Learners need a clear path from guided category practice to a realistic exam, with enough feedback to understand why an answer is wrong.",
+      build:
+        "A responsive practice lab with a large validated question bank, targeted drills, progressive hints, worked solutions, and exam sessions.",
+      state: "Live at jethrochu.com/medmath.",
+      next: "Keep expanding and validating the clinical question bank.",
+    },
+    tags: ["healthcare", "nursing", "education", "medication-math", "practice"],
+    featured: true,
+    healthcareRelated: true,
+    aiRelated: false,
+    designRelated: true,
+  },
+  "abg-arena": {
+    id: "abg-arena",
+    subtitle: "Ranked arterial blood gas trainer",
+    builderRole: "solo: product design and full-stack build",
+    categories: ["healthcare", "design"],
+    status: "Live",
+    year: "2026",
+    oneLine:
+      "A ranked arterial blood gas interpretation trainer with continuous practice, live rating updates, global ranks, and intervention-focused feedback.",
+    whyItMatters:
+      "ABG interpretation becomes faster through repetition, but practice is more useful when it connects the acid-base pattern to compensation and clinical priorities.",
+    features: [
+      "Continuous ranked ABG interpretation practice",
+      "Rating updates and a global leaderboard",
+      "Acid-base disorder and compensation questions",
+      "Clinical intervention and monitoring review after each answer",
+    ],
+    caseStudy: {
+      problem:
+        "ABG interpretation can feel slow and abstract when learners only see occasional static examples.",
+      insight:
+        "A fast repeatable loop can make pattern recognition more fluent, while detailed feedback keeps the exercise grounded in clinical reasoning.",
+      build:
+        "A ranked practice experience with generated cases, persistent player progress, global standings, and structured teaching feedback.",
+      state: "Live at jethrochu.com/abg.",
+      next: "Continue refining the question mix and ranked learning loop.",
+    },
+    tags: ["healthcare", "nursing", "education", "abg", "clinical-reasoning"],
+    featured: true,
+    healthcareRelated: true,
+    aiRelated: false,
+    designRelated: true,
+  },
   "rate-my-hospital-food": {
     id: "rate-my-hospital-food",
     subtitle: "A real product out of a funny idea",

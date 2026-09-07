@@ -70,6 +70,8 @@ const lowerFirst = (s: string) => (s ? s[0].toLowerCase() + s.slice(1) : s);
 function matchProject(q: string): FullProject | null {
   if (/lab\s?logger/.test(q)) return projectById("lab-logger") ?? null;
   if (/nurse\s?jet/.test(q)) return projectById("nursejet") ?? null;
+  if (/med\s?math|medication math|dosage lab/.test(q)) return projectById("medmath") ?? null;
+  if (/\babg\b|arterial blood gas/.test(q)) return projectById("abg-arena") ?? null;
   if (has(q, "hospital food", "rate my hospital")) return projectById("rate-my-hospital-food") ?? null;
   if (has(q, "stock", "emotion", "face", "market game")) return projectById("emotion-stock-market-game") ?? null;
   if (has(q, "jethro os", "this site", "this portfolio")) return projectById("jethro-os") ?? null;

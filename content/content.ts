@@ -91,6 +91,26 @@ export const projects: Project[] = [
     // thumbnail: screenshot of a sample brief (the takeaways + citations layout)
   },
   {
+    id: "medmath",
+    title: "MedMath",
+    role: "Solo build",
+    stack: ["Next.js", "React", "TypeScript"],
+    summary:
+      "An adult medication-math practice lab for nursing education. It covers med-surg and critical-care calculations through category drills, progressive hints, worked solutions, and full-length simulation exams.",
+    tags: ["Nursing education", "Medication math"],
+    link: { href: "/medmath", label: "jethrochu.com/medmath" },
+  },
+  {
+    id: "abg-arena",
+    title: "ABG Arena",
+    role: "Solo build",
+    stack: ["Next.js", "React", "TypeScript"],
+    summary:
+      "A ranked arterial blood gas interpretation trainer for nursing and healthcare education. It combines continuous practice, live rating updates, global ranks, and intervention-focused feedback.",
+    tags: ["Nursing education", "Clinical reasoning"],
+    link: { href: "/abg", label: "jethrochu.com/abg" },
+  },
+  {
     id: "emotion-stock-market-game",
     title: "Emotion Stock Market Game",
     role: "Solo build",

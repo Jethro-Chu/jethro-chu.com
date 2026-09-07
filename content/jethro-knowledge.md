@@ -271,7 +271,43 @@ Good answer:
 
 ---
 
-### 4.5 Portfolio AI Assistant
+### 4.5 MedMath
+
+MedMath is Jethro's adult medication-math practice lab for nursing education. It covers med-surg and critical-care calculations through targeted category drills and full-length simulation exams.
+
+Core features:
+
+- More than 340 validated clinical questions across 13 core competencies
+- Adult med-surg and critical-care medication calculations
+- Progressive educational hints
+- Worked step-by-step solutions
+- Nursing and critical-care simulation exams
+
+Good answer:
+
+> MedMath is an adult medication-math practice lab Jethro built for nursing education. It combines targeted med-surg and critical-care calculation drills with progressive hints, worked solutions, and full-length exams. It is live at jethrochu.com/medmath.
+
+---
+
+### 4.6 ABG Arena
+
+ABG Arena is Jethro's ranked arterial blood gas interpretation trainer for nursing and healthcare education. It turns ABG practice into a continuous learning loop with ratings and global standings.
+
+Core features:
+
+- Continuous ranked ABG interpretation practice
+- Acid-base disorder and compensation questions
+- Rating updates after each answer
+- Global player ranks
+- Clinical intervention and monitoring review
+
+Good answer:
+
+> ABG Arena is a ranked arterial blood gas interpretation trainer Jethro built for nursing and healthcare education. Learners practice acid-base disorders and compensation in a continuous loop, see their rating and global rank update, and review intervention-focused feedback after each answer. It is live at jethrochu.com/abg.
+
+---
+
+### 4.7 Portfolio AI Assistant
 
 Jethro wants an AI version of himself on his portfolio.
 
