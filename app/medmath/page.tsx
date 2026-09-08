@@ -34,9 +34,9 @@ export default function MedMathLandingPage() {
       </section>
 
       {/* Primary Study Pathway Cards */}
-      <section className="space-y-4">
-        <div className="border-b border-[var(--color-line)] pb-3">
-          <h2 className="text-xl sm:text-2xl font-bold text-[var(--color-ink)]">
+      <section className="flex flex-col gap-6" aria-labelledby="study-pathways">
+        <div>
+          <h2 id="study-pathways" className="text-xl sm:text-2xl font-bold text-[var(--color-ink)]">
             Choose Your Study Pathway
           </h2>
           <p className="mt-1 text-sm text-[var(--color-ink-muted)]">
@@ -44,9 +44,9 @@ export default function MedMathLandingPage() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-3">
+        <div className="grid min-w-0 grid-cols-1 gap-6 lg:grid-cols-3">
           {/* Pathway 1: Nursing Med Math Exam */}
-          <div className="rounded-md border-2 border-[var(--color-pine)] bg-[var(--color-surface)] p-6 shadow-xs space-y-3 relative">
+          <div className="min-w-0 rounded-md border-2 border-[var(--color-pine)] bg-[var(--color-surface)] p-6 space-y-3">
             <div className="inline-flex items-center gap-1.5 rounded-xs bg-[var(--color-pine)] px-2.5 py-1 text-xs font-bold text-white">
               <span>Primary Exam</span>
             </div>
@@ -70,7 +70,7 @@ export default function MedMathLandingPage() {
           </div>
 
           {/* Pathway 2: Critical Care Exam */}
-          <div className="rounded-md border border-[var(--color-line)] bg-[var(--color-surface)] p-6 shadow-xs space-y-3">
+          <div className="min-w-0 rounded-md border border-[var(--color-line)] bg-[var(--color-surface)] p-6 space-y-3">
             <div className="inline-flex items-center gap-1.5 rounded-xs bg-[var(--color-primary)] px-2.5 py-1 text-xs font-bold text-white">
               <span>ICU Challenge</span>
             </div>
@@ -94,7 +94,7 @@ export default function MedMathLandingPage() {
           </div>
 
           {/* Pathway 3: Practice by Category */}
-          <div className="rounded-md border border-[var(--color-line)] bg-[var(--color-surface)] p-6 shadow-xs space-y-3">
+          <div className="min-w-0 rounded-md border border-[var(--color-line)] bg-[var(--color-surface)] p-6 space-y-3">
             <div className="inline-flex items-center gap-1.5 rounded-xs bg-[var(--color-sand)] px-2.5 py-1 text-xs font-bold text-[var(--color-ink)]">
               <span>Skill Mastery</span>
             </div>
