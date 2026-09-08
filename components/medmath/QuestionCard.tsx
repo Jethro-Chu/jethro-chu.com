@@ -44,7 +44,7 @@ function AnswerControl({
 }) {
   if (question.responseType === "numeric") {
     return (
-      <div className="flex min-w-0 flex-1 max-w-sm items-center rounded-sm border border-[var(--color-line-strong)] bg-[var(--color-surface)] focus-within:border-[var(--color-primary)]">
+      <div className="medmath-answer-field flex min-w-0 flex-1 max-w-sm items-center rounded-sm border border-[var(--color-line-strong)] bg-[var(--color-surface)]">
         <input
           ref={inputRef}
           type="text"
@@ -54,7 +54,7 @@ function AnswerControl({
           onChange={(event) => onChange(event.target.value)}
           disabled={disabled}
           placeholder="Enter value"
-          className="w-full min-w-0 rounded-sm bg-transparent px-3.5 py-2.5 font-mono text-base font-medium text-[var(--color-ink)] focus:border-[var(--color-primary)] focus:outline-hidden disabled:bg-gray-100 disabled:text-gray-500"
+          className="medmath-answer-input w-full min-w-0 border-0 bg-transparent px-3.5 py-2.5 font-mono text-base font-medium text-[var(--color-ink)] outline-none disabled:bg-gray-100 disabled:text-gray-500"
         />
         <div className="pointer-events-none shrink-0 pr-3.5 font-mono text-sm font-semibold text-[var(--color-ink-muted)]">
           {question.answerUnit}

@@ -27,6 +27,14 @@
   outline: 3px solid var(--color-primary);
   outline-offset: 3px;
 }
+.medmath .medmath-answer-field:focus-within {
+  border-color: var(--color-primary);
+  box-shadow: inset 0 0 0 1px var(--color-primary);
+  outline: none;
+}
+.medmath .medmath-answer-input:focus-visible {
+  outline: none;
+}
 .medmath :is(input, select) { border-color: var(--color-line-strong); }
 .medmath code { overflow-wrap: anywhere; }
 .medmath main { scroll-margin-top: 6rem; }
