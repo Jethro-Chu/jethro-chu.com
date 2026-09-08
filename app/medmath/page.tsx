@@ -13,7 +13,7 @@ export default function MedMathLandingPage() {
           Adult Med-Surg & Critical Care Medication Math
         </h1>
         <p className="text-base sm:text-lg leading-relaxed text-[var(--color-ink-muted)]">
-          Master adult medication calculations and high-yield medication knowledge through 340+ validated clinical questions across 13 core competencies.
+          Master adult medication calculations and high-yield medication knowledge through 350 practice questions across 13 core competencies.
           Features progressive educational hints, worked step-by-step solutions, full-length simulation exams, and anonymous analytics.
         </p>
 
@@ -85,7 +85,7 @@ export default function MedMathLandingPage() {
             </p>
             <div className="pt-2">
               <Link
-                href="/medmath/exam"
+                href="/medmath/exam?mode=critical-care"
                 className="inline-flex items-center gap-1 text-sm font-bold text-[var(--color-primary)] hover:underline"
               >
                 Start Critical Care Exam →
@@ -105,7 +105,7 @@ export default function MedMathLandingPage() {
               Targeted Remediation & Drills
             </p>
             <p className="text-sm leading-relaxed text-[var(--color-ink-muted)]">
-              Infinite randomized practice on specific calculation skills. Includes 3 progressive hints per question, step-by-step solutions, and immediate feedback.
+              Randomized practice on specific calculation skills. Includes 3 progressive hints per question, step-by-step solutions, and immediate feedback.
             </p>
             <div className="pt-2">
               <Link

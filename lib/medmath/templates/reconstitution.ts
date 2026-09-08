@@ -116,7 +116,7 @@ export const reconstitutionTemplates: QuestionTemplate[] = [
         correctAnswer: data.ans,
         answerUnit: "mL",
         answerPrecision: 2,
-        roundingInstruction: "Round to nearest tenth or hundredth (e.g. 1.6 or 0.75).",
+        roundingInstruction: "Round to the nearest hundredth if needed. Omit trailing zeros.",
         hints: [
           `Concentration is ${data.concMgMl} mg/mL.`,
           "Apply formula: Desired Dose (mg) ÷ Concentration (mg/mL).",

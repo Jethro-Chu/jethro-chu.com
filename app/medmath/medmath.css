@@ -1,0 +1,39 @@
+/* MedMath owns its clinical palette independently of the portfolio theme. */
+.medmath {
+  --color-bg: #F4F6F4;
+  --color-sand: #F4F6F4;
+  --color-surface: #FCFDFC;
+  --color-surface-sunk: #ECF0EE;
+  --color-ink: #0E1A16;
+  --color-muted: #51605A;
+  --color-ink-muted: #51605A;
+  --color-line: #C9D2CE;
+  --color-line-strong: #74817B;
+  --color-primary: #0B6E59;
+  --color-primary-deep: #07533F;
+  --color-pine: #0B6E59;
+  --color-pine-deep: #07533F;
+  --color-primary-wash: #E2EEE9;
+  --color-amber: #FF8A1F;
+  --color-amber-ink: #8A4B00;
+  --color-critical: #B3261E;
+  --font-display: var(--medmath-display), sans-serif;
+  --font-mono: var(--medmath-mono), monospace;
+  font-variant-numeric: tabular-nums;
+}
+.medmath :is(h1, h2, h3) { font-family: var(--font-display); }
+.medmath :is(code, input, .font-mono, .uppercase) { font-family: var(--font-mono); }
+.medmath :is(button, a, input, select):focus-visible {
+  outline: 3px solid var(--color-primary);
+  outline-offset: 3px;
+}
+.medmath :is(input, select) { border-color: var(--color-line-strong); }
+.medmath code { overflow-wrap: anywhere; }
+.medmath main { scroll-margin-top: 6rem; }
+@media (prefers-reduced-motion: reduce) {
+  .medmath *, .medmath *::before, .medmath *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}

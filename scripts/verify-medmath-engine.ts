@@ -176,6 +176,20 @@ assertThrows(
   "Invalid result answers must fail loudly during formatting",
 );
 
+assert(!gradeQuestionAnswer({ correctAnswer: 0, answerPrecision: 0, responseType: "multiple-choice" }, ""), "Blank choice incorrectly scored as option zero");
+
+// Nursing notation and rounding must be demonstrated by the submitted answer.
+for (const input of ["4.4", "3.6", "4.0", "4e0", "0x4", "4,", "-4", ""]) {
+  assert(!gradeAnswer({ correctAnswer: 4, answerPrecision: 0 }, input), `Unsafe or unrounded answer accepted: ${input}`);
+}
+assert(!gradeAnswer({ correctAnswer: 0.5, answerPrecision: 1 }, ".5"), "Leading zero required");
+assert(gradeAnswer({ correctAnswer: 0.5, answerPrecision: 1 }, "0.5"), "Decimal rejected");
+assert(gradeAnswer({ correctAnswer: 0.5, answerPrecision: 1 }, "1/2"), "Fraction rejected");
+assert(gradeAnswer({ correctAnswer: 1000, answerPrecision: 0 }, "1,000"), "Grouped number rejected");
+assert(!gradeAnswer({ correctAnswer: 100, answerPrecision: 0 }, "1,00"), "Malformed grouping accepted");
+assert(formatAnswer(5, 2) === "5", "Trailing zeros in displayed dose");
+assert(formatAnswer(0.5, 2) === "0.5", "Safe decimal formatting failed");
+
 for (const category of MEDMATH_CATEGORIES) {
   const count = STORED_MEDMATH_QUESTIONS.filter(
     (question) => question.category === category.id,

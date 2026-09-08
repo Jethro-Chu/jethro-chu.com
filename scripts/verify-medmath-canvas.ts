@@ -65,7 +65,7 @@ for (let seed = 1; seed <= 40; seed += 1) {
     assert.equal(gradeAnswer(question, String(question.correctAnswer)), true);
 
     if (Number.isInteger(question.correctAnswer)) {
-      assert.equal(gradeAnswer(question, `${question.correctAnswer}.00`), true);
+      assert.equal(gradeAnswer(question, `${question.correctAnswer}.00`), false, "Medication answers must not contain trailing zeros");
     }
     if (Math.abs(question.correctAnswer) >= 1000) {
       assert.equal(

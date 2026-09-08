@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import type {
   ExamMode,
   MedMathCategory,
@@ -19,6 +19,12 @@ function generateSessionUUID(): string {
 }
 
 export default function MedMathExamPage() {
+  useEffect(() => {
+    if (new URLSearchParams(window.location.search).get("mode") === "critical-care") {
+      setExamMode("critical-care");
+    }
+  }, []);
+  const [examError, setExamError] = useState<string | null>(null);
   const [isExamActive, setIsExamActive] = useState(false);
   const [examMode, setExamMode] = useState<ExamMode>("nursing-med-math");
   const [questionCount, setQuestionCount] = useState<number>(30);
@@ -35,6 +41,7 @@ export default function MedMathExamPage() {
 
   const handleStartExam = async () => {
     setIsLoadingExam(true);
+    setExamError(null);
     const newSessionId = generateSessionUUID();
     setSessionId(newSessionId);
 
@@ -60,12 +67,13 @@ export default function MedMathExamPage() {
         }),
       });
 
+      if (!res.ok) throw new Error("Unable to load exam questions. Please try again.");
       if (res.ok) {
         const data = (await res.json()) as { questions: QuestionClientView[] };
         setExamQuestions(data.questions);
 
         // 2. Initialize session in store
-        await fetch("/api/medmath/session", {
+        const sessionResponse = await fetch("/api/medmath/session", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
@@ -88,10 +96,12 @@ export default function MedMathExamPage() {
           }),
         });
 
+        if (!sessionResponse.ok) throw new Error("Unable to save the exam session. Please try again.");
         setIsExamActive(true);
       }
     } catch (err) {
       console.error("Failed to initialize exam:", err);
+      setExamError(err instanceof Error ? err.message : "The exam could not start. Please try again.");
     } finally {
       setIsLoadingExam(false);
     }
@@ -147,6 +157,7 @@ export default function MedMathExamPage() {
             {/* Card 1: Nursing Med Math Exam (Primary) */}
             <button
               type="button"
+              aria-pressed={examMode === "nursing-med-math"}
               onClick={() => setExamMode("nursing-med-math")}
               className={`rounded-md border p-4 sm:p-5 text-left transition-all relative ${
                 examMode === "nursing-med-math"
@@ -173,6 +184,7 @@ export default function MedMathExamPage() {
             {/* Card 2: Critical Care Exam */}
             <button
               type="button"
+              aria-pressed={examMode === "critical-care"}
               onClick={() => setExamMode("critical-care")}
               className={`rounded-md border p-4 sm:p-5 text-left transition-all ${
                 examMode === "critical-care"
@@ -199,6 +211,7 @@ export default function MedMathExamPage() {
             {/* Card 3: Custom Exam */}
             <button
               type="button"
+              aria-pressed={examMode === "custom"}
               onClick={() => setExamMode("custom")}
               className={`rounded-md border p-4 sm:p-5 text-left transition-all ${
                 examMode === "custom"
@@ -487,6 +500,7 @@ export default function MedMathExamPage() {
           </div>
         </div>
 
+        {examError && <p role="alert" className="text-sm text-[var(--color-critical)]">{examError}</p>}
         {/* Launch Button */}
         <div className="pt-2">
           <button

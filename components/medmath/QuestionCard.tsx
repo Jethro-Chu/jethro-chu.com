@@ -44,19 +44,19 @@ function AnswerControl({
 }) {
   if (question.responseType === "numeric") {
     return (
-      <div className="relative flex-1 max-w-xs">
+      <div className="flex min-w-0 flex-1 max-w-sm items-center rounded-sm border border-[var(--color-line-strong)] bg-[var(--color-surface)] focus-within:border-[var(--color-primary)]">
         <input
           ref={inputRef}
           type="text"
           inputMode="decimal"
-          pattern="[0-9.]*"
+          aria-label={`Answer in ${question.answerUnit}`}
           value={value}
           onChange={(event) => onChange(event.target.value)}
           disabled={disabled}
           placeholder="Enter value"
-          className="w-full rounded-sm border border-[var(--color-line)] bg-white/70 px-3.5 py-2.5 pr-20 text-base font-medium text-[var(--color-ink)] focus:border-[var(--color-primary)] focus:outline-hidden disabled:bg-gray-100 disabled:text-gray-500"
+          className="w-full min-w-0 rounded-sm bg-transparent px-3.5 py-2.5 font-mono text-base font-medium text-[var(--color-ink)] focus:border-[var(--color-primary)] focus:outline-hidden disabled:bg-gray-100 disabled:text-gray-500"
         />
-        <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3.5 text-sm font-semibold text-[var(--color-ink-muted)]">
+        <div className="pointer-events-none shrink-0 pr-3.5 font-mono text-sm font-semibold text-[var(--color-ink-muted)]">
           {question.answerUnit}
         </div>
       </div>
@@ -116,6 +116,7 @@ export function QuestionCard({
   const [submittedAnswer, setSubmittedAnswer] = useState(examSavedAnswer);
   const [attemptNumber, setAttemptNumber] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [requestError, setRequestError] = useState<string | null>(null);
   const [gradeResult, setGradeResult] = useState<AttemptResult | null>(null);
   const [revealedHints, setRevealedHints] = useState<string[]>([]);
   const [isLoadingHint, setIsLoadingHint] = useState(false);
@@ -131,6 +132,7 @@ export function QuestionCard({
     setSubmittedAnswer(examSavedAnswer || "");
     setAttemptNumber(1);
     setGradeResult(null);
+    setRequestError(null);
     setRevealedHints([]);
     setSolutionSteps(null);
     setIsRevealingSolution(false);
@@ -148,6 +150,7 @@ export function QuestionCard({
   const handleRevealHint = async () => {
     if (isLoadingHint) return;
     setIsLoadingHint(true);
+    setRequestError(null);
     try {
       const res = await fetch("/api/medmath/attempt", {
         method: "POST",
@@ -158,6 +161,7 @@ export function QuestionCard({
           hintIndex: revealedHints.length,
         }),
       });
+      if (!res.ok) throw new Error("Request failed");
       if (res.ok) {
         const data = (await res.json()) as { hint: string };
         if (data.hint) {
@@ -166,6 +170,7 @@ export function QuestionCard({
       }
     } catch (e) {
       console.error("Failed to fetch hint", e);
+      setRequestError("The hint could not be loaded. Please try again.");
     } finally {
       setIsLoadingHint(false);
     }
@@ -174,6 +179,7 @@ export function QuestionCard({
   const handleRevealSolution = async () => {
     if (isRevealingSolution || solutionSteps) return;
     setIsRevealingSolution(true);
+    setRequestError(null);
     try {
       const res = await fetch("/api/medmath/attempt", {
         method: "POST",
@@ -183,6 +189,7 @@ export function QuestionCard({
           action: "reveal-solution",
         }),
       });
+      if (!res.ok) throw new Error("Request failed");
       if (res.ok) {
         const data = (await res.json()) as {
           solutionSteps: SolutionStep[];
@@ -210,6 +217,7 @@ export function QuestionCard({
       }
     } catch (e) {
       console.error("Failed to fetch solution", e);
+      setRequestError("The solution could not be loaded. Please try again.");
     } finally {
       setIsRevealingSolution(false);
     }
@@ -227,6 +235,7 @@ export function QuestionCard({
     }
 
     setIsSubmitting(true);
+    setRequestError(null);
     const elapsedSeconds = Math.max(1, Math.round((Date.now() - startTimeRef.current) / 1000));
 
     try {
@@ -238,6 +247,7 @@ export function QuestionCard({
         solutionRevealedManually,
       );
 
+      if (!result) throw new Error("Grading unavailable");
       if (result) {
         setGradeResult(result);
         if (result.solutionSteps) {
@@ -246,6 +256,7 @@ export function QuestionCard({
       }
     } catch (err) {
       console.error("Grading failed", err);
+      setRequestError("Your answer could not be checked. Please try again.");
     } finally {
       setIsSubmitting(false);
     }
@@ -305,11 +316,11 @@ export function QuestionCard({
               Rx
             </span>
             <span className="text-xs font-bold uppercase tracking-wider text-[var(--color-ink)]">
-              {question.questionKind === "calculation" ? "Physician Order" : "Clinical Focus"}
+              {(question.questionKind ?? "calculation") === "calculation" ? "Medication Order" : "Clinical Focus"}
             </span>
           </div>
           <div className="text-base sm:text-lg font-semibold text-[var(--color-ink)] leading-snug">
-            {question.orderText}
+            <span className="whitespace-pre-line">{question.orderText}</span>
           </div>
         </div>
 
@@ -329,7 +340,7 @@ export function QuestionCard({
           {(question.patientWeightKg !== undefined || question.patientWeightLb !== undefined) && (
             <div className="rounded-sm border border-[var(--color-line)]/70 bg-[var(--color-surface)] p-3.5">
               <div className="text-xs font-semibold uppercase tracking-wider text-[var(--color-ink-muted)]">
-                Patient Adult Weight
+                Patient Weight
               </div>
               <div className="mt-1 flex items-baseline gap-2 text-sm sm:text-base font-semibold text-[var(--color-ink)]">
                 {question.patientWeightKg !== undefined && (
@@ -357,6 +368,13 @@ export function QuestionCard({
           )}
         </div>
 
+        {question.responseType === "numeric" && (
+          <p className="text-sm text-[var(--color-muted)]">
+            Round only the final answer as directed. Use a leading zero (0.5), no trailing zeros (5, not 5.0), and enter the value in the unit shown.
+          </p>
+        )}
+        {requestError && <p role="alert" className="text-sm text-[var(--color-critical)]">{requestError}</p>}
+        <span role="status" className="sr-only">{gradeResult ? (gradeResult.isCorrect ? "Correct answer" : "Answer not correct. Try again or review the solution.") : ""}</span>
         {/* Answer Submission Form */}
         {!isExamMode ? (
           <form onSubmit={handleSubmit} className="space-y-4 pt-2">

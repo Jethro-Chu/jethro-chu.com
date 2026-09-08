@@ -668,6 +668,7 @@ export function gradeQuestionAnswer(
     return gradeAnswer(question, userAnswer);
   }
 
+  if (typeof userAnswer === "string" && !/^\d+$/.test(userAnswer.trim())) return false;
   const submitted = typeof userAnswer === "number" ? userAnswer : Number(userAnswer.trim());
   return Number.isInteger(submitted) && submitted === question.correctAnswer;
 }

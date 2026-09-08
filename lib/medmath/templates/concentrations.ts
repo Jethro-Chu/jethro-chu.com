@@ -25,7 +25,7 @@ export const concentrationTemplates: QuestionTemplate[] = [
         correctAnswer: data.concMgMl,
         answerUnit: "mg/mL",
         answerPrecision: 2,
-        roundingInstruction: "Round to nearest tenth or hundredth (e.g. 1.6 or 1.25).",
+        roundingInstruction: "Round to the nearest hundredth if needed. Omit trailing zeros.",
         hints: [
           "Use the formula: Concentration (mg/mL) = Total Milligrams ÷ Total Volume (mL).",
           `Divide ${data.totalMg} mg by ${data.bagMl} mL.`,

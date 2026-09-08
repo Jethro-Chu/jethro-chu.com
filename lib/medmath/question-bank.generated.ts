@@ -10018,7 +10018,7 @@ export const STORED_MEDMATH_QUESTIONS: StoredNumericQuestion[] = [
     "correctAnswer": 1.6,
     "answerUnit": "mg/mL",
     "answerPrecision": 2,
-    "roundingInstruction": "Round to nearest tenth or hundredth (e.g. 1.6 or 1.25).",
+    "roundingInstruction": "Round to the nearest hundredth if needed. Omit trailing zeros.",
     "hints": [
       "Use the formula: Concentration (mg/mL) = Total Milligrams ÷ Total Volume (mL).",
       "Divide 400 mg by 250 mL.",
@@ -10675,7 +10675,7 @@ export const STORED_MEDMATH_QUESTIONS: StoredNumericQuestion[] = [
     "correctAnswer": 1.6,
     "answerUnit": "mL",
     "answerPrecision": 2,
-    "roundingInstruction": "Round to nearest tenth or hundredth (e.g. 1.6 or 0.75).",
+    "roundingInstruction": "Round to the nearest hundredth if needed. Omit trailing zeros.",
     "hints": [
       "Concentration is 62.5 mg/mL.",
       "Apply formula: Desired Dose (mg) ÷ Concentration (mg/mL).",

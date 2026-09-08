@@ -1,5 +1,6 @@
 "use client";
 
+import { formatAnswer } from "@/lib/medmath/rounding";
 import type { SolutionStep } from "@/lib/medmath/types";
 
 interface StepByStepSolutionProps {
@@ -23,7 +24,7 @@ export function StepByStepSolution({
 
   return (
     <div className="mt-6 rounded-md border border-[var(--color-line)] bg-[var(--color-surface)] p-5 sm:p-6 transition-all">
-      <div className="mb-4 flex items-center justify-between border-b border-[var(--color-line)] pb-3">
+      <div className="mb-4 flex flex-wrap items-center justify-between gap-3 border-b border-[var(--color-line)] pb-3">
         <div className="flex items-center gap-2">
           <span className="text-sm font-bold text-[var(--color-primary)]">
             Step-by-Step Clinical Solution
@@ -33,7 +34,7 @@ export function StepByStepSolution({
           <div className="flex items-center gap-2 text-sm font-semibold text-[var(--color-ink)]">
             <span>Correct Answer:</span>
             <span className="rounded-xs bg-[var(--color-sand)] px-2.5 py-0.5 font-bold text-emerald-700">
-              {correctAnswerLabel ?? `${correctAnswer?.toFixed(answerPrecision)} ${answerUnit}`}
+              {correctAnswerLabel ?? `${typeof correctAnswer === "number" ? formatAnswer(correctAnswer, answerPrecision) : ""} ${answerUnit}`}
             </span>
           </div>
         )}
@@ -90,7 +91,7 @@ export function StepByStepSolution({
         {safetyPearl && (
           <div className="rounded-sm border border-amber-300 bg-amber-50/80 p-4">
             <div className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-amber-900 mb-1">
-              <span>💡 Clinical Pearl:</span>
+              <span>Clinical Pearl:</span>
             </div>
             <p className="text-sm leading-relaxed text-[var(--color-ink)]">
               {safetyPearl}

@@ -11,7 +11,7 @@ export function MedMathHeader() {
   const isCanvas = pathname.startsWith("/medmath/canvas");
 
   return (
-    <header className="sticky top-0 z-40 w-full border-b border-[var(--color-line)] bg-[var(--color-sand)]/95 backdrop-blur-md transition-colors">
+    <header className="sticky top-0 z-40 w-full border-b border-[var(--color-line)] bg-[var(--color-surface)] transition-colors">
       <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-3 sm:px-6">
         <Link
           href="/medmath"
@@ -35,7 +35,8 @@ export function MedMathHeader() {
         >
           <Link
             href="/medmath/practice"
-            className={`rounded-sm px-3.5 py-1.5 text-sm font-medium transition-colors ${
+            aria-current={isPractice ? "page" : undefined}
+            className={`rounded-sm px-3 py-2.5 text-sm font-medium transition-colors ${
               isPractice
                 ? "bg-[var(--color-pine)] text-white shadow-xs font-semibold"
                 : "text-[var(--color-ink-muted)] hover:bg-[var(--color-surface)] hover:text-[var(--color-ink)]"
@@ -45,7 +46,8 @@ export function MedMathHeader() {
           </Link>
           <Link
             href="/medmath/exam"
-            className={`rounded-sm px-3.5 py-1.5 text-sm font-medium transition-colors ${
+            aria-current={isExam ? "page" : undefined}
+            className={`rounded-sm px-3 py-2.5 text-sm font-medium transition-colors ${
               isExam
                 ? "bg-[var(--color-pine)] text-white shadow-xs font-semibold"
                 : "text-[var(--color-ink-muted)] hover:bg-[var(--color-surface)] hover:text-[var(--color-ink)]"

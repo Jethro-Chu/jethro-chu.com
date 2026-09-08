@@ -1,7 +1,11 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Space_Grotesk, Space_Mono } from "next/font/google";
 import { MedMathHeader } from "@/components/medmath/MedMathHeader";
+import "./medmath.css";
 import { MEDICATION_EDUCATION_DISCLAIMER } from "@/lib/medmath/medication-facts";
+
+const display = Space_Grotesk({ subsets: ["latin"], display: "swap", variable: "--medmath-display" });
+const mono = Space_Mono({ subsets: ["latin"], weight: ["400", "700"], display: "swap", variable: "--medmath-mono" });
 
 const inter = Inter({
   subsets: ["latin"],
@@ -36,10 +40,10 @@ export default function MedMathLayout({
 }) {
   return (
     <div
-      className={`min-h-screen bg-[var(--color-sand)] text-[var(--color-ink)] flex flex-col selection:bg-[var(--color-primary)]/20 text-base leading-relaxed ${inter.className}`}
+      className={`medmath ${display.variable} ${mono.variable} min-h-screen bg-[var(--color-sand)] text-[var(--color-ink)] flex flex-col selection:bg-[var(--color-primary)]/20 text-base leading-relaxed ${inter.className}`}
     >
       <MedMathHeader />
-      <main className="flex-1 w-full max-w-5xl mx-auto px-4 py-8 sm:px-6">
+      <main id="main" tabIndex={-1} className="flex-1 w-full max-w-5xl mx-auto px-4 py-8 sm:px-6">
         {children}
       </main>
       <footer className="border-t border-[var(--color-line)] bg-[var(--color-surface)] py-6 mt-12">

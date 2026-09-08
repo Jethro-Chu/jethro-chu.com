@@ -62,6 +62,7 @@ export function PracticeView({
 
   const [selectedDifficulty, setSelectedDifficulty] = useState<PracticeDifficultySelection>("mixed");
   const [currentQuestion, setCurrentQuestion] = useState<QuestionClientView | null>(null);
+  const [loadError, setLoadError] = useState<string | null>(null);
   const [isLoadingQuestion, setIsLoadingQuestion] = useState(true);
   const [showTrackSelector, setShowTrackSelector] = useState(false);
 
@@ -75,6 +76,7 @@ export function PracticeView({
   const fetchNextQuestion = useCallback(
     async (excludeId?: string) => {
       setIsLoadingQuestion(true);
+      setLoadError(null);
       try {
         const res = await fetch("/api/medmath/question", {
           method: "POST",
@@ -87,6 +89,7 @@ export function PracticeView({
           }),
         });
 
+        if (!res.ok) throw new Error("Question request failed");
         if (res.ok) {
           const data = (await res.json()) as { question: QuestionClientView };
           if (data.question) {
@@ -95,6 +98,7 @@ export function PracticeView({
         }
       } catch (err) {
         console.error("Failed to load question:", err);
+        setLoadError("The next question could not be loaded. Please try again.");
       } finally {
         setIsLoadingQuestion(false);
       }
@@ -168,6 +172,11 @@ export function PracticeView({
 
   return (
     <div className="space-y-6">
+      {loadError && (
+        <div role="alert" className="text-sm text-[var(--color-critical)]">
+          {loadError} <button type="button" className="underline" onClick={() => fetchNextQuestion()}>Retry</button>
+        </div>
+      )}
       {heading && (
         <div className="space-y-2 border-b border-[var(--color-line)] pb-5">
           <div className="text-xs font-bold uppercase tracking-wider text-[var(--color-primary)]">

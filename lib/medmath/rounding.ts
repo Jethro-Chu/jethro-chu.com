@@ -27,29 +27,29 @@ export function gradeAnswer(
   }
 
   if (typeof userAnswer === "string") {
-    userAnswer = userAnswer.trim().replace(/,/g, "");
-    if (!userAnswer) return false;
-    // Support simple fractions like "1/2" or "3/4"
-    if (/^\d+\/\d+$/.test(userAnswer)) {
-      const [num, den] = userAnswer.split("/").map(Number);
-      if (den && den !== 0) {
-        userAnswer = num / den;
-      }
+    const text = userAnswer.trim();
+    // Accept decimal notation, correctly grouped thousands, or simple fractions.
+    // Number() alone would also accept hexadecimal and scientific notation.
+    if (/^\d+\/\d+$/.test(text)) {
+      const [numerator, denominator] = text.split("/").map(Number);
+      if (!denominator) return false;
+      userAnswer = numerator / denominator;
+    } else {
+      if (!/^(?:\d+|\d{1,3}(?:,\d{3})+)(?:\.\d+)?$/.test(text)) return false;
+      // Reinforce safe medication notation: leading zero, no trailing zeros.
+      if (text.includes(".") && text.endsWith("0")) return false;
+      userAnswer = Number(text.replace(/,/g, ""));
     }
   }
 
-  const user = Number(userAnswer);
-
-  if (!Number.isFinite(user)) return false;
-
-  return (
-    roundTo(user, question.answerPrecision) ===
-    roundTo(question.correctAnswer, question.answerPrecision)
-  );
+  if (!Number.isFinite(userAnswer) || userAnswer < 0) return false;
+  // Grade the entered value, not a silently rounded version of the response.
+  const expected = roundTo(question.correctAnswer, question.answerPrecision);
+  return Math.abs(userAnswer - expected) <= Number.EPSILON * Math.max(1, Math.abs(expected)) * 4;
 }
 
 /**
- * Formats a numeric answer to a clean string with exact precision.
+ * Formats the rounded answer with a leading zero and no trailing zeros.
  */
 export function formatAnswer(value: number, precision: number): string {
   if (!Number.isFinite(value)) {
@@ -58,5 +58,5 @@ export function formatAnswer(value: number, precision: number): string {
   if (!Number.isInteger(precision) || precision < 0) {
     throw new Error(`Cannot format answer with invalid precision: ${precision}`);
   }
-  return value.toFixed(precision);
+  return String(Number(roundTo(value, precision).toFixed(precision)));
 }

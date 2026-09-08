@@ -1,5 +1,7 @@
 "use client";
 
+import { formatAnswer } from "@/lib/medmath/rounding";
+
 import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
 import type {
@@ -62,8 +64,7 @@ function percentage(correct: number) {
 }
 
 function answerText(value: number, precision: number) {
-  if (precision === 0) return value.toFixed(0);
-  return value.toFixed(precision).replace(/\.0+$/, "");
+  return formatAnswer(value, precision);
 }
 
 function buildBreakdown(
@@ -702,7 +703,7 @@ export function CanvasAssessment({ mode }: { mode: AssessmentMode }) {
                 </div>
                 {currentQuestion.roundingInstruction && (
                   <p className={styles.roundingRule}>
-                    {currentQuestion.roundingInstruction}
+                    {currentQuestion.roundingInstruction} Use a leading zero (0.5) and omit trailing zeros (5, not 5.0).
                   </p>
                 )}
               </div>
