@@ -84,6 +84,18 @@
   height: 12px;
 }
 
+/* Sound toggle: the X's whisper treatment, parked just left of it. It fades
+   with the chrome (see .hidden) so a collapsed page still shows only the
+   background, the quokka, and the X. */
+.soundBtn {
+  right: calc(max(12px, env(safe-area-inset-right)) + 40px);
+}
+
+.soundBtn svg {
+  width: 14px;
+  height: 14px;
+}
+
 /* Onboarding bubble: floats just above the X with a caret pointing down at
    it. Never intercepts clicks; announced politely, then auto-dismisses. */
 .minHint {

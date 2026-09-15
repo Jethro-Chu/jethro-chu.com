@@ -37,34 +37,26 @@ const CHOICES: Array<{ id: SessionChoice; label: string }> = [
   { id: "break10", label: "Break 10m" },
 ];
 
-/** Two soft sine notes. Everything is guarded: silence is always acceptable. */
-function playChime() {
-  try {
-    const Ctor =
-      window.AudioContext ??
-      (window as unknown as { webkitAudioContext?: typeof AudioContext })
-        .webkitAudioContext;
-    if (!Ctor) return;
-    const ctx = new Ctor();
-    void ctx.resume().catch(() => undefined);
-    const notes = [523.25, 783.99];
-    notes.forEach((freq, i) => {
-      const osc = ctx.createOscillator();
-      const gain = ctx.createGain();
-      const t0 = ctx.currentTime + i * 0.32;
-      osc.type = "sine";
-      osc.frequency.value = freq;
-      gain.gain.setValueAtTime(0.0001, t0);
-      gain.gain.exponentialRampToValueAtTime(0.09, t0 + 0.03);
-      gain.gain.exponentialRampToValueAtTime(0.0001, t0 + 0.5);
-      osc.connect(gain).connect(ctx.destination);
-      osc.start(t0);
-      osc.stop(t0 + 0.55);
-    });
-    window.setTimeout(() => void ctx.close().catch(() => undefined), 1400);
-  } catch {
-    // No audio, no problem.
-  }
+const SOUND_SRC = "/pomodoro/02_mossy_soft_bells.mp3";
+
+function SpeakerOnIcon() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false">
+      <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
+      <path d="M15.54 8.46a5 5 0 0 1 0 7.07" />
+      <path d="M19.07 4.93a10 10 0 0 1 0 14.14" />
+    </svg>
+  );
+}
+
+function SpeakerOffIcon() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false">
+      <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
+      <line x1="23" y1="9" x2="17" y2="15" />
+      <line x1="17" y1="9" x2="23" y2="15" />
+    </svg>
+  );
 }
 
 function statusText(state: PomodoroState): string {
@@ -112,8 +104,17 @@ export default function PomodoroApp() {
   const [minHint, setMinHint] = useState(false);
   const minHintId = useRef(0);
   const [collapsed, setCollapsed] = useState(false);
+  const [soundOn, setSoundOn] = useState(true);
   const stateRef = useRef(state);
   stateRef.current = state;
+  // Fresh in every interval tick: the driver effect only re-subscribes on
+  // status changes, so it must read sound through a ref, never a closure.
+  const soundOnRef = useRef(true);
+  soundOnRef.current = soundOn;
+  const soundRef = useRef<HTMLAudioElement | null>(null);
+  // sessionIds rotate on every start: one ring per finished session even if
+  // a tick (or StrictMode) ever delivered justFinished twice.
+  const playedSessionRef = useRef<string | null>(null);
 
   // Reconcile with persisted state once (a session may have ended away).
   useEffect(() => {
@@ -122,11 +123,9 @@ export default function PomodoroApp() {
     setState(recovered.state);
     saveState(window.localStorage, recovered.state);
     setNow(Date.now());
+    // Visual celebration only: a load/refresh must never make a sound.
     if (recovered.justFinished === "study") {
       setCelebrating(true);
-      playChime();
-    } else if (recovered.justFinished === "break") {
-      playChime();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -136,31 +135,54 @@ export default function PomodoroApp() {
     saveState(window.localStorage, state);
   }, [state]);
 
-  // Restore the collapse preference (independent key; timer state untouched).
+  // Restore UI prefs (independent key; timer state untouched). Sound
+  // defaults ON; only an explicit false mutes it.
   useEffect(() => {
     try {
       const raw = window.localStorage.getItem(UI_KEY);
       if (raw) {
         const parsed: unknown = JSON.parse(raw);
-        if (
-          typeof parsed === "object" &&
-          parsed !== null &&
-          (parsed as { collapsed?: unknown }).collapsed === true
-        ) {
-          setCollapsed(true);
+        if (typeof parsed === "object" && parsed !== null) {
+          const ui = parsed as { collapsed?: unknown; soundOn?: unknown };
+          if (ui.collapsed === true) setCollapsed(true);
+          if (ui.soundOn === false) setSoundOn(false);
         }
       }
     } catch {
-      // Default to expanded.
+      // Defaults: expanded, sound on.
     }
   }, []);
   useEffect(() => {
     try {
-      window.localStorage.setItem(UI_KEY, JSON.stringify({ collapsed }));
+      window.localStorage.setItem(UI_KEY, JSON.stringify({ collapsed, soundOn }));
     } catch {
       // Private-mode storage errors must never break the timer.
     }
-  }, [collapsed]);
+  }, [collapsed, soundOn]);
+
+  // Preload the completion bell once so it starts instantly at 00:00.
+  // Element-based (not WebAudio): nothing to build at ring time, it plays
+  // whether the UI is collapsed or not, and it never touches the quokka.
+  useEffect(() => {
+    const audio = new Audio(SOUND_SRC);
+    audio.preload = "auto";
+    audio.loop = false;
+    audio.volume = 0.6;
+    soundRef.current = audio;
+    try {
+      audio.load();
+    } catch {
+      // A bell that never loads simply never rings.
+    }
+    return () => {
+      soundRef.current = null;
+      try {
+        audio.pause();
+      } catch {
+        // Unmounting must never throw.
+      }
+    };
+  }, []);
 
   // Countdown driver. Timestamp math keeps it accurate across tab switches;
   // the visibility listener snaps the UI the moment the tab returns.
@@ -174,9 +196,23 @@ export default function PomodoroApp() {
       setState(result.state);
       if (result.justFinished === "study") {
         setCelebrating(true);
-        playChime();
-      } else if (result.justFinished === "break") {
-        playChime();
+      }
+      if (
+        result.justFinished !== null &&
+        soundOnRef.current &&
+        playedSessionRef.current !== result.state.sessionId
+      ) {
+        playedSessionRef.current = result.state.sessionId;
+        const bell = soundRef.current;
+        if (bell) {
+          try {
+            bell.currentTime = 0;
+            const pending = bell.play();
+            if (pending) void pending.catch(() => undefined);
+          } catch {
+            // Blocked, missing, or unloadable: silence is acceptable.
+          }
+        }
       }
     };
     check(Date.now());
@@ -329,6 +365,15 @@ export default function PomodoroApp() {
         aria-expanded={!collapsed}
       >
         <XIcon />
+      </button>
+      <button
+        type="button"
+        className={`${styles.collapseBtn} ${styles.soundBtn}${collapsed ? ` ${styles.hidden}` : ""}`}
+        onClick={() => setSoundOn((s) => !s)}
+        aria-label={soundOn ? "Mute completion sound" : "Unmute completion sound"}
+        aria-pressed={soundOn}
+      >
+        {soundOn ? <SpeakerOnIcon /> : <SpeakerOffIcon />}
       </button>
       {minHint && !collapsed && (
         <p className={styles.minHint} role="status">
