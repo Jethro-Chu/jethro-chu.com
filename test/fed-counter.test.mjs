@@ -12,15 +12,15 @@ import {
 } from "../app/pomodoro/pomodoroState.ts";
 
 describe("fedLabel grammar", () => {
-  it("starts at 0 quokkas fed", () => {
-    assert.equal(fedLabel(0), "0 quokkas fed");
+  it("starts at 0 quokkas fed!", () => {
+    assert.equal(fedLabel(0), "0 quokkas fed!");
   });
   it("uses the singular for exactly 1", () => {
-    assert.equal(fedLabel(1), "1 quokka fed");
+    assert.equal(fedLabel(1), "1 quokka fed!");
   });
   it("uses the plural for 2+", () => {
-    assert.equal(fedLabel(2), "2 quokkas fed");
-    assert.equal(fedLabel(27), "27 quokkas fed");
+    assert.equal(fedLabel(2), "2 quokkas fed!");
+    assert.equal(fedLabel(27), "27 quokkas fed!");
   });
 });
 
@@ -31,7 +31,7 @@ describe("fed count increments on full study completion only", () => {
     const done = tick(s, t0 + 25 * 60 * 1000);
     assert.equal(done.justFinished, "study");
     assert.equal(done.state.completedStudy, 1);
-    assert.equal(fedLabel(done.state.completedStudy), "1 quokka fed");
+    assert.equal(fedLabel(done.state.completedStudy), "1 quokka fed!");
     // A repeated tick on the finished state never double-counts.
     assert.equal(tick(done.state, t0 + 26 * 60 * 1000).state.completedStudy, 1);
   });

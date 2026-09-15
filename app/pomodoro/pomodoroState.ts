@@ -217,7 +217,7 @@ export const STAGE_LABELS = [
 /** Fed-counter label: 0/2+ take the plural, exactly 1 is singular. */
 export function fedLabel(completedStudy: number): string {
   const n = Math.max(0, Math.floor(completedStudy));
-  return `${n} ${n === 1 ? "quokka" : "quokkas"} fed`;
+  return `${n} ${n === 1 ? "quokka" : "quokkas"} fed!`;
 }
 
 export function formatTime(totalSec: number): string {
