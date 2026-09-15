@@ -1,10 +1,6 @@
 // Eating-cycle tuning for the quokka, shared by the player and the
 // regression tests. No React, no DOM: pure constants.
 
-/** Idle wait after every 5s eating sequence: a fresh 12-18s each cycle. */
-export const EATING_GAP_MIN = 12000;
-export const EATING_GAP_JITTER = 6000;
-
 /**
  * Per-stage size compensation while eating frames are displayed. The eating
  * frames carry a Happy-sized body (864px wide, centered at x=561 on the

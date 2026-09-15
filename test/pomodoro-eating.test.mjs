@@ -1,19 +1,14 @@
 // Eating-animation contract: the shipped timeline must describe one exact
-// 5,000ms sequence over real 1254x1254 RGBA frames, and the player must run
-// it during any running Study session (no stage gate) with randomized
-// 12-18s idle gaps and per-stage size compensation so the quokka never pops
-// in size when a sequence starts or ends.
+// 5,000ms sequence over real 1254x1254 RGBA frames, and the player must loop
+// it continuously during any running Study session (no stage gate, no idle
+// gaps) with per-stage size compensation so the quokka never pops in size.
 // Run with `node --test test/pomodoro-eating.test.mjs`.
 import { describe, it } from "node:test";
 import assert from "node:assert/strict";
 import { existsSync, readFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import {
-  EATING_GAP_JITTER,
-  EATING_GAP_MIN,
-  eatingCompForStage,
-} from "../app/pomodoro/eating.ts";
+import { eatingCompForStage } from "../app/pomodoro/eating.ts";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const dir = join(root, "public/pomodoro/quokka-eating");
@@ -67,11 +62,18 @@ describe("eating timeline", () => {
   });
 });
 
-describe("eating schedule", () => {
-  it("waits a randomized 12-18s idle gap after every sequence", () => {
-    assert.equal(EATING_GAP_MIN, 12000);
-    assert.equal(EATING_GAP_JITTER, 6000);
-    assert.equal(EATING_GAP_MIN + EATING_GAP_JITTER, 18000);
+describe("continuous eating loop", () => {
+  it("player loops the timeline with no idle gaps", () => {
+    const tsx = readFileSync(
+      join(root, "app/pomodoro/Quokka.tsx"),
+      "utf8",
+    );
+    assert.ok(!tsx.includes("EATING_GAP"), "no gap constants used");
+    assert.ok(!tsx.includes("eatResting"), "no rest state");
+    assert.ok(
+      tsx.includes("cycleStart += EATING_TOTAL_MS"),
+      "drift-free wraparound",
+    );
   });
   it("player has no stage gate on eating", () => {
     const tsx = readFileSync(
