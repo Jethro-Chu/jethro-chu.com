@@ -3,9 +3,9 @@
 import { useEffect, useRef, useState } from "react";
 import { Quokka, type QuokkaActivity } from "./Quokka";
 import {
-  STAGE_LABELS,
   choiceOf,
   durationFor,
+  fedLabel,
   formatTime,
   loadState,
   pause,
@@ -75,6 +75,20 @@ function statusText(state: PomodoroState): string {
 function activityFor(state: PomodoroState): QuokkaActivity {
   if (state.status === "running") return state.mode === "study" ? "study" : "break";
   return "idle";
+}
+
+/** Tiny pixel paw: raw squares, no curves, no emoji-font roulette. */
+function PawIcon() {
+  return (
+    <svg viewBox="0 0 12 11" fill="currentColor" aria-hidden="true" focusable="false">
+      <rect x="1" y="2" width="2" height="2" />
+      <rect x="5" y="1" width="2" height="2" />
+      <rect x="9" y="2" width="2" height="2" />
+      <rect x="3" y="6" width="6" height="1" />
+      <rect x="2" y="7" width="8" height="2" />
+      <rect x="3" y="9" width="6" height="1" />
+    </svg>
+  );
 }
 
 function XIcon() {
@@ -323,8 +337,6 @@ export default function PomodoroApp() {
     if (next.mode === "study") flashMinHint();
   };
 
-  const sessionWord = state.completedStudy === 1 ? "session" : "sessions";
-  const pipsFilled = Math.min(4, state.completedStudy);
   const currentChoice = choiceOf(state);
 
   const onChoice = (c: SessionChoice) => {
@@ -397,19 +409,10 @@ export default function PomodoroApp() {
         {/* Always mounted: collapsing only hides it, so the flex column never
             reflows and the quokka stays pixel-still. visibility:hidden also
             drops it from the tab order and the accessibility tree. */}
-        <div className={`${styles.fullness}${collapsed ? ` ${styles.hidden}` : ""}`}>
-          <span className={styles.dots} aria-hidden="true">
-            {[0, 1, 2, 3].map((i) => (
-              <span
-                key={i}
-                className={`${styles.dot}${i < pipsFilled ? ` ${styles.dotFull}` : ""}`}
-              />
-            ))}
-          </span>
-          <span>
-            {state.completedStudy} {sessionWord} · {STAGE_LABELS[stage]}
-          </span>
-        </div>
+        <p className={`${styles.fedCounter}${collapsed ? ` ${styles.hidden}` : ""}`} role="status">
+          <PawIcon />
+          <span>{fedLabel(state.completedStudy)}</span>
+        </p>
 
         <div className={`${styles.console}${collapsed ? ` ${styles.hidden}` : ""}`}>
           <div className={styles.seg} role="group" aria-label="Session type">

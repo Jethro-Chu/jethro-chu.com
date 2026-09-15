@@ -214,6 +214,12 @@ export const STAGE_LABELS = [
   "Fully fed",
 ] as const;
 
+/** Fed-counter label: 0/2+ take the plural, exactly 1 is singular. */
+export function fedLabel(completedStudy: number): string {
+  const n = Math.max(0, Math.floor(completedStudy));
+  return `${n} ${n === 1 ? "quokka" : "quokkas"} fed`;
+}
+
 export function formatTime(totalSec: number): string {
   const s = Math.max(0, Math.round(totalSec));
   const m = Math.floor(s / 60);
