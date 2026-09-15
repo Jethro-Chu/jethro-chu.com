@@ -3,11 +3,13 @@
 import { useEffect, useRef, useState } from "react";
 import { Quokka, type QuokkaActivity } from "./Quokka";
 import {
+  STUDY_SEC,
   choiceOf,
   durationFor,
   fedLabel,
   formatTime,
   loadState,
+  parseStudyInput,
   pause,
   remainingNow,
   resetCurrent,
@@ -120,6 +122,19 @@ export default function PomodoroApp() {
   const minHintId = useRef(0);
   const [collapsed, setCollapsed] = useState(false);
   const [soundOn, setSoundOn] = useState(true);
+  // Custom Study duration for THIS visit only: in-memory state, deliberately
+  // never persisted (no localStorage/sessionStorage/cookies/URL), so every
+  // fresh visit reopens at the 25:00 default.
+  const [studySec, setStudySec] = useState(STUDY_SEC);
+  const studySecRef = useRef(STUDY_SEC);
+  studySecRef.current = studySec;
+  const [editing, setEditing] = useState(false);
+  const [draft, setDraft] = useState("");
+  const inputRef = useRef<HTMLInputElement>(null);
+  const displayBtnRef = useRef<HTMLButtonElement>(null);
+  const skipBlurCommit = useRef(false);
+  const refocusDisplay = useRef(false);
+  const wasEditing = useRef(false);
   const stateRef = useRef(state);
   stateRef.current = state;
   // Fresh in every interval tick: the driver effect only re-subscribes on
@@ -134,7 +149,14 @@ export default function PomodoroApp() {
 
   // Reconcile with persisted state once (a session may have ended away).
   useEffect(() => {
-    const recovered = loadState(window.localStorage, Date.now());
+    const loaded = loadState(window.localStorage, Date.now());
+    // A custom duration must not leak across visits through the persisted
+    // idle snapshot: an idle Study timer always reopens at the default.
+    // (Running/paused/finished states keep their in-flight progress.)
+    const recovered =
+      loaded.state.status === "idle" && loaded.state.mode === "study"
+        ? { ...loaded, state: { ...loaded.state, remainingSec: STUDY_SEC } }
+        : loaded;
     stateRef.current = recovered.state;
     setState(recovered.state);
     saveState(window.localStorage, recovered.state);
@@ -319,8 +341,70 @@ export default function PomodoroApp() {
     minHintId.current = window.setTimeout(() => setMinHint(false), MIN_HINT_MS);
   };
 
+  // Study-duration editor: open focuses and selects the draft; closing via
+  // keyboard returns focus to the display (closing via blur deliberately
+  // does not, so clicking Start right after typing works on the first tap).
+  useEffect(() => {
+    if (editing) {
+      const el = inputRef.current;
+      if (el) {
+        el.focus({ preventScroll: true });
+        el.select();
+      }
+    } else if (wasEditing.current && refocusDisplay.current) {
+      refocusDisplay.current = false;
+      displayBtnRef.current?.focus({ preventScroll: true });
+    }
+    wasEditing.current = editing;
+  }, [editing]);
+
+  const openEditor = () => {
+    setDraft(formatTime(stateRef.current.remainingSec));
+    skipBlurCommit.current = false;
+    setEditing(true);
+  };
+
+  // Applies the draft when valid; invalid input restores the previous value
+  // by simply changing nothing. The ref updates synchronously so a Start
+  // press in the same tick (after a blur-commit) still sees the new value.
+  const applyDraft = (raw: string): boolean => {
+    if (stateRef.current.status !== "idle" || stateRef.current.mode !== "study") {
+      return false;
+    }
+    const secs = parseStudyInput(raw);
+    if (secs === null) return false;
+    studySecRef.current = secs;
+    setStudySec(secs);
+    const next = { ...stateRef.current, remainingSec: secs };
+    stateRef.current = next;
+    setState(next);
+    return true;
+  };
+
+  const closeEditor = (save: boolean, refocus: boolean) => {
+    // The unmount-triggered blur must not commit a second time.
+    skipBlurCommit.current = true;
+    refocusDisplay.current = refocus;
+    if (save) applyDraft(draft);
+    setEditing(false);
+  };
+
+  const onEditBlur = () => {
+    if (skipBlurCommit.current) {
+      skipBlurCommit.current = false;
+      return;
+    }
+    applyDraft(draft);
+    setEditing(false);
+  };
+
+  const onEditKey = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") closeEditor(true, true);
+    else if (e.key === "Escape") closeEditor(false, true);
+  };
+
   const remaining = remainingNow(state, now || Date.now());
-  const full = durationFor(state.mode, state.breakMinutes);
+  const full = durationFor(state.mode, state.breakMinutes, studySec);
   const progress = full > 0 ? Math.min(1, Math.max(0, 1 - remaining / full)) : 0;
 
   // Live tab title while the timer matters; restored on unmount.
@@ -339,6 +423,10 @@ export default function PomodoroApp() {
       document.title = PAGE_TITLE;
     };
   }, [state.status, state.mode, remaining]);
+
+  // The Study display is editable only before Start: idle Study and nothing
+  // else. Running, paused, finished, and both Break modes stay locked text.
+  const editable = state.mode === "study" && state.status === "idle";
 
   const stage = stageFor(state.completedStudy);
   const finished = state.status === "finished";
@@ -365,14 +453,14 @@ export default function PomodoroApp() {
       ) {
         flashMinHint();
       }
-      const next = start(stateRef.current, t);
+      const next = start(stateRef.current, t, studySecRef.current);
       stateRef.current = next;
       setState(next);
     }
   };
 
   const onReset = () => {
-    const next = resetCurrent(stateRef.current);
+    const next = resetCurrent(stateRef.current, studySecRef.current);
     stateRef.current = next;
     setState(next);
     setCelebrating(false);
@@ -381,7 +469,7 @@ export default function PomodoroApp() {
   const onStartNext = () => {
     const t = Date.now();
     setNow(t);
-    const next = startNext(stateRef.current, t);
+    const next = startNext(stateRef.current, t, studySecRef.current);
     stateRef.current = next;
     setState(next);
     setCelebrating(false);
@@ -398,7 +486,7 @@ export default function PomodoroApp() {
       return;
     }
     if (c === "study") flashMinHint();
-    const next = selectSession(stateRef.current, c);
+    const next = selectSession(stateRef.current, c, studySecRef.current);
     stateRef.current = next;
     setState(next);
     setCelebrating(false);
@@ -485,9 +573,38 @@ export default function PomodoroApp() {
           <p className={styles.hint} role="status">
             {hint ?? ""}
           </p>
-          <p className={styles.timer} role="timer" aria-label={`Time remaining: ${formatTime(remaining)}`}>
-            {formatTime(remaining)}
-          </p>
+          {editing ? (
+            <input
+              ref={inputRef}
+              className={`${styles.timer} ${styles.timerInput}`}
+              value={draft}
+              onChange={(e) => setDraft(e.target.value)}
+              onBlur={onEditBlur}
+              onKeyDown={onEditKey}
+              aria-label="Study duration, minutes and seconds"
+              type="text"
+              inputMode="text"
+              autoComplete="off"
+              autoCorrect="off"
+              autoCapitalize="off"
+              spellCheck={false}
+              maxLength={6}
+            />
+          ) : editable ? (
+            <button
+              ref={displayBtnRef}
+              type="button"
+              className={`${styles.timer} ${styles.timerBtn}`}
+              onClick={openEditor}
+              aria-label={`Edit study duration, currently ${formatTime(remaining)}`}
+            >
+              {formatTime(remaining)}
+            </button>
+          ) : (
+            <p className={styles.timer} role="timer" aria-label={`Time remaining: ${formatTime(remaining)}`}>
+              {formatTime(remaining)}
+            </p>
+          )}
           <div className={styles.progress} aria-hidden="true">
             <div
               className={styles.progressFill}

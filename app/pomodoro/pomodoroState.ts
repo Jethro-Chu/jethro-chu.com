@@ -36,8 +36,34 @@ export interface TickResult {
   justFinished: Mode | null;
 }
 
-export function durationFor(mode: Mode, breakMinutes: BreakMinutes): number {
-  return mode === "study" ? STUDY_SEC : BREAK_SEC[breakMinutes];
+export function durationFor(
+  mode: Mode,
+  breakMinutes: BreakMinutes,
+  studySec: number = STUDY_SEC,
+): number {
+  return mode === "study" ? studySec : BREAK_SEC[breakMinutes];
+}
+
+/**
+ * Parse a typed Study duration. Accepts MM:SS ("15:00") or a bare minute
+ * count ("30" means 30:00). Returns total seconds, or null for anything
+ * invalid: 00:00, negatives, letters, malformed shapes, seconds >= 60,
+ * or anything outside 1..120 minutes.
+ */
+export function parseStudyInput(raw: string): number | null {
+  const t = raw.trim();
+  const bare = /^(\d{1,3})$/.exec(t);
+  if (bare) {
+    const min = Number(bare[1]);
+    return min >= 1 && min <= 120 ? min * 60 : null;
+  }
+  const parts = /^(\d{1,3}):(\d{2})$/.exec(t);
+  if (!parts) return null;
+  const min = Number(parts[1]);
+  const sec = Number(parts[2]);
+  if (sec > 59) return null;
+  const total = min * 60 + sec;
+  return total >= 60 && total <= 7200 ? total : null;
 }
 
 export function makeSessionId(now: number): string {
@@ -84,7 +110,11 @@ export function tick(state: PomodoroState, now: number): TickResult {
 }
 
 /** Start from idle (fresh attempt) or resume from pause. */
-export function start(state: PomodoroState, now: number): PomodoroState {
+export function start(
+  state: PomodoroState,
+  now: number,
+  studySec: number = STUDY_SEC,
+): PomodoroState {
   if (state.status === "running") return state;
   if (state.status === "paused" && state.remainingSec > 0) {
     return {
@@ -93,7 +123,7 @@ export function start(state: PomodoroState, now: number): PomodoroState {
       endAt: now + Math.round(state.remainingSec) * 1000,
     };
   }
-  const full = durationFor(state.mode, state.breakMinutes);
+  const full = durationFor(state.mode, state.breakMinutes, studySec);
   return {
     ...state,
     status: "running",
@@ -104,10 +134,14 @@ export function start(state: PomodoroState, now: number): PomodoroState {
 }
 
 /** From a finished session, begin the other mode. Never auto-called. */
-export function startNext(state: PomodoroState, now: number): PomodoroState {
+export function startNext(
+  state: PomodoroState,
+  now: number,
+  studySec: number = STUDY_SEC,
+): PomodoroState {
   if (state.status !== "finished") return state;
   const mode: Mode = state.mode === "study" ? "break" : "study";
-  const full = durationFor(mode, state.breakMinutes);
+  const full = durationFor(mode, state.breakMinutes, studySec);
   return {
     ...state,
     mode,
@@ -129,11 +163,14 @@ export function pause(state: PomodoroState, now: number): PomodoroState {
 }
 
 /** Restart the current timer; earned quokka progress is untouched. */
-export function resetCurrent(state: PomodoroState): PomodoroState {
+export function resetCurrent(
+  state: PomodoroState,
+  studySec: number = STUDY_SEC,
+): PomodoroState {
   return {
     ...state,
     status: "idle",
-    remainingSec: durationFor(state.mode, state.breakMinutes),
+    remainingSec: durationFor(state.mode, state.breakMinutes, studySec),
     endAt: null,
   };
 }
@@ -167,6 +204,7 @@ export function choiceOf(state: PomodoroState): SessionChoice {
 export function selectSession(
   state: PomodoroState,
   choice: SessionChoice,
+  studySec: number = STUDY_SEC,
 ): PomodoroState {
   if (state.status === "running") return state;
   if (choice === choiceOf(state) && state.status === "idle") return state;
@@ -178,7 +216,7 @@ export function selectSession(
     mode,
     breakMinutes,
     status: "idle",
-    remainingSec: durationFor(mode, breakMinutes),
+    remainingSec: durationFor(mode, breakMinutes, studySec),
     endAt: null,
   };
 }

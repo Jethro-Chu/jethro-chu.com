@@ -385,6 +385,45 @@
   text-shadow: 0 2px 14px rgba(0, 0, 0, 0.45);
 }
 
+/* Editable Study display: pixel-identical to the timer, with only a text
+   cursor and a whisper of brightening on hover to hint it can be edited.
+   Full UA reset (buttons/inputs bring their own font, color, padding). */
+.timerBtn {
+  background: transparent;
+  border: 0;
+  padding: 0;
+  width: 100%;
+  color: inherit;
+  text-align: center;
+  cursor: text;
+}
+
+.timerBtn:hover {
+  filter: brightness(1.08);
+}
+
+/* While editing: same type, plus a caret and a subtle underline instead of
+   any input box. The -2px bottom margin cancels the underline so the card
+   (and therefore the quokka) never shifts by a pixel. */
+.timerInput {
+  background: transparent;
+  border: 0;
+  border-bottom: 2px solid rgba(247, 240, 220, 0.4);
+  padding: 0;
+  margin-bottom: -2px;
+  width: 100%;
+  color: inherit;
+  text-align: center;
+  outline: none;
+  caret-color: var(--q-cream);
+}
+
+/* Stronger than the global .page :focus-visible ring on purpose: the
+   underline above is the focus affordance, never an input box. */
+.page .timerInput:focus-visible {
+  outline: none;
+}
+
 .progress {
   height: 6px;
   background: var(--q-line);
