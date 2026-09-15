@@ -336,7 +336,18 @@ export default function PomodoroApp() {
         </p>
       )}
       <div className={styles.content}>
-        <Quokka stage={stage} activity={activityFor(state)} celebrating={celebrating} />
+        <div className={styles.quokkaRow}>
+          <Quokka stage={stage} activity={activityFor(state)} celebrating={celebrating} />
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/pomodoro/good-days-ahead-sign.png"
+            alt="Wooden sign reading You Got This with a heart."
+            draggable={false}
+            decoding="async"
+            fetchPriority="low"
+            className={styles.sign}
+          />
+        </div>
 
         {/* Always mounted: collapsing only hides it, so the flex column never
             reflows and the quokka stays pixel-still. visibility:hidden also

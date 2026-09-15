@@ -170,7 +170,53 @@
 
 .quokka {
   width: min(360px, 78vw, 44svh);
+}
+
+/* Full-width row so the quokka stays centered while the sign hangs off one
+   side, its stake bottom sharing the quokka's ground line. The auto top
+   margin lives here now (moved off .quokka): identical layout. */
+.quokkaRow {
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center;
   margin-top: auto;
+}
+
+/* Little trail sign, a forest detail rather than a feature. Anchored to the
+   quokka's row (never the viewport): bottom:0 plants the stake on the same
+   ground the feet rest on. The left formula hugs the tree line on wide
+   screens but never lets the sign touch the quokka's frame. */
+.sign {
+  position: absolute;
+  bottom: 0;
+  left: max(
+    12px,
+    min(6vw, 130px, calc(50% - min(360px, 78vw, 44svh) / 2 - 120px))
+  );
+  width: 96px;
+  height: auto;
+  filter: saturate(0.82) brightness(0.9);
+  image-rendering: pixelated;
+  user-select: none;
+}
+
+@media (max-width: 900px) {
+  .sign {
+    width: 72px;
+    left: max(
+      12px,
+      min(6vw, 130px, calc(50% - min(360px, 78vw, 44svh) / 2 - 96px))
+    );
+  }
+}
+
+/* Phones leave ~40px beside the quokka: nowhere to plant the sign without
+   overlapping the art, so it sits this one out. */
+@media (max-width: 599px) {
+  .sign {
+    display: none;
+  }
 }
 
 .frame {
