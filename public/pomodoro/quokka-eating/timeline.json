@@ -1,0 +1,98 @@
+{
+  "name": "happy-quokka-eating",
+  "fullness_stage": "happy",
+  "duration_ms": 5000,
+  "canvas": {
+    "width": 1254,
+    "height": 1254
+  },
+  "unique_frames": 10,
+  "playback_steps": 20,
+  "frames": [
+    {
+      "file": "frames/01-look-at-leaf.png",
+      "duration_ms": 400
+    },
+    {
+      "file": "frames/02-lift-leaf.png",
+      "duration_ms": 250
+    },
+    {
+      "file": "frames/03-bite.png",
+      "duration_ms": 250
+    },
+    {
+      "file": "frames/04-chew-left.png",
+      "duration_ms": 200
+    },
+    {
+      "file": "frames/05-chew-open.png",
+      "duration_ms": 200
+    },
+    {
+      "file": "frames/06-chew-right.png",
+      "duration_ms": 200
+    },
+    {
+      "file": "frames/07-chew-relaxed.png",
+      "duration_ms": 200
+    },
+    {
+      "file": "frames/04-chew-left.png",
+      "duration_ms": 200
+    },
+    {
+      "file": "frames/05-chew-open.png",
+      "duration_ms": 200
+    },
+    {
+      "file": "frames/06-chew-right.png",
+      "duration_ms": 200
+    },
+    {
+      "file": "frames/07-chew-relaxed.png",
+      "duration_ms": 200
+    },
+    {
+      "file": "frames/04-chew-left.png",
+      "duration_ms": 200
+    },
+    {
+      "file": "frames/05-chew-open.png",
+      "duration_ms": 200
+    },
+    {
+      "file": "frames/06-chew-right.png",
+      "duration_ms": 200
+    },
+    {
+      "file": "frames/07-chew-relaxed.png",
+      "duration_ms": 200
+    },
+    {
+      "file": "frames/08-half-blink.png",
+      "duration_ms": 120
+    },
+    {
+      "file": "frames/09-contented-blink.png",
+      "duration_ms": 180
+    },
+    {
+      "file": "frames/08-half-blink.png",
+      "duration_ms": 120
+    },
+    {
+      "file": "frames/07-chew-relaxed.png",
+      "duration_ms": 280
+    },
+    {
+      "file": "frames/10-lower-paws.png",
+      "duration_ms": 1000
+    }
+  ],
+  "recommended_idle_gap_ms": [
+    10000,
+    20000
+  ],
+  "note": "Play once, then return to existing happy idle. The APNG preview loops continuously for review; production should use this timeline to allow pauses and reduced-motion handling."
+}

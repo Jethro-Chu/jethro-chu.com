@@ -2,6 +2,7 @@
 
 import { memo, useEffect, useRef, useState } from "react";
 import { STAGE_LABELS } from "./pomodoroState";
+import eatingTimeline from "../../public/pomodoro/quokka-eating/timeline.json";
 import styles from "./pomodoro.module.css";
 
 export type QuokkaActivity = "idle" | "study" | "break";
@@ -20,6 +21,35 @@ const NIBBLE_MS = 1600;
 const BLINK_MS = 180;
 const BLINK_GAP_MIN = 5200;
 const BLINK_GAP_JITTER = 2200;
+
+// Happy-stage eating cycle: the shipped timeline plays once (5,000ms), then
+// the quokka rests on the idle animation for 10-20s before eating again.
+// HAPPY_STAGE must match STAGE_NAMES/STAGE_LABELS index 2 ("happy").
+const HAPPY_STAGE = 2;
+const EATING_BASE = "/pomodoro/quokka-eating";
+const EATING_GAP_MIN = 10000;
+const EATING_GAP_JITTER = 10000;
+interface EatingStep {
+  file: string;
+  duration_ms: number;
+}
+const EATING_STEPS: EatingStep[] = (
+  eatingTimeline as { frames: EatingStep[] }
+).frames;
+const EATING_SRCS: string[] = [
+  ...new Set(EATING_STEPS.map((s) => `${EATING_BASE}/${s.file}`)),
+];
+// Cumulative step ends. Deadlines anchor to the cycle start plus these, so
+// frame quantization can never stretch the sequence past exactly 5,000ms.
+const EATING_CUM: number[] = [];
+EATING_STEPS.reduce((acc, s) => {
+  const end = acc + s.duration_ms;
+  EATING_CUM.push(end);
+  return end;
+}, 0);
+// rAF pauses while the tab is hidden; a gap bigger than this means the clock
+// jumped, so every animation deadline shifts forward instead of skipping.
+const HIDDEN_GAP_MS = 1500;
 
 function frameSrc(stage: number, pose: Pose): string {
   return `/pomodoro/quokka/${STAGE_NAMES[stage]}-${pose}.png`;
@@ -85,6 +115,23 @@ function QuokkaInner({ stage, activity, celebrating }: QuokkaProps) {
     }
   }, []);
 
+  // Eating frames preload lazily on first eligibility (happy + studying);
+  // the existing nibble stays visible until every frame is decoded, and the
+  // module-level cache makes later visits instant.
+  const [eatingReady, setEatingReady] = useState(false);
+  useEffect(() => {
+    if (activity !== "study" || stage !== HAPPY_STAGE || reduced || eatingReady) {
+      return;
+    }
+    let live = true;
+    void Promise.all(EATING_SRCS.map((src) => ensureDecoded(src))).then(() => {
+      if (live) setEatingReady(true);
+    });
+    return () => {
+      live = false;
+    };
+  }, [activity, stage, reduced, eatingReady]);
+
   // The single animation loop. Refs carry the clock so frames never cause
   // re-renders by themselves; only a validated frame swap calls setState.
   useEffect(() => {
@@ -121,6 +168,16 @@ function QuokkaInner({ stage, activity, celebrating }: QuokkaProps) {
     let blinkAt = 0;
     let blinkOffAt = 0;
     let clockStarted = false;
+    let lastNow = 0;
+    // Eating cycle: one 5s timeline, then the idle animation for 10-20s.
+    // A single loop owns all of it, so sequences can never overlap, and any
+    // pause/reset/mode change re-runs this effect, discarding the cycle.
+    const eatingEligible =
+      activity === "study" && stage === HAPPY_STAGE && eatingReady;
+    let eatResting = false;
+    let eatStep = 0;
+    let cycleStart = 0;
+    let restEnd = 0;
 
     const tick = (now: number) => {
       if (!live) return;
@@ -128,14 +185,49 @@ function QuokkaInner({ stage, activity, celebrating }: QuokkaProps) {
         clockStarted = true;
         nextNibbleAt = now + NIBBLE_MS;
         blinkAt = now + BLINK_GAP_MIN + Math.random() * BLINK_GAP_JITTER;
+        cycleStart = now;
       }
-      if (activity === "study") {
+      if (lastNow !== 0 && now - lastNow > HIDDEN_GAP_MS) {
+        // The tab was hidden (rAF paused): shift every deadline forward by
+        // the gap instead of skipping animation phases. Timer math lives
+        // elsewhere and is untouched.
+        const gap = now - lastNow;
+        nextNibbleAt += gap;
+        blinkAt += gap;
+        blinkOffAt += gap;
+        cycleStart += gap;
+        restEnd += gap;
+      }
+      lastNow = now;
+      if (eatingEligible) {
+        // Anchored (not chained) deadlines: the sequence always spans exactly
+        // the timeline's 5,000ms no matter the frame cadence. The loop catches
+        // up across sparse ticks without drifting later steps.
+        while (!eatResting && now >= cycleStart + EATING_CUM[eatStep]) {
+          eatStep += 1;
+          if (eatStep >= EATING_STEPS.length) {
+            eatResting = true;
+            restEnd =
+              now + EATING_GAP_MIN + Math.random() * EATING_GAP_JITTER;
+          }
+        }
+        if (eatResting && now >= restEnd) {
+          eatResting = false;
+          eatStep = 0;
+          cycleStart = now;
+        }
+      }
+      // While resting between sequences, the legacy idle animation (with its
+      // blinks) runs; while eating, the timeline owns the frame.
+      const effActivity: QuokkaActivity =
+        eatingEligible && eatResting ? "idle" : activity;
+      if (effActivity === "study") {
         blinkOn = false;
         if (now >= nextNibbleAt) {
           nibbleB = !nibbleB;
           nextNibbleAt = now + NIBBLE_MS;
         }
-      } else if (activity === "idle") {
+      } else if (effActivity === "idle") {
         nibbleB = false;
         if (!blinkOn && now >= blinkAt) {
           blinkOn = true;
@@ -150,16 +242,19 @@ function QuokkaInner({ stage, activity, celebrating }: QuokkaProps) {
       }
 
       const pose: Pose =
-        activity === "study"
+        effActivity === "study"
           ? nibbleB
             ? "nibble-b"
             : "nibble-a"
-          : activity === "break"
+          : effActivity === "break"
             ? "sleep"
             : blinkOn
               ? "blink"
               : "idle";
-      const target = frameSrc(stage, pose);
+      const target =
+        eatingEligible && !eatResting
+          ? `${EATING_BASE}/${EATING_STEPS[eatStep].file}`
+          : frameSrc(stage, pose);
       wantedRef.current = target;
       if (target !== displayRef.current) {
         void ensureDecoded(target).then(() => {
@@ -180,7 +275,7 @@ function QuokkaInner({ stage, activity, celebrating }: QuokkaProps) {
       live = false;
       cancelAnimationFrame(raf);
     };
-  }, [reduced, activity, stage]);
+  }, [reduced, activity, stage, eatingReady]);
 
   return (
     <div
