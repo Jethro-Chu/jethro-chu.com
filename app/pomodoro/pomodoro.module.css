@@ -45,35 +45,58 @@
 
 /* Collapse toggle: a small quiet eye, always in the same corner so the
    reopen control is easy to find in both modes. */
+/* Whisper-quiet toggle: a tiny near-invisible X pinned to the bottom-right,
+   clear of the quokka. Barely there at rest, fully present on hover or
+   keyboard focus. */
 .collapseBtn {
   position: fixed;
-  top: max(14px, env(safe-area-inset-top));
-  right: max(14px, env(safe-area-inset-right));
+  bottom: max(12px, env(safe-area-inset-bottom));
+  right: max(12px, env(safe-area-inset-right));
   z-index: 2;
-  width: 40px;
-  height: 40px;
+  width: 32px;
+  height: 32px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background: var(--q-pill);
-  border: 1px solid var(--q-line);
-  border-radius: 999px;
+  background: transparent;
+  border: none;
+  border-radius: 8px;
+  padding: 0;
   color: var(--q-cream);
+  opacity: 0.32;
   cursor: pointer;
   touch-action: manipulation;
+  transition: opacity 0.2s ease;
 }
 
 .collapseBtn:hover {
-  border-color: var(--q-cream);
+  opacity: 0.85;
+}
+
+.collapseBtn:focus-visible {
+  opacity: 1;
+  outline: 2px solid var(--q-cream);
+  outline-offset: 2px;
 }
 
 .collapseBtn svg {
-  width: 20px;
-  height: 20px;
+  width: 12px;
+  height: 12px;
 }
 
-/* Collapsing chrome: fades out, then JS unmounts it so nothing hollow stays
-   behind. */
+/* Collapsing chrome stays mounted so the column never reflows: the quokka
+   holds its exact position. visibility:hidden drops it from the tab order
+   and the accessibility tree. The base transition animates the expand; the
+   .hidden transition (later in the file, so it wins while applied) delays
+   the visibility flip until the fade-out finishes. */
+.fullness,
+.console {
+  transition:
+    opacity 0.25s ease,
+    translate 0.25s ease,
+    visibility 0s;
+}
+
 .hidden {
   opacity: 0;
   visibility: hidden;
@@ -83,16 +106,6 @@
     opacity 0.25s ease,
     translate 0.25s ease,
     visibility 0s linear 0.25s;
-}
-
-.fullness,
-.console {
-  animation: q-enter 0.3s ease-out;
-}
-
-@keyframes q-enter {
-  from { opacity: 0; translate: 0 8px; }
-  to { opacity: 1; translate: 0 0; }
 }
 
 /* Bottom-weighted column: the quokka's top margin absorbs spare height so
@@ -365,6 +378,7 @@
   .btnQuiet,
   .fullness,
   .console,
+  .collapseBtn,
   .hidden {
     animation: none !important;
     transition: none !important;

@@ -29,7 +29,6 @@ const CELEBRATION_MS = 2200;
 const HINT_MS = 4000;
 // Separate from the timer state key so UI prefs never disturb saved progress.
 const UI_KEY = "quokka-pomodoro/ui-v1";
-const CONCEAL_MS = 280;
 
 const CHOICES: Array<{ id: SessionChoice; label: string }> = [
   { id: "study", label: "Study" },
@@ -85,21 +84,10 @@ function activityFor(state: PomodoroState): QuokkaActivity {
   return "idle";
 }
 
-function EyeIcon() {
+function XIcon() {
   return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false">
-      <path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12Z" />
-      <circle cx="12" cy="12" r="2.6" />
-    </svg>
-  );
-}
-
-function EyeOffIcon() {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false">
-      <path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12Z" />
-      <circle cx="12" cy="12" r="2.6" />
-      <path d="M4 4l16 16" />
+    <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" aria-hidden="true" focusable="false">
+      <path d="M2.5 2.5l7 7M9.5 2.5l-7 7" />
     </svg>
   );
 }
@@ -121,7 +109,6 @@ export default function PomodoroApp() {
   const [celebrating, setCelebrating] = useState(false);
   const [hint, setHint] = useState<string | null>(null);
   const [collapsed, setCollapsed] = useState(false);
-  const [concealed, setConcealed] = useState(false);
   const stateRef = useRef(state);
   stateRef.current = state;
 
@@ -158,7 +145,6 @@ export default function PomodoroApp() {
           (parsed as { collapsed?: unknown }).collapsed === true
         ) {
           setCollapsed(true);
-          setConcealed(true);
         }
       }
     } catch {
@@ -171,21 +157,6 @@ export default function PomodoroApp() {
     } catch {
       // Private-mode storage errors must never break the timer.
     }
-  }, [collapsed]);
-
-  // Collapse fades the chrome out, then unmounts it so no empty containers
-  // remain. Expanding mounts it fresh with an entrance animation.
-  useEffect(() => {
-    if (!collapsed) {
-      setConcealed(false);
-      return;
-    }
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      setConcealed(true);
-      return;
-    }
-    const id = window.setTimeout(() => setConcealed(true), CONCEAL_MS);
-    return () => window.clearTimeout(id);
   }, [collapsed]);
 
   // Countdown driver. Timestamp math keeps it accurate across tab switches;
@@ -336,13 +307,14 @@ export default function PomodoroApp() {
         aria-label={collapsed ? "Show timer interface" : "Hide timer interface"}
         aria-expanded={!collapsed}
       >
-        {collapsed ? <EyeIcon /> : <EyeOffIcon />}
+        <XIcon />
       </button>
       <div className={styles.content}>
         <Quokka stage={stage} activity={activityFor(state)} celebrating={celebrating} />
 
-        {!concealed && (
-          <>
+        {/* Always mounted: collapsing only hides it, so the flex column never
+            reflows and the quokka stays pixel-still. visibility:hidden also
+            drops it from the tab order and the accessibility tree. */}
         <div className={`${styles.fullness}${collapsed ? ` ${styles.hidden}` : ""}`}>
           <span className={styles.dots} aria-hidden="true">
             {[0, 1, 2, 3].map((i) => (
@@ -414,8 +386,6 @@ export default function PomodoroApp() {
             {statusText(state)}
           </p>
         </div>
-          </>
-        )}
       </div>
     </main>
   );
