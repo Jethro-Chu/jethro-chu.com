@@ -2,6 +2,13 @@
 // regression tests. No React, no DOM: pure constants.
 
 /**
+ * Playback rate for the eating loop. The authored timeline totals 5,000ms;
+ * 1.25 plays it just a touch slower (6.25s per loop) without touching the
+ * artwork.
+ */
+export const EATING_RATE = 1.25;
+
+/**
  * Per-stage size compensation while eating frames are displayed. The eating
  * frames carry a Happy-sized body (864px wide, centered at x=561 on the
  * shared 1254 canvas), but every stage idles at its own body width on the

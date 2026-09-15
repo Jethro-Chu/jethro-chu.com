@@ -8,7 +8,7 @@ import assert from "node:assert/strict";
 import { existsSync, readFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { eatingCompForStage } from "../app/pomodoro/eating.ts";
+import { EATING_RATE, eatingCompForStage } from "../app/pomodoro/eating.ts";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const dir = join(root, "public/pomodoro/quokka-eating");
@@ -74,6 +74,8 @@ describe("continuous eating loop", () => {
       tsx.includes("cycleStart += EATING_TOTAL_MS"),
       "drift-free wraparound",
     );
+    assert.equal(EATING_RATE, 1.25);
+    assert.ok(tsx.includes("EATING_RATE"), "player scales by the rate");
   });
   it("player has no stage gate on eating", () => {
     const tsx = readFileSync(

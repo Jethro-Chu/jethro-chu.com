@@ -2,7 +2,7 @@
 
 import { memo, useEffect, useRef, useState } from "react";
 import { STAGE_LABELS } from "./pomodoroState";
-import { eatingCompForStage } from "./eating";
+import { EATING_RATE, eatingCompForStage } from "./eating";
 import eatingTimeline from "../../public/pomodoro/quokka-eating/timeline.json";
 import styles from "./pomodoro.module.css";
 
@@ -42,7 +42,7 @@ const EATING_SRCS: string[] = [
 // frame quantization can never stretch the sequence past exactly 5,000ms.
 const EATING_CUM: number[] = [];
 EATING_STEPS.reduce((acc, s) => {
-  const end = acc + s.duration_ms;
+  const end = acc + s.duration_ms * EATING_RATE;
   EATING_CUM.push(end);
   return end;
 }, 0);
@@ -203,8 +203,9 @@ function QuokkaInner({ stage, activity, celebrating }: QuokkaProps) {
       lastNow = now;
       if (eatingLive) {
         // Anchored (not chained) deadlines: every loop spans exactly the
-        // timeline's 5,000ms no matter the frame cadence. Wrapping adds the
-        // full loop length so the cycle can never drift.
+        // rate-scaled timeline (5,000ms x EATING_RATE) no matter the frame
+        // cadence. Wrapping adds the full loop length so the cycle can
+        // never drift.
         while (now >= cycleStart + EATING_CUM[eatStep]) {
           eatStep += 1;
           if (eatStep >= EATING_STEPS.length) {
