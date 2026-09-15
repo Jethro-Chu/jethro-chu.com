@@ -57,18 +57,6 @@
   padding: 20px 16px 30px;
 }
 
-.eyebrow {
-  font-family: var(--q-mono);
-  font-size: 0.78rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--q-cream);
-  background: var(--q-panel);
-  border-radius: 999px;
-  padding: 0.35rem 1rem;
-  margin: 0;
-}
-
 /* ---------- quokka ---------- */
 
 .quokka {

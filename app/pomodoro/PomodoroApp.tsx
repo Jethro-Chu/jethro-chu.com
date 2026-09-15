@@ -231,8 +231,6 @@ export default function PomodoroApp() {
       </picture>
 
       <div className={styles.content}>
-        <p className={styles.eyebrow}>{PAGE_TITLE}</p>
-
         <Quokka stage={stage} activity={activityFor(state)} celebrating={celebrating} />
 
         <div className={styles.console}>
