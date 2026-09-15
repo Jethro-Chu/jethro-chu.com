@@ -1,7 +1,8 @@
-// Scene-lock regression tripwire: the quokka/sign must never scroll with
-// the document, so the page is locked to one viewport and only the timer
-// dock may scroll (short viewports). A real browser proves the pixels; this
-// guards the four load-bearing declarations against silent reverts.
+// Scene-lock regression tripwire: the quokka/sign must never move with any
+// scroll vector, so the page itself is a fixed viewport box, the document
+// is scroll-locked while the route is mounted, and only the timer dock may
+// scroll (short viewports). A real browser proves the pixels; this guards
+// the load-bearing declarations against silent reverts.
 // Run with `node --test test/pomodoro-scene.test.mjs`.
 import { describe, it } from "node:test";
 import assert from "node:assert/strict";
@@ -19,17 +20,22 @@ function rule(selector) {
   return m[1];
 }
 
-describe("locked viewport scene", () => {
-  it("page is exactly one viewport tall and never scrolls", () => {
+describe("fixed scene layer", () => {
+  it("page is a fixed viewport box that never scrolls", () => {
     const page = rule(".page");
-    assert.match(page, /height:\s*100svh/);
-    assert.match(page, /overflow:\s*clip/);
+    assert.match(page, /position:\s*fixed/);
+    assert.match(page, /inset:\s*0/);
+    assert.match(page, /overflow:\s*hidden/);
     assert.doesNotMatch(page, /min-height/);
+    assert.doesNotMatch(page, /100(vh|svh|dvh)/);
   });
-  it("content column is exactly one viewport tall", () => {
-    const content = rule(".content");
-    assert.match(content, /height:\s*100svh/);
-    assert.doesNotMatch(content, /min-height/);
+  it("background is absolute inside the fixed page, not viewport-fixed", () => {
+    const bg = rule(".bg");
+    assert.match(bg, /position:\s*absolute/);
+    assert.match(bg, /inset:\s*0/);
+  });
+  it("content column fills the fixed page exactly", () => {
+    assert.match(rule(".content"), /height:\s*100%/);
   });
   it("quokka row can never shrink", () => {
     assert.match(rule(".quokkaRow"), /flex:\s*none/);
@@ -38,6 +44,25 @@ describe("locked viewport scene", () => {
     const dock = rule(".uiDock");
     assert.match(dock, /min-height:\s*0/);
     assert.match(dock, /overflow-y:\s*auto/);
+  });
+  it("route locks document scroll while mounted and restores on unmount", () => {
+    assert.ok(tsx.includes("document.documentElement"), "touches html element");
+    assert.ok(
+      tsx.includes("html.style.overflow = \"hidden\""),
+      "locks html overflow",
+    );
+    assert.ok(
+      tsx.includes("body.style.overflow = \"hidden\""),
+      "locks body overflow",
+    );
+    assert.ok(
+      tsx.includes("html.style.overflow = prev.htmlOverflow"),
+      "restores html overflow on unmount",
+    );
+    assert.ok(
+      tsx.includes("body.style.overflow = prev.bodyOverflow"),
+      "restores body overflow on unmount",
+    );
   });
   it("counter and console render inside the dock, quokka outside it", () => {
     const dockOpen = tsx.indexOf("<div className={styles.uiDock}>");

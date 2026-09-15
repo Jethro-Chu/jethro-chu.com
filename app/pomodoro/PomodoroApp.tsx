@@ -198,6 +198,29 @@ export default function PomodoroApp() {
     };
   }, []);
 
+  // Route-scoped scroll lock: while /pomodoro is mounted, the document
+  // itself cannot scroll by any vector (wheel, trackpad, PageUp/PageDown,
+  // touch, keyboard) — the scene has no scroll offset to follow. The
+  // timer dock keeps its own internal scroll on short viewports.
+  // Everything is restored on unmount, so the rest of the site is untouched.
+  useEffect(() => {
+    const html = document.documentElement;
+    const body = document.body;
+    const prev = {
+      htmlOverflow: html.style.overflow,
+      bodyOverflow: body.style.overflow,
+      bodyOverscroll: body.style.overscrollBehavior,
+    };
+    html.style.overflow = "hidden";
+    body.style.overflow = "hidden";
+    body.style.overscrollBehavior = "none";
+    return () => {
+      html.style.overflow = prev.htmlOverflow;
+      body.style.overflow = prev.bodyOverflow;
+      body.style.overscrollBehavior = prev.bodyOverscroll;
+    };
+  }, []);
+
   // Countdown driver. Timestamp math keeps it accurate across tab switches;
   // the visibility listener snaps the UI the moment the tab returns.
   useEffect(() => {

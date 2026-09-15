@@ -11,13 +11,13 @@
   --q-mono: ui-monospace, "SF Mono", "Cascadia Code", Menlo, Consolas, monospace;
   --q-sans: system-ui, -apple-system, "Segoe UI", sans-serif;
 
-  position: relative;
-  /* Locked to exactly one viewport: the document can never scroll, so the
-     scene (background, quokka, sign) is always stationary. Short viewports
-     scroll inside .uiDock instead. */
-  height: 100vh;
-  height: 100svh;
-  overflow: clip;
+  /* Dedicated fixed scene layer: the whole page IS the viewport box, so no
+     document scroll, wrapper overflow, or viewport-unit drift can ever move
+     the scene. svh-free on purpose: inset geometry never changes value the
+     way vh/dvh do when mobile browser chrome shows or hides. */
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
   background: #24351f;
   color: var(--q-cream);
   font-family: var(--q-sans);
@@ -30,9 +30,10 @@
   border-radius: 6px;
 }
 
-/* Full-viewport forest, picked by orientation in markup. Still by design. */
+/* Full-viewport forest, picked by orientation in markup. Absolute within the
+   fixed page: identical geometry to fixed, with no viewport dependency left. */
 .bg {
-  position: fixed;
+  position: absolute;
   inset: 0;
   z-index: 0;
   margin: 0;
@@ -170,8 +171,7 @@
 .content {
   position: relative;
   z-index: 1;
-  height: 100vh;
-  height: 100svh;
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
