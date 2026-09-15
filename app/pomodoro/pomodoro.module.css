@@ -1,175 +1,137 @@
-/* Scoped to /pomodoro only. Nothing here leaks to the rest of the site. */
+/* Scoped to /pomodoro only. A quiet forest clearing; nothing leaks out. */
 
 .page {
-  --q-cream: #faf3e3;
-  --q-panel: #fffdf4;
-  --q-ink: #4a2c17;
-  --q-ink-deep: #3b2414;
-  --q-soft: #7a5b3d;
-  --q-line: #e4d5b2;
-  --q-leaf: #3e7d44;
+  --q-cream: #f7f0dc;
+  --q-soft: #ddd3b6;
+  --q-gold: #e2ac4e;
+  --q-gold-deep: #2c1f10;
+  --q-leaf: #8fbf6f;
+  --q-leaf-deep: #16240f;
+  --q-panel: rgba(18, 28, 17, 0.72);
+  --q-line: rgba(247, 240, 220, 0.22);
   --q-mono: ui-monospace, "SF Mono", "Cascadia Code", Menlo, Consolas, monospace;
   --q-sans: system-ui, -apple-system, "Segoe UI", sans-serif;
 
+  position: relative;
   min-height: 100vh;
   min-height: 100svh;
-  background: var(--q-cream);
-  color: var(--q-ink);
+  background: #24351f;
+  color: var(--q-cream);
   font-family: var(--q-sans);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 28px 16px 44px;
 }
 
-.wrap {
+/* Visible focus on the dark scene (the global pine ring would vanish here). */
+.page :focus-visible {
+  outline: 3px solid var(--q-cream);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+/* Full-viewport forest, picked by orientation in markup. Still by design. */
+.bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  margin: 0;
+  pointer-events: none;
+}
+
+.bg img {
   width: 100%;
-  max-width: 440px;
-  background: var(--q-panel);
-  border: 2px solid var(--q-line);
-  border-radius: 20px;
-  box-shadow: 0 10px 32px rgba(74, 44, 23, 0.1);
-  padding: 28px 24px 26px;
-  text-align: center;
+  height: 100%;
+  object-fit: cover;
+  object-position: center bottom;
+  display: block;
+}
+
+.content {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  padding: 20px 16px 30px;
 }
 
 .eyebrow {
   font-family: var(--q-mono);
-  font-size: 0.8rem;
+  font-size: 0.78rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--q-soft);
-  margin: 0 0 4px;
+  color: var(--q-cream);
+  background: var(--q-panel);
+  border-radius: 999px;
+  padding: 0.35rem 1rem;
+  margin: 0;
 }
 
 /* ---------- quokka ---------- */
 
 .quokka {
-  width: min(224px, 60vw);
-  margin: 0 auto;
+  width: min(380px, 76vw, 42svh);
 }
 
-.quokkaInner {
-  width: 100%;
+.frame {
+  aspect-ratio: 1 / 1;
 }
 
-.quokkaSvg {
+.sprite {
   width: 100%;
-  height: auto;
+  height: 100%;
+  object-fit: contain;
   display: block;
-  image-rendering: pixelated;
+  user-select: none;
+  -webkit-user-drag: none;
 }
 
-/* Layer visibility defaults; poses below switch them on. */
-.eyesClosed,
-.nibble,
-.sleepMouth,
-.sleepZ,
-.celebrate,
-.chewB {
-  opacity: 0;
+/* Soft contact shadow grounding the sprite on the grass. */
+.groundShadow {
+  width: 52%;
+  height: 16px;
+  margin: -6px auto 0;
+  background: radial-gradient(
+    closest-side,
+    rgba(8, 16, 8, 0.5),
+    transparent
+  );
 }
 
-.poseStudy .nibble {
-  opacity: 1;
-}
-
-.poseBreak .eyesOpen {
-  opacity: 0;
-}
-
-.poseBreak .eyesClosed,
-.poseBreak .sleepMouth,
-.poseBreak .sleepZ {
-  opacity: 1;
-}
-
-.celebrating .celebrate {
-  opacity: 1;
-}
-
-/* Slow blink while awake: one brief blink about every 7 seconds. */
-.poseIdle .eyesOpen,
-.poseStudy .eyesOpen {
-  animation: q-blink-open 7s infinite;
-}
-
-.poseIdle .eyesClosed,
-.poseStudy .eyesClosed {
-  animation: q-blink-closed 7s infinite;
-}
-
-@keyframes q-blink-open {
-  0%, 91% { opacity: 1; }
-  93%, 95% { opacity: 0; }
-  97%, 100% { opacity: 1; }
-}
-
-@keyframes q-blink-closed {
-  0%, 91% { opacity: 0; }
-  93%, 95% { opacity: 1; }
-  97%, 100% { opacity: 0; }
-}
-
-/* Quiet chewing: two jaw frames alternate slowly, paws lift a touch. */
-.poseStudy .chewA {
-  animation: q-chew-a 1.4s infinite;
-}
-
-.poseStudy .chewB {
-  animation: q-chew-b 1.4s infinite;
-}
-
-@keyframes q-chew-a {
-  0%, 49% { opacity: 1; }
-  50%, 100% { opacity: 0; }
-}
-
-@keyframes q-chew-b {
-  0%, 49% { opacity: 0; }
-  50%, 100% { opacity: 1; }
-}
-
-.poseStudy .paws {
-  animation: q-paws 2.8s steps(1) infinite;
-}
-
-@keyframes q-paws {
-  0%, 49% { transform: translateY(0); }
-  50%, 100% { transform: translateY(-1px); }
-}
-
-/* Sleeping: slow breathing plus gently pulsing Z. */
-.poseBreak .quokkaSvg {
+/* Sleeping: slow breathing. */
+.breathe {
   animation: q-breathe 5s ease-in-out infinite;
   transform-origin: 50% 100%;
 }
 
 @keyframes q-breathe {
   0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.015); }
-}
-
-.poseBreak .sleepZ {
-  animation: q-z 3.4s ease-in-out infinite;
-}
-
-@keyframes q-z {
-  0%, 100% { opacity: 0.35; }
-  50% { opacity: 1; }
+  50% { transform: scale(1.018); }
 }
 
 /* Feeding celebration: three small hops. JS removes the class after. */
-.celebrating .quokkaInner {
+.celebrating {
   animation: q-bounce 0.55s ease-in-out 3;
 }
 
 @keyframes q-bounce {
   0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
+  50% { transform: translateY(-12px); }
 }
 
-/* ---------- timer ---------- */
+/* ---------- timer console ---------- */
+
+.console {
+  width: 100%;
+  max-width: 420px;
+  background: var(--q-panel);
+  border: 1px solid var(--q-line);
+  border-radius: 18px;
+  padding: 18px 22px 16px;
+  text-align: center;
+}
 
 .modePill {
   display: inline-block;
@@ -178,25 +140,27 @@
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--q-panel);
-  background: var(--q-ink);
+  color: var(--q-gold-deep);
+  background: var(--q-gold);
   border-radius: 999px;
   padding: 0.3rem 0.95rem;
-  margin: 10px 0 0;
+  margin: 0;
 }
 
 .modePill[data-mode="break"] {
   background: var(--q-leaf);
+  color: var(--q-leaf-deep);
 }
 
 .timer {
   font-family: var(--q-mono);
   font-weight: 700;
   font-variant-numeric: tabular-nums;
-  font-size: clamp(3.8rem, 19vw, 5.2rem);
+  font-size: clamp(3.4rem, 17vw, 4.6rem);
   line-height: 1.1;
   letter-spacing: -0.02em;
-  margin: 0.4rem 0 0;
+  margin: 0.35rem 0 0;
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.45);
 }
 
 .progress {
@@ -210,7 +174,7 @@
 
 .progressFill {
   height: 100%;
-  background: var(--q-ink);
+  background: var(--q-gold);
   border-radius: 999px;
   transition: width 0.4s linear;
 }
@@ -238,7 +202,7 @@
   font-size: 1rem;
   padding: 0.7rem 1.7rem;
   border-radius: 12px;
-  border: 2px solid var(--q-ink-deep);
+  border: 2px solid transparent;
   cursor: pointer;
   touch-action: manipulation;
   transition:
@@ -247,35 +211,34 @@
 }
 
 .btnPrimary {
-  background: var(--q-ink);
-  color: var(--q-cream);
-  box-shadow: 3px 3px 0 var(--q-ink-deep);
+  background: var(--q-gold);
+  color: var(--q-gold-deep);
+  border-color: #8a5f1e;
+  box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.45);
 }
 
 .btnPrimary:hover {
   transform: translate(-1px, -1px);
-  box-shadow: 4px 4px 0 var(--q-ink-deep);
+  box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.45);
 }
 
 .btnPrimary:active {
   transform: translate(2px, 2px);
-  box-shadow: 1px 1px 0 var(--q-ink-deep);
+  box-shadow: 1px 1px 0 rgba(0, 0, 0, 0.45);
 }
 
 .btnSecondary {
   background: transparent;
-  color: var(--q-ink);
-  box-shadow: 3px 3px 0 var(--q-line);
+  color: var(--q-cream);
+  border-color: var(--q-line);
 }
 
 .btnSecondary:hover {
-  transform: translate(-1px, -1px);
-  box-shadow: 4px 4px 0 var(--q-line);
+  border-color: var(--q-cream);
 }
 
 .btnSecondary:active {
-  transform: translate(2px, 2px);
-  box-shadow: 1px 1px 0 var(--q-line);
+  transform: translateY(1px);
 }
 
 .btn:disabled {
@@ -318,8 +281,8 @@
 }
 
 .segBtn[aria-pressed="true"] {
-  background: var(--q-ink);
-  color: var(--q-cream);
+  background: var(--q-gold);
+  color: var(--q-gold-deep);
 }
 
 .segBtn:disabled {
@@ -330,9 +293,9 @@
 /* ---------- fullness meter ---------- */
 
 .meter {
-  margin-top: 18px;
-  padding-top: 14px;
-  border-top: 2px solid var(--q-line);
+  margin-top: 16px;
+  padding-top: 12px;
+  border-top: 1px solid var(--q-line);
 }
 
 .pips {
@@ -349,7 +312,7 @@
 }
 
 .pipFull {
-  background: var(--q-ink);
+  background: var(--q-gold);
 }
 
 .meterLabel {
@@ -360,7 +323,7 @@
 }
 
 .note {
-  margin: 10px 0 0;
+  margin: 8px 0 0;
   font-size: 0.8rem;
   color: var(--q-soft);
   opacity: 0.85;
@@ -378,18 +341,15 @@
   border: 0;
 }
 
-/* Still poses for reduced motion: blinking, chewing, breathing, and the
-   celebration bounce all stop; the statically visible layers stay correct. */
+/* Still poses for reduced motion: breathing and the celebration bounce stop.
+   Frame swapping (blink, chew) is already gated in JS by the same setting. */
 @media (prefers-reduced-motion: reduce) {
-  .quokkaSvg,
-  .quokkaInner,
-  .eyesOpen,
-  .eyesClosed,
-  .chewA,
-  .chewB,
-  .paws,
-  .sleepZ,
-  .progressFill {
+  .sprite,
+  .celebrating,
+  .progressFill,
+  .btn,
+  .btnPrimary,
+  .btnSecondary {
     animation: none !important;
     transition: none !important;
   }

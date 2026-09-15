@@ -216,11 +216,26 @@ export default function PomodoroApp() {
 
   return (
     <main className={styles.page}>
-      <div className={styles.wrap}>
+      <picture className={styles.bg} aria-hidden="true">
+        <source
+          media="(min-aspect-ratio: 1/1)"
+          srcSet="/pomodoro/bg-forest-landscape.png"
+        />
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/pomodoro/bg-forest-portrait.png"
+          alt=""
+          decoding="async"
+          fetchPriority="high"
+        />
+      </picture>
+
+      <div className={styles.content}>
         <p className={styles.eyebrow}>{PAGE_TITLE}</p>
 
         <Quokka stage={stage} activity={activityFor(state)} celebrating={celebrating} />
 
+        <div className={styles.console}>
         <p className={styles.modePill} data-mode={state.mode}>
           {state.mode === "study" ? "Study" : "Break"}
         </p>
@@ -322,6 +337,7 @@ export default function PomodoroApp() {
             {STAGE_LABELS[stage]} · {state.completedStudy} {sessionWord}
           </p>
           <p className={styles.note}>Each full study session feeds the quokka.</p>
+        </div>
         </div>
       </div>
     </main>
