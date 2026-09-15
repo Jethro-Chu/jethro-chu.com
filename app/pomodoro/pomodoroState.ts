@@ -150,6 +150,39 @@ export function setMode(state: PomodoroState, mode: Mode): PomodoroState {
   };
 }
 
+/** One combined choice in the single mode selector. */
+export type SessionChoice = "study" | "break5" | "break10";
+
+export function choiceOf(state: PomodoroState): SessionChoice {
+  if (state.mode === "study") return "study";
+  return state.breakMinutes === 10 ? "break10" : "break5";
+}
+
+/**
+ * Apply a mode-selector choice. A running session is never discarded: the
+ * caller must require a pause first and explain that to the user.
+ * Re-selecting the current idle choice is a no-op; anything else restarts
+ * that timer fresh. Never awards food.
+ */
+export function selectSession(
+  state: PomodoroState,
+  choice: SessionChoice,
+): PomodoroState {
+  if (state.status === "running") return state;
+  if (choice === choiceOf(state) && state.status === "idle") return state;
+  const mode: Mode = choice === "study" ? "study" : "break";
+  const breakMinutes: BreakMinutes =
+    choice === "break10" ? 10 : choice === "break5" ? 5 : state.breakMinutes;
+  return {
+    ...state,
+    mode,
+    breakMinutes,
+    status: "idle",
+    remainingSec: durationFor(mode, breakMinutes),
+    endAt: null,
+  };
+}
+
 export function setBreakMinutes(
   state: PomodoroState,
   breakMinutes: BreakMinutes,

@@ -5,9 +5,8 @@
   --q-soft: #ddd3b6;
   --q-gold: #e2ac4e;
   --q-gold-deep: #2c1f10;
-  --q-leaf: #8fbf6f;
-  --q-leaf-deep: #16240f;
-  --q-panel: rgba(18, 28, 17, 0.72);
+  --q-panel: rgba(16, 26, 15, 0.85);
+  --q-pill: rgba(16, 26, 15, 0.6);
   --q-line: rgba(247, 240, 220, 0.22);
   --q-mono: ui-monospace, "SF Mono", "Cascadia Code", Menlo, Consolas, monospace;
   --q-sans: system-ui, -apple-system, "Segoe UI", sans-serif;
@@ -44,6 +43,9 @@
   display: block;
 }
 
+/* Bottom-weighted column: the quokka's top margin absorbs spare height so
+   its feet rest at a steady height over the grass; when the viewport is too
+   short the column simply flows and scrolls instead of clipping. */
 .content {
   position: relative;
   z-index: 1;
@@ -52,15 +54,16 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-end;
-  gap: 10px;
-  padding: 20px 16px 30px;
+  justify-content: flex-start;
+  gap: 8px;
+  padding: 16px 16px 20px;
 }
 
 /* ---------- quokka ---------- */
 
 .quokka {
-  width: min(380px, 76vw, 42svh);
+  width: min(360px, 78vw, 44svh);
+  margin-top: auto;
 }
 
 .frame {
@@ -76,14 +79,14 @@
   -webkit-user-drag: none;
 }
 
-/* Soft contact shadow grounding the sprite on the grass. */
+/* Soft contact shadow directly beneath the feet. */
 .groundShadow {
-  width: 52%;
-  height: 16px;
-  margin: -6px auto 0;
+  width: 46%;
+  height: 14px;
+  margin: -4px auto 0;
   background: radial-gradient(
     closest-side,
-    rgba(8, 16, 8, 0.5),
+    rgba(8, 16, 8, 0.55),
     transparent
   );
 }
@@ -109,55 +112,106 @@
   50% { transform: translateY(-12px); }
 }
 
+/* ---------- fullness (under the character, outside the panel) ---------- */
+
+.fullness {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--q-mono);
+  font-size: 0.8rem;
+  color: var(--q-cream);
+  background: var(--q-pill);
+  border-radius: 999px;
+  padding: 0.3rem 0.85rem;
+  margin: 0;
+  white-space: nowrap;
+}
+
+/* Four discrete dots, deliberately unlike the timer's continuous bar. */
+.dots {
+  display: inline-flex;
+  gap: 5px;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: var(--q-line);
+}
+
+.dotFull {
+  background: var(--q-gold);
+}
+
 /* ---------- timer console ---------- */
 
 .console {
   width: 100%;
-  max-width: 420px;
+  max-width: 380px;
   background: var(--q-panel);
   border: 1px solid var(--q-line);
   border-radius: 18px;
-  padding: 18px 22px 16px;
+  padding: 12px 18px;
   text-align: center;
 }
 
-.modePill {
-  display: inline-block;
-  font-family: var(--q-mono);
-  font-size: 0.78rem;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--q-gold-deep);
-  background: var(--q-gold);
-  border-radius: 999px;
-  padding: 0.3rem 0.95rem;
-  margin: 0;
+.seg {
+  display: inline-flex;
+  border: 2px solid var(--q-line);
+  border-radius: 12px;
+  overflow: hidden;
 }
 
-.modePill[data-mode="break"] {
-  background: var(--q-leaf);
-  color: var(--q-leaf-deep);
+.segBtn {
+  font: inherit;
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 0.6rem 0.9rem;
+  background: transparent;
+  color: var(--q-soft);
+  border: 0;
+  cursor: pointer;
+  touch-action: manipulation;
+  white-space: nowrap;
+}
+
+.segBtn + .segBtn {
+  border-left: 2px solid var(--q-line);
+}
+
+.segBtn[aria-pressed="true"] {
+  background: var(--q-gold);
+  color: var(--q-gold-deep);
+}
+
+/* Reserved line so the pause-to-switch hint never shifts the layout. */
+.hint {
+  margin: 2px 0 0;
+  min-height: 1.2em;
+  font-size: 0.82rem;
+  color: var(--q-gold);
 }
 
 .timer {
   font-family: var(--q-mono);
   font-weight: 700;
   font-variant-numeric: tabular-nums;
-  font-size: clamp(3.4rem, 17vw, 4.6rem);
-  line-height: 1.1;
+  font-size: clamp(3rem, 15vw, 4rem);
+  line-height: 1.05;
   letter-spacing: -0.02em;
-  margin: 0.35rem 0 0;
+  margin: 2px 0 0;
   text-shadow: 0 2px 14px rgba(0, 0, 0, 0.45);
 }
 
 .progress {
-  height: 8px;
+  height: 6px;
   background: var(--q-line);
   border-radius: 999px;
   overflow: hidden;
-  margin: 10px auto 0;
-  max-width: 300px;
+  margin: 8px auto 0;
+  max-width: 260px;
 }
 
 .progressFill {
@@ -167,28 +221,21 @@
   transition: width 0.4s linear;
 }
 
-.status {
-  margin: 10px 0 0;
-  min-height: 1.7em;
-  color: var(--q-soft);
-  font-size: 1rem;
-}
-
 /* ---------- controls ---------- */
 
 .controls {
   display: flex;
-  gap: 12px;
+  gap: 10px;
   justify-content: center;
-  flex-wrap: wrap;
-  margin-top: 14px;
+  align-items: stretch;
+  margin-top: 10px;
 }
 
 .btn {
   font: inherit;
   font-weight: 700;
   font-size: 1rem;
-  padding: 0.7rem 1.7rem;
+  padding: 0.65rem 1.2rem;
   border-radius: 12px;
   border: 2px solid transparent;
   cursor: pointer;
@@ -199,6 +246,7 @@
 }
 
 .btnPrimary {
+  flex: 1 1 auto;
   background: var(--q-gold);
   color: var(--q-gold-deep);
   border-color: #8a5f1e;
@@ -215,17 +263,21 @@
   box-shadow: 1px 1px 0 rgba(0, 0, 0, 0.45);
 }
 
-.btnSecondary {
+.btnQuiet {
   background: transparent;
-  color: var(--q-cream);
+  color: var(--q-soft);
   border-color: var(--q-line);
+  font-size: 0.92rem;
+  font-weight: 600;
+  padding: 0.55rem 1rem;
 }
 
-.btnSecondary:hover {
+.btnQuiet:hover {
+  color: var(--q-cream);
   border-color: var(--q-cream);
 }
 
-.btnSecondary:active {
+.btnQuiet:active {
   transform: translateY(1px);
 }
 
@@ -233,88 +285,6 @@
   opacity: 0.4;
   cursor: default;
   transform: none;
-}
-
-/* ---------- mode + break pickers ---------- */
-
-.pickRow {
-  display: flex;
-  gap: 10px;
-  justify-content: center;
-  flex-wrap: wrap;
-  margin-top: 16px;
-}
-
-.seg {
-  display: inline-flex;
-  border: 2px solid var(--q-line);
-  border-radius: 12px;
-  overflow: hidden;
-}
-
-.segBtn {
-  font: inherit;
-  font-size: 0.9rem;
-  font-weight: 600;
-  padding: 0.45rem 1rem;
-  background: transparent;
-  color: var(--q-soft);
-  border: 0;
-  cursor: pointer;
-  touch-action: manipulation;
-}
-
-.segBtn + .segBtn {
-  border-left: 2px solid var(--q-line);
-}
-
-.segBtn[aria-pressed="true"] {
-  background: var(--q-gold);
-  color: var(--q-gold-deep);
-}
-
-.segBtn:disabled {
-  opacity: 0.4;
-  cursor: default;
-}
-
-/* ---------- fullness meter ---------- */
-
-.meter {
-  margin-top: 16px;
-  padding-top: 12px;
-  border-top: 1px solid var(--q-line);
-}
-
-.pips {
-  display: flex;
-  gap: 6px;
-  justify-content: center;
-}
-
-.pip {
-  width: 32px;
-  height: 10px;
-  border-radius: 999px;
-  background: var(--q-line);
-}
-
-.pipFull {
-  background: var(--q-gold);
-}
-
-.meterLabel {
-  margin: 8px 0 0;
-  font-family: var(--q-mono);
-  font-size: 0.85rem;
-  color: var(--q-soft);
-}
-
-.note {
-  margin: 8px 0 0;
-  font-size: 0.8rem;
-  color: var(--q-soft);
-  opacity: 0.85;
 }
 
 .srOnly {
@@ -337,7 +307,7 @@
   .progressFill,
   .btn,
   .btnPrimary,
-  .btnSecondary {
+  .btnQuiet {
     animation: none !important;
     transition: none !important;
   }

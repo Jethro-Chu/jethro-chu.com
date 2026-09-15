@@ -3,8 +3,8 @@
 import { useEffect, useRef, useState } from "react";
 import { Quokka, type QuokkaActivity } from "./Quokka";
 import {
-  BREAK_SEC,
   STAGE_LABELS,
+  choiceOf,
   durationFor,
   formatTime,
   loadState,
@@ -12,8 +12,7 @@ import {
   remainingNow,
   resetCurrent,
   saveState,
-  setBreakMinutes,
-  setMode,
+  selectSession,
   stageFor,
   start,
   startNext,
@@ -21,11 +20,19 @@ import {
   type BreakMinutes,
   type Mode,
   type PomodoroState,
+  type SessionChoice,
 } from "./pomodoroState";
 import styles from "./pomodoro.module.css";
 
 const PAGE_TITLE = "Quokka Pomodoro";
 const CELEBRATION_MS = 2200;
+const HINT_MS = 4000;
+
+const CHOICES: Array<{ id: SessionChoice; label: string }> = [
+  { id: "study", label: "Study" },
+  { id: "break5", label: "Break 5m" },
+  { id: "break10", label: "Break 10m" },
+];
 
 /** Two soft sine notes. Everything is guarded: silence is always acceptable. */
 function playChime() {
@@ -90,6 +97,7 @@ export default function PomodoroApp() {
   }));
   const [now, setNow] = useState(0);
   const [celebrating, setCelebrating] = useState(false);
+  const [hint, setHint] = useState<string | null>(null);
   const stateRef = useRef(state);
   stateRef.current = state;
 
@@ -149,6 +157,17 @@ export default function PomodoroApp() {
     const id = window.setTimeout(() => setCelebrating(false), CELEBRATION_MS);
     return () => window.clearTimeout(id);
   }, [celebrating]);
+
+  // The pause-to-switch hint is brief: it clears on any timer change or after
+  // a few seconds.
+  useEffect(() => {
+    setHint(null);
+  }, [state.status, state.mode, state.breakMinutes]);
+  useEffect(() => {
+    if (!hint) return;
+    const id = window.setTimeout(() => setHint(null), HINT_MS);
+    return () => window.clearTimeout(id);
+  }, [hint]);
 
   const remaining = remainingNow(state, now || Date.now());
   const full = durationFor(state.mode, state.breakMinutes);
@@ -213,6 +232,20 @@ export default function PomodoroApp() {
 
   const sessionWord = state.completedStudy === 1 ? "session" : "sessions";
   const pipsFilled = Math.min(4, state.completedStudy);
+  const currentChoice = choiceOf(state);
+
+  const onChoice = (c: SessionChoice) => {
+    if (stateRef.current.status === "running") {
+      if (c !== choiceOf(stateRef.current)) {
+        setHint("Pause the timer to switch modes.");
+      }
+      return;
+    }
+    const next = selectSession(stateRef.current, c);
+    stateRef.current = next;
+    setState(next);
+    setCelebrating(false);
+  };
 
   return (
     <main className={styles.page}>
@@ -233,109 +266,76 @@ export default function PomodoroApp() {
       <div className={styles.content}>
         <Quokka stage={stage} activity={activityFor(state)} celebrating={celebrating} />
 
-        <div className={styles.console}>
-        <p className={styles.modePill} data-mode={state.mode}>
-          {state.mode === "study" ? "Study" : "Break"}
-        </p>
-        <p className={styles.timer} role="timer" aria-label={`Time remaining: ${formatTime(remaining)}`}>
-          {formatTime(remaining)}
-        </p>
-        <div className={styles.progress} aria-hidden="true">
-          <div
-            className={styles.progressFill}
-            style={{ width: `${Math.round(progress * 100)}%` }}
-          />
-        </div>
-        <p className={styles.status} role="status">
-          {statusText(state)}
-        </p>
-
-        <div className={styles.controls}>
-          {finished ? (
-            <button
-              type="button"
-              className={`${styles.btn} ${styles.btnPrimary}`}
-              onClick={onStartNext}
-            >
-              {state.mode === "study" ? "Start break" : "Start study"}
-            </button>
-          ) : (
-            <button
-              type="button"
-              className={`${styles.btn} ${styles.btnPrimary}`}
-              onClick={onPrimary}
-            >
-              {primaryLabel}
-            </button>
-          )}
-          <button
-            type="button"
-            className={`${styles.btn} ${styles.btnSecondary}`}
-            onClick={onReset}
-          >
-            Reset
-          </button>
-        </div>
-
-        <div className={styles.pickRow}>
-          <div className={styles.seg} role="group" aria-label="Timer mode">
-            {(["study", "break"] as Mode[]).map((m) => (
-              <button
-                key={m}
-                type="button"
-                className={styles.segBtn}
-                aria-pressed={state.mode === m}
-                disabled={running}
-                onClick={() => {
-                  const next = setMode(stateRef.current, m);
-                  stateRef.current = next;
-                  setState(next);
-                  setCelebrating(false);
-                }}
-              >
-                {m === "study" ? "Study" : "Break"}
-              </button>
-            ))}
-          </div>
-          {state.mode === "break" && (
-            <div className={styles.seg} role="group" aria-label="Break length">
-              {([5, 10] as BreakMinutes[]).map((m) => (
-                <button
-                  key={m}
-                  type="button"
-                  className={styles.segBtn}
-                  aria-pressed={state.breakMinutes === m}
-                  disabled={running}
-                  onClick={() => {
-                    const next = setBreakMinutes(stateRef.current, m);
-                    stateRef.current = next;
-                    setState(next);
-                  }}
-                >
-                  {m} min
-                </button>
-              ))}
-            </div>
-          )}
-        </div>
-        <span className={styles.srOnly}>
-          Break timer is set to {BREAK_SEC[state.breakMinutes] / 60} minutes.
-        </span>
-
-        <div className={styles.meter}>
-          <div className={styles.pips} aria-hidden="true">
+        <div className={styles.fullness}>
+          <span className={styles.dots} aria-hidden="true">
             {[0, 1, 2, 3].map((i) => (
               <span
                 key={i}
-                className={`${styles.pip}${i < pipsFilled ? ` ${styles.pipFull}` : ""}`}
+                className={`${styles.dot}${i < pipsFilled ? ` ${styles.dotFull}` : ""}`}
               />
             ))}
-          </div>
-          <p className={styles.meterLabel}>
-            {STAGE_LABELS[stage]} · {state.completedStudy} {sessionWord}
-          </p>
-          <p className={styles.note}>Each full study session feeds the quokka.</p>
+          </span>
+          <span>
+            {state.completedStudy} {sessionWord} · {STAGE_LABELS[stage]}
+          </span>
         </div>
+
+        <div className={styles.console}>
+          <div className={styles.seg} role="group" aria-label="Session type">
+            {CHOICES.map((c) => (
+              <button
+                key={c.id}
+                type="button"
+                className={styles.segBtn}
+                aria-pressed={currentChoice === c.id}
+                onClick={() => onChoice(c.id)}
+              >
+                {c.label}
+              </button>
+            ))}
+          </div>
+          <p className={styles.hint} role="status">
+            {hint ?? ""}
+          </p>
+          <p className={styles.timer} role="timer" aria-label={`Time remaining: ${formatTime(remaining)}`}>
+            {formatTime(remaining)}
+          </p>
+          <div className={styles.progress} aria-hidden="true">
+            <div
+              className={styles.progressFill}
+              style={{ width: `${Math.round(progress * 100)}%` }}
+            />
+          </div>
+
+          <div className={styles.controls}>
+            {finished ? (
+              <button
+                type="button"
+                className={`${styles.btn} ${styles.btnPrimary}`}
+                onClick={onStartNext}
+              >
+                {state.mode === "study" ? "Start break" : "Start study"}
+              </button>
+            ) : (
+              <button
+                type="button"
+                className={`${styles.btn} ${styles.btnPrimary}`}
+                onClick={onPrimary}
+              >
+                {primaryLabel}
+              </button>
+            )}
+            <button
+              type="button"
+              className={`${styles.btn} ${styles.btnQuiet}`}
+              onClick={onReset}
+            >
+              Reset
+            </button>
+          </div>
+          <p className={styles.srOnly} role="status">
+            {statusText(state)}
+          </p>
         </div>
       </div>
     </main>
