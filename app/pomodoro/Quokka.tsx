@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { memo, useEffect, useRef, useState } from "react";
 import { STAGE_LABELS } from "./pomodoroState";
 import styles from "./pomodoro.module.css";
 
@@ -15,6 +15,11 @@ interface QuokkaProps {
 const STAGE_NAMES = ["hungry", "content", "happy", "full", "fullfed"] as const;
 type Pose = "idle" | "nibble-a" | "nibble-b" | "sleep" | "blink";
 const POSES: Pose[] = ["idle", "nibble-a", "nibble-b", "sleep", "blink"];
+
+const NIBBLE_MS = 1600;
+const BLINK_MS = 180;
+const BLINK_GAP_MIN = 5200;
+const BLINK_GAP_JITTER = 2200;
 
 function frameSrc(stage: number, pose: Pose): string {
   return `/pomodoro/quokka/${STAGE_NAMES[stage]}-${pose}.png`;
@@ -32,13 +37,27 @@ function useReducedMotion(): boolean {
   return reduced;
 }
 
-function preload(src: string, loaded: Set<string>) {
-  if (loaded.has(src)) return;
-  const img = new Image();
-  img.decoding = "async";
-  img.onload = () => loaded.add(src);
-  img.onerror = () => loaded.add(src);
-  img.src = src;
+// Module-level decode cache: one in-flight (or finished) decode per frame,
+// shared across mounts so nothing is ever fetched or decoded twice.
+const decodedCache = new Map<string, Promise<void>>();
+
+function ensureDecoded(src: string): Promise<void> {
+  let pending = decodedCache.get(src);
+  if (!pending) {
+    pending = (async () => {
+      const img = new Image();
+      img.decoding = "async";
+      img.src = src;
+      try {
+        await img.decode();
+      } catch {
+        // A failed frame still resolves: the rendered element keeps showing
+        // the previous valid frame instead of hanging the animation.
+      }
+    })();
+    decodedCache.set(src, pending);
+  }
+  return pending;
 }
 
 const ACTIVITY_TEXT: Record<QuokkaActivity, string> = {
@@ -48,93 +67,120 @@ const ACTIVITY_TEXT: Record<QuokkaActivity, string> = {
 };
 
 /**
- * Supplied sprite art in a fixed square frame. Frames within a stage share
- * alignment, so pose swaps never jump; the displayed frame only swaps after
- * the next one decodes, so swaps never flicker or flash empty.
+ * Supplied sprite art in a fixed square frame. Flicker-free by construction:
+ * every frame is decode()d before it can be shown, swaps only move forward
+ * to an already-decoded bitmap, the <img> element itself is never recreated,
+ * and one rAF loop (not scattered timers) drives all animation timing.
  */
-export function Quokka({ stage, activity, celebrating }: QuokkaProps) {
+function QuokkaInner({ stage, activity, celebrating }: QuokkaProps) {
   const reduced = useReducedMotion();
-  const [blinkOn, setBlinkOn] = useState(false);
-  const [nibbleB, setNibbleB] = useState(false);
   const [displaySrc, setDisplaySrc] = useState(() => frameSrc(stage, "idle"));
-  const loadedRef = useRef<Set<string>>(new Set());
+  const displayRef = useRef(displaySrc);
+  const wantedRef = useRef(displaySrc);
 
-  let pose: Pose = "idle";
-  if (activity === "study") pose = !reduced && nibbleB ? "nibble-b" : "nibble-a";
-  else if (activity === "break") pose = "sleep";
-  else pose = !reduced && blinkOn ? "blink" : "idle";
-  const target = frameSrc(stage, pose);
-
-  // Swap the visible frame only once the target has decoded.
+  // Decode all 25 frames up front so every later state switch is instant.
   useEffect(() => {
-    if (displaySrc === target || loadedRef.current.has(target)) {
-      if (displaySrc !== target) setDisplaySrc(target);
-      return;
+    for (let s = 0; s < STAGE_NAMES.length; s++) {
+      for (const p of POSES) void ensureDecoded(frameSrc(s, p));
     }
-    let live = true;
-    const img = new Image();
-    img.decoding = "async";
-    const done = () => {
-      loadedRef.current.add(target);
-      if (live) setDisplaySrc(target);
-    };
-    img.onload = done;
-    img.onerror = done;
-    img.src = target;
-    return () => {
-      live = false;
-    };
-  }, [target, displaySrc]);
+  }, []);
 
-  // Preload this stage now; the rest shortly after, never all at once.
+  // The single animation loop. Refs carry the clock so frames never cause
+  // re-renders by themselves; only a validated frame swap calls setState.
   useEffect(() => {
-    for (const p of POSES) preload(frameSrc(stage, p), loadedRef.current);
-    const id = window.setTimeout(() => {
-      for (let s = 0; s < STAGE_NAMES.length; s++) {
-        if (s === stage) continue;
-        for (const p of POSES) preload(frameSrc(s, p), loadedRef.current);
+    if (reduced) {
+      const pose: Pose =
+        activity === "study"
+          ? "nibble-a"
+          : activity === "break"
+            ? "sleep"
+            : "idle";
+      const target = frameSrc(stage, pose);
+      wantedRef.current = target;
+      let live = true;
+      void ensureDecoded(target).then(() => {
+        if (
+          live &&
+          wantedRef.current === target &&
+          displayRef.current !== target
+        ) {
+          displayRef.current = target;
+          setDisplaySrc(target);
+        }
+      });
+      return () => {
+        live = false;
+      };
+    }
+
+    let live = true;
+    let raf = 0;
+    let nibbleB = false;
+    let blinkOn = false;
+    let nextNibbleAt = 0;
+    let blinkAt = 0;
+    let blinkOffAt = 0;
+    let clockStarted = false;
+
+    const tick = (now: number) => {
+      if (!live) return;
+      if (!clockStarted) {
+        clockStarted = true;
+        nextNibbleAt = now + NIBBLE_MS;
+        blinkAt = now + BLINK_GAP_MIN + Math.random() * BLINK_GAP_JITTER;
       }
-    }, 2500);
-    return () => window.clearTimeout(id);
-  }, [stage]);
+      if (activity === "study") {
+        blinkOn = false;
+        if (now >= nextNibbleAt) {
+          nibbleB = !nibbleB;
+          nextNibbleAt = now + NIBBLE_MS;
+        }
+      } else if (activity === "idle") {
+        nibbleB = false;
+        if (!blinkOn && now >= blinkAt) {
+          blinkOn = true;
+          blinkOffAt = now + BLINK_MS;
+        } else if (blinkOn && now >= blinkOffAt) {
+          blinkOn = false;
+          blinkAt = now + BLINK_GAP_MIN + Math.random() * BLINK_GAP_JITTER;
+        }
+      } else {
+        nibbleB = false;
+        blinkOn = false;
+      }
 
-  // Brief blink every few seconds while idle.
-  useEffect(() => {
-    if (reduced || activity !== "idle") {
-      setBlinkOn(false);
-      return;
-    }
-    let live = true;
-    let onId = 0;
-    let offId = 0;
-    const schedule = () => {
-      onId = window.setTimeout(() => {
-        if (!live) return;
-        setBlinkOn(true);
-        offId = window.setTimeout(() => {
-          if (!live) return;
-          setBlinkOn(false);
-          schedule();
-        }, 180);
-      }, 5200 + Math.random() * 2200);
+      const pose: Pose =
+        activity === "study"
+          ? nibbleB
+            ? "nibble-b"
+            : "nibble-a"
+          : activity === "break"
+            ? "sleep"
+            : blinkOn
+              ? "blink"
+              : "idle";
+      const target = frameSrc(stage, pose);
+      wantedRef.current = target;
+      if (target !== displayRef.current) {
+        void ensureDecoded(target).then(() => {
+          if (
+            live &&
+            wantedRef.current === target &&
+            displayRef.current !== target
+          ) {
+            displayRef.current = target;
+            setDisplaySrc(target);
+          }
+        });
+      }
+      raf = requestAnimationFrame(tick);
     };
-    schedule();
+    raf = requestAnimationFrame(tick);
     return () => {
       live = false;
-      window.clearTimeout(onId);
-      window.clearTimeout(offId);
+      cancelAnimationFrame(raf);
     };
-  }, [reduced, activity]);
-
-  // Slow chew alternation while studying.
-  useEffect(() => {
-    if (reduced || activity !== "study") {
-      setNibbleB(false);
-      return;
-    }
-    const id = window.setInterval(() => setNibbleB((v) => !v), 1600);
-    return () => window.clearInterval(id);
-  }, [reduced, activity]);
+  }, [reduced, activity, stage]);
 
   return (
     <div
@@ -149,12 +195,15 @@ export function Quokka({ stage, activity, celebrating }: QuokkaProps) {
             : styles.frame
         }
       >
+        {/* One persistent element: no key, so React never recreates it.
+            decoding="sync" pairs with the decode() gate so a swap can only
+            paint an already-decoded bitmap. Never a blank frame. */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={displaySrc}
           alt=""
           draggable={false}
-          decoding="async"
+          decoding="sync"
           fetchPriority="high"
           className={`${styles.sprite}${activity === "break" && !reduced ? ` ${styles.breathe}` : ""}`}
         />
@@ -163,3 +212,7 @@ export function Quokka({ stage, activity, celebrating }: QuokkaProps) {
     </div>
   );
 }
+
+// Props are primitives: the parent's 250ms countdown ticks skip this entire
+// subtree, so timer renders can never disturb the animation loop.
+export const Quokka = memo(QuokkaInner);
