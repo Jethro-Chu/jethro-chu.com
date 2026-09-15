@@ -72,28 +72,8 @@
   height: 20px;
 }
 
-/* Subtle floating title. Fixed so it never disturbs the grounded layout. */
-.titleLabel {
-  position: fixed;
-  top: max(14px, env(safe-area-inset-top));
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 1;
-  font-family: var(--q-mono);
-  font-size: 0.78rem;
-  letter-spacing: 0.12em;
-  color: var(--q-cream);
-  background: var(--q-pill);
-  border-radius: 999px;
-  padding: 0.45rem 1rem;
-  margin: 0;
-  white-space: nowrap;
-  pointer-events: none;
-}
-
 /* Collapsing chrome: fades out, then JS unmounts it so nothing hollow stays
-   behind. Uses the independent `translate` property so the title's centering
-   transform is untouched. */
+   behind. */
 .hidden {
   opacity: 0;
   visibility: hidden;
@@ -106,8 +86,7 @@
 }
 
 .fullness,
-.console,
-.titleLabel {
+.console {
   animation: q-enter 0.3s ease-out;
 }
 
@@ -386,7 +365,6 @@
   .btnQuiet,
   .fullness,
   .console,
-  .titleLabel,
   .hidden {
     animation: none !important;
     transition: none !important;

@@ -338,12 +338,6 @@ export default function PomodoroApp() {
       >
         {collapsed ? <EyeIcon /> : <EyeOffIcon />}
       </button>
-      {!concealed && (
-        <p className={`${styles.titleLabel}${collapsed ? ` ${styles.hidden}` : ""}`}>
-          Pomodoro Timer
-        </p>
-      )}
-
       <div className={styles.content}>
         <Quokka stage={stage} activity={activityFor(state)} celebrating={celebrating} />
 
