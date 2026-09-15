@@ -84,6 +84,45 @@
   height: 12px;
 }
 
+/* Onboarding bubble: floats just above the X with a caret pointing down at
+   it. Never intercepts clicks; announced politely, then auto-dismisses. */
+.minHint {
+  position: fixed;
+  bottom: 54px;
+  right: max(12px, env(safe-area-inset-right));
+  z-index: 2;
+  margin: 0;
+  background: var(--q-pill);
+  border: 1px solid var(--q-line);
+  border-radius: 10px;
+  padding: 0.45rem 0.7rem;
+  font-family: var(--q-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.02em;
+  color: var(--q-cream);
+  white-space: nowrap;
+  pointer-events: none;
+  animation: min-hint-in 0.25s ease-out;
+}
+
+.minHint::after {
+  content: "";
+  position: absolute;
+  bottom: -5px;
+  right: 13px;
+  width: 8px;
+  height: 8px;
+  background: var(--q-pill);
+  border-right: 1px solid var(--q-line);
+  border-bottom: 1px solid var(--q-line);
+  transform: rotate(45deg);
+}
+
+@keyframes min-hint-in {
+  from { opacity: 0; translate: 0 4px; }
+  to { opacity: 1; translate: 0 0; }
+}
+
 /* Collapsing chrome stays mounted so the column never reflows: the quokka
    holds its exact position. visibility:hidden drops it from the tab order
    and the accessibility tree. The base transition animates the expand; the
@@ -379,6 +418,7 @@
   .fullness,
   .console,
   .collapseBtn,
+  .minHint,
   .hidden {
     animation: none !important;
     transition: none !important;

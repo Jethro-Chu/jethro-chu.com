@@ -27,6 +27,7 @@ import styles from "./pomodoro.module.css";
 const PAGE_TITLE = "Pomodoro Timer";
 const CELEBRATION_MS = 2200;
 const HINT_MS = 4000;
+const MIN_HINT_MS = 6000;
 // Separate from the timer state key so UI prefs never disturb saved progress.
 const UI_KEY = "quokka-pomodoro/ui-v1";
 
@@ -108,6 +109,8 @@ export default function PomodoroApp() {
   const [now, setNow] = useState(0);
   const [celebrating, setCelebrating] = useState(false);
   const [hint, setHint] = useState<string | null>(null);
+  const [minHint, setMinHint] = useState(false);
+  const minHintId = useRef(0);
   const [collapsed, setCollapsed] = useState(false);
   const stateRef = useRef(state);
   stateRef.current = state;
@@ -206,6 +209,16 @@ export default function PomodoroApp() {
     return () => window.clearTimeout(id);
   }, [hint]);
 
+  // Points first-time studiers at the whisper-quiet X. Re-pressing restarts
+  // the clock; clearing the timeout on unmount keeps fake-timer tests honest.
+  useEffect(() => () => window.clearTimeout(minHintId.current), []);
+  const flashMinHint = () => {
+    if (collapsed) return;
+    setMinHint(true);
+    window.clearTimeout(minHintId.current);
+    minHintId.current = window.setTimeout(() => setMinHint(false), MIN_HINT_MS);
+  };
+
   const remaining = remainingNow(state, now || Date.now());
   const full = durationFor(state.mode, state.breakMinutes);
   const progress = full > 0 ? Math.min(1, Math.max(0, 1 - remaining / full)) : 0;
@@ -245,6 +258,12 @@ export default function PomodoroApp() {
       stateRef.current = next;
       setState(next);
     } else {
+      if (
+        stateRef.current.status === "idle" &&
+        stateRef.current.mode === "study"
+      ) {
+        flashMinHint();
+      }
       const next = start(stateRef.current, t);
       stateRef.current = next;
       setState(next);
@@ -265,6 +284,7 @@ export default function PomodoroApp() {
     stateRef.current = next;
     setState(next);
     setCelebrating(false);
+    if (next.mode === "study") flashMinHint();
   };
 
   const sessionWord = state.completedStudy === 1 ? "session" : "sessions";
@@ -278,6 +298,7 @@ export default function PomodoroApp() {
       }
       return;
     }
+    if (c === "study") flashMinHint();
     const next = selectSession(stateRef.current, c);
     stateRef.current = next;
     setState(next);
@@ -309,6 +330,11 @@ export default function PomodoroApp() {
       >
         <XIcon />
       </button>
+      {minHint && !collapsed && (
+        <p className={styles.minHint} role="status">
+          Press X to minimize the timer
+        </p>
+      )}
       <div className={styles.content}>
         <Quokka stage={stage} activity={activityFor(state)} celebrating={celebrating} />
 
