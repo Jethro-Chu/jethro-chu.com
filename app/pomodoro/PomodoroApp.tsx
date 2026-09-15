@@ -408,7 +408,10 @@ export default function PomodoroApp() {
 
         {/* Always mounted: collapsing only hides it, so the flex column never
             reflows and the quokka stays pixel-still. visibility:hidden also
-            drops it from the tab order and the accessibility tree. */}
+            drops it from the tab order and the accessibility tree. The dock
+            owns the only scroll on the page (short viewports): the quokka
+            row above it never moves. */}
+        <div className={styles.uiDock}>
         <p className={`${styles.fedCounter}${collapsed ? ` ${styles.hidden}` : ""}`} role="status">
           <PawIcon />
           <span>{fedLabel(state.completedStudy)}</span>
@@ -470,6 +473,7 @@ export default function PomodoroApp() {
           <p className={styles.srOnly} role="status">
             {statusText(state)}
           </p>
+        </div>
         </div>
       </div>
     </main>

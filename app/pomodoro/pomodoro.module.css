@@ -12,8 +12,12 @@
   --q-sans: system-ui, -apple-system, "Segoe UI", sans-serif;
 
   position: relative;
-  min-height: 100vh;
-  min-height: 100svh;
+  /* Locked to exactly one viewport: the document can never scroll, so the
+     scene (background, quokka, sign) is always stationary. Short viewports
+     scroll inside .uiDock instead. */
+  height: 100vh;
+  height: 100svh;
+  overflow: clip;
   background: #24351f;
   color: var(--q-cream);
   font-family: var(--q-sans);
@@ -159,23 +163,35 @@
     visibility 0s linear 0.25s;
 }
 
-/* Bottom-weighted column: the quokka's top margin absorbs spare height so
-   its feet rest at a steady height over the grass; when the viewport is too
-   short the column simply flows and scrolls instead of clipping. */
+/* Bottom-weighted column filling exactly one viewport. The quokka's top
+   margin absorbs spare height so its feet rest at a steady height over the
+   grass. When the viewport is too short, .uiDock below shrinks and scrolls
+   internally; the quokka row (flex:none) never shrinks, never scrolls. */
 .content {
   position: relative;
   z-index: 1;
-  min-height: 100vh;
-  min-height: 100svh;
+  height: 100vh;
+  height: 100svh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
   gap: 8px;
-  /* Tall top padding only matters when the column scrolls on short screens:
-     it keeps the quokka clear of the fixed title. Bottom-anchored layouts
-     are unaffected (the quokka's auto top margin absorbs spare height). */
   padding: 64px 16px 20px;
+}
+
+/* Timer dock: the only scroll container on the page. It shrinks (never the
+   quokka) and scrolls its own content on short viewports, keeping every
+   control reachable while the scene stays pinned. */
+.uiDock {
+  width: 100%;
+  min-height: 0;
+  flex: 0 1 auto;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
 }
 
 /* ---------- quokka ---------- */
@@ -190,6 +206,9 @@
 .quokkaRow {
   position: relative;
   width: 100%;
+  /* Pinned: never shrinks, so short-viewport overflow can only ever squeeze
+     .uiDock (which scrolls) instead of moving or squashing the scene. */
+  flex: none;
   display: flex;
   justify-content: center;
   margin-top: auto;
