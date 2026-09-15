@@ -38,6 +38,7 @@ const CHOICES: Array<{ id: SessionChoice; label: string }> = [
 ];
 
 const SOUND_SRC = "/pomodoro/02_mossy_soft_bells.mp3";
+const BUTTON_SRC = "/pomodoro/button.wav";
 
 function SpeakerOnIcon() {
   return (
@@ -126,6 +127,7 @@ export default function PomodoroApp() {
   const soundOnRef = useRef(true);
   soundOnRef.current = soundOn;
   const soundRef = useRef<HTMLAudioElement | null>(null);
+  const clickRef = useRef<HTMLAudioElement | null>(null);
   // sessionIds rotate on every start: one ring per finished session even if
   // a tick (or StrictMode) ever delivered justFinished twice.
   const playedSessionRef = useRef<string | null>(null);
@@ -174,29 +176,54 @@ export default function PomodoroApp() {
     }
   }, [collapsed, soundOn]);
 
-  // Preload the completion bell once so it starts instantly at 00:00.
-  // Element-based (not WebAudio): nothing to build at ring time, it plays
-  // whether the UI is collapsed or not, and it never touches the quokka.
+  // Preload both sounds once so each starts instantly on demand.
+  // Element-based (not WebAudio): nothing to build at play time, both play
+  // whether the UI is collapsed or not, and neither touches the quokka.
+  // The bell and the click stay separate elements with separate jobs.
   useEffect(() => {
-    const audio = new Audio(SOUND_SRC);
-    audio.preload = "auto";
-    audio.loop = false;
-    audio.volume = 0.6;
-    soundRef.current = audio;
+    const bell = new Audio(SOUND_SRC);
+    bell.preload = "auto";
+    bell.loop = false;
+    bell.volume = 0.6;
+    soundRef.current = bell;
+    const click = new Audio(BUTTON_SRC);
+    click.preload = "auto";
+    click.loop = false;
+    click.volume = 0.65;
+    clickRef.current = click;
     try {
-      audio.load();
+      bell.load();
+      click.load();
     } catch {
-      // A bell that never loads simply never rings.
+      // A sound that never loads simply never plays.
     }
     return () => {
       soundRef.current = null;
+      clickRef.current = null;
       try {
-        audio.pause();
+        bell.pause();
+        click.pause();
       } catch {
         // Unmounting must never throw.
       }
     };
   }, []);
+
+  // Control click for Start/Pause/Resume only. Restarts from the top on
+  // every press so rapid clicks stay responsive. Never used for completion
+  // (the bell owns that), reset, mode switches, or page load.
+  const playClick = () => {
+    if (!soundOnRef.current) return;
+    const click = clickRef.current;
+    if (!click) return;
+    try {
+      click.currentTime = 0;
+      const pending = click.play();
+      if (pending) void pending.catch(() => undefined);
+    } catch {
+      // Blocked, missing, or unloadable: silence is acceptable.
+    }
+  };
 
   // Route-scoped scroll lock: while /pomodoro is mounted, the document
   // itself cannot scroll by any vector (wheel, trackpad, PageUp/PageDown,
@@ -324,6 +351,7 @@ export default function PomodoroApp() {
       : "Start";
 
   const onPrimary = () => {
+    playClick();
     const t = Date.now();
     setNow(t);
     if (stateRef.current.status === "running") {
@@ -405,7 +433,7 @@ export default function PomodoroApp() {
         type="button"
         className={`${styles.collapseBtn} ${styles.soundBtn}${collapsed ? ` ${styles.hidden}` : ""}`}
         onClick={() => setSoundOn((s) => !s)}
-        aria-label={soundOn ? "Mute completion sound" : "Unmute completion sound"}
+        aria-label={soundOn ? "Mute sounds" : "Unmute sounds"}
         aria-pressed={soundOn}
       >
         {soundOn ? <SpeakerOnIcon /> : <SpeakerOffIcon />}
