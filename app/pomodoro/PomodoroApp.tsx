@@ -24,9 +24,12 @@ import {
 } from "./pomodoroState";
 import styles from "./pomodoro.module.css";
 
-const PAGE_TITLE = "Quokka Pomodoro";
+const PAGE_TITLE = "Pomodoro Timer";
 const CELEBRATION_MS = 2200;
 const HINT_MS = 4000;
+// Separate from the timer state key so UI prefs never disturb saved progress.
+const UI_KEY = "quokka-pomodoro/ui-v1";
+const CONCEAL_MS = 280;
 
 const CHOICES: Array<{ id: SessionChoice; label: string }> = [
   { id: "study", label: "Study" },
@@ -82,6 +85,25 @@ function activityFor(state: PomodoroState): QuokkaActivity {
   return "idle";
 }
 
+function EyeIcon() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false">
+      <path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12Z" />
+      <circle cx="12" cy="12" r="2.6" />
+    </svg>
+  );
+}
+
+function EyeOffIcon() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false">
+      <path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12Z" />
+      <circle cx="12" cy="12" r="2.6" />
+      <path d="M4 4l16 16" />
+    </svg>
+  );
+}
+
 export default function PomodoroApp() {
   // Deterministic first render (matches SSR), reconciled with storage on mount.
   const [state, setState] = useState<PomodoroState>(() => ({
@@ -98,6 +120,8 @@ export default function PomodoroApp() {
   const [now, setNow] = useState(0);
   const [celebrating, setCelebrating] = useState(false);
   const [hint, setHint] = useState<string | null>(null);
+  const [collapsed, setCollapsed] = useState(false);
+  const [concealed, setConcealed] = useState(false);
   const stateRef = useRef(state);
   stateRef.current = state;
 
@@ -121,6 +145,48 @@ export default function PomodoroApp() {
   useEffect(() => {
     saveState(window.localStorage, state);
   }, [state]);
+
+  // Restore the collapse preference (independent key; timer state untouched).
+  useEffect(() => {
+    try {
+      const raw = window.localStorage.getItem(UI_KEY);
+      if (raw) {
+        const parsed: unknown = JSON.parse(raw);
+        if (
+          typeof parsed === "object" &&
+          parsed !== null &&
+          (parsed as { collapsed?: unknown }).collapsed === true
+        ) {
+          setCollapsed(true);
+          setConcealed(true);
+        }
+      }
+    } catch {
+      // Default to expanded.
+    }
+  }, []);
+  useEffect(() => {
+    try {
+      window.localStorage.setItem(UI_KEY, JSON.stringify({ collapsed }));
+    } catch {
+      // Private-mode storage errors must never break the timer.
+    }
+  }, [collapsed]);
+
+  // Collapse fades the chrome out, then unmounts it so no empty containers
+  // remain. Expanding mounts it fresh with an entrance animation.
+  useEffect(() => {
+    if (!collapsed) {
+      setConcealed(false);
+      return;
+    }
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setConcealed(true);
+      return;
+    }
+    const id = window.setTimeout(() => setConcealed(true), CONCEAL_MS);
+    return () => window.clearTimeout(id);
+  }, [collapsed]);
 
   // Countdown driver. Timestamp math keeps it accurate across tab switches;
   // the visibility listener snaps the UI the moment the tab returns.
@@ -263,10 +329,27 @@ export default function PomodoroApp() {
         />
       </picture>
 
+      <button
+        type="button"
+        className={styles.collapseBtn}
+        onClick={() => setCollapsed((c) => !c)}
+        aria-label={collapsed ? "Show timer interface" : "Hide timer interface"}
+        aria-expanded={!collapsed}
+      >
+        {collapsed ? <EyeIcon /> : <EyeOffIcon />}
+      </button>
+      {!concealed && (
+        <p className={`${styles.titleLabel}${collapsed ? ` ${styles.hidden}` : ""}`}>
+          Pomodoro Timer
+        </p>
+      )}
+
       <div className={styles.content}>
         <Quokka stage={stage} activity={activityFor(state)} celebrating={celebrating} />
 
-        <div className={styles.fullness}>
+        {!concealed && (
+          <>
+        <div className={`${styles.fullness}${collapsed ? ` ${styles.hidden}` : ""}`}>
           <span className={styles.dots} aria-hidden="true">
             {[0, 1, 2, 3].map((i) => (
               <span
@@ -280,7 +363,7 @@ export default function PomodoroApp() {
           </span>
         </div>
 
-        <div className={styles.console}>
+        <div className={`${styles.console}${collapsed ? ` ${styles.hidden}` : ""}`}>
           <div className={styles.seg} role="group" aria-label="Session type">
             {CHOICES.map((c) => (
               <button
@@ -337,6 +420,8 @@ export default function PomodoroApp() {
             {statusText(state)}
           </p>
         </div>
+          </>
+        )}
       </div>
     </main>
   );
