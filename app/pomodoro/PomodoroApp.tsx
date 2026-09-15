@@ -189,7 +189,7 @@ export default function PomodoroApp() {
     const click = new Audio(BUTTON_SRC);
     click.preload = "auto";
     click.loop = false;
-    click.volume = 0.65;
+    click.volume = 0.3;
     clickRef.current = click;
     try {
       bell.load();

@@ -29,7 +29,7 @@ describe("pomodoro audio wiring", () => {
   });
   it("preloads both with no loop at the specified volumes", () => {
     assert.ok(tsx.includes("bell.volume = 0.6"));
-    assert.ok(tsx.includes("click.volume = 0.65"));
+    assert.ok(tsx.includes("click.volume = 0.3"));
     assert.ok(tsx.includes("click.preload = \"auto\""));
     assert.ok(tsx.includes("click.loop = false"));
   });
