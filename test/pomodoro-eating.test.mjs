@@ -1,13 +1,19 @@
-// Eating-timeline asset contract: the shipped timeline must describe one
-// exact 5,000ms sequence over real 1254x1254 RGBA frames, and the player
-// maps it to the Happy fullness stage (index 2) only.
+// Eating-animation contract: the shipped timeline must describe one exact
+// 5,000ms sequence over real 1254x1254 RGBA frames, and the player must run
+// it during any running Study session (no stage gate) with randomized
+// 12-18s idle gaps and per-stage size compensation so the quokka never pops
+// in size when a sequence starts or ends.
 // Run with `node --test test/pomodoro-eating.test.mjs`.
 import { describe, it } from "node:test";
 import assert from "node:assert/strict";
 import { existsSync, readFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { STAGE_LABELS } from "../app/pomodoro/pomodoroState.ts";
+import {
+  EATING_GAP_JITTER,
+  EATING_GAP_MIN,
+  eatingCompForStage,
+} from "../app/pomodoro/eating.ts";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const dir = join(root, "public/pomodoro/quokka-eating");
@@ -61,16 +67,66 @@ describe("eating timeline", () => {
   });
 });
 
-describe("happy stage mapping", () => {
-  it("stage index 2 is Happy", () => {
-    assert.equal(STAGE_LABELS[2], "Happy");
+describe("eating schedule", () => {
+  it("waits a randomized 12-18s idle gap after every sequence", () => {
+    assert.equal(EATING_GAP_MIN, 12000);
+    assert.equal(EATING_GAP_JITTER, 6000);
+    assert.equal(EATING_GAP_MIN + EATING_GAP_JITTER, 18000);
   });
-  it("player maps eating to stage 2 only", () => {
+  it("player has no stage gate on eating", () => {
     const tsx = readFileSync(
       join(root, "app/pomodoro/Quokka.tsx"),
       "utf8",
     );
-    assert.ok(tsx.includes("HAPPY_STAGE = 2"));
-    assert.ok(tsx.includes("stage === HAPPY_STAGE"));
+    assert.ok(!tsx.includes("HAPPY_STAGE"), "stage gate removed");
+    assert.ok(!tsx.includes("stage ==="), "no stage equality gate");
+  });
+});
+
+// Measured opaque-body boxes (alpha > 128) of the shipped nibble-a art per
+// stage: [widthPx, centerXPx] on the shared 1254 canvas. The eating frames
+// carry a Happy-sized body (864 wide, centered at 561), so every other stage
+// needs compensation. Update only if the artwork itself changes.
+const STAGE_BODY = {
+  0: [844, 550],
+  1: [845, 550.5],
+  3: [893, 574.5],
+  4: [960, 597],
+};
+const EAT_BODY_W = 864;
+const EAT_BODY_CX = 561;
+const CANVAS = 1254;
+const ORIGIN_X = CANVAS / 2; // transform-origin: 50% 100%
+
+describe("eating size compensation", () => {
+  it("happy needs no compensation (eating body is happy-sized)", () => {
+    assert.equal(eatingCompForStage(2), null);
+  });
+  it("each other stage reproduces its own body width and center", () => {
+    for (const [stage, [wantW, wantCx]] of Object.entries(STAGE_BODY)) {
+      const comp = eatingCompForStage(Number(stage));
+      assert.ok(comp, `stage ${stage} has compensation`);
+      // Player applies translateX(tx%) then scaleX(sx) about the ground
+      // center: x' = origin + sx * (x + txPx - origin).
+      const gotW = EAT_BODY_W * comp.sx;
+      const gotCx =
+        ORIGIN_X + comp.sx * (EAT_BODY_CX + (comp.txPct / 100) * CANVAS - ORIGIN_X);
+      assert.ok(
+        Math.abs(gotW - wantW) < 0.5,
+        `stage ${stage} width: ${gotW} vs ${wantW}`,
+      );
+      assert.ok(
+        Math.abs(gotCx - wantCx) < 0.5,
+        `stage ${stage} center: ${gotCx} vs ${wantCx}`,
+      );
+    }
+  });
+  it("player applies the compensation while eating frames show", () => {
+    const tsx = readFileSync(
+      join(root, "app/pomodoro/Quokka.tsx"),
+      "utf8",
+    );
+    assert.ok(tsx.includes("eatingCompForStage(stage)"));
+    assert.ok(tsx.includes("scaleX"));
   });
 });
