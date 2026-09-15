@@ -175,6 +175,19 @@ export function resetCurrent(
   };
 }
 
+/**
+ * Manual quokka-progression reset (the only way to clear earned progress):
+ * fed count and feed guard return to starting values. Timer, mode, session
+ * identity, durations, and UI prefs are untouched.
+ */
+export function resetProgression(state: PomodoroState): PomodoroState {
+  return {
+    ...state,
+    completedStudy: 0,
+    lastFedSessionId: null,
+  };
+}
+
 /** Switch modes only while not running; abandoning earns no food. */
 export function setMode(state: PomodoroState, mode: Mode): PomodoroState {
   if (state.status === "running" || state.mode === mode) return state;

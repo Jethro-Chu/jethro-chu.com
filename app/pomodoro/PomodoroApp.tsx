@@ -13,6 +13,7 @@ import {
   pause,
   remainingNow,
   resetCurrent,
+  resetProgression,
   saveState,
   selectSession,
   stageFor,
@@ -94,6 +95,21 @@ function PawIcon() {
   );
 }
 
+/** Tiny pixel reset arrow: raw squares, no curves, no emoji-font roulette. */
+function ResetIcon() {
+  return (
+    <svg viewBox="0 0 12 12" fill="currentColor" aria-hidden="true" focusable="false">
+      <rect x="2" y="3" width="5" height="2" />
+      <rect x="2" y="3" width="2" height="8" />
+      <rect x="2" y="9" width="8" height="2" />
+      <rect x="8" y="4" width="2" height="7" />
+      <rect x="8" y="0" width="3" height="1" />
+      <rect x="8" y="1" width="4" height="2" />
+      <rect x="8" y="3" width="3" height="1" />
+    </svg>
+  );
+}
+
 function XIcon() {
   return (
     <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" aria-hidden="true" focusable="false">
@@ -122,6 +138,9 @@ export default function PomodoroApp() {
   const minHintId = useRef(0);
   const [collapsed, setCollapsed] = useState(false);
   const [soundOn, setSoundOn] = useState(true);
+  const [confirmingReset, setConfirmingReset] = useState(false);
+  const resetBtnRef = useRef<HTMLButtonElement>(null);
+  const cancelResetRef = useRef<HTMLButtonElement>(null);
   // Custom Study duration for THIS visit only: in-memory state, deliberately
   // never persisted (no localStorage/sessionStorage/cookies/URL), so every
   // fresh visit reopens at the 25:00 default.
@@ -320,6 +339,24 @@ export default function PomodoroApp() {
     return () => window.clearTimeout(id);
   }, [celebrating]);
 
+  // Progression-reset dialog: collapsing dismisses it, Escape cancels,
+  // focus moves to Cancel while open and returns to the icon on close.
+  useEffect(() => {
+    if (collapsed) setConfirmingReset(false);
+  }, [collapsed]);
+  useEffect(() => {
+    if (!confirmingReset) return;
+    cancelResetRef.current?.focus();
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setConfirmingReset(false);
+    };
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      resetBtnRef.current?.focus();
+    };
+  }, [confirmingReset]);
+
   // The pause-to-switch hint is brief: it clears on any timer change or after
   // a few seconds.
   useEffect(() => {
@@ -466,6 +503,17 @@ export default function PomodoroApp() {
     setCelebrating(false);
   };
 
+  // Manual quokka-progression reset (confirm dialog only): count and feed
+  // guard back to starting values. The timer Reset button is untouched and
+  // still resets only the timer. Durations, sounds, and collapse are
+  // untouched; the existing persist effect saves the reset state.
+  const onConfirmResetProgression = () => {
+    const next = resetProgression(stateRef.current);
+    stateRef.current = next;
+    setState(next);
+    setConfirmingReset(false);
+  };
+
   const onStartNext = () => {
     const t = Date.now();
     setNow(t);
@@ -554,7 +602,57 @@ export default function PomodoroApp() {
         <p className={`${styles.fedCounter}${collapsed ? ` ${styles.hidden}` : ""}`} role="status">
           <PawIcon />
           <span>{fedLabel(state.completedStudy)}</span>
+          <button
+            ref={resetBtnRef}
+            type="button"
+            className={styles.progressReset}
+            aria-label="Reset quokka progress"
+            onClick={() => setConfirmingReset(true)}
+          >
+            <ResetIcon />
+          </button>
         </p>
+
+        {confirmingReset && (
+          <div
+            className={styles.confirmScrim}
+            onClick={() => setConfirmingReset(false)}
+          >
+            <div
+              className={styles.confirmBox}
+              role="alertdialog"
+              aria-modal="true"
+              aria-labelledby="quokka-reset-title"
+              aria-describedby="quokka-reset-desc"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <p id="quokka-reset-title" className={styles.confirmTitle}>
+                Reset your quokka?
+              </p>
+              <p id="quokka-reset-desc" className={styles.confirmDesc}>
+                This will return your quokka to its starting size and reset
+                quokkas fed to 0.
+              </p>
+              <div className={styles.confirmBtns}>
+                <button
+                  ref={cancelResetRef}
+                  type="button"
+                  className={styles.confirmBtn}
+                  onClick={() => setConfirmingReset(false)}
+                >
+                  Cancel
+                </button>
+                <button
+                  type="button"
+                  className={`${styles.confirmBtn} ${styles.confirmGo}`}
+                  onClick={onConfirmResetProgression}
+                >
+                  Reset
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
 
         <div className={`${styles.console}${collapsed ? ` ${styles.hidden}` : ""}`}>
           <div className={styles.seg} role="group" aria-label="Session type">

@@ -325,6 +325,116 @@
   filter: drop-shadow(2px 2px 0 rgba(8, 14, 8, 0.9));
 }
 
+/* Progression reset beside the fed counter: the collapse X's whisper
+   treatment (barely there at rest, present on hover/focus). The extra
+   specificity re-shrinks the svg the .fedCounter rule above sizes. */
+.progressReset {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  border-radius: 6px;
+  padding: 5px;
+  color: var(--q-soft);
+  opacity: 0.4;
+  cursor: pointer;
+  touch-action: manipulation;
+  transition: opacity 0.2s ease;
+}
+
+.progressReset:hover {
+  opacity: 1;
+}
+
+.progressReset:focus-visible {
+  opacity: 1;
+  outline: 2px solid var(--q-cream);
+  outline-offset: 1px;
+}
+
+.fedCounter .progressReset svg {
+  width: 12px;
+  height: 12px;
+  color: inherit;
+}
+
+/* Reset confirmation: the console panel's language (dark panel, cream
+   title, soft body, gold primary action). Fixed so it floats above the
+   scene on any viewport; instant, so there is no motion to gate. */
+.confirmScrim {
+  position: fixed;
+  inset: 0;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(6, 10, 6, 0.55);
+}
+
+.confirmBox {
+  width: 100%;
+  max-width: 300px;
+  background: var(--q-panel);
+  border: 1px solid var(--q-line);
+  border-radius: 14px;
+  padding: 16px 18px;
+  text-align: center;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+}
+
+.confirmTitle {
+  margin: 0;
+  font-family: var(--q-mono);
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--q-cream);
+}
+
+.confirmDesc {
+  margin: 8px 0 0;
+  font-size: 0.85rem;
+  line-height: 1.45;
+  color: var(--q-soft);
+}
+
+.confirmBtns {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 14px;
+}
+
+.confirmBtn {
+  font: inherit;
+  font-size: 0.85rem;
+  font-weight: 700;
+  padding: 0.55rem 1.1rem;
+  border-radius: 10px;
+  border: 2px solid var(--q-line);
+  background: transparent;
+  color: var(--q-soft);
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.confirmBtn:hover {
+  color: var(--q-cream);
+  border-color: var(--q-cream);
+}
+
+.confirmGo {
+  background: var(--q-gold);
+  border-color: var(--q-gold);
+  color: var(--q-gold-deep);
+}
+
+.confirmGo:hover {
+  color: var(--q-gold-deep);
+  border-color: var(--q-cream);
+}
+
 /* ---------- timer console ---------- */
 
 .console {
