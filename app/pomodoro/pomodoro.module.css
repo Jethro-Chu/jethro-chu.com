@@ -336,7 +336,7 @@
   border: none;
   border-radius: 6px;
   padding: 5px;
-  color: var(--q-soft);
+  color: #000;
   opacity: 0.4;
   cursor: pointer;
   touch-action: manipulation;
