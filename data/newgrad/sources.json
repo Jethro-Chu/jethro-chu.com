@@ -1,0 +1,442 @@
+[
+  {
+    "id": "src_ucla",
+    "hospital_id": "hosp_ucla",
+    "label": "UCLA Health careers",
+    "urls": [
+      "https://www.uclahealthcareers.org/nursing-new-graduates/",
+      "https://www.uclahealthcareers.org/"
+    ],
+    "status": "active",
+    "shared_board": null,
+    "notes": "Activated by Jethro"
+  },
+  {
+    "id": "src_ucsf",
+    "hospital_id": "hosp_ucsf",
+    "label": "UCSF Health careers",
+    "urls": [],
+    "status": "candidate",
+    "shared_board": null,
+    "notes": "Verify official new-grad/residency and ATS URLs before activating."
+  },
+  {
+    "id": "src_stanford",
+    "hospital_id": "hosp_stanford",
+    "label": "Stanford Health Care careers",
+    "urls": [
+      "https://careers.stanfordhealthcare.org/us/en/nurse-residency-program",
+      "https://stanfordmedicine.wd115.myworkdayjobs.com/SHC_External_Career_Site"
+    ],
+    "status": "active",
+    "shared_board": null,
+    "notes": "Activated by Jethro"
+  },
+  {
+    "id": "src_kaiser",
+    "hospital_id": "hosp_kaiser",
+    "label": "Kaiser Permanente careers (shared board)",
+    "urls": [],
+    "status": "candidate",
+    "shared_board": "kaiser",
+    "notes": "One shared board serves all Kaiser regions; scan once, tag locations per requisition."
+  },
+  {
+    "id": "src_ucdavis",
+    "hospital_id": "hosp_ucdavis",
+    "label": "UC Davis Health careers",
+    "urls": [],
+    "status": "candidate",
+    "shared_board": null,
+    "notes": "Verify official new-grad/residency and ATS URLs before activating."
+  },
+  {
+    "id": "src_uci",
+    "hospital_id": "hosp_uci",
+    "label": "UC Irvine Health careers",
+    "urls": [],
+    "status": "candidate",
+    "shared_board": null,
+    "notes": "Verify official new-grad/residency and ATS URLs before activating."
+  },
+  {
+    "id": "src_ucsd",
+    "hospital_id": "hosp_ucsd",
+    "label": "UC San Diego Health careers",
+    "urls": [],
+    "status": "candidate",
+    "shared_board": null,
+    "notes": "Verify official new-grad/residency and ATS URLs before activating."
+  },
+  {
+    "id": "src_keck",
+    "hospital_id": "hosp_keck",
+    "label": "Keck Medicine of USC careers",
+    "urls": [
+      "https://www.keckmedicine.org/careers/",
+      "https://usccareers.usc.edu/"
+    ],
+    "status": "active",
+    "shared_board": "keck",
+    "notes": "Activated by Jethro"
+  },
+  {
+    "id": "src_arcadia",
+    "hospital_id": "hosp_arcadia",
+    "label": "USC Arcadia Hospital careers",
+    "urls": [
+      "https://www.keckmedicine.org/careers/",
+      "https://usccareers.usc.edu/"
+    ],
+    "status": "active",
+    "shared_board": "keck",
+    "notes": "Activated by Jethro"
+  },
+  {
+    "id": "src_cityofhope",
+    "hospital_id": "hosp_cityofhope",
+    "label": "City of Hope careers",
+    "urls": [
+      "https://www.cityofhopejobs.org/"
+    ],
+    "status": "active",
+    "shared_board": null,
+    "notes": "Activated by Jethro"
+  },
+  {
+    "id": "src_huntington",
+    "hospital_id": "hosp_huntington",
+    "label": "Huntington Health careers",
+    "urls": [
+      "https://www.huntingtonhealth.org/education/residency-programs/nursing-residency/",
+      "https://www.hhcareers.com"
+    ],
+    "status": "active",
+    "shared_board": null,
+    "notes": "Activated by Jethro"
+  },
+  {
+    "id": "src_cedars",
+    "hospital_id": "hosp_cedars",
+    "label": "Cedars-Sinai careers",
+    "urls": [],
+    "status": "candidate",
+    "shared_board": null,
+    "notes": "Verify official new-grad/residency and ATS URLs before activating."
+  },
+  {
+    "id": "src_chla",
+    "hospital_id": "hosp_chla",
+    "label": "Children's Hospital Los Angeles careers",
+    "urls": [],
+    "status": "candidate",
+    "shared_board": null,
+    "notes": "Verify official new-grad/residency and ATS URLs before activating."
+  },
+  {
+    "id": "src_choc",
+    "hospital_id": "hosp_choc",
+    "label": "CHOC careers",
+    "urls": [],
+    "status": "candidate",
+    "shared_board": null,
+    "notes": "Verify official new-grad/residency and ATS URLs before activating."
+  },
+  {
+    "id": "src_sharp",
+    "hospital_id": "hosp_sharp",
+    "label": "Sharp HealthCare careers",
+    "urls": [],
+    "status": "candidate",
+    "shared_board": null,
+    "notes": "Verify official new-grad/residency and ATS URLs before activating."
+  },
+  {
+    "id": "src_scripps",
+    "hospital_id": "hosp_scripps",
+    "label": "Scripps Health careers",
+    "urls": [],
+    "status": "candidate",
+    "shared_board": null,
+    "notes": "Verify official new-grad/residency and ATS URLs before activating."
+  },
+  {
+    "id": "src_hoag",
+    "hospital_id": "hosp_hoag",
+    "label": "Hoag careers",
+    "urls": [],
+    "status": "candidate",
+    "shared_board": null,
+    "notes": "Verify official new-grad/residency and ATS URLs before activating."
+  },
+  {
+    "id": "src_providence",
+    "hospital_id": "hosp_providence",
+    "label": "Providence careers (shared board)",
+    "urls": [],
+    "status": "candidate",
+    "shared_board": "providence",
+    "notes": "One shared board serves all Providence regions; scan once, tag locations per requisition."
+  },
+  {
+    "id": "src_dignity",
+    "hospital_id": "hosp_dignity",
+    "label": "Dignity Health careers",
+    "urls": [],
+    "status": "candidate",
+    "shared_board": "commonspirit",
+    "notes": "Dignity Health is part of CommonSpirit Health; confirm whether one shared board covers both before scanning twice."
+  },
+  {
+    "id": "src_commonspirit",
+    "hospital_id": "hosp_commonspirit",
+    "label": "CommonSpirit Health careers (shared board)",
+    "urls": [],
+    "status": "candidate",
+    "shared_board": "commonspirit",
+    "notes": "Confirm shared-board coverage with Dignity Health before scanning twice."
+  },
+  {
+    "id": "src_adventist",
+    "hospital_id": "hosp_adventist",
+    "label": "Adventist Health careers (shared board)",
+    "urls": [],
+    "status": "candidate",
+    "shared_board": "adventist",
+    "notes": "One shared board serves all Adventist regions; scan once, tag locations per requisition."
+  },
+  {
+    "id": "src_mgb",
+    "hospital_id": "hosp_mgb",
+    "label": "Mass General Brigham careers (shared board)",
+    "urls": [],
+    "status": "candidate",
+    "shared_board": "mgb",
+    "notes": "One shared board serves member hospitals; scan once, tag locations per requisition."
+  },
+  {
+    "id": "src_bostonchildrens",
+    "hospital_id": "hosp_bostonchildrens",
+    "label": "Boston Children's Hospital careers",
+    "urls": [],
+    "status": "candidate",
+    "shared_board": null,
+    "notes": "Verify official new-grad/residency and ATS URLs before activating."
+  },
+  {
+    "id": "src_bidmc",
+    "hospital_id": "hosp_bidmc",
+    "label": "Beth Israel Deaconess Medical Center careers",
+    "urls": [],
+    "status": "candidate",
+    "shared_board": null,
+    "notes": "Seeded as the Boston Beth Israel; confirm identity (Beth Israel Lahey Health) before activating."
+  },
+  {
+    "id": "src_bmc",
+    "hospital_id": "hosp_bmc",
+    "label": "Boston Medical Center careers",
+    "urls": [],
+    "status": "candidate",
+    "shared_board": null,
+    "notes": "Verify official new-grad/residency and ATS URLs before activating."
+  },
+  {
+    "id": "src_nyulangone",
+    "hospital_id": "hosp_nyulangone",
+    "label": "NYU Langone Health careers",
+    "urls": [],
+    "status": "candidate",
+    "shared_board": null,
+    "notes": "Verify official new-grad/residency and ATS URLs before activating."
+  },
+  {
+    "id": "src_nyp",
+    "hospital_id": "hosp_nyp",
+    "label": "NewYork-Presbyterian careers",
+    "urls": [],
+    "status": "candidate",
+    "shared_board": null,
+    "notes": "Verify official new-grad/residency and ATS URLs before activating."
+  },
+  {
+    "id": "src_mountsinai",
+    "hospital_id": "hosp_mountsinai",
+    "label": "Mount Sinai Health System careers",
+    "urls": [],
+    "status": "candidate",
+    "shared_board": null,
+    "notes": "Verify official new-grad/residency and ATS URLs before activating."
+  },
+  {
+    "id": "src_northwell",
+    "hospital_id": "hosp_northwell",
+    "label": "Northwell Health careers",
+    "urls": [],
+    "status": "candidate",
+    "shared_board": null,
+    "notes": "Verify official new-grad/residency and ATS URLs before activating."
+  },
+  {
+    "id": "src_clevelandclinic",
+    "hospital_id": "hosp_clevelandclinic",
+    "label": "Cleveland Clinic careers",
+    "urls": [],
+    "status": "candidate",
+    "shared_board": null,
+    "notes": "Verify official new-grad/residency and ATS URLs before activating."
+  },
+  {
+    "id": "src_ohiostate",
+    "hospital_id": "hosp_ohiostate",
+    "label": "Ohio State Wexner Medical Center careers",
+    "urls": [],
+    "status": "candidate",
+    "shared_board": null,
+    "notes": "Seeded as the Ohio State academic medical center; confirm identity before activating."
+  },
+  {
+    "id": "src_mayo",
+    "hospital_id": "hosp_mayo",
+    "label": "Mayo Clinic careers (shared board)",
+    "urls": [],
+    "status": "candidate",
+    "shared_board": "mayo",
+    "notes": "One shared board serves all Mayo sites; scan once, tag locations per requisition."
+  },
+  {
+    "id": "src_hopkins",
+    "hospital_id": "hosp_hopkins",
+    "label": "Johns Hopkins Medicine careers",
+    "urls": [],
+    "status": "candidate",
+    "shared_board": null,
+    "notes": "Verify official new-grad/residency and ATS URLs before activating."
+  },
+  {
+    "id": "src_duke",
+    "hospital_id": "hosp_duke",
+    "label": "Duke University Health System careers",
+    "urls": [],
+    "status": "candidate",
+    "shared_board": null,
+    "notes": "Seeded as Duke University Health System; confirm identity before activating."
+  },
+  {
+    "id": "src_vanderbilt",
+    "hospital_id": "hosp_vanderbilt",
+    "label": "Vanderbilt University Medical Center careers",
+    "urls": [],
+    "status": "candidate",
+    "shared_board": null,
+    "notes": "Seeded as Vanderbilt University Medical Center; confirm identity before activating."
+  },
+  {
+    "id": "src_emory",
+    "hospital_id": "hosp_emory",
+    "label": "Emory Healthcare careers",
+    "urls": [],
+    "status": "candidate",
+    "shared_board": null,
+    "notes": "Seeded as Emory Healthcare; confirm identity before activating."
+  },
+  {
+    "id": "src_upmc",
+    "hospital_id": "hosp_upmc",
+    "label": "UPMC careers (shared board)",
+    "urls": [],
+    "status": "candidate",
+    "shared_board": "upmc",
+    "notes": "One shared board serves UPMC facilities; scan once, tag locations per requisition."
+  },
+  {
+    "id": "src_penn",
+    "hospital_id": "hosp_penn",
+    "label": "Penn Medicine careers",
+    "urls": [],
+    "status": "candidate",
+    "shared_board": null,
+    "notes": "Verify official new-grad/residency and ATS URLs before activating."
+  },
+  {
+    "id": "src_chop",
+    "hospital_id": "hosp_chop",
+    "label": "Children's Hospital of Philadelphia careers",
+    "urls": [],
+    "status": "candidate",
+    "shared_board": null,
+    "notes": "Verify official new-grad/residency and ATS URLs before activating."
+  },
+  {
+    "id": "src_houstonmethodist",
+    "hospital_id": "hosp_houstonmethodist",
+    "label": "Houston Methodist careers",
+    "urls": [],
+    "status": "candidate",
+    "shared_board": null,
+    "notes": "Verify official new-grad/residency and ATS URLs before activating."
+  },
+  {
+    "id": "src_texaschildrens",
+    "hospital_id": "hosp_texaschildrens",
+    "label": "Texas Children's Hospital careers",
+    "urls": [],
+    "status": "candidate",
+    "shared_board": null,
+    "notes": "Verify official new-grad/residency and ATS URLs before activating."
+  },
+  {
+    "id": "src_utsw",
+    "hospital_id": "hosp_utsw",
+    "label": "UT Southwestern Medical Center careers",
+    "urls": [],
+    "status": "candidate",
+    "shared_board": null,
+    "notes": "Verify official new-grad/residency and ATS URLs before activating."
+  },
+  {
+    "id": "src_bsw",
+    "hospital_id": "hosp_bsw",
+    "label": "Baylor Scott & White Health careers (shared board)",
+    "urls": [],
+    "status": "candidate",
+    "shared_board": "bsw",
+    "notes": "One shared board serves BSW facilities; scan once, tag locations per requisition."
+  },
+  {
+    "id": "src_banner",
+    "hospital_id": "hosp_banner",
+    "label": "Banner Health careers (shared board)",
+    "urls": [],
+    "status": "candidate",
+    "shared_board": "banner",
+    "notes": "One shared board serves Banner facilities; scan once, tag locations per requisition."
+  },
+  {
+    "id": "src_intermountain",
+    "hospital_id": "hosp_intermountain",
+    "label": "Intermountain Health careers (shared board)",
+    "urls": [],
+    "status": "candidate",
+    "shared_board": "intermountain",
+    "notes": "One shared board serves Intermountain facilities; scan once, tag locations per requisition."
+  },
+  {
+    "id": "src_uw",
+    "hospital_id": "hosp_uw",
+    "label": "UW Medicine careers",
+    "urls": [],
+    "status": "candidate",
+    "shared_board": null,
+    "notes": "Seeded as UW Medicine (University of Washington); confirm identity before activating."
+  },
+  {
+    "id": "src_ohsu",
+    "hospital_id": "hosp_ohsu",
+    "label": "OHSU careers",
+    "urls": [],
+    "status": "candidate",
+    "shared_board": null,
+    "notes": "Seeded as Oregon Health & Science University; confirm identity before activating."
+  }
+]

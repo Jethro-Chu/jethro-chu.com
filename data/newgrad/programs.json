@@ -1,0 +1,20 @@
+[
+  {
+    "id": "prog_b61f49dd0b",
+    "hospital_id": "hosp_stanford",
+    "name": "Stanford Health Care Nurse Residency Program",
+    "source_url": "https://careers.stanfordhealthcare.org/us/en/nurse-residency-program"
+  },
+  {
+    "id": "prog_374cdf3b5a",
+    "hospital_id": "hosp_ucla",
+    "name": "UCLA Health New Graduate Residency Program",
+    "source_url": "https://www.uclahealthcareers.org/nursing-new-graduates/"
+  },
+  {
+    "id": "prog_840327c00a",
+    "hospital_id": "hosp_cityofhope",
+    "name": "Alan & Marlene Norton Nurse Residency Program",
+    "source_url": "https://www.cityofhopejobs.org/"
+  }
+]

@@ -1,0 +1,16 @@
+{
+  "contract_version": "1.0.0",
+  "generated_at": "2026-09-18T23:38:07.076Z",
+  "last_research_attempt_at": "2026-09-18T23:30:00Z",
+  "last_successful_verification_at": "2026-09-18T23:38:07.076Z",
+  "last_published_at": "2026-09-18T23:42:38.000Z",
+  "counts": {
+    "opportunities": 3,
+    "open": 0,
+    "closing_soon": 0,
+    "pending_review": 2,
+    "sources_active": 6,
+    "sources_candidate": 41
+  },
+  "coverage_note": "8 of 9 checked sources verified successfully in run 2026-09-18-daily."
+}

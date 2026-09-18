@@ -35,3 +35,7 @@ next-env.d.ts
 /public/models/yosemite.glb
 /public/models/yosemite-opt.glb
 /public/models/half_dome_src/
+
+# New Grad tracker: local batch inbox + backups (never committed)
+data/newgrad/inbox/
+data/newgrad/*.bak

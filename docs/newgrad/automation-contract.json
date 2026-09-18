@@ -1,0 +1,62 @@
+{
+  "contract_version": "1.0.0",
+  "schema_version": "1.0.0",
+  "project_location": "/Users/jethrochu/dev/portfolio",
+  "public_tracker_url": "https://jethrochu.com/newgrad",
+  "research_schema_path": "docs/newgrad/research-batch.schema.json",
+  "watchlist_location": "data/newgrad/sources.json",
+  "hospital_reference": "data/newgrad/hospitals.json",
+  "dataset_locations": {
+    "opportunities": "data/newgrad/opportunities.json",
+    "programs": "data/newgrad/programs.json",
+    "cohorts": "data/newgrad/cohorts.json",
+    "meta": "data/newgrad/meta.json"
+  },
+  "history_location": "data/newgrad/history.json",
+  "review_location": "data/newgrad/review.json",
+  "runs_location": "data/newgrad/runs.json",
+  "publication_state_location": "data/newgrad/publication.json",
+  "operational_run_directory": "data/newgrad/inbox/ (gitignored batch drop; reports via --report to any path)",
+  "commands": {
+    "ingest_dry_run": "npm run newgrad:ingest -- --batch <file> --dry-run [--report <out.json>] [--now <iso>]",
+    "ingest_apply": "npm run newgrad:ingest -- --batch <file> --apply [--report <out.json>] [--now <iso>]",
+    "validate": "npm run newgrad:validate [-- --json]",
+    "review": "npm run newgrad:review -- <list|show|approve|reject|correct|unlock|source-add|source-activate|source-disable|failed|history|runs> [args]",
+    "publish_dry_run": "npm run newgrad:publish -- --run <run_id>",
+    "publish_push": "npm run newgrad:publish -- --run <run_id> --push [--remote <name>] [--branch <name>]",
+    "test": "npm run verify:newgrad",
+    "dev": "npm run dev",
+    "build": "npm run build"
+  },
+  "claude_invocation": {
+    "method": "local CLI session on the operator machine (same checkout Antigravity uses for research artifacts)",
+    "verifiable": false,
+    "note": "No programmatic Muse API is used. Antigravity invokes Muse per the operator's existing setup and hands over the batch file path plus run_id; see docs/newgrad/automation.md section 6."
+  },
+  "publication": {
+    "mechanism": "git push of a data-only commit to origin/master from an isolated worktree; existing Vercel GitHub integration auto-deploys master",
+    "enabled": false,
+    "note": "Enabled flag lives in data/newgrad/publication.json. Initial build leaves it disabled."
+  },
+  "allowed_data_update_paths": [
+    "data/newgrad/opportunities.json",
+    "data/newgrad/hospitals.json",
+    "data/newgrad/programs.json",
+    "data/newgrad/cohorts.json",
+    "data/newgrad/sources.json",
+    "data/newgrad/history.json",
+    "data/newgrad/review.json",
+    "data/newgrad/runs.json",
+    "data/newgrad/meta.json",
+    "data/newgrad/publication.json"
+  ],
+  "verification_procedure": [
+    "1. Validate the batch: npm run newgrad:ingest -- --batch <file> --dry-run (exit 0, review JSON report).",
+    "2. Apply: npm run newgrad:ingest -- --batch <file> --apply --report /tmp/newgrad-report.json.",
+    "3. Validate the dataset: npm run newgrad:validate (exit 0).",
+    "4. Run the test suite: npm run verify:newgrad (exit 0).",
+    "5. Confirm git status shows changes only under data/newgrad/ (plus the report path, outside the repo).",
+    "6. Render check: npm run build, then confirm /newgrad reflects the run freshness timestamps.",
+    "7. Publish only when enabled: npm run newgrad:publish -- --run <run_id> --push; on failure, public data is untouched and the local update is retained for retry."
+  ]
+}

@@ -1,0 +1,247 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://jethrochu.com/schemas/newgrad/research-batch.schema.json",
+  "title": "New Grad RN Tracker research batch",
+  "description": "Structured research input produced by Antigravity and consumed by the Muse ingestion tool. Batches are untrusted input: they are validated before use and can never execute commands or choose filesystem destinations.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "run_id",
+    "research_started_at",
+    "research_completed_at",
+    "sources_checked",
+    "findings",
+    "unresolved_items"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "1.0.0",
+      "description": "Contract version. The ingestion tool rejects any other value."
+    },
+    "run_id": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{1,127}$",
+      "description": "Unique id for this research run, e.g. 2026-09-18-daily. Reprocessing the same run_id is a no-op."
+    },
+    "research_started_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "UTC timestamp when research for this batch started."
+    },
+    "research_completed_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "UTC timestamp when research for this batch completed."
+    },
+    "sources_checked": {
+      "type": "array",
+      "maxItems": 500,
+      "description": "Every source Antigravity attempted this run, including failures. Absence of a record means not checked, never deleted.",
+      "items": {
+        "type": "object",
+        "required": ["url", "attempted_at", "outcome", "coverage_complete"],
+        "additionalProperties": false,
+        "properties": {
+          "source_id": {
+            "type": ["string", "null"],
+            "maxLength": 200,
+            "description": "Watchlist source id when known, else null."
+          },
+          "url": {
+            "type": "string",
+            "format": "uri",
+            "maxLength": 2048
+          },
+          "attempted_at": { "type": "string", "format": "date-time" },
+          "retrieved_at": {
+            "type": ["string", "null"],
+            "format": "date-time",
+            "description": "Set only on successful retrieval. Failures leave this null and never advance verification."
+          },
+          "outcome": {
+            "type": "string",
+            "enum": [
+              "ok",
+              "not_found",
+              "temporarily_unavailable",
+              "blocked",
+              "parser_failure",
+              "redirected_generic",
+              "needs_reverification"
+            ]
+          },
+          "coverage_complete": {
+            "type": "boolean",
+            "description": "True only when the source was fully enumerated. Partial result sets must report false so absence is never treated as closure evidence."
+          },
+          "error": {
+            "type": ["string", "null"],
+            "maxLength": 1000,
+            "description": "Short error detail for failed outcomes."
+          }
+        }
+      }
+    },
+    "findings": {
+      "type": "array",
+      "maxItems": 500,
+      "items": {
+        "type": "object",
+        "required": ["employer", "observed_state", "eligibility", "facts", "evidence"],
+        "additionalProperties": false,
+        "properties": {
+          "employer": {
+            "type": "object",
+            "required": ["name"],
+            "additionalProperties": false,
+            "properties": {
+              "name": { "type": "string", "minLength": 1, "maxLength": 300 },
+              "hospital_id": {
+                "type": ["string", "null"],
+                "maxLength": 200,
+                "description": "Hospital id from data/newgrad/hospitals.json when confidently matched."
+              }
+            }
+          },
+          "identifiers": {
+            "type": ["object", "null"],
+            "additionalProperties": false,
+            "properties": {
+              "program": { "type": ["string", "null"], "maxLength": 300 },
+              "cohort": { "type": ["string", "null"], "maxLength": 300 },
+              "requisition_id": { "type": ["string", "null"], "maxLength": 300 },
+              "ats_provider": { "type": ["string", "null"], "maxLength": 300 },
+              "ats_tenant": { "type": ["string", "null"], "maxLength": 300 },
+              "employer_tenant": { "type": ["string", "null"], "maxLength": 300 },
+              "opportunity_id": {
+                "type": ["string", "null"],
+                "maxLength": 300,
+                "description": "Existing tracker record id when updating a known record."
+              }
+            }
+          },
+          "observed_state": {
+            "type": "string",
+            "enum": ["OPEN", "OPENING_SOON", "EXPECTED", "CLOSED", "UNKNOWN", "NOT_FOUND", "FETCH_FAILED"],
+            "description": "What the source currently shows. NOT_FOUND and FETCH_FAILED only affect verification health, never status."
+          },
+          "eligibility": {
+            "type": "object",
+            "required": ["assessment"],
+            "additionalProperties": false,
+            "properties": {
+              "assessment": {
+                "type": "string",
+                "enum": ["ELIGIBLE", "INELIGIBLE", "UNCERTAIN"],
+                "description": "ELIGIBLE requires explicit new-grad acceptance language in the evidence excerpt. Titles like RN I or residency alone never qualify."
+              },
+              "note": { "type": ["string", "null"], "maxLength": 1000 }
+            }
+          },
+          "facts": {
+            "type": "object",
+            "description": "Extracted facts. Omit unknown fields entirely; never send null to clear a known value.",
+            "properties": {
+              "position_title": { "type": "string", "maxLength": 300 },
+              "unit": { "type": "string", "maxLength": 300 },
+              "locations": {
+                "type": "array",
+                "maxItems": 50,
+                "items": {
+                  "type": "object",
+                  "required": ["city", "state"],
+                  "additionalProperties": false,
+                  "properties": {
+                    "city": { "type": "string", "maxLength": 200 },
+                    "state": { "type": "string", "pattern": "^[A-Za-z]{2}$" }
+                  }
+                }
+              },
+              "specialties": {
+                "type": "array",
+                "maxItems": 23,
+                "items": { "type": "string", "maxLength": 100 },
+                "description": "Closed vocabulary preferred (see automation.md); unlisted values map to Unknown with a report note."
+              },
+              "application_open": { "$ref": "#/$defs/flexibleDate" },
+              "application_close": { "$ref": "#/$defs/flexibleDate" },
+              "program_start": { "$ref": "#/$defs/flexibleDate" },
+              "source_posted_at": { "type": "string", "format": "date-time" },
+              "bsn_required": { "type": "boolean" },
+              "rn_license_requirement": { "type": "string", "maxLength": 2000 },
+              "license_required_by": { "type": "string", "maxLength": 300 },
+              "experience_requirement": { "type": "string", "maxLength": 2000 },
+              "source_url": { "type": "string", "format": "uri", "maxLength": 2048 },
+              "application_url": { "type": "string", "format": "uri", "maxLength": 2048 }
+            }
+          },
+          "evidence": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 40,
+            "items": { "$ref": "#/$defs/evidence" }
+          },
+          "uncertainties": {
+            "type": ["array", "null"],
+            "maxItems": 20,
+            "items": { "type": "string", "maxLength": 1000 },
+            "description": "Contradictions, ambiguities, or anything a human should double-check. Entries here route the finding to review."
+          }
+        }
+      }
+    },
+    "unresolved_items": {
+      "type": "array",
+      "maxItems": 200,
+      "description": "Leads or questions that could not become findings this run.",
+      "items": {
+        "type": "object",
+        "required": ["description"],
+        "additionalProperties": false,
+        "properties": {
+          "description": { "type": "string", "minLength": 1, "maxLength": 1000 },
+          "url": { "type": ["string", "null"], "format": "uri", "maxLength": 2048 }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "flexibleDate": {
+      "description": "Preserves source precision. Use {kind:date} for YYYY-MM-DD, {kind:datetime} for exact timestamps with timezone, {kind:text} for seasons like Spring 2027. A plain string is also accepted and parsed deterministically.",
+      "oneOf": [
+        {
+          "type": "object",
+          "required": ["kind", "value"],
+          "additionalProperties": false,
+          "properties": {
+            "kind": { "type": "string", "enum": ["date", "datetime", "text"] },
+            "value": { "type": "string", "minLength": 1, "maxLength": 120 }
+          }
+        },
+        { "type": "string", "minLength": 1, "maxLength": 120 }
+      ]
+    },
+    "evidence": {
+      "type": "object",
+      "required": ["source_url", "excerpt", "retrieved_at", "claim"],
+      "additionalProperties": false,
+      "properties": {
+        "source_url": { "type": "string", "format": "uri", "maxLength": 2048 },
+        "excerpt": {
+          "type": "string",
+          "minLength": 10,
+          "maxLength": 1200,
+          "description": "Short exact quote from the official page or official structured-data field value."
+        },
+        "retrieved_at": { "type": "string", "format": "date-time" },
+        "claim": {
+          "type": "string",
+          "maxLength": 120,
+          "description": "Claim vocabulary: status, accepting_applications, closure, removal, opening_date, deadline, start_date, eligibility, experience, license, license_timing, education, title, unit, location, specialty."
+        }
+      }
+    }
+  }
+}

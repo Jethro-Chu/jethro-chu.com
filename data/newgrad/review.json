@@ -1,0 +1,113 @@
+[
+  {
+    "id": "rev_2026-09-18-daily_001",
+    "run_id": "2026-09-18-daily",
+    "created_at": "2026-09-18T23:38:07.076Z",
+    "state": "PENDING",
+    "reason": "Eligibility evidence lacks explicit new-grad acceptance language; held for human review.",
+    "finding": {
+      "employer": {
+        "name": "USC Arcadia Hospital",
+        "hospital_id": "hosp_arcadia"
+      },
+      "identifiers": {
+        "program": "Keck Medicine Nurse Residency Program",
+        "cohort": null,
+        "requisition_id": null,
+        "ats_provider": "Workday",
+        "ats_tenant": "USC_Career_Site",
+        "employer_tenant": null,
+        "opportunity_id": null
+      },
+      "observed_state": "EXPECTED",
+      "eligibility": {
+        "assessment": "ELIGIBLE",
+        "note": "Keck Medicine system nurse residency track."
+      },
+      "facts": {
+        "position_title": "Registered Nurse Resident",
+        "locations": [
+          {
+            "city": "Arcadia",
+            "state": "CA"
+          }
+        ],
+        "specialties": [
+          "Multiple Specialties"
+        ],
+        "bsn_required": true,
+        "rn_license_requirement": "Current California Registered Nurse License",
+        "license_required_by": "start",
+        "source_url": "https://www.keckmedicine.org/careers/",
+        "application_url": "https://usccareers.usc.edu/"
+      },
+      "evidence": [
+        {
+          "source_url": "https://usccareers.usc.edu/",
+          "excerpt": "No current new graduate RN residency openings are posted for USC Arcadia Hospital on the career portal at this time.",
+          "retrieved_at": "2026-09-18T23:18:00Z",
+          "claim": "status"
+        }
+      ],
+      "uncertainties": [
+        "Exact upcoming cohort start date and application window for USC Arcadia Hospital have not been announced on the shared Keck careers board."
+      ]
+    },
+    "decision": null
+  },
+  {
+    "id": "rev_2026-09-18-daily_002",
+    "run_id": "2026-09-18-daily",
+    "created_at": "2026-09-18T23:38:07.076Z",
+    "state": "PENDING",
+    "reason": "Eligibility evidence lacks explicit new-grad acceptance language; held for human review.",
+    "finding": {
+      "employer": {
+        "name": "Huntington Health",
+        "hospital_id": "hosp_huntington"
+      },
+      "identifiers": {
+        "program": "Huntington Health RN Residency Program",
+        "cohort": null,
+        "requisition_id": null,
+        "ats_provider": null,
+        "ats_tenant": null,
+        "employer_tenant": null,
+        "opportunity_id": null
+      },
+      "observed_state": "EXPECTED",
+      "eligibility": {
+        "assessment": "ELIGIBLE",
+        "note": "ANCC accredited RN Residency program using Vizient/AACN curriculum."
+      },
+      "facts": {
+        "position_title": "RN Resident",
+        "locations": [
+          {
+            "city": "Pasadena",
+            "state": "CA"
+          }
+        ],
+        "specialties": [
+          "Multiple Specialties"
+        ],
+        "bsn_required": true,
+        "rn_license_requirement": "California RN License required prior to start",
+        "source_url": "https://www.hhcareers.com",
+        "application_url": "https://www.hhcareers.com"
+      },
+      "evidence": [
+        {
+          "source_url": "https://www.hhcareers.com",
+          "excerpt": "Huntington Health offers a 12-month ANCC accredited Nurse Residency Program using Vizient/AACN curriculum; no active new graduate requisitions open on the career board today.",
+          "retrieved_at": "2026-09-18T23:25:00Z",
+          "claim": "status"
+        }
+      ],
+      "uncertainties": [
+        "Huntington Health main educational residency URL blocked requests with HTTP 403 (Cloudflare bot challenge); findings confirmed via careers portal."
+      ]
+    },
+    "decision": null
+  }
+]

@@ -1,0 +1,77 @@
+[
+  {
+    "id": "hist_2026-09-18-daily_0001",
+    "run_id": "2026-09-18-daily",
+    "at": "2026-09-18T23:38:07.076Z",
+    "type": "NEW",
+    "opportunity_id": "opp_116ea92514",
+    "changes": null,
+    "reason": "First published from run evidence (OPENING_SOON).",
+    "evidence": [
+      {
+        "source_url": "https://careers.stanfordhealthcare.org/us/en/nurse-residency-program",
+        "excerpt": "Cohort 46 Application Information Webinar: Wednesday, October 7, 2026 at 10:30am - 12:00pm PST.",
+        "retrieved_at": "2026-09-18T23:15:00Z",
+        "claim": "opening_date"
+      },
+      {
+        "source_url": "https://careers.stanfordhealthcare.org/us/en/nurse-residency-program",
+        "excerpt": "The Nurse Residency Program is for new graduate registered nurses who have graduated from an accredited nursing program within 19 months of the residency start date and have less than six months of paid registered nurse work experience.",
+        "retrieved_at": "2026-09-18T23:15:00Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://careers.stanfordhealthcare.org/us/en/nurse-residency-program",
+        "excerpt": "Current California RN License is required prior to the start date of the residency program.",
+        "retrieved_at": "2026-09-18T23:15:00Z",
+        "claim": "license"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-09-18-daily_0002",
+    "run_id": "2026-09-18-daily",
+    "at": "2026-09-18T23:38:07.076Z",
+    "type": "NEW",
+    "opportunity_id": "opp_4a34429f1c",
+    "changes": null,
+    "reason": "First published from run evidence (EXPECTED).",
+    "evidence": [
+      {
+        "source_url": "https://www.uclahealthcareers.org/nursing-new-graduates/",
+        "excerpt": "Fall Cohort application typically opens in February or March. Spring Cohort application typically opens in September.",
+        "retrieved_at": "2026-09-18T23:10:00Z",
+        "claim": "accepting_applications"
+      },
+      {
+        "source_url": "https://www.uclahealthcareers.org/nursing-new-graduates/",
+        "excerpt": "Designed for newly licensed nurses with a Bachelor of Science in Nursing (BSN) or Master of Science in Nursing (MSN).",
+        "retrieved_at": "2026-09-18T23:10:00Z",
+        "claim": "eligibility"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-09-18-daily_0003",
+    "run_id": "2026-09-18-daily",
+    "at": "2026-09-18T23:38:07.076Z",
+    "type": "NEW",
+    "opportunity_id": "opp_5254939ba4",
+    "changes": null,
+    "reason": "First published from run evidence (EXPECTED).",
+    "evidence": [
+      {
+        "source_url": "https://www.cityofhopejobs.org/",
+        "excerpt": "The Alan & Marlene Norton Nurse Residency Program enrolls cohorts in January and August. Application cycles occur prior to each cohort start.",
+        "retrieved_at": "2026-09-18T23:22:00Z",
+        "claim": "accepting_applications"
+      },
+      {
+        "source_url": "https://www.cityofhopejobs.org/",
+        "excerpt": "The Alan & Marlene Norton Nurse Residency Program is designed for new graduate registered nurses with less than one year of nursing experience.",
+        "retrieved_at": "2026-09-18T23:22:00Z",
+        "claim": "eligibility"
+      }
+    ]
+  }
+]

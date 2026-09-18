@@ -1,0 +1,27 @@
+[
+  {
+    "run_id": "2026-09-18-daily",
+    "research_started_at": "2026-09-18T22:30:00Z",
+    "research_completed_at": "2026-09-18T23:30:00Z",
+    "ingested_at": "2026-09-18T23:38:07.076Z",
+    "sources_checked": 9,
+    "sources_ok": 8,
+    "findings_received": 5,
+    "published": 3,
+    "updated": 0,
+    "closed": 0,
+    "pending_review": 2,
+    "rejected": 0,
+    "failed_checks": [
+      {
+        "source_id": "src_huntington",
+        "url": "https://www.huntingtonhealth.org/education/residency-programs/nursing-residency/",
+        "attempted_at": "2026-09-18T23:25:00Z",
+        "retrieved_at": null,
+        "outcome": "blocked",
+        "coverage_complete": false,
+        "error": "HTTP 403 Forbidden: Cloudflare bot protection challenge"
+      }
+    ]
+  }
+]
