@@ -23,7 +23,6 @@ import { execFileSync } from "node:child_process";
 import { copyFileSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import { outsideAllowedPaths } from "../lib/newgrad/publish.ts";
 import { ALLOWED_DATA_PATHS } from "../lib/newgrad/store.ts";
 
 function usage(): never {
