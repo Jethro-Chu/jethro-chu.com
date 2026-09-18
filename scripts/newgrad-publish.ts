@@ -23,6 +23,7 @@ import { execFileSync } from "node:child_process";
 import { copyFileSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
+import { outsideAllowedPaths } from "../lib/newgrad/publish.ts";
 import { ALLOWED_DATA_PATHS } from "../lib/newgrad/store.ts";
 
 function usage(): never {
@@ -37,7 +38,8 @@ function fail(message: string): never {
 
 function git(args: string[], cwd: string): string {
   try {
-    return execFileSync("git", args, { cwd, encoding: "utf8", stdio: ["ignore", "pipe", "pipe"] }).trim();
+    // trimEnd only: leading whitespace is significant in porcelain status columns.
+    return execFileSync("git", args, { cwd, encoding: "utf8", stdio: ["ignore", "pipe", "pipe"] }).trimEnd();
   } catch (err) {
     const e = err as { stderr?: unknown; message?: string };
     fail(`git ${args.join(" ")} failed: ${String(e.stderr ?? e.message).slice(0, 500)}`);
@@ -78,9 +80,9 @@ try {
 //    copy allowed paths, but a dirty tree signals an unsafe state to inspect).
 const dirty = git(["status", "--porcelain"], repoRoot);
 if (dirty) {
-  const lines = dirty.split("\n").filter(Boolean);
+  const lines = dirty.split("\n").filter((l) => l.trim().length > 0);
   const outside = lines.filter((l) => {
-    const p = l.slice(3).trim().replace(/^"(.*)"$/, "$1");
+    const p = l.replace(/^[A-Z ?]{2}\s+/, "").trim().replace(/^"(.*)"$/, "$1");
     return !ALLOWED_DATA_PATHS.has(p) && !p.startsWith("data/newgrad/inbox/");
   });
   if (outside.length > 0) {
