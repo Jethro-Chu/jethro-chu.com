@@ -155,18 +155,32 @@ export function matchesOpenFilter(display: DisplayStatus): boolean {
 }
 
 /**
- * Default sort for the open view: closing soon (nearest deadline first),
- * then newly discovered open, then remaining open. Caller precomputes derived
- * state; this comparator is deterministic.
+ * Default sort for the tracker list: open applications first (closing soon
+ * by nearest deadline, then newly discovered open, then remaining open),
+ * followed by opening soon, expected, unknown, and closed. Deterministic.
  */
-export function compareOpenView(
+export function compareDefaultOrder(
   a: { opp: Opportunity; derived: DerivedState },
   b: { opp: Opportunity; derived: DerivedState },
   nowMs: number,
 ): number {
-  const rank = (d: DerivedState): number =>
-    d.closingSoon ? 0 : d.newToday ? 1 : 2;
-  const rankDiff = rank(a.derived) - rank(b.derived);
+  const statusRank = (d: DerivedState): number => {
+    switch (d.display) {
+      case "CLOSING_SOON":
+        return 0;
+      case "OPEN":
+        return d.newToday ? 1 : 2;
+      case "OPENING_SOON":
+        return 3;
+      case "EXPECTED":
+        return 4;
+      case "UNKNOWN":
+        return 5;
+      case "CLOSED":
+        return 6;
+    }
+  };
+  const rankDiff = statusRank(a.derived) - statusRank(b.derived);
   if (rankDiff !== 0) return rankDiff;
   if (a.derived.closingSoon && b.derived.closingSoon) {
     const da = daysUntilDeadline(a.opp.application_close, nowMs) ?? Infinity;

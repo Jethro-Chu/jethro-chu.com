@@ -3,7 +3,7 @@
 import { Fragment, useEffect, useMemo, useRef, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import {
-  compareOpenView,
+  compareDefaultOrder,
   daysUntilDeadline,
   deriveState,
   matchesOpenFilter,
@@ -212,7 +212,7 @@ function sortInstant(d: FlexibleDate | null): number {
 }
 
 function readFilters(params: URLSearchParams): Filters {
-  const statusRaw = (params.get("status") ?? "open").toLowerCase();
+  const statusRaw = (params.get("status") ?? "all").toLowerCase();
   const status: StatusParam =
     statusRaw === "open" ||
     statusRaw === "closing" ||
@@ -237,7 +237,7 @@ function readFilters(params: URLSearchParams): Filters {
 function filtersToQuery(f: Filters, sort: { key: SortKey; dir: 1 | -1 } | null): string {
   const p = new URLSearchParams();
   if (f.q) p.set("q", f.q);
-  if (f.status !== "open") p.set("status", f.status);
+  if (f.status !== "all") p.set("status", f.status);
   if (f.state) p.set("state", f.state);
   if (f.city) p.set("city", f.city);
   if (f.specialty) p.set("specialty", f.specialty);
@@ -253,7 +253,7 @@ function filtersToQuery(f: Filters, sort: { key: SortKey; dir: 1 | -1 } | null):
 
 const DEFAULT_FILTERS: Filters = {
   q: "",
-  status: "open",
+  status: "all",
   state: "",
   city: "",
   specialty: "",
@@ -445,7 +445,7 @@ function Inner(props: DatasetProps) {
         return cmp * dir;
       });
     } else {
-      out.sort((a, b) => compareOpenView(a, b, nowMs));
+      out.sort((a, b) => compareDefaultOrder(a, b, nowMs));
     }
     return out;
   }, [derived, filters, sort, hospitalById, cohortById, nowMs]);
@@ -467,44 +467,6 @@ function Inner(props: DatasetProps) {
       if (prev.dir === 1) return { key, dir: -1 };
       return null;
     });
-  };
-
-  const setQuick = (preset: "open" | "new" | "closing" | "icu" | "or" | "ed") => {
-    setFilters((f) => {
-      switch (preset) {
-        case "open":
-          return { ...f, status: "open", newOnly: false, specialty: "" };
-        case "new":
-          return { ...f, status: "all", newOnly: true };
-        case "closing":
-          return { ...f, status: "closing", newOnly: false };
-        case "icu":
-          return { ...f, status: "open", newOnly: false, specialty: "ICU" };
-        case "or":
-          return { ...f, status: "open", newOnly: false, specialty: "Operating Room" };
-        case "ed":
-          return { ...f, status: "open", newOnly: false, specialty: "Emergency Department" };
-      }
-    });
-  };
-
-  const quickActive = (preset: string): boolean => {
-    switch (preset) {
-      case "open":
-        return filters.status === "open" && !filters.newOnly && !filters.specialty;
-      case "new":
-        return filters.newOnly;
-      case "closing":
-        return filters.status === "closing";
-      case "icu":
-        return filters.specialty === "ICU";
-      case "or":
-        return filters.specialty === "Operating Room";
-      case "ed":
-        return filters.specialty === "Emergency Department";
-      default:
-        return false;
-    }
   };
 
   const stale =
@@ -622,28 +584,6 @@ function Inner(props: DatasetProps) {
       </dl>
 
       <div className="ng-controls">
-        <div className="ng-quick" role="group" aria-label="Quick filters">
-          {(
-            [
-              ["open", "Open"],
-              ["new", "New Today"],
-              ["closing", "Closing Soon"],
-              ["icu", "ICU"],
-              ["or", "OR"],
-              ["ed", "ED"],
-            ] as const
-          ).map(([key, label]) => (
-            <button
-              key={key}
-              type="button"
-              className="ng-chip"
-              aria-pressed={quickActive(key)}
-              onClick={() => setQuick(key)}
-            >
-              {label}
-            </button>
-          ))}
-        </div>
         <div className="ng-filters">
           <label className="ng-field">
             <span>Search</span>
@@ -662,13 +602,13 @@ function Inner(props: DatasetProps) {
               value={filters.status}
               onChange={(e) => setFilters({ ...filters, status: e.target.value as StatusParam })}
             >
+              <option value="all">All statuses</option>
               <option value="open">Open (incl. closing soon)</option>
               <option value="closing">Closing soon</option>
               <option value="opening_soon">Opening soon</option>
               <option value="expected">Expected</option>
               <option value="closed">Closed</option>
               <option value="unknown">Unknown</option>
-              <option value="all">All statuses</option>
             </select>
           </label>
           <label className="ng-field">

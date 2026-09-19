@@ -17,6 +17,7 @@ import {
   type StoreSnapshot,
 } from "../lib/newgrad/ingest.ts";
 import {
+  compareDefaultOrder,
   daysUntilDeadline,
   deriveState,
   isDeadlinePassed,
@@ -644,6 +645,59 @@ test("meta freshness and coverage update after a run", () => {
   assert.match(next.meta.coverage_note ?? "", /1 of 1/);
   assert.equal(next.runs.length, 1);
   assert.equal(next.runs[0]!.published, 1);
+});
+
+test("default list order puts open applications first", () => {
+  const base = {
+    hospital_id: "hosp_test",
+    program_id: null,
+    cohort_id: null,
+    position_title: "T",
+    unit: null,
+    locations: [{ city: "LA", state: "CA" }],
+    specialties: ["Med-Surg"],
+    application_open: null,
+    program_start: null,
+    source_posted_at: null,
+    verification_health: "VERIFIED",
+    eligibility: "ELIGIBLE",
+    bsn_required: null,
+    rn_license_requirement: null,
+    license_required_by: null,
+    experience_requirement: null,
+    source_url: "https://careers.testhealth.example/jobs/1",
+    application_url: null,
+    dedup_key: null,
+    source_external_id: null,
+    last_seen_at: NOW,
+    last_attempted_at: NOW,
+    last_verified_at: NOW,
+    closed_at: null,
+    closure_reason: null,
+    publication_state: "PUBLISHED",
+    evidence: [],
+    manual_overrides: {},
+    created_at: NOW,
+    updated_at: NOW,
+  } as const;
+  const mk = (id: string, status: string, close: string | null) => ({
+    ...base,
+    id,
+    application_status: status,
+    application_close: close ? { kind: "date", value: close } : null,
+    first_discovered_at: NOW,
+  });
+  const rows = [
+    { opp: mk("closed", "CLOSED", null), derived: null },
+    { opp: mk("expected", "EXPECTED", null), derived: null },
+    { opp: mk("open", "OPEN", null), derived: null },
+    { opp: mk("closing", "OPEN", "2026-09-20"), derived: null },
+  ].map((r) => ({ opp: r.opp as never, derived: deriveState(r.opp as never, NOW_MS) }));
+  rows.sort((a, b) => compareDefaultOrder(a as never, b as never, NOW_MS));
+  assert.deepEqual(
+    rows.map((r) => (r.opp as { id: string }).id),
+    ["closing", "open", "expected", "closed"],
+  );
 });
 
 console.log(`\nverify:newgrad: ${passed} tests passed`);
