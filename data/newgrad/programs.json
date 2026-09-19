@@ -136,5 +136,11 @@
     "hospital_id": "hosp_mountsinai",
     "name": "New Graduate RN Fellowship & Residency",
     "source_url": "https://careers.mountsinai.org/"
+  },
+  {
+    "id": "prog_ad79da08dc",
+    "hospital_id": "hosp_huntington",
+    "name": "Nurse Residency Program",
+    "source_url": "https://www.huntingtonhealth.org/education/residency-programs/nursing-residency/"
   }
 ]

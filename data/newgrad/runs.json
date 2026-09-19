@@ -154,5 +154,20 @@
     "pending_review": 0,
     "rejected": 0,
     "failed_checks": []
+  },
+  {
+    "run_id": "2026-09-18-huntington",
+    "research_started_at": "2026-09-19T05:55:00.000Z",
+    "research_completed_at": "2026-09-19T05:58:00.000Z",
+    "ingested_at": "2026-09-19T05:58:14.206Z",
+    "sources_checked": 1,
+    "sources_ok": 1,
+    "findings_received": 1,
+    "published": 1,
+    "updated": 0,
+    "closed": 0,
+    "pending_review": 0,
+    "rejected": 0,
+    "failed_checks": []
   }
 ]

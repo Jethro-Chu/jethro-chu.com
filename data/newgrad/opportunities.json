@@ -1216,5 +1216,65 @@
     "manual_overrides": {},
     "created_at": "2026-09-19T05:55:07.276Z",
     "updated_at": "2026-09-19T05:55:07.276Z"
+  },
+  {
+    "id": "opp_bc9f9dd408",
+    "hospital_id": "hosp_huntington",
+    "program_id": "prog_ad79da08dc",
+    "cohort_id": "cohort_b891ef57d8",
+    "position_title": "RN Resident - Nurse Residency Program",
+    "unit": "Acute Care & Critical Care Units",
+    "locations": [
+      {
+        "city": "Pasadena",
+        "state": "CA"
+      }
+    ],
+    "specialties": [
+      "Med-Surg",
+      "Telemetry",
+      "NICU",
+      "Critical Care",
+      "Float Pool"
+    ],
+    "application_open": null,
+    "application_close": null,
+    "program_start": null,
+    "source_posted_at": null,
+    "application_status": "EXPECTED",
+    "verification_health": "VERIFIED",
+    "eligibility": "ELIGIBLE",
+    "bsn_required": true,
+    "rn_license_requirement": "Valid California Registered Nursing License required at time of application.",
+    "license_required_by": "application",
+    "experience_requirement": "Candidates must have less than one year of nursing experience in any area by the start of the program; BSN or MSN required.",
+    "source_url": "https://www.huntingtonhealth.org/education/residency-programs/nursing-residency/",
+    "application_url": "https://www.hhcareers.com/",
+    "dedup_key": null,
+    "source_external_id": null,
+    "first_discovered_at": "2026-09-19T05:58:14.206Z",
+    "last_seen_at": "2026-09-19T05:58:14.206Z",
+    "last_attempted_at": "2026-09-19T05:58:14.206Z",
+    "last_verified_at": "2026-09-19T05:58:14.206Z",
+    "closed_at": null,
+    "closure_reason": null,
+    "publication_state": "PUBLISHED",
+    "evidence": [
+      {
+        "source_url": "https://www.huntingtonhealth.org/education/residency-programs/nursing-residency/",
+        "excerpt": "Applicants must have a valid California Registered Nursing License at the time of application and have graduated from an accredited BSN or MSN program. Candidates must have less than one year of nursing experience in any area by the start of the program.",
+        "retrieved_at": "2026-09-19T05:57:00.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://www.huntingtonhealth.org/education/residency-programs/nursing-residency/",
+        "excerpt": "New Grad RN positions are posted on the Huntington Hospital careers page prior to the start of each program cohort (Winter, Spring, and Fall cohorts). Position availability is dependent on unit-specific hiring needs.",
+        "retrieved_at": "2026-09-19T05:57:00.000Z",
+        "claim": "status"
+      }
+    ],
+    "manual_overrides": {},
+    "created_at": "2026-09-19T05:58:14.206Z",
+    "updated_at": "2026-09-19T05:58:14.206Z"
   }
 ]

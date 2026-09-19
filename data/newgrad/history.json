@@ -798,5 +798,28 @@
         "claim": "status"
       }
     ]
+  },
+  {
+    "id": "hist_2026-09-18-huntington_0001",
+    "run_id": "2026-09-18-huntington",
+    "at": "2026-09-19T05:58:14.206Z",
+    "type": "NEW",
+    "opportunity_id": "opp_bc9f9dd408",
+    "changes": null,
+    "reason": "First published from run evidence (EXPECTED).",
+    "evidence": [
+      {
+        "source_url": "https://www.huntingtonhealth.org/education/residency-programs/nursing-residency/",
+        "excerpt": "Applicants must have a valid California Registered Nursing License at the time of application and have graduated from an accredited BSN or MSN program. Candidates must have less than one year of nursing experience in any area by the start of the program.",
+        "retrieved_at": "2026-09-19T05:57:00.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://www.huntingtonhealth.org/education/residency-programs/nursing-residency/",
+        "excerpt": "New Grad RN positions are posted on the Huntington Hospital careers page prior to the start of each program cohort (Winter, Spring, and Fall cohorts). Position availability is dependent on unit-specific hiring needs.",
+        "retrieved_at": "2026-09-19T05:57:00.000Z",
+        "claim": "status"
+      }
+    ]
   }
 ]

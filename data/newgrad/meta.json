@@ -1,16 +1,16 @@
 {
   "contract_version": "1.0.0",
-  "generated_at": "2026-09-19T05:55:07.276Z",
-  "last_research_attempt_at": "2026-09-19T05:54:00.000Z",
-  "last_successful_verification_at": "2026-09-19T05:55:07.276Z",
-  "last_published_at": "2026-09-19T05:55:23.674Z",
+  "generated_at": "2026-09-19T05:58:14.206Z",
+  "last_research_attempt_at": "2026-09-19T05:58:00.000Z",
+  "last_successful_verification_at": "2026-09-19T05:58:14.206Z",
+  "last_published_at": "2026-09-19T05:58:29.345Z",
   "counts": {
-    "opportunities": 19,
+    "opportunities": 20,
     "open": 6,
     "closing_soon": 0,
     "pending_review": 15,
     "sources_active": 26,
     "sources_candidate": 48
   },
-  "coverage_note": "3 of 3 checked sources verified successfully in run 2026-09-18-hopkins-mayo-mountsinai."
+  "coverage_note": "1 of 1 checked sources verified successfully in run 2026-09-18-huntington."
 }
