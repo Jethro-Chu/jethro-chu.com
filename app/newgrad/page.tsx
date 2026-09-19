@@ -13,9 +13,20 @@ import type {
 import "./newgrad.css";
 
 export const metadata: Metadata = {
-  title: "New Grad RN Tracker · Jethro Chu",
-  description:
-    "Unlisted tracker of new graduate RN residency openings, verified against official hospital sources.",
+  title: "new grad tracker",
+  description: "",
+  openGraph: {
+    title: "new grad tracker",
+    description: "",
+    url: "https://jethrochu.com/newgrad",
+    siteName: "new grad tracker",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "new grad tracker",
+    description: "",
+  },
   robots: { index: false, follow: false }, // unlisted page, reached directly
 };
 
