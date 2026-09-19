@@ -115,5 +115,20 @@
       "kind": "date",
       "value": "2027-03-15"
     }
+  },
+  {
+    "id": "cohort_126667f448",
+    "program_id": "prog_8bf5226605",
+    "label": "Fall 2026 Cohort",
+    "program_start": null
+  },
+  {
+    "id": "cohort_45e354b180",
+    "program_id": "prog_f97b69d081",
+    "label": "Winter 2027 Cohort",
+    "program_start": {
+      "kind": "date",
+      "value": "2027-01-25"
+    }
   }
 ]

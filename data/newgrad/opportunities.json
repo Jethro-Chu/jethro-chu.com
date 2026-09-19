@@ -1487,5 +1487,187 @@
     "manual_overrides": {},
     "created_at": "2026-09-19T12:21:38.157Z",
     "updated_at": "2026-09-19T12:21:38.157Z"
+  },
+  {
+    "id": "opp_473d98f794",
+    "hospital_id": "hosp_chop",
+    "program_id": "prog_8bf5226605",
+    "cohort_id": "cohort_126667f448",
+    "position_title": "Nurse Resident - Nurse Residency Program",
+    "unit": "ICU, Medical/Surgical, Emergency, and Centralized Rotating tracks",
+    "locations": [
+      {
+        "city": "Philadelphia",
+        "state": "PA"
+      }
+    ],
+    "specialties": [
+      "Pediatrics",
+      "PICU",
+      "NICU",
+      "Emergency Department",
+      "Med-Surg"
+    ],
+    "application_open": {
+      "kind": "date",
+      "value": "2026-09-28"
+    },
+    "application_close": {
+      "kind": "date",
+      "value": "2026-10-02"
+    },
+    "program_start": null,
+    "source_posted_at": null,
+    "application_status": "OPENING_SOON",
+    "verification_health": "VERIFIED",
+    "eligibility": "ELIGIBLE",
+    "bsn_required": false,
+    "rn_license_requirement": "Active Pennsylvania Temporary Practice Permit or RN license required.",
+    "license_required_by": "start",
+    "experience_requirement": "Open to new graduate nurses graduating in November 2026 or earlier.",
+    "source_url": "https://careers.chop.edu/us/en/NurseResidency",
+    "application_url": "https://careers.chop.edu/us/en/NurseResidency",
+    "dedup_key": null,
+    "source_external_id": null,
+    "first_discovered_at": "2026-09-19T17:01:32.388Z",
+    "last_seen_at": "2026-09-19T17:01:32.388Z",
+    "last_attempted_at": "2026-09-19T17:01:32.388Z",
+    "last_verified_at": "2026-09-19T17:01:32.388Z",
+    "closed_at": null,
+    "closure_reason": null,
+    "publication_state": "PUBLISHED",
+    "evidence": [
+      {
+        "source_url": "https://careers.chop.edu/us/en/NurseResidency",
+        "excerpt": "Applications will be open from September 28 through October 2, 2026 for students graduating in November 2026 or earlier. Information regarding opportunities for December 2026 graduates will be shared at a later date.",
+        "retrieved_at": "2026-09-19T16:57:15.000Z",
+        "claim": "opening_date"
+      },
+      {
+        "source_url": "https://careers.chop.edu/us/en/NurseResidency",
+        "excerpt": "CHOP’s 12-month Nurse Residency helps new graduate nurses transition into their first professional roles.",
+        "retrieved_at": "2026-09-19T16:57:15.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://careers.chop.edu/us/en/NurseResidency",
+        "excerpt": "Must have graduated from an accredited Nursing program (ASN, Diploma, BSN, MSN)",
+        "retrieved_at": "2026-09-19T16:57:15.000Z",
+        "claim": "education"
+      },
+      {
+        "source_url": "https://careers.chop.edu/us/en/NurseResidency",
+        "excerpt": "An active Pennsylvania Temporary Practice Permit or RN license",
+        "retrieved_at": "2026-09-19T16:57:15.000Z",
+        "claim": "license"
+      }
+    ],
+    "manual_overrides": {},
+    "created_at": "2026-09-19T17:01:32.388Z",
+    "updated_at": "2026-09-19T17:01:32.388Z"
+  },
+  {
+    "id": "opp_04a44aa517",
+    "hospital_id": "hosp_bsw",
+    "program_id": "prog_f97b69d081",
+    "cohort_id": "cohort_45e354b180",
+    "position_title": "Graduate Nurse Residency Winter 2027 Cohort",
+    "unit": "BUMC Dallas - ED, ICU (Cardiovascular, Medical, Neuro, Trauma), Oncology, Telemetry, Med-Surg, OR, L&D, NICU",
+    "locations": [
+      {
+        "city": "Dallas",
+        "state": "TX"
+      },
+      {
+        "city": "Fort Worth",
+        "state": "TX"
+      },
+      {
+        "city": "Temple",
+        "state": "TX"
+      },
+      {
+        "city": "Plano",
+        "state": "TX"
+      },
+      {
+        "city": "Waco",
+        "state": "TX"
+      },
+      {
+        "city": "Grapevine",
+        "state": "TX"
+      }
+    ],
+    "specialties": [
+      "Critical Care",
+      "Emergency Department",
+      "Operating Room",
+      "Med-Surg",
+      "Telemetry",
+      "Oncology",
+      "NICU",
+      "L&D"
+    ],
+    "application_open": {
+      "kind": "date",
+      "value": "2026-09-07"
+    },
+    "application_close": {
+      "kind": "date",
+      "value": "2026-09-27"
+    },
+    "program_start": {
+      "kind": "date",
+      "value": "2027-01-25"
+    },
+    "source_posted_at": null,
+    "application_status": "OPEN",
+    "verification_health": "VERIFIED",
+    "eligibility": "ELIGIBLE",
+    "bsn_required": false,
+    "rn_license_requirement": "Valid Graduate Nurse (GN) permit or Registered Nurse (RN) license for Texas required.",
+    "license_required_by": "start",
+    "experience_requirement": "Recent nursing graduates and inexperienced people can join our nursing internships.",
+    "source_url": "https://jobs.bswhealth.com/us/en/job/26014424",
+    "application_url": "https://jobs.bswhealth.com/us/en/job/26014424",
+    "dedup_key": "phenom|bswhealth|26014424",
+    "source_external_id": "26014424",
+    "first_discovered_at": "2026-09-19T17:01:32.388Z",
+    "last_seen_at": "2026-09-19T17:01:32.388Z",
+    "last_attempted_at": "2026-09-19T17:01:32.388Z",
+    "last_verified_at": "2026-09-19T17:01:32.388Z",
+    "closed_at": null,
+    "closure_reason": null,
+    "publication_state": "PUBLISHED",
+    "evidence": [
+      {
+        "source_url": "https://jobs.bswhealth.com/us/en/job/26014424",
+        "excerpt": "Begin a rewarding career at Baylor Scott & White Health as a Graduate Nurse. They offer entry-level nursing roles and opportunities for lifelong learning and career growth. Recent nursing graduates and inexperienced people can join our nursing internships. Our program combines theory and hands-on training. It prepares you for diverse patient care. Our nurses have the freedom to improve patient care. We use shared leadership, allowing all nurses to help create clinical policies. Internship starts January 25, 2027.",
+        "retrieved_at": "2026-09-19T16:58:20.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://jobs.bswhealth.com/us/en/job/26014424",
+        "excerpt": "New graduate from an accredited ADN, BSN, or MSN degree in Nursing",
+        "retrieved_at": "2026-09-19T16:58:20.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://jobs.bswhealth.com/us/en/job/26014424",
+        "excerpt": "This position requires a Graduate Nurse (GN) or Registered Nurse (RN) license for Texas.  Do you have a valid GN or RN license to practice in TX?",
+        "retrieved_at": "2026-09-19T16:58:20.000Z",
+        "claim": "license"
+      },
+      {
+        "source_url": "https://jobs.bswhealth.com/us/en/job/26014424",
+        "excerpt": "This position requires a minimum of an Associate’s Degree in Nursing. Please provide your completed or expected graduation date from an accredited ADN, BSN, or MSN program.",
+        "retrieved_at": "2026-09-19T16:58:20.000Z",
+        "claim": "education"
+      }
+    ],
+    "manual_overrides": {},
+    "created_at": "2026-09-19T17:01:32.388Z",
+    "updated_at": "2026-09-19T17:01:32.388Z"
   }
 ]

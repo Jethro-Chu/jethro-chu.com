@@ -1094,5 +1094,75 @@
         "claim": "eligibility"
       }
     ]
+  },
+  {
+    "id": "hist_2026-09-19-suggestions_0001",
+    "run_id": "2026-09-19-suggestions",
+    "at": "2026-09-19T17:01:32.388Z",
+    "type": "NEW",
+    "opportunity_id": "opp_473d98f794",
+    "changes": null,
+    "reason": "First published from run evidence (OPENING_SOON).",
+    "evidence": [
+      {
+        "source_url": "https://careers.chop.edu/us/en/NurseResidency",
+        "excerpt": "Applications will be open from September 28 through October 2, 2026 for students graduating in November 2026 or earlier. Information regarding opportunities for December 2026 graduates will be shared at a later date.",
+        "retrieved_at": "2026-09-19T16:57:15.000Z",
+        "claim": "opening_date"
+      },
+      {
+        "source_url": "https://careers.chop.edu/us/en/NurseResidency",
+        "excerpt": "CHOP’s 12-month Nurse Residency helps new graduate nurses transition into their first professional roles.",
+        "retrieved_at": "2026-09-19T16:57:15.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://careers.chop.edu/us/en/NurseResidency",
+        "excerpt": "Must have graduated from an accredited Nursing program (ASN, Diploma, BSN, MSN)",
+        "retrieved_at": "2026-09-19T16:57:15.000Z",
+        "claim": "education"
+      },
+      {
+        "source_url": "https://careers.chop.edu/us/en/NurseResidency",
+        "excerpt": "An active Pennsylvania Temporary Practice Permit or RN license",
+        "retrieved_at": "2026-09-19T16:57:15.000Z",
+        "claim": "license"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-09-19-suggestions_0002",
+    "run_id": "2026-09-19-suggestions",
+    "at": "2026-09-19T17:01:32.388Z",
+    "type": "NEW",
+    "opportunity_id": "opp_04a44aa517",
+    "changes": null,
+    "reason": "First published from run evidence (OPEN).",
+    "evidence": [
+      {
+        "source_url": "https://jobs.bswhealth.com/us/en/job/26014424",
+        "excerpt": "Begin a rewarding career at Baylor Scott & White Health as a Graduate Nurse. They offer entry-level nursing roles and opportunities for lifelong learning and career growth. Recent nursing graduates and inexperienced people can join our nursing internships. Our program combines theory and hands-on training. It prepares you for diverse patient care. Our nurses have the freedom to improve patient care. We use shared leadership, allowing all nurses to help create clinical policies. Internship starts January 25, 2027.",
+        "retrieved_at": "2026-09-19T16:58:20.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://jobs.bswhealth.com/us/en/job/26014424",
+        "excerpt": "New graduate from an accredited ADN, BSN, or MSN degree in Nursing",
+        "retrieved_at": "2026-09-19T16:58:20.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://jobs.bswhealth.com/us/en/job/26014424",
+        "excerpt": "This position requires a Graduate Nurse (GN) or Registered Nurse (RN) license for Texas.  Do you have a valid GN or RN license to practice in TX?",
+        "retrieved_at": "2026-09-19T16:58:20.000Z",
+        "claim": "license"
+      },
+      {
+        "source_url": "https://jobs.bswhealth.com/us/en/job/26014424",
+        "excerpt": "This position requires a minimum of an Associate’s Degree in Nursing. Please provide your completed or expected graduation date from an accredited ADN, BSN, or MSN program.",
+        "retrieved_at": "2026-09-19T16:58:20.000Z",
+        "claim": "education"
+      }
+    ]
   }
 ]

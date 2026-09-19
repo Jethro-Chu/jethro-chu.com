@@ -432,10 +432,13 @@
     "id": "src_chop",
     "hospital_id": "hosp_chop",
     "label": "Children's Hospital of Philadelphia careers",
-    "urls": [],
-    "status": "candidate",
+    "urls": [
+      "https://careers.chop.edu/us/en/NurseResidency",
+      "https://careers.chop.edu/"
+    ],
+    "status": "active",
     "shared_board": null,
-    "notes": "Verify official new-grad/residency and ATS URLs before activating."
+    "notes": "Verified 2026-09-19: Official CHOP Nurse Residency portal and Phenom career site."
   },
   {
     "id": "src_houstonmethodist",
@@ -468,10 +471,14 @@
     "id": "src_bsw",
     "hospital_id": "hosp_bsw",
     "label": "Baylor Scott & White Health careers (shared board)",
-    "urls": [],
-    "status": "candidate",
+    "urls": [
+      "https://jobs.bswhealth.com/us/en/job/26014424",
+      "https://jobs.bswhealth.com/us/en/c/nursing-jobs",
+      "https://jobs.bswhealth.com/"
+    ],
+    "status": "active",
     "shared_board": "bsw",
-    "notes": "One shared board serves BSW facilities; scan once, tag locations per requisition."
+    "notes": "Verified 2026-09-19: Official Baylor Scott & White Health nursing careers and Graduate Nurse Residency requisition portal."
   },
   {
     "id": "src_banner",

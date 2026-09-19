@@ -172,5 +172,17 @@
     "hospital_id": "hosp_kaiser",
     "name": "Kaiser Permanente Northern California Nurse Residency Program",
     "source_url": "https://nursescholars.kp.org/residency"
+  },
+  {
+    "id": "prog_8bf5226605",
+    "hospital_id": "hosp_chop",
+    "name": "CHOP Nurse Residency Program",
+    "source_url": "https://careers.chop.edu/us/en/NurseResidency"
+  },
+  {
+    "id": "prog_f97b69d081",
+    "hospital_id": "hosp_bsw",
+    "name": "Graduate Nurse Residency Program",
+    "source_url": "https://jobs.bswhealth.com/us/en/job/26014424"
   }
 ]
