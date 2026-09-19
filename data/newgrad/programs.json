@@ -148,5 +148,29 @@
     "hospital_id": "hosp_duke",
     "name": "DUHS Nurse Residency Program",
     "source_url": "https://careers.dukehealth.org/"
+  },
+  {
+    "id": "prog_779b8482bf",
+    "hospital_id": "hosp_vanderbilt",
+    "name": "VUMC Nurse Residency Program",
+    "source_url": "https://www.vumc.org/nurse-residency-program/application-requirements-track-options"
+  },
+  {
+    "id": "prog_4f4c82c040",
+    "hospital_id": "hosp_ucdavis",
+    "name": "Nurse Residency Program",
+    "source_url": "https://hr.ucdavis.edu/departments/hr/nurse-recruitment/nurse-residency-program"
+  },
+  {
+    "id": "prog_99f87e5c30",
+    "hospital_id": "hosp_palomar",
+    "name": "New Graduate RN Residency Program",
+    "source_url": "https://palomarucsdhealth.org/careers/nurse-residency/"
+  },
+  {
+    "id": "prog_59d0ac26b3",
+    "hospital_id": "hosp_kaiser",
+    "name": "Kaiser Permanente Northern California Nurse Residency Program",
+    "source_url": "https://nursescholars.kp.org/residency"
   }
 ]

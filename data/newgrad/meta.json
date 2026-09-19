@@ -1,16 +1,16 @@
 {
   "contract_version": "1.0.0",
-  "generated_at": "2026-09-19T06:07:18.159Z",
-  "last_research_attempt_at": "2026-09-19T06:07:00.000Z",
-  "last_successful_verification_at": "2026-09-19T06:07:18.159Z",
-  "last_published_at": "2026-09-19T06:07:31.540Z",
+  "generated_at": "2026-09-19T12:21:38.157Z",
+  "last_research_attempt_at": "2026-09-19T12:15:00.000Z",
+  "last_successful_verification_at": "2026-09-19T12:21:38.157Z",
+  "last_published_at": "2026-09-19T12:22:04.879Z",
   "counts": {
-    "opportunities": 21,
-    "open": 7,
+    "opportunities": 22,
+    "open": 8,
     "closing_soon": 0,
     "pending_review": 15,
-    "sources_active": 27,
-    "sources_candidate": 47
+    "sources_active": 28,
+    "sources_candidate": 46
   },
-  "coverage_note": "1 of 1 checked sources verified successfully in run 2026-09-18-duke."
+  "coverage_note": "7 of 9 checked sources verified successfully in run 2026-09-19-daily."
 }

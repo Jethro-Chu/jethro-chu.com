@@ -4,7 +4,7 @@
     "hospital_id": "hosp_stanford",
     "program_id": "prog_32554fab70",
     "cohort_id": "cohort_a56bcbfc96",
-    "position_title": "Clinical Nurse I - New Graduate (Cohort 46)",
+    "position_title": "Clinical Nurse I - New Graduate Nurse Residency Program",
     "unit": "Residency Cohort 46",
     "locations": [
       {
@@ -17,7 +17,7 @@
     ],
     "application_open": {
       "kind": "text",
-      "value": "Fall 2026"
+      "value": "Check Back Soon for 2027 Application Updates"
     },
     "application_close": null,
     "program_start": {
@@ -37,9 +37,9 @@
     "dedup_key": null,
     "source_external_id": null,
     "first_discovered_at": "2026-09-18T23:38:07.076Z",
-    "last_seen_at": "2026-09-19T00:12:25.308Z",
-    "last_attempted_at": "2026-09-19T00:12:25.308Z",
-    "last_verified_at": "2026-09-19T00:12:25.308Z",
+    "last_seen_at": "2026-09-19T12:21:38.157Z",
+    "last_attempted_at": "2026-09-19T12:21:38.157Z",
+    "last_verified_at": "2026-09-19T12:21:38.157Z",
     "closed_at": null,
     "closure_reason": null,
     "publication_state": "PUBLISHED",
@@ -73,11 +73,23 @@
         "excerpt": "The Stanford Health Care Nurse Residency Program welcomes new graduate registered nurses who have graduated from an accredited BSN or MSN program within the last 18 months.",
         "retrieved_at": "2026-09-19T00:05:00.000Z",
         "claim": "eligibility"
+      },
+      {
+        "source_url": "https://careers.stanfordhealthcare.org/us/en/nurse-residency-program",
+        "excerpt": "Cohort 46 Application Webinar October 7th, 2026 1030am PST link to apply attached (Stanford Health Care Nurse Residency Program Application Webinar – Fill out form) Check Back Soon for 2027 Application Updates",
+        "retrieved_at": "2026-09-19T11:42:00.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://careers.stanfordhealthcare.org/us/en/nurse-residency-program",
+        "excerpt": "Our program is thoughtfully designed for highly motivated, determined and dedicated new graduate nurses. The program aspires to develop competent, compassionate, and committed clinical nurses who make a positive impact in the lives of our patients.",
+        "retrieved_at": "2026-09-19T11:42:00.000Z",
+        "claim": "eligibility"
       }
     ],
     "manual_overrides": {},
     "created_at": "2026-09-18T23:38:07.076Z",
-    "updated_at": "2026-09-19T00:12:25.308Z"
+    "updated_at": "2026-09-19T12:21:38.157Z"
   },
   {
     "id": "opp_4a34429f1c",
@@ -236,9 +248,9 @@
   {
     "id": "opp_b7945f70da",
     "hospital_id": "hosp_palomar",
-    "program_id": "prog_3ffafd825b",
+    "program_id": "prog_99f87e5c30",
     "cohort_id": "cohort_66fa7227f9",
-    "position_title": "Nurse Resident",
+    "position_title": "Staff Nurse - New Graduate Residency",
     "unit": "Multiple Acute Care Units",
     "locations": [
       {
@@ -275,9 +287,9 @@
     "dedup_key": null,
     "source_external_id": null,
     "first_discovered_at": "2026-09-19T00:01:48.014Z",
-    "last_seen_at": "2026-09-19T00:12:25.308Z",
-    "last_attempted_at": "2026-09-19T00:12:25.308Z",
-    "last_verified_at": "2026-09-19T00:12:25.308Z",
+    "last_seen_at": "2026-09-19T12:21:38.157Z",
+    "last_attempted_at": "2026-09-19T12:21:38.157Z",
+    "last_verified_at": "2026-09-19T12:21:38.157Z",
     "closed_at": null,
     "closure_reason": null,
     "publication_state": "PUBLISHED",
@@ -317,18 +329,30 @@
         "excerpt": "Can I apply for a Nurse Residency position before I get my RN license? Yes. However, you must have your CA RN license by the program start date.",
         "retrieved_at": "2026-09-19T00:05:00.000Z",
         "claim": "license"
+      },
+      {
+        "source_url": "https://palomarucsdhealth.org/careers/nurse-residency/",
+        "excerpt": "Fall positions are posted in August with an October start date. Requirements: Associate Degree in Nursing (ADN) or Bachelor of Science in Nursing (BSN). Less than six months of acute care nursing experience.",
+        "retrieved_at": "2026-09-19T11:50:00.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://palomarucsdhealth.org/careers/nurse-residency/",
+        "excerpt": "Thank you for your interest in our Nurse Residency Program, a program focused on the New Graduate Nurse. Our Residency Program is offered three times per year: spring (February), summer (August) and fall (October).",
+        "retrieved_at": "2026-09-19T11:50:00.000Z",
+        "claim": "eligibility"
       }
     ],
     "manual_overrides": {},
     "created_at": "2026-09-19T00:01:48.014Z",
-    "updated_at": "2026-09-19T00:12:25.308Z"
+    "updated_at": "2026-09-19T12:21:38.157Z"
   },
   {
     "id": "opp_73bcc0ea08",
     "hospital_id": "hosp_ucdavis",
-    "program_id": "prog_39961c506b",
-    "cohort_id": "cohort_edf5edd9dd",
-    "position_title": "Nurse Resident",
+    "program_id": "prog_4f4c82c040",
+    "cohort_id": "cohort_1e996caaa0",
+    "position_title": "Registered Nurse - Nurse Residency Program",
     "unit": null,
     "locations": [
       {
@@ -364,9 +388,9 @@
     "dedup_key": null,
     "source_external_id": null,
     "first_discovered_at": "2026-09-19T00:12:25.308Z",
-    "last_seen_at": "2026-09-19T00:12:25.308Z",
-    "last_attempted_at": "2026-09-19T00:12:25.308Z",
-    "last_verified_at": "2026-09-19T00:12:25.308Z",
+    "last_seen_at": "2026-09-19T12:21:38.157Z",
+    "last_attempted_at": "2026-09-19T12:21:38.157Z",
+    "last_verified_at": "2026-09-19T12:21:38.157Z",
     "closed_at": null,
     "closure_reason": null,
     "publication_state": "PUBLISHED",
@@ -382,18 +406,36 @@
         "excerpt": "Cohort 60 and 61 Application window: Nov 4 – Nov 11, 2026. Cohort 60 Start Date: March 15, 2027. Cohort 61 Start Date: May 10, 2027.",
         "retrieved_at": "2026-09-19T00:05:00.000Z",
         "claim": "opening_date"
+      },
+      {
+        "source_url": "https://hr.ucdavis.edu/departments/hr/nurse-recruitment/nurse-residency-program",
+        "excerpt": "Acceptance Window: November 4, 2026 at 10 a.m. to November 11, 2026 at 11:59 p.m.\nTentative Start Dates: Cohort 60: March 15, 2027 | Cohort 61: May 10, 2027",
+        "retrieved_at": "2026-09-19T11:45:00.000Z",
+        "claim": "opening_date"
+      },
+      {
+        "source_url": "https://hr.ucdavis.edu/departments/hr/nurse-recruitment/nurse-residency-program",
+        "excerpt": "Acceptance Window: November 4, 2026 at 10 a.m. to November 11, 2026 at 11:59 p.m.",
+        "retrieved_at": "2026-09-19T11:45:00.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://hr.ucdavis.edu/departments/hr/nurse-recruitment/nurse-residency-program",
+        "excerpt": "Designed for new graduate registered nurses with less than six months of experience.",
+        "retrieved_at": "2026-09-19T11:45:00.000Z",
+        "claim": "eligibility"
       }
     ],
     "manual_overrides": {},
     "created_at": "2026-09-19T00:12:25.308Z",
-    "updated_at": "2026-09-19T00:12:25.308Z"
+    "updated_at": "2026-09-19T12:21:38.157Z"
   },
   {
     "id": "opp_afb6ead28f",
     "hospital_id": "hosp_ucsd",
     "program_id": "prog_75093e71f1",
     "cohort_id": "cohort_37b2a657ba",
-    "position_title": "New Graduate Nurse Resident",
+    "position_title": "Clinical Nurse I - New Graduate Nurse Residency",
     "unit": null,
     "locations": [
       {
@@ -409,13 +451,13 @@
       "Multiple Specialties"
     ],
     "application_open": {
-      "kind": "date",
-      "value": "2026-10-15"
+      "kind": "text",
+      "value": "October 2026"
     },
     "application_close": null,
     "program_start": {
-      "kind": "text",
-      "value": "March 2027"
+      "kind": "date",
+      "value": "2027-03-01"
     },
     "source_posted_at": null,
     "application_status": "OPENING_SOON",
@@ -430,9 +472,9 @@
     "dedup_key": null,
     "source_external_id": null,
     "first_discovered_at": "2026-09-19T00:12:25.308Z",
-    "last_seen_at": "2026-09-19T00:12:25.308Z",
-    "last_attempted_at": "2026-09-19T00:12:25.308Z",
-    "last_verified_at": "2026-09-19T00:12:25.308Z",
+    "last_seen_at": "2026-09-19T12:21:38.157Z",
+    "last_attempted_at": "2026-09-19T12:21:38.157Z",
+    "last_verified_at": "2026-09-19T12:21:38.157Z",
     "closed_at": null,
     "closure_reason": null,
     "publication_state": "PUBLISHED",
@@ -448,11 +490,23 @@
         "excerpt": "The UC San Diego Health New Graduate Nurse Residency Program is a 12-month evidence-based program designed to support new graduate nurses transitioning into practice.",
         "retrieved_at": "2026-09-19T00:05:00.000Z",
         "claim": "eligibility"
+      },
+      {
+        "source_url": "https://employment.ucsd.edu/nursing",
+        "excerpt": "Hiring cycles occur twice per year: October posting for March cohort; April posting for September cohort.",
+        "retrieved_at": "2026-09-19T11:48:00.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://health.ucsd.edu/for-health-care-professionals/nursing/nurse-residency-program/",
+        "excerpt": "New graduate nurses are hired twice a year, with cohorts starting in March and September. Job postings typically go live five months before each start date. Search for our open New Grad RN jobs on the job site.",
+        "retrieved_at": "2026-09-19T11:48:00.000Z",
+        "claim": "eligibility"
       }
     ],
     "manual_overrides": {},
     "created_at": "2026-09-19T00:12:25.308Z",
-    "updated_at": "2026-09-19T00:12:25.308Z"
+    "updated_at": "2026-09-19T12:21:38.157Z"
   },
   {
     "id": "opp_b4a5537b8b",
@@ -780,7 +834,7 @@
   {
     "id": "opp_2a200928c1",
     "hospital_id": "hosp_kaiser",
-    "program_id": "prog_703fbb7df9",
+    "program_id": "prog_59d0ac26b3",
     "cohort_id": null,
     "position_title": "Staff Nurse I - Nurse Residency Program",
     "unit": null,
@@ -805,17 +859,17 @@
     "verification_health": "VERIFIED",
     "eligibility": "ELIGIBLE",
     "bsn_required": true,
-    "rn_license_requirement": "Active California RN license required.",
+    "rn_license_requirement": "Active California RN license (interim permits cannot be accepted).",
     "license_required_by": "start",
-    "experience_requirement": "New graduate registered nurses with less than 6 months of clinical experience.",
+    "experience_requirement": "No prior inpatient (acute care) RN experience.",
     "source_url": "https://nursescholars.kaiserpermanente.org/program/nurse-residency/",
     "application_url": "https://www.kaiserpermanentejobs.org/",
     "dedup_key": null,
     "source_external_id": null,
     "first_discovered_at": "2026-09-19T00:12:25.308Z",
-    "last_seen_at": "2026-09-19T00:12:25.308Z",
-    "last_attempted_at": "2026-09-19T00:12:25.308Z",
-    "last_verified_at": "2026-09-19T00:12:25.308Z",
+    "last_seen_at": "2026-09-19T12:21:38.157Z",
+    "last_attempted_at": "2026-09-19T12:21:38.157Z",
+    "last_verified_at": "2026-09-19T12:21:38.157Z",
     "closed_at": null,
     "closure_reason": null,
     "publication_state": "PUBLISHED",
@@ -825,11 +879,23 @@
         "excerpt": "The Kaiser Permanente Nurse Residency Program is a 12-month evidence-based transition to practice program for newly licensed new graduate registered nurses.",
         "retrieved_at": "2026-09-19T00:05:00.000Z",
         "claim": "eligibility"
+      },
+      {
+        "source_url": "https://nursescholars.kp.org/residency",
+        "excerpt": "Since 2021, the Kaiser Permanente Northern California Nurse Residency Program has supported newly licensed RNs as they transition to practice to one of our 21 medical centers. The program consists of a comprehensive evidence-based clinical orientation in addition to nursing professional development transition to practice curriculum. The program has supported the training and enculturation of over 1,200 new graduate nurses and anticipates hiring approximately 300 residents annually.",
+        "retrieved_at": "2026-09-19T11:55:00.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://nursescholars.kp.org/residency",
+        "excerpt": "The Kaiser Permanente National RN Residency Program is a 12-month program that supports newly licensed RNs as they transition to professional practice. The comprehensive curriculum helps grow your knowledge, skills, and confidence.",
+        "retrieved_at": "2026-09-19T11:55:00.000Z",
+        "claim": "eligibility"
       }
     ],
     "manual_overrides": {},
     "created_at": "2026-09-19T00:12:25.308Z",
-    "updated_at": "2026-09-19T00:12:25.308Z"
+    "updated_at": "2026-09-19T12:21:38.157Z"
   },
   {
     "id": "opp_62a8c76769",
@@ -1335,5 +1401,91 @@
     "manual_overrides": {},
     "created_at": "2026-09-19T06:07:18.159Z",
     "updated_at": "2026-09-19T06:07:18.159Z"
+  },
+  {
+    "id": "opp_717a814cb5",
+    "hospital_id": "hosp_vanderbilt",
+    "program_id": "prog_779b8482bf",
+    "cohort_id": "cohort_ad9ac45acb",
+    "position_title": "Nurse Residency Program Winter 2027",
+    "unit": "Adult Acute Care, Pediatric, Perioperative, Critical Care tracks",
+    "locations": [
+      {
+        "city": "Nashville",
+        "state": "TN"
+      }
+    ],
+    "specialties": [
+      "Med-Surg",
+      "Pediatrics",
+      "Operating Room",
+      "Critical Care"
+    ],
+    "application_open": {
+      "kind": "date",
+      "value": "2026-08-10"
+    },
+    "application_close": {
+      "kind": "date",
+      "value": "2027-01-04"
+    },
+    "program_start": {
+      "kind": "date",
+      "value": "2027-02-22"
+    },
+    "source_posted_at": null,
+    "application_status": "OPEN",
+    "verification_health": "VERIFIED",
+    "eligibility": "ELIGIBLE",
+    "bsn_required": false,
+    "rn_license_requirement": "Tennessee RN license or compact multistate RN license required prior to start date. Eligible to start with official NCLEX pass results and pending license application.",
+    "license_required_by": "start",
+    "experience_requirement": "Less than 6 months of RN experience at time of application (or new graduate).",
+    "source_url": "https://www.vumc.org/nurse-residency-program/application-requirements-track-options",
+    "application_url": "https://vumc.wd1.myworkdayjobs.com/en-US/vumccareers/job/Nurse-Residency-Program-Winter-2027_R-62350-2",
+    "dedup_key": "workday|vumc|r-62350",
+    "source_external_id": "R-62350",
+    "first_discovered_at": "2026-09-19T12:21:38.157Z",
+    "last_seen_at": "2026-09-19T12:21:38.157Z",
+    "last_attempted_at": "2026-09-19T12:21:38.157Z",
+    "last_verified_at": "2026-09-19T12:21:38.157Z",
+    "closed_at": null,
+    "closure_reason": null,
+    "publication_state": "PUBLISHED",
+    "evidence": [
+      {
+        "source_url": "https://www.vumc.org/nurse-residency-program/application-requirements-track-options",
+        "excerpt": "Winter 2027\nVUMC staff: applications open July 6-13\nNon-VUMC staff: applications open July 14\nInitial deadline: Aug 9\n\nStart dates:\n• Feb. 22\n• March 1",
+        "retrieved_at": "2026-09-19T12:12:28.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://vumc.wd1.myworkdayjobs.com/en-US/vumccareers/job/Nurse-Residency-Program-Winter-2027_R-62350-2",
+        "excerpt": "This 12-month program is ideal for: New graduate nurses, or Registered Nurses with less than six (6) months of RN experience at the time of application",
+        "retrieved_at": "2026-09-19T12:13:09.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://vumc.wd1.myworkdayjobs.com/en-US/vumccareers/job/Nurse-Residency-Program-Winter-2027_R-62350-2",
+        "excerpt": "ASN and BSN degrees are both accepted",
+        "retrieved_at": "2026-09-19T12:13:09.000Z",
+        "claim": "education"
+      },
+      {
+        "source_url": "https://vumc.wd1.myworkdayjobs.com/en-US/vumccareers/job/Nurse-Residency-Program-Winter-2027_R-62350-2",
+        "excerpt": "Experience Level : Less than 1 year",
+        "retrieved_at": "2026-09-19T12:13:09.000Z",
+        "claim": "experience"
+      },
+      {
+        "source_url": "https://www.vumc.org/nurse-residency-program/nrp-faqs",
+        "excerpt": "Nurse residents are required to be licensed prior to their start date. Residents that can provide official documentation of successful NCLEX results and pending application for TN RN licensure (or a state that is part of the enhanced nurse licensure compact) will be considered eligible to start.",
+        "retrieved_at": "2026-09-19T12:12:40.000Z",
+        "claim": "license"
+      }
+    ],
+    "manual_overrides": {},
+    "created_at": "2026-09-19T12:21:38.157Z",
+    "updated_at": "2026-09-19T12:21:38.157Z"
   }
 ]

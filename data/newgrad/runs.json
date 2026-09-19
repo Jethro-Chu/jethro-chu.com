@@ -184,5 +184,39 @@
     "pending_review": 0,
     "rejected": 0,
     "failed_checks": []
+  },
+  {
+    "run_id": "2026-09-19-daily",
+    "research_started_at": "2026-09-19T11:30:00.000Z",
+    "research_completed_at": "2026-09-19T12:15:00.000Z",
+    "ingested_at": "2026-09-19T12:21:38.157Z",
+    "sources_checked": 9,
+    "sources_ok": 7,
+    "findings_received": 6,
+    "published": 1,
+    "updated": 5,
+    "closed": 0,
+    "pending_review": 0,
+    "rejected": 0,
+    "failed_checks": [
+      {
+        "source_id": "src_cedars",
+        "url": "https://jobs.cedars-sinai.org/",
+        "attempted_at": "2026-09-19T12:00:00.000Z",
+        "retrieved_at": null,
+        "outcome": "blocked",
+        "coverage_complete": false,
+        "error": "HTTP 403 Forbidden: Cloudflare bot protection challenge"
+      },
+      {
+        "source_id": "src_chla",
+        "url": "https://jobs.chla.org/",
+        "attempted_at": "2026-09-19T12:02:00.000Z",
+        "retrieved_at": null,
+        "outcome": "blocked",
+        "coverage_complete": false,
+        "error": "HTTP 403 Forbidden: Cloudflare bot protection challenge"
+      }
+    ]
   }
 ]

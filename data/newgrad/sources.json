@@ -41,6 +41,7 @@
     "hospital_id": "hosp_kaiser",
     "label": "Kaiser Permanente careers (shared board)",
     "urls": [
+      "https://nursescholars.kp.org/residency",
       "https://nursescholars.kaiserpermanente.org/program/nurse-residency/",
       "https://www.kaiserpermanentejobs.org/"
     ],
@@ -53,12 +54,13 @@
     "hospital_id": "hosp_ucdavis",
     "label": "UC Davis Health careers",
     "urls": [
+      "https://hr.ucdavis.edu/departments/hr/nurse-recruitment/nurse-residency-program",
       "https://health.ucdavis.edu/nurse-residency/",
       "https://health.ucdavis.edu/careers/"
     ],
     "status": "active",
     "shared_board": null,
-    "notes": "Activated by Jethro"
+    "notes": "Activated by Jethro; updated 2026-09-19 with hr.ucdavis.edu recruitment portal."
   },
   {
     "id": "src_uci",
@@ -390,10 +392,14 @@
     "id": "src_vanderbilt",
     "hospital_id": "hosp_vanderbilt",
     "label": "Vanderbilt University Medical Center careers",
-    "urls": [],
-    "status": "candidate",
+    "urls": [
+      "https://www.vumc.org/nurse-residency-program/",
+      "https://www.vumc.org/nurse-residency-program/application-requirements-track-options",
+      "https://vumc.wd1.myworkdayjobs.com/en-US/vumccareers"
+    ],
+    "status": "active",
     "shared_board": null,
-    "notes": "Seeded as Vanderbilt University Medical Center; confirm identity before activating."
+    "notes": "Verified 2026-09-19: Official VUMC Nurse Residency program portal and Workday ATS."
   },
   {
     "id": "src_emory",

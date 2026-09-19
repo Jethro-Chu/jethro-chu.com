@@ -97,5 +97,23 @@
     "program_id": "prog_071fe4e43b",
     "label": "2026/2027 Ongoing",
     "program_start": null
+  },
+  {
+    "id": "cohort_ad9ac45acb",
+    "program_id": "prog_779b8482bf",
+    "label": "Winter 2027",
+    "program_start": {
+      "kind": "date",
+      "value": "2027-02-22"
+    }
+  },
+  {
+    "id": "cohort_1e996caaa0",
+    "program_id": "prog_4f4c82c040",
+    "label": "Cohorts 60 & 61",
+    "program_start": {
+      "kind": "date",
+      "value": "2027-03-15"
+    }
   }
 ]
