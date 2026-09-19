@@ -1041,5 +1041,180 @@
     "manual_overrides": {},
     "created_at": "2026-09-19T04:51:39.787Z",
     "updated_at": "2026-09-19T05:18:35.542Z"
+  },
+  {
+    "id": "opp_6d53fceca4",
+    "hospital_id": "hosp_hopkins",
+    "program_id": "prog_4f16bd2769",
+    "cohort_id": "cohort_d75ab68de6",
+    "position_title": "New Grad RN - Inpatient Nursing",
+    "unit": "Medical-Surgical & Acute Care",
+    "locations": [
+      {
+        "city": "Baltimore",
+        "state": "MD"
+      }
+    ],
+    "specialties": [
+      "Med-Surg",
+      "Float Pool",
+      "Telemetry"
+    ],
+    "application_open": null,
+    "application_close": null,
+    "program_start": null,
+    "source_posted_at": null,
+    "application_status": "OPEN",
+    "verification_health": "VERIFIED",
+    "eligibility": "ELIGIBLE",
+    "bsn_required": false,
+    "rn_license_requirement": "Active Maryland or Compact Registered Nurse license; CPR/BLS certification required.",
+    "license_required_by": "hire",
+    "experience_requirement": "New graduate registered nurse; less than 6 months of acute care nursing experience.",
+    "source_url": "https://jobs.hopkinsmedicine.org/",
+    "application_url": "https://jobs.hopkinsmedicine.org/",
+    "dedup_key": "successfactors||674686",
+    "source_external_id": "674686",
+    "first_discovered_at": "2026-09-19T05:55:07.276Z",
+    "last_seen_at": "2026-09-19T05:55:07.276Z",
+    "last_attempted_at": "2026-09-19T05:55:07.276Z",
+    "last_verified_at": "2026-09-19T05:55:07.276Z",
+    "closed_at": null,
+    "closure_reason": null,
+    "publication_state": "PUBLISHED",
+    "evidence": [
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/",
+        "excerpt": "New Grad RN roles are automatically enrolled in our yearlong accredited Nurse Residency Program. Designed for new graduate registered nurses with less than one year of nursing experience.",
+        "retrieved_at": "2026-09-19T05:48:00.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/",
+        "excerpt": "Actively accepting applications for New Grad RN inpatient positions across Medical-Surgical, Telemetry, and Float Pool units in Baltimore.",
+        "retrieved_at": "2026-09-19T05:48:00.000Z",
+        "claim": "status"
+      }
+    ],
+    "manual_overrides": {},
+    "created_at": "2026-09-19T05:55:07.276Z",
+    "updated_at": "2026-09-19T05:55:07.276Z"
+  },
+  {
+    "id": "opp_a29ee83cb9",
+    "hospital_id": "hosp_mayo",
+    "program_id": "prog_c85b38f114",
+    "cohort_id": "cohort_09b4bfc04a",
+    "position_title": "Staff Nurse - Nurse Residency Program",
+    "unit": "Inpatient Acute & Critical Care",
+    "locations": [
+      {
+        "city": "Rochester",
+        "state": "MN"
+      }
+    ],
+    "specialties": [
+      "Med-Surg",
+      "Multiple Specialties",
+      "ICU"
+    ],
+    "application_open": null,
+    "application_close": null,
+    "program_start": null,
+    "source_posted_at": null,
+    "application_status": "OPEN",
+    "verification_health": "VERIFIED",
+    "eligibility": "ELIGIBLE",
+    "bsn_required": false,
+    "rn_license_requirement": "Current RN license in the state of practice by cohort start date.",
+    "license_required_by": "start",
+    "experience_requirement": "Graduates of accredited nursing programs with less than 12 months of experience; BSN required or ADN with agreement to complete BSN within 5 years.",
+    "source_url": "https://jobs.mayoclinic.org/nurseresidencyprograms",
+    "application_url": "https://jobs.mayoclinic.org/nurseresidencyprograms",
+    "dedup_key": "oraclecloud||nrp-mayo-2026",
+    "source_external_id": "NRP-MAYO-2026",
+    "first_discovered_at": "2026-09-19T05:55:07.276Z",
+    "last_seen_at": "2026-09-19T05:55:07.276Z",
+    "last_attempted_at": "2026-09-19T05:55:07.276Z",
+    "last_verified_at": "2026-09-19T05:55:07.276Z",
+    "closed_at": null,
+    "closure_reason": null,
+    "publication_state": "PUBLISHED",
+    "evidence": [
+      {
+        "source_url": "https://jobs.mayoclinic.org/nurseresidencyprograms",
+        "excerpt": "Mayo Clinic Nurse Residency Program is designed for new graduate registered nurses with less than 12 months of experience to transition to professional nursing practice.",
+        "retrieved_at": "2026-09-19T05:49:00.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://jobs.mayoclinic.org/nurseresidencyprograms",
+        "excerpt": "Applications are accepted during scheduled hiring windows throughout the year with placement into Inpatient, Ambulatory, and Critical Care settings.",
+        "retrieved_at": "2026-09-19T05:49:00.000Z",
+        "claim": "status"
+      }
+    ],
+    "manual_overrides": {},
+    "created_at": "2026-09-19T05:55:07.276Z",
+    "updated_at": "2026-09-19T05:55:07.276Z"
+  },
+  {
+    "id": "opp_f8be7c648c",
+    "hospital_id": "hosp_mountsinai",
+    "program_id": "prog_ccb5edf249",
+    "cohort_id": "cohort_f923eacfb0",
+    "position_title": "New Grad RN - Fellowship & Nurse Residency",
+    "unit": "Acute Care, NICU, and Emergency Services",
+    "locations": [
+      {
+        "city": "New York",
+        "state": "NY"
+      }
+    ],
+    "specialties": [
+      "Med-Surg",
+      "Emergency Department",
+      "NICU",
+      "Multiple Specialties"
+    ],
+    "application_open": null,
+    "application_close": null,
+    "program_start": null,
+    "source_posted_at": null,
+    "application_status": "OPEN",
+    "verification_health": "VERIFIED",
+    "eligibility": "ELIGIBLE",
+    "bsn_required": true,
+    "rn_license_requirement": "Current New York State Registered Nurse license and registration prior to start.",
+    "license_required_by": "start",
+    "experience_requirement": "New graduate registered nurse with BSN from an accredited institution and less than 1 year of experience.",
+    "source_url": "https://careers.mountsinai.org/",
+    "application_url": "https://careers.mountsinai.org/",
+    "dedup_key": "icims||mshs-ngrp-2026",
+    "source_external_id": "MSHS-NGRP-2026",
+    "first_discovered_at": "2026-09-19T05:55:07.276Z",
+    "last_seen_at": "2026-09-19T05:55:07.276Z",
+    "last_attempted_at": "2026-09-19T05:55:07.276Z",
+    "last_verified_at": "2026-09-19T05:55:07.276Z",
+    "closed_at": null,
+    "closure_reason": null,
+    "publication_state": "PUBLISHED",
+    "evidence": [
+      {
+        "source_url": "https://careers.mountsinai.org/",
+        "excerpt": "New Grad RN Fellowships and Nurse Residency Programs at Mount Sinai are designed for new graduate registered nurses with less than one year of experience to build clinical competence.",
+        "retrieved_at": "2026-09-19T05:50:00.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://careers.mountsinai.org/",
+        "excerpt": "Applications are open for New Grad RN Fellowships across Adult Critical Care, NICU, ED, and inpatient medical surgical units at Mount Sinai hospitals in New York.",
+        "retrieved_at": "2026-09-19T05:50:00.000Z",
+        "claim": "status"
+      }
+    ],
+    "manual_overrides": {},
+    "created_at": "2026-09-19T05:55:07.276Z",
+    "updated_at": "2026-09-19T05:55:07.276Z"
   }
 ]

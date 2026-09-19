@@ -118,5 +118,23 @@
     "hospital_id": "hosp_ucla",
     "name": "Nurse Residency Program",
     "source_url": "https://www.uclahealthcareers.org/nursing-new-graduates/"
+  },
+  {
+    "id": "prog_4f16bd2769",
+    "hospital_id": "hosp_hopkins",
+    "name": "Nurse Residency Program",
+    "source_url": "https://jobs.hopkinsmedicine.org/"
+  },
+  {
+    "id": "prog_c85b38f114",
+    "hospital_id": "hosp_mayo",
+    "name": "Nurse Residency Program",
+    "source_url": "https://jobs.mayoclinic.org/nurseresidencyprograms"
+  },
+  {
+    "id": "prog_ccb5edf249",
+    "hospital_id": "hosp_mountsinai",
+    "name": "New Graduate RN Fellowship & Residency",
+    "source_url": "https://careers.mountsinai.org/"
   }
 ]

@@ -729,5 +729,74 @@
         "claim": "eligibility"
       }
     ]
+  },
+  {
+    "id": "hist_2026-09-18-hopkins-mayo-mountsinai_0001",
+    "run_id": "2026-09-18-hopkins-mayo-mountsinai",
+    "at": "2026-09-19T05:55:07.276Z",
+    "type": "NEW",
+    "opportunity_id": "opp_6d53fceca4",
+    "changes": null,
+    "reason": "First published from run evidence (OPEN).",
+    "evidence": [
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/",
+        "excerpt": "New Grad RN roles are automatically enrolled in our yearlong accredited Nurse Residency Program. Designed for new graduate registered nurses with less than one year of nursing experience.",
+        "retrieved_at": "2026-09-19T05:48:00.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/",
+        "excerpt": "Actively accepting applications for New Grad RN inpatient positions across Medical-Surgical, Telemetry, and Float Pool units in Baltimore.",
+        "retrieved_at": "2026-09-19T05:48:00.000Z",
+        "claim": "status"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-09-18-hopkins-mayo-mountsinai_0002",
+    "run_id": "2026-09-18-hopkins-mayo-mountsinai",
+    "at": "2026-09-19T05:55:07.276Z",
+    "type": "NEW",
+    "opportunity_id": "opp_a29ee83cb9",
+    "changes": null,
+    "reason": "First published from run evidence (OPEN).",
+    "evidence": [
+      {
+        "source_url": "https://jobs.mayoclinic.org/nurseresidencyprograms",
+        "excerpt": "Mayo Clinic Nurse Residency Program is designed for new graduate registered nurses with less than 12 months of experience to transition to professional nursing practice.",
+        "retrieved_at": "2026-09-19T05:49:00.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://jobs.mayoclinic.org/nurseresidencyprograms",
+        "excerpt": "Applications are accepted during scheduled hiring windows throughout the year with placement into Inpatient, Ambulatory, and Critical Care settings.",
+        "retrieved_at": "2026-09-19T05:49:00.000Z",
+        "claim": "status"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-09-18-hopkins-mayo-mountsinai_0003",
+    "run_id": "2026-09-18-hopkins-mayo-mountsinai",
+    "at": "2026-09-19T05:55:07.276Z",
+    "type": "NEW",
+    "opportunity_id": "opp_f8be7c648c",
+    "changes": null,
+    "reason": "First published from run evidence (OPEN).",
+    "evidence": [
+      {
+        "source_url": "https://careers.mountsinai.org/",
+        "excerpt": "New Grad RN Fellowships and Nurse Residency Programs at Mount Sinai are designed for new graduate registered nurses with less than one year of experience to build clinical competence.",
+        "retrieved_at": "2026-09-19T05:50:00.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://careers.mountsinai.org/",
+        "excerpt": "Applications are open for New Grad RN Fellowships across Adult Critical Care, NICU, ED, and inpatient medical surgical units at Mount Sinai hospitals in New York.",
+        "retrieved_at": "2026-09-19T05:50:00.000Z",
+        "claim": "status"
+      }
+    ]
   }
 ]

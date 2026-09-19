@@ -1,16 +1,16 @@
 {
   "contract_version": "1.0.0",
-  "generated_at": "2026-09-19T05:18:35.542Z",
-  "last_research_attempt_at": "2026-09-19T05:25:00.000Z",
-  "last_successful_verification_at": "2026-09-19T05:18:35.542Z",
-  "last_published_at": "2026-09-19T05:18:45.719Z",
+  "generated_at": "2026-09-19T05:55:07.276Z",
+  "last_research_attempt_at": "2026-09-19T05:54:00.000Z",
+  "last_successful_verification_at": "2026-09-19T05:55:07.276Z",
+  "last_published_at": "2026-09-19T05:55:23.674Z",
   "counts": {
-    "opportunities": 16,
-    "open": 3,
+    "opportunities": 19,
+    "open": 6,
     "closing_soon": 0,
     "pending_review": 15,
-    "sources_active": 23,
-    "sources_candidate": 51
+    "sources_active": 26,
+    "sources_candidate": 48
   },
-  "coverage_note": "3 of 3 checked sources verified successfully in run 2026-09-18-open-discovery."
+  "coverage_note": "3 of 3 checked sources verified successfully in run 2026-09-18-hopkins-mayo-mountsinai."
 }

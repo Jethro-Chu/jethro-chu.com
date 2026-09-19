@@ -310,10 +310,13 @@
     "id": "src_mountsinai",
     "hospital_id": "hosp_mountsinai",
     "label": "Mount Sinai Health System careers",
-    "urls": [],
-    "status": "candidate",
+    "urls": [
+      "https://careers.mountsinai.org/",
+      "https://www.mountsinai.org/about/careers"
+    ],
+    "status": "active",
     "shared_board": null,
-    "notes": "Verify official new-grad/residency and ATS URLs before activating."
+    "notes": "Verified official Mount Sinai Nurse Residency and New Graduate RN Fellowships portals."
   },
   {
     "id": "src_northwell",
@@ -350,19 +353,26 @@
     "id": "src_mayo",
     "hospital_id": "hosp_mayo",
     "label": "Mayo Clinic careers (shared board)",
-    "urls": [],
-    "status": "candidate",
+    "urls": [
+      "https://jobs.mayoclinic.org/nurseresidencyprograms",
+      "https://jobs.mayoclinic.org/nursing"
+    ],
+    "status": "active",
     "shared_board": "mayo",
-    "notes": "One shared board serves all Mayo sites; scan once, tag locations per requisition."
+    "notes": "Verified official Mayo Clinic Nurse Residency Program and nursing careers portals."
   },
   {
     "id": "src_hopkins",
     "hospital_id": "hosp_hopkins",
     "label": "Johns Hopkins Medicine careers",
-    "urls": [],
-    "status": "candidate",
+    "urls": [
+      "https://jobs.hopkinsmedicine.org/",
+      "https://www.joinhopkinsnursing.org/",
+      "https://www.hopkinsmedicine.org/nursing"
+    ],
+    "status": "active",
     "shared_board": null,
-    "notes": "Verify official new-grad/residency and ATS URLs before activating."
+    "notes": "Verified official Johns Hopkins Nurse Residency and nursing careers portals."
   },
   {
     "id": "src_duke",

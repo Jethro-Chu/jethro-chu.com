@@ -67,5 +67,23 @@
       "kind": "text",
       "value": "Fall 2027"
     }
+  },
+  {
+    "id": "cohort_d75ab68de6",
+    "program_id": "prog_4f16bd2769",
+    "label": "2026/2027 Ongoing",
+    "program_start": null
+  },
+  {
+    "id": "cohort_09b4bfc04a",
+    "program_id": "prog_c85b38f114",
+    "label": "2026/2027 Ongoing",
+    "program_start": null
+  },
+  {
+    "id": "cohort_f923eacfb0",
+    "program_id": "prog_ccb5edf249",
+    "label": "2026/2027 Cohorts",
+    "program_start": null
   }
 ]
