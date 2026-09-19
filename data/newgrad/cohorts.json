@@ -52,5 +52,20 @@
       "kind": "text",
       "value": "March 2027"
     }
+  },
+  {
+    "id": "cohort_a9f070db97",
+    "program_id": "prog_76bb8bd11f",
+    "label": "2027 Critical Care Cohort",
+    "program_start": null
+  },
+  {
+    "id": "cohort_a0bdee1cda",
+    "program_id": "prog_0fb2e55574",
+    "label": "Spring 2027",
+    "program_start": {
+      "kind": "text",
+      "value": "Fall 2027"
+    }
   }
 ]

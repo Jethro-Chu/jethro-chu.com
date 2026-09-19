@@ -124,5 +124,20 @@
     "pending_review": 0,
     "rejected": 0,
     "failed_checks": []
+  },
+  {
+    "run_id": "2026-09-18-open-discovery",
+    "research_started_at": "2026-09-19T05:00:00.000Z",
+    "research_completed_at": "2026-09-19T05:25:00.000Z",
+    "ingested_at": "2026-09-19T05:18:35.542Z",
+    "sources_checked": 3,
+    "sources_ok": 3,
+    "findings_received": 3,
+    "published": 0,
+    "updated": 3,
+    "closed": 0,
+    "pending_review": 0,
+    "rejected": 0,
+    "failed_checks": []
   }
 ]

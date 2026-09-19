@@ -1,16 +1,16 @@
 {
   "contract_version": "1.0.0",
-  "generated_at": "2026-09-19T04:51:39.787Z",
-  "last_research_attempt_at": "2026-09-19T04:50:00.000Z",
-  "last_successful_verification_at": "2026-09-19T04:51:39.787Z",
-  "last_published_at": "2026-09-19T04:51:49.824Z",
+  "generated_at": "2026-09-19T05:18:35.542Z",
+  "last_research_attempt_at": "2026-09-19T05:25:00.000Z",
+  "last_successful_verification_at": "2026-09-19T05:18:35.542Z",
+  "last_published_at": "2026-09-19T05:18:45.719Z",
   "counts": {
     "opportunities": 16,
-    "open": 1,
+    "open": 3,
     "closing_soon": 0,
     "pending_review": 15,
     "sources_active": 23,
     "sources_candidate": 51
   },
-  "coverage_note": "1 of 1 checked sources verified successfully in run 2026-09-18-ohio-state."
+  "coverage_note": "3 of 3 checked sources verified successfully in run 2026-09-18-open-discovery."
 }

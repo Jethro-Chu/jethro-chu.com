@@ -82,8 +82,8 @@
   {
     "id": "opp_4a34429f1c",
     "hospital_id": "hosp_ucla",
-    "program_id": "prog_01d309b944",
-    "cohort_id": "cohort_0e2dd22605",
+    "program_id": "prog_0fb2e55574",
+    "cohort_id": "cohort_a0bdee1cda",
     "position_title": "Nurse Resident",
     "unit": null,
     "locations": [
@@ -97,29 +97,29 @@
     ],
     "application_open": {
       "kind": "text",
-      "value": "February/March 2027"
+      "value": "March 2027"
     },
     "application_close": null,
     "program_start": {
       "kind": "text",
-      "value": "Spring 2027"
+      "value": "Fall 2027"
     },
     "source_posted_at": null,
     "application_status": "EXPECTED",
     "verification_health": "VERIFIED",
     "eligibility": "ELIGIBLE",
     "bsn_required": true,
-    "rn_license_requirement": "California RN license required by program start.",
+    "rn_license_requirement": "Current California RN license required by program start date.",
     "license_required_by": "start",
-    "experience_requirement": "Graduation from an accredited BSN or MSN program; less than 6 months of professional RN experience.",
+    "experience_requirement": "New graduate registered nurses with BSN or MSN; little to no RN experience.",
     "source_url": "https://www.uclahealthcareers.org/nursing-new-graduates/",
-    "application_url": "https://www.uclahealthcareers.org/",
+    "application_url": "https://www.uclahealthcareers.org/nursing-new-graduates/",
     "dedup_key": null,
     "source_external_id": null,
     "first_discovered_at": "2026-09-18T23:38:07.076Z",
-    "last_seen_at": "2026-09-19T00:12:25.308Z",
-    "last_attempted_at": "2026-09-19T00:12:25.308Z",
-    "last_verified_at": "2026-09-19T00:12:25.308Z",
+    "last_seen_at": "2026-09-19T05:18:35.542Z",
+    "last_attempted_at": "2026-09-19T05:18:35.542Z",
+    "last_verified_at": "2026-09-19T05:18:35.542Z",
     "closed_at": null,
     "closure_reason": null,
     "publication_state": "PUBLISHED",
@@ -147,11 +147,23 @@
         "excerpt": "The UCLA Health New Graduate Residency program is a 12-month program supporting newly graduated registered nurses transitioning into acute care practice.",
         "retrieved_at": "2026-09-19T00:05:00.000Z",
         "claim": "eligibility"
+      },
+      {
+        "source_url": "https://www.uclahealthcareers.org/nursing-new-graduates/",
+        "excerpt": "The application window for the Spring 2027 Nurse Residency & OR Training Programs has now closed. Recruitment for our Fall 2027 cohort will begin March 2027.",
+        "retrieved_at": "2026-09-19T05:12:22.000Z",
+        "claim": "opening_date"
+      },
+      {
+        "source_url": "https://www.uclahealthcareers.org/nursing-new-graduates/",
+        "excerpt": "This program is specifically designed for new graduate nurses, post-degree with little to no RN experience. Completion of a BSN or MSN degree is required.",
+        "retrieved_at": "2026-09-19T05:12:22.000Z",
+        "claim": "eligibility"
       }
     ],
     "manual_overrides": {},
     "created_at": "2026-09-18T23:38:07.076Z",
-    "updated_at": "2026-09-19T00:12:25.308Z"
+    "updated_at": "2026-09-19T05:18:35.542Z"
   },
   {
     "id": "opp_5254939ba4",
@@ -824,40 +836,47 @@
     "hospital_id": "hosp_dignity",
     "program_id": "prog_c27def62cc",
     "cohort_id": null,
-    "position_title": "RN Resident - National Nurse Residency Program",
-    "unit": null,
+    "position_title": "National Resident RN",
+    "unit": "Medical Acute and Acute Care Units",
     "locations": [
       {
-        "city": "Sacramento",
+        "city": "Red Bluff",
         "state": "CA"
       },
       {
-        "city": "San Francisco",
+        "city": "Santa Maria",
+        "state": "CA"
+      },
+      {
+        "city": "Bakersfield",
         "state": "CA"
       }
     ],
     "specialties": [
       "Multiple Specialties"
     ],
-    "application_open": null,
+    "application_open": {
+      "kind": "date",
+      "value": "2026-09-17"
+    },
     "application_close": null,
     "program_start": null,
     "source_posted_at": null,
-    "application_status": "EXPECTED",
+    "application_status": "OPEN",
     "verification_health": "VERIFIED",
     "eligibility": "ELIGIBLE",
     "bsn_required": false,
-    "rn_license_requirement": "Current California RN license required prior to program start date.",
+    "rn_license_requirement": "Current California Registered Nurse license required upon hire.",
     "license_required_by": "start",
-    "experience_requirement": "Newly licensed registered nurses with less than one year of experience.",
+    "experience_requirement": "Associates of Science in Nursing and less than 1 year of professional RN experience.",
     "source_url": "https://commonspirit.careers/national-nurse-residency-program",
-    "application_url": "https://commonspirit.careers/",
-    "dedup_key": null,
+    "application_url": "https://careers-commonspirit.icims.com/jobs/485862/login",
+    "dedup_key": "icims|commonspirit|2026-485862",
     "source_external_id": null,
     "first_discovered_at": "2026-09-19T00:12:25.308Z",
-    "last_seen_at": "2026-09-19T00:12:25.308Z",
-    "last_attempted_at": "2026-09-19T00:12:25.308Z",
-    "last_verified_at": "2026-09-19T00:12:25.308Z",
+    "last_seen_at": "2026-09-19T05:18:35.542Z",
+    "last_attempted_at": "2026-09-19T05:18:35.542Z",
+    "last_verified_at": "2026-09-19T05:18:35.542Z",
     "closed_at": null,
     "closure_reason": null,
     "publication_state": "PUBLISHED",
@@ -867,11 +886,29 @@
         "excerpt": "The National Nurse Residency Program (NNRP) supports the transition of newly licensed new graduate registered nurses from student to professional RN across Dignity Health and CommonSpirit facilities.",
         "retrieved_at": "2026-09-19T00:05:00.000Z",
         "claim": "eligibility"
+      },
+      {
+        "source_url": "https://www.commonspirit.careers/job/red-bluff/national-resident-rn/35300/100785798304",
+        "excerpt": "As a National Nurse Resident, you'll step into a hands-on, supportive experience designed to help you grow and build confidence from day one. You won't be on your own.",
+        "retrieved_at": "2026-09-19T05:13:45.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://www.commonspirit.careers/job/red-bluff/national-resident-rn/35300/100785798304",
+        "excerpt": "The National Nurse Residency Program supports newly licensed registered nurses and recent graduates with less than 1 year of professional nursing experience upon hire.",
+        "retrieved_at": "2026-09-19T05:13:45.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://www.commonspirit.careers/job/red-bluff/national-resident-rn/35300/100785798304",
+        "excerpt": "Current California RN license required upon hire. Associates of Science Nursing and less than one year of experience upon hire.",
+        "retrieved_at": "2026-09-19T05:13:45.000Z",
+        "claim": "license"
       }
     ],
     "manual_overrides": {},
     "created_at": "2026-09-19T00:12:25.308Z",
-    "updated_at": "2026-09-19T00:12:25.308Z"
+    "updated_at": "2026-09-19T05:18:35.542Z"
   },
   {
     "id": "opp_b045e8e0d4",
@@ -931,9 +968,9 @@
     "id": "opp_da8fc4bb99",
     "hospital_id": "hosp_ohiostate",
     "program_id": "prog_76bb8bd11f",
-    "cohort_id": null,
-    "position_title": "Staff Nurse - Buckeye Nurse Residency Program",
-    "unit": null,
+    "cohort_id": "cohort_a9f070db97",
+    "position_title": "Staff Nurse (RN) - Critical Care Oncology New Grad Nurse Residency Program",
+    "unit": "The James - Medical ICU, Surgical ICU, Neuro ICU",
     "locations": [
       {
         "city": "Columbus",
@@ -941,27 +978,31 @@
       }
     ],
     "specialties": [
-      "Multiple Specialties"
+      "Critical Care",
+      "Oncology"
     ],
-    "application_open": null,
+    "application_open": {
+      "kind": "date",
+      "value": "2026-08-12"
+    },
     "application_close": null,
     "program_start": null,
     "source_posted_at": null,
-    "application_status": "EXPECTED",
+    "application_status": "OPEN",
     "verification_health": "VERIFIED",
     "eligibility": "ELIGIBLE",
     "bsn_required": false,
-    "rn_license_requirement": "Current licensure or interim permit from the State of Ohio Board of Nursing.",
-    "license_required_by": "start",
-    "experience_requirement": "Graduates of CCNE or ACEN accredited nursing programs; designed for new graduate registered nurses with less than one year of experience.",
+    "rn_license_requirement": "Current licensure or interim permit in the practice of registered nursing from the State of Ohio Board of Nursing required.",
+    "license_required_by": "hire",
+    "experience_requirement": "Graduate from a CCNE or ACEN accredited nursing program required; designed for newly licensed graduate nurses.",
     "source_url": "https://wexnermedical.osu.edu/careers/current-openings/nursing",
-    "application_url": "https://wexnermedical.osu.edu/careers/current-openings/nursing",
-    "dedup_key": null,
+    "application_url": "https://osu.wd1.myworkdayjobs.com/en-US/OSUCareers/job/Staff-Nurse--RN---Critical-Care-Oncology-New-Grad-Nurse-Residency-Program--The-James_R153527-1",
+    "dedup_key": "workday|osu|r153527",
     "source_external_id": null,
     "first_discovered_at": "2026-09-19T04:51:39.787Z",
-    "last_seen_at": "2026-09-19T04:51:39.787Z",
-    "last_attempted_at": "2026-09-19T04:51:39.787Z",
-    "last_verified_at": "2026-09-19T04:51:39.787Z",
+    "last_seen_at": "2026-09-19T05:18:35.542Z",
+    "last_attempted_at": "2026-09-19T05:18:35.542Z",
+    "last_verified_at": "2026-09-19T05:18:35.542Z",
     "closed_at": null,
     "closure_reason": null,
     "publication_state": "PUBLISHED",
@@ -977,10 +1018,28 @@
         "excerpt": "Accredited with distinction by the American Nurses Credentialing Center (ANCC). The residency is a full-time, 12-month program with monthly cohort additions across acute care, progressive care, critical care, and emergency departments.",
         "retrieved_at": "2026-09-19T04:48:00.000Z",
         "claim": "status"
+      },
+      {
+        "source_url": "https://osu.wd1.myworkdayjobs.com/en-US/OSUCareers/job/Staff-Nurse--RN---Critical-Care-Oncology-New-Grad-Nurse-Residency-Program--The-James_R153527-1",
+        "excerpt": "Staff Nurse (RN)- Critical Care Oncology New Grad Nurse Residency Program- The James. This is for the 2027 Critical Care New Graduate Nurse Residency Program- Units included in interview; Medical ICU; Surgical ICU; Neuro ICU.",
+        "retrieved_at": "2026-09-19T05:14:55.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://osu.wd1.myworkdayjobs.com/en-US/OSUCareers/job/Staff-Nurse--RN---Critical-Care-Oncology-New-Grad-Nurse-Residency-Program--The-James_R153527-1",
+        "excerpt": "The Ohio State University James Cancer Hospital Nurse Residency Program offers unique opportunities for newly licensed graduate nurses to successfully transition from student to professional through a Full-Time, structured, 14-20 week paid orientation to the field of Oncology Nursing.",
+        "retrieved_at": "2026-09-19T05:14:55.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://osu.wd1.myworkdayjobs.com/en-US/OSUCareers/job/Staff-Nurse--RN---Critical-Care-Oncology-New-Grad-Nurse-Residency-Program--The-James_R153527-1",
+        "excerpt": "Graduate from a CCNE or ACEN accredited nursing program required; current licensure or interim permit in the practice of registered nursing from the State of Ohio Board of Nursing required.",
+        "retrieved_at": "2026-09-19T05:14:55.000Z",
+        "claim": "license"
       }
     ],
     "manual_overrides": {},
     "created_at": "2026-09-19T04:51:39.787Z",
-    "updated_at": "2026-09-19T04:51:39.787Z"
+    "updated_at": "2026-09-19T05:18:35.542Z"
   }
 ]

@@ -219,7 +219,9 @@
     "label": "Dignity Health careers",
     "urls": [
       "https://commonspirit.careers/national-nurse-residency-program",
-      "https://commonspirit.careers/"
+      "https://commonspirit.careers/",
+      "https://www.commonspirit.careers/",
+      "https://careers-commonspirit.icims.com/"
     ],
     "status": "active",
     "shared_board": "commonspirit",
@@ -337,7 +339,8 @@
     "label": "Ohio State Wexner Medical Center careers",
     "urls": [
       "https://wexnermedical.osu.edu/careers/current-openings/nursing",
-      "https://wexnermedical.osu.edu/careers/"
+      "https://wexnermedical.osu.edu/careers/",
+      "https://osu.wd1.myworkdayjobs.com/"
     ],
     "status": "active",
     "shared_board": null,

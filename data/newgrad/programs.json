@@ -112,5 +112,11 @@
     "hospital_id": "hosp_ohiostate",
     "name": "Buckeye Nurse Residency Program",
     "source_url": "https://wexnermedical.osu.edu/careers/current-openings/nursing"
+  },
+  {
+    "id": "prog_0fb2e55574",
+    "hospital_id": "hosp_ucla",
+    "name": "Nurse Residency Program",
+    "source_url": "https://www.uclahealthcareers.org/nursing-new-graduates/"
   }
 ]
