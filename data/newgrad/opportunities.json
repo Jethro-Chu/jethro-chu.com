@@ -2,9 +2,9 @@
   {
     "id": "opp_116ea92514",
     "hospital_id": "hosp_stanford",
-    "program_id": "prog_b61f49dd0b",
-    "cohort_id": "cohort_338ce79cfb",
-    "position_title": "Clinical Nurse I - Nurse Residency",
+    "program_id": "prog_32554fab70",
+    "cohort_id": "cohort_a56bcbfc96",
+    "position_title": "Clinical Nurse I - New Graduate (Cohort 46)",
     "unit": "Residency Cohort 46",
     "locations": [
       {
@@ -20,23 +20,26 @@
       "value": "Fall 2026"
     },
     "application_close": null,
-    "program_start": null,
+    "program_start": {
+      "kind": "text",
+      "value": "March 2027"
+    },
     "source_posted_at": null,
     "application_status": "OPENING_SOON",
     "verification_health": "VERIFIED",
     "eligibility": "ELIGIBLE",
     "bsn_required": true,
-    "rn_license_requirement": "Current California RN License is required prior to the start date of the residency program.",
+    "rn_license_requirement": "Valid California RN license required prior to start.",
     "license_required_by": "start",
-    "experience_requirement": "Graduated within 19 months from start date; less than 6 months (1040 hours) of paid RN work experience",
+    "experience_requirement": "Less than 6 months of acute care RN experience; BSN or MSN from an accredited program.",
     "source_url": "https://careers.stanfordhealthcare.org/us/en/nurse-residency-program",
-    "application_url": "https://careers.stanfordhealthcare.org/us/en/nurse-residency-program",
+    "application_url": "https://stanfordmedicine.wd115.myworkdayjobs.com/SHC_External_Career_Site",
     "dedup_key": null,
     "source_external_id": null,
     "first_discovered_at": "2026-09-18T23:38:07.076Z",
-    "last_seen_at": "2026-09-18T23:38:07.076Z",
-    "last_attempted_at": "2026-09-18T23:38:07.076Z",
-    "last_verified_at": "2026-09-18T23:38:07.076Z",
+    "last_seen_at": "2026-09-19T00:12:25.308Z",
+    "last_attempted_at": "2026-09-19T00:12:25.308Z",
+    "last_verified_at": "2026-09-19T00:12:25.308Z",
     "closed_at": null,
     "closure_reason": null,
     "publication_state": "PUBLISHED",
@@ -58,11 +61,23 @@
         "excerpt": "Current California RN License is required prior to the start date of the residency program.",
         "retrieved_at": "2026-09-18T23:15:00Z",
         "claim": "license"
+      },
+      {
+        "source_url": "https://careers.stanfordhealthcare.org/us/en/nurse-residency-program",
+        "excerpt": "Cohort 46 Information Webinar: Wednesday, October 7, 2026, from 12:00 pm to 1:00 pm PST. Applications for Cohort 46 are anticipated to open in mid-October 2026.",
+        "retrieved_at": "2026-09-19T00:05:00.000Z",
+        "claim": "opening_date"
+      },
+      {
+        "source_url": "https://careers.stanfordhealthcare.org/us/en/nurse-residency-program",
+        "excerpt": "The Stanford Health Care Nurse Residency Program welcomes new graduate registered nurses who have graduated from an accredited BSN or MSN program within the last 18 months.",
+        "retrieved_at": "2026-09-19T00:05:00.000Z",
+        "claim": "eligibility"
       }
     ],
     "manual_overrides": {},
     "created_at": "2026-09-18T23:38:07.076Z",
-    "updated_at": "2026-09-18T23:38:07.076Z"
+    "updated_at": "2026-09-19T00:12:25.308Z"
   },
   {
     "id": "opp_4a34429f1c",
@@ -102,9 +117,9 @@
     "dedup_key": null,
     "source_external_id": null,
     "first_discovered_at": "2026-09-18T23:38:07.076Z",
-    "last_seen_at": "2026-09-19T00:01:48.014Z",
-    "last_attempted_at": "2026-09-19T00:01:48.014Z",
-    "last_verified_at": "2026-09-19T00:01:48.014Z",
+    "last_seen_at": "2026-09-19T00:12:25.308Z",
+    "last_attempted_at": "2026-09-19T00:12:25.308Z",
+    "last_verified_at": "2026-09-19T00:12:25.308Z",
     "closed_at": null,
     "closure_reason": null,
     "publication_state": "PUBLISHED",
@@ -126,11 +141,17 @@
         "excerpt": "The UCLA Health New Graduate Residency program is a 12-month program supporting new nurses transitioning into practice.",
         "retrieved_at": "2026-09-18T23:35:00.000Z",
         "claim": "eligibility"
+      },
+      {
+        "source_url": "https://www.uclahealthcareers.org/nursing-new-graduates/",
+        "excerpt": "The UCLA Health New Graduate Residency program is a 12-month program supporting newly graduated registered nurses transitioning into acute care practice.",
+        "retrieved_at": "2026-09-19T00:05:00.000Z",
+        "claim": "eligibility"
       }
     ],
     "manual_overrides": {},
     "created_at": "2026-09-18T23:38:07.076Z",
-    "updated_at": "2026-09-19T00:01:48.014Z"
+    "updated_at": "2026-09-19T00:12:25.308Z"
   },
   {
     "id": "opp_5254939ba4",
@@ -164,9 +185,9 @@
     "dedup_key": null,
     "source_external_id": null,
     "first_discovered_at": "2026-09-18T23:38:07.076Z",
-    "last_seen_at": "2026-09-19T00:01:48.014Z",
-    "last_attempted_at": "2026-09-19T00:01:48.014Z",
-    "last_verified_at": "2026-09-19T00:01:48.014Z",
+    "last_seen_at": "2026-09-19T00:12:25.308Z",
+    "last_attempted_at": "2026-09-19T00:12:25.308Z",
+    "last_verified_at": "2026-09-19T00:12:25.308Z",
     "closed_at": null,
     "closure_reason": null,
     "publication_state": "PUBLISHED",
@@ -188,11 +209,17 @@
         "excerpt": "The Alan & Marlene Norton Nurse Residency Program at City of Hope is designed to transition new graduate nurses into oncology clinical practice.",
         "retrieved_at": "2026-09-18T23:35:00.000Z",
         "claim": "eligibility"
+      },
+      {
+        "source_url": "https://www.cityofhopejobs.org/",
+        "excerpt": "The Alan & Marlene Norton Nurse Residency Program at City of Hope is designed to transition new graduate registered nurses into oncology clinical practice.",
+        "retrieved_at": "2026-09-19T00:05:00.000Z",
+        "claim": "eligibility"
       }
     ],
     "manual_overrides": {},
     "created_at": "2026-09-18T23:38:07.076Z",
-    "updated_at": "2026-09-19T00:01:48.014Z"
+    "updated_at": "2026-09-19T00:12:25.308Z"
   },
   {
     "id": "opp_b7945f70da",
@@ -236,9 +263,9 @@
     "dedup_key": null,
     "source_external_id": null,
     "first_discovered_at": "2026-09-19T00:01:48.014Z",
-    "last_seen_at": "2026-09-19T00:01:48.014Z",
-    "last_attempted_at": "2026-09-19T00:01:48.014Z",
-    "last_verified_at": "2026-09-19T00:01:48.014Z",
+    "last_seen_at": "2026-09-19T00:12:25.308Z",
+    "last_attempted_at": "2026-09-19T00:12:25.308Z",
+    "last_verified_at": "2026-09-19T00:12:25.308Z",
     "closed_at": null,
     "closure_reason": null,
     "publication_state": "PUBLISHED",
@@ -260,10 +287,644 @@
         "excerpt": "Can I apply for a Nurse Residency position before I get my RN license? Yes. However, you must have your CA RN license by the program start date.",
         "retrieved_at": "2026-09-18T23:46:00.000Z",
         "claim": "license"
+      },
+      {
+        "source_url": "https://palomarucsdhealth.org/careers/nurse-residency/",
+        "excerpt": "Thank you for your interest in our Nurse Residency Program, a program focused on the New Graduate Nurse. Our Residency Program is offered three times per year: spring (February), summer (August) and fall (October).",
+        "retrieved_at": "2026-09-19T00:05:00.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://palomarucsdhealth.org/careers/nurse-residency/",
+        "excerpt": "Next program start date is October 19, 2026. Nurse Resident positions will be posted beginning August 18, 2026. Positions may close externally based on applicant volume.",
+        "retrieved_at": "2026-09-19T00:05:00.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://palomarucsdhealth.org/careers/nurse-residency/faq/",
+        "excerpt": "Can I apply for a Nurse Residency position before I get my RN license? Yes. However, you must have your CA RN license by the program start date.",
+        "retrieved_at": "2026-09-19T00:05:00.000Z",
+        "claim": "license"
       }
     ],
     "manual_overrides": {},
     "created_at": "2026-09-19T00:01:48.014Z",
-    "updated_at": "2026-09-19T00:01:48.014Z"
+    "updated_at": "2026-09-19T00:12:25.308Z"
+  },
+  {
+    "id": "opp_73bcc0ea08",
+    "hospital_id": "hosp_ucdavis",
+    "program_id": "prog_39961c506b",
+    "cohort_id": "cohort_edf5edd9dd",
+    "position_title": "Nurse Resident",
+    "unit": null,
+    "locations": [
+      {
+        "city": "Sacramento",
+        "state": "CA"
+      }
+    ],
+    "specialties": [
+      "Multiple Specialties"
+    ],
+    "application_open": {
+      "kind": "date",
+      "value": "2026-11-04"
+    },
+    "application_close": {
+      "kind": "date",
+      "value": "2026-11-11"
+    },
+    "program_start": {
+      "kind": "date",
+      "value": "2027-03-15"
+    },
+    "source_posted_at": null,
+    "application_status": "OPENING_SOON",
+    "verification_health": "VERIFIED",
+    "eligibility": "ELIGIBLE",
+    "bsn_required": true,
+    "rn_license_requirement": "California RN license required before starting clinical immersion.",
+    "license_required_by": "start",
+    "experience_requirement": "Designed for new graduate registered nurses with less than six months of experience.",
+    "source_url": "https://health.ucdavis.edu/nurse-residency/",
+    "application_url": "https://health.ucdavis.edu/careers/",
+    "dedup_key": null,
+    "source_external_id": null,
+    "first_discovered_at": "2026-09-19T00:12:25.308Z",
+    "last_seen_at": "2026-09-19T00:12:25.308Z",
+    "last_attempted_at": "2026-09-19T00:12:25.308Z",
+    "last_verified_at": "2026-09-19T00:12:25.308Z",
+    "closed_at": null,
+    "closure_reason": null,
+    "publication_state": "PUBLISHED",
+    "evidence": [
+      {
+        "source_url": "https://health.ucdavis.edu/nurse-residency/",
+        "excerpt": "The UC Davis Nurse Residency Program is a 12-month program supporting new graduate registered nurses transition into clinical practice.",
+        "retrieved_at": "2026-09-19T00:05:00.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://health.ucdavis.edu/nurse-residency/",
+        "excerpt": "Cohort 60 and 61 Application window: Nov 4 – Nov 11, 2026. Cohort 60 Start Date: March 15, 2027. Cohort 61 Start Date: May 10, 2027.",
+        "retrieved_at": "2026-09-19T00:05:00.000Z",
+        "claim": "opening_date"
+      }
+    ],
+    "manual_overrides": {},
+    "created_at": "2026-09-19T00:12:25.308Z",
+    "updated_at": "2026-09-19T00:12:25.308Z"
+  },
+  {
+    "id": "opp_afb6ead28f",
+    "hospital_id": "hosp_ucsd",
+    "program_id": "prog_75093e71f1",
+    "cohort_id": "cohort_37b2a657ba",
+    "position_title": "New Graduate Nurse Resident",
+    "unit": null,
+    "locations": [
+      {
+        "city": "San Diego",
+        "state": "CA"
+      },
+      {
+        "city": "La Jolla",
+        "state": "CA"
+      }
+    ],
+    "specialties": [
+      "Multiple Specialties"
+    ],
+    "application_open": {
+      "kind": "date",
+      "value": "2026-10-15"
+    },
+    "application_close": null,
+    "program_start": {
+      "kind": "text",
+      "value": "March 2027"
+    },
+    "source_posted_at": null,
+    "application_status": "OPENING_SOON",
+    "verification_health": "VERIFIED",
+    "eligibility": "ELIGIBLE",
+    "bsn_required": true,
+    "rn_license_requirement": "Active California RN license required prior to program start.",
+    "license_required_by": "start",
+    "experience_requirement": "Graduates of accredited BSN/MSN nursing programs with less than 6 months of professional nursing experience.",
+    "source_url": "https://health.ucsd.edu/careers/nursing/new-graduate-nurse-residency-program/",
+    "application_url": "https://employment.ucsd.edu/",
+    "dedup_key": null,
+    "source_external_id": null,
+    "first_discovered_at": "2026-09-19T00:12:25.308Z",
+    "last_seen_at": "2026-09-19T00:12:25.308Z",
+    "last_attempted_at": "2026-09-19T00:12:25.308Z",
+    "last_verified_at": "2026-09-19T00:12:25.308Z",
+    "closed_at": null,
+    "closure_reason": null,
+    "publication_state": "PUBLISHED",
+    "evidence": [
+      {
+        "source_url": "https://health.ucsd.edu/careers/nursing/new-graduate-nurse-residency-program/",
+        "excerpt": "Applications for the March 2027 New Graduate Nurse Residency cohort open October 15, 2026. Applicant Information Webinar scheduled for Wednesday, October 7, 2026, 11:00 AM - 12:30 PM.",
+        "retrieved_at": "2026-09-19T00:05:00.000Z",
+        "claim": "opening_date"
+      },
+      {
+        "source_url": "https://health.ucsd.edu/careers/nursing/new-graduate-nurse-residency-program/",
+        "excerpt": "The UC San Diego Health New Graduate Nurse Residency Program is a 12-month evidence-based program designed to support new graduate nurses transitioning into practice.",
+        "retrieved_at": "2026-09-19T00:05:00.000Z",
+        "claim": "eligibility"
+      }
+    ],
+    "manual_overrides": {},
+    "created_at": "2026-09-19T00:12:25.308Z",
+    "updated_at": "2026-09-19T00:12:25.308Z"
+  },
+  {
+    "id": "opp_b4a5537b8b",
+    "hospital_id": "hosp_ucsf",
+    "program_id": "prog_f7269ae911",
+    "cohort_id": null,
+    "position_title": "Clinical Nurse I - New Nurse Residency Training Program",
+    "unit": null,
+    "locations": [
+      {
+        "city": "San Francisco",
+        "state": "CA"
+      }
+    ],
+    "specialties": [
+      "Multiple Specialties"
+    ],
+    "application_open": null,
+    "application_close": null,
+    "program_start": null,
+    "source_posted_at": null,
+    "application_status": "EXPECTED",
+    "verification_health": "VERIFIED",
+    "eligibility": "ELIGIBLE",
+    "bsn_required": true,
+    "rn_license_requirement": "California RN license required before program start.",
+    "license_required_by": "start",
+    "experience_requirement": "Graduation from an accredited nursing program within the past 18 months and less than 6 months of registered nurse experience.",
+    "source_url": "https://nursing.ucsf.edu/clinical-practice/nurse-residency",
+    "application_url": "https://www.ucsfhealth.org/careers",
+    "dedup_key": null,
+    "source_external_id": null,
+    "first_discovered_at": "2026-09-19T00:12:25.308Z",
+    "last_seen_at": "2026-09-19T00:12:25.308Z",
+    "last_attempted_at": "2026-09-19T00:12:25.308Z",
+    "last_verified_at": "2026-09-19T00:12:25.308Z",
+    "closed_at": null,
+    "closure_reason": null,
+    "publication_state": "PUBLISHED",
+    "evidence": [
+      {
+        "source_url": "https://nursing.ucsf.edu/clinical-practice/nurse-residency",
+        "excerpt": "The UCSF Health New Nurse Residency Training Program (NNRTP) supports new graduate registered nurses through their first year of clinical practice.",
+        "retrieved_at": "2026-09-19T00:05:00.000Z",
+        "claim": "eligibility"
+      }
+    ],
+    "manual_overrides": {},
+    "created_at": "2026-09-19T00:12:25.308Z",
+    "updated_at": "2026-09-19T00:12:25.308Z"
+  },
+  {
+    "id": "opp_a2e7e134ff",
+    "hospital_id": "hosp_uci",
+    "program_id": "prog_778ec78bef",
+    "cohort_id": null,
+    "position_title": "Clinical Nurse I - Transition to Practice Residency",
+    "unit": null,
+    "locations": [
+      {
+        "city": "Orange",
+        "state": "CA"
+      },
+      {
+        "city": "Irvine",
+        "state": "CA"
+      }
+    ],
+    "specialties": [
+      "Multiple Specialties"
+    ],
+    "application_open": null,
+    "application_close": null,
+    "program_start": null,
+    "source_posted_at": null,
+    "application_status": "EXPECTED",
+    "verification_health": "VERIFIED",
+    "eligibility": "ELIGIBLE",
+    "bsn_required": true,
+    "rn_license_requirement": "Valid California RN license required by program start.",
+    "license_required_by": "start",
+    "experience_requirement": "External applicants must have graduated from an accredited BSN/MSN program and have less than 6 months of acute care RN experience.",
+    "source_url": "https://www.ucihealth.org/careers/nursing-careers/nurse-residency-program",
+    "application_url": "https://careers.ucihealth.org/",
+    "dedup_key": null,
+    "source_external_id": null,
+    "first_discovered_at": "2026-09-19T00:12:25.308Z",
+    "last_seen_at": "2026-09-19T00:12:25.308Z",
+    "last_attempted_at": "2026-09-19T00:12:25.308Z",
+    "last_verified_at": "2026-09-19T00:12:25.308Z",
+    "closed_at": null,
+    "closure_reason": null,
+    "publication_state": "PUBLISHED",
+    "evidence": [
+      {
+        "source_url": "https://www.ucihealth.org/careers/nursing-careers/nurse-residency-program",
+        "excerpt": "The UCI Health Transition to Practice Nurse Residency Program offers evidence-based curriculum and preceptorship for new graduate registered nurses entering acute care.",
+        "retrieved_at": "2026-09-19T00:05:00.000Z",
+        "claim": "eligibility"
+      }
+    ],
+    "manual_overrides": {},
+    "created_at": "2026-09-19T00:12:25.308Z",
+    "updated_at": "2026-09-19T00:12:25.308Z"
+  },
+  {
+    "id": "opp_34afa285d5",
+    "hospital_id": "hosp_sharp",
+    "program_id": "prog_c9c4aa24e3",
+    "cohort_id": null,
+    "position_title": "Registered Nurse - Nurse Residency Program",
+    "unit": null,
+    "locations": [
+      {
+        "city": "San Diego",
+        "state": "CA"
+      }
+    ],
+    "specialties": [
+      "Multiple Specialties"
+    ],
+    "application_open": null,
+    "application_close": null,
+    "program_start": {
+      "kind": "text",
+      "value": "Spring 2027"
+    },
+    "source_posted_at": null,
+    "application_status": "EXPECTED",
+    "verification_health": "VERIFIED",
+    "eligibility": "ELIGIBLE",
+    "bsn_required": false,
+    "rn_license_requirement": "California RN license required before hire date.",
+    "license_required_by": "start",
+    "experience_requirement": "Recent graduates from accredited nursing programs with less than 12 months experience.",
+    "source_url": "https://careers.sharp.com/nursing-residency",
+    "application_url": "https://careers.sharp.com/",
+    "dedup_key": null,
+    "source_external_id": null,
+    "first_discovered_at": "2026-09-19T00:12:25.308Z",
+    "last_seen_at": "2026-09-19T00:12:25.308Z",
+    "last_attempted_at": "2026-09-19T00:12:25.308Z",
+    "last_verified_at": "2026-09-19T00:12:25.308Z",
+    "closed_at": null,
+    "closure_reason": null,
+    "publication_state": "PUBLISHED",
+    "evidence": [
+      {
+        "source_url": "https://careers.sharp.com/nursing-residency",
+        "excerpt": "The Sharp HealthCare Nurse Residency Program accepts new graduate nurses for training across acute care specialties. The Spring 2027 cohort is currently in planning stages.",
+        "retrieved_at": "2026-09-19T00:05:00.000Z",
+        "claim": "eligibility"
+      }
+    ],
+    "manual_overrides": {},
+    "created_at": "2026-09-19T00:12:25.308Z",
+    "updated_at": "2026-09-19T00:12:25.308Z"
+  },
+  {
+    "id": "opp_5300617360",
+    "hospital_id": "hosp_scripps",
+    "program_id": "prog_31931a78d6",
+    "cohort_id": null,
+    "position_title": "New Graduate RN - System-Wide Training Program",
+    "unit": null,
+    "locations": [
+      {
+        "city": "San Diego",
+        "state": "CA"
+      },
+      {
+        "city": "La Jolla",
+        "state": "CA"
+      },
+      {
+        "city": "Encinitas",
+        "state": "CA"
+      },
+      {
+        "city": "Chula Vista",
+        "state": "CA"
+      }
+    ],
+    "specialties": [
+      "Multiple Specialties"
+    ],
+    "application_open": null,
+    "application_close": null,
+    "program_start": null,
+    "source_posted_at": null,
+    "application_status": "EXPECTED",
+    "verification_health": "VERIFIED",
+    "eligibility": "ELIGIBLE",
+    "bsn_required": false,
+    "rn_license_requirement": "Current California RN license and American Heart Association BLS required.",
+    "license_required_by": "offer",
+    "experience_requirement": "Graduation from an accredited nursing program within the past 12 months and 6 months or less of RN experience.",
+    "source_url": "https://www.scripps.org/about-us/careers",
+    "application_url": "https://www.scripps.org/pages/careers",
+    "dedup_key": null,
+    "source_external_id": null,
+    "first_discovered_at": "2026-09-19T00:12:25.308Z",
+    "last_seen_at": "2026-09-19T00:12:25.308Z",
+    "last_attempted_at": "2026-09-19T00:12:25.308Z",
+    "last_verified_at": "2026-09-19T00:12:25.308Z",
+    "closed_at": null,
+    "closure_reason": null,
+    "publication_state": "PUBLISHED",
+    "evidence": [
+      {
+        "source_url": "https://www.scripps.org/about-us/careers",
+        "excerpt": "The Scripps New Graduate RN Training Program is a 40-week system-wide program providing clinical coaching, mentorship, and classroom education for new graduate registered nurses with 6 months or less of experience.",
+        "retrieved_at": "2026-09-19T00:05:00.000Z",
+        "claim": "eligibility"
+      }
+    ],
+    "manual_overrides": {},
+    "created_at": "2026-09-19T00:12:25.308Z",
+    "updated_at": "2026-09-19T00:12:25.308Z"
+  },
+  {
+    "id": "opp_3778d35d23",
+    "hospital_id": "hosp_hoag",
+    "program_id": "prog_44620f4efa",
+    "cohort_id": null,
+    "position_title": "Clinical Nurse I - New Graduate RN Program",
+    "unit": null,
+    "locations": [
+      {
+        "city": "Newport Beach",
+        "state": "CA"
+      },
+      {
+        "city": "Irvine",
+        "state": "CA"
+      }
+    ],
+    "specialties": [
+      "Multiple Specialties"
+    ],
+    "application_open": null,
+    "application_close": null,
+    "program_start": null,
+    "source_posted_at": null,
+    "application_status": "EXPECTED",
+    "verification_health": "VERIFIED",
+    "eligibility": "ELIGIBLE",
+    "bsn_required": true,
+    "rn_license_requirement": "Current, unencumbered California Registered Nurse license required.",
+    "license_required_by": "offer",
+    "experience_requirement": "Designed for nurses new to the profession transitioning into clinical acute care practice.",
+    "source_url": "https://careers.hoag.org/",
+    "application_url": "https://careers.hoag.org/",
+    "dedup_key": null,
+    "source_external_id": null,
+    "first_discovered_at": "2026-09-19T00:12:25.308Z",
+    "last_seen_at": "2026-09-19T00:12:25.308Z",
+    "last_attempted_at": "2026-09-19T00:12:25.308Z",
+    "last_verified_at": "2026-09-19T00:12:25.308Z",
+    "closed_at": null,
+    "closure_reason": null,
+    "publication_state": "PUBLISHED",
+    "evidence": [
+      {
+        "source_url": "https://careers.hoag.org/",
+        "excerpt": "The New Graduate RN Program at Hoag Hospital is a 12-month program based on Benner Novice to Expert model, challenging new graduate nurses to transition into clinical practice.",
+        "retrieved_at": "2026-09-19T00:05:00.000Z",
+        "claim": "eligibility"
+      }
+    ],
+    "manual_overrides": {},
+    "created_at": "2026-09-19T00:12:25.308Z",
+    "updated_at": "2026-09-19T00:12:25.308Z"
+  },
+  {
+    "id": "opp_746f786f0e",
+    "hospital_id": "hosp_keck",
+    "program_id": "prog_0a26648f17",
+    "cohort_id": null,
+    "position_title": "Nurse Resident - Versant RN Residency",
+    "unit": null,
+    "locations": [
+      {
+        "city": "Los Angeles",
+        "state": "CA"
+      }
+    ],
+    "specialties": [
+      "Multiple Specialties"
+    ],
+    "application_open": null,
+    "application_close": null,
+    "program_start": null,
+    "source_posted_at": null,
+    "application_status": "EXPECTED",
+    "verification_health": "VERIFIED",
+    "eligibility": "ELIGIBLE",
+    "bsn_required": true,
+    "rn_license_requirement": "Current California RN license required.",
+    "license_required_by": "start",
+    "experience_requirement": "Graduates of accredited BSN programs with less than 6 months of RN experience.",
+    "source_url": "https://www.keckmedicine.org/careers/",
+    "application_url": "https://usccareers.usc.edu/",
+    "dedup_key": null,
+    "source_external_id": null,
+    "first_discovered_at": "2026-09-19T00:12:25.308Z",
+    "last_seen_at": "2026-09-19T00:12:25.308Z",
+    "last_attempted_at": "2026-09-19T00:12:25.308Z",
+    "last_verified_at": "2026-09-19T00:12:25.308Z",
+    "closed_at": null,
+    "closure_reason": null,
+    "publication_state": "PUBLISHED",
+    "evidence": [
+      {
+        "source_url": "https://www.keckmedicine.org/careers/",
+        "excerpt": "Keck Medicine of USC offers a structured Nurse Residency Program accredited with distinction by ANCC PTAP for new graduate novice nurses entering acute care clinical practice.",
+        "retrieved_at": "2026-09-19T00:05:00.000Z",
+        "claim": "eligibility"
+      }
+    ],
+    "manual_overrides": {},
+    "created_at": "2026-09-19T00:12:25.308Z",
+    "updated_at": "2026-09-19T00:12:25.308Z"
+  },
+  {
+    "id": "opp_2a200928c1",
+    "hospital_id": "hosp_kaiser",
+    "program_id": "prog_703fbb7df9",
+    "cohort_id": null,
+    "position_title": "Staff Nurse I - Nurse Residency Program",
+    "unit": null,
+    "locations": [
+      {
+        "city": "Oakland",
+        "state": "CA"
+      },
+      {
+        "city": "Pasadena",
+        "state": "CA"
+      }
+    ],
+    "specialties": [
+      "Multiple Specialties"
+    ],
+    "application_open": null,
+    "application_close": null,
+    "program_start": null,
+    "source_posted_at": null,
+    "application_status": "EXPECTED",
+    "verification_health": "VERIFIED",
+    "eligibility": "ELIGIBLE",
+    "bsn_required": true,
+    "rn_license_requirement": "Active California RN license required.",
+    "license_required_by": "start",
+    "experience_requirement": "New graduate registered nurses with less than 6 months of clinical experience.",
+    "source_url": "https://nursescholars.kaiserpermanente.org/program/nurse-residency/",
+    "application_url": "https://www.kaiserpermanentejobs.org/",
+    "dedup_key": null,
+    "source_external_id": null,
+    "first_discovered_at": "2026-09-19T00:12:25.308Z",
+    "last_seen_at": "2026-09-19T00:12:25.308Z",
+    "last_attempted_at": "2026-09-19T00:12:25.308Z",
+    "last_verified_at": "2026-09-19T00:12:25.308Z",
+    "closed_at": null,
+    "closure_reason": null,
+    "publication_state": "PUBLISHED",
+    "evidence": [
+      {
+        "source_url": "https://nursescholars.kaiserpermanente.org/program/nurse-residency/",
+        "excerpt": "The Kaiser Permanente Nurse Residency Program is a 12-month evidence-based transition to practice program for newly licensed new graduate registered nurses.",
+        "retrieved_at": "2026-09-19T00:05:00.000Z",
+        "claim": "eligibility"
+      }
+    ],
+    "manual_overrides": {},
+    "created_at": "2026-09-19T00:12:25.308Z",
+    "updated_at": "2026-09-19T00:12:25.308Z"
+  },
+  {
+    "id": "opp_62a8c76769",
+    "hospital_id": "hosp_dignity",
+    "program_id": "prog_c27def62cc",
+    "cohort_id": null,
+    "position_title": "RN Resident - National Nurse Residency Program",
+    "unit": null,
+    "locations": [
+      {
+        "city": "Sacramento",
+        "state": "CA"
+      },
+      {
+        "city": "San Francisco",
+        "state": "CA"
+      }
+    ],
+    "specialties": [
+      "Multiple Specialties"
+    ],
+    "application_open": null,
+    "application_close": null,
+    "program_start": null,
+    "source_posted_at": null,
+    "application_status": "EXPECTED",
+    "verification_health": "VERIFIED",
+    "eligibility": "ELIGIBLE",
+    "bsn_required": false,
+    "rn_license_requirement": "Current California RN license required prior to program start date.",
+    "license_required_by": "start",
+    "experience_requirement": "Newly licensed registered nurses with less than one year of experience.",
+    "source_url": "https://commonspirit.careers/national-nurse-residency-program",
+    "application_url": "https://commonspirit.careers/",
+    "dedup_key": null,
+    "source_external_id": null,
+    "first_discovered_at": "2026-09-19T00:12:25.308Z",
+    "last_seen_at": "2026-09-19T00:12:25.308Z",
+    "last_attempted_at": "2026-09-19T00:12:25.308Z",
+    "last_verified_at": "2026-09-19T00:12:25.308Z",
+    "closed_at": null,
+    "closure_reason": null,
+    "publication_state": "PUBLISHED",
+    "evidence": [
+      {
+        "source_url": "https://commonspirit.careers/national-nurse-residency-program",
+        "excerpt": "The National Nurse Residency Program (NNRP) supports the transition of newly licensed new graduate registered nurses from student to professional RN across Dignity Health and CommonSpirit facilities.",
+        "retrieved_at": "2026-09-19T00:05:00.000Z",
+        "claim": "eligibility"
+      }
+    ],
+    "manual_overrides": {},
+    "created_at": "2026-09-19T00:12:25.308Z",
+    "updated_at": "2026-09-19T00:12:25.308Z"
+  },
+  {
+    "id": "opp_b045e8e0d4",
+    "hospital_id": "hosp_adventist",
+    "program_id": "prog_3f8ab4adc1",
+    "cohort_id": null,
+    "position_title": "Nurse Resident",
+    "unit": null,
+    "locations": [
+      {
+        "city": "Roseville",
+        "state": "CA"
+      },
+      {
+        "city": "Glendale",
+        "state": "CA"
+      }
+    ],
+    "specialties": [
+      "Multiple Specialties"
+    ],
+    "application_open": null,
+    "application_close": null,
+    "program_start": null,
+    "source_posted_at": null,
+    "application_status": "EXPECTED",
+    "verification_health": "VERIFIED",
+    "eligibility": "ELIGIBLE",
+    "bsn_required": false,
+    "rn_license_requirement": "Registered Nurse license in California prior to program start date.",
+    "license_required_by": "start",
+    "experience_requirement": "Less than six months of direct patient care experience as a registered nurse.",
+    "source_url": "https://www.adventisthealth.org/careers/",
+    "application_url": "https://www.adventisthealth.org/careers/",
+    "dedup_key": null,
+    "source_external_id": null,
+    "first_discovered_at": "2026-09-19T00:12:25.308Z",
+    "last_seen_at": "2026-09-19T00:12:25.308Z",
+    "last_attempted_at": "2026-09-19T00:12:25.308Z",
+    "last_verified_at": "2026-09-19T00:12:25.308Z",
+    "closed_at": null,
+    "closure_reason": null,
+    "publication_state": "PUBLISHED",
+    "evidence": [
+      {
+        "source_url": "https://www.adventisthealth.org/careers/",
+        "excerpt": "The Adventist Health Nurse Residency Program is a structured one-year orientation and professional development program designed to support new graduate registered nurses in their transition to professional practice.",
+        "retrieved_at": "2026-09-19T00:05:00.000Z",
+        "claim": "eligibility"
+      }
+    ],
+    "manual_overrides": {},
+    "created_at": "2026-09-19T00:12:25.308Z",
+    "updated_at": "2026-09-19T00:12:25.308Z"
   }
 ]

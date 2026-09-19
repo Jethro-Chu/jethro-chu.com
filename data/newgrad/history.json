@@ -181,5 +181,266 @@
         "claim": "eligibility"
       }
     ]
+  },
+  {
+    "id": "hist_2026-09-18-ca-full_0001",
+    "run_id": "2026-09-18-ca-full",
+    "at": "2026-09-19T00:12:25.308Z",
+    "type": "NEW",
+    "opportunity_id": "opp_73bcc0ea08",
+    "changes": null,
+    "reason": "First published from run evidence (OPENING_SOON).",
+    "evidence": [
+      {
+        "source_url": "https://health.ucdavis.edu/nurse-residency/",
+        "excerpt": "The UC Davis Nurse Residency Program is a 12-month program supporting new graduate registered nurses transition into clinical practice.",
+        "retrieved_at": "2026-09-19T00:05:00.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://health.ucdavis.edu/nurse-residency/",
+        "excerpt": "Cohort 60 and 61 Application window: Nov 4 – Nov 11, 2026. Cohort 60 Start Date: March 15, 2027. Cohort 61 Start Date: May 10, 2027.",
+        "retrieved_at": "2026-09-19T00:05:00.000Z",
+        "claim": "opening_date"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-09-18-ca-full_0002",
+    "run_id": "2026-09-18-ca-full",
+    "at": "2026-09-19T00:12:25.308Z",
+    "type": "NEW",
+    "opportunity_id": "opp_afb6ead28f",
+    "changes": null,
+    "reason": "First published from run evidence (OPENING_SOON).",
+    "evidence": [
+      {
+        "source_url": "https://health.ucsd.edu/careers/nursing/new-graduate-nurse-residency-program/",
+        "excerpt": "Applications for the March 2027 New Graduate Nurse Residency cohort open October 15, 2026. Applicant Information Webinar scheduled for Wednesday, October 7, 2026, 11:00 AM - 12:30 PM.",
+        "retrieved_at": "2026-09-19T00:05:00.000Z",
+        "claim": "opening_date"
+      },
+      {
+        "source_url": "https://health.ucsd.edu/careers/nursing/new-graduate-nurse-residency-program/",
+        "excerpt": "The UC San Diego Health New Graduate Nurse Residency Program is a 12-month evidence-based program designed to support new graduate nurses transitioning into practice.",
+        "retrieved_at": "2026-09-19T00:05:00.000Z",
+        "claim": "eligibility"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-09-18-ca-full_0003",
+    "run_id": "2026-09-18-ca-full",
+    "at": "2026-09-19T00:12:25.308Z",
+    "type": "UPDATED",
+    "opportunity_id": "opp_116ea92514",
+    "changes": [
+      {
+        "field": "position_title",
+        "before": "Clinical Nurse I - Nurse Residency",
+        "after": "Clinical Nurse I - New Graduate (Cohort 46)"
+      },
+      {
+        "field": "program_start",
+        "before": null,
+        "after": {
+          "kind": "text",
+          "value": "March 2027"
+        }
+      },
+      {
+        "field": "program_id",
+        "before": "prog_b61f49dd0b",
+        "after": "prog_32554fab70"
+      },
+      {
+        "field": "cohort_id",
+        "before": "cohort_338ce79cfb",
+        "after": "cohort_a56bcbfc96"
+      },
+      {
+        "field": "rn_license_requirement",
+        "before": "Current California RN License is required prior to the start date of the residency program.",
+        "after": "Valid California RN license required prior to start."
+      },
+      {
+        "field": "experience_requirement",
+        "before": "Graduated within 19 months from start date; less than 6 months (1040 hours) of paid RN work experience",
+        "after": "Less than 6 months of acute care RN experience; BSN or MSN from an accredited program."
+      },
+      {
+        "field": "application_url",
+        "before": "https://careers.stanfordhealthcare.org/us/en/nurse-residency-program",
+        "after": "https://stanfordmedicine.wd115.myworkdayjobs.com/SHC_External_Career_Site"
+      }
+    ],
+    "reason": "Updated from run evidence (OPENING_SOON).",
+    "evidence": [
+      {
+        "source_url": "https://careers.stanfordhealthcare.org/us/en/nurse-residency-program",
+        "excerpt": "Cohort 46 Information Webinar: Wednesday, October 7, 2026, from 12:00 pm to 1:00 pm PST. Applications for Cohort 46 are anticipated to open in mid-October 2026.",
+        "retrieved_at": "2026-09-19T00:05:00.000Z",
+        "claim": "opening_date"
+      },
+      {
+        "source_url": "https://careers.stanfordhealthcare.org/us/en/nurse-residency-program",
+        "excerpt": "The Stanford Health Care Nurse Residency Program welcomes new graduate registered nurses who have graduated from an accredited BSN or MSN program within the last 18 months.",
+        "retrieved_at": "2026-09-19T00:05:00.000Z",
+        "claim": "eligibility"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-09-18-ca-full_0004",
+    "run_id": "2026-09-18-ca-full",
+    "at": "2026-09-19T00:12:25.308Z",
+    "type": "NEW",
+    "opportunity_id": "opp_b4a5537b8b",
+    "changes": null,
+    "reason": "First published from run evidence (EXPECTED).",
+    "evidence": [
+      {
+        "source_url": "https://nursing.ucsf.edu/clinical-practice/nurse-residency",
+        "excerpt": "The UCSF Health New Nurse Residency Training Program (NNRTP) supports new graduate registered nurses through their first year of clinical practice.",
+        "retrieved_at": "2026-09-19T00:05:00.000Z",
+        "claim": "eligibility"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-09-18-ca-full_0005",
+    "run_id": "2026-09-18-ca-full",
+    "at": "2026-09-19T00:12:25.308Z",
+    "type": "NEW",
+    "opportunity_id": "opp_a2e7e134ff",
+    "changes": null,
+    "reason": "First published from run evidence (EXPECTED).",
+    "evidence": [
+      {
+        "source_url": "https://www.ucihealth.org/careers/nursing-careers/nurse-residency-program",
+        "excerpt": "The UCI Health Transition to Practice Nurse Residency Program offers evidence-based curriculum and preceptorship for new graduate registered nurses entering acute care.",
+        "retrieved_at": "2026-09-19T00:05:00.000Z",
+        "claim": "eligibility"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-09-18-ca-full_0006",
+    "run_id": "2026-09-18-ca-full",
+    "at": "2026-09-19T00:12:25.308Z",
+    "type": "NEW",
+    "opportunity_id": "opp_34afa285d5",
+    "changes": null,
+    "reason": "First published from run evidence (EXPECTED).",
+    "evidence": [
+      {
+        "source_url": "https://careers.sharp.com/nursing-residency",
+        "excerpt": "The Sharp HealthCare Nurse Residency Program accepts new graduate nurses for training across acute care specialties. The Spring 2027 cohort is currently in planning stages.",
+        "retrieved_at": "2026-09-19T00:05:00.000Z",
+        "claim": "eligibility"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-09-18-ca-full_0007",
+    "run_id": "2026-09-18-ca-full",
+    "at": "2026-09-19T00:12:25.308Z",
+    "type": "NEW",
+    "opportunity_id": "opp_5300617360",
+    "changes": null,
+    "reason": "First published from run evidence (EXPECTED).",
+    "evidence": [
+      {
+        "source_url": "https://www.scripps.org/about-us/careers",
+        "excerpt": "The Scripps New Graduate RN Training Program is a 40-week system-wide program providing clinical coaching, mentorship, and classroom education for new graduate registered nurses with 6 months or less of experience.",
+        "retrieved_at": "2026-09-19T00:05:00.000Z",
+        "claim": "eligibility"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-09-18-ca-full_0008",
+    "run_id": "2026-09-18-ca-full",
+    "at": "2026-09-19T00:12:25.308Z",
+    "type": "NEW",
+    "opportunity_id": "opp_3778d35d23",
+    "changes": null,
+    "reason": "First published from run evidence (EXPECTED).",
+    "evidence": [
+      {
+        "source_url": "https://careers.hoag.org/",
+        "excerpt": "The New Graduate RN Program at Hoag Hospital is a 12-month program based on Benner Novice to Expert model, challenging new graduate nurses to transition into clinical practice.",
+        "retrieved_at": "2026-09-19T00:05:00.000Z",
+        "claim": "eligibility"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-09-18-ca-full_0009",
+    "run_id": "2026-09-18-ca-full",
+    "at": "2026-09-19T00:12:25.308Z",
+    "type": "NEW",
+    "opportunity_id": "opp_746f786f0e",
+    "changes": null,
+    "reason": "First published from run evidence (EXPECTED).",
+    "evidence": [
+      {
+        "source_url": "https://www.keckmedicine.org/careers/",
+        "excerpt": "Keck Medicine of USC offers a structured Nurse Residency Program accredited with distinction by ANCC PTAP for new graduate novice nurses entering acute care clinical practice.",
+        "retrieved_at": "2026-09-19T00:05:00.000Z",
+        "claim": "eligibility"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-09-18-ca-full_0010",
+    "run_id": "2026-09-18-ca-full",
+    "at": "2026-09-19T00:12:25.308Z",
+    "type": "NEW",
+    "opportunity_id": "opp_2a200928c1",
+    "changes": null,
+    "reason": "First published from run evidence (EXPECTED).",
+    "evidence": [
+      {
+        "source_url": "https://nursescholars.kaiserpermanente.org/program/nurse-residency/",
+        "excerpt": "The Kaiser Permanente Nurse Residency Program is a 12-month evidence-based transition to practice program for newly licensed new graduate registered nurses.",
+        "retrieved_at": "2026-09-19T00:05:00.000Z",
+        "claim": "eligibility"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-09-18-ca-full_0011",
+    "run_id": "2026-09-18-ca-full",
+    "at": "2026-09-19T00:12:25.308Z",
+    "type": "NEW",
+    "opportunity_id": "opp_62a8c76769",
+    "changes": null,
+    "reason": "First published from run evidence (EXPECTED).",
+    "evidence": [
+      {
+        "source_url": "https://commonspirit.careers/national-nurse-residency-program",
+        "excerpt": "The National Nurse Residency Program (NNRP) supports the transition of newly licensed new graduate registered nurses from student to professional RN across Dignity Health and CommonSpirit facilities.",
+        "retrieved_at": "2026-09-19T00:05:00.000Z",
+        "claim": "eligibility"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-09-18-ca-full_0012",
+    "run_id": "2026-09-18-ca-full",
+    "at": "2026-09-19T00:12:25.308Z",
+    "type": "NEW",
+    "opportunity_id": "opp_b045e8e0d4",
+    "changes": null,
+    "reason": "First published from run evidence (EXPECTED).",
+    "evidence": [
+      {
+        "source_url": "https://www.adventisthealth.org/careers/",
+        "excerpt": "The Adventist Health Nurse Residency Program is a structured one-year orientation and professional development program designed to support new graduate registered nurses in their transition to professional practice.",
+        "retrieved_at": "2026-09-19T00:05:00.000Z",
+        "claim": "eligibility"
+      }
+    ]
   }
 ]

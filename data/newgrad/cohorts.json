@@ -19,5 +19,38 @@
       "kind": "date",
       "value": "2026-10-19"
     }
+  },
+  {
+    "id": "cohort_edf5edd9dd",
+    "program_id": "prog_39961c506b",
+    "label": "Cohorts 60 & 61",
+    "program_start": {
+      "kind": "date",
+      "value": "2027-03-15"
+    }
+  },
+  {
+    "id": "cohort_37b2a657ba",
+    "program_id": "prog_75093e71f1",
+    "label": "March 2027 Cohort",
+    "program_start": {
+      "kind": "text",
+      "value": "March 2027"
+    }
+  },
+  {
+    "id": "cohort_6ddfc180d3",
+    "program_id": "prog_023cd6a360",
+    "label": "August 2026 / February 2027",
+    "program_start": null
+  },
+  {
+    "id": "cohort_a56bcbfc96",
+    "program_id": "prog_32554fab70",
+    "label": "Cohort 46",
+    "program_start": {
+      "kind": "text",
+      "value": "March 2027"
+    }
   }
 ]

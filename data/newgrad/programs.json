@@ -28,5 +28,83 @@
     "hospital_id": "hosp_ucla",
     "name": "New Graduate RN Residency",
     "source_url": "https://www.uclahealthcareers.org/nursing-new-graduates/"
+  },
+  {
+    "id": "prog_39961c506b",
+    "hospital_id": "hosp_ucdavis",
+    "name": "UC Davis Health Nurse Residency Program",
+    "source_url": "https://health.ucdavis.edu/nurse-residency/"
+  },
+  {
+    "id": "prog_75093e71f1",
+    "hospital_id": "hosp_ucsd",
+    "name": "New Graduate Nurse Residency Program",
+    "source_url": "https://health.ucsd.edu/careers/nursing/new-graduate-nurse-residency-program/"
+  },
+  {
+    "id": "prog_023cd6a360",
+    "hospital_id": "hosp_choc",
+    "name": "CHOC RN Residency Program in Pediatrics",
+    "source_url": "https://www.choc.org/careers/nursing/rn-residency/"
+  },
+  {
+    "id": "prog_32554fab70",
+    "hospital_id": "hosp_stanford",
+    "name": "Nurse Residency Program",
+    "source_url": "https://careers.stanfordhealthcare.org/us/en/nurse-residency-program"
+  },
+  {
+    "id": "prog_f7269ae911",
+    "hospital_id": "hosp_ucsf",
+    "name": "New Nurse Residency Training Program",
+    "source_url": "https://nursing.ucsf.edu/clinical-practice/nurse-residency"
+  },
+  {
+    "id": "prog_778ec78bef",
+    "hospital_id": "hosp_uci",
+    "name": "Transition to Practice Nurse Residency Program",
+    "source_url": "https://www.ucihealth.org/careers/nursing-careers/nurse-residency-program"
+  },
+  {
+    "id": "prog_c9c4aa24e3",
+    "hospital_id": "hosp_sharp",
+    "name": "Sharp Nurse Residency Program",
+    "source_url": "https://careers.sharp.com/nursing-residency"
+  },
+  {
+    "id": "prog_31931a78d6",
+    "hospital_id": "hosp_scripps",
+    "name": "System-Wide New Graduate RN Training Program",
+    "source_url": "https://www.scripps.org/about-us/careers"
+  },
+  {
+    "id": "prog_44620f4efa",
+    "hospital_id": "hosp_hoag",
+    "name": "Hoag New Graduate RN Program",
+    "source_url": "https://careers.hoag.org/"
+  },
+  {
+    "id": "prog_0a26648f17",
+    "hospital_id": "hosp_keck",
+    "name": "Keck Medicine Nurse Residency Program",
+    "source_url": "https://www.keckmedicine.org/careers/"
+  },
+  {
+    "id": "prog_703fbb7df9",
+    "hospital_id": "hosp_kaiser",
+    "name": "Nurse Scholars Academy Residency",
+    "source_url": "https://nursescholars.kaiserpermanente.org/program/nurse-residency/"
+  },
+  {
+    "id": "prog_c27def62cc",
+    "hospital_id": "hosp_dignity",
+    "name": "National Nurse Residency Program",
+    "source_url": "https://commonspirit.careers/national-nurse-residency-program"
+  },
+  {
+    "id": "prog_3f8ab4adc1",
+    "hospital_id": "hosp_adventist",
+    "name": "Adventist Health Nurse Residency Program",
+    "source_url": "https://www.adventisthealth.org/careers/"
   }
 ]
