@@ -73,5 +73,113 @@
         "claim": "eligibility"
       }
     ]
+  },
+  {
+    "id": "hist_2026-09-18-ca-complete_0001",
+    "run_id": "2026-09-18-ca-complete",
+    "at": "2026-09-19T00:01:48.014Z",
+    "type": "NEW",
+    "opportunity_id": "opp_b7945f70da",
+    "changes": null,
+    "reason": "First published from run evidence (OPEN).",
+    "evidence": [
+      {
+        "source_url": "https://palomarucsdhealth.org/careers/nurse-residency/",
+        "excerpt": "Thank you for your interest in our Nurse Residency Program, a program focused on the New Graduate Nurse. Our Residency Program is offered three times per year: spring (February), summer (August) and fall (October).",
+        "retrieved_at": "2026-09-18T23:46:00.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://palomarucsdhealth.org/careers/nurse-residency/",
+        "excerpt": "Next program start date is October 19, 2026. Nurse Resident positions will be posted beginning August 18, 2026. Positions may close externally based on applicant volume.",
+        "retrieved_at": "2026-09-18T23:46:00.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://palomarucsdhealth.org/careers/nurse-residency/faq/",
+        "excerpt": "Can I apply for a Nurse Residency position before I get my RN license? Yes. However, you must have your CA RN license by the program start date.",
+        "retrieved_at": "2026-09-18T23:46:00.000Z",
+        "claim": "license"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-09-18-ca-complete_0002",
+    "run_id": "2026-09-18-ca-complete",
+    "at": "2026-09-19T00:01:48.014Z",
+    "type": "UPDATED",
+    "opportunity_id": "opp_4a34429f1c",
+    "changes": [
+      {
+        "field": "position_title",
+        "before": "New Graduate Nurse Resident",
+        "after": "Nurse Resident"
+      },
+      {
+        "field": "program_start",
+        "before": null,
+        "after": {
+          "kind": "text",
+          "value": "Spring 2027"
+        }
+      },
+      {
+        "field": "program_id",
+        "before": "prog_374cdf3b5a",
+        "after": "prog_01d309b944"
+      },
+      {
+        "field": "rn_license_requirement",
+        "before": "Must possess a valid California Registered Nurse License prior to hire date",
+        "after": "California RN license required by program start."
+      },
+      {
+        "field": "experience_requirement",
+        "before": "Graduates of an accredited BSN or MSN program within past 12-18 months",
+        "after": "Graduation from an accredited BSN or MSN program; less than 6 months of professional RN experience."
+      },
+      {
+        "field": "application_url",
+        "before": "https://www.uclahealthcareers.org/nursing-new-graduates/",
+        "after": "https://www.uclahealthcareers.org/"
+      }
+    ],
+    "reason": "Updated from run evidence (EXPECTED).",
+    "evidence": [
+      {
+        "source_url": "https://www.uclahealthcareers.org/nursing-new-graduates/",
+        "excerpt": "The UCLA Health New Graduate Residency program is a 12-month program supporting new nurses transitioning into practice.",
+        "retrieved_at": "2026-09-18T23:35:00.000Z",
+        "claim": "eligibility"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-09-18-ca-complete_0003",
+    "run_id": "2026-09-18-ca-complete",
+    "at": "2026-09-19T00:01:48.014Z",
+    "type": "UPDATED",
+    "opportunity_id": "opp_5254939ba4",
+    "changes": [
+      {
+        "field": "rn_license_requirement",
+        "before": "California Registered Nurse License required prior to program start",
+        "after": "California RN license required prior to start."
+      },
+      {
+        "field": "experience_requirement",
+        "before": "Less than 12 months of registered nursing experience",
+        "after": "Graduate of an accredited BSN program; less than 1 year of acute care RN experience."
+      }
+    ],
+    "reason": "Updated from run evidence (EXPECTED).",
+    "evidence": [
+      {
+        "source_url": "https://www.cityofhopejobs.org/",
+        "excerpt": "The Alan & Marlene Norton Nurse Residency Program at City of Hope is designed to transition new graduate nurses into oncology clinical practice.",
+        "retrieved_at": "2026-09-18T23:35:00.000Z",
+        "claim": "eligibility"
+      }
+    ]
   }
 ]

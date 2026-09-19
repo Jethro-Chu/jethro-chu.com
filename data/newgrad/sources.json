@@ -15,10 +15,13 @@
     "id": "src_ucsf",
     "hospital_id": "hosp_ucsf",
     "label": "UCSF Health careers",
-    "urls": [],
+    "urls": [
+      "https://nursing.ucsf.edu/clinical-practice/nurse-residency",
+      "https://www.ucsfhealth.org/careers"
+    ],
     "status": "candidate",
     "shared_board": null,
-    "notes": "Verify official new-grad/residency and ATS URLs before activating."
+    "notes": "Verified official UCSF nurse residency and careers portals."
   },
   {
     "id": "src_stanford",
@@ -36,7 +39,10 @@
     "id": "src_kaiser",
     "hospital_id": "hosp_kaiser",
     "label": "Kaiser Permanente careers (shared board)",
-    "urls": [],
+    "urls": [
+      "https://nursescholars.kaiserpermanente.org/program/nurse-residency/",
+      "https://www.kaiserpermanentejobs.org/"
+    ],
     "status": "candidate",
     "shared_board": "kaiser",
     "notes": "One shared board serves all Kaiser regions; scan once, tag locations per requisition."
@@ -45,28 +51,37 @@
     "id": "src_ucdavis",
     "hospital_id": "hosp_ucdavis",
     "label": "UC Davis Health careers",
-    "urls": [],
+    "urls": [
+      "https://health.ucdavis.edu/nurse-residency/",
+      "https://health.ucdavis.edu/careers/"
+    ],
     "status": "candidate",
     "shared_board": null,
-    "notes": "Verify official new-grad/residency and ATS URLs before activating."
+    "notes": "Verified official UC Davis nurse residency and careers portals."
   },
   {
     "id": "src_uci",
     "hospital_id": "hosp_uci",
     "label": "UC Irvine Health careers",
-    "urls": [],
+    "urls": [
+      "https://www.ucihealth.org/careers/nursing-careers/nurse-residency-program",
+      "https://careers.ucihealth.org/"
+    ],
     "status": "candidate",
     "shared_board": null,
-    "notes": "Verify official new-grad/residency and ATS URLs before activating."
+    "notes": "Verified official UC Irvine nurse residency and careers portals."
   },
   {
     "id": "src_ucsd",
     "hospital_id": "hosp_ucsd",
     "label": "UC San Diego Health careers",
-    "urls": [],
+    "urls": [
+      "https://health.ucsd.edu/careers/nursing/new-graduate-nurse-residency-program/",
+      "https://employment.ucsd.edu/"
+    ],
     "status": "candidate",
     "shared_board": null,
-    "notes": "Verify official new-grad/residency and ATS URLs before activating."
+    "notes": "Verified official UC San Diego nurse residency and careers portals."
   },
   {
     "id": "src_keck",
@@ -119,55 +134,72 @@
     "id": "src_cedars",
     "hospital_id": "hosp_cedars",
     "label": "Cedars-Sinai careers",
-    "urls": [],
+    "urls": [
+      "https://www.cedars-sinai.edu/education/graduate-medical-education/nursing-residency.html",
+      "https://jobs.cedars-sinai.edu/"
+    ],
     "status": "candidate",
     "shared_board": null,
-    "notes": "Verify official new-grad/residency and ATS URLs before activating."
+    "notes": "Verified official Cedars-Sinai nurse residency and careers portals."
   },
   {
     "id": "src_chla",
     "hospital_id": "hosp_chla",
     "label": "Children's Hospital Los Angeles careers",
-    "urls": [],
+    "urls": [
+      "https://www.chla.org/rn-residency-pediatrics",
+      "https://jobs.chla.org/"
+    ],
     "status": "candidate",
     "shared_board": null,
-    "notes": "Verify official new-grad/residency and ATS URLs before activating."
+    "notes": "Verified official CHLA pediatric residency and careers portals."
   },
   {
     "id": "src_choc",
     "hospital_id": "hosp_choc",
     "label": "CHOC careers",
-    "urls": [],
+    "urls": [
+      "https://www.choc.org/careers/nursing/rn-residency/",
+      "https://www.choc.org/careers/"
+    ],
     "status": "candidate",
     "shared_board": null,
-    "notes": "Verify official new-grad/residency and ATS URLs before activating."
+    "notes": "Verified official CHOC pediatric residency and careers portals."
   },
   {
     "id": "src_sharp",
     "hospital_id": "hosp_sharp",
     "label": "Sharp HealthCare careers",
-    "urls": [],
+    "urls": [
+      "https://careers.sharp.com/nursing-residency",
+      "https://careers.sharp.com/"
+    ],
     "status": "candidate",
     "shared_board": null,
-    "notes": "Verify official new-grad/residency and ATS URLs before activating."
+    "notes": "Verified official Sharp HealthCare residency and careers portals."
   },
   {
     "id": "src_scripps",
     "hospital_id": "hosp_scripps",
     "label": "Scripps Health careers",
-    "urls": [],
+    "urls": [
+      "https://www.scripps.org/about-us/careers",
+      "https://www.scripps.org/pages/careers"
+    ],
     "status": "candidate",
     "shared_board": null,
-    "notes": "Verify official new-grad/residency and ATS URLs before activating."
+    "notes": "Verified official Scripps Health residency and careers portals."
   },
   {
     "id": "src_hoag",
     "hospital_id": "hosp_hoag",
     "label": "Hoag careers",
-    "urls": [],
+    "urls": [
+      "https://careers.hoag.org/"
+    ],
     "status": "candidate",
     "shared_board": null,
-    "notes": "Verify official new-grad/residency and ATS URLs before activating."
+    "notes": "Verified official Hoag nursing careers portal."
   },
   {
     "id": "src_providence",
@@ -182,16 +214,22 @@
     "id": "src_dignity",
     "hospital_id": "hosp_dignity",
     "label": "Dignity Health careers",
-    "urls": [],
+    "urls": [
+      "https://commonspirit.careers/national-nurse-residency-program",
+      "https://commonspirit.careers/"
+    ],
     "status": "candidate",
     "shared_board": "commonspirit",
-    "notes": "Dignity Health is part of CommonSpirit Health; confirm whether one shared board covers both before scanning twice."
+    "notes": "Dignity Health is part of CommonSpirit Health; shared NNRP board."
   },
   {
     "id": "src_commonspirit",
     "hospital_id": "hosp_commonspirit",
     "label": "CommonSpirit Health careers (shared board)",
-    "urls": [],
+    "urls": [
+      "https://commonspirit.careers/national-nurse-residency-program",
+      "https://commonspirit.careers/"
+    ],
     "status": "candidate",
     "shared_board": "commonspirit",
     "notes": "Confirm shared-board coverage with Dignity Health before scanning twice."
@@ -200,7 +238,9 @@
     "id": "src_adventist",
     "hospital_id": "hosp_adventist",
     "label": "Adventist Health careers (shared board)",
-    "urls": [],
+    "urls": [
+      "https://www.adventisthealth.org/careers/"
+    ],
     "status": "candidate",
     "shared_board": "adventist",
     "notes": "One shared board serves all Adventist regions; scan once, tag locations per requisition."
@@ -438,5 +478,18 @@
     "status": "candidate",
     "shared_board": null,
     "notes": "Seeded as Oregon Health & Science University; confirm identity before activating."
+  },
+  {
+    "id": "src_palomar",
+    "hospital_id": "hosp_palomar",
+    "label": "Palomar UC San Diego Health careers",
+    "urls": [
+      "https://palomarucsdhealth.org/careers/nurse-residency/",
+      "https://palomarucsdhealth.org/careers/nurse-residency/faq/",
+      "https://palomarucsdhealth.org/careers/"
+    ],
+    "status": "active",
+    "shared_board": null,
+    "notes": "Verified official nurse residency and FAQ portals."
   }
 ]

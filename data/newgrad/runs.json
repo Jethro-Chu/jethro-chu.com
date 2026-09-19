@@ -23,5 +23,48 @@
         "error": "HTTP 403 Forbidden: Cloudflare bot protection challenge"
       }
     ]
+  },
+  {
+    "run_id": "2026-09-18-ca-complete",
+    "research_started_at": "2026-09-18T23:30:00.000Z",
+    "research_completed_at": "2026-09-18T23:55:00.000Z",
+    "ingested_at": "2026-09-19T00:01:48.014Z",
+    "sources_checked": 20,
+    "sources_ok": 17,
+    "findings_received": 16,
+    "published": 1,
+    "updated": 2,
+    "closed": 0,
+    "pending_review": 13,
+    "rejected": 0,
+    "failed_checks": [
+      {
+        "source_id": "src_cedars",
+        "url": "https://www.cedars-sinai.edu/education/graduate-medical-education/nursing-residency.html",
+        "attempted_at": "2026-09-18T23:51:00.000Z",
+        "retrieved_at": null,
+        "outcome": "blocked",
+        "coverage_complete": false,
+        "error": "Bot protection / HTTP 403 Forbidden"
+      },
+      {
+        "source_id": "src_chla",
+        "url": "https://www.chla.org/rn-residency-pediatrics",
+        "attempted_at": "2026-09-18T23:52:00.000Z",
+        "retrieved_at": null,
+        "outcome": "blocked",
+        "coverage_complete": false,
+        "error": "Bot protection / HTTP 403 Forbidden"
+      },
+      {
+        "source_id": "src_huntington",
+        "url": "https://www.huntingtonhealth.org/education/residency-programs/nursing-residency/",
+        "attempted_at": "2026-09-18T23:53:00.000Z",
+        "retrieved_at": null,
+        "outcome": "blocked",
+        "coverage_complete": false,
+        "error": "Bot protection / HTTP 403 Forbidden on educational residency portal"
+      }
+    ]
   }
 ]

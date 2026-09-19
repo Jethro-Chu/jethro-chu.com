@@ -16,5 +16,17 @@
     "hospital_id": "hosp_cityofhope",
     "name": "Alan & Marlene Norton Nurse Residency Program",
     "source_url": "https://www.cityofhopejobs.org/"
+  },
+  {
+    "id": "prog_3ffafd825b",
+    "hospital_id": "hosp_palomar",
+    "name": "Palomar Health Nurse Residency Program",
+    "source_url": "https://palomarucsdhealth.org/careers/nurse-residency/"
+  },
+  {
+    "id": "prog_01d309b944",
+    "hospital_id": "hosp_ucla",
+    "name": "New Graduate RN Residency",
+    "source_url": "https://www.uclahealthcareers.org/nursing-new-graduates/"
   }
 ]

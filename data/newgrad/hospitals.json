@@ -45,5 +45,6 @@
   { "id": "hosp_banner", "name": "Banner Health", "health_system": "Banner Health", "state": "AZ", "aliases": ["Banner"] },
   { "id": "hosp_intermountain", "name": "Intermountain Health", "health_system": "Intermountain Health", "state": "UT", "aliases": ["Intermountain"] },
   { "id": "hosp_uw", "name": "UW Medicine", "health_system": "UW Medicine", "state": "WA", "aliases": ["University of Washington Medicine", "University of Washington"] },
-  { "id": "hosp_ohsu", "name": "Oregon Health & Science University", "health_system": "Oregon Health & Science University", "state": "OR", "aliases": ["OHSU"] }
+  { "id": "hosp_ohsu", "name": "Oregon Health & Science University", "health_system": "Oregon Health & Science University", "state": "OR", "aliases": ["OHSU"] },
+  { "id": "hosp_palomar", "name": "Palomar Health", "health_system": "Palomar UC San Diego Health", "state": "CA", "aliases": ["Palomar Medical Center", "Palomar UC San Diego Health", "Palomar Health Escondido", "Palomar Health Poway"] }
 ]
