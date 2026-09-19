@@ -19,9 +19,9 @@
       "https://nursing.ucsf.edu/clinical-practice/nurse-residency",
       "https://www.ucsfhealth.org/careers"
     ],
-    "status": "candidate",
+    "status": "active",
     "shared_board": null,
-    "notes": "Verified official UCSF nurse residency and careers portals."
+    "notes": "Activated by Jethro"
   },
   {
     "id": "src_stanford",
@@ -43,9 +43,9 @@
       "https://nursescholars.kaiserpermanente.org/program/nurse-residency/",
       "https://www.kaiserpermanentejobs.org/"
     ],
-    "status": "candidate",
+    "status": "active",
     "shared_board": "kaiser",
-    "notes": "One shared board serves all Kaiser regions; scan once, tag locations per requisition."
+    "notes": "Activated by Jethro"
   },
   {
     "id": "src_ucdavis",
@@ -55,9 +55,9 @@
       "https://health.ucdavis.edu/nurse-residency/",
       "https://health.ucdavis.edu/careers/"
     ],
-    "status": "candidate",
+    "status": "active",
     "shared_board": null,
-    "notes": "Verified official UC Davis nurse residency and careers portals."
+    "notes": "Activated by Jethro"
   },
   {
     "id": "src_uci",
@@ -67,9 +67,9 @@
       "https://www.ucihealth.org/careers/nursing-careers/nurse-residency-program",
       "https://careers.ucihealth.org/"
     ],
-    "status": "candidate",
+    "status": "active",
     "shared_board": null,
-    "notes": "Verified official UC Irvine nurse residency and careers portals."
+    "notes": "Activated by Jethro"
   },
   {
     "id": "src_ucsd",
@@ -79,9 +79,9 @@
       "https://health.ucsd.edu/careers/nursing/new-graduate-nurse-residency-program/",
       "https://employment.ucsd.edu/"
     ],
-    "status": "candidate",
+    "status": "active",
     "shared_board": null,
-    "notes": "Verified official UC San Diego nurse residency and careers portals."
+    "notes": "Activated by Jethro"
   },
   {
     "id": "src_keck",
@@ -162,9 +162,9 @@
       "https://www.choc.org/careers/nursing/rn-residency/",
       "https://www.choc.org/careers/"
     ],
-    "status": "candidate",
+    "status": "active",
     "shared_board": null,
-    "notes": "Verified official CHOC pediatric residency and careers portals."
+    "notes": "Activated by Jethro"
   },
   {
     "id": "src_sharp",
@@ -174,9 +174,9 @@
       "https://careers.sharp.com/nursing-residency",
       "https://careers.sharp.com/"
     ],
-    "status": "candidate",
+    "status": "active",
     "shared_board": null,
-    "notes": "Verified official Sharp HealthCare residency and careers portals."
+    "notes": "Activated by Jethro"
   },
   {
     "id": "src_scripps",
@@ -186,9 +186,9 @@
       "https://www.scripps.org/about-us/careers",
       "https://www.scripps.org/pages/careers"
     ],
-    "status": "candidate",
+    "status": "active",
     "shared_board": null,
-    "notes": "Verified official Scripps Health residency and careers portals."
+    "notes": "Activated by Jethro"
   },
   {
     "id": "src_hoag",
@@ -197,9 +197,9 @@
     "urls": [
       "https://careers.hoag.org/"
     ],
-    "status": "candidate",
+    "status": "active",
     "shared_board": null,
-    "notes": "Verified official Hoag nursing careers portal."
+    "notes": "Activated by Jethro"
   },
   {
     "id": "src_providence",
@@ -218,9 +218,9 @@
       "https://commonspirit.careers/national-nurse-residency-program",
       "https://commonspirit.careers/"
     ],
-    "status": "candidate",
+    "status": "active",
     "shared_board": "commonspirit",
-    "notes": "Dignity Health is part of CommonSpirit Health; shared NNRP board."
+    "notes": "Activated by Jethro"
   },
   {
     "id": "src_commonspirit",
@@ -241,9 +241,9 @@
     "urls": [
       "https://www.adventisthealth.org/careers/"
     ],
-    "status": "candidate",
+    "status": "active",
     "shared_board": "adventist",
-    "notes": "One shared board serves all Adventist regions; scan once, tag locations per requisition."
+    "notes": "Activated by Jethro"
   },
   {
     "id": "src_mgb",
