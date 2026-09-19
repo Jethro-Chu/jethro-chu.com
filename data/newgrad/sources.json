@@ -17,11 +17,12 @@
     "label": "UCSF Health careers",
     "urls": [
       "https://nursing.ucsf.edu/clinical-practice/nurse-residency",
-      "https://www.ucsfhealth.org/careers"
+      "https://www.ucsfhealth.org/careers",
+      "https://hr.ucsf.edu/learning/career-professional-development/registered-nurse-training-programs"
     ],
     "status": "active",
     "shared_board": null,
-    "notes": "Activated by Jethro"
+    "notes": "Activated by Jethro Official HR notice verified 2026-09-19: 2026 pause (program not offered in 2026); 2027 unconfirmed."
   },
   {
     "id": "src_stanford",
@@ -45,7 +46,7 @@
     ],
     "status": "active",
     "shared_board": "kaiser",
-    "notes": "Activated by Jethro"
+    "notes": "Activated by Jethro Monitor regions: NCAL East Bay, SF/Peninsula, South Bay, North Bay, Sacramento, Central Valley; SoCal LA County, Orange County, Inland Empire, San Diego. Use actual cohort location choices; do not spawn per-hospital programs."
   },
   {
     "id": "src_ucdavis",
@@ -205,10 +206,12 @@
     "id": "src_providence",
     "hospital_id": "hosp_providence",
     "label": "Providence careers (shared board)",
-    "urls": [],
-    "status": "candidate",
+    "urls": [
+      "https://providence.jobs/"
+    ],
+    "status": "active",
     "shared_board": "providence",
-    "notes": "One shared board serves all Providence regions; scan once, tag locations per requisition."
+    "notes": "Activated 2026-09-19: verified official Providence jobs board. CA TIP page not found as a stable URL; select postings explicitly new-grad eligible (board mixes residency and fellowship). Covers 16 CA facility records."
   },
   {
     "id": "src_dignity",
@@ -220,7 +223,7 @@
     ],
     "status": "active",
     "shared_board": "commonspirit",
-    "notes": "Activated by Jethro"
+    "notes": "Activated by Jethro Scan via CommonSpirit CA board; covers 29 CA facility records."
   },
   {
     "id": "src_commonspirit",
@@ -228,22 +231,24 @@
     "label": "CommonSpirit Health careers (shared board)",
     "urls": [
       "https://commonspirit.careers/national-nurse-residency-program",
-      "https://commonspirit.careers/"
+      "https://commonspirit.careers/",
+      "https://www.commonspirit.careers/NNRP-CA"
     ],
     "status": "candidate",
     "shared_board": "commonspirit",
-    "notes": "Confirm shared-board coverage with Dignity Health before scanning twice."
+    "notes": "Confirm shared-board coverage with Dignity Health before scanning twice. CA Region NNRP page verified 2026-09-19; names CA participating hospitals. Covers 29 facility records."
   },
   {
     "id": "src_adventist",
     "hospital_id": "hosp_adventist",
     "label": "Adventist Health careers (shared board)",
     "urls": [
-      "https://www.adventisthealth.org/careers/"
+      "https://www.adventisthealth.org/careers/",
+      "https://www.adventisthealth.org/careers/more-opportunities/nursing-careers/nurse-residency-program/"
     ],
     "status": "active",
     "shared_board": "adventist",
-    "notes": "Activated by Jethro"
+    "notes": "Activated by Jethro Residency page URL from official domain (search-confirmed; direct fetch 403, re-confirm on visit). Covers 21 facility records."
   },
   {
     "id": "src_mgb",
@@ -491,5 +496,256 @@
     "status": "active",
     "shared_board": null,
     "notes": "Verified official nurse residency and FAQ portals."
+  },
+  {
+    "id": "src_packard",
+    "hospital_id": "hosp_packard",
+    "label": "Stanford Children's Health careers",
+    "urls": [
+      "https://careers.stanfordchildrens.org/"
+    ],
+    "status": "active",
+    "shared_board": null,
+    "notes": "Verified 2026-09-19: official Stanford Medicine Children's Health board (links to stanfordchildrens.org). Separate employer from Stanford Health Care."
+  },
+  {
+    "id": "src_trivalley",
+    "hospital_id": "hosp_trivalley",
+    "label": "Stanford Tri-Valley careers",
+    "urls": [],
+    "status": "candidate",
+    "shared_board": "stanford",
+    "notes": "Confirm whether SHC board covers Tri-Valley new-grad postings or a separate pathway exists."
+  },
+  {
+    "id": "src_elcamino",
+    "hospital_id": "hosp_elcamino",
+    "label": "El Camino Health careers",
+    "urls": [],
+    "status": "candidate",
+    "shared_board": null,
+    "notes": "Verify Los Gatos placements by cohort; Mountain View is main campus."
+  },
+  {
+    "id": "src_washington",
+    "hospital_id": "hosp_washington",
+    "label": "Washington Health careers",
+    "urls": [],
+    "status": "candidate",
+    "shared_board": null,
+    "notes": "Verify official careers/ATS URLs before activating."
+  },
+  {
+    "id": "src_jmwc",
+    "hospital_id": "hosp_jmwc",
+    "label": "John Muir Walnut Creek careers",
+    "urls": [],
+    "status": "candidate",
+    "shared_board": "johnmuir",
+    "notes": "Shares John Muir Health board with Concord; scan once."
+  },
+  {
+    "id": "src_jmconcord",
+    "hospital_id": "hosp_jmconcord",
+    "label": "John Muir Concord careers",
+    "urls": [],
+    "status": "candidate",
+    "shared_board": "johnmuir",
+    "notes": "Shares John Muir Health board with Walnut Creek; scan once."
+  },
+  {
+    "id": "src_goodsam_sj",
+    "hospital_id": "hosp_goodsam_sj",
+    "label": "Good Samaritan San Jose careers",
+    "urls": [],
+    "status": "candidate",
+    "shared_board": null,
+    "notes": "Verify official careers/ATS URLs before activating."
+  },
+  {
+    "id": "src_scvmc",
+    "hospital_id": "hosp_scvmc",
+    "label": "Santa Clara Valley Medical Center careers",
+    "urls": [],
+    "status": "candidate",
+    "shared_board": "scvh",
+    "notes": "County recruitment; shares SCVH system with Regional Medical Center."
+  },
+  {
+    "id": "src_regional_sj",
+    "hospital_id": "hosp_regional_sj",
+    "label": "Regional Medical Center careers",
+    "urls": [],
+    "status": "candidate",
+    "shared_board": "scvh",
+    "notes": "Use current Santa Clara Valley Healthcare recruitment."
+  },
+  {
+    "id": "src_alameda",
+    "hospital_id": "hosp_alameda",
+    "label": "Alameda Health System careers",
+    "urls": [],
+    "status": "candidate",
+    "shared_board": null,
+    "notes": "Oakland-area recruitment; confirm hospital assignment per posting."
+  },
+  {
+    "id": "src_zsfg",
+    "hospital_id": "hosp_zsfg",
+    "label": "ZSFG careers",
+    "urls": [],
+    "status": "candidate",
+    "shared_board": null,
+    "notes": "Verify official City/County recruitment pathway before activating."
+  },
+  {
+    "id": "src_marinhealth",
+    "hospital_id": "hosp_marinhealth",
+    "label": "MarinHealth careers",
+    "urls": [],
+    "status": "candidate",
+    "shared_board": null,
+    "notes": "Verify official careers/ATS URLs before activating."
+  },
+  {
+    "id": "src_northbay",
+    "hospital_id": "hosp_northbay",
+    "label": "NorthBay Fairfield careers",
+    "urls": [],
+    "status": "candidate",
+    "shared_board": "northbay",
+    "notes": "Shares NorthBay Health board with VacaValley; scan once."
+  },
+  {
+    "id": "src_vacavalley",
+    "hospital_id": "hosp_vacavalley",
+    "label": "NorthBay VacaValley careers",
+    "urls": [],
+    "status": "candidate",
+    "shared_board": "northbay",
+    "notes": "Confirm program placements; shares NorthBay board with Fairfield."
+  },
+  {
+    "id": "src_benioff_oak",
+    "hospital_id": "hosp_benioff_oak",
+    "label": "Benioff Oakland careers",
+    "urls": [],
+    "status": "candidate",
+    "shared_board": null,
+    "notes": "Verify its current recruitment pathway separately from UCSF Health."
+  },
+  {
+    "id": "src_barton",
+    "hospital_id": "hosp_barton",
+    "label": "Barton Health careers",
+    "urls": [],
+    "status": "candidate",
+    "shared_board": null,
+    "notes": "Verify official careers/ATS URLs before activating."
+  },
+  {
+    "id": "src_enloe",
+    "hospital_id": "hosp_enloe",
+    "label": "Enloe Health careers",
+    "urls": [],
+    "status": "candidate",
+    "shared_board": null,
+    "notes": "Verify official careers/ATS URLs before activating."
+  },
+  {
+    "id": "src_shasta",
+    "hospital_id": "hosp_shasta",
+    "label": "Shasta Regional careers",
+    "urls": [],
+    "status": "candidate",
+    "shared_board": null,
+    "notes": "Verify official careers/ATS URLs before activating."
+  },
+  {
+    "id": "src_lassen",
+    "hospital_id": "hosp_lassen",
+    "label": "Banner Lassen careers",
+    "urls": [],
+    "status": "candidate",
+    "shared_board": "banner",
+    "notes": "Covered by Banner Health board; confirm Lassen new-grad participation."
+  },
+  {
+    "id": "src_sutter",
+    "hospital_id": "hosp_sutter",
+    "label": "Sutter Health careers (shared board)",
+    "urls": [
+      "https://jobs.sutterhealth.org/"
+    ],
+    "status": "active",
+    "shared_board": "sutter",
+    "notes": "Verified 2026-09-19: official Sutter Phenom board. Recruitment is often per-hospital/unit; tag facility per posting across 21 facility records."
+  },
+  {
+    "id": "src_va_gla",
+    "hospital_id": "hosp_va_gla",
+    "label": "VA Greater Los Angeles nurse residency",
+    "urls": [
+      "https://www.usajobs.gov/"
+    ],
+    "status": "candidate",
+    "shared_board": "va-usajobs",
+    "notes": "Confirm PB-RNR participation and facility program page; applications via USAJOBS."
+  },
+  {
+    "id": "src_va_sd",
+    "hospital_id": "hosp_va_sd",
+    "label": "VA San Diego nurse residency",
+    "urls": [
+      "https://www.usajobs.gov/"
+    ],
+    "status": "candidate",
+    "shared_board": "va-usajobs",
+    "notes": "Confirm PB-RNR participation and facility program page; applications via USAJOBS."
+  },
+  {
+    "id": "src_va_paloalto",
+    "hospital_id": "hosp_va_paloalto",
+    "label": "VA Palo Alto nurse residency",
+    "urls": [
+      "https://www.usajobs.gov/"
+    ],
+    "status": "candidate",
+    "shared_board": "va-usajobs",
+    "notes": "Confirm PB-RNR participation and facility program page; applications via USAJOBS."
+  },
+  {
+    "id": "src_va_sf",
+    "hospital_id": "hosp_va_sf",
+    "label": "SF VA nurse residency",
+    "urls": [
+      "https://www.va.gov/san-francisco-health-care/work-with-us/internships-and-fellowships/post-baccalaureate-registered-nurse-residency-program-pb-rnr/",
+      "https://www.usajobs.gov/"
+    ],
+    "status": "active",
+    "shared_board": "va-usajobs",
+    "notes": "Verified 2026-09-19: PB-RNR page linked from official SF VA training directory. BSN-oriented new-grad pathway."
+  },
+  {
+    "id": "src_va_norcal",
+    "hospital_id": "hosp_va_norcal",
+    "label": "VA Northern California nurse residency",
+    "urls": [
+      "https://www.usajobs.gov/"
+    ],
+    "status": "candidate",
+    "shared_board": "va-usajobs",
+    "notes": "Confirm PB-RNR participation and facility program page; applications via USAJOBS."
+  },
+  {
+    "id": "src_va_centralca",
+    "hospital_id": "hosp_va_centralca",
+    "label": "VA Central California nurse residency",
+    "urls": [
+      "https://www.usajobs.gov/"
+    ],
+    "status": "candidate",
+    "shared_board": "va-usajobs",
+    "notes": "Confirm PB-RNR participation and facility program page; applications via USAJOBS."
   }
 ]

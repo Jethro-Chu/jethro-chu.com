@@ -1,50 +1,1377 @@
 [
-  { "id": "hosp_ucla", "name": "UCLA Health", "health_system": "UCLA Health", "state": "CA", "aliases": ["University of California Los Angeles Health", "Ronald Reagan UCLA Medical Center"] },
-  { "id": "hosp_ucsf", "name": "UCSF Health", "health_system": "UCSF Health", "state": "CA", "aliases": ["University of California San Francisco Health"] },
-  { "id": "hosp_stanford", "name": "Stanford Health Care", "health_system": "Stanford Medicine", "state": "CA", "aliases": ["Stanford Hospital"] },
-  { "id": "hosp_kaiser", "name": "Kaiser Permanente", "health_system": "Kaiser Permanente", "state": "CA", "aliases": ["Kaiser"] },
-  { "id": "hosp_ucdavis", "name": "UC Davis Health", "health_system": "UC Davis Health", "state": "CA", "aliases": ["University of California Davis Health"] },
-  { "id": "hosp_uci", "name": "UC Irvine Health", "health_system": "UC Irvine Health", "state": "CA", "aliases": ["University of California Irvine Health", "UCI Health"] },
-  { "id": "hosp_ucsd", "name": "UC San Diego Health", "health_system": "UC San Diego Health", "state": "CA", "aliases": ["University of California San Diego Health", "UCSD Health"] },
-  { "id": "hosp_keck", "name": "Keck Medicine of USC", "health_system": "Keck Medicine of USC", "state": "CA", "aliases": ["USC/Keck Medicine", "Keck Medicine", "USC"] },
-  { "id": "hosp_cityofhope", "name": "City of Hope", "health_system": "City of Hope", "state": "CA", "aliases": [] },
-  { "id": "hosp_huntington", "name": "Huntington Health", "health_system": "Huntington Health", "state": "CA", "aliases": ["Huntington Hospital"] },
-  { "id": "hosp_cedars", "name": "Cedars-Sinai", "health_system": "Cedars-Sinai", "state": "CA", "aliases": ["Cedars Sinai"] },
-  { "id": "hosp_chla", "name": "Children's Hospital Los Angeles", "health_system": "Children's Hospital Los Angeles", "state": "CA", "aliases": ["CHLA"] },
-  { "id": "hosp_choc", "name": "Children's Hospital of Orange County", "health_system": "CHOC", "state": "CA", "aliases": ["CHOC"] },
-  { "id": "hosp_arcadia", "name": "USC Arcadia Hospital", "health_system": "Keck Medicine of USC", "state": "CA", "aliases": ["Arcadia Hospital", "Methodist Hospital of Southern California"] },
-  { "id": "hosp_sharp", "name": "Sharp HealthCare", "health_system": "Sharp HealthCare", "state": "CA", "aliases": ["Sharp"] },
-  { "id": "hosp_scripps", "name": "Scripps Health", "health_system": "Scripps Health", "state": "CA", "aliases": ["Scripps"] },
-  { "id": "hosp_hoag", "name": "Hoag", "health_system": "Hoag", "state": "CA", "aliases": ["Hoag Hospital", "Hoag Health System"] },
-  { "id": "hosp_providence", "name": "Providence", "health_system": "Providence", "state": "WA", "aliases": ["Providence Health", "Providence St. Joseph Health"] },
-  { "id": "hosp_dignity", "name": "Dignity Health", "health_system": "CommonSpirit Health", "state": "CA", "aliases": [] },
-  { "id": "hosp_commonspirit", "name": "CommonSpirit Health", "health_system": "CommonSpirit Health", "state": "IL", "aliases": ["CommonSpirit"] },
-  { "id": "hosp_adventist", "name": "Adventist Health", "health_system": "Adventist Health", "state": "CA", "aliases": [] },
-  { "id": "hosp_mgb", "name": "Mass General Brigham", "health_system": "Mass General Brigham", "state": "MA", "aliases": ["MGB", "Mass General", "Brigham and Women's"] },
-  { "id": "hosp_bostonchildrens", "name": "Boston Children's Hospital", "health_system": "Boston Children's Hospital", "state": "MA", "aliases": ["Boston Children's"] },
-  { "id": "hosp_bidmc", "name": "Beth Israel Deaconess Medical Center", "health_system": "Beth Israel Lahey Health", "state": "MA", "aliases": ["Beth Israel", "BIDMC"] },
-  { "id": "hosp_bmc", "name": "Boston Medical Center", "health_system": "Boston Medical Center", "state": "MA", "aliases": ["BMC"] },
-  { "id": "hosp_nyulangone", "name": "NYU Langone Health", "health_system": "NYU Langone Health", "state": "NY", "aliases": ["NYU Langone"] },
-  { "id": "hosp_nyp", "name": "NewYork-Presbyterian", "health_system": "NewYork-Presbyterian", "state": "NY", "aliases": ["NYP", "New York Presbyterian"] },
-  { "id": "hosp_mountsinai", "name": "Mount Sinai Health System", "health_system": "Mount Sinai Health System", "state": "NY", "aliases": ["Mount Sinai"] },
-  { "id": "hosp_northwell", "name": "Northwell Health", "health_system": "Northwell Health", "state": "NY", "aliases": ["Northwell"] },
-  { "id": "hosp_clevelandclinic", "name": "Cleveland Clinic", "health_system": "Cleveland Clinic", "state": "OH", "aliases": [] },
-  { "id": "hosp_ohiostate", "name": "Ohio State University Wexner Medical Center", "health_system": "Ohio State University Wexner Medical Center", "state": "OH", "aliases": ["Ohio State", "OSU Wexner"] },
-  { "id": "hosp_mayo", "name": "Mayo Clinic", "health_system": "Mayo Clinic", "state": "MN", "aliases": [] },
-  { "id": "hosp_hopkins", "name": "Johns Hopkins Medicine", "health_system": "Johns Hopkins Medicine", "state": "MD", "aliases": ["Johns Hopkins"] },
-  { "id": "hosp_duke", "name": "Duke University Health System", "health_system": "Duke University Health System", "state": "NC", "aliases": ["Duke", "Duke Health"] },
-  { "id": "hosp_vanderbilt", "name": "Vanderbilt University Medical Center", "health_system": "Vanderbilt University Medical Center", "state": "TN", "aliases": ["Vanderbilt", "VUMC"] },
-  { "id": "hosp_emory", "name": "Emory Healthcare", "health_system": "Emory Healthcare", "state": "GA", "aliases": ["Emory"] },
-  { "id": "hosp_upmc", "name": "UPMC", "health_system": "UPMC", "state": "PA", "aliases": ["University of Pittsburgh Medical Center"] },
-  { "id": "hosp_penn", "name": "Penn Medicine", "health_system": "Penn Medicine", "state": "PA", "aliases": ["University of Pennsylvania Health System"] },
-  { "id": "hosp_chop", "name": "Children's Hospital of Philadelphia", "health_system": "Children's Hospital of Philadelphia", "state": "PA", "aliases": ["CHOP"] },
-  { "id": "hosp_houstonmethodist", "name": "Houston Methodist", "health_system": "Houston Methodist", "state": "TX", "aliases": [] },
-  { "id": "hosp_texaschildrens", "name": "Texas Children's Hospital", "health_system": "Texas Children's Hospital", "state": "TX", "aliases": ["Texas Children's"] },
-  { "id": "hosp_utsw", "name": "UT Southwestern Medical Center", "health_system": "UT Southwestern Medical Center", "state": "TX", "aliases": ["UT Southwestern", "UTSW"] },
-  { "id": "hosp_bsw", "name": "Baylor Scott & White Health", "health_system": "Baylor Scott & White Health", "state": "TX", "aliases": ["Baylor Scott & White", "BSW"] },
-  { "id": "hosp_banner", "name": "Banner Health", "health_system": "Banner Health", "state": "AZ", "aliases": ["Banner"] },
-  { "id": "hosp_intermountain", "name": "Intermountain Health", "health_system": "Intermountain Health", "state": "UT", "aliases": ["Intermountain"] },
-  { "id": "hosp_uw", "name": "UW Medicine", "health_system": "UW Medicine", "state": "WA", "aliases": ["University of Washington Medicine", "University of Washington"] },
-  { "id": "hosp_ohsu", "name": "Oregon Health & Science University", "health_system": "Oregon Health & Science University", "state": "OR", "aliases": ["OHSU"] },
-  { "id": "hosp_palomar", "name": "Palomar Health", "health_system": "Palomar UC San Diego Health", "state": "CA", "aliases": ["Palomar Medical Center", "Palomar UC San Diego Health", "Palomar Health Escondido", "Palomar Health Poway"] }
+  {
+    "id": "hosp_ucla",
+    "name": "UCLA Health",
+    "health_system": "UCLA Health",
+    "state": "CA",
+    "aliases": [
+      "University of California Los Angeles Health",
+      "Ronald Reagan UCLA Medical Center"
+    ]
+  },
+  {
+    "id": "hosp_ucsf",
+    "name": "UCSF Health",
+    "health_system": "UCSF Health",
+    "state": "CA",
+    "aliases": [
+      "University of California San Francisco Health",
+      "UCSF Medical Center",
+      "UCSF Benioff Children's Hospital San Francisco",
+      "Benioff San Francisco"
+    ]
+  },
+  {
+    "id": "hosp_stanford",
+    "name": "Stanford Health Care",
+    "health_system": "Stanford Medicine",
+    "state": "CA",
+    "aliases": [
+      "Stanford Hospital"
+    ]
+  },
+  {
+    "id": "hosp_kaiser",
+    "name": "Kaiser Permanente",
+    "health_system": "Kaiser Permanente",
+    "state": "CA",
+    "aliases": [
+      "Kaiser"
+    ]
+  },
+  {
+    "id": "hosp_ucdavis",
+    "name": "UC Davis Health",
+    "health_system": "UC Davis Health",
+    "state": "CA",
+    "aliases": [
+      "University of California Davis Health",
+      "UC Davis Medical Center"
+    ]
+  },
+  {
+    "id": "hosp_uci",
+    "name": "UC Irvine Health",
+    "health_system": "UC Irvine Health",
+    "state": "CA",
+    "aliases": [
+      "University of California Irvine Health",
+      "UCI Health"
+    ]
+  },
+  {
+    "id": "hosp_ucsd",
+    "name": "UC San Diego Health",
+    "health_system": "UC San Diego Health",
+    "state": "CA",
+    "aliases": [
+      "University of California San Diego Health",
+      "UCSD Health"
+    ]
+  },
+  {
+    "id": "hosp_keck",
+    "name": "Keck Medicine of USC",
+    "health_system": "Keck Medicine of USC",
+    "state": "CA",
+    "aliases": [
+      "USC/Keck Medicine",
+      "Keck Medicine",
+      "USC"
+    ]
+  },
+  {
+    "id": "hosp_cityofhope",
+    "name": "City of Hope",
+    "health_system": "City of Hope",
+    "state": "CA",
+    "aliases": []
+  },
+  {
+    "id": "hosp_huntington",
+    "name": "Huntington Health",
+    "health_system": "Huntington Health",
+    "state": "CA",
+    "aliases": [
+      "Huntington Hospital"
+    ]
+  },
+  {
+    "id": "hosp_cedars",
+    "name": "Cedars-Sinai",
+    "health_system": "Cedars-Sinai",
+    "state": "CA",
+    "aliases": [
+      "Cedars Sinai"
+    ]
+  },
+  {
+    "id": "hosp_chla",
+    "name": "Children's Hospital Los Angeles",
+    "health_system": "Children's Hospital Los Angeles",
+    "state": "CA",
+    "aliases": [
+      "CHLA"
+    ]
+  },
+  {
+    "id": "hosp_choc",
+    "name": "Children's Hospital of Orange County",
+    "health_system": "CHOC",
+    "state": "CA",
+    "aliases": [
+      "CHOC"
+    ]
+  },
+  {
+    "id": "hosp_arcadia",
+    "name": "USC Arcadia Hospital",
+    "health_system": "Keck Medicine of USC",
+    "state": "CA",
+    "aliases": [
+      "Arcadia Hospital",
+      "Methodist Hospital of Southern California"
+    ]
+  },
+  {
+    "id": "hosp_sharp",
+    "name": "Sharp HealthCare",
+    "health_system": "Sharp HealthCare",
+    "state": "CA",
+    "aliases": [
+      "Sharp"
+    ]
+  },
+  {
+    "id": "hosp_scripps",
+    "name": "Scripps Health",
+    "health_system": "Scripps Health",
+    "state": "CA",
+    "aliases": [
+      "Scripps"
+    ]
+  },
+  {
+    "id": "hosp_hoag",
+    "name": "Hoag",
+    "health_system": "Hoag",
+    "state": "CA",
+    "aliases": [
+      "Hoag Hospital",
+      "Hoag Health System"
+    ]
+  },
+  {
+    "id": "hosp_providence",
+    "name": "Providence",
+    "health_system": "Providence",
+    "state": "WA",
+    "aliases": [
+      "Providence Health",
+      "Providence St. Joseph Health"
+    ]
+  },
+  {
+    "id": "hosp_dignity",
+    "name": "Dignity Health",
+    "health_system": "CommonSpirit Health",
+    "state": "CA",
+    "aliases": []
+  },
+  {
+    "id": "hosp_commonspirit",
+    "name": "CommonSpirit Health",
+    "health_system": "CommonSpirit Health",
+    "state": "IL",
+    "aliases": [
+      "CommonSpirit"
+    ]
+  },
+  {
+    "id": "hosp_adventist",
+    "name": "Adventist Health",
+    "health_system": "Adventist Health",
+    "state": "CA",
+    "aliases": []
+  },
+  {
+    "id": "hosp_mgb",
+    "name": "Mass General Brigham",
+    "health_system": "Mass General Brigham",
+    "state": "MA",
+    "aliases": [
+      "MGB",
+      "Mass General",
+      "Brigham and Women's"
+    ]
+  },
+  {
+    "id": "hosp_bostonchildrens",
+    "name": "Boston Children's Hospital",
+    "health_system": "Boston Children's Hospital",
+    "state": "MA",
+    "aliases": [
+      "Boston Children's"
+    ]
+  },
+  {
+    "id": "hosp_bidmc",
+    "name": "Beth Israel Deaconess Medical Center",
+    "health_system": "Beth Israel Lahey Health",
+    "state": "MA",
+    "aliases": [
+      "Beth Israel",
+      "BIDMC"
+    ]
+  },
+  {
+    "id": "hosp_bmc",
+    "name": "Boston Medical Center",
+    "health_system": "Boston Medical Center",
+    "state": "MA",
+    "aliases": [
+      "BMC"
+    ]
+  },
+  {
+    "id": "hosp_nyulangone",
+    "name": "NYU Langone Health",
+    "health_system": "NYU Langone Health",
+    "state": "NY",
+    "aliases": [
+      "NYU Langone"
+    ]
+  },
+  {
+    "id": "hosp_nyp",
+    "name": "NewYork-Presbyterian",
+    "health_system": "NewYork-Presbyterian",
+    "state": "NY",
+    "aliases": [
+      "NYP",
+      "New York Presbyterian"
+    ]
+  },
+  {
+    "id": "hosp_mountsinai",
+    "name": "Mount Sinai Health System",
+    "health_system": "Mount Sinai Health System",
+    "state": "NY",
+    "aliases": [
+      "Mount Sinai"
+    ]
+  },
+  {
+    "id": "hosp_northwell",
+    "name": "Northwell Health",
+    "health_system": "Northwell Health",
+    "state": "NY",
+    "aliases": [
+      "Northwell"
+    ]
+  },
+  {
+    "id": "hosp_clevelandclinic",
+    "name": "Cleveland Clinic",
+    "health_system": "Cleveland Clinic",
+    "state": "OH",
+    "aliases": []
+  },
+  {
+    "id": "hosp_ohiostate",
+    "name": "Ohio State University Wexner Medical Center",
+    "health_system": "Ohio State University Wexner Medical Center",
+    "state": "OH",
+    "aliases": [
+      "Ohio State",
+      "OSU Wexner"
+    ]
+  },
+  {
+    "id": "hosp_mayo",
+    "name": "Mayo Clinic",
+    "health_system": "Mayo Clinic",
+    "state": "MN",
+    "aliases": []
+  },
+  {
+    "id": "hosp_hopkins",
+    "name": "Johns Hopkins Medicine",
+    "health_system": "Johns Hopkins Medicine",
+    "state": "MD",
+    "aliases": [
+      "Johns Hopkins"
+    ]
+  },
+  {
+    "id": "hosp_duke",
+    "name": "Duke University Health System",
+    "health_system": "Duke University Health System",
+    "state": "NC",
+    "aliases": [
+      "Duke",
+      "Duke Health"
+    ]
+  },
+  {
+    "id": "hosp_vanderbilt",
+    "name": "Vanderbilt University Medical Center",
+    "health_system": "Vanderbilt University Medical Center",
+    "state": "TN",
+    "aliases": [
+      "Vanderbilt",
+      "VUMC"
+    ]
+  },
+  {
+    "id": "hosp_emory",
+    "name": "Emory Healthcare",
+    "health_system": "Emory Healthcare",
+    "state": "GA",
+    "aliases": [
+      "Emory"
+    ]
+  },
+  {
+    "id": "hosp_upmc",
+    "name": "UPMC",
+    "health_system": "UPMC",
+    "state": "PA",
+    "aliases": [
+      "University of Pittsburgh Medical Center"
+    ]
+  },
+  {
+    "id": "hosp_penn",
+    "name": "Penn Medicine",
+    "health_system": "Penn Medicine",
+    "state": "PA",
+    "aliases": [
+      "University of Pennsylvania Health System"
+    ]
+  },
+  {
+    "id": "hosp_chop",
+    "name": "Children's Hospital of Philadelphia",
+    "health_system": "Children's Hospital of Philadelphia",
+    "state": "PA",
+    "aliases": [
+      "CHOP"
+    ]
+  },
+  {
+    "id": "hosp_houstonmethodist",
+    "name": "Houston Methodist",
+    "health_system": "Houston Methodist",
+    "state": "TX",
+    "aliases": []
+  },
+  {
+    "id": "hosp_texaschildrens",
+    "name": "Texas Children's Hospital",
+    "health_system": "Texas Children's Hospital",
+    "state": "TX",
+    "aliases": [
+      "Texas Children's"
+    ]
+  },
+  {
+    "id": "hosp_utsw",
+    "name": "UT Southwestern Medical Center",
+    "health_system": "UT Southwestern Medical Center",
+    "state": "TX",
+    "aliases": [
+      "UT Southwestern",
+      "UTSW"
+    ]
+  },
+  {
+    "id": "hosp_bsw",
+    "name": "Baylor Scott & White Health",
+    "health_system": "Baylor Scott & White Health",
+    "state": "TX",
+    "aliases": [
+      "Baylor Scott & White",
+      "BSW"
+    ]
+  },
+  {
+    "id": "hosp_banner",
+    "name": "Banner Health",
+    "health_system": "Banner Health",
+    "state": "AZ",
+    "aliases": [
+      "Banner"
+    ]
+  },
+  {
+    "id": "hosp_intermountain",
+    "name": "Intermountain Health",
+    "health_system": "Intermountain Health",
+    "state": "UT",
+    "aliases": [
+      "Intermountain"
+    ]
+  },
+  {
+    "id": "hosp_uw",
+    "name": "UW Medicine",
+    "health_system": "UW Medicine",
+    "state": "WA",
+    "aliases": [
+      "University of Washington Medicine",
+      "University of Washington"
+    ]
+  },
+  {
+    "id": "hosp_ohsu",
+    "name": "Oregon Health & Science University",
+    "health_system": "Oregon Health & Science University",
+    "state": "OR",
+    "aliases": [
+      "OHSU"
+    ]
+  },
+  {
+    "id": "hosp_palomar",
+    "name": "Palomar Health",
+    "health_system": "Palomar UC San Diego Health",
+    "state": "CA",
+    "aliases": [
+      "Palomar Medical Center",
+      "Palomar UC San Diego Health",
+      "Palomar Health Escondido",
+      "Palomar Health Poway"
+    ]
+  },
+  {
+    "id": "hosp_packard",
+    "name": "Lucile Packard Children's Hospital Stanford",
+    "health_system": "Stanford Medicine Children's Health",
+    "state": "CA",
+    "aliases": [
+      "Stanford Children's Health",
+      "LPCH"
+    ]
+  },
+  {
+    "id": "hosp_trivalley",
+    "name": "Stanford Health Care Tri-Valley",
+    "health_system": "Stanford Health Care",
+    "state": "CA",
+    "aliases": [
+      "Stanford Tri-Valley",
+      "ValleyCare"
+    ]
+  },
+  {
+    "id": "hosp_elcamino",
+    "name": "El Camino Health",
+    "health_system": "El Camino Health",
+    "state": "CA",
+    "aliases": [
+      "El Camino Hospital"
+    ]
+  },
+  {
+    "id": "hosp_washington",
+    "name": "Washington Hospital",
+    "health_system": "Washington Health",
+    "state": "CA",
+    "aliases": [
+      "Washington Hospital Fremont"
+    ]
+  },
+  {
+    "id": "hosp_jmwc",
+    "name": "John Muir Medical Center, Walnut Creek",
+    "health_system": "John Muir Health",
+    "state": "CA",
+    "aliases": [
+      "John Muir Walnut Creek"
+    ]
+  },
+  {
+    "id": "hosp_jmconcord",
+    "name": "John Muir Medical Center, Concord",
+    "health_system": "John Muir Health",
+    "state": "CA",
+    "aliases": [
+      "John Muir Concord"
+    ]
+  },
+  {
+    "id": "hosp_goodsam_sj",
+    "name": "Good Samaritan Hospital San Jose",
+    "health_system": "Good Samaritan Hospital San Jose",
+    "state": "CA",
+    "aliases": [
+      "Good Samaritan Hospital"
+    ]
+  },
+  {
+    "id": "hosp_scvmc",
+    "name": "Santa Clara Valley Medical Center",
+    "health_system": "Santa Clara Valley Healthcare",
+    "state": "CA",
+    "aliases": [
+      "Valley Medical Center"
+    ]
+  },
+  {
+    "id": "hosp_regional_sj",
+    "name": "Regional Medical Center San Jose",
+    "health_system": "Santa Clara Valley Healthcare",
+    "state": "CA",
+    "aliases": [
+      "Regional Medical Center"
+    ]
+  },
+  {
+    "id": "hosp_alameda",
+    "name": "Alameda Health System",
+    "health_system": "Alameda Health System",
+    "state": "CA",
+    "aliases": [
+      "Highland Hospital"
+    ]
+  },
+  {
+    "id": "hosp_zsfg",
+    "name": "Zuckerberg San Francisco General Hospital",
+    "health_system": "San Francisco Health Network",
+    "state": "CA",
+    "aliases": [
+      "San Francisco General Hospital",
+      "SFGH"
+    ]
+  },
+  {
+    "id": "hosp_marinhealth",
+    "name": "MarinHealth Medical Center",
+    "health_system": "MarinHealth",
+    "state": "CA",
+    "aliases": [
+      "Marin General Hospital"
+    ]
+  },
+  {
+    "id": "hosp_northbay",
+    "name": "NorthBay Health Medical Center",
+    "health_system": "NorthBay Health",
+    "state": "CA",
+    "aliases": [
+      "NorthBay Medical Center"
+    ]
+  },
+  {
+    "id": "hosp_vacavalley",
+    "name": "NorthBay Health VacaValley Hospital",
+    "health_system": "NorthBay Health",
+    "state": "CA",
+    "aliases": [
+      "VacaValley Hospital"
+    ]
+  },
+  {
+    "id": "hosp_benioff_oak",
+    "name": "UCSF Benioff Children's Hospital Oakland",
+    "health_system": "UCSF Health",
+    "state": "CA",
+    "aliases": [
+      "Benioff Oakland",
+      "Children's Hospital Oakland"
+    ]
+  },
+  {
+    "id": "hosp_barton",
+    "name": "Barton Memorial Hospital",
+    "health_system": "Barton Health",
+    "state": "CA",
+    "aliases": []
+  },
+  {
+    "id": "hosp_enloe",
+    "name": "Enloe Medical Center",
+    "health_system": "Enloe Health",
+    "state": "CA",
+    "aliases": [
+      "Enloe Health"
+    ]
+  },
+  {
+    "id": "hosp_shasta",
+    "name": "Shasta Regional Medical Center",
+    "health_system": "Shasta Regional Medical Center",
+    "state": "CA",
+    "aliases": []
+  },
+  {
+    "id": "hosp_lassen",
+    "name": "Banner Lassen Medical Center",
+    "health_system": "Banner Health",
+    "state": "CA",
+    "aliases": []
+  },
+  {
+    "id": "hosp_cahm",
+    "name": "California Hospital Medical Center",
+    "health_system": "CommonSpirit Health",
+    "state": "CA",
+    "aliases": []
+  },
+  {
+    "id": "hosp_glendale_mem",
+    "name": "Glendale Memorial Hospital",
+    "health_system": "CommonSpirit Health",
+    "state": "CA",
+    "aliases": []
+  },
+  {
+    "id": "hosp_northridge",
+    "name": "Northridge Hospital Medical Center",
+    "health_system": "CommonSpirit Health",
+    "state": "CA",
+    "aliases": []
+  },
+  {
+    "id": "hosp_stmary_lb",
+    "name": "St. Mary Medical Center Long Beach",
+    "health_system": "CommonSpirit Health",
+    "state": "CA",
+    "aliases": [
+      "St. Mary Medical Center"
+    ]
+  },
+  {
+    "id": "hosp_chsb",
+    "name": "Community Hospital of San Bernardino",
+    "health_system": "CommonSpirit Health",
+    "state": "CA",
+    "aliases": []
+  },
+  {
+    "id": "hosp_stbernardine",
+    "name": "St. Bernardine Medical Center",
+    "health_system": "CommonSpirit Health",
+    "state": "CA",
+    "aliases": []
+  },
+  {
+    "id": "hosp_stjohn_oxnard",
+    "name": "St. John's Regional Medical Center Oxnard",
+    "health_system": "CommonSpirit Health",
+    "state": "CA",
+    "aliases": [
+      "St. John's Regional Medical Center"
+    ]
+  },
+  {
+    "id": "hosp_stjohn_camarillo",
+    "name": "St. John's Hospital Camarillo",
+    "health_system": "CommonSpirit Health",
+    "state": "CA",
+    "aliases": []
+  },
+  {
+    "id": "hosp_arroyo",
+    "name": "Arroyo Grande Community Hospital",
+    "health_system": "CommonSpirit Health",
+    "state": "CA",
+    "aliases": []
+  },
+  {
+    "id": "hosp_french",
+    "name": "French Hospital Medical Center",
+    "health_system": "CommonSpirit Health",
+    "state": "CA",
+    "aliases": [
+      "French Hospital"
+    ]
+  },
+  {
+    "id": "hosp_marian",
+    "name": "Marian Regional Medical Center",
+    "health_system": "CommonSpirit Health",
+    "state": "CA",
+    "aliases": [
+      "Marian Regional"
+    ]
+  },
+  {
+    "id": "hosp_dominican",
+    "name": "Dominican Hospital",
+    "health_system": "CommonSpirit Health",
+    "state": "CA",
+    "aliases": [
+      "Dominican Hospital Santa Cruz"
+    ]
+  },
+  {
+    "id": "hosp_sequoia",
+    "name": "Sequoia Hospital",
+    "health_system": "CommonSpirit Health",
+    "state": "CA",
+    "aliases": [
+      "Sequoia Hospital Redwood City"
+    ]
+  },
+  {
+    "id": "hosp_bakmem",
+    "name": "Bakersfield Memorial Hospital",
+    "health_system": "CommonSpirit Health",
+    "state": "CA",
+    "aliases": []
+  },
+  {
+    "id": "hosp_mercy_dt",
+    "name": "Mercy Hospital Downtown",
+    "health_system": "CommonSpirit Health",
+    "state": "CA",
+    "aliases": [
+      "Mercy Hospital Downtown Bakersfield"
+    ]
+  },
+  {
+    "id": "hosp_mercy_sw",
+    "name": "Mercy Hospital Southwest",
+    "health_system": "CommonSpirit Health",
+    "state": "CA",
+    "aliases": [
+      "Mercy Hospital Southwest Bakersfield"
+    ]
+  },
+  {
+    "id": "hosp_mercy_merced",
+    "name": "Mercy Medical Center Merced",
+    "health_system": "CommonSpirit Health",
+    "state": "CA",
+    "aliases": []
+  },
+  {
+    "id": "hosp_stjoseph_stockton",
+    "name": "St. Joseph's Medical Center Stockton",
+    "health_system": "CommonSpirit Health",
+    "state": "CA",
+    "aliases": [
+      "St. Joseph's Medical Center"
+    ]
+  },
+  {
+    "id": "hosp_stjoseph_bh",
+    "name": "St. Joseph's Behavioral Health Center Stockton",
+    "health_system": "CommonSpirit Health",
+    "state": "CA",
+    "aliases": []
+  },
+  {
+    "id": "hosp_marktwain",
+    "name": "Mark Twain Medical Center",
+    "health_system": "CommonSpirit Health",
+    "state": "CA",
+    "aliases": [
+      "Mark Twain Medical Center San Andreas"
+    ]
+  },
+  {
+    "id": "hosp_mercy_general",
+    "name": "Mercy General Hospital",
+    "health_system": "CommonSpirit Health",
+    "state": "CA",
+    "aliases": [
+      "Mercy General Hospital Sacramento"
+    ]
+  },
+  {
+    "id": "hosp_mercy_folsom",
+    "name": "Mercy Hospital of Folsom",
+    "health_system": "CommonSpirit Health",
+    "state": "CA",
+    "aliases": []
+  },
+  {
+    "id": "hosp_mercy_sanjuan",
+    "name": "Mercy San Juan Medical Center",
+    "health_system": "CommonSpirit Health",
+    "state": "CA",
+    "aliases": [
+      "Mercy San Juan"
+    ]
+  },
+  {
+    "id": "hosp_methodist_sac",
+    "name": "Methodist Hospital of Sacramento",
+    "health_system": "CommonSpirit Health",
+    "state": "CA",
+    "aliases": []
+  },
+  {
+    "id": "hosp_woodland",
+    "name": "Woodland Memorial Hospital",
+    "health_system": "CommonSpirit Health",
+    "state": "CA",
+    "aliases": []
+  },
+  {
+    "id": "hosp_mercy_redding",
+    "name": "Mercy Medical Center Redding",
+    "health_system": "CommonSpirit Health",
+    "state": "CA",
+    "aliases": []
+  },
+  {
+    "id": "hosp_mercy_mtshasta",
+    "name": "Mercy Medical Center Mt. Shasta",
+    "health_system": "CommonSpirit Health",
+    "state": "CA",
+    "aliases": []
+  },
+  {
+    "id": "hosp_stelizabeth",
+    "name": "St. Elizabeth Community Hospital",
+    "health_system": "CommonSpirit Health",
+    "state": "CA",
+    "aliases": [
+      "St. Elizabeth Community Hospital Red Bluff"
+    ]
+  },
+  {
+    "id": "hosp_sierra_nevada",
+    "name": "Sierra Nevada Memorial Hospital",
+    "health_system": "CommonSpirit Health",
+    "state": "CA",
+    "aliases": [
+      "Sierra Nevada Memorial Hospital Grass Valley"
+    ]
+  },
+  {
+    "id": "hosp_phc",
+    "name": "Providence Holy Cross Medical Center",
+    "health_system": "Providence",
+    "state": "CA",
+    "aliases": [
+      "Providence Holy Cross Mission Hills"
+    ]
+  },
+  {
+    "id": "hosp_psj_burbank",
+    "name": "Providence Saint Joseph Medical Center Burbank",
+    "health_system": "Providence",
+    "state": "CA",
+    "aliases": [
+      "Providence Saint Joseph Burbank"
+    ]
+  },
+  {
+    "id": "hosp_tarzana",
+    "name": "Providence Cedars-Sinai Tarzana Medical Center",
+    "health_system": "Providence",
+    "state": "CA",
+    "aliases": [
+      "Providence Tarzana"
+    ]
+  },
+  {
+    "id": "hosp_psj_santamonica",
+    "name": "Providence Saint John's Health Center",
+    "health_system": "Providence",
+    "state": "CA",
+    "aliases": [
+      "Providence Saint John's Santa Monica"
+    ]
+  },
+  {
+    "id": "hosp_lcm_torrance",
+    "name": "Providence Little Company of Mary Torrance",
+    "health_system": "Providence",
+    "state": "CA",
+    "aliases": []
+  },
+  {
+    "id": "hosp_lcm_sanpedro",
+    "name": "Providence Little Company of Mary San Pedro",
+    "health_system": "Providence",
+    "state": "CA",
+    "aliases": []
+  },
+  {
+    "id": "hosp_psj_orange",
+    "name": "Providence St. Joseph Hospital Orange",
+    "health_system": "Providence",
+    "state": "CA",
+    "aliases": []
+  },
+  {
+    "id": "hosp_stjude",
+    "name": "Providence St. Jude Medical Center",
+    "health_system": "Providence",
+    "state": "CA",
+    "aliases": [
+      "Providence St. Jude Fullerton"
+    ]
+  },
+  {
+    "id": "hosp_mission",
+    "name": "Providence Mission Hospital",
+    "health_system": "Providence",
+    "state": "CA",
+    "aliases": [
+      "Providence Mission Hospital Mission Viejo"
+    ]
+  },
+  {
+    "id": "hosp_pstmary_av",
+    "name": "Providence St. Mary Medical Center Apple Valley",
+    "health_system": "Providence",
+    "state": "CA",
+    "aliases": [
+      "Providence St. Mary Apple Valley"
+    ]
+  },
+  {
+    "id": "hosp_santarosa_mem",
+    "name": "Santa Rosa Memorial Hospital",
+    "health_system": "Providence",
+    "state": "CA",
+    "aliases": []
+  },
+  {
+    "id": "hosp_queen",
+    "name": "Queen of the Valley Medical Center",
+    "health_system": "Providence",
+    "state": "CA",
+    "aliases": [
+      "Queen of the Valley Napa"
+    ]
+  },
+  {
+    "id": "hosp_petaluma",
+    "name": "Petaluma Valley Hospital",
+    "health_system": "Providence",
+    "state": "CA",
+    "aliases": []
+  },
+  {
+    "id": "hosp_healdsburg",
+    "name": "Healdsburg Hospital",
+    "health_system": "Providence",
+    "state": "CA",
+    "aliases": []
+  },
+  {
+    "id": "hosp_sjh_eureka",
+    "name": "St. Joseph Hospital Eureka",
+    "health_system": "Providence",
+    "state": "CA",
+    "aliases": [
+      "Providence St. Joseph Eureka"
+    ]
+  },
+  {
+    "id": "hosp_redwood_mem",
+    "name": "Redwood Memorial Hospital",
+    "health_system": "Providence",
+    "state": "CA",
+    "aliases": [
+      "Redwood Memorial Hospital Fortuna"
+    ]
+  },
+  {
+    "id": "hosp_sutter",
+    "name": "Sutter Health",
+    "health_system": "Sutter Health",
+    "state": "CA",
+    "aliases": []
+  },
+  {
+    "id": "hosp_cpmc",
+    "name": "California Pacific Medical Center",
+    "health_system": "Sutter Health",
+    "state": "CA",
+    "aliases": [
+      "CPMC"
+    ]
+  },
+  {
+    "id": "hosp_altabates",
+    "name": "Alta Bates Summit Medical Center",
+    "health_system": "Sutter Health",
+    "state": "CA",
+    "aliases": []
+  },
+  {
+    "id": "hosp_eden",
+    "name": "Eden Medical Center",
+    "health_system": "Sutter Health",
+    "state": "CA",
+    "aliases": [
+      "Eden Medical Center Castro Valley"
+    ]
+  },
+  {
+    "id": "hosp_sutter_delta",
+    "name": "Sutter Delta Medical Center",
+    "health_system": "Sutter Health",
+    "state": "CA",
+    "aliases": [
+      "Sutter Delta Antioch"
+    ]
+  },
+  {
+    "id": "hosp_mills",
+    "name": "Mills-Peninsula Medical Center",
+    "health_system": "Sutter Health",
+    "state": "CA",
+    "aliases": [
+      "Mills-Peninsula Burlingame"
+    ]
+  },
+  {
+    "id": "hosp_novato",
+    "name": "Novato Community Hospital",
+    "health_system": "Sutter Health",
+    "state": "CA",
+    "aliases": []
+  },
+  {
+    "id": "hosp_sutter_santarosa",
+    "name": "Sutter Santa Rosa Regional Hospital",
+    "health_system": "Sutter Health",
+    "state": "CA",
+    "aliases": []
+  },
+  {
+    "id": "hosp_sutter_solano",
+    "name": "Sutter Solano Medical Center",
+    "health_system": "Sutter Health",
+    "state": "CA",
+    "aliases": [
+      "Sutter Solano Vallejo"
+    ]
+  },
+  {
+    "id": "hosp_smc_sac",
+    "name": "Sutter Medical Center Sacramento",
+    "health_system": "Sutter Health",
+    "state": "CA",
+    "aliases": []
+  },
+  {
+    "id": "hosp_sutter_roseville",
+    "name": "Sutter Roseville Medical Center",
+    "health_system": "Sutter Health",
+    "state": "CA",
+    "aliases": []
+  },
+  {
+    "id": "hosp_sutter_davis",
+    "name": "Sutter Davis Hospital",
+    "health_system": "Sutter Health",
+    "state": "CA",
+    "aliases": []
+  },
+  {
+    "id": "hosp_sutter_psych",
+    "name": "Sutter Center for Psychiatry",
+    "health_system": "Sutter Health",
+    "state": "CA",
+    "aliases": []
+  },
+  {
+    "id": "hosp_auburn",
+    "name": "Sutter Auburn Faith Hospital",
+    "health_system": "Sutter Health",
+    "state": "CA",
+    "aliases": []
+  },
+  {
+    "id": "hosp_amador",
+    "name": "Sutter Amador Hospital",
+    "health_system": "Sutter Health",
+    "state": "CA",
+    "aliases": [
+      "Sutter Amador Jackson"
+    ]
+  },
+  {
+    "id": "hosp_memorial_modesto",
+    "name": "Memorial Medical Center Modesto",
+    "health_system": "Sutter Health",
+    "state": "CA",
+    "aliases": [
+      "Memorial Medical Center"
+    ]
+  },
+  {
+    "id": "hosp_losbanos",
+    "name": "Memorial Hospital Los Banos",
+    "health_system": "Sutter Health",
+    "state": "CA",
+    "aliases": []
+  },
+  {
+    "id": "hosp_tracy",
+    "name": "Sutter Tracy Community Hospital",
+    "health_system": "Sutter Health",
+    "state": "CA",
+    "aliases": []
+  },
+  {
+    "id": "hosp_coast",
+    "name": "Sutter Coast Hospital",
+    "health_system": "Sutter Health",
+    "state": "CA",
+    "aliases": [
+      "Sutter Coast Crescent City"
+    ]
+  },
+  {
+    "id": "hosp_lakeside",
+    "name": "Sutter Lakeside Hospital",
+    "health_system": "Sutter Health",
+    "state": "CA",
+    "aliases": [
+      "Sutter Lakeside Lakeport"
+    ]
+  },
+  {
+    "id": "hosp_northvalley",
+    "name": "Sutter Surgical Hospital North Valley",
+    "health_system": "Sutter Health",
+    "state": "CA",
+    "aliases": []
+  },
+  {
+    "id": "hosp_smsc",
+    "name": "Sutter Maternity & Surgery Center",
+    "health_system": "Sutter Health",
+    "state": "CA",
+    "aliases": [
+      "Sutter Maternity Surgery Center Santa Cruz"
+    ]
+  },
+  {
+    "id": "hosp_adv_glendale",
+    "name": "Adventist Health Glendale",
+    "health_system": "Adventist Health",
+    "state": "CA",
+    "aliases": []
+  },
+  {
+    "id": "hosp_adv_whitemem",
+    "name": "Adventist Health White Memorial",
+    "health_system": "Adventist Health",
+    "state": "CA",
+    "aliases": [
+      "White Memorial Los Angeles"
+    ]
+  },
+  {
+    "id": "hosp_adv_montebello",
+    "name": "Adventist Health White Memorial Montebello",
+    "health_system": "Adventist Health",
+    "state": "CA",
+    "aliases": [
+      "White Memorial Montebello"
+    ]
+  },
+  {
+    "id": "hosp_adv_simivalley",
+    "name": "Adventist Health Simi Valley",
+    "health_system": "Adventist Health",
+    "state": "CA",
+    "aliases": []
+  },
+  {
+    "id": "hosp_adv_bakersfield",
+    "name": "Adventist Health Bakersfield",
+    "health_system": "Adventist Health",
+    "state": "CA",
+    "aliases": []
+  },
+  {
+    "id": "hosp_adv_delano",
+    "name": "Adventist Health Delano",
+    "health_system": "Adventist Health",
+    "state": "CA",
+    "aliases": []
+  },
+  {
+    "id": "hosp_adv_tehachapi",
+    "name": "Adventist Health Tehachapi Valley",
+    "health_system": "Adventist Health",
+    "state": "CA",
+    "aliases": []
+  },
+  {
+    "id": "hosp_adv_hanford",
+    "name": "Adventist Health Hanford",
+    "health_system": "Adventist Health",
+    "state": "CA",
+    "aliases": []
+  },
+  {
+    "id": "hosp_adv_reedley",
+    "name": "Adventist Health Reedley",
+    "health_system": "Adventist Health",
+    "state": "CA",
+    "aliases": []
+  },
+  {
+    "id": "hosp_adv_selma",
+    "name": "Adventist Health Selma",
+    "health_system": "Adventist Health",
+    "state": "CA",
+    "aliases": []
+  },
+  {
+    "id": "hosp_adv_tulare",
+    "name": "Adventist Health Tulare",
+    "health_system": "Adventist Health",
+    "state": "CA",
+    "aliases": []
+  },
+  {
+    "id": "hosp_adv_sierravista",
+    "name": "Adventist Health Sierra Vista",
+    "health_system": "Adventist Health",
+    "state": "CA",
+    "aliases": [
+      "Sierra Vista San Luis Obispo"
+    ]
+  },
+  {
+    "id": "hosp_adv_twincities",
+    "name": "Adventist Health Twin Cities",
+    "health_system": "Adventist Health",
+    "state": "CA",
+    "aliases": [
+      "Twin Cities Templeton"
+    ]
+  },
+  {
+    "id": "hosp_adv_lodi",
+    "name": "Adventist Health Lodi Memorial",
+    "health_system": "Adventist Health",
+    "state": "CA",
+    "aliases": [
+      "Lodi Memorial"
+    ]
+  },
+  {
+    "id": "hosp_adv_rideout",
+    "name": "Adventist Health and Rideout",
+    "health_system": "Adventist Health",
+    "state": "CA",
+    "aliases": [
+      "Rideout Marysville"
+    ]
+  },
+  {
+    "id": "hosp_adv_sonora",
+    "name": "Adventist Health Sonora",
+    "health_system": "Adventist Health",
+    "state": "CA",
+    "aliases": []
+  },
+  {
+    "id": "hosp_adv_clearlake",
+    "name": "Adventist Health Clear Lake",
+    "health_system": "Adventist Health",
+    "state": "CA",
+    "aliases": [
+      "Clear Lake Clearlake"
+    ]
+  },
+  {
+    "id": "hosp_adv_ukiah",
+    "name": "Adventist Health Ukiah Valley",
+    "health_system": "Adventist Health",
+    "state": "CA",
+    "aliases": []
+  },
+  {
+    "id": "hosp_adv_howard",
+    "name": "Adventist Health Howard Memorial",
+    "health_system": "Adventist Health",
+    "state": "CA",
+    "aliases": [
+      "Howard Memorial Willits"
+    ]
+  },
+  {
+    "id": "hosp_adv_mendocino",
+    "name": "Adventist Health Mendocino Coast",
+    "health_system": "Adventist Health",
+    "state": "CA",
+    "aliases": [
+      "Mendocino Coast Fort Bragg"
+    ]
+  },
+  {
+    "id": "hosp_adv_sthelena",
+    "name": "Adventist Health St. Helena",
+    "health_system": "Adventist Health",
+    "state": "CA",
+    "aliases": []
+  },
+  {
+    "id": "hosp_va_gla",
+    "name": "VA Greater Los Angeles Healthcare System",
+    "health_system": "US Department of Veterans Affairs",
+    "state": "CA",
+    "aliases": [
+      "VA Greater Los Angeles",
+      "VAGLAHS"
+    ]
+  },
+  {
+    "id": "hosp_va_sd",
+    "name": "VA San Diego Healthcare System",
+    "health_system": "US Department of Veterans Affairs",
+    "state": "CA",
+    "aliases": [
+      "VA San Diego"
+    ]
+  },
+  {
+    "id": "hosp_va_paloalto",
+    "name": "VA Palo Alto Health Care System",
+    "health_system": "US Department of Veterans Affairs",
+    "state": "CA",
+    "aliases": [
+      "VA Palo Alto",
+      "VAPAHCS"
+    ]
+  },
+  {
+    "id": "hosp_va_sf",
+    "name": "San Francisco VA Health Care System",
+    "health_system": "US Department of Veterans Affairs",
+    "state": "CA",
+    "aliases": [
+      "SFVAHCS",
+      "San Francisco VA"
+    ]
+  },
+  {
+    "id": "hosp_va_norcal",
+    "name": "VA Northern California Health Care System",
+    "health_system": "US Department of Veterans Affairs",
+    "state": "CA",
+    "aliases": [
+      "VA Northern California",
+      "VANCHCS"
+    ]
+  },
+  {
+    "id": "hosp_va_centralca",
+    "name": "VA Central California Health Care System",
+    "health_system": "US Department of Veterans Affairs",
+    "state": "CA",
+    "aliases": [
+      "VA Central California",
+      "VACCHCS"
+    ]
+  }
 ]
