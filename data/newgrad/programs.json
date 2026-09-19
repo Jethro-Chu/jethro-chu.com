@@ -106,5 +106,11 @@
     "hospital_id": "hosp_adventist",
     "name": "Adventist Health Nurse Residency Program",
     "source_url": "https://www.adventisthealth.org/careers/"
+  },
+  {
+    "id": "prog_76bb8bd11f",
+    "hospital_id": "hosp_ohiostate",
+    "name": "Buckeye Nurse Residency Program",
+    "source_url": "https://wexnermedical.osu.edu/careers/current-openings/nursing"
   }
 ]

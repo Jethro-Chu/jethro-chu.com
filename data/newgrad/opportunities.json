@@ -926,5 +926,61 @@
     "manual_overrides": {},
     "created_at": "2026-09-19T00:12:25.308Z",
     "updated_at": "2026-09-19T00:12:25.308Z"
+  },
+  {
+    "id": "opp_da8fc4bb99",
+    "hospital_id": "hosp_ohiostate",
+    "program_id": "prog_76bb8bd11f",
+    "cohort_id": null,
+    "position_title": "Staff Nurse - Buckeye Nurse Residency Program",
+    "unit": null,
+    "locations": [
+      {
+        "city": "Columbus",
+        "state": "OH"
+      }
+    ],
+    "specialties": [
+      "Multiple Specialties"
+    ],
+    "application_open": null,
+    "application_close": null,
+    "program_start": null,
+    "source_posted_at": null,
+    "application_status": "EXPECTED",
+    "verification_health": "VERIFIED",
+    "eligibility": "ELIGIBLE",
+    "bsn_required": false,
+    "rn_license_requirement": "Current licensure or interim permit from the State of Ohio Board of Nursing.",
+    "license_required_by": "start",
+    "experience_requirement": "Graduates of CCNE or ACEN accredited nursing programs; designed for new graduate registered nurses with less than one year of experience.",
+    "source_url": "https://wexnermedical.osu.edu/careers/current-openings/nursing",
+    "application_url": "https://wexnermedical.osu.edu/careers/current-openings/nursing",
+    "dedup_key": null,
+    "source_external_id": null,
+    "first_discovered_at": "2026-09-19T04:51:39.787Z",
+    "last_seen_at": "2026-09-19T04:51:39.787Z",
+    "last_attempted_at": "2026-09-19T04:51:39.787Z",
+    "last_verified_at": "2026-09-19T04:51:39.787Z",
+    "closed_at": null,
+    "closure_reason": null,
+    "publication_state": "PUBLISHED",
+    "evidence": [
+      {
+        "source_url": "https://wexnermedical.osu.edu/careers/current-openings/nursing",
+        "excerpt": "The Buckeye Nurse Residency Program at The Ohio State University Wexner Medical Center is a 12-month, full-time Evidence-Based Transition to Practice program designed to support new graduate registered nurses as they transition from students to professional clinicians.",
+        "retrieved_at": "2026-09-19T04:48:00.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://wexnermedical.osu.edu/careers/current-openings/nursing",
+        "excerpt": "Accredited with distinction by the American Nurses Credentialing Center (ANCC). The residency is a full-time, 12-month program with monthly cohort additions across acute care, progressive care, critical care, and emergency departments.",
+        "retrieved_at": "2026-09-19T04:48:00.000Z",
+        "claim": "status"
+      }
+    ],
+    "manual_overrides": {},
+    "created_at": "2026-09-19T04:51:39.787Z",
+    "updated_at": "2026-09-19T04:51:39.787Z"
   }
 ]

@@ -442,5 +442,28 @@
         "claim": "eligibility"
       }
     ]
+  },
+  {
+    "id": "hist_2026-09-18-ohio-state_0001",
+    "run_id": "2026-09-18-ohio-state",
+    "at": "2026-09-19T04:51:39.787Z",
+    "type": "NEW",
+    "opportunity_id": "opp_da8fc4bb99",
+    "changes": null,
+    "reason": "First published from run evidence (EXPECTED).",
+    "evidence": [
+      {
+        "source_url": "https://wexnermedical.osu.edu/careers/current-openings/nursing",
+        "excerpt": "The Buckeye Nurse Residency Program at The Ohio State University Wexner Medical Center is a 12-month, full-time Evidence-Based Transition to Practice program designed to support new graduate registered nurses as they transition from students to professional clinicians.",
+        "retrieved_at": "2026-09-19T04:48:00.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://wexnermedical.osu.edu/careers/current-openings/nursing",
+        "excerpt": "Accredited with distinction by the American Nurses Credentialing Center (ANCC). The residency is a full-time, 12-month program with monthly cohort additions across acute care, progressive care, critical care, and emergency departments.",
+        "retrieved_at": "2026-09-19T04:48:00.000Z",
+        "claim": "status"
+      }
+    ]
   }
 ]
