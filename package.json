@@ -22,6 +22,7 @@
     "newgrad:validate": "node --no-warnings --experimental-strip-types scripts/newgrad-validate.ts",
     "newgrad:review": "node --no-warnings --experimental-strip-types scripts/newgrad-review.ts",
     "newgrad:publish": "node --no-warnings --experimental-strip-types scripts/newgrad-publish.ts",
+    "newgrad:suggestions": "node --no-warnings --experimental-strip-types scripts/newgrad-suggestions.ts",
     "verify:newgrad": "node --no-warnings --experimental-strip-types scripts/verify-newgrad.ts"
   },
   "dependencies": {

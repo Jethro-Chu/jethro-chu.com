@@ -248,3 +248,44 @@ institutions carry a note and must be resolved before activation.
   "unresolved_items": []
 }
 ```
+
+## 11. User suggestion queue
+
+Visitors submit hospital tracking suggestions via the `+ Suggest a Hospital` modal
+at `/newgrad`.
+
+### Storage & API
+
+- Endpoint: `POST /api/newgrad/suggestions` (validates, rate-limits, and persists).
+- Primary storage: `data/newgrad/suggestions.json`.
+- Cloud fallback: Upstash Redis `{newgrad}:suggestions:v1` when `KV_URL` / `KV_REST_API_URL`
+  credentials are set in serverless production environments.
+- Read endpoint: `GET /api/newgrad/suggestions` (retrieves recent suggestions, public rate-limited).
+
+### CLI Management
+
+Manage suggestions locally using `scripts/newgrad-suggestions.ts`:
+
+```bash
+npm run newgrad:suggestions -- list [--status PENDING|COMPLETED|REJECTED|all]
+npm run newgrad:suggestions -- complete <suggestion_id> [--reason <text>]
+npm run newgrad:suggestions -- reject <suggestion_id> [--reason <text>]
+```
+
+### Daily automation integration
+
+During each scheduled daily run, before finalizing research targets:
+
+1. **Scan queue**: Antigravity checks pending suggestions via
+   `npm run newgrad:suggestions -- list --status PENDING` or by reading `data/newgrad/suggestions.json`.
+2. **Research**: For each pending hospital, Antigravity attempts to locate the official nurse
+   residency or new-graduate careers portal and confirm eligibility.
+3. **Resolve**:
+   - If verified: Antigravity adds the hospital to `data/newgrad/hospitals.json` and
+     `data/newgrad/sources.json`, includes any active residency findings in the daily
+     research batch for Muse to ingest, and marks the suggestion complete:
+     `npm run newgrad:suggestions -- complete <id> --reason "Added to watchlist and batch"`.
+   - If not a valid hospital or no new grad program exists: Antigravity marks the suggestion
+     rejected with an explanatory reason:
+     `npm run newgrad:suggestions -- reject <id> --reason "No residency or acute care program found"`.
+

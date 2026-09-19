@@ -20,6 +20,7 @@ import type {
   Program,
   ResearchRun,
 } from "@/lib/newgrad/types";
+import { SuggestionBox } from "@/components/newgrad/SuggestionBox";
 
 interface DatasetProps {
   meta: DatasetMeta;
@@ -557,8 +558,13 @@ function Inner(props: DatasetProps) {
 
   return (
     <div className="ng-shell">
-      <p className="ng-kicker">New Grad RN Tracker</p>
-      <h1 className="ng-title">New graduate RN openings</h1>
+      <div className="ng-top-bar">
+        <div className="ng-header-main">
+          <p className="ng-kicker">New Grad RN Tracker</p>
+          <h1 className="ng-title">New graduate RN openings</h1>
+        </div>
+        <SuggestionBox />
+      </div>
       <p className="ng-sub">
         Verified residency and new-grad openings from official hospital sources.
         Unlisted page: share the URL directly. Showing {filtered.length} of{" "}
