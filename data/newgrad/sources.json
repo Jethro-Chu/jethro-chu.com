@@ -335,10 +335,13 @@
     "id": "src_ohiostate",
     "hospital_id": "hosp_ohiostate",
     "label": "Ohio State Wexner Medical Center careers",
-    "urls": [],
-    "status": "candidate",
+    "urls": [
+      "https://wexnermedical.osu.edu/careers/current-openings/nursing",
+      "https://wexnermedical.osu.edu/careers/"
+    ],
+    "status": "active",
     "shared_board": null,
-    "notes": "Seeded as the Ohio State academic medical center; confirm identity before activating."
+    "notes": "Verified official Buckeye Nurse Residency and nursing careers portals."
   },
   {
     "id": "src_mayo",
