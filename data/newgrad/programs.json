@@ -142,5 +142,11 @@
     "hospital_id": "hosp_huntington",
     "name": "Nurse Residency Program",
     "source_url": "https://www.huntingtonhealth.org/education/residency-programs/nursing-residency/"
+  },
+  {
+    "id": "prog_071fe4e43b",
+    "hospital_id": "hosp_duke",
+    "name": "DUHS Nurse Residency Program",
+    "source_url": "https://careers.dukehealth.org/"
   }
 ]

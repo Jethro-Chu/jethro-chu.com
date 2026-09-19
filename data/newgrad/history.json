@@ -821,5 +821,28 @@
         "claim": "status"
       }
     ]
+  },
+  {
+    "id": "hist_2026-09-18-duke_0001",
+    "run_id": "2026-09-18-duke",
+    "at": "2026-09-19T06:07:18.159Z",
+    "type": "NEW",
+    "opportunity_id": "opp_b90ce57ca2",
+    "changes": null,
+    "reason": "First published from run evidence (OPEN).",
+    "evidence": [
+      {
+        "source_url": "https://careers.dukehealth.org/",
+        "excerpt": "All newly hired new graduate nurses at Duke Health are automatically enrolled in the 12-month paid Nurse Residency Program to support the transition to professional nursing practice.",
+        "retrieved_at": "2026-09-19T06:06:00.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://careers.dukehealth.org/",
+        "excerpt": "Applications are open year-round for Clinical Nurse I positions across Emergency, Heart, Oncology, and Inpatient units across Duke University Health System hospitals.",
+        "retrieved_at": "2026-09-19T06:06:00.000Z",
+        "claim": "status"
+      }
+    ]
   }
 ]

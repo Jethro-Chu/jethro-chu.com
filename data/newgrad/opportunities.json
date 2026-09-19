@@ -1276,5 +1276,64 @@
     "manual_overrides": {},
     "created_at": "2026-09-19T05:58:14.206Z",
     "updated_at": "2026-09-19T05:58:14.206Z"
+  },
+  {
+    "id": "opp_b90ce57ca2",
+    "hospital_id": "hosp_duke",
+    "program_id": "prog_071fe4e43b",
+    "cohort_id": "cohort_866b98ed5b",
+    "position_title": "Clinical Nurse I - Nurse Residency Program",
+    "unit": "Inpatient Acute & Specialty Services",
+    "locations": [
+      {
+        "city": "Durham",
+        "state": "NC"
+      }
+    ],
+    "specialties": [
+      "Med-Surg",
+      "Emergency Department",
+      "Cardiology",
+      "Oncology"
+    ],
+    "application_open": null,
+    "application_close": null,
+    "program_start": null,
+    "source_posted_at": null,
+    "application_status": "OPEN",
+    "verification_health": "VERIFIED",
+    "eligibility": "ELIGIBLE",
+    "bsn_required": false,
+    "rn_license_requirement": "Current or compact RN license in North Carolina required by program start.",
+    "license_required_by": "start",
+    "experience_requirement": "Open to new graduate registered nurses with less than one year of experience; graduation from an accredited nursing program required.",
+    "source_url": "https://careers.dukehealth.org/",
+    "application_url": "https://careers.dukehealth.org/",
+    "dedup_key": "successfactors||cn1-duhs-2026",
+    "source_external_id": "CN1-DUHS-2026",
+    "first_discovered_at": "2026-09-19T06:07:18.159Z",
+    "last_seen_at": "2026-09-19T06:07:18.159Z",
+    "last_attempted_at": "2026-09-19T06:07:18.159Z",
+    "last_verified_at": "2026-09-19T06:07:18.159Z",
+    "closed_at": null,
+    "closure_reason": null,
+    "publication_state": "PUBLISHED",
+    "evidence": [
+      {
+        "source_url": "https://careers.dukehealth.org/",
+        "excerpt": "All newly hired new graduate nurses at Duke Health are automatically enrolled in the 12-month paid Nurse Residency Program to support the transition to professional nursing practice.",
+        "retrieved_at": "2026-09-19T06:06:00.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://careers.dukehealth.org/",
+        "excerpt": "Applications are open year-round for Clinical Nurse I positions across Emergency, Heart, Oncology, and Inpatient units across Duke University Health System hospitals.",
+        "retrieved_at": "2026-09-19T06:06:00.000Z",
+        "claim": "status"
+      }
+    ],
+    "manual_overrides": {},
+    "created_at": "2026-09-19T06:07:18.159Z",
+    "updated_at": "2026-09-19T06:07:18.159Z"
   }
 ]

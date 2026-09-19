@@ -378,10 +378,13 @@
     "id": "src_duke",
     "hospital_id": "hosp_duke",
     "label": "Duke University Health System careers",
-    "urls": [],
-    "status": "candidate",
+    "urls": [
+      "https://careers.dukehealth.org/",
+      "https://www.dukehealth.org/careers"
+    ],
+    "status": "active",
     "shared_board": null,
-    "notes": "Seeded as Duke University Health System; confirm identity before activating."
+    "notes": "Verified official Duke Health Nurse Residency Program and nursing careers portals."
   },
   {
     "id": "src_vanderbilt",
