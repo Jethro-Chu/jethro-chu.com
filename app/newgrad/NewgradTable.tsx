@@ -212,6 +212,39 @@ function sortInstant(d: FlexibleDate | null): number {
   return Number.isNaN(t) ? Number.POSITIVE_INFINITY : t;
 }
 
+function statusTier(display: DisplayStatus): number {
+  switch (display) {
+    case "CLOSING_SOON":
+    case "OPEN":
+      return 0;
+    case "OPENING_SOON":
+      return 1;
+    case "EXPECTED":
+      return 2;
+    case "UNKNOWN":
+      return 3;
+    case "CLOSED":
+      return 4;
+  }
+}
+
+function statusRank(display: DisplayStatus): number {
+  switch (display) {
+    case "CLOSING_SOON":
+      return 0;
+    case "OPEN":
+      return 1;
+    case "OPENING_SOON":
+      return 2;
+    case "EXPECTED":
+      return 3;
+    case "UNKNOWN":
+      return 4;
+    case "CLOSED":
+      return 5;
+  }
+}
+
 function readFilters(params: URLSearchParams): Filters {
   const statusRaw = (params.get("status") ?? "all").toLowerCase();
   const status: StatusParam =
@@ -244,7 +277,7 @@ function filtersToQuery(f: Filters, sort: { key: SortKey; dir: 1 | -1 } | null):
   if (f.specialty) p.set("specialty", f.specialty);
   if (f.cohort) p.set("cohort", f.cohort);
   if (f.newOnly) p.set("new", "1");
-  if (sort) {
+  if (sort && !(sort.key === "hospital" && sort.dir === 1)) {
     p.set("sort", sort.key);
     p.set("dir", sort.dir === 1 ? "asc" : "desc");
   }
@@ -271,7 +304,10 @@ function Inner(props: DatasetProps) {
   // Render defaults during SSR so the static HTML carries the full table;
   // URL params are applied once on mount (see effect below).
   const [filters, setFilters] = useState<Filters>(DEFAULT_FILTERS);
-  const [sort, setSort] = useState<{ key: SortKey; dir: 1 | -1 } | null>(null);
+  const [sort, setSort] = useState<{ key: SortKey; dir: 1 | -1 } | null>({
+    key: "hospital",
+    dir: 1,
+  });
   const persistArmed = useRef(false);
   const [page, setPage] = useState(0);
   const [pageSize, setPageSize] = useState(25);
@@ -296,7 +332,7 @@ function Inner(props: DatasetProps) {
     const params = new URLSearchParams(window.location.search);
     setFilters(readFilters(params));
     const key = params.get("sort") as SortKey | null;
-    setSort(key ? { key, dir: params.get("dir") === "desc" ? -1 : 1 } : null);
+    setSort(key ? { key, dir: params.get("dir") === "desc" ? -1 : 1 } : { key: "hospital", dir: 1 });
   }, []);
 
   // Persist filter + sort state to the URL. The first run is skipped so the
@@ -402,49 +438,73 @@ function Inner(props: DatasetProps) {
     });
     if (sort) {
       const dir = sort.dir;
-      out.sort((a, b) => {
-        let cmp = 0;
-        switch (sort.key) {
-          case "hospital":
-            cmp = (hospitalById.get(a.opp.hospital_id)?.name ?? "").localeCompare(
-              hospitalById.get(b.opp.hospital_id)?.name ?? "",
-            );
-            break;
-          case "position":
-            cmp = a.opp.position_title.localeCompare(b.opp.position_title);
-            break;
-          case "city":
-            cmp = (a.opp.locations[0]?.city ?? "").localeCompare(b.opp.locations[0]?.city ?? "");
-            break;
-          case "specialty":
-            cmp = (a.opp.specialties[0] ?? "").localeCompare(b.opp.specialties[0] ?? "");
-            break;
-          case "cohort":
-            cmp = (a.opp.cohort_id ? (cohortById.get(a.opp.cohort_id)?.label ?? "") : "").localeCompare(
-              b.opp.cohort_id ? (cohortById.get(b.opp.cohort_id)?.label ?? "") : "",
-            );
-            break;
-          case "opens":
-            cmp = sortInstant(a.opp.application_open) - sortInstant(b.opp.application_open);
-            break;
-          case "closes":
-            cmp = sortInstant(a.opp.application_close) - sortInstant(b.opp.application_close);
-            break;
-          case "start":
-            cmp = sortInstant(a.opp.program_start) - sortInstant(b.opp.program_start);
-            break;
-          case "status":
-            cmp = a.derived.display.localeCompare(b.derived.display);
-            break;
-          case "verified": {
-            const ta = a.opp.last_verified_at ? Date.parse(a.opp.last_verified_at) : Number.NaN;
-            const tb = b.opp.last_verified_at ? Date.parse(b.opp.last_verified_at) : Number.NaN;
-            cmp = (Number.isNaN(ta) ? -1 : ta) - (Number.isNaN(tb) ? -1 : tb);
-            break;
+      if (sort.key === "status") {
+        out.sort((a, b) => {
+          const s = (statusRank(a.derived.display) - statusRank(b.derived.display)) * dir;
+          if (s !== 0) return s;
+          const ha = hospitalById.get(a.opp.hospital_id)?.name ?? "";
+          const hb = hospitalById.get(b.opp.hospital_id)?.name ?? "";
+          const h = ha.localeCompare(hb);
+          if (h !== 0) return h;
+          return a.opp.position_title.localeCompare(b.opp.position_title);
+        });
+      } else {
+        out.sort((a, b) => {
+          // Open applications (CLOSING_SOON and OPEN) are always prioritized at the top.
+          const tierDiff = statusTier(a.derived.display) - statusTier(b.derived.display);
+          if (tierDiff !== 0) return tierDiff;
+
+          let cmp = 0;
+          switch (sort.key) {
+            case "hospital":
+              cmp = (hospitalById.get(a.opp.hospital_id)?.name ?? "").localeCompare(
+                hospitalById.get(b.opp.hospital_id)?.name ?? "",
+              );
+              break;
+            case "position":
+              cmp = a.opp.position_title.localeCompare(b.opp.position_title);
+              break;
+            case "city": {
+              const ca = a.opp.locations.map((l) => l.city).join("; ");
+              const cb = b.opp.locations.map((l) => l.city).join("; ");
+              cmp = ca.localeCompare(cb);
+              break;
+            }
+            case "specialty": {
+              const sa = a.opp.specialties.join("; ");
+              const sb = b.opp.specialties.join("; ");
+              cmp = sa.localeCompare(sb);
+              break;
+            }
+            case "cohort":
+              cmp = (a.opp.cohort_id ? (cohortById.get(a.opp.cohort_id)?.label ?? "") : "").localeCompare(
+                b.opp.cohort_id ? (cohortById.get(b.opp.cohort_id)?.label ?? "") : "",
+              );
+              break;
+            case "opens":
+              cmp = sortInstant(a.opp.application_open) - sortInstant(b.opp.application_open);
+              break;
+            case "closes":
+              cmp = sortInstant(a.opp.application_close) - sortInstant(b.opp.application_close);
+              break;
+            case "start":
+              cmp = sortInstant(a.opp.program_start) - sortInstant(b.opp.program_start);
+              break;
+            case "verified": {
+              const ta = a.opp.last_verified_at ? Date.parse(a.opp.last_verified_at) : Number.NaN;
+              const tb = b.opp.last_verified_at ? Date.parse(b.opp.last_verified_at) : Number.NaN;
+              cmp = (Number.isNaN(ta) ? -1 : ta) - (Number.isNaN(tb) ? -1 : tb);
+              break;
+            }
           }
-        }
-        return cmp * dir;
-      });
+          if (cmp !== 0) return cmp * dir;
+          const ha = hospitalById.get(a.opp.hospital_id)?.name ?? "";
+          const hb = hospitalById.get(b.opp.hospital_id)?.name ?? "";
+          const h = ha.localeCompare(hb);
+          if (h !== 0) return h;
+          return a.opp.position_title.localeCompare(b.opp.position_title);
+        });
+      }
     } else {
       out.sort((a, b) => compareDefaultOrder(a, b, nowMs));
     }
@@ -466,7 +526,7 @@ function Inner(props: DatasetProps) {
     setSort((prev) => {
       if (!prev || prev.key !== key) return { key, dir: 1 };
       if (prev.dir === 1) return { key, dir: -1 };
-      return null;
+      return { key: "hospital", dir: 1 };
     });
   };
 
