@@ -1373,5 +1373,17 @@
       "VA Central California",
       "VACCHCS"
     ]
+  },
+  {
+    "id": "hosp_pih",
+    "name": "PIH Health",
+    "health_system": "PIH Health",
+    "state": "CA",
+    "aliases": [
+      "PIH",
+      "PIH Health Whittier Hospital",
+      "PIH Health Downey Hospital",
+      "PIH Health Good Samaritan Hospital"
+    ]
   }
 ]

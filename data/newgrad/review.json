@@ -954,5 +954,71 @@
       ]
     },
     "decision": null
+  },
+  {
+    "id": "rev_2026-09-20-suggestions_001",
+    "run_id": "2026-09-20-suggestions",
+    "created_at": "2026-09-20T18:55:46.737Z",
+    "state": "PENDING",
+    "reason": "No active official sources on file for PIH Health; finding held for review until sources are verified.",
+    "finding": {
+      "employer": {
+        "name": "PIH Health",
+        "hospital_id": "hosp_pih"
+      },
+      "identifiers": {
+        "program": "PIH Health New Graduate RN Residency Program"
+      },
+      "observed_state": "EXPECTED",
+      "eligibility": {
+        "assessment": "ELIGIBLE",
+        "note": "Open to new graduate nurses or RNs with less than one year of experience in any area by program start date. ADN, BSN, MSN accepted."
+      },
+      "facts": {
+        "position_title": "Registered Nurse - New Graduate RN Residency",
+        "locations": [
+          {
+            "city": "Whittier",
+            "state": "CA"
+          },
+          {
+            "city": "Downey",
+            "state": "CA"
+          },
+          {
+            "city": "Los Angeles",
+            "state": "CA"
+          }
+        ],
+        "specialties": [
+          "Multiple Specialties",
+          "Med-Surg",
+          "Telemetry",
+          "Oncology",
+          "Rehabilitation"
+        ],
+        "bsn_required": false,
+        "rn_license_requirement": "Permanent California RN license required at least two weeks prior to cohort start date (interim permits not accepted). Active AHA BLS required.",
+        "license_required_by": "start",
+        "experience_requirement": "New graduate or RN with less than one year of experience in any area by start date.",
+        "source_url": "https://www.pihhealth.org/careers/nursing/new-graduate-nurse-residency-program/",
+        "application_url": "https://jobs.pihhealth.org/"
+      },
+      "evidence": [
+        {
+          "source_url": "https://www.pihhealth.org/careers/nursing/new-graduate-nurse-residency-program/",
+          "excerpt": "The New Graduate Registered Nurse (RN) Residency Program at PIH Health is designed for new graduate nurses or RNs with less than one year of experience to support their transition into professional nursing practice.",
+          "retrieved_at": "2026-09-20T18:50:00.000Z",
+          "claim": "eligibility"
+        },
+        {
+          "source_url": "https://www.pihhealth.org/careers/nursing/new-graduate-nurse-residency-program/",
+          "excerpt": "PIH Health offers a 12-month cohort-based residency program offered four times a year across hospital locations in Whittier, Downey, and Los Angeles.",
+          "retrieved_at": "2026-09-20T18:50:00.000Z",
+          "claim": "status"
+        }
+      ]
+    },
+    "decision": null
   }
 ]

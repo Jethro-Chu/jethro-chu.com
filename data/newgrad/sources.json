@@ -779,5 +779,18 @@
     "status": "candidate",
     "shared_board": "va-usajobs",
     "notes": "Confirm PB-RNR participation and facility program page; applications via USAJOBS."
+  },
+  {
+    "id": "src_pih",
+    "hospital_id": "hosp_pih",
+    "label": "PIH Health careers",
+    "urls": [
+      "https://www.pihhealth.org/careers/nursing/new-graduate-nurse-residency-program/",
+      "https://jobs.pihhealth.org/",
+      "https://www.pihhealth.org/careers/"
+    ],
+    "status": "candidate",
+    "shared_board": null,
+    "notes": "User suggestion sug_1789877032847_9ryv1 verified 2026-09-20. 12-month ANCC PTAP accredited residency with 4 cohorts/year."
   }
 ]
