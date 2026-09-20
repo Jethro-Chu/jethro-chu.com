@@ -184,5 +184,11 @@
     "hospital_id": "hosp_bsw",
     "name": "Graduate Nurse Residency Program",
     "source_url": "https://jobs.bswhealth.com/us/en/job/26014424"
+  },
+  {
+    "id": "prog_23e8ef8e4e",
+    "hospital_id": "hosp_pih",
+    "name": "PIH Health New Graduate RN Residency Program",
+    "source_url": "https://www.pihhealth.org/careers/nursing/new-graduate-nurse-residency-program/"
   }
 ]
