@@ -359,32 +359,6 @@ th[aria-sort="descending"] .ng-thbtn::after {
   cursor: default;
 }
 
-.ng-cols {
-  margin-top: 10px;
-}
-
-.ng-cols summary {
-  cursor: pointer;
-  font-size: 12px;
-  color: #333;
-  width: fit-content;
-}
-
-.ng-cols-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 4px 14px;
-  margin-top: 6px;
-  font-size: 12px;
-}
-
-.ng-cols-list label {
-  display: inline-flex;
-  gap: 4px;
-  align-items: center;
-  cursor: pointer;
-}
-
 .ng-empty,
 .ng-loading {
   background: #fff;
@@ -442,10 +416,6 @@ th[aria-sort="descending"] .ng-thbtn::after {
   /* Prioritized columns on small screens; the rest stay one scroll away. */
   .ng-col-opt {
     display: none;
-  }
-
-  .ng-cols-force .ng-col-opt {
-    display: table-cell;
   }
 }
 

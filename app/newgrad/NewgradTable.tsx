@@ -312,20 +312,6 @@ function Inner(props: DatasetProps) {
   const [page, setPage] = useState(0);
   const [pageSize, setPageSize] = useState(25);
   const [expandedId, setExpandedId] = useState<string | null>(null);
-  const [hiddenCols, setHiddenCols] = useState<Set<ColId>>(
-    () => new Set<ColId>(["unit", "system", "bsn", "license", "experience", "source", "discovered"]),
-  );
-
-  // Load persisted column choices after mount (SSR-safe: no window on server).
-  useEffect(() => {
-    try {
-      const raw = window.localStorage.getItem("newgrad-cols");
-      if (raw) setHiddenCols(new Set(JSON.parse(raw) as ColId[]));
-    } catch {
-      // ignore
-    }
-  }, []);
-  const [showOptionalMobile, setShowOptionalMobile] = useState(false);
 
   // Apply URL params once after mount (SSR-safe: no window on server).
   useEffect(() => {
@@ -346,14 +332,6 @@ function Inner(props: DatasetProps) {
     router.replace(`${pathname}${query}`, { scroll: false });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filters, sort]);
-
-  useEffect(() => {
-    try {
-      window.localStorage.setItem("newgrad-cols", JSON.stringify([...hiddenCols]));
-    } catch {
-      // ignore
-    }
-  }, [hiddenCols]);
 
   useEffect(() => {
     setPage(0);
@@ -517,10 +495,7 @@ function Inner(props: DatasetProps) {
   const safePage = Math.min(page, totalPages - 1);
   const pageRows = filtered.slice(safePage * pageSize, safePage * pageSize + pageSize);
 
-  const visibleCols = useMemo(
-    () => [...PRIMARY_COLS, ...OPTIONAL_COLS].filter((c) => !hiddenCols.has(c)),
-    [hiddenCols],
-  );
+  const visibleCols = PRIMARY_COLS;
 
   const toggleSort = (key: SortKey) => {
     setSort((prev) => {
@@ -769,7 +744,7 @@ function Inner(props: DatasetProps) {
           </p>
         </div>
       ) : (
-        <div className={`ng-tablewrap${showOptionalMobile ? " ng-cols-force" : ""}`}>
+        <div className="ng-tablewrap">
           <table className="ng-table">
             <thead>
               <tr>
@@ -869,42 +844,6 @@ function Inner(props: DatasetProps) {
         </div>
       )}
 
-      <details className="ng-cols">
-        <summary>Column visibility ({visibleCols.length} shown)</summary>
-        <div className="ng-cols-list">
-          {[...PRIMARY_COLS, ...OPTIONAL_COLS].map((col) => {
-            const locked = col === "hospital" || col === "position";
-            return (
-              <label key={col}>
-                <input
-                  type="checkbox"
-                  checked={!hiddenCols.has(col)}
-                  disabled={locked}
-                  onChange={(e) => {
-                    setHiddenCols((prev) => {
-                      const nextSet = new Set(prev);
-                      if (e.target.checked) nextSet.delete(col);
-                      else nextSet.add(col);
-                      return nextSet;
-                    });
-                  }}
-                />
-                {COL_LABELS[col]}
-              </label>
-            );
-          })}
-        </div>
-        <div className="ng-cols-list">
-          <label>
-            <input
-              type="checkbox"
-              checked={showOptionalMobile}
-              onChange={(e) => setShowOptionalMobile(e.target.checked)}
-            />
-            Show optional columns on small screens
-          </label>
-        </div>
-      </details>
     </div>
   );
 }
