@@ -1164,5 +1164,320 @@
         "claim": "education"
       }
     ]
+  },
+  {
+    "id": "hist_2026-09-20-daily_0001",
+    "run_id": "2026-09-20-daily",
+    "at": "2026-09-20T12:24:14.331Z",
+    "type": "UPDATED",
+    "opportunity_id": "opp_04a44aa517",
+    "changes": [
+      {
+        "field": "cohort_id",
+        "before": "cohort_45e354b180",
+        "after": "cohort_edfd6a30c1"
+      }
+    ],
+    "reason": "Updated from run evidence (OPEN).",
+    "evidence": [
+      {
+        "source_url": "https://jobs.bswhealth.com/us/en/job/26014424",
+        "excerpt": "Begin a rewarding career at Baylor Scott & White Health as a Graduate Nurse. They offer entry-level nursing roles and opportunities for lifelong learning and career growth. Recent nursing graduates and inexperienced people can join our nursing internships. Our program combines theory and hands-on training. It prepares you for diverse patient care. Our nurses have the freedom to improve patient care. We use shared leadership, allowing all nurses to help create clinical policies. Internship starts January 25, 2027.",
+        "retrieved_at": "2026-09-20T11:20:00.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://jobs.bswhealth.com/us/en/job/26014424",
+        "excerpt": "New graduate from an accredited ADN, BSN, or MSN degree in Nursing",
+        "retrieved_at": "2026-09-20T11:20:00.000Z",
+        "claim": "eligibility"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-09-20-daily_0002",
+    "run_id": "2026-09-20-daily",
+    "at": "2026-09-20T12:24:14.331Z",
+    "type": "UPDATED",
+    "opportunity_id": "opp_473d98f794",
+    "changes": [
+      {
+        "field": "cohort_id",
+        "before": "cohort_126667f448",
+        "after": "cohort_dfd5149aa1"
+      }
+    ],
+    "reason": "Updated from run evidence (OPENING_SOON).",
+    "evidence": [
+      {
+        "source_url": "https://careers.chop.edu/us/en/NurseResidency",
+        "excerpt": "Applications will be open from September 28 through October 2, 2026 for students graduating in November 2026 or earlier. Information regarding opportunities for December 2026 graduates will be shared at a later date.",
+        "retrieved_at": "2026-09-20T11:25:00.000Z",
+        "claim": "opening_date"
+      },
+      {
+        "source_url": "https://careers.chop.edu/us/en/NurseResidency",
+        "excerpt": "CHOP’s 12-month Nurse Residency helps new graduate nurses transition into their first professional roles.",
+        "retrieved_at": "2026-09-20T11:25:00.000Z",
+        "claim": "eligibility"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-09-20-daily_0003",
+    "run_id": "2026-09-20-daily",
+    "at": "2026-09-20T12:24:14.331Z",
+    "type": "UPDATED",
+    "opportunity_id": "opp_717a814cb5",
+    "changes": [
+      {
+        "field": "rn_license_requirement",
+        "before": "Tennessee RN license or compact multistate RN license required prior to start date. Eligible to start with official NCLEX pass results and pending license application.",
+        "after": "Tennessee RN license or compact multistate RN license required prior to start date."
+      }
+    ],
+    "reason": "Updated from run evidence (OPEN).",
+    "evidence": [
+      {
+        "source_url": "https://www.vumc.org/nurse-residency-program/application-requirements-track-options",
+        "excerpt": "Winter 2027\nVUMC staff: applications open July 6-13\nNon-VUMC staff: applications open July 14\nInitial deadline: Aug 9\n\nStart dates:\n• Feb. 22\n• March 1",
+        "retrieved_at": "2026-09-20T11:30:00.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://vumc.wd1.myworkdayjobs.com/en-US/vumccareers/job/Nurse-Residency-Program-Winter-2027_R-62350-2",
+        "excerpt": "This 12-month program is ideal for: New graduate nurses, or Registered Nurses with less than six (6) months of RN experience at the time of application",
+        "retrieved_at": "2026-09-20T11:30:00.000Z",
+        "claim": "eligibility"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-09-20-daily_0004",
+    "run_id": "2026-09-20-daily",
+    "at": "2026-09-20T12:24:14.331Z",
+    "type": "UPDATED",
+    "opportunity_id": "opp_116ea92514",
+    "changes": [
+      {
+        "field": "application_open",
+        "before": {
+          "kind": "text",
+          "value": "Check Back Soon for 2027 Application Updates"
+        },
+        "after": {
+          "kind": "text",
+          "value": "October 2026"
+        }
+      },
+      {
+        "field": "rn_license_requirement",
+        "before": "Valid California RN license required prior to start.",
+        "after": "Current California RN license required prior to start date."
+      },
+      {
+        "field": "experience_requirement",
+        "before": "Less than 6 months of acute care RN experience; BSN or MSN from an accredited program.",
+        "after": "Less than 6 months of acute care RN experience prior to program start."
+      }
+    ],
+    "reason": "Updated from run evidence (OPENING_SOON).",
+    "evidence": [
+      {
+        "source_url": "https://careers.stanfordhealthcare.org/us/en/nurse-residency-program",
+        "excerpt": "Cohort 46 Application Webinar - October 7th, 2026 at 10:30am PST. Applications for Cohort 46 will open following the informational session in October 2026.",
+        "retrieved_at": "2026-09-20T11:35:00.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://careers.stanfordhealthcare.org/us/en/nurse-residency-program",
+        "excerpt": "Eligibility requirements: Graduate from an accredited baccalaureate or master's nursing program within the past 12 months. Open to new graduate RN applicants with less than six months of RN acute care experience.",
+        "retrieved_at": "2026-09-20T11:35:00.000Z",
+        "claim": "eligibility"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-09-20-daily_0005",
+    "run_id": "2026-09-20-daily",
+    "at": "2026-09-20T12:24:14.331Z",
+    "type": "UPDATED",
+    "opportunity_id": "opp_73bcc0ea08",
+    "changes": [
+      {
+        "field": "position_title",
+        "before": "Registered Nurse - Nurse Residency Program",
+        "after": "New Graduate Nurse Residency Program - Cohorts 60 & 61"
+      },
+      {
+        "field": "program_id",
+        "before": "prog_4f4c82c040",
+        "after": "prog_39961c506b"
+      },
+      {
+        "field": "cohort_id",
+        "before": "cohort_1e996caaa0",
+        "after": "cohort_edf5edd9dd"
+      },
+      {
+        "field": "rn_license_requirement",
+        "before": "California RN license required before starting clinical immersion.",
+        "after": "California RN license required before start date."
+      },
+      {
+        "field": "experience_requirement",
+        "before": "Designed for new graduate registered nurses with less than six months of experience.",
+        "after": "Graduates of an accredited nursing school with zero to six months of RN experience."
+      }
+    ],
+    "reason": "Updated from run evidence (OPENING_SOON).",
+    "evidence": [
+      {
+        "source_url": "https://hr.ucdavis.edu/departments/hr/nurse-recruitment/nurse-residency-program",
+        "excerpt": "Upcoming application window: November 4, 2026 - November 11, 2026. Cohort 60 Start Date: March 15, 2027; Cohort 61 Start Date: May 10, 2027. Applications open November 4, 2026 and close November 11, 2026 at 11:59 PM PST.",
+        "retrieved_at": "2026-09-20T11:40:00.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://hr.ucdavis.edu/departments/hr/nurse-recruitment/nurse-residency-program",
+        "excerpt": "To be eligible for the UC Davis Nurse Residency Program, applicants must be a new graduate of an accredited nursing program (BSN or MSN) within the past 12 months.",
+        "retrieved_at": "2026-09-20T11:40:00.000Z",
+        "claim": "eligibility"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-09-20-daily_0006",
+    "run_id": "2026-09-20-daily",
+    "at": "2026-09-20T12:24:14.331Z",
+    "type": "UPDATED",
+    "opportunity_id": "opp_afb6ead28f",
+    "changes": [
+      {
+        "field": "rn_license_requirement",
+        "before": "Active California RN license required prior to program start.",
+        "after": "Current California RN license required prior to program start."
+      },
+      {
+        "field": "experience_requirement",
+        "before": "Graduates of accredited BSN/MSN nursing programs with less than 6 months of professional nursing experience.",
+        "after": "Less than 6 months of acute care RN experience at time of start."
+      }
+    ],
+    "reason": "Updated from run evidence (OPENING_SOON).",
+    "evidence": [
+      {
+        "source_url": "https://employment.ucsd.edu/nursing",
+        "excerpt": "New Grad RN positions post twice yearly, approximately 5 months prior to cohort starts in March and September. Next posting expected October 2026 for March 2027 cohort.",
+        "retrieved_at": "2026-09-20T11:45:00.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://employment.ucsd.edu/nursing",
+        "excerpt": "Graduation from an accredited nursing program with a BSN or MSN degree. Open to new graduate RN candidates with less than 6 months of acute care RN experience.",
+        "retrieved_at": "2026-09-20T11:45:00.000Z",
+        "claim": "eligibility"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-09-20-daily_0007",
+    "run_id": "2026-09-20-daily",
+    "at": "2026-09-20T12:24:14.331Z",
+    "type": "UPDATED",
+    "opportunity_id": "opp_5300617360",
+    "changes": [
+      {
+        "field": "application_open",
+        "before": null,
+        "after": {
+          "kind": "date",
+          "value": "2026-09-20"
+        }
+      },
+      {
+        "field": "application_close",
+        "before": null,
+        "after": {
+          "kind": "date",
+          "value": "2026-09-22"
+        }
+      },
+      {
+        "field": "program_start",
+        "before": null,
+        "after": {
+          "kind": "date",
+          "value": "2027-01-11"
+        }
+      },
+      {
+        "field": "cohort_id",
+        "before": null,
+        "after": "cohort_8f317b0a41"
+      },
+      {
+        "field": "license_required_by",
+        "before": "offer",
+        "after": "application"
+      },
+      {
+        "field": "application_status",
+        "before": "EXPECTED",
+        "after": "OPEN"
+      }
+    ],
+    "reason": "Updated from run evidence (OPEN).",
+    "evidence": [
+      {
+        "source_url": "https://www.scripps.org/about-us/careers",
+        "excerpt": "The Scripps New Graduate RN Training Program is a 40-week system-wide program providing clinical coaching, mentorship, and classroom education for new graduate registered nurses with 6 months or less of experience.",
+        "retrieved_at": "2026-09-20T12:12:46.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://www.scripps.org/about-us/careers",
+        "excerpt": "Program: New Graduate RN Residency Program. Program Start: 1/11/2027. Application Dates: 9/20/2026 at 12 p.m. PST - 9/22/2026 at 11:59 p.m. PST.",
+        "retrieved_at": "2026-09-20T12:12:56.000Z",
+        "claim": "status"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-09-20-daily_0008",
+    "run_id": "2026-09-20-daily",
+    "at": "2026-09-20T12:24:14.331Z",
+    "type": "UPDATED",
+    "opportunity_id": "opp_34afa285d5",
+    "changes": [
+      {
+        "field": "application_open",
+        "before": null,
+        "after": {
+          "kind": "text",
+          "value": "Spring 2027"
+        }
+      },
+      {
+        "field": "cohort_id",
+        "before": null,
+        "after": "cohort_2f90233622"
+      }
+    ],
+    "reason": "Updated from run evidence (EXPECTED).",
+    "evidence": [
+      {
+        "source_url": "https://careers.sharp.com/SHC-nurse-residency-program",
+        "excerpt": "The Sharp HealthCare Nurse Residency Program supports new graduate nurses transitioning to professional practice, accepting applications for upcoming cohorts.",
+        "retrieved_at": "2026-09-20T12:14:03.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://careers.sharp.com/SHC-nurse-residency-program",
+        "excerpt": "The Sharp HealthCare Nurse Residency Program is currently planning for its Spring 2027 cohort, with expectations to accept both internal and external applications.",
+        "retrieved_at": "2026-09-20T12:14:03.000Z",
+        "claim": "status"
+      }
+    ]
   }
 ]

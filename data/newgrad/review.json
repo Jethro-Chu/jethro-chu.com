@@ -820,5 +820,139 @@
       ]
     },
     "decision": null
+  },
+  {
+    "id": "rev_2026-09-20-daily_001",
+    "run_id": "2026-09-20-daily",
+    "created_at": "2026-09-20T12:24:14.331Z",
+    "state": "PENDING",
+    "reason": "No active official sources on file for Texas Children's Hospital; finding held for review until sources are verified.",
+    "finding": {
+      "employer": {
+        "name": "Texas Children's Hospital",
+        "hospital_id": "hosp_texaschildrens"
+      },
+      "identifiers": {
+        "program": "Texas Children's Hospital Nurse Residency Program",
+        "cohort": "February 2027"
+      },
+      "observed_state": "OPEN",
+      "eligibility": {
+        "assessment": "ELIGIBLE",
+        "note": "Graduation from accredited nursing program with BSN prior to start date. Less than 9 months nursing experience at cohort start date. Texas RN license and AHA BLS prior to start date."
+      },
+      "facts": {
+        "position_title": "Nurse Resident - February 2027 Cohort",
+        "unit": "Medical-Surgical, Oncology, Step Down, Critical Care, Labor & Delivery, Ante/Postpartum, NICU, PICU, Operating Room, PACU, Emergency Department, Adult Congenital Heart Defect",
+        "locations": [
+          {
+            "city": "Houston",
+            "state": "TX"
+          },
+          {
+            "city": "Austin",
+            "state": "TX"
+          }
+        ],
+        "specialties": [
+          "Pediatrics",
+          "Critical Care",
+          "NICU",
+          "PICU",
+          "Operating Room",
+          "Emergency Department",
+          "Med-Surg",
+          "L&D",
+          "Mother Baby",
+          "Cardiology"
+        ],
+        "application_open": {
+          "kind": "date",
+          "value": "2026-09-07"
+        },
+        "program_start": {
+          "kind": "date",
+          "value": "2027-02-01"
+        },
+        "bsn_required": true,
+        "rn_license_requirement": "RN licensure from the State of Texas prior to start date.",
+        "license_required_by": "start",
+        "experience_requirement": "Less than 9 months of nursing experience at cohort start date.",
+        "source_url": "https://www.texaschildrens.org/health-professionals/education-and-training/fellowships-and-residencies/nurse-residency-program",
+        "application_url": "https://www.texaschildrenspeople.org/tag/nurse-residency-program/"
+      },
+      "evidence": [
+        {
+          "source_url": "https://www.texaschildrens.org/health-professionals/education-and-training/fellowships-and-residencies/nurse-residency-program",
+          "excerpt": "Applications for the February 2027 cohort will open on Monday, September 7th, 2026. The application can be accessed by navigating to Careers and searching “nurse residency” or “graduate nurse”. Please select the Houston application for those applying to Medical Center and Woodlands locations, and the Austin application for those applying to the North Austin location.",
+          "retrieved_at": "2026-09-20T12:16:56.000Z",
+          "claim": "status"
+        },
+        {
+          "source_url": "https://www.texaschildrens.org/health-professionals/education-and-training/fellowships-and-residencies/nurse-residency-program",
+          "excerpt": "Eligibility Requirements: Bachelor’s degree in Nursing from an accredited program prior to start date. Less than 9 months of nursing experience at cohort start date. Open to new graduate nurses. Current BLS certification required from the American Heart Association. RN licensure from the State of Texas prior to start date.",
+          "retrieved_at": "2026-09-20T12:16:59.000Z",
+          "claim": "eligibility"
+        }
+      ]
+    },
+    "decision": null
+  },
+  {
+    "id": "rev_2026-09-20-daily_002",
+    "run_id": "2026-09-20-daily",
+    "created_at": "2026-09-20T12:24:14.331Z",
+    "state": "PENDING",
+    "reason": "No active official sources on file for Cleveland Clinic; finding held for review until sources are verified.",
+    "finding": {
+      "employer": {
+        "name": "Cleveland Clinic",
+        "hospital_id": "hosp_clevelandclinic"
+      },
+      "identifiers": {
+        "requisition_id": "338264",
+        "program": "Cleveland Clinic Nurse Residency Program"
+      },
+      "observed_state": "OPEN",
+      "eligibility": {
+        "assessment": "ELIGIBLE",
+        "note": "Open to new graduate RNs or RNs with less than one year RN work experience from accredited School of Professional Nursing."
+      },
+      "facts": {
+        "position_title": "New Grad RN Resident – Telemetry Unit",
+        "unit": "Euclid Hospital 8th floor Med/Surg and Telemetry Unit",
+        "locations": [
+          {
+            "city": "Euclid",
+            "state": "OH"
+          }
+        ],
+        "specialties": [
+          "Telemetry",
+          "Med-Surg"
+        ],
+        "bsn_required": false,
+        "rn_license_requirement": "Current state licensure as a Registered Nurse (RN). Basic Life Support (BLS) through AHA or American Red Cross.",
+        "license_required_by": "start",
+        "experience_requirement": "New grad or less than one year RN work experience.",
+        "source_url": "https://jobs.clevelandclinic.org/job/23343890/new-grad-rn-resident-telemetry-unit-euclid-oh/",
+        "application_url": "https://jobs.clevelandclinic.org/job/23343890/new-grad-rn-resident-telemetry-unit-euclid-oh/"
+      },
+      "evidence": [
+        {
+          "source_url": "https://jobs.clevelandclinic.org/job/23343890/new-grad-rn-resident-telemetry-unit-euclid-oh/",
+          "excerpt": "New Grad RN Resident – Telemetry Unit Req#: 338264. Professional Area: Nursing – New Grad. Professional growth through our one-year, accredited Nurse Residency program, with nine tailored tracks.",
+          "retrieved_at": "2026-09-20T12:17:50.000Z",
+          "claim": "status"
+        },
+        {
+          "source_url": "https://jobs.clevelandclinic.org/job/23343890/new-grad-rn-resident-telemetry-unit-euclid-oh/",
+          "excerpt": "Minimum qualifications for the ideal future caregiver include: Graduate from an accredited School of Professional Nursing. Current state licensure as a Registered Nurse (RN). Basic Life Support (BLS) certification through the American Heart Association (AHA) or American Red Cross. New grad or less than one year RN work experience.",
+          "retrieved_at": "2026-09-20T12:17:55.000Z",
+          "claim": "eligibility"
+        }
+      ]
+    },
+    "decision": null
   }
 ]

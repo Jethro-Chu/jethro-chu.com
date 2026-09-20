@@ -233,5 +233,30 @@
     "pending_review": 0,
     "rejected": 0,
     "failed_checks": []
+  },
+  {
+    "run_id": "2026-09-20-daily",
+    "research_started_at": "2026-09-20T11:00:00.000Z",
+    "research_completed_at": "2026-09-20T12:20:00.000Z",
+    "ingested_at": "2026-09-20T12:24:14.331Z",
+    "sources_checked": 16,
+    "sources_ok": 15,
+    "findings_received": 15,
+    "published": 0,
+    "updated": 8,
+    "closed": 0,
+    "pending_review": 2,
+    "rejected": 0,
+    "failed_checks": [
+      {
+        "source_id": "src_palomar",
+        "url": "https://pm.healthcaresource.com/CS/palomarhealth/",
+        "attempted_at": "2026-09-20T12:08:00.000Z",
+        "retrieved_at": null,
+        "outcome": "temporarily_unavailable",
+        "coverage_complete": false,
+        "error": "HTTP 500: HealthcareSource ATS returned internal server error at runtime"
+      }
+    ]
   }
 ]
