@@ -65,6 +65,30 @@ export async function getAllSuggestions(): Promise<HospitalSuggestion[]> {
     } catch (err) {
       console.warn("[newgrad-suggestions] Redis GET failed, falling back to local file:", err);
     }
+  } else {
+    try {
+      const res = await fetch("https://jethrochu.com/api/newgrad/suggestions", {
+        signal: AbortSignal.timeout(4000),
+      });
+      if (res.ok) {
+        const data = (await res.json()) as { ok: boolean; suggestions?: HospitalSuggestion[] };
+        if (data.ok && Array.isArray(data.suggestions)) {
+          const local = await readLocalSuggestions();
+          const localMap = new Map(local.map((s) => [s.id, s]));
+          let changed = false;
+          for (const remote of data.suggestions) {
+            if (!localMap.has(remote.id)) {
+              local.unshift(remote);
+              changed = true;
+            }
+          }
+          if (changed) await writeLocalSuggestions(local);
+          return local;
+        }
+      }
+    } catch {
+      // offline or unreachable; fall back to local file
+    }
   }
   const fileItems = await readLocalSuggestions();
   if (fileItems.length > 0) return fileItems;
