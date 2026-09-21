@@ -214,5 +214,59 @@
     "hospital_id": "hosp_bwh",
     "name": "Nora McDonough Nurse Residency Program",
     "source_url": "https://www.massgeneralbrigham.org/en/careers"
+  },
+  {
+    "id": "prog_4982c2a5cb",
+    "hospital_id": "hosp_scripps",
+    "name": "Scripps Health Nurse Residency Program",
+    "source_url": "https://www.scripps.org/about-us/careers"
+  },
+  {
+    "id": "prog_c0decec0d7",
+    "hospital_id": "hosp_ucsd",
+    "name": "UC San Diego Health Nurse Residency Program",
+    "source_url": "https://employment.ucsd.edu/nursing"
+  },
+  {
+    "id": "prog_31c6f6d200",
+    "hospital_id": "hosp_utsw",
+    "name": "UT Southwestern Nurse Residency Program",
+    "source_url": "https://jobs.utsouthwestern.edu/nursing-residency/"
+  },
+  {
+    "id": "prog_331a587d8d",
+    "hospital_id": "hosp_ucla",
+    "name": "UCLA Health New Graduate Nurse Residency Program",
+    "source_url": "https://www.uclahealthcareers.org/nursing-pathway/"
+  },
+  {
+    "id": "prog_6be8b30c32",
+    "hospital_id": "hosp_ucsf",
+    "name": "UCSF Health New Nurse Residency Training Program",
+    "source_url": "https://nursing.ucsf.edu/clinical-practice/nurse-residency-program"
+  },
+  {
+    "id": "prog_cff12e6067",
+    "hospital_id": "hosp_cityofhope",
+    "name": "City of Hope Nurse Residency Program",
+    "source_url": "https://www.cityofhopejobs.org/"
+  },
+  {
+    "id": "prog_ae37800259",
+    "hospital_id": "hosp_hoag",
+    "name": "Hoag Nurse Residency Program",
+    "source_url": "https://careers.hoag.org/"
+  },
+  {
+    "id": "prog_15f3d617b6",
+    "hospital_id": "hosp_uci",
+    "name": "UCI Health New Graduate Nurse Residency",
+    "source_url": "https://www.ucihealth.org/careers/nursing/new-graduate"
+  },
+  {
+    "id": "prog_6fed3fe1e4",
+    "hospital_id": "hosp_kaiser",
+    "name": "Kaiser Permanente Nurse Residency Program",
+    "source_url": "https://www.kaiserpermanentejobs.org/nurse-residency-program"
   }
 ]

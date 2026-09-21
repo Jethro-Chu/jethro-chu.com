@@ -160,5 +160,29 @@
     "program_id": "prog_c9c4aa24e3",
     "label": "Spring 2027",
     "program_start": null
+  },
+  {
+    "id": "cohort_8dbb828df7",
+    "program_id": "prog_4982c2a5cb",
+    "label": "Cohort 1 2027",
+    "program_start": {
+      "kind": "date",
+      "value": "2027-01-11"
+    }
+  },
+  {
+    "id": "cohort_6c2e61dc90",
+    "program_id": "prog_31c6f6d200",
+    "label": "July 2027 Cohort",
+    "program_start": {
+      "kind": "date",
+      "value": "2027-07-12"
+    }
+  },
+  {
+    "id": "cohort_6d1ce729ad",
+    "program_id": "prog_331a587d8d",
+    "label": "Spring 2027 Cohort",
+    "program_start": null
   }
 ]

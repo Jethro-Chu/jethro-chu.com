@@ -469,10 +469,13 @@
     "id": "src_utsw",
     "hospital_id": "hosp_utsw",
     "label": "UT Southwestern Medical Center careers",
-    "urls": [],
-    "status": "candidate",
+    "urls": [
+      "https://jobs.utsouthwestern.edu/nursing-residency/",
+      "https://jobs.utsouthwestern.edu/"
+    ],
+    "status": "active",
     "shared_board": null,
-    "notes": "Verify official new-grad/residency and ATS URLs before activating."
+    "notes": "Activated 2026-09-21: verified official UTSW Nurse Residency Program and jobs portal."
   },
   {
     "id": "src_bsw",
