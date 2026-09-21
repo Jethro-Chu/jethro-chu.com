@@ -475,11 +475,14 @@
   },
   {
     "id": "hosp_washington",
-    "name": "Washington Hospital",
+    "name": "Washington Hospital Healthcare System",
     "health_system": "Washington Health",
     "state": "CA",
     "aliases": [
-      "Washington Hospital Fremont"
+      "Washington Hospital",
+      "Washington Hospital Fremont",
+      "Washington Health",
+      "WHHS"
     ]
   },
   {

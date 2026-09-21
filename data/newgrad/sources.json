@@ -561,11 +561,15 @@
   {
     "id": "src_washington",
     "hospital_id": "hosp_washington",
-    "label": "Washington Health careers",
-    "urls": [],
-    "status": "candidate",
+    "label": "Washington Hospital Healthcare System careers",
+    "urls": [
+      "https://jobs.jobvite.com/washingtonhospital/",
+      "https://www.whhs.com/careers/",
+      "https://www.washingtonhealth.com/careers/"
+    ],
+    "status": "active",
     "shared_board": null,
-    "notes": "Verify official careers/ATS URLs before activating."
+    "notes": "Verified 2026-09-20: Official Washington Hospital Jobvite ATS and careers portals in Fremont, CA."
   },
   {
     "id": "src_jmwc",

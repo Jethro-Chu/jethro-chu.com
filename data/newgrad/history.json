@@ -1502,5 +1502,28 @@
         "claim": "status"
       }
     ]
+  },
+  {
+    "id": "hist_2026-09-20-washington_0001",
+    "run_id": "2026-09-20-washington",
+    "at": "2026-09-21T03:28:08.057Z",
+    "type": "NEW",
+    "opportunity_id": "opp_e3cdecc646",
+    "changes": null,
+    "reason": "First published from run evidence (EXPECTED).",
+    "evidence": [
+      {
+        "source_url": "https://jobs.jobvite.com/washingtonhospital/",
+        "excerpt": "The Staff Nurse I role is designed for new graduate registered nurses with less than six months of acute care hospital experience. BSN or entry-level MSN required.",
+        "retrieved_at": "2026-09-21T03:26:00.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://jobs.jobvite.com/washingtonhospital/",
+        "excerpt": "Washington Hospital Healthcare System offers a structured 6-month New Graduate RN Residency Program in Fremont, California, with periodic application windows based on hospital staffing needs.",
+        "retrieved_at": "2026-09-21T03:26:00.000Z",
+        "claim": "status"
+      }
+    ]
   }
 ]

@@ -190,5 +190,11 @@
     "hospital_id": "hosp_pih",
     "name": "PIH Health New Graduate RN Residency Program",
     "source_url": "https://www.pihhealth.org/careers/nursing/new-graduate-nurse-residency-program/"
+  },
+  {
+    "id": "prog_a4ddfcfaff",
+    "hospital_id": "hosp_washington",
+    "name": "Washington Hospital New Graduate RN Residency Program",
+    "source_url": "https://jobs.jobvite.com/washingtonhospital/"
   }
 ]
