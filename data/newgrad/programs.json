@@ -196,5 +196,23 @@
     "hospital_id": "hosp_washington",
     "name": "Washington Hospital New Graduate RN Residency Program",
     "source_url": "https://jobs.jobvite.com/washingtonhospital/"
+  },
+  {
+    "id": "prog_0365eef9cc",
+    "hospital_id": "hosp_bidmc",
+    "name": "BIDMC Transition to Practice Nurse Residency Program",
+    "source_url": "https://jobs.bilh.org/locations/beth-israel-deaconess-medical-center/"
+  },
+  {
+    "id": "prog_632aeff391",
+    "hospital_id": "hosp_bmc",
+    "name": "Boston Medical Center New Graduate RN Residency Program",
+    "source_url": "https://jobs.bmc.org/"
+  },
+  {
+    "id": "prog_ea147f7668",
+    "hospital_id": "hosp_bwh",
+    "name": "Nora McDonough Nurse Residency Program",
+    "source_url": "https://www.massgeneralbrigham.org/en/careers"
   }
 ]

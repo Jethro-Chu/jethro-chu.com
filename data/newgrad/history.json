@@ -1525,5 +1525,74 @@
         "claim": "status"
       }
     ]
+  },
+  {
+    "id": "hist_2026-09-20-boston_0001",
+    "run_id": "2026-09-20-boston",
+    "at": "2026-09-21T03:36:38.835Z",
+    "type": "NEW",
+    "opportunity_id": "opp_da85a917e9",
+    "changes": null,
+    "reason": "First published from run evidence (EXPECTED).",
+    "evidence": [
+      {
+        "source_url": "https://jobs.bilh.org/locations/beth-israel-deaconess-medical-center/",
+        "excerpt": "The Nurse Residency Program at Beth Israel Deaconess Medical Center is designed for new graduate registered nurses and newly licensed RNs with less than one year of clinical experience to support their transition into professional nursing practice.",
+        "retrieved_at": "2026-09-21T03:32:00.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://jobs.bilh.org/locations/beth-israel-deaconess-medical-center/",
+        "excerpt": "Beth Israel Deaconess Medical Center in Boston offers a 12-month Transition to Practice Nurse Residency curriculum complementing unit-based clinical orientation with periodic cohort hiring.",
+        "retrieved_at": "2026-09-21T03:32:00.000Z",
+        "claim": "status"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-09-20-boston_0002",
+    "run_id": "2026-09-20-boston",
+    "at": "2026-09-21T03:36:38.835Z",
+    "type": "NEW",
+    "opportunity_id": "opp_27f523fd47",
+    "changes": null,
+    "reason": "First published from run evidence (EXPECTED).",
+    "evidence": [
+      {
+        "source_url": "https://jobs.bmc.org/",
+        "excerpt": "The New Graduate RN Residency Program at Boston Medical Center supports newly licensed new graduate registered nurses graduating within 12 months of hire as they transition into professional practice.",
+        "retrieved_at": "2026-09-21T03:34:00.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://jobs.bmc.org/",
+        "excerpt": "Boston Medical Center hires new graduate RN residents in cohorts across inpatient medical-surgical, intermediate care, and acute specialty units.",
+        "retrieved_at": "2026-09-21T03:34:00.000Z",
+        "claim": "status"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-09-20-boston_0003",
+    "run_id": "2026-09-20-boston",
+    "at": "2026-09-21T03:36:38.835Z",
+    "type": "NEW",
+    "opportunity_id": "opp_4dbe7c89e1",
+    "changes": null,
+    "reason": "First published from run evidence (EXPECTED).",
+    "evidence": [
+      {
+        "source_url": "https://www.massgeneralbrigham.org/en/careers",
+        "excerpt": "The Nora McDonough Nurse Residency Program at Brigham and Women's Hospital is an ANCC PTAP accredited yearlong program designed for newly licensed new graduate registered nurses with BSN degrees.",
+        "retrieved_at": "2026-09-21T03:36:00.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://www.massgeneralbrigham.org/en/careers",
+        "excerpt": "Brigham and Women's Hospital accepts applications for upcoming nurse residency cohorts through the Mass General Brigham careers portal based on clinical departmental hiring cycles.",
+        "retrieved_at": "2026-09-21T03:36:00.000Z",
+        "claim": "status"
+      }
+    ]
   }
 ]

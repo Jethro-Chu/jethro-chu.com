@@ -1,16 +1,16 @@
 {
   "contract_version": "1.0.0",
-  "generated_at": "2026-09-21T03:28:08.057Z",
-  "last_research_attempt_at": "2026-09-21T03:30:00.000Z",
-  "last_successful_verification_at": "2026-09-21T03:28:08.057Z",
-  "last_published_at": "2026-09-21T03:28:30.571Z",
+  "generated_at": "2026-09-21T03:36:38.835Z",
+  "last_research_attempt_at": "2026-09-21T03:38:00.000Z",
+  "last_successful_verification_at": "2026-09-21T03:36:38.835Z",
+  "last_published_at": "2026-09-21T03:36:54.261Z",
   "counts": {
-    "opportunities": 26,
+    "opportunities": 29,
     "open": 10,
     "closing_soon": 0,
     "pending_review": 17,
-    "sources_active": 32,
-    "sources_candidate": 43
+    "sources_active": 35,
+    "sources_candidate": 41
   },
-  "coverage_note": "1 of 1 checked sources verified successfully in run 2026-09-20-washington."
+  "coverage_note": "3 of 3 checked sources verified successfully in run 2026-09-20-boston."
 }

@@ -276,19 +276,26 @@
     "id": "src_bidmc",
     "hospital_id": "hosp_bidmc",
     "label": "Beth Israel Deaconess Medical Center careers",
-    "urls": [],
-    "status": "candidate",
+    "urls": [
+      "https://jobs.bilh.org/locations/beth-israel-deaconess-medical-center/",
+      "https://jobs.bilh.org/jobs/",
+      "https://bilh.org/"
+    ],
+    "status": "active",
     "shared_board": null,
-    "notes": "Seeded as the Boston Beth Israel; confirm identity (Beth Israel Lahey Health) before activating."
+    "notes": "Verified 2026-09-20: 12-month Transition to Practice Nurse Residency Program at BIDMC."
   },
   {
     "id": "src_bmc",
     "hospital_id": "hosp_bmc",
     "label": "Boston Medical Center careers",
-    "urls": [],
-    "status": "candidate",
+    "urls": [
+      "https://jobs.bmc.org/",
+      "https://www.bmc.org/"
+    ],
+    "status": "active",
     "shared_board": null,
-    "notes": "Verify official new-grad/residency and ATS URLs before activating."
+    "notes": "Verified 2026-09-20: New Graduate RN Residency Program at Boston Medical Center."
   },
   {
     "id": "src_nyulangone",
@@ -796,5 +803,17 @@
     "status": "active",
     "shared_board": null,
     "notes": "Activated by Jethro"
+  },
+  {
+    "id": "src_bwh",
+    "hospital_id": "hosp_bwh",
+    "label": "Brigham and Women's Hospital careers",
+    "urls": [
+      "https://www.massgeneralbrigham.org/en/careers",
+      "https://www.brighamandwomens.org/"
+    ],
+    "status": "active",
+    "shared_board": "mgb",
+    "notes": "Verified 2026-09-20: Nora McDonough Nurse Residency Program (ANCC PTAP accredited) at Brigham and Women's Hospital."
   }
 ]

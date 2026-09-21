@@ -1388,5 +1388,16 @@
       "PIH Health Downey Hospital",
       "PIH Health Good Samaritan Hospital"
     ]
+  },
+  {
+    "id": "hosp_bwh",
+    "name": "Brigham and Women's Hospital",
+    "health_system": "Mass General Brigham",
+    "state": "MA",
+    "aliases": [
+      "Brigham and Women's",
+      "Brigham",
+      "BWH"
+    ]
   }
 ]

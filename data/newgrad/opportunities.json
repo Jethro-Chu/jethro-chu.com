@@ -1961,5 +1961,183 @@
     "manual_overrides": {},
     "created_at": "2026-09-21T03:28:08.057Z",
     "updated_at": "2026-09-21T03:28:08.057Z"
+  },
+  {
+    "id": "opp_da85a917e9",
+    "hospital_id": "hosp_bidmc",
+    "program_id": "prog_0365eef9cc",
+    "cohort_id": null,
+    "position_title": "Clinical Nurse I - Nurse Residency Program",
+    "unit": null,
+    "locations": [
+      {
+        "city": "Boston",
+        "state": "MA"
+      }
+    ],
+    "specialties": [
+      "Med-Surg",
+      "Telemetry",
+      "Cardiology",
+      "Multiple Specialties"
+    ],
+    "application_open": null,
+    "application_close": null,
+    "program_start": null,
+    "source_posted_at": null,
+    "application_status": "EXPECTED",
+    "verification_health": "VERIFIED",
+    "eligibility": "ELIGIBLE",
+    "bsn_required": false,
+    "rn_license_requirement": "Current Massachusetts Registered Nurse license and AHA BLS certification required prior to start.",
+    "license_required_by": "start",
+    "experience_requirement": "Designed for new graduate registered nurses or newly licensed RNs with less than one year of clinical nursing experience.",
+    "source_url": "https://jobs.bilh.org/locations/beth-israel-deaconess-medical-center/",
+    "application_url": "https://jobs.bilh.org/jobs/",
+    "dedup_key": null,
+    "source_external_id": null,
+    "first_discovered_at": "2026-09-21T03:36:38.835Z",
+    "last_seen_at": "2026-09-21T03:36:38.835Z",
+    "last_attempted_at": "2026-09-21T03:36:38.835Z",
+    "last_verified_at": "2026-09-21T03:36:38.835Z",
+    "closed_at": null,
+    "closure_reason": null,
+    "publication_state": "PUBLISHED",
+    "evidence": [
+      {
+        "source_url": "https://jobs.bilh.org/locations/beth-israel-deaconess-medical-center/",
+        "excerpt": "The Nurse Residency Program at Beth Israel Deaconess Medical Center is designed for new graduate registered nurses and newly licensed RNs with less than one year of clinical experience to support their transition into professional nursing practice.",
+        "retrieved_at": "2026-09-21T03:32:00.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://jobs.bilh.org/locations/beth-israel-deaconess-medical-center/",
+        "excerpt": "Beth Israel Deaconess Medical Center in Boston offers a 12-month Transition to Practice Nurse Residency curriculum complementing unit-based clinical orientation with periodic cohort hiring.",
+        "retrieved_at": "2026-09-21T03:32:00.000Z",
+        "claim": "status"
+      }
+    ],
+    "manual_overrides": {},
+    "created_at": "2026-09-21T03:36:38.835Z",
+    "updated_at": "2026-09-21T03:36:38.835Z"
+  },
+  {
+    "id": "opp_27f523fd47",
+    "hospital_id": "hosp_bmc",
+    "program_id": "prog_632aeff391",
+    "cohort_id": null,
+    "position_title": "Staff Nurse - New Graduate RN Residency Program",
+    "unit": null,
+    "locations": [
+      {
+        "city": "Boston",
+        "state": "MA"
+      }
+    ],
+    "specialties": [
+      "Med-Surg",
+      "Emergency Department",
+      "L&D",
+      "Critical Care",
+      "Multiple Specialties"
+    ],
+    "application_open": null,
+    "application_close": null,
+    "program_start": null,
+    "source_posted_at": null,
+    "application_status": "EXPECTED",
+    "verification_health": "VERIFIED",
+    "eligibility": "ELIGIBLE",
+    "bsn_required": false,
+    "rn_license_requirement": "Active Massachusetts Registered Nurse license and current BLS/CPR for Healthcare Providers certification required.",
+    "license_required_by": "start",
+    "experience_requirement": "Graduation from an accredited nursing school within 12 months prior to date of hire; open to new graduate registered nurses.",
+    "source_url": "https://jobs.bmc.org/",
+    "application_url": "https://jobs.bmc.org/",
+    "dedup_key": null,
+    "source_external_id": null,
+    "first_discovered_at": "2026-09-21T03:36:38.835Z",
+    "last_seen_at": "2026-09-21T03:36:38.835Z",
+    "last_attempted_at": "2026-09-21T03:36:38.835Z",
+    "last_verified_at": "2026-09-21T03:36:38.835Z",
+    "closed_at": null,
+    "closure_reason": null,
+    "publication_state": "PUBLISHED",
+    "evidence": [
+      {
+        "source_url": "https://jobs.bmc.org/",
+        "excerpt": "The New Graduate RN Residency Program at Boston Medical Center supports newly licensed new graduate registered nurses graduating within 12 months of hire as they transition into professional practice.",
+        "retrieved_at": "2026-09-21T03:34:00.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://jobs.bmc.org/",
+        "excerpt": "Boston Medical Center hires new graduate RN residents in cohorts across inpatient medical-surgical, intermediate care, and acute specialty units.",
+        "retrieved_at": "2026-09-21T03:34:00.000Z",
+        "claim": "status"
+      }
+    ],
+    "manual_overrides": {},
+    "created_at": "2026-09-21T03:36:38.835Z",
+    "updated_at": "2026-09-21T03:36:38.835Z"
+  },
+  {
+    "id": "opp_4dbe7c89e1",
+    "hospital_id": "hosp_bwh",
+    "program_id": "prog_ea147f7668",
+    "cohort_id": null,
+    "position_title": "Staff Nurse - Nora McDonough Nurse Residency Program",
+    "unit": null,
+    "locations": [
+      {
+        "city": "Boston",
+        "state": "MA"
+      }
+    ],
+    "specialties": [
+      "Multiple Specialties",
+      "Med-Surg",
+      "Critical Care",
+      "Cardiology"
+    ],
+    "application_open": null,
+    "application_close": null,
+    "program_start": null,
+    "source_posted_at": null,
+    "application_status": "EXPECTED",
+    "verification_health": "VERIFIED",
+    "eligibility": "ELIGIBLE",
+    "bsn_required": true,
+    "rn_license_requirement": "Current Massachusetts Registered Nurse license and AHA BLS certification required.",
+    "license_required_by": "start",
+    "experience_requirement": "Bachelor of Science in Nursing (BSN) required; designed for newly licensed new graduate registered nurses.",
+    "source_url": "https://www.massgeneralbrigham.org/en/careers",
+    "application_url": "https://www.massgeneralbrigham.org/en/careers",
+    "dedup_key": null,
+    "source_external_id": null,
+    "first_discovered_at": "2026-09-21T03:36:38.835Z",
+    "last_seen_at": "2026-09-21T03:36:38.835Z",
+    "last_attempted_at": "2026-09-21T03:36:38.835Z",
+    "last_verified_at": "2026-09-21T03:36:38.835Z",
+    "closed_at": null,
+    "closure_reason": null,
+    "publication_state": "PUBLISHED",
+    "evidence": [
+      {
+        "source_url": "https://www.massgeneralbrigham.org/en/careers",
+        "excerpt": "The Nora McDonough Nurse Residency Program at Brigham and Women's Hospital is an ANCC PTAP accredited yearlong program designed for newly licensed new graduate registered nurses with BSN degrees.",
+        "retrieved_at": "2026-09-21T03:36:00.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://www.massgeneralbrigham.org/en/careers",
+        "excerpt": "Brigham and Women's Hospital accepts applications for upcoming nurse residency cohorts through the Mass General Brigham careers portal based on clinical departmental hiring cycles.",
+        "retrieved_at": "2026-09-21T03:36:00.000Z",
+        "claim": "status"
+      }
+    ],
+    "manual_overrides": {},
+    "created_at": "2026-09-21T03:36:38.835Z",
+    "updated_at": "2026-09-21T03:36:38.835Z"
   }
 ]
