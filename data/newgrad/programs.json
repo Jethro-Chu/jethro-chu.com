@@ -268,5 +268,53 @@
     "hospital_id": "hosp_kaiser",
     "name": "Kaiser Permanente Nurse Residency Program",
     "source_url": "https://www.kaiserpermanentejobs.org/nurse-residency-program"
+  },
+  {
+    "id": "prog_563557ffcb",
+    "hospital_id": "hosp_scripps",
+    "name": "RN New Grad Residency",
+    "source_url": "https://www.scripps.org/about-us/careers"
+  },
+  {
+    "id": "prog_47b90a863e",
+    "hospital_id": "hosp_bsw",
+    "name": "Graduate Nurse Residency",
+    "source_url": "https://jobs.bswhealth.com/us/en/job/26014424"
+  },
+  {
+    "id": "prog_3587864179",
+    "hospital_id": "hosp_chop",
+    "name": "Nurse Residency Program",
+    "source_url": "https://careers.chop.edu/us/en/NurseResidency"
+  },
+  {
+    "id": "prog_246bd4c471",
+    "hospital_id": "hosp_palomar",
+    "name": "Nurse Residency Program",
+    "source_url": "https://palomarucsdhealth.org/careers/nurse-residency/"
+  },
+  {
+    "id": "prog_3128cd6758",
+    "hospital_id": "hosp_dignity",
+    "name": "National Resident RN",
+    "source_url": "https://www.commonspirit.careers/job/red-bluff/national-resident-rn/35300/100785798304"
+  },
+  {
+    "id": "prog_f0dfc03ef8",
+    "hospital_id": "hosp_utsw",
+    "name": "Nurse Residency Program",
+    "source_url": "https://jobs.utsouthwestern.edu/nursing-residency/"
+  },
+  {
+    "id": "prog_619a54e4a4",
+    "hospital_id": "hosp_ucsf",
+    "name": "New Nurse Residency Training Program (NNRTP)",
+    "source_url": "https://hr.ucsf.edu/learning/career-professional-development/registered-nurse-training-programs"
+  },
+  {
+    "id": "prog_6902757263",
+    "hospital_id": "hosp_kaiser",
+    "name": "Kaiser Permanente Nurse Residency Program (California)",
+    "source_url": "https://nursescholars.kp.org/residency"
   }
 ]

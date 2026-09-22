@@ -184,5 +184,47 @@
     "program_id": "prog_331a587d8d",
     "label": "Spring 2027 Cohort",
     "program_start": null
+  },
+  {
+    "id": "cohort_741df3980a",
+    "program_id": "prog_563557ffcb",
+    "label": "2027 Cohorts",
+    "program_start": {
+      "kind": "date",
+      "value": "2027-01-11"
+    }
+  },
+  {
+    "id": "cohort_a60d4d8836",
+    "program_id": "prog_47b90a863e",
+    "label": "Winter 2027 Cohort",
+    "program_start": {
+      "kind": "date",
+      "value": "2027-01-25"
+    }
+  },
+  {
+    "id": "cohort_b836d244ec",
+    "program_id": "prog_3587864179",
+    "label": "Winter/Spring 2027",
+    "program_start": null
+  },
+  {
+    "id": "cohort_c9ed126741",
+    "program_id": "prog_246bd4c471",
+    "label": "Fall 2026 Cohort",
+    "program_start": {
+      "kind": "date",
+      "value": "2026-10-19"
+    }
+  },
+  {
+    "id": "cohort_1a059634bb",
+    "program_id": "prog_f0dfc03ef8",
+    "label": "July 2027 Cohort",
+    "program_start": {
+      "kind": "date",
+      "value": "2027-07-12"
+    }
   }
 ]
