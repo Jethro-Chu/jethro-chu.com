@@ -161,7 +161,7 @@
     "license_required_by": "start",
     "experience_requirement": "New graduate registered nurses with BSN or MSN; little to no RN experience.",
     "source_url": "https://www.uclahealthcareers.org/nursing-new-graduates/",
-    "application_url": "https://www.uclahealthcareers.org/nursing-pathway/",
+    "application_url": "https://www.uclahealthcareers.org/nursing-new-graduates/",
     "dedup_key": null,
     "source_external_id": null,
     "first_discovered_at": "2026-09-18T23:38:07.076Z",
@@ -223,7 +223,7 @@
     ],
     "manual_overrides": {},
     "created_at": "2026-09-18T23:38:07.076Z",
-    "updated_at": "2026-09-21T12:32:20.546Z"
+    "updated_at": "2026-09-22T23:04:11.925Z"
   },
   {
     "id": "opp_5254939ba4",
@@ -457,7 +457,7 @@
     "rn_license_requirement": "California Registered Nurse license required prior to start.",
     "license_required_by": "start",
     "experience_requirement": "Recent graduates of accredited BSN or MSN programs with less than 12 months RN experience.",
-    "source_url": "https://health.ucdavis.edu/nurse-residency/",
+    "source_url": "https://hr.ucdavis.edu/departments/hr/nurse-recruitment/nurse-residency-program",
     "application_url": "https://hr.ucdavis.edu/departments/hr/nurse-recruitment/nurse-residency-program",
     "dedup_key": null,
     "source_external_id": null,
@@ -526,7 +526,7 @@
     ],
     "manual_overrides": {},
     "created_at": "2026-09-19T00:12:25.308Z",
-    "updated_at": "2026-09-21T12:32:20.546Z"
+    "updated_at": "2026-09-22T23:04:11.925Z"
   },
   {
     "id": "opp_afb6ead28f",
@@ -571,7 +571,7 @@
     "rn_license_requirement": "California RN license required prior to start.",
     "license_required_by": "start",
     "experience_requirement": "New graduate nurses who have graduated from an accredited nursing program with less than 6 months of acute care RN experience.",
-    "source_url": "https://health.ucsd.edu/careers/nursing/new-graduate-nurse-residency-program/",
+    "source_url": "https://employment.ucsd.edu/nursing",
     "application_url": "https://employment.ucsd.edu/nursing",
     "dedup_key": null,
     "source_external_id": null,
@@ -634,7 +634,7 @@
     ],
     "manual_overrides": {},
     "created_at": "2026-09-19T00:12:25.308Z",
-    "updated_at": "2026-09-21T12:32:20.546Z"
+    "updated_at": "2026-09-22T23:04:11.925Z"
   },
   {
     "id": "opp_b4a5537b8b",
@@ -663,7 +663,7 @@
     "rn_license_requirement": "Active CA RN license four weeks prior to the start of the program.",
     "license_required_by": "start",
     "experience_requirement": "Candidates selected for the NNRTP will be classified as a Clinical Nurse 1 and must have less than six months of RN employment experience at the time of the program start date.",
-    "source_url": "https://nursing.ucsf.edu/clinical-practice/nurse-residency",
+    "source_url": "https://hr.ucsf.edu/learning/career-professional-development/registered-nurse-training-programs",
     "application_url": "https://hr.ucsf.edu/learning/career-professional-development/registered-nurse-training-programs",
     "dedup_key": null,
     "source_external_id": null,
@@ -708,7 +708,7 @@
     ],
     "manual_overrides": {},
     "created_at": "2026-09-19T00:12:25.308Z",
-    "updated_at": "2026-09-22T12:12:32.775Z"
+    "updated_at": "2026-09-22T23:04:11.925Z"
   },
   {
     "id": "opp_a2e7e134ff",
@@ -741,8 +741,8 @@
     "rn_license_requirement": "Valid California RN license required by program start.",
     "license_required_by": "start",
     "experience_requirement": "External applicants must have graduated from an accredited BSN/MSN program and have less than 6 months of acute care RN experience.",
-    "source_url": "https://www.ucihealth.org/careers/nursing-careers/nurse-residency-program",
-    "application_url": "https://www.ucihealth.org/careers/nursing/new-graduate",
+    "source_url": "https://careers.ucihealth.org/",
+    "application_url": "https://careers.ucihealth.org/",
     "dedup_key": null,
     "source_external_id": null,
     "first_discovered_at": "2026-09-19T00:12:25.308Z",
@@ -774,7 +774,7 @@
     ],
     "manual_overrides": {},
     "created_at": "2026-09-19T00:12:25.308Z",
-    "updated_at": "2026-09-21T12:32:20.546Z"
+    "updated_at": "2026-09-22T23:04:11.925Z"
   },
   {
     "id": "opp_34afa285d5",
@@ -809,7 +809,7 @@
     "rn_license_requirement": "California RN license required before hire date.",
     "license_required_by": "start",
     "experience_requirement": "Recent graduates from accredited nursing programs with less than 12 months experience.",
-    "source_url": "https://careers.sharp.com/nursing-residency",
+    "source_url": "https://careers.sharp.com/",
     "application_url": "https://careers.sharp.com/",
     "dedup_key": null,
     "source_external_id": null,
@@ -842,7 +842,7 @@
     ],
     "manual_overrides": {},
     "created_at": "2026-09-19T00:12:25.308Z",
-    "updated_at": "2026-09-20T12:24:14.331Z"
+    "updated_at": "2026-09-22T23:04:11.925Z"
   },
   {
     "id": "opp_5300617360",
@@ -880,8 +880,8 @@
     "rn_license_requirement": "Current California RN license required by program start date.",
     "license_required_by": "start",
     "experience_requirement": "Must have graduated from an accredited nursing program within the last 12 months. Less than 6 months of RN experience.",
-    "source_url": "https://www.scripps.org/about-us/careers",
-    "application_url": "https://careers.scripps.org/job/242006068/rn-new-grad-residency-2027-cohorts/",
+    "source_url": "https://careers.scripps.org/training-programs/new-grads-rn/",
+    "application_url": "https://careers.scripps.org/training-programs/new-grads-rn/",
     "dedup_key": "taleo||242006068",
     "source_external_id": null,
     "first_discovered_at": "2026-09-19T00:12:25.308Z",
@@ -943,7 +943,7 @@
     ],
     "manual_overrides": {},
     "created_at": "2026-09-19T00:12:25.308Z",
-    "updated_at": "2026-09-22T12:12:32.775Z"
+    "updated_at": "2026-09-22T23:04:11.925Z"
   },
   {
     "id": "opp_3778d35d23",
@@ -1092,8 +1092,8 @@
     "rn_license_requirement": "Active California RN license (interim permits cannot be accepted).",
     "license_required_by": "start",
     "experience_requirement": "Less than 6 months paid Inpatient/Acute care RN experience.",
-    "source_url": "https://nursescholars.kaiserpermanente.org/program/nurse-residency/",
-    "application_url": "https://www.kaiserpermanentejobs.org/nurse-residency-program",
+    "source_url": "https://nursescholars.kp.org/residency",
+    "application_url": "https://www.kaiserpermanentejobs.org/",
     "dedup_key": null,
     "source_external_id": null,
     "first_discovered_at": "2026-09-19T00:12:25.308Z",
@@ -1149,7 +1149,7 @@
     ],
     "manual_overrides": {},
     "created_at": "2026-09-19T00:12:25.308Z",
-    "updated_at": "2026-09-22T12:12:32.775Z"
+    "updated_at": "2026-09-22T23:04:11.925Z"
   },
   {
     "id": "opp_62a8c76769",
@@ -1181,7 +1181,7 @@
     "rn_license_requirement": "Current California RN license required.",
     "license_required_by": "start",
     "experience_requirement": "Associates or BSN in nursing; 0-12 months registered nurse experience.",
-    "source_url": "https://commonspirit.careers/national-nurse-residency-program",
+    "source_url": "https://www.commonspirit.careers/NNRP-CA",
     "application_url": "https://www.commonspirit.careers/job/red-bluff/national-resident-rn/35300/100785798304",
     "dedup_key": "icims|commonspirit|2026-485862",
     "source_external_id": null,
@@ -1256,7 +1256,7 @@
     ],
     "manual_overrides": {},
     "created_at": "2026-09-19T00:12:25.308Z",
-    "updated_at": "2026-09-22T12:12:32.775Z"
+    "updated_at": "2026-09-22T23:04:11.925Z"
   },
   {
     "id": "opp_b045e8e0d4",
@@ -2114,7 +2114,7 @@
     "rn_license_requirement": "Permanent California RN license required at least two weeks prior to cohort start date (interim permits not accepted). Active AHA BLS required.",
     "license_required_by": "start",
     "experience_requirement": "New graduate or RN with less than one year of experience in any area by start date.",
-    "source_url": "https://www.pihhealth.org/careers/nursing/new-graduate-nurse-residency-program/",
+    "source_url": "https://jobs.pihhealth.org/",
     "application_url": "https://jobs.pihhealth.org/",
     "dedup_key": null,
     "source_external_id": null,
@@ -2141,7 +2141,7 @@
     ],
     "manual_overrides": {},
     "created_at": "2026-09-20T19:01:35.368Z",
-    "updated_at": "2026-09-20T19:01:35.368Z"
+    "updated_at": "2026-09-22T23:04:11.925Z"
   },
   {
     "id": "opp_e3cdecc646",
@@ -2348,8 +2348,8 @@
     "rn_license_requirement": "Current Massachusetts Registered Nurse license and AHA BLS certification required.",
     "license_required_by": "start",
     "experience_requirement": "Bachelor of Science in Nursing (BSN) required; designed for newly licensed new graduate registered nurses.",
-    "source_url": "https://www.massgeneralbrigham.org/en/careers",
-    "application_url": "https://www.massgeneralbrigham.org/en/careers",
+    "source_url": "https://www.massgeneralbrigham.org/en/about/careers",
+    "application_url": "https://www.massgeneralbrigham.org/en/about/careers",
     "dedup_key": null,
     "source_external_id": null,
     "first_discovered_at": "2026-09-21T03:36:38.835Z",
@@ -2375,7 +2375,7 @@
     ],
     "manual_overrides": {},
     "created_at": "2026-09-21T03:36:38.835Z",
-    "updated_at": "2026-09-21T03:36:38.835Z"
+    "updated_at": "2026-09-22T23:04:11.925Z"
   },
   {
     "id": "opp_34dee97be9",

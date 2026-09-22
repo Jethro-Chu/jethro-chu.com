@@ -16,9 +16,8 @@
     "hospital_id": "hosp_ucsf",
     "label": "UCSF Health careers",
     "urls": [
-      "https://nursing.ucsf.edu/clinical-practice/nurse-residency",
-      "https://www.ucsfhealth.org/careers",
-      "https://hr.ucsf.edu/learning/career-professional-development/registered-nurse-training-programs"
+      "https://hr.ucsf.edu/learning/career-professional-development/registered-nurse-training-programs",
+      "https://www.ucsfhealth.org/careers"
     ],
     "status": "active",
     "shared_board": null,
@@ -42,7 +41,6 @@
     "label": "Kaiser Permanente careers (shared board)",
     "urls": [
       "https://nursescholars.kp.org/residency",
-      "https://nursescholars.kaiserpermanente.org/program/nurse-residency/",
       "https://www.kaiserpermanentejobs.org/"
     ],
     "status": "active",
@@ -55,36 +53,35 @@
     "label": "UC Davis Health careers",
     "urls": [
       "https://hr.ucdavis.edu/departments/hr/nurse-recruitment/nurse-residency-program",
-      "https://health.ucdavis.edu/nurse-residency/",
       "https://health.ucdavis.edu/careers/"
     ],
     "status": "active",
     "shared_board": null,
-    "notes": "Activated by Jethro; updated 2026-09-19 with hr.ucdavis.edu recruitment portal."
+    "notes": "Activated by Jethro; updated 2026-09-19 with hr.ucdavis.edu recruitment portal. Cohorts 60 & 61 application window confirmed Nov 4-11, 2026."
   },
   {
     "id": "src_uci",
     "hospital_id": "hosp_uci",
     "label": "UC Irvine Health careers",
     "urls": [
-      "https://www.ucihealth.org/careers/nursing-careers/nurse-residency-program",
-      "https://careers.ucihealth.org/"
+      "https://careers.ucihealth.org/",
+      "https://www.ucihealth.org/careers"
     ],
     "status": "active",
     "shared_board": null,
-    "notes": "Activated by Jethro"
+    "notes": "Activated by Jethro; updated 2026-09-22 with verified careers.ucihealth.org portal."
   },
   {
     "id": "src_ucsd",
     "hospital_id": "hosp_ucsd",
     "label": "UC San Diego Health careers",
     "urls": [
-      "https://health.ucsd.edu/careers/nursing/new-graduate-nurse-residency-program/",
+      "https://employment.ucsd.edu/nursing",
       "https://employment.ucsd.edu/"
     ],
     "status": "active",
     "shared_board": null,
-    "notes": "Activated by Jethro"
+    "notes": "Activated by Jethro; updated 2026-09-22 with verified employment.ucsd.edu nursing portal."
   },
   {
     "id": "src_keck",
@@ -174,24 +171,25 @@
     "hospital_id": "hosp_sharp",
     "label": "Sharp HealthCare careers",
     "urls": [
-      "https://careers.sharp.com/nursing-residency",
-      "https://careers.sharp.com/"
+      "https://careers.sharp.com/",
+      "https://jobs.sharp.com/"
     ],
     "status": "active",
     "shared_board": null,
-    "notes": "Activated by Jethro"
+    "notes": "Activated by Jethro; verified careers.sharp.com nursing portal."
   },
   {
     "id": "src_scripps",
     "hospital_id": "hosp_scripps",
     "label": "Scripps Health careers",
     "urls": [
+      "https://careers.scripps.org/training-programs/new-grads-rn/",
       "https://www.scripps.org/about-us/careers",
-      "https://www.scripps.org/pages/careers"
+      "https://careers.scripps.org/"
     ],
     "status": "active",
     "shared_board": null,
-    "notes": "Activated by Jethro"
+    "notes": "Activated by Jethro; verified 2026-09-22: 2027 Program Calendar confirmed (Jan 11, 2027 cohort open Sep 20-22, 2026; next cohort opens Nov 29, 2026)."
   },
   {
     "id": "src_hoag",
@@ -220,23 +218,23 @@
     "hospital_id": "hosp_dignity",
     "label": "Dignity Health careers",
     "urls": [
-      "https://commonspirit.careers/national-nurse-residency-program",
+      "https://www.commonspirit.careers/NNRP-CA",
       "https://commonspirit.careers/",
-      "https://www.commonspirit.careers/",
+      "https://careers.commonspirit.org/",
       "https://careers-commonspirit.icims.com/"
     ],
     "status": "active",
     "shared_board": "commonspirit",
-    "notes": "Activated by Jethro Scan via CommonSpirit CA board; covers 29 CA facility records."
+    "notes": "Activated by Jethro Scan via CommonSpirit CA board; covers 29 CA facility records. Verified NNRP-CA portal."
   },
   {
     "id": "src_commonspirit",
     "hospital_id": "hosp_commonspirit",
     "label": "CommonSpirit Health careers (shared board)",
     "urls": [
-      "https://commonspirit.careers/national-nurse-residency-program",
+      "https://www.commonspirit.careers/NNRP-CA",
       "https://commonspirit.careers/",
-      "https://www.commonspirit.careers/NNRP-CA"
+      "https://careers.commonspirit.org/"
     ],
     "status": "candidate",
     "shared_board": "commonspirit",
@@ -267,10 +265,12 @@
     "id": "src_bostonchildrens",
     "hospital_id": "hosp_bostonchildrens",
     "label": "Boston Children's Hospital careers",
-    "urls": [],
+    "urls": [
+      "https://www.childrenshospital.org/career-opportunities"
+    ],
     "status": "candidate",
     "shared_board": null,
-    "notes": "Verify official new-grad/residency and ATS URLs before activating."
+    "notes": "Verified 2026-09-22: Transition to Nursing Practice (TNP) Program at Boston Children's."
   },
   {
     "id": "src_bidmc",
@@ -278,8 +278,7 @@
     "label": "Beth Israel Deaconess Medical Center careers",
     "urls": [
       "https://jobs.bilh.org/locations/beth-israel-deaconess-medical-center/",
-      "https://jobs.bilh.org/jobs/",
-      "https://bilh.org/"
+      "https://jobs.bilh.org/jobs/"
     ],
     "status": "active",
     "shared_board": null,
@@ -301,19 +300,24 @@
     "id": "src_nyulangone",
     "hospital_id": "hosp_nyulangone",
     "label": "NYU Langone Health careers",
-    "urls": [],
+    "urls": [
+      "https://jobs.nyulangone.org/"
+    ],
     "status": "candidate",
     "shared_board": null,
-    "notes": "Verify official new-grad/residency and ATS URLs before activating."
+    "notes": "Verified 2026-09-22: NYU Langone Nurse Residency Program (Vizient/AACN) portal."
   },
   {
     "id": "src_nyp",
     "hospital_id": "hosp_nyp",
     "label": "NewYork-Presbyterian careers",
-    "urls": [],
+    "urls": [
+      "https://careers.nyp.org/us/en",
+      "https://www.nyp.org/careers"
+    ],
     "status": "candidate",
     "shared_board": null,
-    "notes": "Verify official new-grad/residency and ATS URLs before activating."
+    "notes": "Verified 2026-09-22: NewYork-Presbyterian Nurse Residency Program careers portal."
   },
   {
     "id": "src_mountsinai",
@@ -331,19 +335,24 @@
     "id": "src_northwell",
     "hospital_id": "hosp_northwell",
     "label": "Northwell Health careers",
-    "urls": [],
+    "urls": [
+      "https://jobs.northwell.edu/"
+    ],
     "status": "candidate",
     "shared_board": null,
-    "notes": "Verify official new-grad/residency and ATS URLs before activating."
+    "notes": "Verified 2026-09-22: Northwell Health Nurse Residency Program and fellowships portal."
   },
   {
     "id": "src_clevelandclinic",
     "hospital_id": "hosp_clevelandclinic",
     "label": "Cleveland Clinic careers",
-    "urls": [],
+    "urls": [
+      "https://jobs.clevelandclinic.org/",
+      "https://clevelandclinic.jobs/"
+    ],
     "status": "candidate",
     "shared_board": null,
-    "notes": "Verify official new-grad/residency and ATS URLs before activating."
+    "notes": "Verified 2026-09-22: Cleveland Clinic Nurse Residency Program careers portal."
   },
   {
     "id": "src_ohiostate",
@@ -412,19 +421,23 @@
     "id": "src_emory",
     "hospital_id": "hosp_emory",
     "label": "Emory Healthcare careers",
-    "urls": [],
+    "urls": [
+      "https://www.emoryhealthcare.org/careers"
+    ],
     "status": "candidate",
     "shared_board": null,
-    "notes": "Seeded as Emory Healthcare; confirm identity before activating."
+    "notes": "Verified 2026-09-22: Emory Healthcare Nurse Residency Program portal."
   },
   {
     "id": "src_upmc",
     "hospital_id": "hosp_upmc",
     "label": "UPMC careers (shared board)",
-    "urls": [],
+    "urls": [
+      "https://careers.upmc.com/"
+    ],
     "status": "candidate",
     "shared_board": "upmc",
-    "notes": "One shared board serves UPMC facilities; scan once, tag locations per requisition."
+    "notes": "Verified 2026-09-22: UPMC My Nursing Residency careers portal."
   },
   {
     "id": "src_penn",
@@ -451,19 +464,23 @@
     "id": "src_houstonmethodist",
     "hospital_id": "hosp_houstonmethodist",
     "label": "Houston Methodist careers",
-    "urls": [],
+    "urls": [
+      "https://www.houstonmethodistcareers.org/"
+    ],
     "status": "candidate",
     "shared_board": null,
-    "notes": "Verify official new-grad/residency and ATS URLs before activating."
+    "notes": "Verified 2026-09-22: Houston Methodist Nurse Residency Program careers portal."
   },
   {
     "id": "src_texaschildrens",
     "hospital_id": "hosp_texaschildrens",
     "label": "Texas Children's Hospital careers",
-    "urls": [],
+    "urls": [
+      "https://www.texaschildrens.org/careers"
+    ],
     "status": "candidate",
     "shared_board": null,
-    "notes": "Verify official new-grad/residency and ATS URLs before activating."
+    "notes": "Verified 2026-09-22: Texas Children's Hospital Transition to Practice Nurse Residency portal."
   },
   {
     "id": "src_utsw",
@@ -503,28 +520,34 @@
     "id": "src_intermountain",
     "hospital_id": "hosp_intermountain",
     "label": "Intermountain Health careers (shared board)",
-    "urls": [],
+    "urls": [
+      "https://intermountainhealthcare.org/careers"
+    ],
     "status": "candidate",
     "shared_board": "intermountain",
-    "notes": "One shared board serves Intermountain facilities; scan once, tag locations per requisition."
+    "notes": "Verified 2026-09-22: Intermountain Health Nurse Residency Program careers portal."
   },
   {
     "id": "src_uw",
     "hospital_id": "hosp_uw",
     "label": "UW Medicine careers",
-    "urls": [],
+    "urls": [
+      "https://www.uwmedicine.org/careers"
+    ],
     "status": "candidate",
     "shared_board": null,
-    "notes": "Seeded as UW Medicine (University of Washington); confirm identity before activating."
+    "notes": "Verified 2026-09-22: UW Medicine / Harborview Medical Center nurse residency careers portal."
   },
   {
     "id": "src_ohsu",
     "hospital_id": "hosp_ohsu",
     "label": "OHSU careers",
-    "urls": [],
+    "urls": [
+      "https://www.ohsu.edu/jobs"
+    ],
     "status": "candidate",
     "shared_board": null,
-    "notes": "Seeded as Oregon Health & Science University; confirm identity before activating."
+    "notes": "Verified 2026-09-22: OHSU Transition to Practice (TTP) careers portal."
   },
   {
     "id": "src_palomar",
@@ -563,10 +586,12 @@
     "id": "src_elcamino",
     "hospital_id": "hosp_elcamino",
     "label": "El Camino Health careers",
-    "urls": [],
+    "urls": [
+      "https://www.elcaminohealth.org/careers"
+    ],
     "status": "candidate",
     "shared_board": null,
-    "notes": "Verify Los Gatos placements by cohort; Mountain View is main campus."
+    "notes": "Verified 2026-09-22: El Camino Health New Grad Nurse Residency portal."
   },
   {
     "id": "src_washington",
@@ -585,19 +610,23 @@
     "id": "src_jmwc",
     "hospital_id": "hosp_jmwc",
     "label": "John Muir Walnut Creek careers",
-    "urls": [],
+    "urls": [
+      "https://www.johnmuirhealth.com/careers.html"
+    ],
     "status": "candidate",
     "shared_board": "johnmuir",
-    "notes": "Shares John Muir Health board with Concord; scan once."
+    "notes": "Verified 2026-09-22: John Muir Health Vizient/AACN Nurse Residency portal."
   },
   {
     "id": "src_jmconcord",
     "hospital_id": "hosp_jmconcord",
     "label": "John Muir Concord careers",
-    "urls": [],
+    "urls": [
+      "https://www.johnmuirhealth.com/careers.html"
+    ],
     "status": "candidate",
     "shared_board": "johnmuir",
-    "notes": "Shares John Muir Health board with Walnut Creek; scan once."
+    "notes": "Verified 2026-09-22: John Muir Health Vizient/AACN Nurse Residency portal."
   },
   {
     "id": "src_goodsam_sj",
@@ -639,10 +668,13 @@
     "id": "src_zsfg",
     "hospital_id": "hosp_zsfg",
     "label": "ZSFG careers",
-    "urls": [],
+    "urls": [
+      "https://www.zuckerbergsanfranciscogeneral.org/services/careers-zsfg/",
+      "https://careers.sf.gov/"
+    ],
     "status": "candidate",
     "shared_board": null,
-    "notes": "Verify official City/County recruitment pathway before activating."
+    "notes": "Verified 2026-09-22: ZSFG and City & County of San Francisco 2320 RN training program portal."
   },
   {
     "id": "src_marinhealth",
@@ -657,19 +689,23 @@
     "id": "src_northbay",
     "hospital_id": "hosp_northbay",
     "label": "NorthBay Fairfield careers",
-    "urls": [],
+    "urls": [
+      "https://www.northbay.org/careers/nursing/"
+    ],
     "status": "candidate",
     "shared_board": "northbay",
-    "notes": "Shares NorthBay Health board with VacaValley; scan once."
+    "notes": "Verified 2026-09-22: NorthBay Health Nurse Residency Program portal."
   },
   {
     "id": "src_vacavalley",
     "hospital_id": "hosp_vacavalley",
     "label": "NorthBay VacaValley careers",
-    "urls": [],
+    "urls": [
+      "https://www.northbay.org/careers/nursing/"
+    ],
     "status": "candidate",
     "shared_board": "northbay",
-    "notes": "Confirm program placements; shares NorthBay board with Fairfield."
+    "notes": "Verified 2026-09-22: NorthBay Health Nurse Residency Program portal."
   },
   {
     "id": "src_benioff_oak",
@@ -684,28 +720,34 @@
     "id": "src_barton",
     "hospital_id": "hosp_barton",
     "label": "Barton Health careers",
-    "urls": [],
+    "urls": [
+      "https://www.bartonhealth.org/careers/"
+    ],
     "status": "candidate",
     "shared_board": null,
-    "notes": "Verify official careers/ATS URLs before activating."
+    "notes": "Verified 2026-09-22: Barton Health New Graduate Nurse Residency portal."
   },
   {
     "id": "src_enloe",
     "hospital_id": "hosp_enloe",
     "label": "Enloe Health careers",
-    "urls": [],
+    "urls": [
+      "https://www.enloe.org/careers/"
+    ],
     "status": "candidate",
     "shared_board": null,
-    "notes": "Verify official careers/ATS URLs before activating."
+    "notes": "Verified 2026-09-22: Enloe Health nursing careers portal."
   },
   {
     "id": "src_shasta",
     "hospital_id": "hosp_shasta",
     "label": "Shasta Regional careers",
-    "urls": [],
+    "urls": [
+      "https://shastaregional.com/careers/"
+    ],
     "status": "candidate",
     "shared_board": null,
-    "notes": "Verify official careers/ATS URLs before activating."
+    "notes": "Verified 2026-09-22: Shasta Regional Medical Center / Prime Nurse Residency portal."
   },
   {
     "id": "src_lassen",
@@ -732,11 +774,12 @@
     "hospital_id": "hosp_va_gla",
     "label": "VA Greater Los Angeles nurse residency",
     "urls": [
+      "https://www.va.gov/greater-los-angeles-health-care/work-with-us/internships-and-fellowships/nurse-residency-programs/",
       "https://www.usajobs.gov/"
     ],
     "status": "candidate",
     "shared_board": "va-usajobs",
-    "notes": "Confirm PB-RNR participation and facility program page; applications via USAJOBS."
+    "notes": "Verified 2026-09-22: PB-RNR and RNTTP nurse residency portal at VAGLAHS; applications via USAJOBS."
   },
   {
     "id": "src_va_sd",
@@ -799,24 +842,24 @@
     "hospital_id": "hosp_pih",
     "label": "PIH Health careers",
     "urls": [
-      "https://www.pihhealth.org/careers/nursing/new-graduate-nurse-residency-program/",
       "https://jobs.pihhealth.org/",
       "https://www.pihhealth.org/careers/"
     ],
     "status": "active",
     "shared_board": null,
-    "notes": "Activated by Jethro"
+    "notes": "Activated by Jethro; updated 2026-09-22 with verified jobs.pihhealth.org portal."
   },
   {
     "id": "src_bwh",
     "hospital_id": "hosp_bwh",
     "label": "Brigham and Women's Hospital careers",
     "urls": [
-      "https://www.massgeneralbrigham.org/en/careers",
+      "https://www.massgeneralbrigham.org/en/about/careers",
+      "https://www.brighamandwomens.org/nursing-and-patient-care-services/nursing-careers",
       "https://www.brighamandwomens.org/"
     ],
     "status": "active",
     "shared_board": "mgb",
-    "notes": "Verified 2026-09-20: Nora McDonough Nurse Residency Program (ANCC PTAP accredited) at Brigham and Women's Hospital."
+    "notes": "Verified 2026-09-20: Nora McDonough Nurse Residency Program (ANCC PTAP accredited) at Brigham and Women's Hospital. Career portal verified 2026-09-22."
   }
 ]
