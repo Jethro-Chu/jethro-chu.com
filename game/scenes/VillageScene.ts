@@ -1683,6 +1683,7 @@ export class VillageScene extends Phaser.Scene {
   }
 
   private teardown() {
+    gameBus.emit("game:shutdown");
     this.busOff.forEach((off) => off());
     this.busOff = [];
     this.input.removeAllListeners();

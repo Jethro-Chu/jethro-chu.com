@@ -22,21 +22,23 @@ const EASE = [0.22, 1, 0.36, 1] as const;
 export function VillageIntro({
   onPlay,
   onSkip,
+  starting,
 }: {
   onPlay: () => void;
   onSkip: () => void;
+  starting: boolean;
 }) {
   // Enter starts the walk without hunting for the button
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Enter") {
+      if (e.key === "Enter" && !starting) {
         e.preventDefault();
         onPlay();
       }
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [onPlay]);
+  }, [onPlay, starting]);
 
   const rise = (delay: number) => ({
     initial: { opacity: 0, y: 10 },
@@ -111,6 +113,8 @@ export function VillageIntro({
           {...rise(0.52)}
           type="button"
           onClick={onPlay}
+          disabled={starting}
+          aria-live="polite"
           className="fast-ui rounded-md font-display text-2xl font-bold tracking-wide hover:brightness-[1.07] active:translate-y-[3px]"
           style={{
             background: "var(--color-golden)",
@@ -120,7 +124,7 @@ export function VillageIntro({
             boxShadow: "0 6px 0 #6b4310, 0 12px 24px rgba(0,0,0,0.45)",
           }}
         >
-          PLAY
+          {starting ? "LOADING…" : "PLAY"}
         </m.button>
 
         <m.p

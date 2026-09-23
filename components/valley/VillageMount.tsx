@@ -10,7 +10,7 @@
    ============================================================ */
 
 import dynamic from "next/dynamic";
-import { useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { gameBus } from "@/lib/gameBus";
 import { Minimap } from "@/components/HUD/Minimap";
 import { VillageNav } from "@/components/HUD/VillageNav";
@@ -36,16 +36,37 @@ const PhaserVillage = dynamic(() => import("@/game/PhaserVillage"), {
 
 export default function VillageMount({ onLeave }: { onLeave?: () => void }) {
   const [intro, setIntro] = useState(true);
+  const [starting, setStarting] = useState(false);
+  const pendingPlay = useRef(false);
+
+  const onPlay = useCallback(() => {
+    if (!gameBus.isGameReady()) {
+      pendingPlay.current = true;
+      setStarting(true);
+      return;
+    }
+    pendingPlay.current = false;
+    gameBus.emit("valley:play");
+    setIntro(false);
+  }, []);
+
+  useEffect(() => {
+    const onReady = () => {
+      if (pendingPlay.current) onPlay();
+    };
+    const off = gameBus.on("game:ready", onReady);
+    // Phaser may have finished booting before this effect subscribed.
+    if (gameBus.isGameReady()) onReady();
+    return off;
+  }, [onPlay]);
 
   return (
     <>
       <PhaserVillage />
       {intro ? (
         <VillageIntro
-          onPlay={() => {
-            setIntro(false);
-            gameBus.emit("valley:play");
-          }}
+          onPlay={onPlay}
+          starting={starting}
           onSkip={() => window.location.assign("/website")}
         />
       ) : (

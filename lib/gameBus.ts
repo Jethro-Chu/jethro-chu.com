@@ -9,6 +9,8 @@
 export interface ValleyEventMap {
   /** the Phaser scene has booted and is ready */
   "game:ready": void;
+  /** the Phaser scene is shutting down */
+  "game:shutdown": void;
   /** the player walked into a landmark trigger zone (opens the interior room) */
   "landmark:enter": { id: string };
   /** a landmark was discovered for the first time (HUD/minimap) */
@@ -55,6 +57,11 @@ type AnyHandler = (payload: unknown) => void;
 class GameBus {
   // uniform internal store; the public methods keep the per-event typing
   private handlers: Partial<Record<EventKey, Set<AnyHandler>>> = {};
+  private gameReady = false;
+
+  isGameReady(): boolean {
+    return this.gameReady;
+  }
 
   on<K extends EventKey>(event: K, handler: Handler<K>): () => void {
     const set = (this.handlers[event] ??= new Set<AnyHandler>());
@@ -70,6 +77,8 @@ class GameBus {
     event: K,
     ...args: ValleyEventMap[K] extends void ? [] : [ValleyEventMap[K]]
   ): void {
+    if (event === "game:ready") this.gameReady = true;
+    if (event === "game:shutdown") this.gameReady = false;
     const payload = args[0] as unknown;
     this.handlers[event]?.forEach((h) => {
       try {
@@ -83,6 +92,7 @@ class GameBus {
 
   clear(): void {
     this.handlers = {};
+    this.gameReady = false;
   }
 }
 
