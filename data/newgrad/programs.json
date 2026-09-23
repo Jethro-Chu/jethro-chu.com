@@ -316,5 +316,17 @@
     "hospital_id": "hosp_kaiser",
     "name": "Kaiser Permanente Nurse Residency Program (California)",
     "source_url": "https://nursescholars.kp.org/residency"
+  },
+  {
+    "id": "prog_293b44c055",
+    "hospital_id": "hosp_ucsd",
+    "name": "New Graduate Nurse Residency Program (NRP)",
+    "source_url": "https://employment.ucsd.edu/nursing"
+  },
+  {
+    "id": "prog_366dd8d679",
+    "hospital_id": "hosp_mayo",
+    "name": "Staff Nurse - Nurse Residency Program",
+    "source_url": "https://jobs.mayoclinic.org/nurseresidencyprograms"
   }
 ]

@@ -226,5 +226,32 @@
       "kind": "date",
       "value": "2027-07-12"
     }
+  },
+  {
+    "id": "cohort_bf92509dfe",
+    "program_id": "prog_3128cd6758",
+    "label": "Fall 2026 Cohort",
+    "program_start": null
+  },
+  {
+    "id": "cohort_43dd33af10",
+    "program_id": "prog_01d309b944",
+    "label": "Spring 2027 Cohort",
+    "program_start": null
+  },
+  {
+    "id": "cohort_da3fb9b132",
+    "program_id": "prog_293b44c055",
+    "label": "March 2027 Cohort",
+    "program_start": {
+      "kind": "text",
+      "value": "March 2027"
+    }
+  },
+  {
+    "id": "cohort_077d0578b7",
+    "program_id": "prog_366dd8d679",
+    "label": "February 2027 Cohort",
+    "program_start": null
   }
 ]
