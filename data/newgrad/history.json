@@ -4100,5 +4100,126 @@
         "claim": "opening_date"
       }
     ]
+  },
+  {
+    "id": "hist_2026-09-25-norcal-kaiser_0001",
+    "run_id": "2026-09-25-norcal-kaiser",
+    "at": "2026-09-25T18:14:06.498Z",
+    "type": "UPDATED",
+    "opportunity_id": "opp_2a200928c1",
+    "changes": [
+      {
+        "field": "position_title",
+        "before": "Kaiser Permanente Nurse Residency Program (California)",
+        "after": "Kaiser Permanente Northern California Nurse Residency Program"
+      },
+      {
+        "field": "unit",
+        "before": null,
+        "after": "Inpatient Medical-Surgical and Telemetry Units"
+      },
+      {
+        "field": "locations",
+        "before": [
+          {
+            "city": "Oakland",
+            "state": "CA"
+          },
+          {
+            "city": "Pasadena",
+            "state": "CA"
+          }
+        ],
+        "after": [
+          {
+            "city": "Oakland",
+            "state": "CA"
+          },
+          {
+            "city": "Sacramento",
+            "state": "CA"
+          },
+          {
+            "city": "San Francisco",
+            "state": "CA"
+          },
+          {
+            "city": "San Jose",
+            "state": "CA"
+          },
+          {
+            "city": "Fresno",
+            "state": "CA"
+          },
+          {
+            "city": "Vallejo",
+            "state": "CA"
+          },
+          {
+            "city": "Roseville",
+            "state": "CA"
+          },
+          {
+            "city": "Walnut Creek",
+            "state": "CA"
+          },
+          {
+            "city": "Santa Clara",
+            "state": "CA"
+          }
+        ]
+      },
+      {
+        "field": "specialties",
+        "before": [
+          "Multiple Specialties"
+        ],
+        "after": [
+          "Med-Surg",
+          "Telemetry"
+        ]
+      },
+      {
+        "field": "program_id",
+        "before": "prog_6902757263",
+        "after": "prog_59d0ac26b3"
+      },
+      {
+        "field": "rn_license_requirement",
+        "before": "Active California RN license (interim permits cannot be accepted).",
+        "after": "An active California RN license (interim permits cannot be accepted) and AHA BLS certification required by start date."
+      },
+      {
+        "field": "experience_requirement",
+        "before": "Less than 6 months paid Inpatient/Acute care RN experience.",
+        "after": "No prior inpatient (acute care) RN experience. Nursing degree earned within the 12 months prior to the start date."
+      },
+      {
+        "field": "application_url",
+        "before": "https://www.kaiserpermanentejobs.org/",
+        "after": "https://www.kaiserpermanentejobs.org/nurseresidency-ncal"
+      }
+    ],
+    "reason": "Updated from run evidence (CLOSED).",
+    "evidence": [
+      {
+        "source_url": "https://www.kaiserpermanentejobs.org/nurse-residency-career",
+        "excerpt": "Since 2021, the Kaiser Permanente Northern California Nurse Residency Program has supported newly licensed RNs as they transition to practice to one of our 21 medical centers. The program consists of a comprehensive evidence-based clinical orientation in addition to nursing professional development transition to practice curriculum. The program has supported the training and enculturation of over 1,200 new graduate nurses and anticipates hiring approximately 300 residents annually.",
+        "retrieved_at": "2026-09-25T18:12:00.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://www.kaiserpermanentejobs.org/nurseresidency-ncal",
+        "excerpt": "Search our Job Opportunities at Kaiser Permanente: custom_fields.SCALFacet-Nurse-Residency-Northern-CA returned 0 Job Results. No active requisitions accepting applications today.",
+        "retrieved_at": "2026-09-25T18:12:30.000Z",
+        "claim": "closure"
+      },
+      {
+        "source_url": "https://www.kaiserpermanentejobs.org/nurse-residency-career",
+        "excerpt": "Nurse residents are trained in our inpatient Medical-Surgical and Telemetry units and are required to complete each of the components of the program (including didactic, skills enhancement, simulation, professional development), and attend all Transition-to-Practice program courses to graduate.",
+        "retrieved_at": "2026-09-25T18:12:00.000Z",
+        "claim": "specialty"
+      }
+    ]
   }
 ]

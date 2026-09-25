@@ -1,9 +1,9 @@
 {
   "contract_version": "1.0.0",
-  "generated_at": "2026-09-25T12:13:11.907Z",
-  "last_research_attempt_at": "2026-09-25T12:20:00.000Z",
-  "last_successful_verification_at": "2026-09-25T12:13:11.907Z",
-  "last_published_at": "2026-09-25T12:13:23.084Z",
+  "generated_at": "2026-09-25T18:14:06.498Z",
+  "last_research_attempt_at": "2026-09-25T18:20:00.000Z",
+  "last_successful_verification_at": "2026-09-25T18:14:06.498Z",
+  "last_published_at": "2026-09-25T18:14:36.327Z",
   "counts": {
     "opportunities": 30,
     "open": 8,
@@ -12,5 +12,5 @@
     "sources_active": 36,
     "sources_candidate": 40
   },
-  "coverage_note": "24 of 27 checked sources verified successfully in run 2026-09-25-daily."
+  "coverage_note": "2 of 2 checked sources verified successfully in run 2026-09-25-norcal-kaiser."
 }

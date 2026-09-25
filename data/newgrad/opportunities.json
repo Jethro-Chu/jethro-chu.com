@@ -1276,22 +1276,51 @@
   {
     "id": "opp_2a200928c1",
     "hospital_id": "hosp_kaiser",
-    "program_id": "prog_6902757263",
+    "program_id": "prog_59d0ac26b3",
     "cohort_id": null,
-    "position_title": "Kaiser Permanente Nurse Residency Program (California)",
-    "unit": null,
+    "position_title": "Kaiser Permanente Northern California Nurse Residency Program",
+    "unit": "Inpatient Medical-Surgical and Telemetry Units",
     "locations": [
       {
         "city": "Oakland",
         "state": "CA"
       },
       {
-        "city": "Pasadena",
+        "city": "Sacramento",
+        "state": "CA"
+      },
+      {
+        "city": "San Francisco",
+        "state": "CA"
+      },
+      {
+        "city": "San Jose",
+        "state": "CA"
+      },
+      {
+        "city": "Fresno",
+        "state": "CA"
+      },
+      {
+        "city": "Vallejo",
+        "state": "CA"
+      },
+      {
+        "city": "Roseville",
+        "state": "CA"
+      },
+      {
+        "city": "Walnut Creek",
+        "state": "CA"
+      },
+      {
+        "city": "Santa Clara",
         "state": "CA"
       }
     ],
     "specialties": [
-      "Multiple Specialties"
+      "Med-Surg",
+      "Telemetry"
     ],
     "application_open": null,
     "application_close": null,
@@ -1301,17 +1330,17 @@
     "verification_health": "VERIFIED",
     "eligibility": "ELIGIBLE",
     "bsn_required": true,
-    "rn_license_requirement": "Active California RN license (interim permits cannot be accepted).",
+    "rn_license_requirement": "An active California RN license (interim permits cannot be accepted) and AHA BLS certification required by start date.",
     "license_required_by": "start",
-    "experience_requirement": "Less than 6 months paid Inpatient/Acute care RN experience.",
+    "experience_requirement": "No prior inpatient (acute care) RN experience. Nursing degree earned within the 12 months prior to the start date.",
     "source_url": "https://nursescholars.kp.org/residency",
-    "application_url": "https://www.kaiserpermanentejobs.org/",
+    "application_url": "https://www.kaiserpermanentejobs.org/nurseresidency-ncal",
     "dedup_key": null,
     "source_external_id": null,
     "first_discovered_at": "2026-09-19T00:12:25.308Z",
-    "last_seen_at": "2026-09-22T12:12:32.775Z",
-    "last_attempted_at": "2026-09-22T12:12:32.775Z",
-    "last_verified_at": "2026-09-22T12:12:32.775Z",
+    "last_seen_at": "2026-09-25T18:14:06.498Z",
+    "last_attempted_at": "2026-09-25T18:14:06.498Z",
+    "last_verified_at": "2026-09-25T18:14:06.498Z",
     "closed_at": "2026-09-21T12:32:20.546Z",
     "closure_reason": "verified_closed",
     "publication_state": "PUBLISHED",
@@ -1357,11 +1386,29 @@
         "excerpt": "The Kaiser Permanente National RN Residency Program is a 12-month program that supports newly licensed RNs as they transition to professional practice. The comprehensive curriculum helps grow your knowledge, skills, and confidence.",
         "retrieved_at": "2026-09-22T12:03:00.000Z",
         "claim": "eligibility"
+      },
+      {
+        "source_url": "https://www.kaiserpermanentejobs.org/nurse-residency-career",
+        "excerpt": "Since 2021, the Kaiser Permanente Northern California Nurse Residency Program has supported newly licensed RNs as they transition to practice to one of our 21 medical centers. The program consists of a comprehensive evidence-based clinical orientation in addition to nursing professional development transition to practice curriculum. The program has supported the training and enculturation of over 1,200 new graduate nurses and anticipates hiring approximately 300 residents annually.",
+        "retrieved_at": "2026-09-25T18:12:00.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://www.kaiserpermanentejobs.org/nurseresidency-ncal",
+        "excerpt": "Search our Job Opportunities at Kaiser Permanente: custom_fields.SCALFacet-Nurse-Residency-Northern-CA returned 0 Job Results. No active requisitions accepting applications today.",
+        "retrieved_at": "2026-09-25T18:12:30.000Z",
+        "claim": "closure"
+      },
+      {
+        "source_url": "https://www.kaiserpermanentejobs.org/nurse-residency-career",
+        "excerpt": "Nurse residents are trained in our inpatient Medical-Surgical and Telemetry units and are required to complete each of the components of the program (including didactic, skills enhancement, simulation, professional development), and attend all Transition-to-Practice program courses to graduate.",
+        "retrieved_at": "2026-09-25T18:12:00.000Z",
+        "claim": "specialty"
       }
     ],
     "manual_overrides": {},
     "created_at": "2026-09-19T00:12:25.308Z",
-    "updated_at": "2026-09-22T23:04:11.925Z"
+    "updated_at": "2026-09-25T18:14:06.498Z"
   },
   {
     "id": "opp_62a8c76769",
