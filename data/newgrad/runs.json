@@ -401,5 +401,48 @@
         "error": "HTTP 403 Forbidden - bot challenge protection"
       }
     ]
+  },
+  {
+    "run_id": "2026-09-24-daily",
+    "research_started_at": "2026-09-25T05:17:00.000Z",
+    "research_completed_at": "2026-09-25T05:27:00.000Z",
+    "ingested_at": "2026-09-25T05:30:34.850Z",
+    "sources_checked": 22,
+    "sources_ok": 19,
+    "findings_received": 16,
+    "published": 0,
+    "updated": 0,
+    "closed": 0,
+    "pending_review": 0,
+    "rejected": 0,
+    "failed_checks": [
+      {
+        "source_id": "src_scripps",
+        "url": "https://careers.scripps.org/job/242006068/rn-new-grad-residency-2027-cohorts/",
+        "attempted_at": "2026-09-25T05:18:30.000Z",
+        "retrieved_at": "2026-09-25T05:18:30.000Z",
+        "outcome": "not_found",
+        "coverage_complete": true,
+        "error": "HTTP 301/404 - requisition closed and removed to /job-not-found/?jobid=242006068"
+      },
+      {
+        "source_id": "src_huntington",
+        "url": "https://www.huntingtonhealth.org/education/residency-programs/nursing-residency/",
+        "attempted_at": "2026-09-25T05:26:15.000Z",
+        "retrieved_at": null,
+        "outcome": "blocked",
+        "coverage_complete": false,
+        "error": "HTTP 403 Forbidden - bot challenge protection"
+      },
+      {
+        "source_id": "src_ucdavis",
+        "url": "https://hr.ucdavis.edu/departments/hr/nurse-recruitment/nurse-residency-program",
+        "attempted_at": "2026-09-25T05:26:45.000Z",
+        "retrieved_at": null,
+        "outcome": "blocked",
+        "coverage_complete": false,
+        "error": "HTTP 403 Forbidden - bot challenge protection"
+      }
+    ]
   }
 ]
