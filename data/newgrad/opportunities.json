@@ -44,9 +44,9 @@
     "dedup_key": null,
     "source_external_id": null,
     "first_discovered_at": "2026-09-18T23:38:07.076Z",
-    "last_seen_at": "2026-09-25T05:30:34.850Z",
-    "last_attempted_at": "2026-09-25T05:30:34.850Z",
-    "last_verified_at": "2026-09-25T05:30:34.850Z",
+    "last_seen_at": "2026-09-25T12:13:11.907Z",
+    "last_attempted_at": "2026-09-25T12:13:11.907Z",
+    "last_verified_at": "2026-09-25T12:13:11.907Z",
     "closed_at": null,
     "closure_reason": null,
     "publication_state": "PUBLISHED",
@@ -152,11 +152,23 @@
         "excerpt": "The Stanford Health Care Nurse Residency Program is designed for new graduate registered nurses who have graduated within 19 months of cohort start date and have less than six months of paid RN experience.",
         "retrieved_at": "2026-09-25T05:20:00.000Z",
         "claim": "eligibility"
+      },
+      {
+        "source_url": "https://careers.stanfordhealthcare.org/us/en/nurse-residency-program",
+        "excerpt": "Cohort 46 Application Webinar October 7th, 2026 1030am PST link to apply attached (Stanford Health Care Nurse Residency Program Application Webinar – Fill out form)",
+        "retrieved_at": "2026-09-25T12:20:00.000Z",
+        "claim": "opening_date"
+      },
+      {
+        "source_url": "https://careers.stanfordhealthcare.org/us/en/nurse-residency-program",
+        "excerpt": "The Stanford Health Care Nurse Residency Program is designed for new graduate registered nurses who have graduated within 19 months of cohort start date and have less than six months of paid RN experience.",
+        "retrieved_at": "2026-09-25T12:20:00.000Z",
+        "claim": "eligibility"
       }
     ],
     "manual_overrides": {},
     "created_at": "2026-09-18T23:38:07.076Z",
-    "updated_at": "2026-09-25T05:30:34.850Z"
+    "updated_at": "2026-09-25T12:13:11.907Z"
   },
   {
     "id": "opp_4a34429f1c",
@@ -203,9 +215,9 @@
     "dedup_key": null,
     "source_external_id": null,
     "first_discovered_at": "2026-09-18T23:38:07.076Z",
-    "last_seen_at": "2026-09-25T05:30:34.850Z",
-    "last_attempted_at": "2026-09-25T05:30:34.850Z",
-    "last_verified_at": "2026-09-25T05:30:34.850Z",
+    "last_seen_at": "2026-09-25T12:13:11.907Z",
+    "last_attempted_at": "2026-09-25T12:13:11.907Z",
+    "last_verified_at": "2026-09-25T12:13:11.907Z",
     "closed_at": "2026-09-21T12:32:20.546Z",
     "closure_reason": "verified_closed",
     "publication_state": "PUBLISHED",
@@ -281,11 +293,23 @@
         "excerpt": "The UCLA Health Nurse Residency Program provides evidence-based curriculum and support for new graduate nurses transitioning to inpatient clinical practice.",
         "retrieved_at": "2026-09-25T05:24:45.000Z",
         "claim": "eligibility"
+      },
+      {
+        "source_url": "https://www.uclahealthcareers.org/nursing-new-grad",
+        "excerpt": "The application window for the Spring 2027 Nurse Residency & OR Training Programs has now closed. Program will begin in March 2027. Recruitment for our Fall 2027 cohort will begin March 2027.",
+        "retrieved_at": "2026-09-25T12:24:45.000Z",
+        "claim": "closure"
+      },
+      {
+        "source_url": "https://www.uclahealthcareers.org/nursing-new-grad",
+        "excerpt": "The UCLA Health Nurse Residency Program provides evidence-based curriculum and support for new graduate nurses transitioning to inpatient clinical practice.",
+        "retrieved_at": "2026-09-25T12:24:45.000Z",
+        "claim": "eligibility"
       }
     ],
     "manual_overrides": {},
     "created_at": "2026-09-18T23:38:07.076Z",
-    "updated_at": "2026-09-25T05:30:34.850Z"
+    "updated_at": "2026-09-25T12:13:11.907Z"
   },
   {
     "id": "opp_5254939ba4",
@@ -412,9 +436,9 @@
     "dedup_key": null,
     "source_external_id": null,
     "first_discovered_at": "2026-09-19T00:01:48.014Z",
-    "last_seen_at": "2026-09-25T05:30:34.850Z",
-    "last_attempted_at": "2026-09-25T05:30:34.850Z",
-    "last_verified_at": "2026-09-25T05:30:34.850Z",
+    "last_seen_at": "2026-09-25T12:13:11.907Z",
+    "last_attempted_at": "2026-09-25T12:13:11.907Z",
+    "last_verified_at": "2026-09-25T12:13:11.907Z",
     "closed_at": null,
     "closure_reason": null,
     "publication_state": "PUBLISHED",
@@ -502,11 +526,23 @@
         "excerpt": "Positions may close externally based on applicant volume. However, positions will remain open to internal applicants for the 5-day union-posting period. You are encouraged to apply as soon as possible.",
         "retrieved_at": "2026-09-25T05:20:30.000Z",
         "claim": "status"
+      },
+      {
+        "source_url": "https://palomarucsdhealth.org/careers/nurse-residency/",
+        "excerpt": "Palomar Health Nurse Residency Program is designed for new graduate registered nurses with less than six months of acute care RN experience transitioning into clinical practice.",
+        "retrieved_at": "2026-09-25T12:20:30.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://palomarucsdhealth.org/careers/nurse-residency/",
+        "excerpt": "Positions may close externally based on applicant volume. However, positions will remain open to internal applicants for the 5-day union-posting period. You are encouraged to apply as soon as possible.",
+        "retrieved_at": "2026-09-25T12:20:30.000Z",
+        "claim": "status"
       }
     ],
     "manual_overrides": {},
     "created_at": "2026-09-19T00:01:48.014Z",
-    "updated_at": "2026-09-25T05:30:34.850Z"
+    "updated_at": "2026-09-25T12:13:11.907Z"
   },
   {
     "id": "opp_73bcc0ea08",
@@ -665,9 +701,9 @@
     "dedup_key": null,
     "source_external_id": null,
     "first_discovered_at": "2026-09-19T00:12:25.308Z",
-    "last_seen_at": "2026-09-25T05:30:34.850Z",
-    "last_attempted_at": "2026-09-25T05:30:34.850Z",
-    "last_verified_at": "2026-09-25T05:30:34.850Z",
+    "last_seen_at": "2026-09-25T12:13:11.907Z",
+    "last_attempted_at": "2026-09-25T12:13:11.907Z",
+    "last_verified_at": "2026-09-25T12:13:11.907Z",
     "closed_at": null,
     "closure_reason": null,
     "publication_state": "PUBLISHED",
@@ -743,11 +779,23 @@
         "excerpt": "This program is designed to support Newly Licensed Registered Nurses with a comprehensive transition-to-practice experience through enhanced clinical learning, hands-on skill training and so much more!",
         "retrieved_at": "2026-09-25T05:25:00.000Z",
         "claim": "eligibility"
+      },
+      {
+        "source_url": "https://employment.ucsd.edu/nursing",
+        "excerpt": "We hire new graduate nurses twice a year, with job postings available during the following timeframes: October for the NRP cohort starting in March",
+        "retrieved_at": "2026-09-25T12:25:00.000Z",
+        "claim": "opening_date"
+      },
+      {
+        "source_url": "https://employment.ucsd.edu/nursing",
+        "excerpt": "This program is designed to support Newly Licensed Registered Nurses with a comprehensive transition-to-practice experience through enhanced clinical learning, hands-on skill training and so much more!",
+        "retrieved_at": "2026-09-25T12:25:00.000Z",
+        "claim": "eligibility"
       }
     ],
     "manual_overrides": {},
     "created_at": "2026-09-19T00:12:25.308Z",
-    "updated_at": "2026-09-25T05:30:34.850Z"
+    "updated_at": "2026-09-25T12:13:11.907Z"
   },
   {
     "id": "opp_b4a5537b8b",
@@ -1013,9 +1061,9 @@
     "dedup_key": "taleo||242006068",
     "source_external_id": null,
     "first_discovered_at": "2026-09-19T00:12:25.308Z",
-    "last_seen_at": "2026-09-25T05:30:34.850Z",
-    "last_attempted_at": "2026-09-25T05:30:34.850Z",
-    "last_verified_at": "2026-09-25T05:30:34.850Z",
+    "last_seen_at": "2026-09-25T12:13:11.907Z",
+    "last_attempted_at": "2026-09-25T12:13:11.907Z",
+    "last_verified_at": "2026-09-25T12:13:11.907Z",
     "closed_at": "2026-09-23T12:16:49.865Z",
     "closure_reason": "verified_removed",
     "publication_state": "PUBLISHED",
@@ -1091,11 +1139,23 @@
         "excerpt": "RN New Grad Residency External candidates: 9/20/2026 at 12 p.m. PST through 9/22/2026 at 11:59 p.m. PST. Open to new graduate nurses with less than six months of acute care RN experience.",
         "retrieved_at": "2026-09-25T05:18:00.000Z",
         "claim": "eligibility"
+      },
+      {
+        "source_url": "https://careers.scripps.org/job/242006068/rn-new-grad-residency-2027-cohorts/",
+        "excerpt": "404 ERROR This Page Is Currently Unavailable Whoops, we can’t get to that page. The page you’re looking for doesn’t exist anymore.",
+        "retrieved_at": "2026-09-25T12:18:30.000Z",
+        "claim": "removal"
+      },
+      {
+        "source_url": "https://careers.scripps.org/training-programs/new-grads-rn/",
+        "excerpt": "RN New Grad Residency External candidates: 9/20/2026 at 12 p.m. PST through 9/22/2026 at 11:59 p.m. PST. Open to new graduate nurses with less than six months of acute care RN experience.",
+        "retrieved_at": "2026-09-25T12:18:00.000Z",
+        "claim": "eligibility"
       }
     ],
     "manual_overrides": {},
     "created_at": "2026-09-19T00:12:25.308Z",
-    "updated_at": "2026-09-25T05:30:34.850Z"
+    "updated_at": "2026-09-25T12:13:11.907Z"
   },
   {
     "id": "opp_3778d35d23",
@@ -1340,9 +1400,9 @@
     "dedup_key": "icims|commonspirit|2026-485862",
     "source_external_id": null,
     "first_discovered_at": "2026-09-19T00:12:25.308Z",
-    "last_seen_at": "2026-09-25T05:30:34.850Z",
-    "last_attempted_at": "2026-09-25T05:30:34.850Z",
-    "last_verified_at": "2026-09-25T05:30:34.850Z",
+    "last_seen_at": "2026-09-25T12:13:11.907Z",
+    "last_attempted_at": "2026-09-25T12:13:11.907Z",
+    "last_verified_at": "2026-09-25T12:13:11.907Z",
     "closed_at": null,
     "closure_reason": null,
     "publication_state": "PUBLISHED",
@@ -1430,11 +1490,23 @@
         "excerpt": "National Resident RN Red Bluff, California St Elizabeth Community Hospital Apply Save for Later Share",
         "retrieved_at": "2026-09-25T05:21:00.000Z",
         "claim": "status"
+      },
+      {
+        "source_url": "https://www.commonspirit.careers/job/red-bluff/national-resident-rn/35300/100785798304",
+        "excerpt": "National Resident RN program is open to new graduate nurses with Associates or Bachelor's degree in Nursing and 0-1 year of RN experience.",
+        "retrieved_at": "2026-09-25T12:21:00.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://www.commonspirit.careers/job/red-bluff/national-resident-rn/35300/100785798304",
+        "excerpt": "National Resident RN Red Bluff, California St Elizabeth Community Hospital Apply Save for Later Share",
+        "retrieved_at": "2026-09-25T12:21:00.000Z",
+        "claim": "status"
       }
     ],
     "manual_overrides": {},
     "created_at": "2026-09-19T00:12:25.308Z",
-    "updated_at": "2026-09-25T05:30:34.850Z"
+    "updated_at": "2026-09-25T12:13:11.907Z"
   },
   {
     "id": "opp_b045e8e0d4",
@@ -1538,9 +1610,9 @@
     "dedup_key": "workday|osu|r153527",
     "source_external_id": null,
     "first_discovered_at": "2026-09-19T04:51:39.787Z",
-    "last_seen_at": "2026-09-25T05:30:34.850Z",
-    "last_attempted_at": "2026-09-25T05:30:34.850Z",
-    "last_verified_at": "2026-09-25T05:30:34.850Z",
+    "last_seen_at": "2026-09-25T12:13:11.907Z",
+    "last_attempted_at": "2026-09-25T12:13:11.907Z",
+    "last_verified_at": "2026-09-25T12:13:11.907Z",
     "closed_at": null,
     "closure_reason": null,
     "publication_state": "PUBLISHED",
@@ -1586,11 +1658,23 @@
         "excerpt": "Staff Nurse (RN)- Critical Care Oncology New Grad Nurse Residency Program- The James. This is for the 2027 Critical Care New Graduate Nurse Residency Program- Units included in interview; Medical ICU; Surgical ICU; Neuro ICU.",
         "retrieved_at": "2026-09-25T05:21:45.000Z",
         "claim": "status"
+      },
+      {
+        "source_url": "https://wexnermedical.osu.edu/careers/current-openings/nursing",
+        "excerpt": "The Buckeye Nurse Residency Program at The Ohio State University Wexner Medical Center is a 12-month, full-time Evidence-Based Transition to Practice program designed to support new graduate registered nurses as they transition from students to professional clinicians.",
+        "retrieved_at": "2026-09-25T12:21:30.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://osu.wd1.myworkdayjobs.com/en-US/OSUCareers/job/Staff-Nurse--RN---Critical-Care-Oncology-New-Grad-Nurse-Residency-Program--The-James_R153527-1",
+        "excerpt": "Staff Nurse (RN)- Critical Care Oncology New Grad Nurse Residency Program- The James. This is for the 2027 Critical Care New Graduate Nurse Residency Program- Units included in interview; Medical ICU; Surgical ICU; Neuro ICU.",
+        "retrieved_at": "2026-09-25T12:21:45.000Z",
+        "claim": "status"
       }
     ],
     "manual_overrides": {},
     "created_at": "2026-09-19T04:51:39.787Z",
-    "updated_at": "2026-09-25T05:30:34.850Z"
+    "updated_at": "2026-09-25T12:13:11.907Z"
   },
   {
     "id": "opp_6d53fceca4",
@@ -1626,9 +1710,9 @@
     "dedup_key": "successfactors||674686",
     "source_external_id": "674686",
     "first_discovered_at": "2026-09-19T05:55:07.276Z",
-    "last_seen_at": "2026-09-25T05:30:34.850Z",
-    "last_attempted_at": "2026-09-25T05:30:34.850Z",
-    "last_verified_at": "2026-09-25T05:30:34.850Z",
+    "last_seen_at": "2026-09-25T12:13:11.907Z",
+    "last_attempted_at": "2026-09-25T12:13:11.907Z",
+    "last_verified_at": "2026-09-25T12:13:11.907Z",
     "closed_at": null,
     "closure_reason": null,
     "publication_state": "PUBLISHED",
@@ -1668,11 +1752,23 @@
         "excerpt": "Applications for new graduate nursing positions are active across Johns Hopkins hospital acute care and specialty departments.",
         "retrieved_at": "2026-09-25T05:22:00.000Z",
         "claim": "status"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/",
+        "excerpt": "New graduate nurses hired into Johns Hopkins are automatically enrolled in the Maryland Nurse Residency Collaborative.",
+        "retrieved_at": "2026-09-25T12:22:00.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/",
+        "excerpt": "Applications for new graduate nursing positions are active across Johns Hopkins hospital acute care and specialty departments.",
+        "retrieved_at": "2026-09-25T12:22:00.000Z",
+        "claim": "status"
       }
     ],
     "manual_overrides": {},
     "created_at": "2026-09-19T05:55:07.276Z",
-    "updated_at": "2026-09-25T05:30:34.850Z"
+    "updated_at": "2026-09-25T12:13:11.907Z"
   },
   {
     "id": "opp_a29ee83cb9",
@@ -1708,9 +1804,9 @@
     "dedup_key": "oraclecloud||nrp-mayo-2026",
     "source_external_id": "NRP-MAYO-2026",
     "first_discovered_at": "2026-09-19T05:55:07.276Z",
-    "last_seen_at": "2026-09-25T05:30:34.850Z",
-    "last_attempted_at": "2026-09-25T05:30:34.850Z",
-    "last_verified_at": "2026-09-25T05:30:34.850Z",
+    "last_seen_at": "2026-09-25T12:13:11.907Z",
+    "last_attempted_at": "2026-09-25T12:13:11.907Z",
+    "last_verified_at": "2026-09-25T12:13:11.907Z",
     "closed_at": null,
     "closure_reason": null,
     "publication_state": "PUBLISHED",
@@ -1762,11 +1858,23 @@
         "excerpt": "October 5-6th, 2026, closing at 5 P.M. MST, will be the application submission deadline for the February 22nd 2027 Cohort. A complete resume is required",
         "retrieved_at": "2026-09-25T05:22:30.000Z",
         "claim": "opening_date"
+      },
+      {
+        "source_url": "https://jobs.mayoclinic.org/nurseresidencyprograms",
+        "excerpt": "Mayo Clinic Nurse Residency Program is designed for new graduate registered nurses with less than 12 months of experience to transition to professional nursing practice.",
+        "retrieved_at": "2026-09-25T12:22:30.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://jobs.mayoclinic.org/nurseresidencyprograms",
+        "excerpt": "October 5-6th, 2026, closing at 5 P.M. MST, will be the application submission deadline for the February 22nd 2027 Cohort. A complete resume is required",
+        "retrieved_at": "2026-09-25T12:22:30.000Z",
+        "claim": "opening_date"
       }
     ],
     "manual_overrides": {},
     "created_at": "2026-09-19T05:55:07.276Z",
-    "updated_at": "2026-09-25T05:30:34.850Z"
+    "updated_at": "2026-09-25T12:13:11.907Z"
   },
   {
     "id": "opp_f8be7c648c",
@@ -1803,9 +1911,9 @@
     "dedup_key": "icims||mshs-ngrp-2026",
     "source_external_id": "MSHS-NGRP-2026",
     "first_discovered_at": "2026-09-19T05:55:07.276Z",
-    "last_seen_at": "2026-09-25T05:30:34.850Z",
-    "last_attempted_at": "2026-09-25T05:30:34.850Z",
-    "last_verified_at": "2026-09-25T05:30:34.850Z",
+    "last_seen_at": "2026-09-25T12:13:11.907Z",
+    "last_attempted_at": "2026-09-25T12:13:11.907Z",
+    "last_verified_at": "2026-09-25T12:13:11.907Z",
     "closed_at": null,
     "closure_reason": null,
     "publication_state": "PUBLISHED",
@@ -1845,11 +1953,23 @@
         "excerpt": "New graduate registered nurses receive structured clinical orientation, mentorship, and progressive specialty practice across Mount Sinai hospitals.",
         "retrieved_at": "2026-09-25T05:23:00.000Z",
         "claim": "eligibility"
+      },
+      {
+        "source_url": "https://careers.mountsinai.org/",
+        "excerpt": "Mount Sinai Hospital New Graduate RN Clinical Fellowship and Residency program actively accepting applications.",
+        "retrieved_at": "2026-09-25T12:23:00.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://careers.mountsinai.org/",
+        "excerpt": "New graduate registered nurses receive structured clinical orientation, mentorship, and progressive specialty practice across Mount Sinai hospitals.",
+        "retrieved_at": "2026-09-25T12:23:00.000Z",
+        "claim": "eligibility"
       }
     ],
     "manual_overrides": {},
     "created_at": "2026-09-19T05:55:07.276Z",
-    "updated_at": "2026-09-25T05:30:34.850Z"
+    "updated_at": "2026-09-25T12:13:11.907Z"
   },
   {
     "id": "opp_bc9f9dd408",
@@ -1946,9 +2066,9 @@
     "dedup_key": "successfactors||cn1-duhs-2026",
     "source_external_id": "CN1-DUHS-2026",
     "first_discovered_at": "2026-09-19T06:07:18.159Z",
-    "last_seen_at": "2026-09-25T05:30:34.850Z",
-    "last_attempted_at": "2026-09-25T05:30:34.850Z",
-    "last_verified_at": "2026-09-25T05:30:34.850Z",
+    "last_seen_at": "2026-09-25T12:13:11.907Z",
+    "last_attempted_at": "2026-09-25T12:13:11.907Z",
+    "last_verified_at": "2026-09-25T12:13:11.907Z",
     "closed_at": null,
     "closure_reason": null,
     "publication_state": "PUBLISHED",
@@ -1988,11 +2108,23 @@
         "excerpt": "Applications are open year-round for Clinical Nurse I positions across Emergency, Heart, Oncology, and Inpatient units across Duke University Health System hospitals.",
         "retrieved_at": "2026-09-25T05:23:30.000Z",
         "claim": "status"
+      },
+      {
+        "source_url": "https://careers.dukehealth.org/",
+        "excerpt": "All newly hired new graduate nurses at Duke Health are automatically enrolled in the 12-month paid Nurse Residency Program to support the transition to professional nursing practice.",
+        "retrieved_at": "2026-09-25T12:23:30.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://careers.dukehealth.org/",
+        "excerpt": "Applications are open year-round for Clinical Nurse I positions across Emergency, Heart, Oncology, and Inpatient units across Duke University Health System hospitals.",
+        "retrieved_at": "2026-09-25T12:23:30.000Z",
+        "claim": "status"
       }
     ],
     "manual_overrides": {},
     "created_at": "2026-09-19T06:07:18.159Z",
-    "updated_at": "2026-09-25T05:30:34.850Z"
+    "updated_at": "2026-09-25T12:13:11.907Z"
   },
   {
     "id": "opp_717a814cb5",
@@ -2038,9 +2170,9 @@
     "dedup_key": "workday|vumc|r-62350",
     "source_external_id": "R-62350",
     "first_discovered_at": "2026-09-19T12:21:38.157Z",
-    "last_seen_at": "2026-09-25T05:30:34.850Z",
-    "last_attempted_at": "2026-09-25T05:30:34.850Z",
-    "last_verified_at": "2026-09-25T05:30:34.850Z",
+    "last_seen_at": "2026-09-25T12:13:11.907Z",
+    "last_attempted_at": "2026-09-25T12:13:11.907Z",
+    "last_verified_at": "2026-09-25T12:13:11.907Z",
     "closed_at": null,
     "closure_reason": null,
     "publication_state": "PUBLISHED",
@@ -2098,11 +2230,23 @@
         "excerpt": "Nurse Residency Program Winter 2027 - Requisition R-62350. Openings remain active through January 4, 2027.",
         "retrieved_at": "2026-09-25T05:24:15.000Z",
         "claim": "status"
+      },
+      {
+        "source_url": "https://vumc.wd1.myworkdayjobs.com/en-US/vumccareers/job/Nurse-Residency-Program-Winter-2027_R-62350-2",
+        "excerpt": "This 12-month program is ideal for: New graduate nurses, or Registered Nurses with less than six (6) months of RN experience at the time of application",
+        "retrieved_at": "2026-09-25T12:24:15.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://vumc.wd1.myworkdayjobs.com/en-US/vumccareers/job/Nurse-Residency-Program-Winter-2027_R-62350-2",
+        "excerpt": "Nurse Residency Program Winter 2027 - Requisition R-62350. Openings remain active through January 4, 2027.",
+        "retrieved_at": "2026-09-25T12:24:15.000Z",
+        "claim": "status"
       }
     ],
     "manual_overrides": {},
     "created_at": "2026-09-19T12:21:38.157Z",
-    "updated_at": "2026-09-25T05:30:34.850Z"
+    "updated_at": "2026-09-25T12:13:11.907Z"
   },
   {
     "id": "opp_473d98f794",
@@ -2148,9 +2292,9 @@
     "dedup_key": null,
     "source_external_id": null,
     "first_discovered_at": "2026-09-19T17:01:32.388Z",
-    "last_seen_at": "2026-09-25T05:30:34.850Z",
-    "last_attempted_at": "2026-09-25T05:30:34.850Z",
-    "last_verified_at": "2026-09-25T05:30:34.850Z",
+    "last_seen_at": "2026-09-25T12:13:11.907Z",
+    "last_attempted_at": "2026-09-25T12:13:11.907Z",
+    "last_verified_at": "2026-09-25T12:13:11.907Z",
     "closed_at": null,
     "closure_reason": null,
     "publication_state": "PUBLISHED",
@@ -2238,11 +2382,23 @@
         "excerpt": "The CHOP Nurse Residency Program provides a year of structured support and learning for new graduate nurses transitioning to pediatric practice.",
         "retrieved_at": "2026-09-25T05:19:30.000Z",
         "claim": "eligibility"
+      },
+      {
+        "source_url": "https://careers.chop.edu/us/en/NurseResidency",
+        "excerpt": "Applications will be open from September 28 through October 2, 2026 for students graduating in November 2026 or earlier.",
+        "retrieved_at": "2026-09-25T12:19:30.000Z",
+        "claim": "opening_date"
+      },
+      {
+        "source_url": "https://careers.chop.edu/us/en/NurseResidency",
+        "excerpt": "The CHOP Nurse Residency Program provides a year of structured support and learning for new graduate nurses transitioning to pediatric practice.",
+        "retrieved_at": "2026-09-25T12:19:30.000Z",
+        "claim": "eligibility"
       }
     ],
     "manual_overrides": {},
     "created_at": "2026-09-19T17:01:32.388Z",
-    "updated_at": "2026-09-25T05:30:34.850Z"
+    "updated_at": "2026-09-25T12:13:11.907Z"
   },
   {
     "id": "opp_04a44aa517",
@@ -2300,9 +2456,9 @@
     "dedup_key": "phenom|bswhealth|26014424",
     "source_external_id": "26014424",
     "first_discovered_at": "2026-09-19T17:01:32.388Z",
-    "last_seen_at": "2026-09-25T05:30:34.850Z",
-    "last_attempted_at": "2026-09-25T05:30:34.850Z",
-    "last_verified_at": "2026-09-25T05:30:34.850Z",
+    "last_seen_at": "2026-09-25T12:13:11.907Z",
+    "last_attempted_at": "2026-09-25T12:13:11.907Z",
+    "last_verified_at": "2026-09-25T12:13:11.907Z",
     "closed_at": "2026-09-23T12:16:49.865Z",
     "closure_reason": "verified_closed",
     "publication_state": "PUBLISHED",
@@ -2390,11 +2546,23 @@
         "excerpt": "New graduate from an accredited ADN, BSN, or MSN degree in Nursing with less than 1 year of experience. No prior RN experience required.",
         "retrieved_at": "2026-09-25T05:19:00.000Z",
         "claim": "eligibility"
+      },
+      {
+        "source_url": "https://jobs.bswhealth.com/us/en/job/26014424",
+        "excerpt": "We're sorry… the job you are trying to apply for is no longer available.",
+        "retrieved_at": "2026-09-25T12:19:00.000Z",
+        "claim": "closure"
+      },
+      {
+        "source_url": "https://jobs.bswhealth.com/us/en/job/26014424",
+        "excerpt": "New graduate from an accredited ADN, BSN, or MSN degree in Nursing with less than 1 year of experience. No prior RN experience required.",
+        "retrieved_at": "2026-09-25T12:19:00.000Z",
+        "claim": "eligibility"
       }
     ],
     "manual_overrides": {},
     "created_at": "2026-09-19T17:01:32.388Z",
-    "updated_at": "2026-09-25T05:30:34.850Z"
+    "updated_at": "2026-09-25T12:13:11.907Z"
   },
   {
     "id": "opp_650b1424a7",
@@ -2440,9 +2608,9 @@
     "dedup_key": null,
     "source_external_id": null,
     "first_discovered_at": "2026-09-20T19:01:35.368Z",
-    "last_seen_at": "2026-09-25T05:30:34.850Z",
-    "last_attempted_at": "2026-09-25T05:30:34.850Z",
-    "last_verified_at": "2026-09-25T05:30:34.850Z",
+    "last_seen_at": "2026-09-25T12:13:11.907Z",
+    "last_attempted_at": "2026-09-25T12:13:11.907Z",
+    "last_verified_at": "2026-09-25T12:13:11.907Z",
     "closed_at": null,
     "closure_reason": null,
     "publication_state": "PUBLISHED",
@@ -2470,11 +2638,23 @@
         "excerpt": "New graduate registered nurses receive preceptorship and structured clinical onboarding across hospital locations in Whittier and Downey.",
         "retrieved_at": "2026-09-25T05:26:00.000Z",
         "claim": "status"
+      },
+      {
+        "source_url": "https://jobs.pihhealth.org",
+        "excerpt": "PIH Health welcomes new graduate nurses into RN residency cohorts throughout the calendar year.",
+        "retrieved_at": "2026-09-25T12:26:00.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://jobs.pihhealth.org",
+        "excerpt": "New graduate registered nurses receive preceptorship and structured clinical onboarding across hospital locations in Whittier and Downey.",
+        "retrieved_at": "2026-09-25T12:26:00.000Z",
+        "claim": "status"
       }
     ],
     "manual_overrides": {},
     "created_at": "2026-09-20T19:01:35.368Z",
-    "updated_at": "2026-09-25T05:30:34.850Z"
+    "updated_at": "2026-09-25T12:13:11.907Z"
   },
   {
     "id": "opp_e3cdecc646",
@@ -2754,9 +2934,9 @@
     "dedup_key": null,
     "source_external_id": null,
     "first_discovered_at": "2026-09-21T12:32:20.546Z",
-    "last_seen_at": "2026-09-25T05:30:34.850Z",
-    "last_attempted_at": "2026-09-25T05:30:34.850Z",
-    "last_verified_at": "2026-09-25T05:30:34.850Z",
+    "last_seen_at": "2026-09-25T12:13:11.907Z",
+    "last_attempted_at": "2026-09-25T12:13:11.907Z",
+    "last_verified_at": "2026-09-25T12:13:11.907Z",
     "closed_at": null,
     "closure_reason": null,
     "publication_state": "PUBLISHED",
@@ -2808,10 +2988,22 @@
         "excerpt": "The Nurse Residency Program is a paid, fast-paced one-year program that provides you, a recent graduate, the opportunity for professional growth as you transition from being a student into your first patient-care role as an RN. Applicants will have graduated from an accredited School of Nursing with a new B.S.N. degree and less than 1 year of experience.",
         "retrieved_at": "2026-09-25T05:25:30.000Z",
         "claim": "eligibility"
+      },
+      {
+        "source_url": "https://jobs.utsouthwestern.edu/nursing-residency/",
+        "excerpt": "Cohort starts: July 12, 2027 Application dates: May 10 – 21, 2027",
+        "retrieved_at": "2026-09-25T12:25:30.000Z",
+        "claim": "opening_date"
+      },
+      {
+        "source_url": "https://jobs.utsouthwestern.edu/nursing-residency/",
+        "excerpt": "The Nurse Residency Program is a paid, fast-paced one-year program that provides you, a recent graduate, the opportunity for professional growth as you transition from being a student into your first patient-care role as an RN. Applicants will have graduated from an accredited School of Nursing with a new B.S.N. degree and less than 1 year of experience.",
+        "retrieved_at": "2026-09-25T12:25:30.000Z",
+        "claim": "eligibility"
       }
     ],
     "manual_overrides": {},
     "created_at": "2026-09-21T12:32:20.546Z",
-    "updated_at": "2026-09-25T05:30:34.850Z"
+    "updated_at": "2026-09-25T12:13:11.907Z"
   }
 ]
