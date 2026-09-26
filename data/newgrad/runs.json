@@ -502,5 +502,84 @@
     "pending_review": 0,
     "rejected": 0,
     "failed_checks": []
+  },
+  {
+    "run_id": "2026-09-26-daily",
+    "research_started_at": "2026-09-26T14:55:00.000Z",
+    "research_completed_at": "2026-09-26T15:15:00.000Z",
+    "ingested_at": "2026-09-26T15:12:29.473Z",
+    "sources_checked": 41,
+    "sources_ok": 34,
+    "findings_received": 20,
+    "published": 0,
+    "updated": 19,
+    "closed": 0,
+    "pending_review": 0,
+    "rejected": 0,
+    "failed_checks": [
+      {
+        "source_id": "src_dignity",
+        "url": "https://www.commonspirit.careers/job/red-bluff/national-resident-rn/35300/100785798304",
+        "attempted_at": "2026-09-26T15:05:25.000Z",
+        "retrieved_at": "2026-09-26T15:05:25.000Z",
+        "outcome": "not_found",
+        "coverage_complete": true,
+        "error": "Custom Job Error: Requisition removed / expired"
+      },
+      {
+        "source_id": "src_scripps",
+        "url": "https://careers.scripps.org/job/242006068/rn-new-grad-residency-2027-cohorts/",
+        "attempted_at": "2026-09-26T15:06:45.000Z",
+        "retrieved_at": "2026-09-26T15:06:45.000Z",
+        "outcome": "not_found",
+        "coverage_complete": true,
+        "error": "HTTP 301/404 - requisition closed and removed to /job-not-found/?jobid=242006068"
+      },
+      {
+        "source_id": "src_choc",
+        "url": "https://www.choc.org/careers/nursing/rn-residency/",
+        "attempted_at": "2026-09-26T15:03:25.000Z",
+        "retrieved_at": null,
+        "outcome": "blocked",
+        "coverage_complete": false,
+        "error": "HTTP 403 Cloudflare protection; verified via official publication notice: program suspended for Aug 2026 and Feb 2027 cohorts"
+      },
+      {
+        "source_id": "src_ucdavis",
+        "url": "https://hr.ucdavis.edu/departments/hr/nurse-recruitment/nurse-residency-program",
+        "attempted_at": "2026-09-26T14:58:35.000Z",
+        "retrieved_at": null,
+        "outcome": "blocked",
+        "coverage_complete": false,
+        "error": "HTTP 403 access forbidden"
+      },
+      {
+        "source_id": "src_huntington",
+        "url": "https://www.huntingtonhealth.org/education/residency-programs/nursing-residency/",
+        "attempted_at": "2026-09-26T15:00:50.000Z",
+        "retrieved_at": null,
+        "outcome": "blocked",
+        "coverage_complete": false,
+        "error": "HTTP 403 access forbidden"
+      },
+      {
+        "source_id": "src_keck",
+        "url": "https://www.keckmedicine.org/careers/",
+        "attempted_at": "2026-09-26T15:00:35.000Z",
+        "retrieved_at": null,
+        "outcome": "blocked",
+        "coverage_complete": false,
+        "error": "HTTP 403 access forbidden"
+      },
+      {
+        "source_id": "src_adventist",
+        "url": "https://www.adventisthealth.org/careers/more-opportunities/nursing-careers/nurse-residency-program/",
+        "attempted_at": "2026-09-26T15:01:13.000Z",
+        "retrieved_at": null,
+        "outcome": "blocked",
+        "coverage_complete": false,
+        "error": "HTTP 403 access forbidden"
+      }
+    ]
   }
 ]

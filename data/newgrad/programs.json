@@ -328,5 +328,59 @@
     "hospital_id": "hosp_mayo",
     "name": "Staff Nurse - Nurse Residency Program",
     "source_url": "https://jobs.mayoclinic.org/nurseresidencyprograms"
+  },
+  {
+    "id": "prog_f37ae5986d",
+    "hospital_id": "hosp_sharp",
+    "name": "Nurse Residency Program",
+    "source_url": "https://careers.sharp.com/SHC-nurse-residency-program"
+  },
+  {
+    "id": "prog_b74fbdffaa",
+    "hospital_id": "hosp_bidmc",
+    "name": "Transition to Practice: Nurse Residency Program",
+    "source_url": "https://jobs.bilh.org/locations/beth-israel-deaconess-medical-center/"
+  },
+  {
+    "id": "prog_c68154cead",
+    "hospital_id": "hosp_hopkins",
+    "name": "Maryland Nurse Residency Collaborative",
+    "source_url": "https://jobs.hopkinsmedicine.org/"
+  },
+  {
+    "id": "prog_4ecfe2fcb1",
+    "hospital_id": "hosp_duke",
+    "name": "Duke Nurse Residency Program",
+    "source_url": "https://careers.dukehealth.org/"
+  },
+  {
+    "id": "prog_299896d78f",
+    "hospital_id": "hosp_vanderbilt",
+    "name": "Nurse Residency Program",
+    "source_url": "https://www.vumc.org/nurse-residency-program/"
+  },
+  {
+    "id": "prog_617e487cea",
+    "hospital_id": "hosp_mayo",
+    "name": "Mayo Clinic Nurse Residency Program",
+    "source_url": "https://jobs.mayoclinic.org/nurseresidencyprograms"
+  },
+  {
+    "id": "prog_7013441747",
+    "hospital_id": "hosp_mountsinai",
+    "name": "New Graduate RN Clinical Fellowship and Residency",
+    "source_url": "https://careers.mountsinai.org/"
+  },
+  {
+    "id": "prog_e78305e4f6",
+    "hospital_id": "hosp_ucla",
+    "name": "UCLA Health Nurse Residency Program",
+    "source_url": "https://www.uclahealthcareers.org/nursing-new-graduates/"
+  },
+  {
+    "id": "prog_fd27278595",
+    "hospital_id": "hosp_pih",
+    "name": "RN Residency Program",
+    "source_url": "https://jobs.pihhealth.org/"
   }
 ]

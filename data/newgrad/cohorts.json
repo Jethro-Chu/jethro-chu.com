@@ -253,5 +253,77 @@
     "program_id": "prog_366dd8d679",
     "label": "February 2027 Cohort",
     "program_start": null
+  },
+  {
+    "id": "cohort_5de2ba24b7",
+    "program_id": "prog_f37ae5986d",
+    "label": "Spring 2027",
+    "program_start": {
+      "kind": "text",
+      "value": "March 2027"
+    }
+  },
+  {
+    "id": "cohort_3e2de78790",
+    "program_id": "prog_c27def62cc",
+    "label": "Fall 2026",
+    "program_start": null
+  },
+  {
+    "id": "cohort_8ea4e56ffa",
+    "program_id": "prog_8bf5226605",
+    "label": "March 2027",
+    "program_start": {
+      "kind": "text",
+      "value": "March 2027"
+    }
+  },
+  {
+    "id": "cohort_47f6e994f6",
+    "program_id": "prog_3ffafd825b",
+    "label": "Fall 2026",
+    "program_start": {
+      "kind": "date",
+      "value": "2026-10-19"
+    }
+  },
+  {
+    "id": "cohort_c466ae1141",
+    "program_id": "prog_76bb8bd11f",
+    "label": "Winter 2027",
+    "program_start": null
+  },
+  {
+    "id": "cohort_5d199b1029",
+    "program_id": "prog_299896d78f",
+    "label": "Winter 2027",
+    "program_start": null
+  },
+  {
+    "id": "cohort_523c21041d",
+    "program_id": "prog_617e487cea",
+    "label": "February 2027",
+    "program_start": null
+  },
+  {
+    "id": "cohort_241e0dc409",
+    "program_id": "prog_e78305e4f6",
+    "label": "Spring 2027",
+    "program_start": null
+  },
+  {
+    "id": "cohort_c1db376b97",
+    "program_id": "prog_293b44c055",
+    "label": "Spring 2027",
+    "program_start": null
+  },
+  {
+    "id": "cohort_43b778c150",
+    "program_id": "prog_39961c506b",
+    "label": "Cohort 60",
+    "program_start": {
+      "kind": "date",
+      "value": "2027-03-15"
+    }
   }
 ]
