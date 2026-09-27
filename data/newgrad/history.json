@@ -6373,5 +6373,34 @@
         "claim": "eligibility"
       }
     ]
+  },
+  {
+    "id": "hist_2026-09-27-stelizabeth_0001",
+    "run_id": "2026-09-27-stelizabeth",
+    "at": "2026-09-27T15:11:14.064Z",
+    "type": "NEW",
+    "opportunity_id": "opp_5775823a98",
+    "changes": null,
+    "reason": "First published from run evidence (OPEN).",
+    "evidence": [
+      {
+        "source_url": "https://www.commonspirit.careers/job/red-bluff/national-resident-rn/35300/101098375920",
+        "excerpt": "As a National Nurse Resident, you’ll step into a hands-on, supportive experience designed to help you grow and build confidence from day one. You won’t be on your own. You can expect real mentorship, meaningful feedback, and a team invested in your long-term success.",
+        "retrieved_at": "2026-09-27T12:07:07.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://www.commonspirit.careers/NNRP-CA",
+        "excerpt": "The National Nurse Residency Program supports newly licensed registered nurses and recent graduates with less than 1 year of professional nursing experience upon hire.",
+        "retrieved_at": "2026-09-27T12:07:07.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://www.commonspirit.careers/job/red-bluff/national-resident-rn/35300/101098375920",
+        "excerpt": "Founded in 1906, Dignity Health - St. Elizabeth Community Hospital is a 76-bed, acute care, nonprofit hospital located in Red Bluff, California.",
+        "retrieved_at": "2026-09-27T12:07:07.000Z",
+        "claim": "location"
+      }
+    ]
   }
 ]

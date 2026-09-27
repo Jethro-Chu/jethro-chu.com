@@ -1029,7 +1029,7 @@
     "id": "rev_2026-09-27-daily_001",
     "run_id": "2026-09-27-daily",
     "created_at": "2026-09-27T12:16:00.009Z",
-    "state": "PENDING",
+    "state": "APPROVED",
     "reason": "No active official sources on file for St. Elizabeth Community Hospital; finding held for review until sources are verified.",
     "finding": {
       "employer": {
@@ -1093,6 +1093,10 @@
       ],
       "uncertainties": []
     },
-    "decision": null
+    "decision": {
+      "by": "Jethro",
+      "at": "2026-09-27T15:11:02.853Z",
+      "note": "Activated official source src_3b0b738776 and verified National Resident RN opening"
+    }
   }
 ]

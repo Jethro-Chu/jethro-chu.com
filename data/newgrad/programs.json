@@ -430,5 +430,11 @@
     "hospital_id": "hosp_pih",
     "name": "PIH Health New Graduate RN Residency",
     "source_url": "https://jobs.pihhealth.org/"
+  },
+  {
+    "id": "prog_83b8bfcd22",
+    "hospital_id": "hosp_stelizabeth",
+    "name": "National Nurse Residency Program",
+    "source_url": "https://www.commonspirit.careers/NNRP-CA"
   }
 ]

@@ -861,5 +861,16 @@
     "status": "active",
     "shared_board": "mgb",
     "notes": "Verified 2026-09-20: Nora McDonough Nurse Residency Program (ANCC PTAP accredited) at Brigham and Women's Hospital. Career portal verified 2026-09-22."
+  },
+  {
+    "id": "src_3b0b738776",
+    "hospital_id": "hosp_stelizabeth",
+    "label": "St. Elizabeth Community Hospital careers",
+    "urls": [
+      "https://www.commonspirit.careers/NNRP-CA"
+    ],
+    "status": "active",
+    "shared_board": null,
+    "notes": "Activated by Jethro"
   }
 ]

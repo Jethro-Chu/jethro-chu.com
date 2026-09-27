@@ -358,5 +358,11 @@
       "kind": "text",
       "value": "March 2027"
     }
+  },
+  {
+    "id": "cohort_ba0b0ca610",
+    "program_id": "prog_83b8bfcd22",
+    "label": "Fall 2026",
+    "program_start": null
   }
 ]
