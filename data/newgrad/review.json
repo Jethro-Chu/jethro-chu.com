@@ -1024,5 +1024,75 @@
       "at": "2026-09-20T19:01:17.003Z",
       "note": "Source src_pih verified and activated"
     }
+  },
+  {
+    "id": "rev_2026-09-27-daily_001",
+    "run_id": "2026-09-27-daily",
+    "created_at": "2026-09-27T12:16:00.009Z",
+    "state": "PENDING",
+    "reason": "No active official sources on file for St. Elizabeth Community Hospital; finding held for review until sources are verified.",
+    "finding": {
+      "employer": {
+        "name": "St. Elizabeth Community Hospital",
+        "hospital_id": "hosp_stelizabeth"
+      },
+      "identifiers": {
+        "program": "National Nurse Residency Program",
+        "cohort": "Fall 2026",
+        "requisition_id": "2026-494269",
+        "ats_provider": "icims",
+        "ats_tenant": "commonspirit",
+        "opportunity_id": null
+      },
+      "observed_state": "OPEN",
+      "eligibility": {
+        "assessment": "ELIGIBLE",
+        "note": "Associates Of Science Nursing and 0-12 months of professional nursing (RN) experience upon hire."
+      },
+      "facts": {
+        "position_title": "National Resident RN",
+        "unit": "Acute Care / Nurse Residency",
+        "locations": [
+          {
+            "city": "Red Bluff",
+            "state": "CA"
+          }
+        ],
+        "specialties": [
+          "Med-Surg",
+          "Critical Care",
+          "Multiple Specialties"
+        ],
+        "source_posted_at": "2026-09-24T00:00:00.000Z",
+        "bsn_required": false,
+        "rn_license_requirement": "Registered Nurse: CA upon hire, Basic Life Support - CPR upon hire.",
+        "license_required_by": "start",
+        "experience_requirement": "Associates Of Science Nursing and 0-12 months of professional nursing (RN) experience upon hire. Bachelors Of Science Nursing preferred.",
+        "source_url": "https://www.commonspirit.careers/NNRP-CA",
+        "application_url": "https://www.commonspirit.careers/job/red-bluff/national-resident-rn/35300/101098375920"
+      },
+      "evidence": [
+        {
+          "source_url": "https://www.commonspirit.careers/job/red-bluff/national-resident-rn/35300/101098375920",
+          "excerpt": "As a National Nurse Resident, you’ll step into a hands-on, supportive experience designed to help you grow and build confidence from day one. You won’t be on your own. You can expect real mentorship, meaningful feedback, and a team invested in your long-term success.",
+          "retrieved_at": "2026-09-27T12:07:07.000Z",
+          "claim": "status"
+        },
+        {
+          "source_url": "https://www.commonspirit.careers/NNRP-CA",
+          "excerpt": "The National Nurse Residency Program supports newly licensed registered nurses and recent graduates with less than 1 year of professional nursing experience upon hire.",
+          "retrieved_at": "2026-09-27T12:07:07.000Z",
+          "claim": "eligibility"
+        },
+        {
+          "source_url": "https://www.commonspirit.careers/job/red-bluff/national-resident-rn/35300/101098375920",
+          "excerpt": "Founded in 1906, Dignity Health - St. Elizabeth Community Hospital is a 76-bed, acute care, nonprofit hospital located in Red Bluff, California.",
+          "retrieved_at": "2026-09-27T12:07:07.000Z",
+          "claim": "location"
+        }
+      ],
+      "uncertainties": []
+    },
+    "decision": null
   }
 ]

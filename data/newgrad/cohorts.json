@@ -325,5 +325,38 @@
       "kind": "date",
       "value": "2027-03-15"
     }
+  },
+  {
+    "id": "cohort_4b360e9b66",
+    "program_id": "prog_68ed2a7de6",
+    "label": "Spring 2027",
+    "program_start": {
+      "kind": "text",
+      "value": "March 2027"
+    }
+  },
+  {
+    "id": "cohort_bfe758596d",
+    "program_id": "prog_4dd3273bc6",
+    "label": "2027 Cohorts",
+    "program_start": null
+  },
+  {
+    "id": "cohort_29e82f5e9c",
+    "program_id": "prog_e78305e4f6",
+    "label": "Spring 2027 Cohort",
+    "program_start": {
+      "kind": "text",
+      "value": "March 2027"
+    }
+  },
+  {
+    "id": "cohort_327b793250",
+    "program_id": "prog_e34b839852",
+    "label": "March 2027 Cohort",
+    "program_start": {
+      "kind": "text",
+      "value": "March 2027"
+    }
   }
 ]

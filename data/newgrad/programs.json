@@ -382,5 +382,53 @@
     "hospital_id": "hosp_pih",
     "name": "RN Residency Program",
     "source_url": "https://jobs.pihhealth.org/"
+  },
+  {
+    "id": "prog_68ed2a7de6",
+    "hospital_id": "hosp_sharp",
+    "name": "Sharp HealthCare Nurse Residency Program",
+    "source_url": "https://careers.sharp.com/"
+  },
+  {
+    "id": "prog_a095b6523b",
+    "hospital_id": "hosp_choc",
+    "name": "RN Residency in Pediatrics",
+    "source_url": "https://www.choc.org/careers/nursing/rn-residency/"
+  },
+  {
+    "id": "prog_e8acfa8a4f",
+    "hospital_id": "hosp_ohiostate",
+    "name": "Critical Care Oncology New Grad Nurse Residency Program",
+    "source_url": "https://wexnermedical.osu.edu/careers/current-openings/nursing"
+  },
+  {
+    "id": "prog_a68b06dcb8",
+    "hospital_id": "hosp_hopkins",
+    "name": "Johns Hopkins Nurse Residency Program",
+    "source_url": "https://jobs.hopkinsmedicine.org/"
+  },
+  {
+    "id": "prog_3916f80566",
+    "hospital_id": "hosp_duke",
+    "name": "Duke University Health System Nurse Residency Program",
+    "source_url": "https://careers.dukehealth.org/"
+  },
+  {
+    "id": "prog_4dd3273bc6",
+    "hospital_id": "hosp_scripps",
+    "name": "New Graduate RN Residency Program",
+    "source_url": "https://careers.scripps.org/training-programs/new-grads-rn/"
+  },
+  {
+    "id": "prog_e34b839852",
+    "hospital_id": "hosp_ucsd",
+    "name": "UC San Diego Health Nurse Residency Program (NRP)",
+    "source_url": "https://employment.ucsd.edu/nursing"
+  },
+  {
+    "id": "prog_f4eae62a35",
+    "hospital_id": "hosp_pih",
+    "name": "PIH Health New Graduate RN Residency",
+    "source_url": "https://jobs.pihhealth.org/"
   }
 ]
