@@ -6402,5 +6402,62 @@
         "claim": "location"
       }
     ]
+  },
+  {
+    "id": "hist_2026-09-28-daily_0001",
+    "run_id": "2026-09-28-daily",
+    "at": "2026-09-28T12:19:48.970Z",
+    "type": "UPDATED",
+    "opportunity_id": "opp_473d98f794",
+    "changes": [
+      {
+        "field": "application_url",
+        "before": "https://careers.chop.edu/us/en/NurseResidency",
+        "after": "https://chop.wd108.myworkdayjobs.com/CHOPExternalCareers/job/Philadelphia-Campus--Main-Hospital/Nurse-Resident_1028236-2/apply"
+      },
+      {
+        "field": "dedup_key",
+        "before": null,
+        "after": "workday|chop|1028236"
+      },
+      {
+        "field": "application_status",
+        "before": "OPENING_SOON",
+        "after": "OPEN"
+      }
+    ],
+    "reason": "Updated from run evidence (OPEN).",
+    "evidence": [
+      {
+        "source_url": "https://careers.chop.edu/us/en/NurseResidency",
+        "excerpt": "Application Open: This posting will be open from September 28 through October 2, 2026.",
+        "retrieved_at": "2026-09-28T12:07:29.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://careers.chop.edu/us/en/NurseResidency",
+        "excerpt": "CHOP’s 12-month Nurse Residency helps new graduate nurses transition into their first professional roles.",
+        "retrieved_at": "2026-09-28T12:07:29.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://careers.chop.edu/us/en/NurseResidency",
+        "excerpt": "Eligibility: This posting is strictly for candidates graduating in November 2026 or earlier.",
+        "retrieved_at": "2026-09-28T12:07:29.000Z",
+        "claim": "experience"
+      },
+      {
+        "source_url": "https://careers.chop.edu/us/en/NurseResidency",
+        "excerpt": "Applications will be open from Sept. 28 through Oct. 2, 2026 for students graduating in November 2026 or earlier.",
+        "retrieved_at": "2026-09-28T12:07:29.000Z",
+        "claim": "opening_date"
+      },
+      {
+        "source_url": "https://careers.chop.edu/us/en/NurseResidency",
+        "excerpt": "Applications close October 2, 2026 for candidates graduating in November 2026 or earlier.",
+        "retrieved_at": "2026-09-28T12:07:29.000Z",
+        "claim": "deadline"
+      }
+    ]
   }
 ]

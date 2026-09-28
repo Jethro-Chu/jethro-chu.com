@@ -648,5 +648,39 @@
     "pending_review": 0,
     "rejected": 0,
     "failed_checks": []
+  },
+  {
+    "run_id": "2026-09-28-daily",
+    "research_started_at": "2026-09-28T12:00:00.000Z",
+    "research_completed_at": "2026-09-28T12:15:00.000Z",
+    "ingested_at": "2026-09-28T12:19:48.970Z",
+    "sources_checked": 42,
+    "sources_ok": 40,
+    "findings_received": 31,
+    "published": 0,
+    "updated": 1,
+    "closed": 0,
+    "pending_review": 0,
+    "rejected": 0,
+    "failed_checks": [
+      {
+        "source_id": "src_bsw",
+        "url": "https://jobs.bswhealth.com/us/en/job/26014424",
+        "attempted_at": "2026-09-28T12:09:05.000Z",
+        "retrieved_at": null,
+        "outcome": "not_found",
+        "coverage_complete": true,
+        "error": "HTTP 410 Gone: requisition expired and closed on 2026-09-27"
+      },
+      {
+        "source_id": "src_ucdavis",
+        "url": "https://hr.ucdavis.edu/departments/hr/nurse-recruitment/nurse-residency-program",
+        "attempted_at": "2026-09-28T12:14:16.000Z",
+        "retrieved_at": null,
+        "outcome": "blocked",
+        "coverage_complete": false,
+        "error": "HTTP 403 Forbidden"
+      }
+    ]
   }
 ]
