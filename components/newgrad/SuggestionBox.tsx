@@ -90,7 +90,7 @@ export function SuggestionBox() {
         aria-expanded={isOpen}
       >
         <span className="ng-suggest-plus">+</span>
-        <span>Suggest a Hospital</span>
+        <span>Add a Hospital</span>
       </button>
 
       {isOpen && (
@@ -111,7 +111,7 @@ export function SuggestionBox() {
               <div>
                 <p className="ng-modal-eyebrow">COMMUNITY WATCHLIST</p>
                 <h2 id="ng-modal-title" className="ng-modal-title">
-                  Suggest a Hospital
+                  Add a Hospital
                 </h2>
               </div>
               <button
