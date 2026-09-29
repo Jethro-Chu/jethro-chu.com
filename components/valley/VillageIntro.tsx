@@ -119,14 +119,6 @@ export function VillageIntro({
         >
           {starting ? "LOADING…" : "PLAY"}
         </m.button>
-
-        <m.p
-          {...rise(0.72)}
-          className="label-mono text-[0.74rem]"
-          style={{ color: CREAM, opacity: 0.92, textShadow: "0 1px 4px rgba(0,0,0,0.85)" }}
-        >
-          Wander the village, or choose a destination from the signs.
-        </m.p>
       </div>
 
       {/* bottom skip */}
