@@ -78,15 +78,8 @@ export function VillageIntro({
       {/* staged title + PLAY */}
       <div className="relative flex flex-col items-center gap-7">
         <div>
-          <m.p
-            {...rise(0.1)}
-            className="label-mono mb-3 text-[0.7rem] tracking-[0.42em]"
-            style={{ color: "#e6bd73", textShadow: "0 1px 4px rgba(0,0,0,0.85)" }}
-          >
-            YOSEMITE VILLAGE
-          </m.p>
           <m.h1
-            {...rise(0.22)}
+            {...rise(0.1)}
             className="text-summit"
             style={{
               color: "#f7f2e7",
