@@ -1098,5 +1098,95 @@
       "at": "2026-09-27T15:11:02.853Z",
       "note": "Activated official source src_3b0b738776 and verified National Resident RN opening"
     }
+  },
+  {
+    "id": "rev_2026-09-28-longbeach_001",
+    "run_id": "2026-09-28-longbeach",
+    "created_at": "2026-09-29T00:08:02.347Z",
+    "state": "APPROVED",
+    "reason": "Eligibility evidence lacks explicit new-grad acceptance language; held for human review.",
+    "finding": {
+      "employer": {
+        "name": "MemorialCare Long Beach Medical Center",
+        "hospital_id": "hosp_lb_memorial"
+      },
+      "identifiers": {
+        "program": "MemorialCare RN Residency Program",
+        "cohort": "Fall 2026",
+        "requisition_id": "MIL005258",
+        "ats_provider": "taleo",
+        "ats_tenant": "memorialcare",
+        "employer_tenant": null,
+        "opportunity_id": null
+      },
+      "observed_state": "OPEN",
+      "eligibility": {
+        "assessment": "ELIGIBLE",
+        "note": "Official job posting explicitly accepts new graduate RNs: 'A newly graduated RN shall practice under the direct supervision of a registered nurse who shall be present and available on the patient care unit during all the time the permittee is rendering professional services.'"
+      },
+      "facts": {
+        "position_title": "New Grad Registered Nurse (RN), Pediatrics-MCH West",
+        "unit": "Pediatrics-MCH West",
+        "locations": [
+          {
+            "city": "Long Beach",
+            "state": "CA"
+          }
+        ],
+        "specialties": [
+          "Pediatrics"
+        ],
+        "bsn_required": true,
+        "rn_license_requirement": "Current California RN license required. Basic Life Support (BLS) certification.",
+        "license_required_by": "hire",
+        "experience_requirement": "Open to new graduate registered nurses. Direct supervision provided during orientation and residency.",
+        "source_url": "https://careers.memorialcare.org/recent-grads",
+        "application_url": "https://careers.memorialcare.org/job/long-beach/new-grad-registered-nurse-rn-pediatrics-mch-west/28372/101148883952"
+      },
+      "evidence": [
+        {
+          "source_url": "https://careers.memorialcare.org/job/long-beach/new-grad-registered-nurse-rn-pediatrics-mch-west/28372/101148883952",
+          "excerpt": "Job Description - RN New Graduate (MIL005258). Job: Staff Nurse. Primary Location: United States-California-Long Beach. Schedule: Full-time.",
+          "retrieved_at": "2026-09-28T23:52:00.000Z",
+          "claim": "status"
+        },
+        {
+          "source_url": "https://careers.memorialcare.org/job/long-beach/new-grad-registered-nurse-rn-pediatrics-mch-west/28372/101148883952",
+          "excerpt": "A newly graduated RN shall practice under the direct supervision of a registered nurse who shall be present and available on the patient care unit during all the time the permittee is rendering professional services.",
+          "retrieved_at": "2026-09-28T23:52:00.000Z",
+          "claim": "eligibility"
+        },
+        {
+          "source_url": "https://careers.memorialcare.org/job/long-beach/new-grad-registered-nurse-rn-pediatrics-mch-west/28372/101148883952",
+          "excerpt": "A Bachelor's of Science Degree in Nursing is also required.",
+          "retrieved_at": "2026-09-28T23:52:00.000Z",
+          "claim": "education"
+        },
+        {
+          "source_url": "https://careers.memorialcare.org/job/long-beach/new-grad-registered-nurse-rn-pediatrics-mch-west/28372/101148883952",
+          "excerpt": "A current California RN license is required. Basic Life Support (BLS) certification.",
+          "retrieved_at": "2026-09-28T23:52:00.000Z",
+          "claim": "license"
+        },
+        {
+          "source_url": "https://careers.memorialcare.org/recent-grads",
+          "excerpt": "RN Residency Program. Transition into professional practice through mentorship, specialty training, and progressive clinical orientation classes at 3, 6, and 9 months.",
+          "retrieved_at": "2026-09-28T23:50:00.000Z",
+          "claim": "accepting_applications"
+        },
+        {
+          "source_url": "https://careers.memorialcare.org/job/long-beach/new-grad-registered-nurse-rn-pediatrics-mch-west/28372/101148883952",
+          "excerpt": "Primary Location: United States-California-Long Beach. Organization: MemorialCare Long Beach Medical Center.",
+          "retrieved_at": "2026-09-28T23:52:00.000Z",
+          "claim": "location"
+        }
+      ],
+      "uncertainties": []
+    },
+    "decision": {
+      "by": "Jethro",
+      "at": "2026-09-29T00:12:29.398Z",
+      "note": "Superseded by verified eligibility evidence in batch-2026-09-28-longbeach-v2"
+    }
   }
 ]

@@ -436,5 +436,11 @@
     "hospital_id": "hosp_stelizabeth",
     "name": "National Nurse Residency Program",
     "source_url": "https://www.commonspirit.careers/NNRP-CA"
+  },
+  {
+    "id": "prog_571a30bff8",
+    "hospital_id": "hosp_lb_memorial",
+    "name": "MemorialCare RN Residency Program",
+    "source_url": "https://careers.memorialcare.org/recent-grads"
   }
 ]

@@ -1403,5 +1403,17 @@
       "Brigham",
       "BWH"
     ]
+  },
+  {
+    "id": "hosp_lb_memorial",
+    "name": "MemorialCare Long Beach Medical Center",
+    "health_system": "MemorialCare",
+    "state": "CA",
+    "aliases": [
+      "Long Beach Medical Center",
+      "Miller Children's & Women's Hospital Long Beach",
+      "Long Beach Memorial",
+      "MemorialCare Long Beach"
+    ]
   }
 ]

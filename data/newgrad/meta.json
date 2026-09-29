@@ -1,16 +1,16 @@
 {
   "contract_version": "1.0.0",
-  "generated_at": "2026-09-28T12:19:48.970Z",
-  "last_research_attempt_at": "2026-09-28T12:15:00.000Z",
-  "last_successful_verification_at": "2026-09-28T12:19:48.970Z",
-  "last_published_at": "2026-09-28T12:20:28.151Z",
+  "generated_at": "2026-09-29T00:12:40.854Z",
+  "last_research_attempt_at": "2026-09-29T00:15:00.000Z",
+  "last_successful_verification_at": "2026-09-29T00:12:40.854Z",
+  "last_published_at": "2026-09-29T00:13:22.469Z",
   "counts": {
-    "opportunities": 31,
-    "open": 11,
+    "opportunities": 32,
+    "open": 12,
     "closing_soon": 0,
     "pending_review": 17,
-    "sources_active": 37,
+    "sources_active": 38,
     "sources_candidate": 40
   },
-  "coverage_note": "40 of 42 checked sources verified successfully in run 2026-09-28-daily."
+  "coverage_note": "3 of 3 checked sources verified successfully in run 2026-09-28-longbeach-v2."
 }

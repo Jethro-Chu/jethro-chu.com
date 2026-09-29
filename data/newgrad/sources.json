@@ -872,5 +872,18 @@
     "status": "active",
     "shared_board": null,
     "notes": "Activated by Jethro"
+  },
+  {
+    "id": "src_84db63ff46",
+    "hospital_id": "hosp_lb_memorial",
+    "label": "MemorialCare Long Beach careers",
+    "urls": [
+      "https://careers.memorialcare.org/recent-grads",
+      "https://careers.memorialcare.org/",
+      "https://memorialcare.taleo.net/"
+    ],
+    "status": "active",
+    "shared_board": "memorialcare",
+    "notes": null
   }
 ]

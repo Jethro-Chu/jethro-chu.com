@@ -682,5 +682,35 @@
         "error": "HTTP 403 Forbidden"
       }
     ]
+  },
+  {
+    "run_id": "2026-09-28-longbeach",
+    "research_started_at": "2026-09-28T23:45:00.000Z",
+    "research_completed_at": "2026-09-28T23:55:00.000Z",
+    "ingested_at": "2026-09-29T00:08:02.347Z",
+    "sources_checked": 3,
+    "sources_ok": 3,
+    "findings_received": 1,
+    "published": 0,
+    "updated": 0,
+    "closed": 0,
+    "pending_review": 1,
+    "rejected": 0,
+    "failed_checks": []
+  },
+  {
+    "run_id": "2026-09-28-longbeach-v2",
+    "research_started_at": "2026-09-28T23:45:00.000Z",
+    "research_completed_at": "2026-09-29T00:15:00.000Z",
+    "ingested_at": "2026-09-29T00:12:40.854Z",
+    "sources_checked": 3,
+    "sources_ok": 3,
+    "findings_received": 1,
+    "published": 1,
+    "updated": 0,
+    "closed": 0,
+    "pending_review": 0,
+    "rejected": 0,
+    "failed_checks": []
   }
 ]
