@@ -1415,5 +1415,18 @@
       "Long Beach Memorial",
       "MemorialCare Long Beach"
     ]
+  },
+  {
+    "id": "hosp_lluh",
+    "name": "Loma Linda University Health",
+    "health_system": "Loma Linda University Health",
+    "state": "CA",
+    "aliases": [
+      "Loma Linda University Medical Center",
+      "LLUH",
+      "LLUMC",
+      "Loma Linda University Children's Hospital",
+      "LLUCH"
+    ]
   }
 ]

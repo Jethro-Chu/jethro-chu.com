@@ -885,5 +885,21 @@
     "status": "active",
     "shared_board": "memorialcare",
     "notes": null
+  },
+  {
+    "id": "src_a93f34b04a",
+    "hospital_id": "hosp_lluh",
+    "label": "Loma Linda University Health careers",
+    "urls": [
+      "https://lluh.org/health-professionals/adult-rn-residency-program",
+      "https://lluh.org/health-professionals/adult-rn-residency-program/how-apply",
+      "https://lluch.org/health-professionals/residency/rn-residency",
+      "https://lluch.org/health-professionals/residency/rn-residency/how-apply",
+      "https://careers.lluh.org/",
+      "https://jobs.lluh.org/"
+    ],
+    "status": "active",
+    "shared_board": null,
+    "notes": null
   }
 ]

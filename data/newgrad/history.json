@@ -6506,5 +6506,82 @@
         "claim": "location"
       }
     ]
+  },
+  {
+    "id": "hist_2026-09-29-daily_0001",
+    "run_id": "2026-09-29-daily",
+    "at": "2026-09-29T12:17:48.422Z",
+    "type": "NEW",
+    "opportunity_id": "opp_dbd3900de7",
+    "changes": null,
+    "reason": "First published from run evidence (OPEN).",
+    "evidence": [
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/102787/new-grad-rn-ccu-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "Nursing New Grad RN Job: New Grad RN - CCU - Fall 2026 Start Date at Johns Hopkins Medicine in Johns Hopkins Hospital, Baltimore, MD. Requisition #: 676639.",
+        "retrieved_at": "2026-09-29T12:10:50.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/102787/new-grad-rn-ccu-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "Qualifications: Active Maryland or Compact RN license is required at time of hire. BLS CPR required. New graduate nurses who have at least 120-hours capstone or practicum in their senior semester. Associate's Degree in nursing (ADN) (Required). BSN (preferred) and applicants w/an ADN in nursing will be considered.",
+        "retrieved_at": "2026-09-29T12:10:50.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/102787/new-grad-rn-ccu-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "Active Maryland or Compact RN license is required at time of hire",
+        "retrieved_at": "2026-09-29T12:10:50.000Z",
+        "claim": "license"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-09-29-daily_0002",
+    "run_id": "2026-09-29-daily",
+    "at": "2026-09-29T12:17:48.422Z",
+    "type": "SOURCE_UNAVAILABLE",
+    "opportunity_id": "opp_da85a917e9",
+    "changes": [
+      {
+        "field": "verification_health",
+        "before": "VERIFIED",
+        "after": "TEMPORARY_FAILURE"
+      }
+    ],
+    "reason": "Retrieval failed; last-known facts preserved.",
+    "evidence": []
+  },
+  {
+    "id": "hist_2026-09-29-daily_0003",
+    "run_id": "2026-09-29-daily",
+    "at": "2026-09-29T12:17:48.422Z",
+    "type": "SOURCE_UNAVAILABLE",
+    "opportunity_id": "opp_717a814cb5",
+    "changes": [
+      {
+        "field": "verification_health",
+        "before": "VERIFIED",
+        "after": "TEMPORARY_FAILURE"
+      }
+    ],
+    "reason": "Retrieval failed; last-known facts preserved.",
+    "evidence": []
+  },
+  {
+    "id": "hist_2026-09-29-daily_0004",
+    "run_id": "2026-09-29-daily",
+    "at": "2026-09-29T12:17:48.422Z",
+    "type": "SOURCE_UNAVAILABLE",
+    "opportunity_id": "opp_f8be7c648c",
+    "changes": [
+      {
+        "field": "verification_health",
+        "before": "VERIFIED",
+        "after": "NEEDS_REVERIFICATION"
+      }
+    ],
+    "reason": "Retrieval found no posting; last-known facts preserved.",
+    "evidence": []
   }
 ]

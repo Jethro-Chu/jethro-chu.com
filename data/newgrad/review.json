@@ -1188,5 +1188,90 @@
       "at": "2026-09-29T00:12:29.398Z",
       "note": "Superseded by verified eligibility evidence in batch-2026-09-28-longbeach-v2"
     }
+  },
+  {
+    "id": "rev_2026-09-29-daily_001",
+    "run_id": "2026-09-29-daily",
+    "created_at": "2026-09-29T12:17:48.422Z",
+    "state": "PENDING",
+    "reason": "Eligibility evidence lacks explicit new-grad acceptance language; held for human review.",
+    "finding": {
+      "employer": {
+        "name": "Loma Linda University Health",
+        "hospital_id": "hosp_lluh"
+      },
+      "identifiers": {
+        "program": "Adult RN Residency Program",
+        "cohort": "February 2027 Cohort",
+        "requisition_id": null,
+        "ats_provider": "oracle",
+        "ats_tenant": "lluh",
+        "employer_tenant": null,
+        "opportunity_id": null
+      },
+      "observed_state": "OPENING_SOON",
+      "eligibility": {
+        "assessment": "ELIGIBLE",
+        "note": "Explicit new graduate nurse residency for nurses with less than 12 months RN experience."
+      },
+      "facts": {
+        "position_title": "Adult RN Residency Program - February 2027 Cohort",
+        "locations": [
+          {
+            "city": "Loma Linda",
+            "state": "CA"
+          }
+        ],
+        "specialties": [
+          "Multiple Specialties"
+        ],
+        "application_open": {
+          "kind": "datetime",
+          "value": "2026-10-26T08:00:00-07:00"
+        },
+        "application_close": {
+          "kind": "datetime",
+          "value": "2026-11-06T23:59:00-07:00"
+        },
+        "program_start": {
+          "kind": "date",
+          "value": "2027-02-16"
+        },
+        "bsn_required": true,
+        "rn_license_requirement": "Must have a current, unencumbered California Registered Nurse (RN) license by the program start date. Last day for CA RN license to be posted on BRN: Friday, January 29th, 2027.",
+        "license_required_by": "start",
+        "experience_requirement": "Must have less than 12 months of RN work experience by the start of the program.",
+        "source_url": "https://lluh.org/health-professionals/adult-rn-residency-program/how-apply",
+        "application_url": "https://careers.lluh.org/"
+      },
+      "evidence": [
+        {
+          "source_url": "https://lluh.org/health-professionals/adult-rn-residency-program/how-apply",
+          "excerpt": "February 2027 Cohort: Application Opens: Monday, October 26th, 2026 at 8:00 a.m. Application Closes: Friday, November 6th, 2026 at 11:59 p.m. Program Start Date: Tuesday, February 16th, 2027 Last day for CA RN license to be posted on BRN: Friday, January 29th, 2027",
+          "retrieved_at": "2026-09-29T12:06:58.000Z",
+          "claim": "status"
+        },
+        {
+          "source_url": "https://lluh.org/health-professionals/adult-rn-residency-program/how-apply",
+          "excerpt": "Must have less than 12 months of RN work experience by the start of the program. If you have at least 12 months of experience, please visit our careers/jobs page to view current RN job openings outside of the Adult RN Residency Program.",
+          "retrieved_at": "2026-09-29T12:06:58.000Z",
+          "claim": "eligibility"
+        },
+        {
+          "source_url": "https://lluh.org/health-professionals/adult-rn-residency-program/how-apply",
+          "excerpt": "Must have a completed bachelor’s degree in nursing (BSN) by the program start date. If you are in an entry level nursing program (bridge program), you must have a completed BSN degree prior to applying. BSN equivalency is not accepted.",
+          "retrieved_at": "2026-09-29T12:06:58.000Z",
+          "claim": "education"
+        },
+        {
+          "source_url": "https://lluh.org/health-professionals/adult-rn-residency-program/how-apply",
+          "excerpt": "Must have a current, unencumbered California Registered Nurse (RN) license by the program start date (unless otherwise specified).",
+          "retrieved_at": "2026-09-29T12:06:58.000Z",
+          "claim": "license"
+        }
+      ],
+      "uncertainties": []
+    },
+    "decision": null
   }
 ]
