@@ -442,5 +442,11 @@
     "hospital_id": "hosp_lb_memorial",
     "name": "MemorialCare RN Residency Program",
     "source_url": "https://careers.memorialcare.org/recent-grads"
+  },
+  {
+    "id": "prog_782f3738bd",
+    "hospital_id": "hosp_lluh",
+    "name": "Adult RN Residency Program",
+    "source_url": "https://lluh.org/health-professionals/adult-rn-residency-program/how-apply"
   }
 ]

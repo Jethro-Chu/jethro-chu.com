@@ -376,5 +376,14 @@
     "program_id": "prog_a68b06dcb8",
     "label": "Fall 2026",
     "program_start": null
+  },
+  {
+    "id": "cohort_8cd8590b16",
+    "program_id": "prog_782f3738bd",
+    "label": "February 2027 Cohort",
+    "program_start": {
+      "kind": "date",
+      "value": "2027-02-16"
+    }
   }
 ]

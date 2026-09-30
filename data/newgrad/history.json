@@ -6583,5 +6583,72 @@
     ],
     "reason": "Retrieval found no posting; last-known facts preserved.",
     "evidence": []
+  },
+  {
+    "id": "hist_2026-09-30-daily_0001",
+    "run_id": "2026-09-30-daily",
+    "at": "2026-09-30T12:17:01.877Z",
+    "type": "NEW",
+    "opportunity_id": "opp_c2b45c0fed",
+    "changes": null,
+    "reason": "First published from run evidence (OPENING_SOON).",
+    "evidence": [
+      {
+        "source_url": "https://lluh.org/health-professionals/adult-rn-residency-program/how-apply",
+        "excerpt": "February 2027 Cohort: Application Opens: Monday, October 26th, 2026 at 8:00 a.m. Application Closes: Friday, November 6th, 2026 at 11:59 p.m. Program Start Date: Tuesday, February 16th, 2027 Last day for CA RN license to be posted on BRN: Friday, January 29th, 2027",
+        "retrieved_at": "2026-09-30T12:15:00.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://lluch.org/health-professionals/residency/rn-residency",
+        "excerpt": "The LLU Children's Hospital RN Residency is designed for the new graduate nurse who wants to begin their career in pediatrics. As a new graduate nurse, you have many important choices in front of you. There are a lot of hospitals offering new graduate programs.",
+        "retrieved_at": "2026-09-30T12:15:00.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://lluh.org/health-professionals/adult-rn-residency-program/how-apply",
+        "excerpt": "Must have a completed bachelor’s degree in nursing (BSN) by the program start date. If you are in an entry level nursing program (bridge program), you must have a completed BSN degree prior to applying. BSN equivalency is not accepted.",
+        "retrieved_at": "2026-09-30T12:15:00.000Z",
+        "claim": "education"
+      },
+      {
+        "source_url": "https://lluh.org/health-professionals/adult-rn-residency-program/how-apply",
+        "excerpt": "Must have a current, unencumbered California Registered Nurse (RN) license by the program start date (unless otherwise specified).",
+        "retrieved_at": "2026-09-30T12:15:00.000Z",
+        "claim": "license"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-09-30-daily_0002",
+    "run_id": "2026-09-30-daily",
+    "at": "2026-09-30T12:17:01.877Z",
+    "type": "SOURCE_UNAVAILABLE",
+    "opportunity_id": "opp_8f89b96096",
+    "changes": [
+      {
+        "field": "verification_health",
+        "before": "VERIFIED",
+        "after": "NEEDS_REVERIFICATION"
+      }
+    ],
+    "reason": "Retrieval found no posting; last-known facts preserved.",
+    "evidence": []
+  },
+  {
+    "id": "hist_2026-09-30-daily_0003",
+    "run_id": "2026-09-30-daily",
+    "at": "2026-09-30T12:17:01.877Z",
+    "type": "SOURCE_UNAVAILABLE",
+    "opportunity_id": "opp_da85a917e9",
+    "changes": [
+      {
+        "field": "verification_health",
+        "before": "TEMPORARY_FAILURE",
+        "after": "NEEDS_REVERIFICATION"
+      }
+    ],
+    "reason": "Retrieval found no posting; last-known facts preserved.",
+    "evidence": []
   }
 ]
