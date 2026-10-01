@@ -843,5 +843,75 @@
         "error": "HTTP 410 Gone: requisition expired and closed on 2026-09-27"
       }
     ]
+  },
+  {
+    "run_id": "2026-10-01-daily",
+    "research_started_at": "2026-10-01T12:00:00.000Z",
+    "research_completed_at": "2026-10-01T12:20:00.000Z",
+    "ingested_at": "2026-10-01T12:11:53.147Z",
+    "sources_checked": 50,
+    "sources_ok": 44,
+    "findings_received": 34,
+    "published": 0,
+    "updated": 1,
+    "closed": 1,
+    "pending_review": 0,
+    "rejected": 0,
+    "failed_checks": [
+      {
+        "source_id": "src_hopkins",
+        "url": "https://jobs.hopkinsmedicine.org/job/baltimore/new-grad-rn-inpatient-nursing/636/674686",
+        "attempted_at": "2026-10-01T12:15:00.000Z",
+        "retrieved_at": "2026-10-01T12:15:00.000Z",
+        "outcome": "not_found",
+        "coverage_complete": true,
+        "error": "HTTP 404: Replaced by canonical job slug /job/101359/new-grad-rn-med-surg-float-pool-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-health-system/"
+      },
+      {
+        "source_id": "src_dignity",
+        "url": "https://www.commonspirit.careers/job/bakersfield/national-resident-rn/35300/100616393488",
+        "attempted_at": "2026-10-01T12:15:00.000Z",
+        "retrieved_at": "2026-10-01T12:15:00.000Z",
+        "outcome": "not_found",
+        "coverage_complete": true,
+        "error": "HTTP 404: Requisition 2026-491219 expired and closed following September 30, 2026 deadline"
+      },
+      {
+        "source_id": "src_ucdavis",
+        "url": "https://hr.ucdavis.edu/departments/hr/nurse-recruitment/nurse-residency-program",
+        "attempted_at": "2026-10-01T12:15:00.000Z",
+        "retrieved_at": null,
+        "outcome": "blocked",
+        "coverage_complete": false,
+        "error": "HTTP 403 Forbidden (bot protection)"
+      },
+      {
+        "source_id": "src_bidmc",
+        "url": "https://bidmc.wd1.myworkdayjobs.com/External/job/Boston-MA/Nurse-Residency---Farr-8---Transplant-and-Med-Surg_JR103518",
+        "attempted_at": "2026-10-01T12:15:00.000Z",
+        "retrieved_at": null,
+        "outcome": "not_found",
+        "coverage_complete": false,
+        "error": "HTTP 404: Job posting JR103518 not found on Workday career portal"
+      },
+      {
+        "source_id": "src_mountsinai",
+        "url": "https://careers.mountsinai.org/jobs/3052187",
+        "attempted_at": "2026-10-01T12:15:00.000Z",
+        "retrieved_at": "2026-10-01T12:15:00.000Z",
+        "outcome": "not_found",
+        "coverage_complete": true,
+        "error": "HTTP 404: Requisition 3052187 not found on career portal"
+      },
+      {
+        "source_id": "src_bsw",
+        "url": "https://jobs.bswhealth.com/us/en/job/26014424",
+        "attempted_at": "2026-10-01T12:15:00.000Z",
+        "retrieved_at": "2026-10-01T12:15:00.000Z",
+        "outcome": "not_found",
+        "coverage_complete": true,
+        "error": "HTTP 410 Gone: requisition expired and closed on 2026-09-27"
+      }
+    ]
   }
 ]

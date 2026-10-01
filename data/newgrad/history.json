@@ -6650,5 +6650,83 @@
     ],
     "reason": "Retrieval found no posting; last-known facts preserved.",
     "evidence": []
+  },
+  {
+    "id": "hist_2026-10-01-daily_0001",
+    "run_id": "2026-10-01-daily",
+    "at": "2026-10-01T12:11:53.147Z",
+    "type": "CLOSED",
+    "opportunity_id": "opp_62a8c76769",
+    "changes": [
+      {
+        "field": "application_url",
+        "before": "https://www.commonspirit.careers/job/bakersfield/national-resident-rn/35300/100616393488",
+        "after": "https://www.commonspirit.careers/ca-new-grad-rn"
+      },
+      {
+        "field": "application_status",
+        "before": "OPEN",
+        "after": "CLOSED"
+      },
+      {
+        "field": "closed_at",
+        "before": null,
+        "after": "2026-10-01T12:11:53.147Z"
+      }
+    ],
+    "reason": "Official evidence verified closure.",
+    "evidence": [
+      {
+        "source_url": "https://www.commonspirit.careers/ca-new-grad-rn",
+        "excerpt": "Requisition 2026-491219 (Bakersfield Memorial / Mercy) application window closed on September 30, 2026. Official posting removed (HTTP 404) and ca-new-grad-rn directory shows only Red Bluff active.",
+        "retrieved_at": "2026-10-01T12:15:00.000Z",
+        "claim": "closure"
+      },
+      {
+        "source_url": "https://www.commonspirit.careers/NNRP-CA",
+        "excerpt": "The National Nurse Residency Program supports newly licensed registered nurses and recent graduates with less than 1 year of professional nursing experience upon hire.",
+        "retrieved_at": "2026-10-01T12:15:00.000Z",
+        "claim": "eligibility"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-10-01-daily_0002",
+    "run_id": "2026-10-01-daily",
+    "at": "2026-10-01T12:11:53.147Z",
+    "type": "UPDATED",
+    "opportunity_id": "opp_62a8c76769",
+    "changes": [
+      {
+        "field": "application_url",
+        "before": "https://www.commonspirit.careers/job/bakersfield/national-resident-rn/35300/100616393488",
+        "after": "https://www.commonspirit.careers/ca-new-grad-rn"
+      },
+      {
+        "field": "application_status",
+        "before": "OPEN",
+        "after": "CLOSED"
+      },
+      {
+        "field": "closed_at",
+        "before": null,
+        "after": "2026-10-01T12:11:53.147Z"
+      }
+    ],
+    "reason": "Updated from run evidence (CLOSED).",
+    "evidence": [
+      {
+        "source_url": "https://www.commonspirit.careers/ca-new-grad-rn",
+        "excerpt": "Requisition 2026-491219 (Bakersfield Memorial / Mercy) application window closed on September 30, 2026. Official posting removed (HTTP 404) and ca-new-grad-rn directory shows only Red Bluff active.",
+        "retrieved_at": "2026-10-01T12:15:00.000Z",
+        "claim": "closure"
+      },
+      {
+        "source_url": "https://www.commonspirit.careers/NNRP-CA",
+        "excerpt": "The National Nurse Residency Program supports newly licensed registered nurses and recent graduates with less than 1 year of professional nursing experience upon hire.",
+        "retrieved_at": "2026-10-01T12:15:00.000Z",
+        "claim": "eligibility"
+      }
+    ]
   }
 ]
