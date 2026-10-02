@@ -385,5 +385,14 @@
       "kind": "date",
       "value": "2027-02-16"
     }
+  },
+  {
+    "id": "cohort_8d4acd7349",
+    "program_id": "prog_68ed2a7de6",
+    "label": "Winter 2027",
+    "program_start": {
+      "kind": "text",
+      "value": "January 2027"
+    }
   }
 ]
