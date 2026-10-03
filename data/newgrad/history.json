@@ -7002,5 +7002,269 @@
         "claim": "status"
       }
     ]
+  },
+  {
+    "id": "hist_2026-10-03-daily_0001",
+    "run_id": "2026-10-03-daily",
+    "at": "2026-10-03T12:21:29.951Z",
+    "type": "CLOSED",
+    "opportunity_id": "opp_dbd3900de7",
+    "changes": [
+      {
+        "field": "application_status",
+        "before": "OPEN",
+        "after": "CLOSED"
+      },
+      {
+        "field": "closed_at",
+        "before": null,
+        "after": "2026-10-03T12:21:29.951Z"
+      }
+    ],
+    "reason": "Official evidence verified closure.",
+    "evidence": [
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/102787/new-grad-rn-ccu-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "This job is no longer available. Please try another search.",
+        "retrieved_at": "2026-10-03T12:08:16.000Z",
+        "claim": "closure"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/102787/new-grad-rn-ccu-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "Nursing New Grad RN Job: New Grad RN - CCU - Fall 2026 Start Date at Johns Hopkins Medicine in Johns Hopkins Hospital, Baltimore, MD. Requisition #: 676639.",
+        "retrieved_at": "2026-10-02T12:15:00.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/102787/new-grad-rn-ccu-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "Qualifications: Active Maryland or Compact RN license is required at time of hire. BLS CPR required. New graduate nurses who have at least 120-hours capstone or practicum in their senior semester. Associate's Degree in nursing (ADN) (Required). BSN (preferred) and applicants w/an ADN in nursing will be considered.",
+        "retrieved_at": "2026-10-02T12:15:00.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/102787/new-grad-rn-ccu-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "Active Maryland or Compact RN license is required at time of hire",
+        "retrieved_at": "2026-10-02T12:15:00.000Z",
+        "claim": "license"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-10-03-daily_0002",
+    "run_id": "2026-10-03-daily",
+    "at": "2026-10-03T12:21:29.951Z",
+    "type": "UPDATED",
+    "opportunity_id": "opp_dbd3900de7",
+    "changes": [
+      {
+        "field": "application_status",
+        "before": "OPEN",
+        "after": "CLOSED"
+      },
+      {
+        "field": "closed_at",
+        "before": null,
+        "after": "2026-10-03T12:21:29.951Z"
+      }
+    ],
+    "reason": "Updated from run evidence (CLOSED).",
+    "evidence": [
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/102787/new-grad-rn-ccu-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "This job is no longer available. Please try another search.",
+        "retrieved_at": "2026-10-03T12:08:16.000Z",
+        "claim": "closure"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/102787/new-grad-rn-ccu-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "Nursing New Grad RN Job: New Grad RN - CCU - Fall 2026 Start Date at Johns Hopkins Medicine in Johns Hopkins Hospital, Baltimore, MD. Requisition #: 676639.",
+        "retrieved_at": "2026-10-02T12:15:00.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/102787/new-grad-rn-ccu-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "Qualifications: Active Maryland or Compact RN license is required at time of hire. BLS CPR required. New graduate nurses who have at least 120-hours capstone or practicum in their senior semester. Associate's Degree in nursing (ADN) (Required). BSN (preferred) and applicants w/an ADN in nursing will be considered.",
+        "retrieved_at": "2026-10-02T12:15:00.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/102787/new-grad-rn-ccu-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "Active Maryland or Compact RN license is required at time of hire",
+        "retrieved_at": "2026-10-02T12:15:00.000Z",
+        "claim": "license"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-10-03-daily_0003",
+    "run_id": "2026-10-03-daily",
+    "at": "2026-10-03T12:21:29.951Z",
+    "type": "CLOSED",
+    "opportunity_id": "opp_473d98f794",
+    "changes": [
+      {
+        "field": "application_status",
+        "before": "OPEN",
+        "after": "CLOSED"
+      },
+      {
+        "field": "closed_at",
+        "before": null,
+        "after": "2026-10-03T12:21:29.951Z"
+      }
+    ],
+    "reason": "Official evidence verified closure.",
+    "evidence": [
+      {
+        "source_url": "https://careers.chop.edu/us/en/NurseResidency",
+        "excerpt": "Applications will be open from Sept. 28 through Oct. 2, 2026 for students graduating in November 2026 or earlier. Information regarding opportunities for December 2026 graduates will be shared at a later date.",
+        "retrieved_at": "2026-10-03T12:06:00.000Z",
+        "claim": "closure"
+      },
+      {
+        "source_url": "https://careers.chop.edu/us/en/NurseResidency",
+        "excerpt": "Application Open: This posting will be open from September 28 through October 2, 2026. Eligibility: This posting is strictly for candidates graduating in November 2026 or earlier.",
+        "retrieved_at": "2026-10-02T12:15:00.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://careers.chop.edu/us/en/NurseResidency",
+        "excerpt": "CHOP’s 12-month Nurse Residency helps new graduate nurses transition into their first professional roles.",
+        "retrieved_at": "2026-10-02T12:15:00.000Z",
+        "claim": "eligibility"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-10-03-daily_0004",
+    "run_id": "2026-10-03-daily",
+    "at": "2026-10-03T12:21:29.951Z",
+    "type": "UPDATED",
+    "opportunity_id": "opp_473d98f794",
+    "changes": [
+      {
+        "field": "application_status",
+        "before": "OPEN",
+        "after": "CLOSED"
+      },
+      {
+        "field": "closed_at",
+        "before": null,
+        "after": "2026-10-03T12:21:29.951Z"
+      }
+    ],
+    "reason": "Updated from run evidence (CLOSED).",
+    "evidence": [
+      {
+        "source_url": "https://careers.chop.edu/us/en/NurseResidency",
+        "excerpt": "Applications will be open from Sept. 28 through Oct. 2, 2026 for students graduating in November 2026 or earlier. Information regarding opportunities for December 2026 graduates will be shared at a later date.",
+        "retrieved_at": "2026-10-03T12:06:00.000Z",
+        "claim": "closure"
+      },
+      {
+        "source_url": "https://careers.chop.edu/us/en/NurseResidency",
+        "excerpt": "Application Open: This posting will be open from September 28 through October 2, 2026. Eligibility: This posting is strictly for candidates graduating in November 2026 or earlier.",
+        "retrieved_at": "2026-10-02T12:15:00.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://careers.chop.edu/us/en/NurseResidency",
+        "excerpt": "CHOP’s 12-month Nurse Residency helps new graduate nurses transition into their first professional roles.",
+        "retrieved_at": "2026-10-02T12:15:00.000Z",
+        "claim": "eligibility"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-10-03-daily_0005",
+    "run_id": "2026-10-03-daily",
+    "at": "2026-10-03T12:21:29.951Z",
+    "type": "UPDATED",
+    "opportunity_id": "opp_a29ee83cb9",
+    "changes": [
+      {
+        "field": "application_url",
+        "before": "https://jobs.mayoclinic.org/nursing",
+        "after": "https://fa-euwp-saasfaprod1.fa.ocs.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1/job/392057/apply/email"
+      }
+    ],
+    "reason": "Updated from run evidence (OPEN).",
+    "evidence": [
+      {
+        "source_url": "https://jobs.mayoclinic.org/job/rochester/nurse-residency-new-grad-rn/33647/101394925216",
+        "excerpt": "The current application will be open through October 8th. Our program brings together newly licensed Registered Nurses from across the country in the first year of their career and offers the experience to become a well-rounded, fully competent Registered Nurse.",
+        "retrieved_at": "2026-10-03T12:07:13.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://jobs.mayoclinic.org/nurseresidencyprograms",
+        "excerpt": "The Arizona Nurse Residency Program October 5-6th, 2026, closing at 5 P.M. MST, will be the application submission deadline for the February 22nd 2027 Cohort. A complete resume is required",
+        "retrieved_at": "2026-10-02T12:15:00.000Z",
+        "claim": "deadline"
+      },
+      {
+        "source_url": "https://jobs.mayoclinic.org/nurseresidencyprograms",
+        "excerpt": "Starting August 2026 applications will be open the 1 - 8 of each month for new graduate nurse residency cohorts.",
+        "retrieved_at": "2026-10-02T12:15:00.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://jobs.mayoclinic.org/nurseresidencyprograms",
+        "excerpt": "Starting August 2026 applications will be open the 1 - 8 of each month for Nurse Residency cohorts.",
+        "retrieved_at": "2026-10-02T12:15:00.000Z",
+        "claim": "status"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-10-03-daily_0006",
+    "run_id": "2026-10-03-daily",
+    "at": "2026-10-03T12:21:29.951Z",
+    "type": "SOURCE_UNAVAILABLE",
+    "opportunity_id": "opp_5775823a98",
+    "changes": [
+      {
+        "field": "verification_health",
+        "before": "VERIFIED",
+        "after": "NEEDS_REVERIFICATION"
+      }
+    ],
+    "reason": "Retrieval found no posting; last-known facts preserved.",
+    "evidence": []
+  },
+  {
+    "id": "hist_2026-10-03-daily_0007",
+    "run_id": "2026-10-03-daily",
+    "at": "2026-10-03T12:21:29.951Z",
+    "type": "NEW",
+    "opportunity_id": "opp_5144668644",
+    "changes": null,
+    "reason": "First published from run evidence (OPEN).",
+    "evidence": [
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/102920/new-grad-rn-ed-float-pool-november-start-date-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-health-system/",
+        "excerpt": "Nursing New Grad RN Job: New Grad RN - ED Float Pool (November Start Date) at Johns Hopkins Medicine in Johns Hopkins Health System, Baltimore, MD. Requisition #: 675454.",
+        "retrieved_at": "2026-10-03T12:10:00.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/102920/new-grad-rn-ed-float-pool-november-start-date-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-health-system/",
+        "excerpt": "No RN work experience required; ED practicum/PCT/CNE experience strongly preferred. All New Grad RNs are automatically enrolled in our Nurse Residency Program ranked #3 in the nation!",
+        "retrieved_at": "2026-10-03T12:10:00.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/102920/new-grad-rn-ed-float-pool-november-start-date-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-health-system/",
+        "excerpt": "Associate degree in Nursing required. Applicants with an Associate’s degree in nursing from an accredited nursing program may be considered, provided they are enrolled in an accredited BSN/MSN program within 1 year of hire",
+        "retrieved_at": "2026-10-03T12:10:00.000Z",
+        "claim": "education"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/102920/new-grad-rn-ed-float-pool-november-start-date-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-health-system/",
+        "excerpt": "Active Maryland or Compact RN license is required. BLS CPR certification required",
+        "retrieved_at": "2026-10-03T12:10:00.000Z",
+        "claim": "license"
+      }
+    ]
   }
 ]

@@ -394,5 +394,14 @@
       "kind": "text",
       "value": "January 2027"
     }
+  },
+  {
+    "id": "cohort_e02fef55cb",
+    "program_id": "prog_a68b06dcb8",
+    "label": "November 2026",
+    "program_start": {
+      "kind": "text",
+      "value": "November 2026"
+    }
   }
 ]
