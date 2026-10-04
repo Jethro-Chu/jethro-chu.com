@@ -7266,5 +7266,40 @@
         "claim": "license"
       }
     ]
+  },
+  {
+    "id": "hist_2026-10-04-daily_0001",
+    "run_id": "2026-10-04-daily",
+    "at": "2026-10-04T12:19:38.942Z",
+    "type": "NEW",
+    "opportunity_id": "opp_dc316ff3f0",
+    "changes": null,
+    "reason": "First published from run evidence (OPEN).",
+    "evidence": [
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/102786/new-grad-rn-med-tele-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "Nursing New Grad RN Job: New Grad RN - Med Tele at Johns Hopkins Medicine in Johns Hopkins Hospital, Baltimore, MD. Requisition #: 677775.",
+        "retrieved_at": "2026-10-04T12:12:22.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/102786/new-grad-rn-med-tele-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "Requirements: New Grad RN. Baccalaureate degree, in nursing from an accredited School of Nursing, preferred. Applicants with an Associate Degree in nursing will be considered.",
+        "retrieved_at": "2026-10-04T12:12:22.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/102786/new-grad-rn-med-tele-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "Active BLS via AHA, American Red Cross or Military Training Network at time of hire. Active Maryland RN or Compact License at time of hire",
+        "retrieved_at": "2026-10-04T12:12:22.000Z",
+        "claim": "license"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/102786/new-grad-rn-med-tele-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "Baccalaureate degree, in nursing from an accredited School of Nursing, preferred. Applicants with an Associate Degree in nursing will be considered. per nursing guidelines, must matriculate to Bachelors of Nursing program.",
+        "retrieved_at": "2026-10-04T12:12:22.000Z",
+        "claim": "education"
+      }
+    ]
   }
 ]

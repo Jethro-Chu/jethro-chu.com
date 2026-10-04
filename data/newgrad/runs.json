@@ -1098,5 +1098,129 @@
         "error": "Cloudflare bot protection challenge"
       }
     ]
+  },
+  {
+    "run_id": "2026-10-04-daily",
+    "research_started_at": "2026-10-04T12:00:00.000Z",
+    "research_completed_at": "2026-10-04T12:20:00.000Z",
+    "ingested_at": "2026-10-04T12:19:38.942Z",
+    "sources_checked": 57,
+    "sources_ok": 45,
+    "findings_received": 37,
+    "published": 1,
+    "updated": 0,
+    "closed": 0,
+    "pending_review": 0,
+    "rejected": 0,
+    "failed_checks": [
+      {
+        "source_id": "src_hopkins",
+        "url": "https://jobs.hopkinsmedicine.org/job/102787/new-grad-rn-ccu-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "attempted_at": "2026-10-04T12:08:16.000Z",
+        "retrieved_at": "2026-10-04T12:08:16.000Z",
+        "outcome": "not_found",
+        "coverage_complete": true,
+        "error": "HTTP 410 Gone: Requisition 676639 is no longer available"
+      },
+      {
+        "source_id": "src_chop",
+        "url": "https://chop.wd108.myworkdayjobs.com/CHOPExternalCareers/job/Philadelphia-Campus--Main-Hospital/Nurse-Resident_1028236-2",
+        "attempted_at": "2026-10-04T12:06:11.000Z",
+        "retrieved_at": null,
+        "outcome": "not_found",
+        "coverage_complete": true,
+        "error": "Requisition 1028236-2 closed following October 2, 2026 application deadline"
+      },
+      {
+        "source_id": "src_3b0b738776",
+        "url": "https://www.commonspirit.careers/job/red-bluff/national-resident-rn/35300/101098375920",
+        "attempted_at": "2026-10-04T12:11:31.000Z",
+        "retrieved_at": null,
+        "outcome": "not_found",
+        "coverage_complete": true,
+        "error": "HTTP 404: Custom Job Error (requisition closed on CommonSpirit careers)"
+      },
+      {
+        "source_id": "src_84db63ff46",
+        "url": "https://careers.memorialcare.org/job/long-beach/new-grad-registered-nurse-rn-pediatrics-mch-west/28372/101148883952",
+        "attempted_at": "2026-10-04T12:08:12.000Z",
+        "retrieved_at": null,
+        "outcome": "not_found",
+        "coverage_complete": true,
+        "error": "HTTP 404: Custom Job Error on MemorialCare careers"
+      },
+      {
+        "source_id": "src_ucdavis",
+        "url": "https://hr.ucdavis.edu/departments/hr/nurse-recruitment/nurse-residency-program",
+        "attempted_at": "2026-10-04T12:11:06.000Z",
+        "retrieved_at": null,
+        "outcome": "blocked",
+        "coverage_complete": false,
+        "error": "HTTP 403 Forbidden (bot protection)"
+      },
+      {
+        "source_id": "src_vanderbilt",
+        "url": "https://vanderbilt.wd5.myworkdayjobs.com/vumc_careers/job/Nashville-TN/Nurse-Residency-Program-Winter-2027_R-62350-2",
+        "attempted_at": "2026-10-04T12:09:00.000Z",
+        "retrieved_at": null,
+        "outcome": "temporarily_unavailable",
+        "coverage_complete": false,
+        "error": "HTTP 500: Workday maintenance mode redirect"
+      },
+      {
+        "source_id": "src_bidmc",
+        "url": "https://bidmc.wd1.myworkdayjobs.com/External/job/Boston-MA/Nurse-Residency---Farr-8---Transplant-and-Med-Surg_JR103518",
+        "attempted_at": "2026-10-04T12:11:41.000Z",
+        "retrieved_at": null,
+        "outcome": "temporarily_unavailable",
+        "coverage_complete": false,
+        "error": "HTTP 500: Workday maintenance mode redirect"
+      },
+      {
+        "source_id": "src_mountsinai",
+        "url": "https://careers.mountsinai.org/jobs/3052187",
+        "attempted_at": "2026-10-04T12:11:56.000Z",
+        "retrieved_at": null,
+        "outcome": "not_found",
+        "coverage_complete": true,
+        "error": "HTTP 404: Requisition 3052187 not found on career portal"
+      },
+      {
+        "source_id": "src_bsw",
+        "url": "https://jobs.bswhealth.com/us/en/job/26014424",
+        "attempted_at": "2026-10-04T12:12:27.000Z",
+        "retrieved_at": null,
+        "outcome": "not_found",
+        "coverage_complete": true,
+        "error": "HTTP 410 Gone: requisition expired and closed on 2026-09-27"
+      },
+      {
+        "source_id": "src_adventist",
+        "url": "https://www.adventisthealth.org/careers/more-opportunities/nursing-careers/nurse-residency-program/",
+        "attempted_at": "2026-10-04T12:14:40.000Z",
+        "retrieved_at": null,
+        "outcome": "blocked",
+        "coverage_complete": false,
+        "error": "HTTP 403 Forbidden: WAF / bot protection"
+      },
+      {
+        "source_id": "src_choc",
+        "url": "https://www.choc.org/careers/nursing/rn-residency/",
+        "attempted_at": "2026-10-04T12:14:31.000Z",
+        "retrieved_at": null,
+        "outcome": "blocked",
+        "coverage_complete": false,
+        "error": "Cloudflare bot protection challenge"
+      },
+      {
+        "source_id": "src_huntington",
+        "url": "https://www.huntingtonhealth.org/education/residency-programs/nursing-residency/",
+        "attempted_at": "2026-10-04T12:14:45.000Z",
+        "retrieved_at": null,
+        "outcome": "blocked",
+        "coverage_complete": false,
+        "error": "Cloudflare bot protection challenge"
+      }
+    ]
   }
 ]
