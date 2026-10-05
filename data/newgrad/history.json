@@ -7301,5 +7301,40 @@
         "claim": "education"
       }
     ]
+  },
+  {
+    "id": "hist_2026-10-05-daily_0001",
+    "run_id": "2026-10-05-daily",
+    "at": "2026-10-05T12:18:12.328Z",
+    "type": "UPDATED",
+    "opportunity_id": "opp_34afa285d5",
+    "changes": [
+      {
+        "field": "application_status",
+        "before": "OPENING_SOON",
+        "after": "OPEN"
+      }
+    ],
+    "reason": "Updated from run evidence (OPEN).",
+    "evidence": [
+      {
+        "source_url": "https://careers.sharp.com/SHC-nurse-residency-program",
+        "excerpt": "Sharp Metropolitan Medical Campus is hiring a small number of Nurse Resident positions starting in Winter 2027! External Applicants: Mon, Oct 5th – Mon, Oct 12th. Find the posting on our careers site during these dates: Search for \"Nurse Residency Program\", or JR210806.",
+        "retrieved_at": "2026-10-05T12:07:35.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://careers.sharp.com/SHC-nurse-residency-program",
+        "excerpt": "External Applicants: Mon, Oct 5th – Mon, Oct 12th. Find the posting on our careers site during these dates: Search for \"Nurse Residency Program\", or JR210806.",
+        "retrieved_at": "2026-10-05T12:07:35.000Z",
+        "claim": "opening_date"
+      },
+      {
+        "source_url": "https://careers.sharp.com/SHC-nurse-residency-program",
+        "excerpt": "Are you a recent or soon-to-be nurse graduate looking for the perfect place to kickstart your RN career? You are in the right place! Sharp HealthCare Nurse Residency Program supports newly licensed nurses.",
+        "retrieved_at": "2026-10-05T12:07:35.000Z",
+        "claim": "eligibility"
+      }
+    ]
   }
 ]
