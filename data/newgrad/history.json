@@ -7336,5 +7336,178 @@
         "claim": "eligibility"
       }
     ]
+  },
+  {
+    "id": "hist_2026-10-07-daily_0001",
+    "run_id": "2026-10-07-daily",
+    "at": "2026-10-07T12:18:16.283Z",
+    "type": "UPDATED",
+    "opportunity_id": "opp_116ea92514",
+    "changes": [
+      {
+        "field": "application_close",
+        "before": null,
+        "after": {
+          "kind": "date",
+          "value": "2026-11-15"
+        }
+      },
+      {
+        "field": "program_start",
+        "before": {
+          "kind": "text",
+          "value": "March 2027"
+        },
+        "after": {
+          "kind": "date",
+          "value": "2027-04-12"
+        }
+      }
+    ],
+    "reason": "Updated from run evidence (OPENING_SOON).",
+    "evidence": [
+      {
+        "source_url": "https://careers.stanfordhealthcare.org/us/en/nurse-residency-program",
+        "excerpt": "Critical Dates Cohort 46 Application Webinar October 7th, 2026, 10:30am PST Applications Open: November 9, 2026 – November 15, 2026 Unit Level Interviews: February 15th, 2027 – March 5th, 2027 Offers Sent: Week of March 8th, 2027 Cohort 46 starts April 12, 2027.",
+        "retrieved_at": "2026-10-07T12:08:26.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://careers.stanfordhealthcare.org/us/en/nurse-residency-program",
+        "excerpt": "Cohort 46 Application Webinar October 7th, 2026 1030am PST link to apply attached (Stanford Health Care Nurse Residency Program Application Webinar – Fill out form) Check Back Soon for 2027 Application Updates",
+        "retrieved_at": "2026-10-02T12:15:00.000Z",
+        "claim": "opening_date"
+      },
+      {
+        "source_url": "https://careers.stanfordhealthcare.org/us/en/nurse-residency-program",
+        "excerpt": "The Stanford Health Care Nurse Residency Program is designed for new graduate registered nurses who have graduated from an accredited BSN or MSN program within the past 18 months.",
+        "retrieved_at": "2026-10-02T12:15:00.000Z",
+        "claim": "eligibility"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-10-07-daily_0002",
+    "run_id": "2026-10-07-daily",
+    "at": "2026-10-07T12:18:16.283Z",
+    "type": "SOURCE_UNAVAILABLE",
+    "opportunity_id": "opp_1381e8d059",
+    "changes": [
+      {
+        "field": "verification_health",
+        "before": "VERIFIED",
+        "after": "NEEDS_REVERIFICATION"
+      }
+    ],
+    "reason": "Retrieval found no posting; last-known facts preserved.",
+    "evidence": []
+  },
+  {
+    "id": "hist_2026-10-07-daily_0003",
+    "run_id": "2026-10-07-daily",
+    "at": "2026-10-07T12:18:16.283Z",
+    "type": "CLOSED",
+    "opportunity_id": "opp_5144668644",
+    "changes": [
+      {
+        "field": "application_status",
+        "before": "OPEN",
+        "after": "CLOSED"
+      },
+      {
+        "field": "closed_at",
+        "before": null,
+        "after": "2026-10-07T12:18:16.283Z"
+      }
+    ],
+    "reason": "Official evidence verified closure.",
+    "evidence": [
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/102920/new-grad-rn-ed-float-pool-november-start-date-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-health-system/",
+        "excerpt": "This job is no longer available. Please try another search.",
+        "retrieved_at": "2026-10-07T12:09:54.000Z",
+        "claim": "closure"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/102920/new-grad-rn-ed-float-pool-november-start-date-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-health-system/",
+        "excerpt": "No RN work experience required; ED practicum/PCT/CNE experience strongly preferred. All New Grad RNs are automatically enrolled in our Nurse Residency Program ranked #3 in the nation!",
+        "retrieved_at": "2026-10-07T12:10:00.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/102920/new-grad-rn-ed-float-pool-november-start-date-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-health-system/",
+        "excerpt": "Associate degree in Nursing required. Applicants with an Associate’s degree in nursing from an accredited nursing program may be considered, provided they are enrolled in an accredited BSN/MSN program within 1 year of hire",
+        "retrieved_at": "2026-10-07T12:10:00.000Z",
+        "claim": "education"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/102920/new-grad-rn-ed-float-pool-november-start-date-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-health-system/",
+        "excerpt": "Active Maryland or Compact RN license is required. BLS CPR certification required",
+        "retrieved_at": "2026-10-07T12:10:00.000Z",
+        "claim": "license"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-10-07-daily_0004",
+    "run_id": "2026-10-07-daily",
+    "at": "2026-10-07T12:18:16.283Z",
+    "type": "UPDATED",
+    "opportunity_id": "opp_5144668644",
+    "changes": [
+      {
+        "field": "application_status",
+        "before": "OPEN",
+        "after": "CLOSED"
+      },
+      {
+        "field": "closed_at",
+        "before": null,
+        "after": "2026-10-07T12:18:16.283Z"
+      }
+    ],
+    "reason": "Updated from run evidence (CLOSED).",
+    "evidence": [
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/102920/new-grad-rn-ed-float-pool-november-start-date-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-health-system/",
+        "excerpt": "This job is no longer available. Please try another search.",
+        "retrieved_at": "2026-10-07T12:09:54.000Z",
+        "claim": "closure"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/102920/new-grad-rn-ed-float-pool-november-start-date-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-health-system/",
+        "excerpt": "No RN work experience required; ED practicum/PCT/CNE experience strongly preferred. All New Grad RNs are automatically enrolled in our Nurse Residency Program ranked #3 in the nation!",
+        "retrieved_at": "2026-10-07T12:10:00.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/102920/new-grad-rn-ed-float-pool-november-start-date-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-health-system/",
+        "excerpt": "Associate degree in Nursing required. Applicants with an Associate’s degree in nursing from an accredited nursing program may be considered, provided they are enrolled in an accredited BSN/MSN program within 1 year of hire",
+        "retrieved_at": "2026-10-07T12:10:00.000Z",
+        "claim": "education"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/102920/new-grad-rn-ed-float-pool-november-start-date-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-health-system/",
+        "excerpt": "Active Maryland or Compact RN license is required. BLS CPR certification required",
+        "retrieved_at": "2026-10-07T12:10:00.000Z",
+        "claim": "license"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-10-07-daily_0005",
+    "run_id": "2026-10-07-daily",
+    "at": "2026-10-07T12:18:16.283Z",
+    "type": "CLOSED",
+    "opportunity_id": "opp_a29ee83cb9",
+    "changes": [
+      {
+        "field": "application_status",
+        "before": "OPEN",
+        "after": "CLOSED"
+      }
+    ],
+    "reason": "Confirmed deadline passed (ingest sweep).",
+    "evidence": []
   }
 ]

@@ -19,10 +19,13 @@
       "kind": "text",
       "value": "October 2026"
     },
-    "application_close": null,
+    "application_close": {
+      "kind": "date",
+      "value": "2026-11-15"
+    },
     "program_start": {
-      "kind": "text",
-      "value": "March 2027"
+      "kind": "date",
+      "value": "2027-04-12"
     },
     "source_posted_at": null,
     "application_status": "OPENING_SOON",
@@ -37,9 +40,9 @@
     "dedup_key": null,
     "source_external_id": null,
     "first_discovered_at": "2026-09-18T23:38:07.076Z",
-    "last_seen_at": "2026-10-05T12:18:12.328Z",
-    "last_attempted_at": "2026-10-05T12:18:12.328Z",
-    "last_verified_at": "2026-10-05T12:18:12.328Z",
+    "last_seen_at": "2026-10-07T12:18:16.283Z",
+    "last_attempted_at": "2026-10-07T12:18:16.283Z",
+    "last_verified_at": "2026-10-07T12:18:16.283Z",
     "closed_at": null,
     "closure_reason": null,
     "publication_state": "PUBLISHED",
@@ -241,11 +244,17 @@
         "excerpt": "The Stanford Health Care Nurse Residency Program is designed for new graduate registered nurses who have graduated from an accredited BSN or MSN program within the past 18 months.",
         "retrieved_at": "2026-10-02T12:15:00.000Z",
         "claim": "eligibility"
+      },
+      {
+        "source_url": "https://careers.stanfordhealthcare.org/us/en/nurse-residency-program",
+        "excerpt": "Critical Dates Cohort 46 Application Webinar October 7th, 2026, 10:30am PST Applications Open: November 9, 2026 – November 15, 2026 Unit Level Interviews: February 15th, 2027 – March 5th, 2027 Offers Sent: Week of March 8th, 2027 Cohort 46 starts April 12, 2027.",
+        "retrieved_at": "2026-10-07T12:08:26.000Z",
+        "claim": "status"
       }
     ],
     "manual_overrides": {},
     "created_at": "2026-09-18T23:38:07.076Z",
-    "updated_at": "2026-10-05T12:18:12.328Z"
+    "updated_at": "2026-10-07T12:18:16.283Z"
   },
   {
     "id": "opp_4a34429f1c",
@@ -285,9 +294,9 @@
     "dedup_key": null,
     "source_external_id": null,
     "first_discovered_at": "2026-09-18T23:38:07.076Z",
-    "last_seen_at": "2026-10-05T12:18:12.328Z",
-    "last_attempted_at": "2026-10-05T12:18:12.328Z",
-    "last_verified_at": "2026-10-05T12:18:12.328Z",
+    "last_seen_at": "2026-10-07T12:18:16.283Z",
+    "last_attempted_at": "2026-10-07T12:18:16.283Z",
+    "last_verified_at": "2026-10-07T12:18:16.283Z",
     "closed_at": "2026-09-21T12:32:20.546Z",
     "closure_reason": "verified_closed",
     "publication_state": "PUBLISHED",
@@ -463,7 +472,7 @@
     ],
     "manual_overrides": {},
     "created_at": "2026-09-18T23:38:07.076Z",
-    "updated_at": "2026-10-05T12:18:12.328Z"
+    "updated_at": "2026-10-07T12:18:16.283Z"
   },
   {
     "id": "opp_5254939ba4",
@@ -497,9 +506,9 @@
     "dedup_key": null,
     "source_external_id": null,
     "first_discovered_at": "2026-09-18T23:38:07.076Z",
-    "last_seen_at": "2026-10-05T12:18:12.328Z",
-    "last_attempted_at": "2026-10-05T12:18:12.328Z",
-    "last_verified_at": "2026-10-05T12:18:12.328Z",
+    "last_seen_at": "2026-10-07T12:18:16.283Z",
+    "last_attempted_at": "2026-10-07T12:18:16.283Z",
+    "last_verified_at": "2026-10-07T12:18:16.283Z",
     "closed_at": "2026-09-21T12:32:20.546Z",
     "closure_reason": "verified_closed",
     "publication_state": "PUBLISHED",
@@ -603,7 +612,7 @@
     ],
     "manual_overrides": {},
     "created_at": "2026-09-18T23:38:07.076Z",
-    "updated_at": "2026-10-05T12:18:12.328Z"
+    "updated_at": "2026-10-07T12:18:16.283Z"
   },
   {
     "id": "opp_b7945f70da",
@@ -647,9 +656,9 @@
     "dedup_key": null,
     "source_external_id": null,
     "first_discovered_at": "2026-09-19T00:01:48.014Z",
-    "last_seen_at": "2026-10-05T12:18:12.328Z",
-    "last_attempted_at": "2026-10-05T12:18:12.328Z",
-    "last_verified_at": "2026-10-05T12:18:12.328Z",
+    "last_seen_at": "2026-10-07T12:18:16.283Z",
+    "last_attempted_at": "2026-10-07T12:18:16.283Z",
+    "last_verified_at": "2026-10-07T12:18:16.283Z",
     "closed_at": null,
     "closure_reason": null,
     "publication_state": "PUBLISHED",
@@ -837,7 +846,7 @@
     ],
     "manual_overrides": {},
     "created_at": "2026-09-19T00:01:48.014Z",
-    "updated_at": "2026-10-05T12:18:12.328Z"
+    "updated_at": "2026-10-07T12:18:16.283Z"
   },
   {
     "id": "opp_73bcc0ea08",
@@ -882,9 +891,9 @@
     "dedup_key": null,
     "source_external_id": null,
     "first_discovered_at": "2026-09-19T00:12:25.308Z",
-    "last_seen_at": "2026-10-05T12:18:12.328Z",
-    "last_attempted_at": "2026-10-05T12:18:12.328Z",
-    "last_verified_at": "2026-10-05T12:18:12.328Z",
+    "last_seen_at": "2026-10-07T12:18:16.283Z",
+    "last_attempted_at": "2026-10-07T12:18:16.283Z",
+    "last_verified_at": "2026-10-07T12:18:16.283Z",
     "closed_at": null,
     "closure_reason": null,
     "publication_state": "PUBLISHED",
@@ -1006,7 +1015,7 @@
     ],
     "manual_overrides": {},
     "created_at": "2026-09-19T00:12:25.308Z",
-    "updated_at": "2026-10-05T12:18:12.328Z"
+    "updated_at": "2026-10-07T12:18:16.283Z"
   },
   {
     "id": "opp_afb6ead28f",
@@ -1050,9 +1059,9 @@
     "dedup_key": null,
     "source_external_id": null,
     "first_discovered_at": "2026-09-19T00:12:25.308Z",
-    "last_seen_at": "2026-10-05T12:18:12.328Z",
-    "last_attempted_at": "2026-10-05T12:18:12.328Z",
-    "last_verified_at": "2026-10-05T12:18:12.328Z",
+    "last_seen_at": "2026-10-07T12:18:16.283Z",
+    "last_attempted_at": "2026-10-07T12:18:16.283Z",
+    "last_verified_at": "2026-10-07T12:18:16.283Z",
     "closed_at": null,
     "closure_reason": null,
     "publication_state": "PUBLISHED",
@@ -1228,7 +1237,7 @@
     ],
     "manual_overrides": {},
     "created_at": "2026-09-19T00:12:25.308Z",
-    "updated_at": "2026-10-05T12:18:12.328Z"
+    "updated_at": "2026-10-07T12:18:16.283Z"
   },
   {
     "id": "opp_b4a5537b8b",
@@ -1262,9 +1271,9 @@
     "dedup_key": null,
     "source_external_id": null,
     "first_discovered_at": "2026-09-19T00:12:25.308Z",
-    "last_seen_at": "2026-10-05T12:18:12.328Z",
-    "last_attempted_at": "2026-10-05T12:18:12.328Z",
-    "last_verified_at": "2026-10-05T12:18:12.328Z",
+    "last_seen_at": "2026-10-07T12:18:16.283Z",
+    "last_attempted_at": "2026-10-07T12:18:16.283Z",
+    "last_verified_at": "2026-10-07T12:18:16.283Z",
     "closed_at": "2026-09-21T12:32:20.546Z",
     "closure_reason": "verified_closed",
     "publication_state": "PUBLISHED",
@@ -1386,7 +1395,7 @@
     ],
     "manual_overrides": {},
     "created_at": "2026-09-19T00:12:25.308Z",
-    "updated_at": "2026-10-05T12:18:12.328Z"
+    "updated_at": "2026-10-07T12:18:16.283Z"
   },
   {
     "id": "opp_a2e7e134ff",
@@ -1420,9 +1429,9 @@
     "dedup_key": null,
     "source_external_id": null,
     "first_discovered_at": "2026-09-19T00:12:25.308Z",
-    "last_seen_at": "2026-10-05T12:18:12.328Z",
-    "last_attempted_at": "2026-10-05T12:18:12.328Z",
-    "last_verified_at": "2026-10-05T12:18:12.328Z",
+    "last_seen_at": "2026-10-07T12:18:16.283Z",
+    "last_attempted_at": "2026-10-07T12:18:16.283Z",
+    "last_verified_at": "2026-10-07T12:18:16.283Z",
     "closed_at": "2026-09-21T12:32:20.546Z",
     "closure_reason": "verified_closed",
     "publication_state": "PUBLISHED",
@@ -1520,7 +1529,7 @@
     ],
     "manual_overrides": {},
     "created_at": "2026-09-19T00:12:25.308Z",
-    "updated_at": "2026-10-05T12:18:12.328Z"
+    "updated_at": "2026-10-07T12:18:16.283Z"
   },
   {
     "id": "opp_34afa285d5",
@@ -1563,9 +1572,9 @@
     "dedup_key": null,
     "source_external_id": null,
     "first_discovered_at": "2026-09-19T00:12:25.308Z",
-    "last_seen_at": "2026-10-05T12:18:12.328Z",
-    "last_attempted_at": "2026-10-05T12:18:12.328Z",
-    "last_verified_at": "2026-10-05T12:18:12.328Z",
+    "last_seen_at": "2026-10-07T12:18:16.283Z",
+    "last_attempted_at": "2026-10-07T12:18:16.283Z",
+    "last_verified_at": "2026-10-07T12:18:16.283Z",
     "closed_at": null,
     "closure_reason": null,
     "publication_state": "PUBLISHED",
@@ -1713,11 +1722,29 @@
         "excerpt": "Are you a recent or soon-to-be nurse graduate looking for the perfect place to kickstart your RN career? You are in the right place! Sharp HealthCare Nurse Residency Program supports newly licensed nurses.",
         "retrieved_at": "2026-10-05T12:07:35.000Z",
         "claim": "eligibility"
+      },
+      {
+        "source_url": "https://careers.sharp.com/SHC-nurse-residency-program",
+        "excerpt": "Sharp Metropolitan Medical Campus is hiring a small number of Nurse Resident positions starting in Winter 2027! External Applicants: Mon, Oct 5th – Mon, Oct 12th. Find the posting on our careers site during these dates: Search for \"Nurse Residency Program\", or JR210806.",
+        "retrieved_at": "2026-10-07T12:07:35.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://careers.sharp.com/SHC-nurse-residency-program",
+        "excerpt": "External Applicants: Mon, Oct 5th – Mon, Oct 12th. Find the posting on our careers site during these dates: Search for \"Nurse Residency Program\", or JR210806.",
+        "retrieved_at": "2026-10-07T12:07:35.000Z",
+        "claim": "opening_date"
+      },
+      {
+        "source_url": "https://careers.sharp.com/SHC-nurse-residency-program",
+        "excerpt": "Are you a recent or soon-to-be nurse graduate looking for the perfect place to kickstart your RN career? You are in the right place! Sharp HealthCare Nurse Residency Program supports newly licensed nurses.",
+        "retrieved_at": "2026-10-07T12:07:35.000Z",
+        "claim": "eligibility"
       }
     ],
     "manual_overrides": {},
     "created_at": "2026-09-19T00:12:25.308Z",
-    "updated_at": "2026-10-05T12:18:12.328Z"
+    "updated_at": "2026-10-07T12:18:16.283Z"
   },
   {
     "id": "opp_5300617360",
@@ -1760,9 +1787,9 @@
     "dedup_key": "taleo||242006068",
     "source_external_id": null,
     "first_discovered_at": "2026-09-19T00:12:25.308Z",
-    "last_seen_at": "2026-10-05T12:18:12.328Z",
-    "last_attempted_at": "2026-10-05T12:18:12.328Z",
-    "last_verified_at": "2026-10-05T12:18:12.328Z",
+    "last_seen_at": "2026-10-07T12:18:16.283Z",
+    "last_attempted_at": "2026-10-07T12:18:16.283Z",
+    "last_verified_at": "2026-10-07T12:18:16.283Z",
     "closed_at": "2026-09-23T12:16:49.865Z",
     "closure_reason": "verified_removed",
     "publication_state": "PUBLISHED",
@@ -1938,7 +1965,7 @@
     ],
     "manual_overrides": {},
     "created_at": "2026-09-19T00:12:25.308Z",
-    "updated_at": "2026-10-05T12:18:12.328Z"
+    "updated_at": "2026-10-07T12:18:16.283Z"
   },
   {
     "id": "opp_3778d35d23",
@@ -1976,9 +2003,9 @@
     "dedup_key": null,
     "source_external_id": null,
     "first_discovered_at": "2026-09-19T00:12:25.308Z",
-    "last_seen_at": "2026-10-05T12:18:12.328Z",
-    "last_attempted_at": "2026-10-05T12:18:12.328Z",
-    "last_verified_at": "2026-10-05T12:18:12.328Z",
+    "last_seen_at": "2026-10-07T12:18:16.283Z",
+    "last_attempted_at": "2026-10-07T12:18:16.283Z",
+    "last_verified_at": "2026-10-07T12:18:16.283Z",
     "closed_at": "2026-09-21T12:32:20.546Z",
     "closure_reason": "verified_closed",
     "publication_state": "PUBLISHED",
@@ -2064,7 +2091,7 @@
     ],
     "manual_overrides": {},
     "created_at": "2026-09-19T00:12:25.308Z",
-    "updated_at": "2026-10-05T12:18:12.328Z"
+    "updated_at": "2026-10-07T12:18:16.283Z"
   },
   {
     "id": "opp_746f786f0e",
@@ -2098,9 +2125,9 @@
     "dedup_key": null,
     "source_external_id": null,
     "first_discovered_at": "2026-09-19T00:12:25.308Z",
-    "last_seen_at": "2026-10-05T12:18:12.328Z",
-    "last_attempted_at": "2026-10-05T12:18:12.328Z",
-    "last_verified_at": "2026-10-05T12:18:12.328Z",
+    "last_seen_at": "2026-10-07T12:18:16.283Z",
+    "last_attempted_at": "2026-10-07T12:18:16.283Z",
+    "last_verified_at": "2026-10-07T12:18:16.283Z",
     "closed_at": null,
     "closure_reason": null,
     "publication_state": "PUBLISHED",
@@ -2144,7 +2171,7 @@
     ],
     "manual_overrides": {},
     "created_at": "2026-09-19T00:12:25.308Z",
-    "updated_at": "2026-10-05T12:18:12.328Z"
+    "updated_at": "2026-10-07T12:18:16.283Z"
   },
   {
     "id": "opp_2a200928c1",
@@ -2178,9 +2205,9 @@
     "dedup_key": null,
     "source_external_id": null,
     "first_discovered_at": "2026-09-19T00:12:25.308Z",
-    "last_seen_at": "2026-10-05T12:18:12.328Z",
-    "last_attempted_at": "2026-10-05T12:18:12.328Z",
-    "last_verified_at": "2026-10-05T12:18:12.328Z",
+    "last_seen_at": "2026-10-07T12:18:16.283Z",
+    "last_attempted_at": "2026-10-07T12:18:16.283Z",
+    "last_verified_at": "2026-10-07T12:18:16.283Z",
     "closed_at": "2026-09-21T12:32:20.546Z",
     "closure_reason": "verified_closed",
     "publication_state": "PUBLISHED",
@@ -2332,7 +2359,7 @@
     ],
     "manual_overrides": {},
     "created_at": "2026-09-19T00:12:25.308Z",
-    "updated_at": "2026-10-05T12:18:12.328Z"
+    "updated_at": "2026-10-07T12:18:16.283Z"
   },
   {
     "id": "opp_62a8c76769",
@@ -2394,9 +2421,9 @@
     "dedup_key": "icims|commonspirit|2026-485862",
     "source_external_id": null,
     "first_discovered_at": "2026-09-19T00:12:25.308Z",
-    "last_seen_at": "2026-10-05T12:18:12.328Z",
-    "last_attempted_at": "2026-10-05T12:18:12.328Z",
-    "last_verified_at": "2026-10-05T12:18:12.328Z",
+    "last_seen_at": "2026-10-07T12:18:16.283Z",
+    "last_attempted_at": "2026-10-07T12:18:16.283Z",
+    "last_verified_at": "2026-10-07T12:18:16.283Z",
     "closed_at": null,
     "closure_reason": null,
     "publication_state": "PUBLISHED",
@@ -2628,11 +2655,17 @@
         "excerpt": "The Google form must be submitted by Ocotober 8, 2026 at 0900 to be considered. This requisition is open for California Hospital, Glendale Memorial, St Mary- Long Beach, Northridge, Community Hospital San Bernardino, St. Bernardines, St. Johns, Marian Regional, French Hospital, Arroyo Grande and Mercy Merced.",
         "retrieved_at": "2026-10-05T12:07:25.000Z",
         "claim": "deadline"
+      },
+      {
+        "source_url": "https://www.commonspirit.careers/job/oxnard/national-resident-rn-california/35300/100616393488",
+        "excerpt": "The Google form must be submitted by Ocotober 8, 2026 at 0900 to be considered. This requisition is open for California Hospital, Glendale Memorial, St Mary- Long Beach, Northridge, Community Hospital San Bernardino, St. Bernardines, St. Johns, Marian Regional, French Hospital, Arroyo Grande and Mercy Merced.",
+        "retrieved_at": "2026-10-07T12:07:25.000Z",
+        "claim": "deadline"
       }
     ],
     "manual_overrides": {},
     "created_at": "2026-09-19T00:12:25.308Z",
-    "updated_at": "2026-10-05T12:18:12.328Z"
+    "updated_at": "2026-10-07T12:18:16.283Z"
   },
   {
     "id": "opp_b045e8e0d4",
@@ -2670,9 +2703,9 @@
     "dedup_key": null,
     "source_external_id": null,
     "first_discovered_at": "2026-09-19T00:12:25.308Z",
-    "last_seen_at": "2026-10-05T12:18:12.328Z",
-    "last_attempted_at": "2026-10-05T12:18:12.328Z",
-    "last_verified_at": "2026-10-05T12:18:12.328Z",
+    "last_seen_at": "2026-10-07T12:18:16.283Z",
+    "last_attempted_at": "2026-10-07T12:18:16.283Z",
+    "last_verified_at": "2026-10-07T12:18:16.283Z",
     "closed_at": "2026-09-21T12:32:20.546Z",
     "closure_reason": "verified_closed",
     "publication_state": "PUBLISHED",
@@ -2758,7 +2791,7 @@
     ],
     "manual_overrides": {},
     "created_at": "2026-09-19T00:12:25.308Z",
-    "updated_at": "2026-10-05T12:18:12.328Z"
+    "updated_at": "2026-10-07T12:18:16.283Z"
   },
   {
     "id": "opp_da8fc4bb99",
@@ -2796,9 +2829,9 @@
     "dedup_key": "workday|osu|r153527",
     "source_external_id": null,
     "first_discovered_at": "2026-09-19T04:51:39.787Z",
-    "last_seen_at": "2026-10-05T12:18:12.328Z",
-    "last_attempted_at": "2026-10-05T12:18:12.328Z",
-    "last_verified_at": "2026-10-05T12:18:12.328Z",
+    "last_seen_at": "2026-10-07T12:18:16.283Z",
+    "last_attempted_at": "2026-10-07T12:18:16.283Z",
+    "last_verified_at": "2026-10-07T12:18:16.283Z",
     "closed_at": null,
     "closure_reason": null,
     "publication_state": "PUBLISHED",
@@ -2958,11 +2991,17 @@
         "excerpt": "Staff Nurse (RN)- Critical Care Oncology New Grad Nurse Residency Program- The James. Position Summary: Staff Nurse (RN) participating in the Nurse Residency Program at The James Cancer Hospital.",
         "retrieved_at": "2026-10-05T12:09:40.000Z",
         "claim": "status"
+      },
+      {
+        "source_url": "https://osu.wd1.myworkdayjobs.com/OSUCareers/job/James-Cancer-Hospital-and-Solove-Research-Institute/Staff-Nurse--RN---Critical-Care-Oncology-New-Grad-Nurse-Residency-Program--The-James_R153527-1",
+        "excerpt": "Staff Nurse (RN)- Critical Care Oncology New Grad Nurse Residency Program- The James. Position Summary: Staff Nurse (RN) participating in the Nurse Residency Program at The James Cancer Hospital.",
+        "retrieved_at": "2026-10-07T12:09:40.000Z",
+        "claim": "status"
       }
     ],
     "manual_overrides": {},
     "created_at": "2026-09-19T04:51:39.787Z",
-    "updated_at": "2026-10-05T12:18:12.328Z"
+    "updated_at": "2026-10-07T12:18:16.283Z"
   },
   {
     "id": "opp_6d53fceca4",
@@ -2996,9 +3035,9 @@
     "dedup_key": "successfactors||674686",
     "source_external_id": "674686",
     "first_discovered_at": "2026-09-19T05:55:07.276Z",
-    "last_seen_at": "2026-10-05T12:18:12.328Z",
-    "last_attempted_at": "2026-10-05T12:18:12.328Z",
-    "last_verified_at": "2026-10-05T12:18:12.328Z",
+    "last_seen_at": "2026-10-07T12:18:16.283Z",
+    "last_attempted_at": "2026-10-07T12:18:16.283Z",
+    "last_verified_at": "2026-10-07T12:18:16.283Z",
     "closed_at": null,
     "closure_reason": null,
     "publication_state": "PUBLISHED",
@@ -3152,11 +3191,17 @@
         "excerpt": "Nursing New Grad RN Job: New Grad RN - Bayview Medical Center Med/Surg Float Pool at Johns Hopkins Medicine in Johns Hopkins Health System, Baltimore, MD",
         "retrieved_at": "2026-10-05T12:08:25.000Z",
         "claim": "status"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/101359/new-grad-rn-med-surg-float-pool-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-health-system/",
+        "excerpt": "Nursing New Grad RN Job: New Grad RN - Bayview Medical Center Med/Surg Float Pool at Johns Hopkins Medicine in Johns Hopkins Health System, Baltimore, MD",
+        "retrieved_at": "2026-10-07T12:08:25.000Z",
+        "claim": "status"
       }
     ],
     "manual_overrides": {},
     "created_at": "2026-09-19T05:55:07.276Z",
-    "updated_at": "2026-10-05T12:18:12.328Z"
+    "updated_at": "2026-10-07T12:18:16.283Z"
   },
   {
     "id": "opp_a29ee83cb9",
@@ -3192,7 +3237,7 @@
       "value": "2027-02-22"
     },
     "source_posted_at": null,
-    "application_status": "OPEN",
+    "application_status": "CLOSED",
     "verification_health": "VERIFIED",
     "eligibility": "ELIGIBLE",
     "bsn_required": true,
@@ -3204,11 +3249,11 @@
     "dedup_key": "oraclecloud||nrp-mayo-2026",
     "source_external_id": "NRP-MAYO-2026",
     "first_discovered_at": "2026-09-19T05:55:07.276Z",
-    "last_seen_at": "2026-10-05T12:18:12.328Z",
-    "last_attempted_at": "2026-10-05T12:18:12.328Z",
-    "last_verified_at": "2026-10-05T12:18:12.328Z",
-    "closed_at": null,
-    "closure_reason": null,
+    "last_seen_at": "2026-10-07T12:18:16.283Z",
+    "last_attempted_at": "2026-10-07T12:18:16.283Z",
+    "last_verified_at": "2026-10-07T12:18:16.283Z",
+    "closed_at": "2026-10-07T12:18:16.283Z",
+    "closure_reason": "deadline_passed",
     "publication_state": "PUBLISHED",
     "evidence": [
       {
@@ -3408,11 +3453,23 @@
         "excerpt": "The current application will be open through October 8th. Our program brings together newly licensed Registered Nurses from across the country in the first year of their career and offers the experience to become a well-rounded, fully competent Registered Nurse.",
         "retrieved_at": "2026-10-05T12:07:13.000Z",
         "claim": "status"
+      },
+      {
+        "source_url": "https://jobs.mayoclinic.org/job/rochester/nurse-residency-new-grad-rn/33647/101394925216",
+        "excerpt": "The current application will be open through October 8th. Our program brings together newly licensed Registered Nurses from across the country in the first year of their career and offers the experience to become a well-rounded, fully competent Registered Nurse.",
+        "retrieved_at": "2026-10-07T12:09:12.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://jobs.mayoclinic.org/nurseresidencyprograms",
+        "excerpt": "The Arizona Nurse Residency Program October 5-6th, 2026, closing at 5 P.M. MST, will be the application submission deadline for the February 22nd 2027 Cohort.",
+        "retrieved_at": "2026-10-07T12:08:45.000Z",
+        "claim": "deadline"
       }
     ],
     "manual_overrides": {},
     "created_at": "2026-09-19T05:55:07.276Z",
-    "updated_at": "2026-10-05T12:18:12.328Z"
+    "updated_at": "2026-10-07T12:18:16.283Z"
   },
   {
     "id": "opp_f8be7c648c",
@@ -3447,7 +3504,7 @@
     "source_external_id": "MSHS-NGRP-2026",
     "first_discovered_at": "2026-09-19T05:55:07.276Z",
     "last_seen_at": "2026-09-28T12:19:48.970Z",
-    "last_attempted_at": "2026-10-05T12:18:12.328Z",
+    "last_attempted_at": "2026-10-07T12:18:16.283Z",
     "last_verified_at": "2026-09-28T12:19:48.970Z",
     "closed_at": null,
     "closure_reason": null,
@@ -3578,9 +3635,9 @@
     "dedup_key": null,
     "source_external_id": null,
     "first_discovered_at": "2026-09-19T05:58:14.206Z",
-    "last_seen_at": "2026-10-05T12:18:12.328Z",
-    "last_attempted_at": "2026-10-05T12:18:12.328Z",
-    "last_verified_at": "2026-10-05T12:18:12.328Z",
+    "last_seen_at": "2026-10-07T12:18:16.283Z",
+    "last_attempted_at": "2026-10-07T12:18:16.283Z",
+    "last_verified_at": "2026-10-07T12:18:16.283Z",
     "closed_at": null,
     "closure_reason": null,
     "publication_state": "PUBLISHED",
@@ -3660,7 +3717,7 @@
     ],
     "manual_overrides": {},
     "created_at": "2026-09-19T05:58:14.206Z",
-    "updated_at": "2026-10-05T12:18:12.328Z"
+    "updated_at": "2026-10-07T12:18:16.283Z"
   },
   {
     "id": "opp_b90ce57ca2",
@@ -3694,9 +3751,9 @@
     "dedup_key": "successfactors||cn1-duhs-2026",
     "source_external_id": "CN1-DUHS-2026",
     "first_discovered_at": "2026-09-19T06:07:18.159Z",
-    "last_seen_at": "2026-10-05T12:18:12.328Z",
-    "last_attempted_at": "2026-10-05T12:18:12.328Z",
-    "last_verified_at": "2026-10-05T12:18:12.328Z",
+    "last_seen_at": "2026-10-07T12:18:16.283Z",
+    "last_attempted_at": "2026-10-07T12:18:16.283Z",
+    "last_verified_at": "2026-10-07T12:18:16.283Z",
     "closed_at": null,
     "closure_reason": null,
     "publication_state": "PUBLISHED",
@@ -3836,7 +3893,7 @@
     ],
     "manual_overrides": {},
     "created_at": "2026-09-19T06:07:18.159Z",
-    "updated_at": "2026-10-05T12:18:12.328Z"
+    "updated_at": "2026-10-07T12:18:16.283Z"
   },
   {
     "id": "opp_717a814cb5",
@@ -3879,9 +3936,9 @@
     "dedup_key": "workday|vumc|r-62350",
     "source_external_id": "R-62350",
     "first_discovered_at": "2026-09-19T12:21:38.157Z",
-    "last_seen_at": "2026-10-05T12:18:12.328Z",
-    "last_attempted_at": "2026-10-05T12:18:12.328Z",
-    "last_verified_at": "2026-10-05T12:18:12.328Z",
+    "last_seen_at": "2026-10-07T12:18:16.283Z",
+    "last_attempted_at": "2026-10-07T12:18:16.283Z",
+    "last_verified_at": "2026-10-07T12:18:16.283Z",
     "closed_at": null,
     "closure_reason": null,
     "publication_state": "PUBLISHED",
@@ -4039,7 +4096,7 @@
     ],
     "manual_overrides": {},
     "created_at": "2026-09-19T12:21:38.157Z",
-    "updated_at": "2026-10-05T12:18:12.328Z"
+    "updated_at": "2026-10-07T12:18:16.283Z"
   },
   {
     "id": "opp_473d98f794",
@@ -4083,9 +4140,9 @@
     "dedup_key": "workday|chop|1028236",
     "source_external_id": null,
     "first_discovered_at": "2026-09-19T17:01:32.388Z",
-    "last_seen_at": "2026-10-05T12:18:12.328Z",
-    "last_attempted_at": "2026-10-05T12:18:12.328Z",
-    "last_verified_at": "2026-10-05T12:18:12.328Z",
+    "last_seen_at": "2026-10-07T12:18:16.283Z",
+    "last_attempted_at": "2026-10-07T12:18:16.283Z",
+    "last_verified_at": "2026-10-07T12:18:16.283Z",
     "closed_at": "2026-10-03T12:21:29.951Z",
     "closure_reason": "verified_closed",
     "publication_state": "PUBLISHED",
@@ -4359,11 +4416,17 @@
         "excerpt": "Applications will be open from Sept. 28 through Oct. 2, 2026 for students graduating in November 2026 or earlier. Information regarding opportunities for December 2026 graduates will be shared at a later date.",
         "retrieved_at": "2026-10-05T12:06:00.000Z",
         "claim": "closure"
+      },
+      {
+        "source_url": "https://careers.chop.edu/us/en/NurseResidency",
+        "excerpt": "Applications will be open from Sept. 28 through Oct. 2, 2026 for students graduating in November 2026 or earlier. Information regarding opportunities for December 2026 graduates will be shared at a later date.",
+        "retrieved_at": "2026-10-07T12:06:00.000Z",
+        "claim": "closure"
       }
     ],
     "manual_overrides": {},
     "created_at": "2026-09-19T17:01:32.388Z",
-    "updated_at": "2026-10-05T12:18:12.328Z"
+    "updated_at": "2026-10-07T12:18:16.283Z"
   },
   {
     "id": "opp_04a44aa517",
@@ -4410,9 +4473,9 @@
     "dedup_key": "phenom|bswhealth|26014424",
     "source_external_id": "26014424",
     "first_discovered_at": "2026-09-19T17:01:32.388Z",
-    "last_seen_at": "2026-10-05T12:18:12.328Z",
-    "last_attempted_at": "2026-10-05T12:18:12.328Z",
-    "last_verified_at": "2026-10-05T12:18:12.328Z",
+    "last_seen_at": "2026-10-07T12:18:16.283Z",
+    "last_attempted_at": "2026-10-07T12:18:16.283Z",
+    "last_verified_at": "2026-10-07T12:18:16.283Z",
     "closed_at": "2026-09-23T12:16:49.865Z",
     "closure_reason": "verified_closed",
     "publication_state": "PUBLISHED",
@@ -4600,7 +4663,7 @@
     ],
     "manual_overrides": {},
     "created_at": "2026-09-19T17:01:32.388Z",
-    "updated_at": "2026-10-05T12:18:12.328Z"
+    "updated_at": "2026-10-07T12:18:16.283Z"
   },
   {
     "id": "opp_650b1424a7",
@@ -4646,9 +4709,9 @@
     "dedup_key": null,
     "source_external_id": null,
     "first_discovered_at": "2026-09-20T19:01:35.368Z",
-    "last_seen_at": "2026-10-05T12:18:12.328Z",
-    "last_attempted_at": "2026-10-05T12:18:12.328Z",
-    "last_verified_at": "2026-10-05T12:18:12.328Z",
+    "last_seen_at": "2026-10-07T12:18:16.283Z",
+    "last_attempted_at": "2026-10-07T12:18:16.283Z",
+    "last_verified_at": "2026-10-07T12:18:16.283Z",
     "closed_at": null,
     "closure_reason": null,
     "publication_state": "PUBLISHED",
@@ -4776,7 +4839,7 @@
     ],
     "manual_overrides": {},
     "created_at": "2026-09-20T19:01:35.368Z",
-    "updated_at": "2026-10-05T12:18:12.328Z"
+    "updated_at": "2026-10-07T12:18:16.283Z"
   },
   {
     "id": "opp_e3cdecc646",
@@ -4810,9 +4873,9 @@
     "dedup_key": null,
     "source_external_id": null,
     "first_discovered_at": "2026-09-21T03:28:08.057Z",
-    "last_seen_at": "2026-10-05T12:18:12.328Z",
-    "last_attempted_at": "2026-10-05T12:18:12.328Z",
-    "last_verified_at": "2026-10-05T12:18:12.328Z",
+    "last_seen_at": "2026-10-07T12:18:16.283Z",
+    "last_attempted_at": "2026-10-07T12:18:16.283Z",
+    "last_verified_at": "2026-10-07T12:18:16.283Z",
     "closed_at": null,
     "closure_reason": null,
     "publication_state": "PUBLISHED",
@@ -4892,7 +4955,7 @@
     ],
     "manual_overrides": {},
     "created_at": "2026-09-21T03:28:08.057Z",
-    "updated_at": "2026-10-05T12:18:12.328Z"
+    "updated_at": "2026-10-07T12:18:16.283Z"
   },
   {
     "id": "opp_da85a917e9",
@@ -4930,7 +4993,7 @@
     "source_external_id": null,
     "first_discovered_at": "2026-09-21T03:36:38.835Z",
     "last_seen_at": "2026-09-28T12:19:48.970Z",
-    "last_attempted_at": "2026-10-05T12:18:12.328Z",
+    "last_attempted_at": "2026-10-07T12:18:16.283Z",
     "last_verified_at": "2026-09-28T12:19:48.970Z",
     "closed_at": null,
     "closure_reason": null,
@@ -5031,9 +5094,9 @@
     "dedup_key": null,
     "source_external_id": null,
     "first_discovered_at": "2026-09-21T03:36:38.835Z",
-    "last_seen_at": "2026-10-05T12:18:12.328Z",
-    "last_attempted_at": "2026-10-05T12:18:12.328Z",
-    "last_verified_at": "2026-10-05T12:18:12.328Z",
+    "last_seen_at": "2026-10-07T12:18:16.283Z",
+    "last_attempted_at": "2026-10-07T12:18:16.283Z",
+    "last_verified_at": "2026-10-07T12:18:16.283Z",
     "closed_at": null,
     "closure_reason": null,
     "publication_state": "PUBLISHED",
@@ -5113,7 +5176,7 @@
     ],
     "manual_overrides": {},
     "created_at": "2026-09-21T03:36:38.835Z",
-    "updated_at": "2026-10-05T12:18:12.328Z"
+    "updated_at": "2026-10-07T12:18:16.283Z"
   },
   {
     "id": "opp_4dbe7c89e1",
@@ -5150,9 +5213,9 @@
     "dedup_key": null,
     "source_external_id": null,
     "first_discovered_at": "2026-09-21T03:36:38.835Z",
-    "last_seen_at": "2026-10-05T12:18:12.328Z",
-    "last_attempted_at": "2026-10-05T12:18:12.328Z",
-    "last_verified_at": "2026-10-05T12:18:12.328Z",
+    "last_seen_at": "2026-10-07T12:18:16.283Z",
+    "last_attempted_at": "2026-10-07T12:18:16.283Z",
+    "last_verified_at": "2026-10-07T12:18:16.283Z",
     "closed_at": null,
     "closure_reason": null,
     "publication_state": "PUBLISHED",
@@ -5232,7 +5295,7 @@
     ],
     "manual_overrides": {},
     "created_at": "2026-09-21T03:36:38.835Z",
-    "updated_at": "2026-10-05T12:18:12.328Z"
+    "updated_at": "2026-10-07T12:18:16.283Z"
   },
   {
     "id": "opp_34dee97be9",
@@ -5278,9 +5341,9 @@
     "dedup_key": null,
     "source_external_id": null,
     "first_discovered_at": "2026-09-21T12:32:20.546Z",
-    "last_seen_at": "2026-10-05T12:18:12.328Z",
-    "last_attempted_at": "2026-10-05T12:18:12.328Z",
-    "last_verified_at": "2026-10-05T12:18:12.328Z",
+    "last_seen_at": "2026-10-07T12:18:16.283Z",
+    "last_attempted_at": "2026-10-07T12:18:16.283Z",
+    "last_verified_at": "2026-10-07T12:18:16.283Z",
     "closed_at": null,
     "closure_reason": null,
     "publication_state": "PUBLISHED",
@@ -5408,7 +5471,7 @@
     ],
     "manual_overrides": {},
     "created_at": "2026-09-21T12:32:20.546Z",
-    "updated_at": "2026-10-05T12:18:12.328Z"
+    "updated_at": "2026-10-07T12:18:16.283Z"
   },
   {
     "id": "opp_5775823a98",
@@ -5445,7 +5508,7 @@
     "source_external_id": "2026-494269",
     "first_discovered_at": "2026-09-27T15:11:14.064Z",
     "last_seen_at": "2026-10-02T12:19:22.781Z",
-    "last_attempted_at": "2026-10-05T12:18:12.328Z",
+    "last_attempted_at": "2026-10-07T12:18:16.283Z",
     "last_verified_at": "2026-10-02T12:19:22.781Z",
     "closed_at": null,
     "closure_reason": null,
@@ -5597,7 +5660,7 @@
     "source_external_id": "MIL005258",
     "first_discovered_at": "2026-09-29T00:12:40.854Z",
     "last_seen_at": "2026-09-29T12:17:48.422Z",
-    "last_attempted_at": "2026-10-05T12:18:12.328Z",
+    "last_attempted_at": "2026-10-07T12:18:16.283Z",
     "last_verified_at": "2026-09-29T12:17:48.422Z",
     "closed_at": null,
     "closure_reason": null,
@@ -5701,9 +5764,9 @@
     "dedup_key": "jhmi|hopkins|676639",
     "source_external_id": "676639",
     "first_discovered_at": "2026-09-29T12:17:48.422Z",
-    "last_seen_at": "2026-10-05T12:18:12.328Z",
-    "last_attempted_at": "2026-10-05T12:18:12.328Z",
-    "last_verified_at": "2026-10-05T12:18:12.328Z",
+    "last_seen_at": "2026-10-07T12:18:16.283Z",
+    "last_attempted_at": "2026-10-07T12:18:16.283Z",
+    "last_verified_at": "2026-10-07T12:18:16.283Z",
     "closed_at": "2026-10-03T12:21:29.951Z",
     "closure_reason": "verified_closed",
     "publication_state": "PUBLISHED",
@@ -5797,11 +5860,17 @@
         "excerpt": "This job is no longer available. Please try another search.",
         "retrieved_at": "2026-10-05T12:08:16.000Z",
         "claim": "closure"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/102787/new-grad-rn-ccu-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "This job is no longer available. Please try another search.",
+        "retrieved_at": "2026-10-07T12:08:16.000Z",
+        "claim": "closure"
       }
     ],
     "manual_overrides": {},
     "created_at": "2026-09-29T12:17:48.422Z",
-    "updated_at": "2026-10-05T12:18:12.328Z"
+    "updated_at": "2026-10-07T12:18:16.283Z"
   },
   {
     "id": "opp_c2b45c0fed",
@@ -5844,9 +5913,9 @@
     "dedup_key": null,
     "source_external_id": null,
     "first_discovered_at": "2026-09-30T12:17:01.877Z",
-    "last_seen_at": "2026-10-05T12:18:12.328Z",
-    "last_attempted_at": "2026-10-05T12:18:12.328Z",
-    "last_verified_at": "2026-10-05T12:18:12.328Z",
+    "last_seen_at": "2026-10-07T12:18:16.283Z",
+    "last_attempted_at": "2026-10-07T12:18:16.283Z",
+    "last_verified_at": "2026-10-07T12:18:16.283Z",
     "closed_at": null,
     "closure_reason": null,
     "publication_state": "PUBLISHED",
@@ -5926,7 +5995,7 @@
     ],
     "manual_overrides": {},
     "created_at": "2026-09-30T12:17:01.877Z",
-    "updated_at": "2026-10-05T12:18:12.328Z"
+    "updated_at": "2026-10-07T12:18:16.283Z"
   },
   {
     "id": "opp_1381e8d059",
@@ -5949,7 +6018,7 @@
     "program_start": null,
     "source_posted_at": "2026-10-01T00:00:00.000Z",
     "application_status": "OPEN",
-    "verification_health": "VERIFIED",
+    "verification_health": "NEEDS_REVERIFICATION",
     "eligibility": "ELIGIBLE",
     "bsn_required": true,
     "rn_license_requirement": "Current California RN license is required. Basic Life Support for Healthcare Providers (CPR & AED) certification required.",
@@ -5961,7 +6030,7 @@
     "source_external_id": "LON015848",
     "first_discovered_at": "2026-10-02T12:19:22.781Z",
     "last_seen_at": "2026-10-05T12:18:12.328Z",
-    "last_attempted_at": "2026-10-05T12:18:12.328Z",
+    "last_attempted_at": "2026-10-07T12:18:16.283Z",
     "last_verified_at": "2026-10-05T12:18:12.328Z",
     "closed_at": null,
     "closure_reason": null,
@@ -6000,7 +6069,7 @@
     ],
     "manual_overrides": {},
     "created_at": "2026-10-02T12:19:22.781Z",
-    "updated_at": "2026-10-05T12:18:12.328Z"
+    "updated_at": "2026-10-07T12:18:16.283Z"
   },
   {
     "id": "opp_5144668644",
@@ -6026,7 +6095,7 @@
       "value": "November 2026"
     },
     "source_posted_at": null,
-    "application_status": "OPEN",
+    "application_status": "CLOSED",
     "verification_health": "VERIFIED",
     "eligibility": "ELIGIBLE",
     "bsn_required": false,
@@ -6038,11 +6107,11 @@
     "dedup_key": "jhmi|hopkins|675454",
     "source_external_id": "675454",
     "first_discovered_at": "2026-10-03T12:21:29.951Z",
-    "last_seen_at": "2026-10-05T12:18:12.328Z",
-    "last_attempted_at": "2026-10-05T12:18:12.328Z",
-    "last_verified_at": "2026-10-05T12:18:12.328Z",
-    "closed_at": null,
-    "closure_reason": null,
+    "last_seen_at": "2026-10-07T12:18:16.283Z",
+    "last_attempted_at": "2026-10-07T12:18:16.283Z",
+    "last_verified_at": "2026-10-07T12:18:16.283Z",
+    "closed_at": "2026-10-07T12:18:16.283Z",
+    "closure_reason": "verified_closed",
     "publication_state": "PUBLISHED",
     "evidence": [
       {
@@ -6116,11 +6185,35 @@
         "excerpt": "Active Maryland or Compact RN license is required. BLS CPR certification required",
         "retrieved_at": "2026-10-05T12:10:00.000Z",
         "claim": "license"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/102920/new-grad-rn-ed-float-pool-november-start-date-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-health-system/",
+        "excerpt": "This job is no longer available. Please try another search.",
+        "retrieved_at": "2026-10-07T12:09:54.000Z",
+        "claim": "closure"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/102920/new-grad-rn-ed-float-pool-november-start-date-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-health-system/",
+        "excerpt": "No RN work experience required; ED practicum/PCT/CNE experience strongly preferred. All New Grad RNs are automatically enrolled in our Nurse Residency Program ranked #3 in the nation!",
+        "retrieved_at": "2026-10-07T12:10:00.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/102920/new-grad-rn-ed-float-pool-november-start-date-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-health-system/",
+        "excerpt": "Associate degree in Nursing required. Applicants with an Associate’s degree in nursing from an accredited nursing program may be considered, provided they are enrolled in an accredited BSN/MSN program within 1 year of hire",
+        "retrieved_at": "2026-10-07T12:10:00.000Z",
+        "claim": "education"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/102920/new-grad-rn-ed-float-pool-november-start-date-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-health-system/",
+        "excerpt": "Active Maryland or Compact RN license is required. BLS CPR certification required",
+        "retrieved_at": "2026-10-07T12:10:00.000Z",
+        "claim": "license"
       }
     ],
     "manual_overrides": {},
     "created_at": "2026-10-03T12:21:29.951Z",
-    "updated_at": "2026-10-05T12:18:12.328Z"
+    "updated_at": "2026-10-07T12:18:16.283Z"
   },
   {
     "id": "opp_dc316ff3f0",
@@ -6155,9 +6248,9 @@
     "dedup_key": "jhmi|hopkins|677775",
     "source_external_id": "677775",
     "first_discovered_at": "2026-10-04T12:19:38.942Z",
-    "last_seen_at": "2026-10-05T12:18:12.328Z",
-    "last_attempted_at": "2026-10-05T12:18:12.328Z",
-    "last_verified_at": "2026-10-05T12:18:12.328Z",
+    "last_seen_at": "2026-10-07T12:18:16.283Z",
+    "last_attempted_at": "2026-10-07T12:18:16.283Z",
+    "last_verified_at": "2026-10-07T12:18:16.283Z",
     "closed_at": null,
     "closure_reason": null,
     "publication_state": "PUBLISHED",
@@ -6209,10 +6302,34 @@
         "excerpt": "Baccalaureate degree, in nursing from an accredited School of Nursing, preferred. Applicants with an Associate Degree in nursing will be considered. per nursing guidelines, must matriculate to Bachelors of Nursing program.",
         "retrieved_at": "2026-10-05T12:12:22.000Z",
         "claim": "education"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/102786/new-grad-rn-med-tele-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "Nursing New Grad RN Job: New Grad RN - Med Tele at Johns Hopkins Medicine in Johns Hopkins Hospital, Baltimore, MD. Requisition #: 677775.",
+        "retrieved_at": "2026-10-07T12:12:22.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/102786/new-grad-rn-med-tele-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "Requirements: New Grad RN. Baccalaureate degree, in nursing from an accredited School of Nursing, preferred. Applicants with an Associate Degree in nursing will be considered.",
+        "retrieved_at": "2026-10-07T12:12:22.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/102786/new-grad-rn-med-tele-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "Active BLS via AHA, American Red Cross or Military Training Network at time of hire. Active Maryland RN or Compact License at time of hire",
+        "retrieved_at": "2026-10-07T12:12:22.000Z",
+        "claim": "license"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/102786/new-grad-rn-med-tele-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "Baccalaureate degree, in nursing from an accredited School of Nursing, preferred. Applicants with an Associate Degree in nursing will be considered. per nursing guidelines, must matriculate to Bachelors of Nursing program.",
+        "retrieved_at": "2026-10-07T12:12:22.000Z",
+        "claim": "education"
       }
     ],
     "manual_overrides": {},
     "created_at": "2026-10-04T12:19:38.942Z",
-    "updated_at": "2026-10-05T12:18:12.328Z"
+    "updated_at": "2026-10-07T12:18:16.283Z"
   }
 ]
