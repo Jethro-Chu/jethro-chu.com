@@ -1593,5 +1593,183 @@
       "uncertainties": []
     },
     "decision": null
+  },
+  {
+    "id": "rev_2026-10-09-daily_001",
+    "run_id": "2026-10-09-daily",
+    "created_at": "2026-10-09T12:14:06.051Z",
+    "state": "PENDING",
+    "reason": "Conflicts on opp_116ea92514: Field \"application_open\" has conflicting evidence (stored vs batch); stored value kept.",
+    "finding": {
+      "employer": {
+        "name": "Stanford Health Care",
+        "hospital_id": "hosp_stanford"
+      },
+      "identifiers": {
+        "program": "Stanford Health Care Nurse Residency Program",
+        "cohort": "Cohort 46",
+        "requisition_id": null,
+        "ats_provider": "workday",
+        "ats_tenant": "stanford",
+        "opportunity_id": "opp_116ea92514"
+      },
+      "observed_state": "OPENING_SOON",
+      "eligibility": {
+        "assessment": "ELIGIBLE",
+        "note": "Graduates from an accredited BSN or MSN program within the past 18 months with less than 6 months acute care RN experience."
+      },
+      "facts": {
+        "position_title": "Clinical Nurse I - Nurse Residency Program",
+        "locations": [
+          {
+            "city": "Palo Alto",
+            "state": "CA"
+          }
+        ],
+        "specialties": [
+          "Multiple Specialties"
+        ],
+        "application_open": {
+          "kind": "date",
+          "value": "2026-11-09"
+        },
+        "program_start": {
+          "kind": "date",
+          "value": "2027-04-12"
+        },
+        "bsn_required": true,
+        "rn_license_requirement": "Current California RN license is required prior to the start date of the residency program.",
+        "license_required_by": "start",
+        "experience_requirement": "Graduates from an accredited BSN or MSN program within the past 18 months with less than 6 months acute care RN experience.",
+        "source_url": "https://careers.stanfordhealthcare.org/us/en/nurse-residency-program",
+        "application_url": "https://stanfordmedicine.wd115.myworkdayjobs.com/SHC_External_Career_Site",
+        "application_close": {
+          "kind": "date",
+          "value": "2026-11-15"
+        }
+      },
+      "evidence": [
+        {
+          "source_url": "https://careers.stanfordhealthcare.org/us/en/nurse-residency-program",
+          "excerpt": "Critical Dates Cohort 46 Application Webinar October 7th, 2026, 10:30am PST Applications Open: November 9, 2026 – November 15, 2026 Unit Level Interviews: February 15th, 2027 – March 5th, 2027 Offers Sent: Week of March 8th, 2027 Cohort 46 starts April 12, 2027.",
+          "retrieved_at": "2026-10-07T12:08:26.000Z",
+          "claim": "status"
+        },
+        {
+          "source_url": "https://careers.stanfordhealthcare.org/us/en/nurse-residency-program",
+          "excerpt": "Cohort 46 Application Webinar October 7th, 2026 1030am PST link to apply attached (Stanford Health Care Nurse Residency Program Application Webinar – Fill out form) Check Back Soon for 2027 Application Updates",
+          "retrieved_at": "2026-10-02T12:15:00.000Z",
+          "claim": "opening_date"
+        },
+        {
+          "source_url": "https://careers.stanfordhealthcare.org/us/en/nurse-residency-program",
+          "excerpt": "The Stanford Health Care Nurse Residency Program is designed for new graduate registered nurses who have graduated from an accredited BSN or MSN program within the past 18 months.",
+          "retrieved_at": "2026-10-02T12:15:00.000Z",
+          "claim": "eligibility"
+        }
+      ],
+      "uncertainties": []
+    },
+    "decision": null
+  },
+  {
+    "id": "rev_2026-10-09-daily_002",
+    "run_id": "2026-10-09-daily",
+    "created_at": "2026-10-09T12:14:06.051Z",
+    "state": "PENDING",
+    "reason": "Conflicts on opp_a29ee83cb9: Field \"application_close\" has conflicting evidence (stored vs batch); stored value kept.",
+    "finding": {
+      "employer": {
+        "name": "Mayo Clinic",
+        "hospital_id": "hosp_mayo"
+      },
+      "identifiers": {
+        "program": "Mayo Clinic Nurse Residency Program",
+        "cohort": "February 2027",
+        "requisition_id": "392057",
+        "ats_provider": "oraclecloud",
+        "ats_tenant": "mayo",
+        "opportunity_id": "opp_a29ee83cb9"
+      },
+      "observed_state": "OPEN",
+      "eligibility": {
+        "assessment": "ELIGIBLE",
+        "note": "Open to new graduate registered nurses transitioning into clinical hospital roles."
+      },
+      "facts": {
+        "position_title": "Staff Nurse - Nurse Residency Program",
+        "locations": [
+          {
+            "city": "Phoenix",
+            "state": "AZ"
+          },
+          {
+            "city": "Rochester",
+            "state": "MN"
+          },
+          {
+            "city": "Jacksonville",
+            "state": "FL"
+          }
+        ],
+        "specialties": [
+          "Multiple Specialties"
+        ],
+        "application_close": {
+          "kind": "date",
+          "value": "2026-10-12"
+        },
+        "program_start": {
+          "kind": "date",
+          "value": "2027-02-22"
+        },
+        "bsn_required": true,
+        "rn_license_requirement": "State RN license required prior to start.",
+        "license_required_by": "start",
+        "experience_requirement": "New graduate RNs with less than one year of nursing experience.",
+        "source_url": "https://jobs.mayoclinic.org/job/rochester/nurse-residency-new-grad-rn/33647/101394925216",
+        "application_url": "https://fa-euwp-saasfaprod1.fa.ocs.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1/job/392057/apply/email"
+      },
+      "evidence": [
+        {
+          "source_url": "https://jobs.mayoclinic.org/job/rochester/nurse-residency-new-grad-rn/33647/101394925216",
+          "excerpt": "Our program brings together newly licensed Registered Nurses from across the country in the first year of their career and offers the experience to become a well-rounded, fully competent Registered Nurse.",
+          "retrieved_at": "2026-10-09T12:08:00.000Z",
+          "claim": "eligibility"
+        },
+        {
+          "source_url": "https://jobs.mayoclinic.org/job/rochester/nurse-residency-new-grad-rn/33647/101394925216",
+          "excerpt": "Applications will now be accepted through Monday, October 12th! Please see our Nurse Residency and Training Programs for upcoming application periods",
+          "retrieved_at": "2026-10-09T12:08:00.000Z",
+          "claim": "status"
+        },
+        {
+          "source_url": "https://jobs.mayoclinic.org/job/rochester/nurse-residency-new-grad-rn/33647/101394925216",
+          "excerpt": "Applications will now be accepted through Monday, October 12th! Please see our Nurse Residency and Training Programs for upcoming application periods",
+          "retrieved_at": "2026-10-09T12:08:00.000Z",
+          "claim": "deadline"
+        },
+        {
+          "source_url": "https://jobs.mayoclinic.org/job/rochester/nurse-residency-new-grad-rn/33647/101394925216",
+          "excerpt": "The current application will be open through October 8th. Our program brings together newly licensed Registered Nurses from across the country in the first year of their career and offers the experience to become a well-rounded, fully competent Registered Nurse.",
+          "retrieved_at": "2026-10-07T12:09:12.000Z",
+          "claim": "status"
+        },
+        {
+          "source_url": "https://jobs.mayoclinic.org/nurseresidencyprograms",
+          "excerpt": "The Arizona Nurse Residency Program October 5-6th, 2026, closing at 5 P.M. MST, will be the application submission deadline for the February 22nd 2027 Cohort.",
+          "retrieved_at": "2026-10-07T12:08:45.000Z",
+          "claim": "deadline"
+        },
+        {
+          "source_url": "https://jobs.mayoclinic.org/nurseresidencyprograms",
+          "excerpt": "Starting August 2026 applications will be open the 1 - 8 of each month for new graduate nurse residency cohorts.",
+          "retrieved_at": "2026-10-02T12:15:00.000Z",
+          "claim": "eligibility"
+        }
+      ],
+      "uncertainties": []
+    },
+    "decision": null
   }
 ]
