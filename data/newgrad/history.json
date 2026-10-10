@@ -7821,5 +7821,168 @@
     ],
     "reason": "Confirmed deadline passed (ingest sweep).",
     "evidence": []
+  },
+  {
+    "id": "hist_2026-10-10-daily_0001",
+    "run_id": "2026-10-10-daily",
+    "at": "2026-10-10T12:12:44.375Z",
+    "type": "REOPENED",
+    "opportunity_id": "opp_a29ee83cb9",
+    "changes": [
+      {
+        "field": "application_status",
+        "before": "CLOSED",
+        "after": "OPEN"
+      }
+    ],
+    "reason": "Re-verified as OPEN.",
+    "evidence": [
+      {
+        "source_url": "https://jobs.mayoclinic.org/job/rochester/nurse-residency-new-grad-rn/33647/101394925216",
+        "excerpt": "Our program brings together newly licensed Registered Nurses from across the country in the first year of their career and offers the experience to become a well-rounded, fully competent Registered Nurse.",
+        "retrieved_at": "2026-10-10T12:08:00.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://jobs.mayoclinic.org/job/rochester/nurse-residency-new-grad-rn/33647/101394925216",
+        "excerpt": "Applications will now be accepted through Monday, October 12th! Please see our Nurse Residency and Training Programs for upcoming application periods",
+        "retrieved_at": "2026-10-10T12:08:00.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://jobs.mayoclinic.org/job/rochester/nurse-residency-new-grad-rn/33647/101394925216",
+        "excerpt": "Applications will now be accepted through Monday, October 12th! Please see our Nurse Residency and Training Programs for upcoming application periods",
+        "retrieved_at": "2026-10-10T12:08:00.000Z",
+        "claim": "deadline"
+      },
+      {
+        "source_url": "https://jobs.mayoclinic.org/job/rochester/nurse-residency-new-grad-rn/33647/101394925216",
+        "excerpt": "The current application will be open through October 8th. Our program brings together newly licensed Registered Nurses from across the country in the first year of their career and offers the experience to become a well-rounded, fully competent Registered Nurse.",
+        "retrieved_at": "2026-10-07T12:09:12.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://jobs.mayoclinic.org/nurseresidencyprograms",
+        "excerpt": "The Arizona Nurse Residency Program October 5-6th, 2026, closing at 5 P.M. MST, will be the application submission deadline for the February 22nd 2027 Cohort.",
+        "retrieved_at": "2026-10-07T12:08:45.000Z",
+        "claim": "deadline"
+      },
+      {
+        "source_url": "https://jobs.mayoclinic.org/nurseresidencyprograms",
+        "excerpt": "Starting August 2026 applications will be open the 1 - 8 of each month for new graduate nurse residency cohorts.",
+        "retrieved_at": "2026-10-02T12:15:00.000Z",
+        "claim": "eligibility"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-10-10-daily_0002",
+    "run_id": "2026-10-10-daily",
+    "at": "2026-10-10T12:12:44.375Z",
+    "type": "UPDATED",
+    "opportunity_id": "opp_a29ee83cb9",
+    "changes": [
+      {
+        "field": "application_status",
+        "before": "CLOSED",
+        "after": "OPEN"
+      }
+    ],
+    "reason": "Updated from run evidence (OPEN).",
+    "evidence": [
+      {
+        "source_url": "https://jobs.mayoclinic.org/job/rochester/nurse-residency-new-grad-rn/33647/101394925216",
+        "excerpt": "Our program brings together newly licensed Registered Nurses from across the country in the first year of their career and offers the experience to become a well-rounded, fully competent Registered Nurse.",
+        "retrieved_at": "2026-10-10T12:08:00.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://jobs.mayoclinic.org/job/rochester/nurse-residency-new-grad-rn/33647/101394925216",
+        "excerpt": "Applications will now be accepted through Monday, October 12th! Please see our Nurse Residency and Training Programs for upcoming application periods",
+        "retrieved_at": "2026-10-10T12:08:00.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://jobs.mayoclinic.org/job/rochester/nurse-residency-new-grad-rn/33647/101394925216",
+        "excerpt": "Applications will now be accepted through Monday, October 12th! Please see our Nurse Residency and Training Programs for upcoming application periods",
+        "retrieved_at": "2026-10-10T12:08:00.000Z",
+        "claim": "deadline"
+      },
+      {
+        "source_url": "https://jobs.mayoclinic.org/job/rochester/nurse-residency-new-grad-rn/33647/101394925216",
+        "excerpt": "The current application will be open through October 8th. Our program brings together newly licensed Registered Nurses from across the country in the first year of their career and offers the experience to become a well-rounded, fully competent Registered Nurse.",
+        "retrieved_at": "2026-10-07T12:09:12.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://jobs.mayoclinic.org/nurseresidencyprograms",
+        "excerpt": "The Arizona Nurse Residency Program October 5-6th, 2026, closing at 5 P.M. MST, will be the application submission deadline for the February 22nd 2027 Cohort.",
+        "retrieved_at": "2026-10-07T12:08:45.000Z",
+        "claim": "deadline"
+      },
+      {
+        "source_url": "https://jobs.mayoclinic.org/nurseresidencyprograms",
+        "excerpt": "Starting August 2026 applications will be open the 1 - 8 of each month for new graduate nurse residency cohorts.",
+        "retrieved_at": "2026-10-02T12:15:00.000Z",
+        "claim": "eligibility"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-10-10-daily_0003",
+    "run_id": "2026-10-10-daily",
+    "at": "2026-10-10T12:12:44.375Z",
+    "type": "NEW",
+    "opportunity_id": "opp_b8d7708d79",
+    "changes": null,
+    "reason": "First published from run evidence (OPEN).",
+    "evidence": [
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/103102/new-grad-rn-emergency-department-12-hr-nights-bayview-november-30-start-date-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-bayview-medical-center/",
+        "excerpt": "Make it happen at Hopkins. New Grad RN Residency– Emergency Department. Qualifications: Associate’s degree in nursing (ADN) (Required). RN license required. Prior work experience not required.",
+        "retrieved_at": "2026-10-10T12:08:00.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/103102/new-grad-rn-emergency-department-12-hr-nights-bayview-november-30-start-date-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-bayview-medical-center/",
+        "excerpt": "Nursing New Grad RN Job: New Grad RN - Emergency Department, 12 hr Nights (Bayview) November 30 Start date at Johns Hopkins Medicine in Johns Hopkins Bayview Medical Center, Baltimore, MD. Requisition #: 675493.",
+        "retrieved_at": "2026-10-10T12:08:00.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/103102/new-grad-rn-emergency-department-12-hr-nights-bayview-november-30-start-date-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-bayview-medical-center/",
+        "excerpt": "New Grad RN - Emergency Department, 12 hr Nights (Bayview) November 30 Start date. Requisition #: 675493.",
+        "retrieved_at": "2026-10-10T12:08:00.000Z",
+        "claim": "start_date"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/103102/new-grad-rn-emergency-department-12-hr-nights-bayview-november-30-start-date-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-bayview-medical-center/",
+        "excerpt": "RN - Registered Nurse License (Required). CPR - Basic CPR (Required). Prior work experience not required.",
+        "retrieved_at": "2026-10-10T12:08:00.000Z",
+        "claim": "license"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/103102/new-grad-rn-emergency-department-12-hr-nights-bayview-november-30-start-date-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-bayview-medical-center/",
+        "excerpt": "Associate’s degree in nursing (ADN) (Required), Bachelor of Science in nursing (BSN) (Preferred) and Applicants with an associate degree in nursing will be considered. Per nursing guidelines, must matriculate into a Bachelor of Nursing program.",
+        "retrieved_at": "2026-10-10T12:08:00.000Z",
+        "claim": "education"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-10-10-daily_0004",
+    "run_id": "2026-10-10-daily",
+    "at": "2026-10-10T12:12:44.375Z",
+    "type": "CLOSED",
+    "opportunity_id": "opp_a29ee83cb9",
+    "changes": [
+      {
+        "field": "application_status",
+        "before": "OPEN",
+        "after": "CLOSED"
+      }
+    ],
+    "reason": "Confirmed deadline passed (ingest sweep).",
+    "evidence": []
   }
 ]

@@ -1,16 +1,16 @@
 {
   "contract_version": "1.0.0",
-  "generated_at": "2026-10-09T12:14:06.051Z",
-  "last_research_attempt_at": "2026-10-09T12:12:00.000Z",
-  "last_successful_verification_at": "2026-10-09T12:14:06.051Z",
-  "last_published_at": "2026-10-09T12:14:57.551Z",
+  "generated_at": "2026-10-10T12:12:44.375Z",
+  "last_research_attempt_at": "2026-10-10T12:10:00.000Z",
+  "last_successful_verification_at": "2026-10-10T12:12:44.375Z",
+  "last_published_at": "2026-10-10T12:13:19.600Z",
   "counts": {
-    "opportunities": 37,
-    "open": 12,
+    "opportunities": 38,
+    "open": 13,
     "closing_soon": 0,
-    "pending_review": 24,
+    "pending_review": 27,
     "sources_active": 39,
     "sources_candidate": 40
   },
-  "coverage_note": "41 of 57 checked sources verified successfully in run 2026-10-09-daily."
+  "coverage_note": "47 of 59 checked sources verified successfully in run 2026-10-10-daily."
 }
