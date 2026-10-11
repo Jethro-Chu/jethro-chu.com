@@ -7984,5 +7984,197 @@
     ],
     "reason": "Confirmed deadline passed (ingest sweep).",
     "evidence": []
+  },
+  {
+    "id": "hist_2026-10-11-daily_0001",
+    "run_id": "2026-10-11-daily",
+    "at": "2026-10-11T12:17:50.766Z",
+    "type": "REOPENED",
+    "opportunity_id": "opp_a29ee83cb9",
+    "changes": [
+      {
+        "field": "application_status",
+        "before": "CLOSED",
+        "after": "OPEN"
+      }
+    ],
+    "reason": "Re-verified as OPEN.",
+    "evidence": [
+      {
+        "source_url": "https://jobs.mayoclinic.org/job/rochester/nurse-residency-new-grad-rn/33647/101394925216",
+        "excerpt": "Our program brings together newly licensed Registered Nurses from across the country in the first year of their career and offers the experience to become a well-rounded, fully competent Registered Nurse.",
+        "retrieved_at": "2026-10-11T12:08:00.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://jobs.mayoclinic.org/job/rochester/nurse-residency-new-grad-rn/33647/101394925216",
+        "excerpt": "Applications will now be accepted through Monday, October 12th! Please see our Nurse Residency and Training Programs for upcoming application periods",
+        "retrieved_at": "2026-10-11T12:08:00.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://jobs.mayoclinic.org/job/rochester/nurse-residency-new-grad-rn/33647/101394925216",
+        "excerpt": "Applications will now be accepted through Monday, October 12th! Please see our Nurse Residency and Training Programs for upcoming application periods",
+        "retrieved_at": "2026-10-11T12:08:00.000Z",
+        "claim": "deadline"
+      },
+      {
+        "source_url": "https://jobs.mayoclinic.org/job/rochester/nurse-residency-new-grad-rn/33647/101394925216",
+        "excerpt": "The current application will be open through October 8th. Our program brings together newly licensed Registered Nurses from across the country in the first year of their career and offers the experience to become a well-rounded, fully competent Registered Nurse.",
+        "retrieved_at": "2026-10-11T12:08:00.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://jobs.mayoclinic.org/nurseresidencyprograms",
+        "excerpt": "The Arizona Nurse Residency Program October 5-6th, 2026, closing at 5 P.M. MST, will be the application submission deadline for the February 22nd 2027 Cohort.",
+        "retrieved_at": "2026-10-11T12:08:00.000Z",
+        "claim": "deadline"
+      },
+      {
+        "source_url": "https://jobs.mayoclinic.org/nurseresidencyprograms",
+        "excerpt": "Starting August 2026 applications will be open the 1 - 8 of each month for new graduate nurse residency cohorts.",
+        "retrieved_at": "2026-10-11T12:08:00.000Z",
+        "claim": "eligibility"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-10-11-daily_0002",
+    "run_id": "2026-10-11-daily",
+    "at": "2026-10-11T12:17:50.766Z",
+    "type": "UPDATED",
+    "opportunity_id": "opp_a29ee83cb9",
+    "changes": [
+      {
+        "field": "application_status",
+        "before": "CLOSED",
+        "after": "OPEN"
+      }
+    ],
+    "reason": "Updated from run evidence (OPEN).",
+    "evidence": [
+      {
+        "source_url": "https://jobs.mayoclinic.org/job/rochester/nurse-residency-new-grad-rn/33647/101394925216",
+        "excerpt": "Our program brings together newly licensed Registered Nurses from across the country in the first year of their career and offers the experience to become a well-rounded, fully competent Registered Nurse.",
+        "retrieved_at": "2026-10-11T12:08:00.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://jobs.mayoclinic.org/job/rochester/nurse-residency-new-grad-rn/33647/101394925216",
+        "excerpt": "Applications will now be accepted through Monday, October 12th! Please see our Nurse Residency and Training Programs for upcoming application periods",
+        "retrieved_at": "2026-10-11T12:08:00.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://jobs.mayoclinic.org/job/rochester/nurse-residency-new-grad-rn/33647/101394925216",
+        "excerpt": "Applications will now be accepted through Monday, October 12th! Please see our Nurse Residency and Training Programs for upcoming application periods",
+        "retrieved_at": "2026-10-11T12:08:00.000Z",
+        "claim": "deadline"
+      },
+      {
+        "source_url": "https://jobs.mayoclinic.org/job/rochester/nurse-residency-new-grad-rn/33647/101394925216",
+        "excerpt": "The current application will be open through October 8th. Our program brings together newly licensed Registered Nurses from across the country in the first year of their career and offers the experience to become a well-rounded, fully competent Registered Nurse.",
+        "retrieved_at": "2026-10-11T12:08:00.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://jobs.mayoclinic.org/nurseresidencyprograms",
+        "excerpt": "The Arizona Nurse Residency Program October 5-6th, 2026, closing at 5 P.M. MST, will be the application submission deadline for the February 22nd 2027 Cohort.",
+        "retrieved_at": "2026-10-11T12:08:00.000Z",
+        "claim": "deadline"
+      },
+      {
+        "source_url": "https://jobs.mayoclinic.org/nurseresidencyprograms",
+        "excerpt": "Starting August 2026 applications will be open the 1 - 8 of each month for new graduate nurse residency cohorts.",
+        "retrieved_at": "2026-10-11T12:08:00.000Z",
+        "claim": "eligibility"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-10-11-daily_0003",
+    "run_id": "2026-10-11-daily",
+    "at": "2026-10-11T12:17:50.766Z",
+    "type": "NEW",
+    "opportunity_id": "opp_06171c46cf",
+    "changes": null,
+    "reason": "First published from run evidence (OPEN).",
+    "evidence": [
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/101898/new-grad-rn-reconstructive-surgery-clinic-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "Qualifications: ADN required; BSN preferred; must matriculate into BSN program per nursing guidelines RN license required at time of hire Active CPR required at time of hire New graduate nurse who wants to work in an outpatient clinic as a part of an innovative team",
+        "retrieved_at": "2026-10-11T12:11:15.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/101898/new-grad-rn-reconstructive-surgery-clinic-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "Nursing New Grad RN Job: New Grad RN - Reconstructive Surgery Clinic at Johns Hopkins Medicine in Johns Hopkins Hospital, Baltimore, MD. Requisition #: 675747.",
+        "retrieved_at": "2026-10-11T12:11:15.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/101898/new-grad-rn-reconstructive-surgery-clinic-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "ADN required; BSN preferred; must matriculate into BSN program per nursing guidelines",
+        "retrieved_at": "2026-10-11T12:11:15.000Z",
+        "claim": "education"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/101898/new-grad-rn-reconstructive-surgery-clinic-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "RN license required at time of hire Active CPR required at time of hire",
+        "retrieved_at": "2026-10-11T12:11:15.000Z",
+        "claim": "license"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-10-11-daily_0004",
+    "run_id": "2026-10-11-daily",
+    "at": "2026-10-11T12:17:50.766Z",
+    "type": "NEW",
+    "opportunity_id": "opp_e6577cf35e",
+    "changes": null,
+    "reason": "First published from run evidence (OPEN).",
+    "evidence": [
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/103055/new-grad-rn-medical-progressive-care-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "Nursing New Grad RN Job: New Grad RN - Medical Progressive Care at Johns Hopkins Medicine in Johns Hopkins Hospital, Baltimore, MD. Requisition #: 679581. This is a highly skilled floor, from which new staff will gain instrumental experience.",
+        "retrieved_at": "2026-10-11T12:11:15.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/103055/new-grad-rn-medical-progressive-care-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "Nursing New Grad RN Job: New Grad RN - Medical Progressive Care at Johns Hopkins Medicine in Johns Hopkins Hospital, Baltimore, MD. Requisition #: 679581.",
+        "retrieved_at": "2026-10-11T12:11:15.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/103055/new-grad-rn-medical-progressive-care-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "Associate's Degree in nursing (ADN) (Required) BSN (preferred) and applicants w/an ADN in nursing will be considered. Per nursing guidelines, must matriculate into a BSN program.",
+        "retrieved_at": "2026-10-11T12:11:15.000Z",
+        "claim": "education"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/103055/new-grad-rn-medical-progressive-care-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "Active Maryland or Compact RN license is required at time of hire BLS CPR required",
+        "retrieved_at": "2026-10-11T12:11:15.000Z",
+        "claim": "license"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-10-11-daily_0005",
+    "run_id": "2026-10-11-daily",
+    "at": "2026-10-11T12:17:50.766Z",
+    "type": "CLOSED",
+    "opportunity_id": "opp_a29ee83cb9",
+    "changes": [
+      {
+        "field": "application_status",
+        "before": "OPEN",
+        "after": "CLOSED"
+      }
+    ],
+    "reason": "Confirmed deadline passed (ingest sweep).",
+    "evidence": []
   }
 ]
