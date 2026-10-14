@@ -8298,5 +8298,299 @@
     ],
     "reason": "Confirmed deadline passed (ingest sweep).",
     "evidence": []
+  },
+  {
+    "id": "hist_2026-10-14-daily_0001",
+    "run_id": "2026-10-14-daily",
+    "at": "2026-10-14T13:36:07.684Z",
+    "type": "CLOSED",
+    "opportunity_id": "opp_34afa285d5",
+    "changes": [
+      {
+        "field": "application_status",
+        "before": "OPEN",
+        "after": "CLOSED"
+      },
+      {
+        "field": "closed_at",
+        "before": null,
+        "after": "2026-10-14T13:36:07.684Z"
+      }
+    ],
+    "reason": "Official evidence verified closure.",
+    "evidence": [
+      {
+        "source_url": "https://careers.sharp.com/SHC-nurse-residency-program",
+        "excerpt": "External Applicants: Mon, Oct 5th – Mon, Oct 12th. Application window closed after October 12, 2026 deadline, and job requisition JR210806 has been removed.",
+        "retrieved_at": "2026-10-14T12:22:00.000Z",
+        "claim": "closure"
+      },
+      {
+        "source_url": "https://careers.sharp.com/SHC-nurse-residency-program",
+        "excerpt": "Sharp Metropolitan Medical Campus is hiring a small number of Nurse Resident positions starting in Winter 2027! Anticipated Program Start Date: January 2027 Application Window: External Applicants: Mon, Oct 5th – Mon, Oct 12th Find the posting on our careers site during these dates Search for “Nurse Residency Program”, or JR210806",
+        "retrieved_at": "2026-10-14T12:22:00.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://careers.sharp.com/SHC-nurse-residency-program",
+        "excerpt": "Sharp Metropolitan Medical Campus is hiring a small number of Nurse Resident positions starting in Winter 2027! External Applicants: Mon, Oct 5th – Mon, Oct 12th. Find the posting on our careers site during these dates: Search for \"Nurse Residency Program\", or JR210806.",
+        "retrieved_at": "2026-10-14T12:22:00.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://careers.sharp.com/SHC-nurse-residency-program",
+        "excerpt": "External Applicants: Mon, Oct 5th – Mon, Oct 12th. Find the posting on our careers site during these dates: Search for \"Nurse Residency Program\", or JR210806.",
+        "retrieved_at": "2026-10-14T12:22:00.000Z",
+        "claim": "opening_date"
+      },
+      {
+        "source_url": "https://careers.sharp.com/SHC-nurse-residency-program",
+        "excerpt": "Are you a recent or soon-to-be nurse graduate looking for the perfect place to kickstart your RN career? You are in the right place! Sharp HealthCare Nurse Residency Program supports newly licensed nurses.",
+        "retrieved_at": "2026-10-14T12:22:00.000Z",
+        "claim": "eligibility"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-10-14-daily_0002",
+    "run_id": "2026-10-14-daily",
+    "at": "2026-10-14T13:36:07.684Z",
+    "type": "UPDATED",
+    "opportunity_id": "opp_34afa285d5",
+    "changes": [
+      {
+        "field": "application_status",
+        "before": "OPEN",
+        "after": "CLOSED"
+      },
+      {
+        "field": "closed_at",
+        "before": null,
+        "after": "2026-10-14T13:36:07.684Z"
+      }
+    ],
+    "reason": "Updated from run evidence (CLOSED).",
+    "evidence": [
+      {
+        "source_url": "https://careers.sharp.com/SHC-nurse-residency-program",
+        "excerpt": "External Applicants: Mon, Oct 5th – Mon, Oct 12th. Application window closed after October 12, 2026 deadline, and job requisition JR210806 has been removed.",
+        "retrieved_at": "2026-10-14T12:22:00.000Z",
+        "claim": "closure"
+      },
+      {
+        "source_url": "https://careers.sharp.com/SHC-nurse-residency-program",
+        "excerpt": "Sharp Metropolitan Medical Campus is hiring a small number of Nurse Resident positions starting in Winter 2027! Anticipated Program Start Date: January 2027 Application Window: External Applicants: Mon, Oct 5th – Mon, Oct 12th Find the posting on our careers site during these dates Search for “Nurse Residency Program”, or JR210806",
+        "retrieved_at": "2026-10-14T12:22:00.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://careers.sharp.com/SHC-nurse-residency-program",
+        "excerpt": "Sharp Metropolitan Medical Campus is hiring a small number of Nurse Resident positions starting in Winter 2027! External Applicants: Mon, Oct 5th – Mon, Oct 12th. Find the posting on our careers site during these dates: Search for \"Nurse Residency Program\", or JR210806.",
+        "retrieved_at": "2026-10-14T12:22:00.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://careers.sharp.com/SHC-nurse-residency-program",
+        "excerpt": "External Applicants: Mon, Oct 5th – Mon, Oct 12th. Find the posting on our careers site during these dates: Search for \"Nurse Residency Program\", or JR210806.",
+        "retrieved_at": "2026-10-14T12:22:00.000Z",
+        "claim": "opening_date"
+      },
+      {
+        "source_url": "https://careers.sharp.com/SHC-nurse-residency-program",
+        "excerpt": "Are you a recent or soon-to-be nurse graduate looking for the perfect place to kickstart your RN career? You are in the right place! Sharp HealthCare Nurse Residency Program supports newly licensed nurses.",
+        "retrieved_at": "2026-10-14T12:22:00.000Z",
+        "claim": "eligibility"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-10-14-daily_0003",
+    "run_id": "2026-10-14-daily",
+    "at": "2026-10-14T13:36:07.684Z",
+    "type": "UPDATED",
+    "opportunity_id": "opp_116ea92514",
+    "changes": [
+      {
+        "field": "license_required_by",
+        "before": "start",
+        "after": "February 12, 2027"
+      }
+    ],
+    "reason": "Updated from run evidence (OPENING_SOON).",
+    "evidence": [
+      {
+        "source_url": "https://careers.stanfordhealthcare.org/us/en/nurse-residency-program",
+        "excerpt": "Critical Dates Cohort 46 Application Webinar October 7th, 2026, 10:30am PST Applications Open: November 9, 2026 – November 15, 2026 Unit Level Interviews: February 15th, 2027 – March 5th, 2027 Offers Sent: Week of March 8th, 2027 Cohort 46 starts April 12, 2027.",
+        "retrieved_at": "2026-10-14T12:22:00.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://careers.stanfordhealthcare.org/us/en/nurse-residency-program",
+        "excerpt": "Cohort 46 Application Webinar October 7th, 2026 1030am PST link to apply attached (Stanford Health Care Nurse Residency Program Application Webinar – Fill out form) Check Back Soon for 2027 Application Updates",
+        "retrieved_at": "2026-10-14T12:22:00.000Z",
+        "claim": "opening_date"
+      },
+      {
+        "source_url": "https://careers.stanfordhealthcare.org/us/en/nurse-residency-program",
+        "excerpt": "The Stanford Health Care Nurse Residency Program is designed for new graduate registered nurses who have graduated from an accredited BSN or MSN program within the past 18 months.",
+        "retrieved_at": "2026-10-14T12:22:00.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://careers.stanfordhealthcare.org/us/en/nurse-residency-program",
+        "excerpt": "Cohort 46 Applications Open: November 9, 2026 – November 15, 2026 Application Screening: December 7th, 2026- January 29th, 2027 CA License required by: February 12th, 2027 Cohort 46 starts April 12, 2027.",
+        "retrieved_at": "2026-10-14T12:22:00.000Z",
+        "claim": "opening_date"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-10-14-daily_0004",
+    "run_id": "2026-10-14-daily",
+    "at": "2026-10-14T13:36:07.684Z",
+    "type": "CLOSED",
+    "opportunity_id": "opp_b8d7708d79",
+    "changes": [
+      {
+        "field": "application_status",
+        "before": "OPEN",
+        "after": "CLOSED"
+      },
+      {
+        "field": "closed_at",
+        "before": null,
+        "after": "2026-10-14T13:36:07.684Z"
+      }
+    ],
+    "reason": "Official evidence verified closure.",
+    "evidence": [
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/103102/new-grad-rn-emergency-department-12-hr-nights-bayview-november-30-start-date-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-bayview-medical-center/",
+        "excerpt": "Make it happen at Hopkins. New Grad RN Residency– Emergency Department. Qualifications: Associate’s degree in nursing (ADN) (Required). RN license required. Prior work experience not required.",
+        "retrieved_at": "2026-10-14T12:53:32.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/103102/new-grad-rn-emergency-department-12-hr-nights-bayview-november-30-start-date-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-bayview-medical-center/",
+        "excerpt": "HTTP 410: Job removed or not found. Requisition 675493 removed from active listings.",
+        "retrieved_at": "2026-10-14T12:53:32.000Z",
+        "claim": "closure"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-10-14-daily_0005",
+    "run_id": "2026-10-14-daily",
+    "at": "2026-10-14T13:36:07.684Z",
+    "type": "UPDATED",
+    "opportunity_id": "opp_b8d7708d79",
+    "changes": [
+      {
+        "field": "application_status",
+        "before": "OPEN",
+        "after": "CLOSED"
+      },
+      {
+        "field": "closed_at",
+        "before": null,
+        "after": "2026-10-14T13:36:07.684Z"
+      }
+    ],
+    "reason": "Updated from run evidence (CLOSED).",
+    "evidence": [
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/103102/new-grad-rn-emergency-department-12-hr-nights-bayview-november-30-start-date-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-bayview-medical-center/",
+        "excerpt": "Make it happen at Hopkins. New Grad RN Residency– Emergency Department. Qualifications: Associate’s degree in nursing (ADN) (Required). RN license required. Prior work experience not required.",
+        "retrieved_at": "2026-10-14T12:53:32.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/103102/new-grad-rn-emergency-department-12-hr-nights-bayview-november-30-start-date-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-bayview-medical-center/",
+        "excerpt": "HTTP 410: Job removed or not found. Requisition 675493 removed from active listings.",
+        "retrieved_at": "2026-10-14T12:53:32.000Z",
+        "claim": "closure"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-10-14-daily_0006",
+    "run_id": "2026-10-14-daily",
+    "at": "2026-10-14T13:36:07.684Z",
+    "type": "NEW",
+    "opportunity_id": "opp_64c5fb455c",
+    "changes": null,
+    "reason": "First published from run evidence (OPEN).",
+    "evidence": [
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/103262/new-grad-rn-ob-perinatal-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-bayview-medical-center/",
+        "excerpt": "Join Our Team at Johns Hopkins Bayview Medical Center- Labor and Delivery/Perinatal New Grad RN. Prior work experience not required. All New Graduate RNs will be automatically enrolled in our yearlong Nurse Residency Program.",
+        "retrieved_at": "2026-10-14T12:22:00.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/103262/new-grad-rn-ob-perinatal-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-bayview-medical-center/",
+        "excerpt": "Apply for New Grad RN- OB/Perinatal at Johns Hopkins Bayview Medical Center, Baltimore, MD. Requisition #: 659418. Weekly Working Hours: 36 hours per week. Shift: Night Shift.",
+        "retrieved_at": "2026-10-14T12:22:00.000Z",
+        "claim": "status"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-10-14-daily_0007",
+    "run_id": "2026-10-14-daily",
+    "at": "2026-10-14T13:36:07.684Z",
+    "type": "NEW",
+    "opportunity_id": "opp_feb65b9edc",
+    "changes": null,
+    "reason": "First published from run evidence (OPEN).",
+    "evidence": [
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/102609/new-grad-rn-ortho-trauma-general-surgery-unit-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "Requisition #: 677735 Location: Johns Hopkins Hospital, Baltimore, MD 21287 Category: Nursing New Grad RN Schedule: Rotating Shift Employment Type: Full Time",
+        "retrieved_at": "2026-10-14T12:25:00.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/102609/new-grad-rn-ortho-trauma-general-surgery-unit-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "No RN work experience required! Training will be provided - All New Grad RNs are automatically enrolled in our Nurse Residency Program ranked #3 in the nation!",
+        "retrieved_at": "2026-10-14T12:25:00.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/102609/new-grad-rn-ortho-trauma-general-surgery-unit-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "Qualifications : Associate degree in Nursing required Applicants with an Associate’s degree in nursing from an accredited nursing program may be considered",
+        "retrieved_at": "2026-10-14T12:25:00.000Z",
+        "claim": "education"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-10-14-daily_0008",
+    "run_id": "2026-10-14-daily",
+    "at": "2026-10-14T13:36:07.684Z",
+    "type": "NEW",
+    "opportunity_id": "opp_a1772ae2ff",
+    "changes": null,
+    "reason": "First published from run evidence (OPEN).",
+    "evidence": [
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/102379/new-grad-rn-surgical-progressive-care-unit-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "Requisition #: 673057 Location: Johns Hopkins Hospital, Baltimore, MD 21287 Category: Nursing New Grad RN Schedule: Rotating Shift Employment Type: Full Time",
+        "retrieved_at": "2026-10-14T12:25:00.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/102379/new-grad-rn-surgical-progressive-care-unit-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "No RN work experience required! Training will be provided - All New Grad RNs are automatically enrolled in our Nurse Residency Program ranked #3 in the nation!",
+        "retrieved_at": "2026-10-14T12:25:00.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/102379/new-grad-rn-surgical-progressive-care-unit-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "Qualifications : Associate degree in Nursing required Applicants with an Associate’s degree in nursing from an accredited nursing program may be considered",
+        "retrieved_at": "2026-10-14T12:25:00.000Z",
+        "claim": "education"
+      }
+    ]
   }
 ]
