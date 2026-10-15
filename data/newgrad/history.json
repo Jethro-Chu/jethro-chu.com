@@ -8592,5 +8592,94 @@
         "claim": "education"
       }
     ]
+  },
+  {
+    "id": "hist_2026-10-15-daily_0001",
+    "run_id": "2026-10-15-daily",
+    "at": "2026-10-15T12:22:38.114Z",
+    "type": "UPDATED",
+    "opportunity_id": "opp_afb6ead28f",
+    "changes": [
+      {
+        "field": "specialties",
+        "before": [
+          "Multiple Specialties"
+        ],
+        "after": [
+          "Multiple Specialties",
+          "NICU",
+          "Emergency Department",
+          "Med-Surg",
+          "Telemetry",
+          "Oncology"
+        ]
+      },
+      {
+        "field": "application_open",
+        "before": {
+          "kind": "text",
+          "value": "October 2026"
+        },
+        "after": {
+          "kind": "date",
+          "value": "2026-10-13"
+        }
+      },
+      {
+        "field": "application_close",
+        "before": null,
+        "after": {
+          "kind": "date",
+          "value": "2026-10-22"
+        }
+      },
+      {
+        "field": "rn_license_requirement",
+        "before": "California RN license required prior to start.",
+        "after": "California RN license required by start date. Depending on applicant pool, may consider interim permits. Licensure is not required at time of application."
+      },
+      {
+        "field": "experience_requirement",
+        "before": "New graduate nurses graduating from an accredited BSN or MSN program.",
+        "after": "Open to new graduate registered nurses and newly licensed RNs."
+      },
+      {
+        "field": "dedup_key",
+        "before": null,
+        "after": "paradox|ucsd|141812"
+      },
+      {
+        "field": "application_status",
+        "before": "OPENING_SOON",
+        "after": "OPEN"
+      }
+    ],
+    "reason": "Updated from run evidence (OPEN).",
+    "evidence": [
+      {
+        "source_url": "https://employment.ucsd.edu/rn-new-grad-registered-nurse-neonatal-icu-141812/job/82189E26CBD188F262759D783070B937",
+        "excerpt": "This posting is for our March 2027 Nurse Residency Program Cohort. Filing Deadline: Thu 10/22/2026. Date Posted: 10/13/2026.",
+        "retrieved_at": "2026-10-15T12:15:00.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://employment.ucsd.edu/rn-new-grad-registered-nurse-neonatal-icu-141812/job/82189E26CBD188F262759D783070B937",
+        "excerpt": "The New Graduate Nurse Transition to Practice Program is accredited with distinction as a Practice Transition Program by the ANCC... designed to support our New Grads with a comprehensive transition-to-practice experience.",
+        "retrieved_at": "2026-10-15T12:15:00.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://employment.ucsd.edu/rn-new-grad-registered-nurse-neonatal-icu-141812/job/82189E26CBD188F262759D783070B937",
+        "excerpt": "California RN license by start date. Licensure and certification are not required at time of application but will be required by the cohort start date.",
+        "retrieved_at": "2026-10-15T12:15:00.000Z",
+        "claim": "license_timing"
+      },
+      {
+        "source_url": "https://employment.ucsd.edu/rn-new-grad-registered-nurse-neonatal-icu-141812/job/82189E26CBD188F262759D783070B937",
+        "excerpt": "Filing Deadline: Thu 10/22/2026. This posting is for our March 2027 Nurse Residency Program Cohort.",
+        "retrieved_at": "2026-10-15T12:15:00.000Z",
+        "claim": "deadline"
+      }
+    ]
   }
 ]
