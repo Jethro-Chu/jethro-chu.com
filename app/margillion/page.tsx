@@ -5,10 +5,10 @@ import Margillion from "@/components/margillion/Margillion";
 
 const display = Space_Grotesk({ subsets: ["latin"], display: "swap", variable: "--margillion-display" });
 const mono = Space_Mono({ subsets: ["latin"], weight: ["400", "700"], display: "swap", variable: "--margillion-mono" });
-export const viewport: Viewport = { themeColor: "#09090b" };
+export const viewport: Viewport = { themeColor: "#0a0a0a" };
 export const metadata: Metadata = {
   title: "Margillion. | How close can you cut it?",
-  description: "Ten estimates. Fifteen seconds each. One hundred percent margin. A daily game of razor margins.",
+  description: "Ten estimates. Twenty-five seconds each. One hundred percent margin. A daily game of razor margins.",
   robots: { index: false, follow: false },
   alternates: { canonical: "https://jethrochu.com/margillion" },
   openGraph: { title: "Margillion.", description: "How close can you cut it? A daily game of razor margins.", url: "https://jethrochu.com/margillion" },

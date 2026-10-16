@@ -1,14 +1,15 @@
 import { BANK_VERSION, questions, type Question } from "../../data/margillionQuestions.ts";
 
-export const FUSE = 15_000;
+export const FUSE = 25_000;
+type FuseDuration = 15_000 | typeof FUSE;
 export const REVEAL = 2_800;
 export const ROUNDS = 10;
 export const DAY = 86_400_000;
 export const STORAGE_KEY = "margillion:save:v1";
 export type Mode = "daily" | "practice";
 export type Stance = "safe" | "razor";
-export type Round = { questionId: string; start: number; guess: number | null; stance: Stance; at: number; error: number | null; points: number; damage: number; heal: number; margin: number; delta: number; razor: boolean; bullseye: boolean };
-export type Game = { version: 1; id: string; mode: Mode; date: string; seed: string; startedAt: number; deadline: number; revealUntil: number | null; phase: "guess" | "reveal" | "complete"; input: string; rounds: Round[] };
+export type Round = { questionId: string; start: number; fuseMs: FuseDuration; guess: number | null; stance: Stance; at: number; error: number | null; points: number; damage: number; heal: number; margin: number; delta: number; razor: boolean; bullseye: boolean };
+export type Game = { version: 1; id: string; mode: Mode; date: string; seed: string; startedAt: number; fuseMs: FuseDuration; deadline: number; revealUntil: number | null; phase: "guess" | "reveal" | "complete"; input: string; rounds: Round[] };
 export type Save = { version: 1; daily: Record<string, Game>; practice: Game | null };
 export const emptySave = (): Save => ({ version: 1, daily: {}, practice: null });
 export const decimal = (value: number) => Number(value.toFixed(1));
@@ -49,21 +50,21 @@ export function score(guess: number | null, actual: number, stance: Stance, befo
   const margin = decimal(Math.max(0, Math.min(100, before - damage + heal)));
   return { error, razor, bullseye, points, damage: decimal(damage), heal, margin, delta: decimal(margin - before) };
 }
-export function newGame(mode: Mode, now: number, seed = ""): Game {
+export function newGame(mode: Mode, now: number, seed = "", fuseMs: FuseDuration = FUSE): Game {
   const date = utcDate(now), identity = mode === "daily" ? date : seed;
-  return { version: 1, id: `${mode}:${identity}`, mode, date, seed: identity, startedAt: now, deadline: now + FUSE, revealUntil: null, phase: "guess", input: "", rounds: [] };
+  return { version: 1, id: `${mode}:${identity}`, mode, date, seed: identity, startedAt: now, fuseMs, deadline: now + fuseMs, revealUntil: null, phase: "guess", input: "", rounds: [] };
 }
 export function validInput(input: string) { return input.length <= 14 && /^\d*\.?\d*$/.test(input); }
 export function estimate(input: string): number | null { return validInput(input) && /\d/.test(input) && Number.isFinite(Number(input)) ? Number(input) : null; }
 function lock(game: Game, guess: number | null, stance: Stance, at: number): Game {
   const question = questionFor(game, game.rounds.length);
-  const round = { questionId: question.id, start: game.deadline - FUSE, guess, stance, at, ...score(guess, question.answer, stance, marginOf(game)) };
+  const round = { questionId: question.id, start: game.deadline - game.fuseMs, fuseMs: game.fuseMs, guess, stance, at, ...score(guess, question.answer, stance, marginOf(game)) };
   return { ...game, phase: "reveal", input: "", revealUntil: at + REVEAL, rounds: [...game.rounds, round] };
 }
-export function advance(game: Game, now: number): Game {
+export function advance(game: Game, now: number, fuseMs: FuseDuration = FUSE): Game {
   if (game.phase !== "reveal" || now < game.rounds.at(-1)!.at + 240) return game;
   const done = marginOf(game) === 0 || (game.mode === "daily" && game.rounds.length === ROUNDS);
-  return { ...game, phase: done ? "complete" : "guess", revealUntil: null, input: "", deadline: done ? game.deadline : Math.min(now, game.revealUntil!) + FUSE };
+  return { ...game, phase: done ? "complete" : "guess", revealUntil: null, input: "", fuseMs: done ? game.fuseMs : fuseMs, deadline: done ? game.deadline : Math.min(now, game.revealUntil!) + fuseMs };
 }
 // Catch up against saved absolute deadlines, including suspended/background tabs.
 export function tick(game: Game, now: number): Game {
@@ -95,29 +96,39 @@ export function shareText(game: Game) {
 
 function isRecord(value: unknown): value is Record<string, unknown> { return !!value && typeof value === "object" && !Array.isArray(value); }
 function validDate(value: unknown): value is string { return typeof value === "string" && /^\d{4}-\d{2}-\d{2}$/.test(value) && Number.isFinite(Date.parse(value)) && utcDate(Date.parse(value)) === value; }
+function storedFuse(value: unknown): FuseDuration | null {
+  // Saves from the original release did not record their 15-second duration.
+  return value === undefined ? 15_000 : value === 15_000 || value === FUSE ? value : null;
+}
 // Recompute all scoring from the input log. Never trust cached totals from storage.
 export function restoreGame(raw: unknown): Game | null {
   if (!isRecord(raw) || raw.version !== 1 || !["daily", "practice"].includes(raw.mode as string) || !validDate(raw.date) || typeof raw.seed !== "string" || raw.seed.length > 100 || typeof raw.startedAt !== "number" || !Number.isFinite(raw.startedAt) || raw.startedAt < 0 || !Array.isArray(raw.rounds) || typeof raw.input !== "string" || !validInput(raw.input)) return null;
-  let game = newGame(raw.mode as Mode, raw.startedAt, raw.seed);
+  const currentFuse = storedFuse(raw.fuseMs);
+  const firstFuse = raw.rounds.length && isRecord(raw.rounds[0]) ? storedFuse(raw.rounds[0].fuseMs) : currentFuse;
+  if (currentFuse === null || firstFuse === null) return null;
+  let game = newGame(raw.mode as Mode, raw.startedAt, raw.seed, firstFuse);
   if (game.date !== raw.date || game.id !== raw.id || game.seed !== raw.seed) return null;
   for (const item of raw.rounds) {
-    if (game.phase === "complete" || !isRecord(item) || typeof item.at !== "number" || !Number.isFinite(item.at) || item.start !== game.deadline - FUSE || item.at < game.deadline - FUSE || item.at > game.deadline || !["safe", "razor"].includes(item.stance as string) || (item.guess !== null && (typeof item.guess !== "number" || !Number.isFinite(item.guess) || item.guess < 0)) || item.questionId !== questionFor(game, game.rounds.length).id || (item.guess === null && (item.at !== game.deadline || item.stance !== "safe"))) return null;
+    if (game.phase === "complete" || !isRecord(item) || storedFuse(item.fuseMs) !== game.fuseMs || typeof item.at !== "number" || !Number.isFinite(item.at) || item.start !== game.deadline - game.fuseMs || item.at < game.deadline - game.fuseMs || item.at > game.deadline || !["safe", "razor"].includes(item.stance as string) || (item.guess !== null && (typeof item.guess !== "number" || !Number.isFinite(item.guess) || item.guess < 0)) || item.questionId !== questionFor(game, game.rounds.length).id || (item.guess === null && (item.at !== game.deadline || item.stance !== "safe"))) return null;
     game = lock(game, item.guess as number | null, item.stance as Stance, item.at);
     // Each next round records its start in the following lock's time window.
     const index = game.rounds.length;
     if (index < raw.rounds.length) {
       const following = raw.rounds[index];
       if (!isRecord(following) || typeof following.start !== "number") return null;
-      game = advance(game, following.start);
+      const duration = storedFuse(following.fuseMs);
+      if (duration === null || following.start > game.revealUntil!) return null;
+      game = advance(game, following.start, duration);
       if (game.phase !== "guess") return null;
     }
   }
   if (raw.phase === "guess" && game.phase === "reveal") {
     if (typeof raw.deadline !== "number" || !Number.isFinite(raw.deadline)) return null;
-    game = advance(game, raw.deadline - FUSE);
+    game = advance(game, raw.deadline - currentFuse, currentFuse);
   } else if (raw.phase === "complete" && game.phase === "reveal") game = advance(game, game.rounds.at(-1)!.at + REVEAL);
-  if (game.phase !== raw.phase || game.deadline !== raw.deadline || game.revealUntil !== raw.revealUntil) return null;
-  return { ...game, input: game.phase === "guess" ? raw.input : "" };
+  if (game.phase !== raw.phase || game.fuseMs !== currentFuse || game.deadline !== raw.deadline || game.revealUntil !== raw.revealUntil) return null;
+  // Keep elapsed time and the original round start when extending an active fuse.
+  return { ...game, input: game.phase === "guess" ? raw.input : "", ...(game.phase === "guess" && game.fuseMs !== FUSE ? { fuseMs: FUSE, deadline: game.deadline + FUSE - game.fuseMs } : {}) };
 }
 export function parseSave(text: string | null): Save {
   if (!text) return emptySave();

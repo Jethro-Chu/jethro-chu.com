@@ -669,7 +669,7 @@ export function IQTest() {
               <>
                 <p className={styles.performanceMessage}>Okay. You win.</p>
                 <p className={styles.perfectNote}>
-                  I specifically designed this test so this wouldn't happen.
+                  I specifically designed this test so this wouldn&apos;t happen.
                 </p>
               </>
             )}

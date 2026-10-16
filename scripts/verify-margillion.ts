@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
 import { questions } from "../data/margillionQuestions.ts";
 import { advance, bonusOf, commit, dailyQuestions, emptySave, emojiFor, estimate, FUSE, marginOf, newGame, parseSave, pointsOf, questionFor, REVEAL, restoreGame, score, shareText, stats, tick, totalOf, validInput, type Game } from "../lib/margillion/engine.ts";
 
@@ -44,10 +45,34 @@ test("decimal input: zero accepted, empty/dot/exponents/signs rejected", () => {
 });
 test("strict fuse, duplicate commit ignored, timeout at exact deadline", () => {
   let g = newGame("daily", time); g = { ...g, input: "0" };
+  assert.equal(FUSE, 25_000);
+  assert.equal(g.deadline - g.startedAt, 25_000);
+  assert.equal(tick(g, time + 15_000).phase, "guess");
   assert.equal(tick(g, g.deadline - 1), g);
   const timeout = commit(g, "razor", g.deadline); assert.equal(timeout.rounds[0].guess, null); assert.equal(marginOf(timeout), 75);
   assert.equal(commit(timeout, "safe", time + FUSE + 1), timeout);
   assert.equal(tick(timeout, timeout.revealUntil! - 1), timeout); assert.equal(tick(timeout, timeout.revealUntil!).phase, "guess");
+});
+test("15-second saves keep historical scores and upgrade active fuses without resetting elapsed time", () => {
+  const fixtures = JSON.parse(readFileSync(new URL("./fixtures/margillion-15s.json", import.meta.url), "utf8"));
+  for (const name of ["initial", "active"]) {
+    const original = fixtures[name], upgraded = restoreGame(original);
+    assert.ok(upgraded); assert.equal(upgraded.deadline, original.deadline + 10_000);
+    assert.equal(upgraded.fuseMs, FUSE); assert.equal(upgraded.input, original.input);
+    assert.equal(upgraded.rounds.length, original.rounds.length);
+    assert.equal(pointsOf(upgraded), original.rounds.reduce((sum: number, round: { points: number }) => sum + round.points, 0));
+    saved(upgraded);
+    const locked = hit(upgraded, 1); saved(locked); saved(advance(locked, locked.rounds.at(-1)!.at + REVEAL));
+  }
+  const reveal = restoreGame(fixtures.reveal); assert.ok(reveal);
+  assert.equal(reveal.revealUntil, fixtures.reveal.revealUntil);
+  const next = advance(reveal, reveal.revealUntil!); assert.equal(next.fuseMs, FUSE); saved(next);
+  for (const name of ["complete", "depleted"]) {
+    const original = fixtures[name], restored = restoreGame(original); assert.ok(restored);
+    assert.equal(restored.phase, "complete"); assert.equal(restored.deadline, original.deadline);
+    assert.equal(restored.rounds.length, original.rounds.length); saved(restored);
+    assert.equal(totalOf(restored), name === "complete" ? 3000 : 0);
+  }
 });
 test("save/restore after every lock, early advance, input and terminal phase", () => {
   let g = saved(newGame("daily", time));

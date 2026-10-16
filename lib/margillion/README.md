@@ -22,7 +22,7 @@ bullseyes still take their error damage before healing. Streak is consecutive
 estimates within 5%; it is a display count, not another multiplier. Only daily
 survivors earn the remaining-margin-times-ten bonus. Endless has no terminal bonus.
 
-Every fuse has an absolute 15-second deadline. Reveals last 2.8 seconds and support
+Every new fuse has an absolute 25-second deadline. Reveals last 2.8 seconds and support
 early advance after a 240ms duplicate-action guard. Leaving, refreshing, or opening
 the menu keeps time running. Catch-up applies expired timeouts and automatic
 advances chronologically; four unopposed timeouts deplete a fresh run. At the exact
@@ -32,6 +32,13 @@ deadline a late estimate is a timeout, never a lock in the next tier.
 from validated input logs on load; cached totals are never trusted. Storage failures
 fall back to memory with a visible notice. Browser tabs sync through storage events.
 Timeundle's incompatible historical localStorage keys remain untouched.
+Historical 15-second Margillion rounds record their original durations during load,
+so results and stats survive the timer update. Active 15-second rounds gain 10 seconds
+without resetting their start; subsequent rounds use 25 seconds.
+
+The current UI requires a viewport at least 768px wide and a physical keyboard.
+A single 580px column contains the telemetry strip and unified question/input surface.
+There is no on-screen keypad. Header controls expose rules and the mode menu.
 
 Share: one symbol per played tier, skull overriding the terminal depleted tier,
 red for timeout/bust, and white for unused daily tiers. Endless shows the latest
