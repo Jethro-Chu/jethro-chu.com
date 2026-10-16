@@ -1,261 +1,128 @@
 "use client";
 
-import { Fragment, useEffect, useLayoutEffect, useRef, useState } from "react";
-import type { Game, Mode, Save } from "@/lib/timeundle/engine";
-import { DAY_MS, ROUNDS, STORAGE_KEY, emptySave, emojiFor, eventFor, exact, lock, makePuzzle, newGame, next, parseSave, puzzleNumber, saveGame, shareText, statistics, timeline, total, utcDate } from "@/lib/timeundle/engine";
+import { useEffect, useRef, useState } from "react";
+import { DAY_MS, ROUNDS, currentStreak, emojiFor, exact, maxStreak, puzzleNumber, shareText, statistics, tierFor, timeline, total, utcDate } from "@/lib/timeundle/engine";
+import { useTimeundle } from "./useTimeundle";
+import { ChronoSpine, gapLabel } from "./ChronoSpine";
+import { GameHUD } from "./GameHUD";
+import { StageDeck } from "./StageDeck";
 import styles from "./Timeundle.module.css";
 
-function slotLabel(events: ReturnType<typeof timeline>, slot: number) {
-  if (slot === 0) return `Before ${events[0].title} (${events[0].year})`;
-  if (slot === events.length) return `After ${events.at(-1)!.title} (${events.at(-1)!.year})`;
-  return `Between ${events[slot - 1].title} (${events[slot - 1].year}) and ${events[slot].title} (${events[slot].year})`;
-}
-
 export default function Timeundle() {
-  const [started, setStarted] = useState(false);
-  const [game, setGame] = useState<Game | null>(null);
-  const [save, setSave] = useState<Save>(emptySave);
-  const [now, setNow] = useState<number | null>(null);
-  const [corrected, setCorrected] = useState(false);
-  const [storageNotice, setStorageNotice] = useState("");
-  const [copyStatus, setCopyStatus] = useState("");
-  const [fallback, setFallback] = useState("");
-  const gameRef = useRef<Game | null>(null);
-  const saveRef = useRef<Save>(emptySave());
-  const helpRef = useRef<HTMLDialogElement>(null);
+  const control = useTimeundle();
+  const { game, save, started, now, notice, canAdvance, play, preview, drop, expire, advance, aimYear, home } = control;
+  const controlRef = useRef(control);
+  controlRef.current = control;
   const titleRef = useRef<HTMLHeadingElement>(null);
   const nextRef = useRef<HTMLButtonElement>(null);
-  const boardRef = useRef<HTMLDivElement>(null);
-  const positions = useRef(new Map<string, DOMRect>());
-  const justMounted = useRef(true);
-  const hydrated = useRef(false);
-
-  function showGame(value: Game, data: Save) {
-    gameRef.current = value;
-    saveRef.current = data;
-    setGame(value);
-    setSave(data);
-    setCopyStatus("");
-    setFallback("");
-  }
-  function commit(value: Game) {
-    // Read the latest archive before merging, preserving other tabs’ daily games.
-    let latest = saveRef.current;
-    try { latest = parseSave(localStorage.getItem(STORAGE_KEY)); } catch { /* memory-only */ }
-    const existing = value.puzzle.mode === "daily" ? latest.daily[value.puzzle.date] : latest.practice;
-    if (existing?.puzzle.id === value.puzzle.id && (existing.rounds.length > value.rounds.length || existing.phase === "complete")) {
-      value = existing;
-    }
-    const updated = saveGame({ ...latest, daily: { ...saveRef.current.daily, ...latest.daily } }, value);
-    try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
-      setStorageNotice("");
-    } catch { setStorageNotice("Browser storage is unavailable. You can play, but this session may not survive a refresh."); }
-    showGame(value, updated);
-  }
-
-  useEffect(() => {
-    let data = emptySave();
-    try { data = parseSave(localStorage.getItem(STORAGE_KEY)); }
-    catch { setStorageNotice("Browser storage is unavailable. Progress will only last for this session."); }
-    const today = utcDate();
-    const daily = data.daily[today] ?? newGame(makePuzzle(today));
-    showGame(data.active === "practice" && data.practice ? data.practice : daily, data);
-    setNow(Date.now());
-    hydrated.current = true;
-    const tick = () => setNow(Date.now());
-    const interval = window.setInterval(tick, 1000);
-    const sync = (event: StorageEvent) => {
-      if (event.key !== STORAGE_KEY) return;
-      const latest = parseSave(event.newValue);
-      const current = gameRef.current;
-      const restored = current?.puzzle.mode === "daily" ? latest.daily[current.puzzle.date] : latest.practice;
-      if (restored && restored.puzzle.id === current?.puzzle.id) showGame(restored, latest);
-      else { saveRef.current = latest; setSave(latest); }
-    };
-    window.addEventListener("storage", sync);
-    document.addEventListener("visibilitychange", tick);
-    return () => { clearInterval(interval); window.removeEventListener("storage", sync); document.removeEventListener("visibilitychange", tick); };
-  }, []);
-
+  const [snipeOpen, setSnipeOpen] = useState(false);
+  const [yearInput, setYearInput] = useState("");
+  const [copyStatus, setCopyStatus] = useState("");
+  const [fallback, setFallback] = useState("");
   const phase = game?.phase;
-  const roundCount = game?.rounds.length ?? 0;
   const identity = game?.puzzle.id;
+  const roundCount = game?.rounds.length ?? 0;
   useEffect(() => {
-    setCorrected(false);
-    if (!started || phase !== "reveal") return;
-    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const timer = window.setTimeout(() => setCorrected(true), reduced ? 0 : 1400);
-    return () => clearTimeout(timer);
-  }, [phase, roundCount, identity, started]);
+    setSnipeOpen(false); setYearInput(controlRef.current.game?.snipeYear?.toString() ?? "");
+    setCopyStatus(""); setFallback("");
+    if (!started || phase !== "reveal") titleRef.current?.focus({ preventScroll: true });
+    else nextRef.current?.focus({ preventScroll: true });
+  }, [identity, phase, roundCount, started]);
+
+  useEffect(() => { if (started && canAdvance) nextRef.current?.focus({ preventScroll: true }); }, [started, canAdvance]);
 
   useEffect(() => {
-    if (!game || !hydrated.current) return;
-    if (justMounted.current) { justMounted.current = false; return; }
-    if (!started) titleRef.current?.focus({ preventScroll: true });
-    else if (game.phase === "reveal") nextRef.current?.focus({ preventScroll: true });
-    else titleRef.current?.focus({ preventScroll: true });
-  }, [phase, roundCount, identity, started]); // Selection and clock ticks must never steal focus.
-
-  useLayoutEffect(() => {
-    const elements = boardRef.current?.querySelectorAll<HTMLElement>("[data-event]");
-    if (!elements) { positions.current.clear(); return; }
-    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const nextPositions = new Map<string, DOMRect>();
-    elements.forEach((element) => {
-      const key = element.dataset.event!;
-      const rect = element.getBoundingClientRect();
-      const previous = positions.current.get(key);
-      if (previous && !reduced && previous.top !== rect.top) {
-        element.animate([{ transform: `translateY(${previous.top - rect.top}px)` }, { transform: "translateY(0)" }], { duration: 450, easing: "cubic-bezier(.22,1,.36,1)" });
+    function onKey(event: KeyboardEvent) {
+      const current = controlRef.current;
+      const value = current.gameRef.current;
+      if (!started || !value) return;
+      const target = event.target as HTMLElement;
+      if (target.closest("input, textarea, select, [contenteditable=true]")) return;
+      const key = event.key.toLowerCase();
+      if (value.phase === "place" && ["arrowup", "arrowdown", "w", "s"].includes(key)) {
+        event.preventDefault(); event.stopPropagation();
+        const count = timeline(value).length;
+        const position = value.selected ?? Math.floor(count / 2);
+        current.preview(Math.max(0, Math.min(count, position + (["arrowup", "w"].includes(key) ? -1 : 1))));
+      } else if (["enter", " "].includes(key) && !target.closest("button:not([data-slot]), summary, a")) {
+        event.preventDefault();
+        if (event.repeat) return;
+        if (value.phase === "place") current.drop(value.selected ?? Math.floor(timeline(value).length / 2));
+        else if (value.phase === "reveal") current.advance();
       }
-      nextPositions.set(key, rect);
-    });
-    positions.current = nextPositions;
-    if (phase === "complete" && boardRef.current) boardRef.current.scrollTop = 0;
-    if (phase === "reveal") boardRef.current?.querySelector<HTMLElement>("[data-current=true]")?.scrollIntoView({ block: "nearest", behavior: "instant" });
-  }, [corrected, phase, roundCount, identity, started]);
-
-  function choose(slot: number) {
-    const current = gameRef.current;
-    if (current?.phase === "place") commit({ ...current, selected: slot });
-  }
-  function lockAnswer() {
-    const current = gameRef.current;
-    if (current) commit(lock(current));
-  }
-  function advance() {
-    const current = gameRef.current;
-    if (current) commit(next(current));
-  }
-  function switchMode(mode: Mode, fresh = false) {
-    const today = utcDate();
-    const stored = mode === "daily" ? saveRef.current.daily[today] : saveRef.current.practice;
-    const value = stored && !fresh ? stored : newGame(makePuzzle(today, mode, mode === "daily" ? today : crypto.randomUUID()));
-    commit(value);
-    setStarted(true);
-  }
-  async function share() {
-    if (!game) return;
-    const text = shareText(game);
-    try {
-      await navigator.clipboard.writeText(text);
-      setCopyStatus("Result copied. No event spoilers.");
-    } catch {
-      setFallback(text);
-      setCopyStatus("Select and copy the result below.");
     }
-  }
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [started]);
 
-  const last = game?.rounds.at(-1);
-  const isReveal = phase === "reveal" && !!last;
-  const complete = phase === "complete";
-  const active = game && !complete ? eventFor(isReveal ? last!.eventId : game.puzzle.queue[roundCount]) : null;
-  const before = game ? timeline(game, isReveal ? roundCount - 1 : roundCount) : [];
-  const displayed = [...before];
-  if (isReveal && active && last) displayed.splice(corrected ? last.correct : last.guessed, 0, active);
-  const stats = statistics(save, now ? utcDate(now) : utcDate());
+  async function share() {
+    const current = control.gameRef.current;
+    if (!current) return;
+    const text = shareText(current);
+    try { await navigator.clipboard.writeText(text); setCopyStatus("Copied. No event spoilers."); }
+    catch { setFallback(text); setCopyStatus("Select and copy your result below."); }
+  }
+  const today = now ? utcDate(now) : "";
+  const daily = save.daily[today];
+  const stats = statistics(save, today || utcDate());
+  const isDailyStarted = daily && (daily.deadlineAt !== null || daily.rounds.length > 0);
+  const playLabel = daily?.phase === "complete" ? "View daily result" : isDailyStarted ? "Resume daily dive" : "Play daily dive";
   const remaining = now ? DAY_MS - (now % DAY_MS) : 0;
   const countdown = [Math.floor(remaining / 3_600_000), Math.floor((remaining % 3_600_000) / 60_000), Math.floor((remaining % 60_000) / 1000)].map((n) => String(n).padStart(2, "0")).join(":");
-  const rolledOver = game?.puzzle.mode === "daily" && now !== null && game.puzzle.date !== utcDate(now);
+  const rolledOver = game?.puzzle.mode === "daily" && today && game.puzzle.date !== today;
+  const last = game?.rounds.at(-1);
 
-  const todayDaily = now ? save.daily[utcDate(now)] : undefined;
-  const dailyInProgress = !!todayDaily && (todayDaily.rounds.length > 0 || todayDaily.selected !== null);
-  const playLabel = todayDaily?.phase === "complete" ? "View result" : dailyInProgress ? "Continue" : "Play";
-
-  return <main id="main" className={styles.root}>
+  return <main id="main" data-timeundle className={`${styles.root} fixed inset-0 h-dvh overflow-hidden flex flex-col bg-zinc-950 text-zinc-100`}>
     <div className={styles.shell}>
-      <header className={styles.header}>
-        {started ? <button className={styles.brand} onClick={() => setStarted(false)} aria-label="Timeundle home">timeundle<span>.</span></button> : <span className={styles.meta}>A DAILY GAME OF WHEN</span>}
-        <button className={styles.helpButton} onClick={() => helpRef.current?.showModal()} aria-label="How to play">?</button>
-      </header>
-      {storageNotice && <p role="status" className={styles.notice}>{storageNotice}</p>}
-      {!started ? <section className={styles.landing} aria-label="Welcome to Timeundle">
-        <svg className={styles.landingMark} viewBox="0 0 140 40" fill="none" aria-hidden="true"><path d="M10 20h120" stroke="currentColor" strokeWidth="1.5"/><circle cx="15" cy="20" r="5" fill="var(--color-bg)" stroke="currentColor" strokeWidth="1.5"/><circle cx="70" cy="20" r="7" fill="currentColor"/><circle cx="125" cy="20" r="5" fill="var(--color-bg)" stroke="currentColor" strokeWidth="1.5"/></svg>
-        <h1 ref={titleRef} tabIndex={-1}>timeundle<span>.</span></h1>
-        <p className={styles.tagline}>You know what happened.<br/>But do you know when?</p>
-        <p className={styles.landingDescription}>Put seven events in order.<br/>A little history. A few surprises.</p>
-        <div className={styles.startActions}>
-          <button className={styles.primaryButton} disabled={!game} onClick={() => switchMode("daily")}>{game ? playLabel : "Loading…"}<span aria-hidden="true">→</span></button>
-          <button className={styles.textButton} disabled={!game} onClick={() => switchMode("practice")}>{save.practice?.phase === "complete" ? "View practice result" : save.practice ? "Continue practice" : "Play practice"}</button>
-        </div>
-        <p className={styles.meta}>{now ? `DAILY #${puzzleNumber(utcDate(now))} · ${utcDate(now)}` : "TODAY’S TIMELINE"}</p>
-        <p className={styles.arrival}>Next daily in <time>{now ? countdown : "··:··:··"}</time></p>
-        <noscript>Enable JavaScript to play Timeundle.</noscript>
-      </section> : game && <>
-        <h1 className={styles.srOnly}>Timeundle</h1>
-        {rolledOver && <div className={styles.notice}>A new UTC day has begun. Finish this puzzle or <button onClick={() => switchMode("daily")}>play today’s daily</button>.</div>}
-        <div className={styles.scoreBar}>
-          <div className={styles.roundInfo}><span className={styles.meta}>{game.puzzle.mode === "daily" ? `DAILY #${puzzleNumber(game.puzzle.date)}` : "PRACTICE"}</span><span className={styles.round}>{complete ? "Complete" : `${Math.min(ROUNDS, isReveal ? roundCount : roundCount + 1)} / 7`}</span></div>
-          <strong aria-label={`${total(game)} out of 700 points`}>{total(game)}<small> / 700</small></strong>
-        </div>
-
-        {complete ? <section className={styles.results} aria-label="Game results">
-          <h2 ref={titleRef} tabIndex={-1} className={styles.resultHeading}>{total(game) === 700 ? "Right on time." : total(game) >= 450 ? "A good sense of time." : "History has its surprises."}</h2>
-          <p><span className={styles.numeric}>{exact(game)} / 7</span> exactly right.</p>
-          <button className={styles.primaryButton} onClick={share}>Share result <span aria-hidden="true">↗</span></button>
-          <button className={styles.textButton} onClick={() => switchMode("practice", true)}>Play practice</button>
-          <p role="status" className={styles.copyStatus}>{copyStatus}</p>
+      {started && game ? <>
+        <h1 className={styles.srOnly}>Timeundle Chrono-Dive</h1>
+        <GameHUD game={game} home={home} play={play}/>
+        {notice && <p className={styles.notice} role="status">{notice}</p>}
+        {game.phase === "complete" ? <section className={styles.results} aria-label="Game results">
+          <div className={styles.resultHeading}><div><p className={styles.eyebrow}>DIVE COMPLETE</p><h2 ref={titleRef} tabIndex={-1}>{exact(game) === ROUNDS ? "Chronology mastered." : "Back from the dive."}</h2></div><strong>{total(game).toLocaleString("en-US")}<small> PTS</small></strong></div>
+          <p className={styles.resultSummary}>{exact(game)}/7 exact · {maxStreak(game)}x max streak · {game.rounds.filter((round) => round.snipe).length} snipes</p>
+          <div className={styles.resultGrid} aria-label="Your round results">{game.rounds.map((round, index) => <span key={round.eventId} data-tier={tierFor(round)} aria-label={`Round ${index + 1}: ${round.points} points`}>{emojiFor(tierFor(round))}</span>)}</div>
+          <details className={styles.resultDetails}><summary>Round breakdown & daily stats</summary>
+            <ol className={styles.breakdown} aria-label="Round by round results">{game.rounds.map((round, index) => <li key={round.eventId}><span>{index + 1}</span><span>{tierFor(round) === "exact" ? "Exact hit" : round.guessed === null ? "No placement" : `${Math.abs(round.guessed - round.correct)} slots off`}{round.speed ? ` · +${round.speed} speed` : ""}{round.multiplier! > 1 ? ` · ${round.multiplier}x` : ""}{round.snipe ? " · Snipe" : ""}</span><strong>{round.points}</strong></li>)}</ol>
+            <dl className={styles.dailyStats}>{([["Daily games", stats.played], ["Daily streak", stats.streak], ["Timed best", stats.best], ["Timed average", stats.average]] as const).map(([label, value]) => <div key={label}><dd>{value}</dd><dt>{label}</dt></div>)}</dl>
+          </details>
           {fallback && <textarea className={styles.shareFallback} readOnly value={fallback} aria-label="Copy this spoiler-free result" onFocus={(event) => event.currentTarget.select()}/>}
-          <details className={styles.details}><summary>Round breakdown</summary>
-            <ol className={styles.breakdown} aria-label="Round by round results">{game.rounds.map((round, i) => <li key={round.eventId}><span className={styles.meta}>{i + 1}</span><span>{eventFor(round.eventId).title}<small>{round.guessed === round.correct ? "Exact placement" : `${Math.abs(round.guessed - round.correct)} ${Math.abs(round.guessed - round.correct) === 1 ? "slot" : "slots"} away`}</small></span><strong>{round.points}</strong></li>)}</ol>
-            <p className={styles.legend}>Share key: 🟩 100 · 🟨 75 · 🟧 50 · 🟫 25 · ⬜ 0</p>
-          </details>
-          <details className={styles.details}><summary>Your daily stats</summary>
-            <dl className={styles.stats} aria-label="Your daily statistics">{([["Played", stats.played], ["Streak", stats.streak], ["Best", stats.best], ["Average", stats.average]] as const).map(([label, value]) => <div key={label}><dd>{value}</dd><dt>{label}</dt></div>)}</dl>
-            <p className={styles.smallPrint}>Saved in this browser. Practice doesn’t count.</p>
-          </details>
-        </section> : active && <section className={styles.prompt} aria-label="Current event">
-          <p className={styles.meta}>{isReveal ? active.year : "WHERE DOES THIS FIT?"}</p>
-          <h2 ref={titleRef} tabIndex={-1}>{active.title}</h2>
-        </section>}
-
-        <section className={styles.timelinePanel} aria-label="Your chronological timeline">
-          <h2 className={styles.srOnly}>Your timeline</h2>
-          <div className={styles.board} ref={boardRef} role="group" aria-label={complete || isReveal ? "Revealed timeline" : "Choose an insertion position"} data-complete={complete}>
-            <div className={styles.track}>
-              <div className={styles.timelineCap}>EARLIER</div>
-              {displayed.map((event, index) => <Fragment key={event.id}>
-                {phase === "place" && <button className={styles.slot} aria-pressed={game.selected === index} aria-label={`${game.selected === index ? "Selected position" : "Place here"}: ${slotLabel(before, index)}`} onClick={() => choose(index)}><span aria-hidden="true">{game.selected === index ? "✓" : "+"}</span><span>{game.selected === index ? "Selected position" : "Place here"}</span></button>}
-                <div className={styles.timelineEvent} data-event={event.id} data-current={isReveal && event.id === active?.id} data-guessed={isReveal && !corrected && last?.points !== 100 && event.id === active?.id}>
-                  <span className={styles.node} aria-hidden="true"/>
-                  <div className={styles.eventYear}>{event.year}</div>
-                  <div><h3>{event.title}</h3>{isReveal && event.id === active?.id && <span className={styles.eventStatus}>{corrected || last?.points === 100 ? "Revealed" : "Your guess"}</span>}{complete && <a className={styles.eventSource} href={event.source} target="_blank" rel="noopener noreferrer">Source ↗</a>}</div>
-                </div>
-              </Fragment>)}
-              {phase === "place" && <button className={styles.slot} aria-pressed={game.selected === before.length} aria-label={`${game.selected === before.length ? "Selected position" : "Place here"}: ${slotLabel(before, before.length)}`} onClick={() => choose(before.length)}><span aria-hidden="true">{game.selected === before.length ? "✓" : "+"}</span><span>{game.selected === before.length ? "Selected position" : "Place here"}</span></button>}
-              <div className={styles.timelineCap}>LATER</div>
-            </div>
-          </div>
-        </section>
-
-        {!complete && <div className={styles.actionDock}>
-          {isReveal && last && active ? <>
-            <div className={styles.reveal} role="status" aria-live="polite">
-              <div className={styles.revealHeading}><h3>{last.points === 100 ? "✓ Right on time!" : `${Math.abs(last.guessed - last.correct)} ${Math.abs(last.guessed - last.correct) === 1 ? "slot" : "slots"} away`}</h3><strong>+{last.points} pts</strong></div>
-              <p>{active.fact} <a href={active.source} target="_blank" rel="noopener noreferrer">Source ↗</a></p>
-              {last.points !== 100 && <details className={styles.guessDetails}><summary>Your placement</summary><p>Your guess: {slotLabel(before, last.guessed)}. {corrected ? "Now in its correct place." : "Moving it into place…"}</p></details>}
-            </div>
-            <button ref={nextRef} className={styles.primaryButton} onClick={advance}>{roundCount === ROUNDS ? "See results" : "Next event"}<span aria-hidden="true">→</span></button>
+          {copyStatus && <p className={styles.copyStatus} role="status">{copyStatus}</p>}
+        </section> : <StageDeck game={game} expire={expire} titleRef={titleRef} preview={preview} drop={drop}/>}
+        <ChronoSpine game={game} preview={preview} drop={drop}/>
+        <footer className={styles.actionBar}>
+          {game.phase === "complete" ? <div className={styles.resultActions}><button className={styles.primaryButton} onClick={share}>Share result ↗</button><button className={styles.secondaryButton} onClick={() => play("practice", true)}>Dive again →</button></div> : game.phase === "reveal" ? <>
+            <p className={styles.dropFeedback}>{last?.guessed === null ? "The fuse ran out. The event is now in order." : last?.guessed === last?.correct ? `${currentStreak(game)}x exact streak. Keep it going.` : "Moved into its true chronological position."}</p>
+            <button ref={nextRef} className={styles.primaryButton} disabled={!canAdvance} onClick={advance}>{roundCount === ROUNDS ? "See results" : "Next event"}<span aria-hidden="true"><kbd>Space</kbd> →</span></button>
           </> : <>
-            <p className={styles.selection} aria-live="polite">{game.selected === null ? "Tap a + to choose a position" : game.selected === 0 ? `Before ${before[0].year}` : game.selected === before.length ? `After ${before.at(-1)!.year}` : `Between ${before[game.selected - 1].year} and ${before[game.selected].year}`}</p>
-            <button className={styles.primaryButton} onClick={lockAnswer} disabled={game.selected === null}>Lock it in <span aria-hidden="true">↵</span></button>
+            <div className={styles.aimRow}><span className={styles.aimText}>{game.selected === null ? "Aim at a gap. Make the drop." : gapLabel(timeline(game), game.selected)}</span><button className={styles.snipeToggle} aria-expanded={snipeOpen} aria-controls="timeundle-snipe" onClick={() => setSnipeOpen(!snipeOpen)}>⌖ Chrono-snipe <span>+25</span></button></div>
+            {snipeOpen && <div id="timeundle-snipe" className={styles.snipeInput}><label htmlFor="snipe-year">Exact year <small>Within 2 years, inside your chosen gap. No extra time.</small></label><input id="snipe-year" type="text" inputMode="numeric" pattern="[0-9]*" maxLength={4} placeholder="YYYY" value={yearInput} onChange={(event) => { const raw = event.target.value.replace(/\D/g, "").slice(0, 4); setYearInput(raw); const value = Number(raw); aimYear(raw.length === 4 && value >= 1700 && value <= 2100 ? value : null); }}/></div>}
+            <div className={styles.controlsHint}><span className={styles.desktopHint}><kbd>↑</kbd><kbd>↓</kbd> or <kbd>W</kbd><kbd>S</kbd> aim <span>·</span> <kbd>Enter</kbd> drop</span><span className={styles.touchHint}>One tap to aim. A second tap to drop.</span><span>20 SECONDS. ONE SHOT.</span></div>
           </>}
-        </div>}
+          {rolledOver && <button className={styles.rollover} onClick={() => play("daily")}>A new UTC puzzle is ready. Play today’s daily →</button>}
+        </footer>
+      </> : <>
+        <header className={styles.landingHeader}><span>TIMEUNDLE / CHRONO-DIVE</span><span>DAILY #{today ? puzzleNumber(today) : "··"}</span></header>
+        <section className={styles.landing} aria-label="Welcome to Timeundle">
+          <svg className={styles.landingMark} viewBox="0 0 160 64" fill="none" aria-hidden="true"><path d="M10 32h140M35 22v20M80 10v44M125 22v20" stroke="currentColor" strokeWidth="1.5"/><circle cx="80" cy="32" r="9" fill="currentColor"/></svg>
+          <p className={styles.eyebrow}>THE PAST IS CLOSER THAN YOU THINK</p>
+          <h1 ref={titleRef} tabIndex={-1}>timeundle<span>.</span></h1>
+          <p className={styles.tagline}>You know what happened.<br/>But do you know when?</p>
+          <p className={styles.landingDescription}>Seven drops. Twenty seconds each.<br/>Tighter eras. Higher stakes.</p>
+          <div className={styles.startActions}><button className={styles.primaryButton} disabled={!game} onClick={() => play("daily")}>{game ? playLabel : "Preparing timeline…"}<span aria-hidden="true">↓</span></button><button className={styles.secondaryButton} disabled={!game} onClick={() => play("practice")}>{save.practice?.phase === "complete" ? "View practice result" : save.practice ? "Resume practice" : "Practice dive"}<span aria-hidden="true">∞</span></button></div>
+          {notice && <p className={styles.notice} role="status">{notice}</p>}
+          <details className={styles.help}><summary>How to play</summary><div>
+            <p>Put each event into the timeline before its 20-second fuse runs out. Hover or drag to aim, then click once to drop. On touchscreens, tap once to preview a gap and again to commit.</p>
+            <p>Use Arrow Up / Down or W / S to aim. Enter or Space drops the card. After the year and fact appear, Space continues. Input fields and buttons keep their normal keyboard behavior.</p>
+            <h2>Close counts less on a small board.</h2>
+            <ul className={styles.scoring}><li>🟩 Exact: 100 base + up to 30 speed.</li><li>🟨 1 slot off: 40 base in rounds 1–2, then 75. Up to 10 speed.</li><li>🟧 2 slots off: 15 base in rounds 1–3, then 50.</li><li>🟫 3 slots off: 0 base in rounds 1–3, then 25.</li><li>⬜ 4+ slots off or no placement: 0.</li></ul>
+            <p>Exact hits build a 1x, 2x, 3x… streak. The multiplier applies to base + speed on that hit. A miss resets it. An optional year guess within 2 years, inside the selected gap, earns a separate +25 Chrono-Snipe bonus.</p>
+            <p>At zero, your highlighted slot is submitted with no speed or snipe bonus. If you haven’t aimed, the round scores zero. The fuse keeps running when you leave or refresh. Saved classic rounds keep their original scores.</p>
+            <p>Daily is seeded by the UTC date. Practice never affects daily stats. All progress stays in this browser.</p>
+          </div></details>
+          <p className={styles.arrival}>NEXT DAILY <time>{now ? countdown : "··:··:··"}</time> · 00:00 UTC</p>
+        </section>
       </>}
     </div>
-    <dialog ref={helpRef} className={styles.dialog} aria-labelledby="timeundle-help" onClick={(event) => { if (event.target === event.currentTarget) helpRef.current?.close(); }}>
-      <div className={styles.dialogContent}>
-        <div className={styles.dialogHeading}><h2 id="timeundle-help">A matter of time.</h2><button className={styles.helpButton} aria-label="Close help" onClick={() => helpRef.current?.close()}>×</button></div>
-        <p>Two events start your timeline. Place seven more, one at a time, from earliest to latest.</p>
-        <ol><li>Tap a space before, between or after the events.</li><li>Press <strong>Lock it in</strong> to reveal the year.</li><li>Read the fact, then press <strong>Next event</strong>. Every event stays on the timeline, even after a miss.</li></ol>
-        <h3>Close still counts.</h3>
-        <p>Distance is measured from the correct space before the event is added. Seven rounds, up to 700 points.</p>
-        <ul className={styles.scoring}>{[[100, "Exact"], [75, "1 slot away"], [50, "2 slots away"], [25, "3 slots away"], [0, "4+ slots away"]].map(([points, label]) => <li key={points}><span>{emojiFor(Number(points))} {label}</span><strong>{points} pts</strong></li>)}</ul>
-        <p>Daily is the same for everyone and changes at midnight UTC. Practice is unlimited and separate from daily stats. Progress saves in this browser.</p>
-        <p>Use Tab to move between spaces, Space or Enter to select, then Tab to <strong>Lock it in</strong>. Escape closes this dialog.</p>
-        <button className={styles.primaryButton} onClick={() => helpRef.current?.close()}>Let’s place some history <span aria-hidden="true">→</span></button>
-      </div>
-    </dialog>
   </main>;
 }

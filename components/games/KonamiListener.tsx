@@ -22,6 +22,8 @@ export function KonamiListener() {
   useEffect(() => {
     let i = 0;
     const onKey = (e: KeyboardEvent) => {
+      // Timeundle owns repeated arrow-key input for its accessible timeline.
+      if (window.location.pathname === "/timeundle") return;
       const want = KONAMI[i];
       if (e.key.toLowerCase() === want.toLowerCase()) {
         i++;
