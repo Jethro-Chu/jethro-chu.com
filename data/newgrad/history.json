@@ -8681,5 +8681,375 @@
         "claim": "deadline"
       }
     ]
+  },
+  {
+    "id": "hist_2026-10-16-daily_0001",
+    "run_id": "2026-10-16-daily",
+    "at": "2026-10-16T12:17:09.423Z",
+    "type": "CLOSED",
+    "opportunity_id": "opp_6d53fceca4",
+    "changes": [
+      {
+        "field": "application_status",
+        "before": "OPEN",
+        "after": "CLOSED"
+      },
+      {
+        "field": "closed_at",
+        "before": null,
+        "after": "2026-10-16T12:17:09.423Z"
+      }
+    ],
+    "reason": "Official evidence verified closure.",
+    "evidence": [
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/101359/new-grad-rn-med-surg-float-pool-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-health-system/",
+        "excerpt": "This job is no longer available. Please try another search.",
+        "retrieved_at": "2026-10-16T12:15:00.000Z",
+        "claim": "closure"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/101359/new-grad-rn-med-surg-float-pool-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-health-system/",
+        "excerpt": "Nursing New Grad RN Job: New Grad RN - Bayview Medical Center Med/Surg Float Pool at Johns Hopkins Medicine in Johns Hopkins Health System, Baltimore, MD",
+        "retrieved_at": "2026-10-16T12:15:00.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/101359/new-grad-rn-med-surg-float-pool-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-health-system/",
+        "excerpt": "Nursing New Grad RN Job: New Grad RN - Bayview Medical Center Med/Surg Float Pool at Johns Hopkins Medicine in Johns Hopkins Health System, Baltimore, MD",
+        "retrieved_at": "2026-10-16T12:15:00.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/",
+        "excerpt": "Applications for new graduate nursing positions are active across Johns Hopkins hospital acute care units with automatic enrollment into the 12-month Nurse Residency Program.",
+        "retrieved_at": "2026-10-16T12:15:00.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/",
+        "excerpt": "New graduate nurses hired into Johns Hopkins are automatically enrolled in the Maryland Nurse Residency Collaborative transition-to-practice program.",
+        "retrieved_at": "2026-10-16T12:15:00.000Z",
+        "claim": "eligibility"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-10-16-daily_0002",
+    "run_id": "2026-10-16-daily",
+    "at": "2026-10-16T12:17:09.423Z",
+    "type": "UPDATED",
+    "opportunity_id": "opp_6d53fceca4",
+    "changes": [
+      {
+        "field": "application_status",
+        "before": "OPEN",
+        "after": "CLOSED"
+      },
+      {
+        "field": "closed_at",
+        "before": null,
+        "after": "2026-10-16T12:17:09.423Z"
+      }
+    ],
+    "reason": "Updated from run evidence (CLOSED).",
+    "evidence": [
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/101359/new-grad-rn-med-surg-float-pool-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-health-system/",
+        "excerpt": "This job is no longer available. Please try another search.",
+        "retrieved_at": "2026-10-16T12:15:00.000Z",
+        "claim": "closure"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/101359/new-grad-rn-med-surg-float-pool-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-health-system/",
+        "excerpt": "Nursing New Grad RN Job: New Grad RN - Bayview Medical Center Med/Surg Float Pool at Johns Hopkins Medicine in Johns Hopkins Health System, Baltimore, MD",
+        "retrieved_at": "2026-10-16T12:15:00.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/101359/new-grad-rn-med-surg-float-pool-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-health-system/",
+        "excerpt": "Nursing New Grad RN Job: New Grad RN - Bayview Medical Center Med/Surg Float Pool at Johns Hopkins Medicine in Johns Hopkins Health System, Baltimore, MD",
+        "retrieved_at": "2026-10-16T12:15:00.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/",
+        "excerpt": "Applications for new graduate nursing positions are active across Johns Hopkins hospital acute care units with automatic enrollment into the 12-month Nurse Residency Program.",
+        "retrieved_at": "2026-10-16T12:15:00.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/",
+        "excerpt": "New graduate nurses hired into Johns Hopkins are automatically enrolled in the Maryland Nurse Residency Collaborative transition-to-practice program.",
+        "retrieved_at": "2026-10-16T12:15:00.000Z",
+        "claim": "eligibility"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-10-16-daily_0003",
+    "run_id": "2026-10-16-daily",
+    "at": "2026-10-16T12:17:09.423Z",
+    "type": "CLOSED",
+    "opportunity_id": "opp_06171c46cf",
+    "changes": [
+      {
+        "field": "application_status",
+        "before": "OPEN",
+        "after": "CLOSED"
+      },
+      {
+        "field": "closed_at",
+        "before": null,
+        "after": "2026-10-16T12:17:09.423Z"
+      }
+    ],
+    "reason": "Official evidence verified closure.",
+    "evidence": [
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/101898/new-grad-rn-reconstructive-surgery-clinic-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "This job is no longer available. Please try another search.",
+        "retrieved_at": "2026-10-16T12:15:00.000Z",
+        "claim": "closure"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/101898/new-grad-rn-reconstructive-surgery-clinic-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "Qualifications: ADN required; BSN preferred; must matriculate into BSN program per nursing guidelines RN license required at time of hire Active CPR required at time of hire New graduate nurse who wants to work in an outpatient clinic as a part of an innovative team",
+        "retrieved_at": "2026-10-16T12:15:00.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/101898/new-grad-rn-reconstructive-surgery-clinic-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "Nursing New Grad RN Job: New Grad RN - Reconstructive Surgery Clinic at Johns Hopkins Medicine in Johns Hopkins Hospital, Baltimore, MD. Requisition #: 675747.",
+        "retrieved_at": "2026-10-16T12:15:00.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/101898/new-grad-rn-reconstructive-surgery-clinic-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "ADN required; BSN preferred; must matriculate into BSN program per nursing guidelines",
+        "retrieved_at": "2026-10-16T12:15:00.000Z",
+        "claim": "education"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/101898/new-grad-rn-reconstructive-surgery-clinic-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "RN license required at time of hire Active CPR required at time of hire",
+        "retrieved_at": "2026-10-16T12:15:00.000Z",
+        "claim": "license"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-10-16-daily_0004",
+    "run_id": "2026-10-16-daily",
+    "at": "2026-10-16T12:17:09.423Z",
+    "type": "UPDATED",
+    "opportunity_id": "opp_06171c46cf",
+    "changes": [
+      {
+        "field": "application_status",
+        "before": "OPEN",
+        "after": "CLOSED"
+      },
+      {
+        "field": "closed_at",
+        "before": null,
+        "after": "2026-10-16T12:17:09.423Z"
+      }
+    ],
+    "reason": "Updated from run evidence (CLOSED).",
+    "evidence": [
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/101898/new-grad-rn-reconstructive-surgery-clinic-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "This job is no longer available. Please try another search.",
+        "retrieved_at": "2026-10-16T12:15:00.000Z",
+        "claim": "closure"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/101898/new-grad-rn-reconstructive-surgery-clinic-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "Qualifications: ADN required; BSN preferred; must matriculate into BSN program per nursing guidelines RN license required at time of hire Active CPR required at time of hire New graduate nurse who wants to work in an outpatient clinic as a part of an innovative team",
+        "retrieved_at": "2026-10-16T12:15:00.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/101898/new-grad-rn-reconstructive-surgery-clinic-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "Nursing New Grad RN Job: New Grad RN - Reconstructive Surgery Clinic at Johns Hopkins Medicine in Johns Hopkins Hospital, Baltimore, MD. Requisition #: 675747.",
+        "retrieved_at": "2026-10-16T12:15:00.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/101898/new-grad-rn-reconstructive-surgery-clinic-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "ADN required; BSN preferred; must matriculate into BSN program per nursing guidelines",
+        "retrieved_at": "2026-10-16T12:15:00.000Z",
+        "claim": "education"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/101898/new-grad-rn-reconstructive-surgery-clinic-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "RN license required at time of hire Active CPR required at time of hire",
+        "retrieved_at": "2026-10-16T12:15:00.000Z",
+        "claim": "license"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-10-16-daily_0005",
+    "run_id": "2026-10-16-daily",
+    "at": "2026-10-16T12:17:09.423Z",
+    "type": "CLOSED",
+    "opportunity_id": "opp_64c5fb455c",
+    "changes": [
+      {
+        "field": "application_status",
+        "before": "OPEN",
+        "after": "CLOSED"
+      },
+      {
+        "field": "closed_at",
+        "before": null,
+        "after": "2026-10-16T12:17:09.423Z"
+      }
+    ],
+    "reason": "Official evidence verified closure.",
+    "evidence": [
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/103262/new-grad-rn-ob-perinatal-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-bayview-medical-center/",
+        "excerpt": "This job is no longer available. Please try another search.",
+        "retrieved_at": "2026-10-16T12:15:00.000Z",
+        "claim": "closure"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/103262/new-grad-rn-ob-perinatal-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-bayview-medical-center/",
+        "excerpt": "Join Our Team at Johns Hopkins Bayview Medical Center- Labor and Delivery/Perinatal New Grad RN. Prior work experience not required. All New Graduate RNs will be automatically enrolled in our yearlong Nurse Residency Program.",
+        "retrieved_at": "2026-10-16T12:15:00.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/103262/new-grad-rn-ob-perinatal-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-bayview-medical-center/",
+        "excerpt": "Apply for New Grad RN- OB/Perinatal at Johns Hopkins Bayview Medical Center, Baltimore, MD. Requisition #: 659418. Weekly Working Hours: 36 hours per week. Shift: Night Shift.",
+        "retrieved_at": "2026-10-16T12:15:00.000Z",
+        "claim": "status"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-10-16-daily_0006",
+    "run_id": "2026-10-16-daily",
+    "at": "2026-10-16T12:17:09.423Z",
+    "type": "UPDATED",
+    "opportunity_id": "opp_64c5fb455c",
+    "changes": [
+      {
+        "field": "application_status",
+        "before": "OPEN",
+        "after": "CLOSED"
+      },
+      {
+        "field": "closed_at",
+        "before": null,
+        "after": "2026-10-16T12:17:09.423Z"
+      }
+    ],
+    "reason": "Updated from run evidence (CLOSED).",
+    "evidence": [
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/103262/new-grad-rn-ob-perinatal-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-bayview-medical-center/",
+        "excerpt": "This job is no longer available. Please try another search.",
+        "retrieved_at": "2026-10-16T12:15:00.000Z",
+        "claim": "closure"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/103262/new-grad-rn-ob-perinatal-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-bayview-medical-center/",
+        "excerpt": "Join Our Team at Johns Hopkins Bayview Medical Center- Labor and Delivery/Perinatal New Grad RN. Prior work experience not required. All New Graduate RNs will be automatically enrolled in our yearlong Nurse Residency Program.",
+        "retrieved_at": "2026-10-16T12:15:00.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/103262/new-grad-rn-ob-perinatal-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-bayview-medical-center/",
+        "excerpt": "Apply for New Grad RN- OB/Perinatal at Johns Hopkins Bayview Medical Center, Baltimore, MD. Requisition #: 659418. Weekly Working Hours: 36 hours per week. Shift: Night Shift.",
+        "retrieved_at": "2026-10-16T12:15:00.000Z",
+        "claim": "status"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-10-16-daily_0007",
+    "run_id": "2026-10-16-daily",
+    "at": "2026-10-16T12:17:09.423Z",
+    "type": "NEW",
+    "opportunity_id": "opp_3a1d0e02ce",
+    "changes": null,
+    "reason": "First published from run evidence (OPEN).",
+    "evidence": [
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/101319/new-grad-rn-sicu-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "No RN work experience required! Training will be provided - All New Grad RNs are automatically enrolled in our Nurse Residency Program ranked #3 in the nation!",
+        "retrieved_at": "2026-10-16T12:15:00.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/101319/new-grad-rn-sicu-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "Nursing New Grad RN Job: New Grad RN - SICU at Johns Hopkins Medicine in Johns Hopkins Hospital, Baltimore, MD",
+        "retrieved_at": "2026-10-16T12:15:00.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/101319/new-grad-rn-sicu-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "The Surgical Intensive Care Unit (Zayed 9 East) at Johns Hopkins is an 18-bed adult ICU which includes 4 dedicated cardiac surgery beds specializing in the care of critically ill post-operative surgical patients.",
+        "retrieved_at": "2026-10-16T12:15:00.000Z",
+        "claim": "unit"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/101319/new-grad-rn-sicu-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "Active Maryland or Compact RN license is required",
+        "retrieved_at": "2026-10-16T12:15:00.000Z",
+        "claim": "license"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/101319/new-grad-rn-sicu-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "Associate degree in Nursing required. Applicants with an Associate’s degree in nursing from an accredited nursing program may be considered, provided they are enrolled in an accredited BSN/MSN program within 1 year of hire and complete the degree within 4 years of hire",
+        "retrieved_at": "2026-10-16T12:15:00.000Z",
+        "claim": "education"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-10-16-daily_0008",
+    "run_id": "2026-10-16-daily",
+    "at": "2026-10-16T12:17:09.423Z",
+    "type": "NEW",
+    "opportunity_id": "opp_e629a4c778",
+    "changes": null,
+    "reason": "First published from run evidence (OPEN).",
+    "evidence": [
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/101597/new-grad-rn-ed-float-pool-november-start-date-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-health-system/",
+        "excerpt": "No RN work experience required; ED practicum/PCT/CNE experience strongly preferred. All New Grad RNs are automatically enrolled in our Nurse Residency Program ranked #3 in the nation!",
+        "retrieved_at": "2026-10-16T12:15:00.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/101597/new-grad-rn-ed-float-pool-november-start-date-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-health-system/",
+        "excerpt": "Nursing New Grad RN Job: New Grad RN - Med Surg Float Pool (Bayview Medical Center) at Johns Hopkins Medicine in Johns Hopkins Health System, Baltimore, MD",
+        "retrieved_at": "2026-10-16T12:15:00.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/101597/new-grad-rn-ed-float-pool-november-start-date-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-health-system/",
+        "excerpt": "Join the Emergency Department Float Pool and provide exceptional, patient-centered care across two nationally recognized emergency departments: Johns Hopkins Hospital and Johns Hopkins Bayview Medical Center.",
+        "retrieved_at": "2026-10-16T12:15:00.000Z",
+        "claim": "unit"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/101597/new-grad-rn-ed-float-pool-november-start-date-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-health-system/",
+        "excerpt": "Active Maryland or Compact RN license is required",
+        "retrieved_at": "2026-10-16T12:15:00.000Z",
+        "claim": "license"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/101597/new-grad-rn-ed-float-pool-november-start-date-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-health-system/",
+        "excerpt": "Associate degree in Nursing required. Applicants with an Associate’s degree in nursing from an accredited nursing program may be considered, provided they are enrolled in an accredited BSN/MSN program within 1 year of hire and complete the degree within 4 years of hire",
+        "retrieved_at": "2026-10-16T12:15:00.000Z",
+        "claim": "education"
+      }
+    ]
   }
 ]
