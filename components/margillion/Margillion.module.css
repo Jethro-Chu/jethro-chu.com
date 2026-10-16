@@ -24,7 +24,7 @@
 .header { display: flex; align-items: center; gap: 14px; flex-shrink: 0; }
 .brand { padding: 0; border: 0; background: none; color: var(--text); font-family: var(--margillion-display), sans-serif !important; font-size: 21px; font-weight: 700; letter-spacing: -1px; }
 .brand span, .landing h1 span { color: var(--green); }
-.edition, .eyebrow, .landingFooter, .runMeta, .marginLabel, .timer, .category, .readoutRow, .comparison, .verdict, .gameFooter, .stats, .legend, .finalScore {
+.edition, .eyebrow, .landingFooter, .runMeta, .marginLabel, .category, .readoutRow, .comparison, .verdict, .gameFooter, .stats, .legend, .finalScore {
   font-family: var(--margillion-mono), monospace;
   font-variant-numeric: tabular-nums;
 }
@@ -65,17 +65,9 @@
 .marginTrack i[data-state=watch] { background: var(--amber); }
 .marginTrack i[data-state=critical] { background: var(--rose); }
 .chamber { position: relative; flex-shrink: 0; padding: 32px; background: #111112; border: 1px solid #27272a; border-radius: 16px; overflow: hidden; }
-.promptTop { display: flex; align-items: center; min-height: 18px; padding-right: 80px; }
+.promptTop { display: flex; align-items: center; min-height: 18px; }
 .category { text-transform: uppercase; color: var(--muted); font-size: 10px; letter-spacing: .12em; }
 .prompt { margin: 24px 0 !important; font-family: var(--margillion-display), sans-serif; font-size: 29px; font-weight: 500; line-height: 1.35; letter-spacing: -.035em; }
-.clock { position: absolute; inset: 0; pointer-events: none; color: var(--green); }
-.timer { position: absolute; top: 32px; right: 32px; font-size: 9px; display: flex; align-items: baseline; gap: 2px; }
-.timer strong { font-size: 14px; font-weight: 400; }
-.timer small { font-size: 11px; }
-.fuse { position: absolute; top: 0; left: 0; width: 100%; height: 4px; }
-.fuse i { display: block; width: 100%; height: 100%; background: currentColor; transform-origin: left; transition: transform .05s linear; }
-.clock[data-urgency=watch] { color: var(--amber); }
-.clock[data-urgency=critical] { color: var(--rose); }
 .answerArea, .reveal { min-height: 180px; }
 .readout { padding-bottom: 10px; border-bottom: 2px solid #3f3f46; transition: border-color .15s; }
 .readout:focus-within { border-color: var(--green); }
@@ -148,7 +140,6 @@
   .shell { gap: 18px; }
   .playArea { gap: 16px; }
   .chamber { padding: 24px; }
-  .timer { top: 24px; right: 24px; }
   .prompt { font-size: 26px; margin: 20px 0 !important; }
   .landing { gap: 18px; }
   .landing h1 { font-size: 54px; }

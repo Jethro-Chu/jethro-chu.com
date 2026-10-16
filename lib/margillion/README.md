@@ -1,4 +1,4 @@
-# Margillion v1
+# Margillion
 
 `/margillion` replaces the deleted Timeundle game. `/timeundle` permanently redirects.
 This route is deliberately unlisted and noindex. The dark instrument UI is scoped to
@@ -22,19 +22,20 @@ bullseyes still take their error damage before healing. Streak is consecutive
 estimates within 5%; it is a display count, not another multiplier. Only daily
 survivors earn the remaining-margin-times-ten bonus. Endless has no terminal bonus.
 
-Every new fuse has an absolute 25-second deadline. Reveals last 2.8 seconds and support
-early advance after a 240ms duplicate-action guard. Leaving, refreshing, or opening
-the menu keeps time running. Catch-up applies expired timeouts and automatic
-advances chronologically; four unopposed timeouts deplete a fresh run. At the exact
-deadline a late estimate is a timeout, never a lock in the next tier.
+Questions have no time limit. There is no round countdown, laser fuse, expiration,
+or timeout damage for new answers. Leaving or refreshing preserves the current input
+and margin. Reveals still advance after 2.8 seconds, or with Space / Enter after the
+240ms duplicate-action guard; advancing a reveal never creates another scored round.
 
-`margillion:save:v1` stores daily runs and the latest endless run. Scores are replayed
-from validated input logs on load; cached totals are never trusted. Storage failures
-fall back to memory with a visible notice. Browser tabs sync through storage events.
-Timeundle's incompatible historical localStorage keys remain untouched.
-Historical 15-second Margillion rounds record their original durations during load,
-so results and stats survive the timer update. Active 15-second rounds gain 10 seconds
-without resetting their start; subsequent rounds use 25 seconds.
+`margillion:save:v2` stores daily runs and the latest endless run. On first load it
+imports `margillion:save:v1` without modifying the old key. Historical 15/25-second
+rounds retain their original scores, including old timeout penalties. Active old
+rounds become untimed without applying any missed timeout. Scores are replayed from
+validated inputs, and unavailable storage falls back to memory with a visible notice.
+
+The untimed release resets the 2026-10-16 daily once. Its new daily identity ends in
+`:untimed-1`, so replay progress and completed results survive subsequent reloads.
+Other dates and their statistics remain intact. The UTC question seed is unchanged.
 
 The current UI requires a viewport at least 768px wide and a physical keyboard.
 A single 580px column contains the telemetry strip and unified question/input surface.
@@ -45,5 +46,5 @@ red for timeout/bust, and white for unused daily tiers. Endless shows the latest
 50 symbols while retaining the full score and tier count. Daily statistics track
 finished days, survivors, best score, and consecutive survived UTC dates.
 
-Run `npm run verify:margillion` for deterministic seed, scoring, persistence, deadline,
+Run `npm run verify:margillion` for deterministic seed, scoring, persistence, untimed play, daily reset,
 endless, and share validation. Run `npm run build` for the complete Next production build.

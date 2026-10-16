@@ -1,13 +1,13 @@
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { questions } from "../data/margillionQuestions.ts";
-import { advance, bonusOf, commit, dailyQuestions, emptySave, emojiFor, estimate, FUSE, marginOf, newGame, parseSave, pointsOf, questionFor, REVEAL, restoreGame, score, shareText, stats, tick, totalOf, validInput, type Game } from "../lib/margillion/engine.ts";
+import { advance, bonusOf, commit, dailyQuestions, emptySave, emojiFor, estimate, DAILY_RESET_DATE, marginOf, newGame, parseSave, pointsOf, questionFor, REVEAL, restoreGame, score, shareText, stats, tick, totalOf, validInput, type Game } from "../lib/margillion/engine.ts";
 
 let checks = 0;
 function test(label: string, run: () => void) { run(); checks++; console.log(`✓ ${label}`); }
 const time = Date.parse("2026-10-16T12:00:00Z");
 const saved = (game: Game) => { const restored = restoreGame(JSON.parse(JSON.stringify(game))); assert.ok(restored); assert.deepEqual(restored, game); return restored; };
-const hit = (game: Game, ratio: number, stance: "safe" | "razor" = "safe") => commit({ ...game, input: String(questionFor(game, game.rounds.length).answer * ratio) }, stance, game.deadline - 1000);
+const hit = (game: Game, ratio: number, stance: "safe" | "razor" = "safe") => commit({ ...game, input: String(questionFor(game, game.rounds.length).answer * ratio) }, stance, game.roundStartedAt + 1000);
 
 test("45 unique, positive, finite, attributed or calculated prompts", () => {
   assert.ok(questions.length >= 40); assert.equal(new Set(questions.map(q => q.id)).size, questions.length);
@@ -43,36 +43,58 @@ test("decimal input: zero accepted, empty/dot/exponents/signs rejected", () => {
   for (const s of ["", ".", "NaN", "Infinity", "1e3", "-1", "1.2.3", "123456789012345"]) assert.equal(estimate(s), null);
   assert.equal(validInput("."), true);
 });
-test("strict fuse, duplicate commit ignored, timeout at exact deadline", () => {
+test("unanswered rounds never expire and late keyboard locks still score normally", () => {
   let g = newGame("daily", time); g = { ...g, input: "0" };
-  assert.equal(FUSE, 25_000);
-  assert.equal(g.deadline - g.startedAt, 25_000);
-  assert.equal(tick(g, time + 15_000).phase, "guess");
-  assert.equal(tick(g, g.deadline - 1), g);
-  const timeout = commit(g, "razor", g.deadline); assert.equal(timeout.rounds[0].guess, null); assert.equal(marginOf(timeout), 75);
-  assert.equal(commit(timeout, "safe", time + FUSE + 1), timeout);
-  assert.equal(tick(timeout, timeout.revealUntil! - 1), timeout); assert.equal(tick(timeout, timeout.revealUntil!).phase, "guess");
+  assert.equal(tick(g, time + 365 * 86400000), g);
+  assert.equal(g.rounds.length, 0); assert.equal(marginOf(g), 100);
+  assert.equal("deadline" in g, false);
+  const locked = commit(g, "safe", time + 365 * 86400000);
+  assert.equal(locked.rounds[0].guess, 0); assert.equal(marginOf(locked), 65);
+  assert.equal(commit(locked, "razor", time + 365 * 86400000 + 1), locked);
+  assert.equal(tick(locked, locked.revealUntil! - 1), locked);
+  const next = tick(locked, locked.revealUntil!); assert.equal(next.phase, "guess");
+  assert.equal(tick(next, time + 730 * 86400000), next); saved(next);
 });
-test("15-second saves keep historical scores and upgrade active fuses without resetting elapsed time", () => {
+test("timed saves retain past scores while active estimates become untimed", () => {
   const fixtures = JSON.parse(readFileSync(new URL("./fixtures/margillion-15s.json", import.meta.url), "utf8"));
-  for (const name of ["initial", "active"]) {
-    const original = fixtures[name], upgraded = restoreGame(original);
-    assert.ok(upgraded); assert.equal(upgraded.deadline, original.deadline + 10_000);
-    assert.equal(upgraded.fuseMs, FUSE); assert.equal(upgraded.input, original.input);
-    assert.equal(upgraded.rounds.length, original.rounds.length);
-    assert.equal(pointsOf(upgraded), original.rounds.reduce((sum: number, round: { points: number }) => sum + round.points, 0));
-    saved(upgraded);
-    const locked = hit(upgraded, 1); saved(locked); saved(advance(locked, locked.rounds.at(-1)!.at + REVEAL));
-  }
-  const reveal = restoreGame(fixtures.reveal); assert.ok(reveal);
-  assert.equal(reveal.revealUntil, fixtures.reveal.revealUntil);
-  const next = advance(reveal, reveal.revealUntil!); assert.equal(next.fuseMs, FUSE); saved(next);
-  for (const name of ["complete", "depleted"]) {
+  for (const name of ["initial", "active", "reveal", "complete", "depleted"]) {
     const original = fixtures[name], restored = restoreGame(original); assert.ok(restored);
-    assert.equal(restored.phase, "complete"); assert.equal(restored.deadline, original.deadline);
-    assert.equal(restored.rounds.length, original.rounds.length); saved(restored);
-    assert.equal(totalOf(restored), name === "complete" ? 3000 : 0);
+    assert.equal(restored.phase, original.phase); assert.equal(restored.input, original.input);
+    assert.equal(restored.rounds.length, original.rounds.length);
+    assert.equal(pointsOf(restored), original.rounds.reduce((sum: number, round: { points: number }) => sum + round.points, 0));
+    saved(restored);
+    if (restored.phase === "guess") {
+      assert.equal(tick(restored, time + 86400000), restored);
+      const locked = hit(restored, 1); saved(locked); saved(advance(locked, locked.rounds.at(-1)!.at + REVEAL));
+    }
   }
+});
+test("25-second saves also migrate without discarding completed scores", () => {
+  const fixtures = JSON.parse(readFileSync(new URL("./fixtures/margillion-15s.json", import.meta.url), "utf8"));
+  for (const name of ["initial", "active", "complete"]) {
+    const original = fixtures[name];
+    original.fuseMs = 25_000; original.deadline += 10_000;
+    for (const round of original.rounds) round.fuseMs = 25_000;
+    const restored = restoreGame(original); assert.ok(restored); saved(restored);
+    assert.equal(pointsOf(restored), original.rounds.reduce((sum: number, round: {points: number}) => sum + round.points, 0));
+    if (restored.phase === "guess") assert.equal(tick(restored, time + 86400000), restored);
+  }
+});
+test("today resets once, earlier stats remain, and the new attempt survives reload", () => {
+  const fixtures = JSON.parse(readFileSync(new URL("./fixtures/margillion-15s.json", import.meta.url), "utf8"));
+  let previous = newGame("daily", time - 86400000);
+  for (let i=0;i<10;i++) { previous=hit(previous,1); previous=advance(previous,previous.rounds.at(-1)!.at+REVEAL); }
+  const migrated = parseSave(JSON.stringify({version:1,daily:{[previous.date]:previous,[DAILY_RESET_DATE]:fixtures.complete},practice:{...fixtures.initial,mode:"practice",id:"practice:legacy",seed:"legacy"}}));
+  assert.equal(migrated.daily[DAILY_RESET_DATE], undefined);
+  assert.deepEqual(migrated.daily[previous.date], previous);
+  assert.equal(stats(migrated, DAILY_RESET_DATE).played, 1);
+  assert.ok(migrated.practice); assert.equal(migrated.practice.phase, "guess");
+  const fresh = newGame("daily", time); assert.notEqual(fresh.id, fixtures.complete.id);
+  assert.equal(fresh.rounds.length, 0); assert.equal(marginOf(fresh), 100);
+  migrated.daily[fresh.date] = hit({...fresh,input:"27"},1);
+  const resumed = parseSave(JSON.stringify(migrated));
+  assert.deepEqual(resumed.daily[fresh.date], migrated.daily[fresh.date]);
+  assert.deepEqual(parseSave(JSON.stringify(resumed)), resumed);
 });
 test("save/restore after every lock, early advance, input and terminal phase", () => {
   let g = saved(newGame("daily", time));
@@ -86,10 +108,12 @@ test("save/restore after every lock, early advance, input and terminal phase", (
   assert.equal(tick(g, time + 999999), g); assert.equal(pointsOf(g), 4000);
   assert.equal(shareText(g).match(/🎯/gu)?.length, 10);
 });
-test("suspended tab catches up to death without resetting deadlines", () => {
-  const g = tick(newGame("daily", time), time + 5 * (FUSE + REVEAL)); saved(g);
-  assert.equal(g.phase, "complete"); assert.equal(g.rounds.length, 4); assert.equal(marginOf(g), 0); assert.equal(totalOf(g), 0);
-  assert.equal(emojiFor(g.rounds[3]), "💀"); assert.equal(shareText(g).match(/⬜/gu)?.length, 6);
+test("backgrounding during a reveal advances once with no extra damage", () => {
+  const locked = hit(newGame("daily", time), 1, "razor");
+  const resumed = tick(locked, time + 86400000);
+  assert.equal(resumed.phase, "guess"); assert.equal(resumed.rounds.length, 1);
+  assert.equal(marginOf(resumed), 100); assert.equal(pointsOf(resumed), 400);
+  assert.equal(tick(resumed, time + 2 * 86400000), resumed); saved(resumed);
 });
 test("endless cycles the full bank before repeating, never stops at ten", () => {
   let g = newGame("practice", time, "fixed-seed");
@@ -100,13 +124,13 @@ test("endless cycles the full bank before repeating, never stops at ten", () => 
 test("save replays trusted scoring and rejects invalid logs", () => {
   const g = hit(newGame("daily", time), 1, "safe"); const poisoned = JSON.parse(JSON.stringify(g)); poisoned.rounds[0].points = 99999; poisoned.rounds[0].margin = 999;
   assert.deepEqual(restoreGame(poisoned), g);
-  poisoned.rounds[0].at += FUSE; assert.equal(restoreGame(poisoned), null);
+  poisoned.rounds[0].at = poisoned.rounds[0].start - 1; assert.equal(restoreGame(poisoned), null);
   assert.deepEqual(parseSave("not json"), emptySave()); assert.deepEqual(parseSave('{"version":99}'), emptySave());
   const save = emptySave(); save.daily[g.date] = saved(g); assert.deepEqual(parseSave(JSON.stringify(save)), save);
 });
 test("daily stats count a completed day once; practice remains separate", () => {
   let g = newGame("daily", time); for (let i=0;i<10;i++) { g=hit(g,1); g=advance(g,g.rounds.at(-1)!.at+REVEAL); }
-  const save = emptySave(); save.daily[g.date] = g; save.practice = tick(newGame("practice", time, "practice"), time + 100000);
+  const save = emptySave(); save.daily[g.date] = g; save.practice = newGame("practice", time, "practice");
   assert.deepEqual(stats(save, "2026-10-16"), { played: 1, wins: 1, best: 3000, streak: 1 });
   assert.equal(stats(save, "2026-10-17").streak, 1); assert.equal(stats(save, "2026-10-18").streak, 0);
 });

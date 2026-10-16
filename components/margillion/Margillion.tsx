@@ -3,7 +3,6 @@
 import { useEffect, useRef, useState } from "react";
 import { bonusOf, emojiFor, estimate, marginOf, pointsOf, puzzleNumber, questionFor, shareText, stats, streakOf, survived, totalOf } from "@/lib/margillion/engine";
 import { useMargillion } from "./useMargillion";
-import { Clock, NextDaily } from "./Clock";
 import styles from "./Margillion.module.css";
 
 const format = (number: number) => number.toLocaleString("en-US", { maximumFractionDigits: 4 });
@@ -80,26 +79,26 @@ export default function Margillion() {
       </header>
       {help && <section id="margillion-rules" className={styles.rules} aria-label="How to play">
         <div className={styles.rulesHeading}><h2 ref={helpHeadingRef} tabIndex={-1}>How to play</h2><button onClick={() => setHelp(false)}>Close <kbd>Esc</kbd></button></div>
-        <p>Type an estimate before the 25-second fuse runs out. Every miss costs margin. Survive ten tiers to finish the daily.</p>
+        <p>Take your time with each estimate. Every miss costs margin. Survive ten tiers to finish the daily.</p>
         <p><strong>Safe · Enter:</strong> lose your percentage error, capped at 35. Base points = max(0, round(100 − 2 × error)).</p>
         <p><strong>Razor · Shift + Enter:</strong> within 5.0% earns 3× base points and heals 5 margin. Otherwise, earn base points and lose 2× error, capped at 60.</p>
         <p><strong>Bullseye:</strong> within 1.0% adds 100 points and heals 5. Bonuses stack; margin caps at 100. Error and margin round to one decimal.</p>
-        <p><strong>Timeout:</strong> zero points and −25 margin. Close hits build a streak, with no extra multiplier. Daily survivors add remaining margin × 10.</p>
-        <p>Reveals advance after 2.8 seconds, or press Space / Enter. The fuse keeps running offscreen, in this menu, and after refresh. Daily resets at midnight UTC. Endless practice has separate progress.</p>
+        <p>Close hits build a streak, with no extra multiplier. Daily survivors add remaining margin × 10. There is no time limit or timeout penalty.</p>
+        <p>Reveals advance after 2.8 seconds, or press Space / Enter. Your estimate stays saved when you leave or refresh. Daily resets at midnight UTC. Endless practice has separate progress.</p>
       </section>}
       {notice && <p className={styles.notice} role="status">{notice}</p>}
       {!game ? <>
         <section className={styles.landing} aria-label="Welcome to Margillion">
           <div className={styles.reticle} aria-hidden="true"><span/><i/><b/></div>
-          <p className={styles.eyebrow}>100% MARGIN. ZERO ROOM TO HESITATE.</p>
+          <p className={styles.eyebrow}>100% MARGIN. CHOOSE YOUR RISK.</p>
           <h1 ref={headingRef} tabIndex={-1}>How close<br/> can you cut it<span>?</span></h1>
-          <p className={styles.intro}>Ten numbers. Twenty-five seconds each.<br/>Trust your gut. Protect your margin.</p>
+          <p className={styles.intro}>Ten numbers. Take your time.<br/>Trust your gut. Protect your margin.</p>
           <div className={styles.modeSwitch} aria-label="Game mode">
             <button className={styles.play} disabled={!ready} onClick={() => play("daily")}>{ready ? dailyLabel : "Loading…"}<span aria-hidden="true">↗</span></button>
             <button className={styles.practice} disabled={!ready} onClick={() => play("practice", save.practice?.phase === "complete")}>{save.practice && save.practice.phase !== "complete" ? "Resume endless" : "Endless / Practice"}<span aria-hidden="true">∞</span></button>
           </div>
         </section>
-        <footer className={styles.landingFooter}><span>SAFE AT 1× <b>OR</b> RISK IT AT 3×</span><NextDaily/></footer>
+        <footer className={styles.landingFooter}><span>SAFE AT 1× <b>OR</b> RISK IT AT 3×</span><span>NEW DAILY AT 00:00 UTC</span></footer>
       </> : <>
         <div className={styles.playArea}>
         <section className={styles.telemetry} aria-label="Run telemetry">
@@ -124,11 +123,10 @@ export default function Margillion() {
           {fallback && <textarea className={styles.fallback} readOnly value={fallback} aria-label="Copy this result" onFocus={event => event.currentTarget.select()}/>}
           <details className={styles.breakdown}><summary>Round log & daily stats</summary>
             <dl className={styles.stats}>{([["Daily played", dailyStats.played], ["Survived", dailyStats.wins], ["Win streak", dailyStats.streak], ["Best score", dailyStats.best]] as const).map(([label, value]) => <div key={label}><dt>{label}</dt><dd>{format(value)}</dd></div>)}</dl>
-            <p className={styles.legend}>🎯 Razor lock · 🟩 ≤5% · 🟨 ≤15% · 🟧 ≤30% · 🟥 miss / bust / timeout · 💀 depleted · ⬜ unplayed</p>
+            <p className={styles.legend}>🎯 Razor lock · 🟩 ≤5% · 🟨 ≤15% · 🟧 ≤30% · 🟥 miss / bust · 💀 depleted · ⬜ unplayed</p>
             <ol>{game.rounds.map((round, i) => { const item = questionFor(game, i); return <li key={i}><span>{pad(i + 1)} {item.prompt}</span><strong>{round.error === null ? "TIMEOUT" : `${round.error.toFixed(1)}% off`} · {round.points} pts</strong><small>Your estimate: {round.guess === null ? "none" : format(round.guess)} · Actual: {format(item.answer)} {item.unit} · {round.stance}</small><p>{item.fact} {item.source && <a href={item.source} target="_blank" rel="noreferrer">Source ↗</a>}</p></li>; })}</ol>
           </details>
         </section> : question && <section className={styles.chamber} aria-label={phase === "guess" ? "Estimate the number" : "Round reveal"}>
-          <Clock deadline={phase === "guess" ? game.deadline : game.revealUntil!} duration={game.fuseMs} reveal={phase === "reveal"}/>
           <div className={styles.promptTop}><span className={styles.category}>{question.category}</span></div>
           <h2 className={styles.prompt}>{question.prompt}</h2>
           {phase === "guess" ? <div className={styles.answerArea}>

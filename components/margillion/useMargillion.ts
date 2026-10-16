@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import { advance, commit, emptySave, newGame, parseSave, STORAGE_KEY, tick, utcDate, validInput, type Game, type Mode, type Save, type Stance } from "@/lib/margillion/engine";
+import { advance, commit, emptySave, newGame, parseSave, LEGACY_STORAGE_KEY, STORAGE_KEY, tick, utcDate, validInput, type Game, type Mode, type Save, type Stance } from "@/lib/margillion/engine";
 
 export function useMargillion() {
   const [save, setSave] = useState<Save>(emptySave);
@@ -12,12 +12,12 @@ export function useMargillion() {
   const saveRef = useRef(save), gameRef = useRef(game);
   const loaded = useRef(false);
   const read = useCallback(() => {
-    try { return parseSave(localStorage.getItem(STORAGE_KEY)); }
+    try { return parseSave(localStorage.getItem(STORAGE_KEY) ?? localStorage.getItem(LEGACY_STORAGE_KEY)); }
     catch { return saveRef.current; }
   }, []);
   const persist = useCallback((next: Game) => {
     const disk = read();
-    const merged: Save = { version: 1, daily: { ...saveRef.current.daily, ...disk.daily }, practice: disk.practice ?? saveRef.current.practice };
+    const merged: Save = { version: 2, daily: { ...saveRef.current.daily, ...disk.daily }, practice: disk.practice ?? saveRef.current.practice };
     if (next.mode === "daily") merged.daily[next.date] = next;
     else merged.practice = next;
     saveRef.current = merged; gameRef.current = next;
@@ -66,7 +66,7 @@ export function useMargillion() {
     const next = change(shared, Date.now());
     if (next !== current) persist(next);
   }, [persist, read]);
-  const input = useCallback((value: string) => act((current, now) => current.phase === "guess" && now < current.deadline && validInput(value) ? { ...current, input: value } : tick(current, now)), [act]);
+  const input = useCallback((value: string) => act((current, now) => current.phase === "guess" && validInput(value) ? { ...current, input: value } : tick(current, now)), [act]);
   const lock = useCallback((stance: Stance) => act((current, now) => commit(current, stance, now)), [act]);
   const next = useCallback(() => act((current, now) => advance(tick(current, now), now)), [act]);
   const home = useCallback(() => { gameRef.current = null; setGame(null); }, []);
