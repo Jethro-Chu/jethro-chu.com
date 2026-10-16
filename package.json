@@ -8,6 +8,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "verify:timeundle": "node --no-warnings --experimental-strip-types scripts/verify-timeundle.ts",
     "verify:iq": "node --no-warnings --experimental-strip-types scripts/verify-iq-randomizer.ts",
     "verify:iq-timing": "node --no-warnings --experimental-strip-types scripts/verify-iq-timing.ts",
     "verify:iq-data": "node --no-warnings --experimental-strip-types scripts/verify-iq-public-data.ts",
