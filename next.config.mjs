@@ -20,6 +20,7 @@ const nextConfig = {
   // Old direct game routes now resolve to the game-first homepage.
   async redirects() {
     return [
+      { source: "/timeundle", destination: "/margillion", permanent: true },
       { source: "/valley", destination: "/", permanent: true },
       { source: "/village", destination: "/", permanent: true },
       { source: "/portfolio", destination: "/website", permanent: true },
