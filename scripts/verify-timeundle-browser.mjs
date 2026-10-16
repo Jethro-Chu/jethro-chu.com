@@ -20,7 +20,16 @@ const page = await context.newPage();
 await page.clock.install({ time: new Date("2026-10-16T12:00:00Z") });
 page.on("pageerror", (error) => errors.push(error.message));
 const readSave = () => page.evaluate((key) => JSON.parse(localStorage.getItem(key)), STORAGE_KEY);
-const ready = async (target = page) => { await target.goto(`${base}/timeundle`); await target.getByRole("button", { name: "Lock it in" }).waitFor(); };
+const enter = async (target = page, practice = false) => {
+  await target.getByRole("button", { name: /^(Play|Continue|View result)$/ }).waitFor();
+  assert.equal(await target.locator("[data-event]").count(), 0, "opening screen hides the game until Play");
+  await target.getByRole("button", { name: practice ? /^(Play practice|Continue practice|View practice result)$/ : /^(Play|Continue|View result)$/ }).click();
+};
+const ready = async (target = page) => {
+  await target.goto(`${base}/timeundle`);
+  await enter(target);
+  await target.getByRole("button", { name: "Lock it in" }).waitFor();
+};
 try {
   await ready();
   assert.match(await page.locator('meta[name="robots"]').getAttribute("content"), /noindex/);
@@ -44,6 +53,7 @@ try {
   const wrong = correct === 0 ? 2 : 0;
   await slots.nth(wrong).click();
   await page.reload();
+  await enter();
   await page.getByRole("button", { name: "Lock it in" }).waitFor();
   assert.equal(await page.getByRole("group", { name: "Choose an insertion position" }).getByRole("button").nth(wrong).getAttribute("aria-pressed"), "true", "selection persists");
   await page.getByRole("button", { name: "Lock it in" }).dblclick();
@@ -52,8 +62,10 @@ try {
   assert.equal(saved.rounds.length, 1);
   assert.equal(saved.phase, "reveal");
   await page.reload();
+  await enter();
   await page.getByRole("button", { name: "Next event" }).waitFor();
-  await page.getByText("Now in its correct place.").waitFor();
+  await page.getByText("Your placement", { exact: true }).click();
+  await page.getByText(/Now in its correct place/).waitFor();
   assert.equal(Object.values((await readSave()).daily)[0].rounds.length, 1, "pending reveal resumes without extra points");
   let years = await page.locator('[data-event] > div:first-of-type').allTextContents();
   assert.deepEqual(years.map(Number), years.map(Number).sort((a, b) => a - b));
@@ -68,6 +80,7 @@ try {
   }
   await page.getByRole("button", { name: "Share result" }).waitFor();
   assert.equal(await page.locator("[data-event]").count(), 9);
+  await page.getByText("Round breakdown", { exact: true }).click();
   assert.equal(await page.getByRole("list", { name: "Round by round results" }).getByRole("listitem").count(), 7);
   axe = await new AxeBuilder({ page }).analyze();
   assert.deepEqual(axe.violations.map((v) => v.id), []);
@@ -80,6 +93,7 @@ try {
   await page.screenshot({ path: path.join(artifacts, "results.png"), fullPage: true });
   const dailyFinal = Object.values((await readSave()).daily)[0];
   await page.reload();
+  await enter();
   await page.getByRole("button", { name: "Share result" }).waitFor();
   assert.equal(total(Object.values((await readSave()).daily)[0]), total(dailyFinal));
   await page.getByRole("button", { name: "Play practice" }).click();
@@ -89,14 +103,17 @@ try {
   await page.getByRole("button", { name: "Next event" }).waitFor();
   assert.equal((await readSave()).practice.rounds.length, 1);
   assert.deepEqual(Object.values((await readSave()).daily)[0], dailyFinal);
-  await page.getByRole("button", { name: "Daily", exact: true }).click();
+  await page.getByRole("button", { name: "Timeundle home" }).click();
+  await enter();
   await page.getByRole("button", { name: "Share result" }).waitFor();
-  await page.getByRole("button", { name: "Practice", exact: true }).click();
+  await page.getByRole("button", { name: "Timeundle home" }).click();
+  await enter(page, true);
   await page.getByRole("button", { name: "Next event" }).waitFor();
   assert.equal((await readSave()).practice.rounds.length, 1, "practice resumes across mode switches");
   await page.reload();
+  await enter(page, true);
   await page.getByRole("button", { name: "Next event" }).waitFor();
-  assert.equal(await page.getByRole("button", { name: "Practice", exact: true }).getAttribute("aria-pressed"), "true", "refresh resumes practice and pending reveal");
+  assert.match(await page.locator("main").innerText(), /PRACTICE/, "refresh resumes practice and pending reveal");
 
   // Narrow-screen interaction, a fully populated scrollable timeline, reduced motion.
   const mobile = await browser.newContext({ viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true, reducedMotion: "reduce" });
@@ -115,6 +132,7 @@ try {
   for (let i = 0; i < 6; i++) long = next(lock({ ...long, selected: 0 }));
   await mp.evaluate(({ key, value }) => localStorage.setItem(key, value), { key: STORAGE_KEY, value: JSON.stringify(saveGame(emptySave(), long)) });
   await mp.reload();
+  await enter(mp);
   await mp.getByRole("button", { name: "Lock it in" }).waitFor();
   assert.equal(await mp.locator("[data-event]").count(), 8);
   const lastSlot = mp.getByRole("group", { name: "Choose an insertion position" }).getByRole("button").last();
@@ -133,7 +151,7 @@ try {
   await rp.clock.runFor(2000);
   await rp.getByText(/A new UTC day has begun/).waitFor();
   await rp.getByRole("button", { name: "play today’s daily" }).click();
-  assert.match(await rp.locator("nav").innerText(), /2026-10-17/);
+  assert.match(await rp.locator("main").innerText(), /DAILY #2/);
   await rollover.close();
   // Every other route stays unlisted and has its own original metadata.
   const sitemap = await (await page.request.get(`${base}/sitemap.xml`)).text();

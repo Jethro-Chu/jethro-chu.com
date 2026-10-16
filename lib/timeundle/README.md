@@ -2,6 +2,11 @@
 
 An unlisted, static Next.js page at `/timeundle`. All gameplay and persistence run
 locally. There are no accounts, API requests, analytics, databases, or AI calls.
+The route opens on a Play screen. Daily and practice games resume through their
+Continue buttons, including pending reveals and completed results. Play uses a
+compact single-column prompt, timeline and action button. Results keep the round
+breakdown and daily stats in expandable sections.
+
 The route owns its CSS module and font variables. Existing site navigation,
 content, sitemap, global styles, and other games are unchanged.
 
@@ -22,8 +27,8 @@ The checked-in first-day fixture catches accidental changes.
 ## Persistence and scoring
 
 `timeundle:save:v1` holds date-keyed daily games, a separate practice game, and the
-active mode. A refresh resumes that mode, selected position, pending reveal or
-completed result. Loading Daily on a new UTC day opens that date's game. An open
+active mode. A refresh returns to the opening screen. Continue restores the selected position,
+pending reveal or completed result in either mode. Loading Daily on a new UTC day opens that date's game. An open
 older game gets an explicit rollover notice and can still be finished.
 
 Scores derive from saved guesses. Loading replays every round and validates its
@@ -37,7 +42,7 @@ notice while allowing play in memory.
 Wrong guesses appear at their guessed location for 1.4 seconds before a FLIP
 animation moves them into order. The textual guess remains available after the
 move. Reduced motion places the card correctly immediately. Next controls the
-pace. Mobile uses a scrollable timeline and a persistent Lock/Next action.
+pace. A bounded scrollable timeline keeps Lock/Next close on desktop and mobile.
 
 Share squares map to 100 / 75 / 50 / 25 / 0 as green / yellow / orange / brown /
 white. Clipboard failure exposes a selectable plain-text fallback.
