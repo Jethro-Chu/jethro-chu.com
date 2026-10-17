@@ -9051,5 +9051,203 @@
         "claim": "education"
       }
     ]
+  },
+  {
+    "id": "hist_2026-10-17-daily_0001",
+    "run_id": "2026-10-17-daily",
+    "at": "2026-10-17T13:02:12.426Z",
+    "type": "CLOSED",
+    "opportunity_id": "opp_dc316ff3f0",
+    "changes": [
+      {
+        "field": "application_status",
+        "before": "OPEN",
+        "after": "CLOSED"
+      },
+      {
+        "field": "closed_at",
+        "before": null,
+        "after": "2026-10-17T13:02:12.426Z"
+      }
+    ],
+    "reason": "Official evidence verified closure.",
+    "evidence": [
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/102786/new-grad-rn-med-tele-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "This job is no longer available. Please try another search.",
+        "retrieved_at": "2026-10-17T12:15:00.000Z",
+        "claim": "closure"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/102786/new-grad-rn-med-tele-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "Nursing New Grad RN Job: New Grad RN - Med Tele at Johns Hopkins Medicine in Johns Hopkins Hospital, Baltimore, MD",
+        "retrieved_at": "2026-10-16T12:15:00.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/102786/new-grad-rn-med-tele-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "Nursing New Grad RN Job: New Grad RN - Med Tele at Johns Hopkins Medicine in Johns Hopkins Hospital, Baltimore, MD. Requisition #: 677775.",
+        "retrieved_at": "2026-10-16T12:15:00.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/102786/new-grad-rn-med-tele-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "Requirements: New Grad RN. Baccalaureate degree, in nursing from an accredited School of Nursing, preferred. Applicants with an Associate Degree in nursing will be considered.",
+        "retrieved_at": "2026-10-16T12:15:00.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/102786/new-grad-rn-med-tele-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "Active BLS via AHA, American Red Cross or Military Training Network at time of hire. Active Maryland RN or Compact License at time of hire",
+        "retrieved_at": "2026-10-16T12:15:00.000Z",
+        "claim": "license"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/102786/new-grad-rn-med-tele-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "Baccalaureate degree, in nursing from an accredited School of Nursing, preferred. Applicants with an Associate Degree in nursing will be considered. per nursing guidelines, must matriculate to Bachelors of Nursing program.",
+        "retrieved_at": "2026-10-16T12:15:00.000Z",
+        "claim": "education"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-10-17-daily_0002",
+    "run_id": "2026-10-17-daily",
+    "at": "2026-10-17T13:02:12.426Z",
+    "type": "UPDATED",
+    "opportunity_id": "opp_dc316ff3f0",
+    "changes": [
+      {
+        "field": "application_status",
+        "before": "OPEN",
+        "after": "CLOSED"
+      },
+      {
+        "field": "closed_at",
+        "before": null,
+        "after": "2026-10-17T13:02:12.426Z"
+      }
+    ],
+    "reason": "Updated from run evidence (CLOSED).",
+    "evidence": [
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/102786/new-grad-rn-med-tele-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "This job is no longer available. Please try another search.",
+        "retrieved_at": "2026-10-17T12:15:00.000Z",
+        "claim": "closure"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/102786/new-grad-rn-med-tele-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "Nursing New Grad RN Job: New Grad RN - Med Tele at Johns Hopkins Medicine in Johns Hopkins Hospital, Baltimore, MD",
+        "retrieved_at": "2026-10-16T12:15:00.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/102786/new-grad-rn-med-tele-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "Nursing New Grad RN Job: New Grad RN - Med Tele at Johns Hopkins Medicine in Johns Hopkins Hospital, Baltimore, MD. Requisition #: 677775.",
+        "retrieved_at": "2026-10-16T12:15:00.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/102786/new-grad-rn-med-tele-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "Requirements: New Grad RN. Baccalaureate degree, in nursing from an accredited School of Nursing, preferred. Applicants with an Associate Degree in nursing will be considered.",
+        "retrieved_at": "2026-10-16T12:15:00.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/102786/new-grad-rn-med-tele-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "Active BLS via AHA, American Red Cross or Military Training Network at time of hire. Active Maryland RN or Compact License at time of hire",
+        "retrieved_at": "2026-10-16T12:15:00.000Z",
+        "claim": "license"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/102786/new-grad-rn-med-tele-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "Baccalaureate degree, in nursing from an accredited School of Nursing, preferred. Applicants with an Associate Degree in nursing will be considered. per nursing guidelines, must matriculate to Bachelors of Nursing program.",
+        "retrieved_at": "2026-10-16T12:15:00.000Z",
+        "claim": "education"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-10-17-daily_0003",
+    "run_id": "2026-10-17-daily",
+    "at": "2026-10-17T13:02:12.426Z",
+    "type": "NEW",
+    "opportunity_id": "opp_99a5cca755",
+    "changes": null,
+    "reason": "First published from run evidence (OPEN).",
+    "evidence": [
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/103427/new-grad-rn-hospitalist-unit-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "Requirements: New grads RN's should apply. Baccalaureate degree, in nursing from an accredited School of Nursing, preferred. Applicants with an Associate Degree in nursing will be considered.",
+        "retrieved_at": "2026-10-17T12:15:00.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/103427/new-grad-rn-hospitalist-unit-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "Nursing New Grad RN Job: New Grad RN - Hospitalist Unit at Johns Hopkins Medicine in Johns Hopkins Hospital, Baltimore, MD. Requisition #: 677776.",
+        "retrieved_at": "2026-10-17T12:15:00.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/103427/new-grad-rn-hospitalist-unit-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "Active Maryland RN or Compact License at time of hire. Active BLS via AHA, American Red Cross or Military Training Network at time of hire",
+        "retrieved_at": "2026-10-17T12:15:00.000Z",
+        "claim": "license"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/103427/new-grad-rn-hospitalist-unit-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "Baccalaureate degree, in nursing from an accredited School of Nursing, preferred. Applicants with an Associate Degree in nursing will be considered. per nursing guidelines, must matriculate to Bachelors of Nursing program within 1 year of employment and complete their BSN within 4 years",
+        "retrieved_at": "2026-10-17T12:15:00.000Z",
+        "claim": "education"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/103427/new-grad-rn-hospitalist-unit-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "Our Meyer 8 Hospitalist unit tackles a diverse range of diagnoses, including sickle cell crisis, heart failure, sepsis, COPD/asthma, DVT/PE, and much more.",
+        "retrieved_at": "2026-10-17T12:15:00.000Z",
+        "claim": "unit"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-10-17-daily_0004",
+    "run_id": "2026-10-17-daily",
+    "at": "2026-10-17T13:02:12.426Z",
+    "type": "NEW",
+    "opportunity_id": "opp_8151d4e061",
+    "changes": null,
+    "reason": "First published from run evidence (OPEN).",
+    "evidence": [
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/103425/new-grad-rn-surgical-oncology-unit-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "No RN work experience required! Training will be provided - All New Grad RNs are automatically enrolled in our Nurse Residency Program ranked #3 in the nation!",
+        "retrieved_at": "2026-10-17T12:15:00.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/103425/new-grad-rn-surgical-oncology-unit-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "Nursing New Grad RN Job: New Grad RN - Surgical Oncology Unit at Johns Hopkins Medicine in Johns Hopkins Hospital, Baltimore, MD. Requisition #: 681772.",
+        "retrieved_at": "2026-10-17T12:15:00.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/103425/new-grad-rn-surgical-oncology-unit-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "Active Maryland or Compact RN license is required. BLS CPR certification required.",
+        "retrieved_at": "2026-10-17T12:15:00.000Z",
+        "claim": "license"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/103425/new-grad-rn-surgical-oncology-unit-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "Associate degree in Nursing required. Applicants with an Associate’s degree in nursing from an accredited nursing program may be considered, provided they are enrolled in an accredited BSN/MSN program within 1 year of hire and complete the degree within 4 years of hire",
+        "retrieved_at": "2026-10-17T12:15:00.000Z",
+        "claim": "education"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/103425/new-grad-rn-surgical-oncology-unit-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "The Johns Hopkins Hospital Surgical Oncology Unit (Weinberg 4C/D) is a 27 bed unit with a focus on surgical oncology patients. Patients include those who have undergone GI, Head and Neck, and General surgery.",
+        "retrieved_at": "2026-10-17T12:15:00.000Z",
+        "claim": "unit"
+      }
+    ]
   }
 ]
