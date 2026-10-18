@@ -9249,5 +9249,98 @@
         "claim": "unit"
       }
     ]
+  },
+  {
+    "id": "hist_2026-10-18-daily_0001",
+    "run_id": "2026-10-18-daily",
+    "at": "2026-10-18T12:15:31.322Z",
+    "type": "NEW",
+    "opportunity_id": "opp_bca06dc9a9",
+    "changes": null,
+    "reason": "First published from run evidence (OPENING_SOON).",
+    "evidence": [
+      {
+        "source_url": "https://careers.sharp.com/SHC-nurse-residency-program",
+        "excerpt": "Exciting News! The application window for the Spring 2027 cohort of the Sharp HealthCare Nurse Residency Program are just around the corner! The Virtual Forum has been scheduled for Tuesday, October 20th, at 2:30pm . REGISTER HERE. Applications for the Spring 2027 Sharp HealthCare Nurse Residency Program will be open from November 10th - 13th (November 3rd - 13th for current Sharp team members) .",
+        "retrieved_at": "2026-10-18T12:15:00.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://careers.sharp.com/SHC-nurse-residency-program",
+        "excerpt": "Are you a recent or soon-to-be nurse graduate looking for the perfect place to kickstart your RN career? You are in the right place! Sharp HealthCare Nurse Residency Program supports newly licensed nurses.",
+        "retrieved_at": "2026-10-18T12:15:00.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://careers.sharp.com/SHC-nurse-residency-program",
+        "excerpt": "Applications for the Spring 2027 Sharp HealthCare Nurse Residency Program will be open from November 10th - 13th (November 3rd - 13th for current Sharp team members) .",
+        "retrieved_at": "2026-10-18T12:15:00.000Z",
+        "claim": "opening_date"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-10-18-daily_0002",
+    "run_id": "2026-10-18-daily",
+    "at": "2026-10-18T12:15:31.322Z",
+    "type": "NEW",
+    "opportunity_id": "opp_9230a83b45",
+    "changes": null,
+    "reason": "First published from run evidence (OPEN).",
+    "evidence": [
+      {
+        "source_url": "https://osu.wd1.myworkdayjobs.com/OSUCareers/job/James-Cancer-Hospital-and-Solove-Research-Institute/Staff-Nurse--RN---Oncology-New-Grad-Nurse-Residency-Program--The-James_R153524-1",
+        "excerpt": "The Ohio State University James Cancer Hospital Nurse Residency Program offers unique opportunities for newly licensed graduate nurses to successfully transition from student to professional through a Full-Time, structured, 14-20 week paid orientation to the field of Oncology Nursing.",
+        "retrieved_at": "2026-10-18T12:15:00.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://osu.wd1.myworkdayjobs.com/OSUCareers/job/James-Cancer-Hospital-and-Solove-Research-Institute/Staff-Nurse--RN---Oncology-New-Grad-Nurse-Residency-Program--The-James_R153524-1",
+        "excerpt": "Job Title: Staff Nurse (RN)- Oncology New Grad Nurse Residency Program- The James. Department: James | James Nurse Residency.",
+        "retrieved_at": "2026-10-18T12:15:00.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://osu.wd1.myworkdayjobs.com/OSUCareers/job/James-Cancer-Hospital-and-Solove-Research-Institute/Staff-Nurse--RN---Oncology-New-Grad-Nurse-Residency-Program--The-James_R153524-1",
+        "excerpt": "Graduate from a CCNE (Commission on Collegiate Nursing Education) or ACEN (Accreditation Commission for Education in Nursing) accredited nursing program required; current licensure or interim permit in the practice of registered nursing from the State of Ohio Board of Nursing required; previous experience in a relevant care setting preferred; Bachelor’s Degree in Nursing preferred.",
+        "retrieved_at": "2026-10-18T12:15:00.000Z",
+        "claim": "license"
+      },
+      {
+        "source_url": "https://osu.wd1.myworkdayjobs.com/OSUCareers/job/James-Cancer-Hospital-and-Solove-Research-Institute/Staff-Nurse--RN---Oncology-New-Grad-Nurse-Residency-Program--The-James_R153524-1",
+        "excerpt": "New Graduate Nurse Residency positions are available in the following areas: Hematology, Medical Oncology, Surgical Oncology, Progressive Care/Step Down (PCU).",
+        "retrieved_at": "2026-10-18T12:15:00.000Z",
+        "claim": "unit"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-10-18-daily_0003",
+    "run_id": "2026-10-18-daily",
+    "at": "2026-10-18T12:15:31.322Z",
+    "type": "NEW",
+    "opportunity_id": "opp_0dfd7b3e34",
+    "changes": null,
+    "reason": "First published from run evidence (OPEN).",
+    "evidence": [
+      {
+        "source_url": "https://osu.wd1.myworkdayjobs.com/OSUCareers/job/University-Hospital/Staff-Nurse--RN----New-Grad-OR-Nurse-Residency---Varying-Shifts_R153540-1",
+        "excerpt": "The Ohio State Wexner Medical Center Health System Perioperative Nurse Residency Program provides support for the new graduate nurse as they transition from nursing student to professional clinician. Our program is a full-time, 9-month program.",
+        "retrieved_at": "2026-10-18T12:15:00.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://osu.wd1.myworkdayjobs.com/OSUCareers/job/University-Hospital/Staff-Nurse--RN----New-Grad-OR-Nurse-Residency---Varying-Shifts_R153540-1",
+        "excerpt": "Job Title: Staff Nurse (RN) - New Grad OR Nurse Residency - Varying Shifts. Location: University Hospital (0870).",
+        "retrieved_at": "2026-10-18T12:15:00.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://osu.wd1.myworkdayjobs.com/OSUCareers/job/University-Hospital/Staff-Nurse--RN----New-Grad-OR-Nurse-Residency---Varying-Shifts_R153540-1",
+        "excerpt": "Requirements: Graduate of a nursing program accredited by the Commission on Collegiate Nursing Education (CCNE) or the Accreditation Commission for Education in Nursing (ACEN). Current Registered Nurse (RN) licensure or interim permit from the Ohio Board of Nursing required. Previous experience in a relevant patient care setting preferred. Bachelor of Science in Nursing (BSN) preferred.",
+        "retrieved_at": "2026-10-18T12:15:00.000Z",
+        "claim": "license"
+      }
+    ]
   }
 ]

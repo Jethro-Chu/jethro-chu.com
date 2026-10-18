@@ -448,5 +448,11 @@
     "hospital_id": "hosp_lluh",
     "name": "Adult RN Residency Program",
     "source_url": "https://lluh.org/health-professionals/adult-rn-residency-program/how-apply"
+  },
+  {
+    "id": "prog_917cfe146c",
+    "hospital_id": "hosp_ohiostate",
+    "name": "The James Nurse Residency",
+    "source_url": "https://osu.wd1.myworkdayjobs.com/OSUCareers/job/James-Cancer-Hospital-and-Solove-Research-Institute/Staff-Nurse--RN---Oncology-New-Grad-Nurse-Residency-Program--The-James_R153524-1"
   }
 ]
