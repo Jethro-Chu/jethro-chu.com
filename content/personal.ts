@@ -9,6 +9,12 @@ export const personalBackground = {
     {
       title: "High-Sierra Backpacking & Cold-Water Snorkeling",
       body: "The pixel Yosemite Valley on this site comes from a real love for the outdoors, from backpacking trails in the Sierra Nevada and California peaks to cold-water ocean snorkeling through the kelp forests of Catalina and the Channel Islands.",
+      photo: {
+        src: "/images/outdoor-hiking.jpg",
+        width: 360,
+        height: 480,
+        alt: "Jethro Chu wearing a backpack on a mountain trail, with forest and a snow-covered peak behind him.",
+      },
     },
     {
       title: "Family Caregiving & Home Care Roots",

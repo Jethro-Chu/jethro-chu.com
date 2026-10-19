@@ -28,7 +28,17 @@ export function PersonalBackground({
               {item.title}
             </dt>
             <dd className="mt-2 max-w-prose text-[0.95rem] leading-relaxed text-[var(--color-shadow)]">
-              {item.body}
+              <p>{item.body}</p>
+              {"photo" in item && (
+                <Image
+                  src={item.photo.src}
+                  alt={item.photo.alt}
+                  width={item.photo.width}
+                  height={item.photo.height}
+                  sizes="(min-width: 400px) 360px, 90vw"
+                  className="mt-4 h-auto w-full max-w-[360px] rounded-md border border-[var(--color-granite-line)]"
+                />
+              )}
             </dd>
           </div>
         ))}
