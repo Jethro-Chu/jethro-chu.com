@@ -51,7 +51,8 @@ const sitemap = await page("/sitemap.xml");
 assert(sitemap.includes("<loc>https://jethrochu.com</loc>"));
 assert(sitemap.includes("<loc>https://jethrochu.com/website</loc>"));
 const resume = await page("/resume");
-assert(resume.includes('href="/#projects"') && !resume.includes('href="/website"'));
+assert(resume.includes('href="/"') && !resume.includes('href="/website"'));
+assert(resume.includes('src="/Jethro_Chu_Resume.pdf"'), "The resume page must embed the PDF.");
 for (const path of ["/projects/nursejet", "/projects/emotion-stock-market-game"]) {
   const html = await page(path);
   assert(html.includes('href="/#projects"'), `${path} must return to the scrolling projects.`);
