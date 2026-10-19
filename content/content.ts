@@ -42,8 +42,7 @@ export interface Project {
 
 export const site = {
   name: "Jethro Chu",
-  // PLACEHOLDER tagline — confirm with Jethro.
-  tagline: "Nursing student who builds software between clinical shifts.",
+  tagline: "Portfolio",
   // meta description for search + social
   description:
     "Jethro Chu is a nursing student who builds healthcare, research, and AI software, including Lab Logger. His portfolio climbs from the Yosemite valley floor to the Half Dome summit.",

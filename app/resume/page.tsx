@@ -186,7 +186,7 @@ export default function ResumePage() {
                 {resume.builderContext.body}
               </p>
               <div className="mt-8 flex flex-wrap gap-3">
-                <Link href="/website#projects" className={secondaryBtn}>
+                <Link href="/#projects" className={secondaryBtn}>
                   See the projects
                 </Link>
                 <a href={email} className={primaryBtn}>
@@ -205,7 +205,7 @@ export default function ResumePage() {
             © {new Date().getFullYear()} {site.name}
           </p>
           <Link
-            href="/website"
+            href="/"
             className="label-mono inline-flex items-center gap-2 transition-colors hover:text-[var(--color-pine)]"
           >
             ← Back to portfolio

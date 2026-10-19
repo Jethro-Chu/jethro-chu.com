@@ -5,7 +5,7 @@
    The ssr:false Phaser mount + the title screen (intro) and, once
    playing, the in-village DOM chrome (nav, minimap, panel).
    Phaser is dynamically imported here, so it stays code-split and loads
-   only when this mounts on the homepage.
+   only when this mounts on /website.
    The parent provides the fixed full-screen container.
    ============================================================ */
 
@@ -67,7 +67,7 @@ export default function VillageMount({ onLeave }: { onLeave?: () => void }) {
         <VillageIntro
           onPlay={onPlay}
           starting={starting}
-          onSkip={() => window.location.assign("/website")}
+          onSkip={() => window.location.assign("/")}
         />
       ) : (
         <>

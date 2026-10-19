@@ -160,7 +160,7 @@ export const profileStructuredData = {
   subjectOf: [
     {
       "@type": "WebPage",
-      url: `${site.url}/#chapel`,
+      url: `${site.url}/website#chapel`,
       name: "Jethro Chu: Clinical Experience",
       description:
         "Clinical rotations (560+ total hours) across Huntington Health (Huntington Hospital), Emanate Health, City of Hope, Children's Hospital Los Angeles, Kaiser Permanente, and an international clinical rotation at the Second Affiliated Hospital of Zhejiang University in Hangzhou, China.",

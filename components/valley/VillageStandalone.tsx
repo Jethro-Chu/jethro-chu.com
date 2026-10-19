@@ -1,10 +1,10 @@
 "use client";
 
 /* ============================================================
-   VillageStandalone  ·  the homepage's interactive layer
+   VillageStandalone  ·  /website's interactive layer
    Mounts the shared VillageMount full-screen (title screen, then play),
    including its own exit chrome (back button + ESC -> the scroll site at
-   /website). Gate is WebGL +
+   /). Gate is WebGL +
    motion only; reduced-motion / no-WebGL get the SSR'd flat content with a
    re-enter affordance.
    ============================================================ */
@@ -40,7 +40,7 @@ function leaveToSite() {
   } catch {
     /* private mode */
   }
-  window.location.assign("/website");
+  window.location.assign("/");
 }
 
 export function VillageStandalone() {

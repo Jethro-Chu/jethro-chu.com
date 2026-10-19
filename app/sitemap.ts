@@ -1,8 +1,8 @@
 import type { MetadataRoute } from "next";
 import { site } from "@/content/content";
 
-// Static routes kept in sync with the app router. The village is the primary
-// entry, while the reading and chatbot experience lives at /website.
+// The scrolling portfolio is the primary entry; /website is the playable village.
+// Both versions remain discoverable as separate canonical routes.
 export default function sitemap(): MetadataRoute.Sitemap {
   const routes = [
     "",

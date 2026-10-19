@@ -169,13 +169,13 @@ export const landmarks: Landmark[] = [
     title: "How this village works",
     faceset: FACE,
     body: [
-      "The village is the front door. The reading and chatbot experience lives at /website, where every project and section remains directly accessible.",
-      "Phaser, the tilemap, and the art live in their own code-split chunk on the homepage, so the reading path never downloads a game engine.",
+      "The village lives at /website. The reading and chatbot experience lives at /, where every project and section remains directly accessible.",
+      "Phaser, the tilemap, and the art live in their own code-split chunk at /website, so the reading path never downloads a game engine.",
       "Inside the canvas, everything is placed by hand. Buildings and trees depth-sort against the hiker, the signs are supersampled canvas textures so they stay crisp at every zoom, and the atmosphere (light rays, fog, chimney smoke, birds) is a handful of cheap particles, not a shader stack. The HUD, minimap, and rooms are plain DOM, kept crisp and accessible.",
     ],
     facts: [
       { k: "Stack", v: "Next.js 15 · React 19 · Phaser 3 · Tailwind 4" },
-      { k: "Shape", v: "Game-first homepage · indexable portfolio route" },
+      { k: "Shape", v: "Scrolling homepage · interactive village at /website" },
       { k: "Budget", v: "The game and reading paths stay code-split" },
       { k: "World", v: "46×34 tile hub · y-sorted sprites · canvas signage" },
       { k: "Art", v: "Ninja Adventure pack by pixel-boy (CC0)" },

@@ -17,13 +17,13 @@ const nextConfig = {
   images: {
     formats: ["image/avif", "image/webp"],
   },
-  // Old direct game routes now resolve to the game-first homepage.
+  // Legacy aliases point to the matching version. Both canonical routes render directly.
   async redirects() {
     return [
       { source: "/timeundle", destination: "/margillion", permanent: true },
-      { source: "/valley", destination: "/", permanent: true },
-      { source: "/village", destination: "/", permanent: true },
-      { source: "/portfolio", destination: "/website", permanent: true },
+      { source: "/valley", destination: "/website", permanent: true },
+      { source: "/village", destination: "/website", permanent: true },
+      { source: "/portfolio", destination: "/", permanent: true },
     ];
   },
 };

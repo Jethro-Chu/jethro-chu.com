@@ -3,7 +3,7 @@
 /* ============================================================
    EnterValleyButton  ·  the opt-in entrance affordance
    Rendered near the hero (under the Ask Jethro bar) and in the mobile
-   station bar. Links back to the game-first homepage. Renders
+   station bar. Links to the village at /website. Renders
    NOTHING on the server and for reduced-motion / no-WebGL / tiny
    viewports, so the homepage DOM + SEO are unchanged for the fast path
    and the entrance simply never appears for those who can't play.
@@ -39,7 +39,7 @@ export function EnterValleyButton({ variant = "hero" }: { variant?: "hero" | "st
     return (
       <li className="shrink-0">
         <Link
-          href="/"
+          href="/website"
           className="flex min-h-[44px] min-w-[44px] flex-col items-center justify-center rounded-sm bg-[color-mix(in_oklab,var(--color-pine)_14%,transparent)] px-3 py-1"
         >
           <span className="font-body text-[0.78rem] font-semibold text-[var(--color-pine)]">
@@ -53,7 +53,7 @@ export function EnterValleyButton({ variant = "hero" }: { variant?: "hero" | "st
 
   return (
     <Link
-      href="/"
+      href="/website"
       className="fast-ui group mx-auto mt-6 inline-flex items-center gap-3 rounded-md border border-[var(--color-granite-line)] bg-[var(--color-card)] px-4 py-2.5 text-left"
     >
       <PixelPeak />
