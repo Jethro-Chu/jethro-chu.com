@@ -14,11 +14,11 @@ export const personalBackground = {
     },
     {
       title: "Backpacking",
-      body: "The Yosemite artwork on this site is there for a reason. I love backpacking in the Sierra Nevada. The mountains are one of my favorite places to be.",
+      body: "The Yosemite artwork was inspired by my love for nature. I love backpacking and the mountains are one of my favorite places to be.",
       photo: {
-        src: "/images/outdoor-hiking.jpg",
-        width: 360,
-        height: 480,
+        src: "/images/backpacking.jpg",
+        width: 1536,
+        height: 2048,
         alt: "Jethro Chu wearing a backpack on a mountain trail, with forest and a snow-covered peak behind him.",
       },
     },

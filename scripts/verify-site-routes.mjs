@@ -42,7 +42,7 @@ for (const [alias, target] of [["/portfolio", "/"], ["/valley", "/website"], ["/
   await page(target); // Canonical destinations render, so these cannot form loops.
 }
 
-for (const path of ["/images/halfdome-summit.jpg", "/images/hacktech-team.jpg", "/images/outdoor-hiking.jpg", "/images/marathon-training.jpg", "/game/jethro/player.png", "/game/ninja-adventure/tilesets/TilesetFloor.png", "/Jethro_Chu_Resume.pdf"]) {
+for (const path of ["/images/halfdome-summit.jpg", "/images/hacktech-team.jpg", "/images/backpacking.jpg", "/images/marathon-training.jpg", "/game/jethro/player.png", "/game/ninja-adventure/tilesets/TilesetFloor.png", "/Jethro_Chu_Resume.pdf"]) {
   const response = await fetch(new URL(path, origin), { method: "HEAD", redirect: "manual" });
   assert.equal(response.status, 200, path);
 }
