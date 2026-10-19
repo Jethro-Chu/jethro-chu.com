@@ -5,6 +5,12 @@ export const personalBackground = {
     {
       title: "Marathon Endurance & Zone 2 Training",
       body: "Outside of clinical shifts, I am a distance runner training for the November 2026 NYC Marathon using heart-rate-driven (Zone 2) physiological pacing, building the physical stamina, discipline, and burnout resilience required to stay sharp across 12-hour critical-care shifts.",
+      photo: {
+        src: "/images/marathon-training.jpg",
+        width: 768,
+        height: 1024,
+        alt: "Jethro Chu and a fellow runner holding their finisher medals after a race.",
+      },
     },
     {
       title: "High-Sierra Backpacking & Cold-Water Snorkeling",
