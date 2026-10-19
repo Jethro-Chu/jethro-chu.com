@@ -1,10 +1,10 @@
 /** Owner-supplied biography, shared by both readable views and the village. */
 export const personalBackground = {
-  heading: "Beyond the Bedside & Code",
+  heading: "Outside of Nursing",
   items: [
     {
-      title: "Marathon Endurance & Zone 2 Training",
-      body: "Outside of clinical shifts, I am a distance runner training for the November 2026 NYC Marathon using heart-rate-driven (Zone 2) physiological pacing, building the physical stamina, discipline, and burnout resilience required to stay sharp across 12-hour critical-care shifts.",
+      title: "Running",
+      body: "I spend a lot of my free time running. I love to run races, seeing myself improve, and getting outside after a long day of studying.",
       photo: {
         src: "/images/marathon-training.jpg",
         width: 768,
@@ -13,8 +13,8 @@ export const personalBackground = {
       },
     },
     {
-      title: "High-Sierra Backpacking & Cold-Water Snorkeling",
-      body: "The pixel Yosemite Valley on this site comes from a real love for the outdoors, from backpacking trails in the Sierra Nevada and California peaks to cold-water ocean snorkeling through the kelp forests of Catalina and the Channel Islands.",
+      title: "Backpacking",
+      body: "The Yosemite artwork on this site is there for a reason. I love backpacking in the Sierra Nevada. The mountains are one of my favorite places to be.",
       photo: {
         src: "/images/outdoor-hiking.jpg",
         width: 360,
@@ -23,12 +23,12 @@ export const personalBackground = {
       },
     },
     {
-      title: "Family Caregiving & Home Care Roots",
-      body: "While I love hemodynamics and building software, my path into nursing is grounded at home as a hands-on family caregiver for my grandmother. That experience first taught me bedside patience, empathy, and patient advocacy.",
+      title: "Caring for Family",
+      body: "I help care for my grandmother. Being on the family side of healthcare has given me a better understanding of what patients and their families deal with at home.",
     },
     {
-      title: "Hackathons & Live A/V Production",
-      body: "I thrive in live, zero-margin-for-error team environments, whether winning 4th place at HackTech building Lab Logger or running behind-the-scenes technical operations on a live audio/visual production team.",
+      title: "Building Things & Live Production",
+      body: "I like making things and figuring out how they work. I helped build Lab Logger at HackTech, where our team placed 4th.",
     },
   ],
   photo: {

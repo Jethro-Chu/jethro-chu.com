@@ -107,7 +107,7 @@ export const profileStructuredData = {
   url: `${site.url}/`,
   jobTitle: "BSN Student & New Graduate Nursing Candidate (Expected December 2026)",
   description:
-    "Bachelor of Science in Nursing (BSN) candidate at Azusa Pacific University (expected graduation December 2026), healthcare software developer (4th-place winner at HackTech for Lab Logger), and distance marathon runner training for the November 2026 NYC Marathon using Zone 2 physiological pacing. Grounded in hands-on family caregiving for his grandmother, live A/V production operations, High-Sierra backpacking, and Channel Islands cold-water snorkeling, with 560+ hours of clinical training across California and Hangzhou, China focused on critical care and cardiovascular nursing.",
+    "Bachelor of Science in Nursing (BSN) candidate at Azusa Pacific University (expected graduation December 2026), healthcare software developer (4th-place winner at HackTech for Lab Logger), and distance marathon runner training for the November 2026 NYC Marathon using Zone 2 physiological pacing. Grounded in hands-on family caregiving for his grandmother, live A/V production operations, and High-Sierra backpacking, with 560+ hours of clinical training across California and Hangzhou, China focused on critical care and cardiovascular nursing.",
   image: [
     `${site.url}/images/halfdome-summit.jpg`,
     `${site.url}/images/hacktech-team.jpg`,
@@ -153,7 +153,7 @@ export const profileStructuredData = {
     "Distance Marathon Running & Zone 2 Heart-Rate Physiological Training",
     "Hands-On Family Caregiving & Home Care Support",
     "Live Audio/Visual (A/V) Technical Production",
-    "High-Sierra Wilderness Backpacking & Cold-Water Ocean Snorkeling",
+    "High-Sierra Wilderness Backpacking",
   ],
   // subjectOf accepts a CreativeWork or Event, not a Role. The actual readable
   // clinical journey and resume are documents about the student placements.
