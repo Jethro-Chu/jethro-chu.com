@@ -13,6 +13,7 @@
 import { projects as allProjects } from "./content";
 import type { Project } from "./content";
 import { resume } from "./resume";
+import { personalBackground, type PersonalBackgroundContent } from "./personal";
 
 export interface LandmarkLink {
   label: string;
@@ -58,6 +59,8 @@ export interface Landmark {
   resumeSheet?: boolean;
   /** recruiter-focused content used by the clinical journey room */
   clinicalJourney?: ClinicalJourneyContent;
+  /** shared personal biography and real HackTech team photo */
+  personalBackground?: PersonalBackgroundContent;
 }
 
 // Per-room headshot flag: rooms set this to show Jethro's own character as the
@@ -87,6 +90,7 @@ export const landmarks: Landmark[] = [
       "Most of what I build starts with problems I've actually encountered, in hospitals, labs, or inside everyday tools that should have been easier to use. Nursing taught me to notice what makes systems less efficient.",
       "This site is a small village of what I'm working on. When you look around, every building opens a real part of my portfolio: projects, experiments, writing, and the systems I'm learning to build.",
     ],
+    personalBackground,
   },
   {
     id: "chapel",
@@ -217,7 +221,7 @@ export const landmarks: Landmark[] = [
     authoredLine:
       "New graduate BSN candidate (December 2026) focused on critical care and cardiovascular nursing, building live clinical software shaped by bedside experience.",
     body: [
-      "BSN expected December 2026. Building live software now.",
+      personalBackground.overlook,
     ],
     links: [
       { label: "Download resume", href: resume.pdf },

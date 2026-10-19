@@ -23,6 +23,7 @@ import { Joystick } from "@/components/HUD/Joystick";
 import { useIsTouch } from "@/lib/useIsTouch";
 import { ResumeSheet } from "./ResumeSheet";
 import { ClinicalJourney } from "./ClinicalJourney";
+import { PersonalBackground } from "@/components/PersonalBackground";
 
 // Player ("Jethro"): a horizontal strip of 5 frames (idle, walk1..walk4),
 // front-facing only — we flip horizontally for left, and reuse the forward
@@ -441,7 +442,7 @@ export function InteriorRoom() {
             </header>
 
             {landmark.authoredLine && (
-              <p className="mt-6 rounded-sm border border-dashed border-[var(--color-golden)] bg-[color-mix(in_oklab,#1a120a_60%,transparent)] p-3 text-[0.86rem] italic text-[var(--color-card)]">
+              <p className="mt-3 max-w-prose font-display text-[1.08rem] leading-snug sm:text-[1.18rem]" style={{ color: theme.subInk }}>
                 {landmark.authoredLine}
               </p>
             )}
@@ -467,6 +468,10 @@ export function InteriorRoom() {
                   </p>
                 ))}
               </div>
+            )}
+
+            {landmark.personalBackground && (
+              <PersonalBackground content={landmark.personalBackground} idPrefix="room" variant="room" />
             )}
 
             {/* flowsheet-style facts: mono key/value rows (Clinical, Under the hood) */}

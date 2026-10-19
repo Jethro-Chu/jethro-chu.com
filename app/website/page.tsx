@@ -1,12 +1,18 @@
 import type { Metadata } from "next";
 import { PortfolioPage } from "@/components/PortfolioPage";
-import { profileMetadata } from "@/lib/profileSeo";
+import { profileDescription, profileMetadata, profileOpenGraphDescription, profileTwitterDescription } from "@/lib/profileSeo";
 
-export const metadata: Metadata = profileMetadata(
+const websiteMetadata = profileMetadata(
   "Jethro Chu | BSN Candidate & Healthcare Software Portfolio",
-  "Jethro Chu, Azusa Pacific University BSN candidate graduating December 2026. Explore his clinical background, healthcare and AI software, and nursing resume.",
+  profileDescription,
   "/website",
 );
+
+export const metadata: Metadata = {
+  ...websiteMetadata,
+  openGraph: { ...websiteMetadata.openGraph, description: profileOpenGraphDescription },
+  twitter: { ...websiteMetadata.twitter, description: profileTwitterDescription },
+};
 
 export default function Website() {
   return <PortfolioPage />;

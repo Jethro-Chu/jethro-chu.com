@@ -1,5 +1,7 @@
 import Image from "next/image";
 import { about, sections } from "@/content/content";
+import { personalBackground } from "@/content/personal";
+import { PersonalBackground } from "@/components/PersonalBackground";
 
 const summit = sections[3];
 
@@ -55,6 +57,9 @@ export function About() {
             ))}
           </div>
         </div>
+      </div>
+      <div id="visitor-center" className="mx-auto mt-12 max-w-5xl">
+        <PersonalBackground content={personalBackground} idPrefix="website" />
       </div>
     </section>
   );

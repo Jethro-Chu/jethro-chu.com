@@ -7,6 +7,7 @@
 
 import { landmarks, projectsForLandmark, status } from "@/content/portfolio";
 import { ClinicalJourney } from "./ClinicalJourney";
+import { PersonalBackground } from "@/components/PersonalBackground";
 
 export function FlatValley() {
   return (
@@ -44,7 +45,7 @@ export function FlatValley() {
               )}
 
               {l.authoredLine && (
-                <p className="mt-3 rounded-sm border border-dashed border-[var(--color-golden)] bg-[color-mix(in_oklab,var(--color-golden)_8%,transparent)] p-3 text-[0.85rem] italic text-[var(--color-muted)]">
+                <p className="mt-3 max-w-prose font-display text-[1.08rem] leading-snug text-[var(--color-muted)] sm:text-[1.18rem]">
                   {l.authoredLine}
                 </p>
               )}
@@ -66,6 +67,10 @@ export function FlatValley() {
                     </p>
                   ))}
                 </div>
+              )}
+
+              {l.personalBackground && (
+                <PersonalBackground content={l.personalBackground} idPrefix="flat" />
               )}
 
               {projects.length > 0 && (

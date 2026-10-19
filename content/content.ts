@@ -136,7 +136,7 @@ export const projects: Project[] = [
     // [confirm stack — looks like Next.js · React · Tailwind from the live site]
     stack: [],
     summary:
-      "I helped shape Lab Logger into a tool that turns messy notes, voice entries, files, and PDFs into organized experiment records. My focus was making the product feel simple, trustworthy, and fast enough for researchers to use in the middle of real work.",
+      "Winner of 4th place at HackTech. I helped shape Lab Logger into a tool that turns messy notes, voice entries, files, and PDFs into organized experiment records, focusing on making the product simple, trustworthy, and fast enough for researchers to use in the middle of real work.",
     tags: ["Research tools", "AI"],
     link: { href: "https://lab-logger.com", label: "lab-logger.com" },
     // thumbnail: screenshot of the notebook view (cream and burnt-orange UI)
