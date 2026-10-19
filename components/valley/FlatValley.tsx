@@ -45,8 +45,7 @@ export function FlatValley() {
 
               {l.authoredLine && (
                 <p className="mt-3 rounded-sm border border-dashed border-[var(--color-golden)] bg-[color-mix(in_oklab,var(--color-golden)_8%,transparent)] p-3 text-[0.85rem] italic text-[var(--color-muted)]">
-                  <span className="label-mono not-italic">Draft · Jethro to author —</span>{" "}
-                  {l.authoredLine.replace(/^JETHRO:\s*/, "")}
+                  {l.authoredLine}
                 </p>
               )}
 

@@ -1,13 +1,9 @@
 import type { Metadata, Viewport } from "next";
 import { FlatValley } from "@/components/valley/FlatValley";
 import { VillageStandalone } from "@/components/valley/VillageStandalone";
+import { homeMetadata } from "@/lib/profileSeo";
 
-export const metadata: Metadata = {
-  title: "Yosemite Village · Jethro Chu",
-  description:
-    "Explore Jethro Chu's pixel-art Yosemite Village and discover his projects, clinical experience, resume, and contact information.",
-  alternates: { canonical: "/" },
-};
+export const metadata: Metadata = homeMetadata;
 
 export const viewport: Viewport = {
   themeColor: "#3f7a57",

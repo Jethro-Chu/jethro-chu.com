@@ -5,12 +5,13 @@ import { resume } from "@/content/resume";
 import { BackgroundGradient } from "@/components/scenery/BackgroundGradient";
 import { RouteLine } from "@/components/scenery/RouteLine";
 import { ResumeReveal } from "@/components/resume/ResumeIntro";
+import { profileMetadata } from "@/lib/profileSeo";
 
-export const metadata: Metadata = {
-  title: "Resume — Jethro Chu",
-  description:
-    "Nursing student and AI-native builder with clinical experience across pediatric, mental health, oncology, cardiac, emergency, and med-surg settings.",
-};
+export const metadata: Metadata = profileMetadata(
+  "Jethro Chu | Nursing Resume, BSN Candidate December 2026",
+  "Jethro Chu's nursing resume: BSN expected December 2026 at Azusa Pacific University; Huntington Health, Emanate Health, City of Hope, and international clinical experience.",
+  "/resume",
+);
 
 const email = contact.links.find((l) => l.label === "Email")?.href ?? "mailto:jethro.chu@gmail.com";
 

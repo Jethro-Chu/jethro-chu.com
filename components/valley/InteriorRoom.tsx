@@ -442,10 +442,7 @@ export function InteriorRoom() {
 
             {landmark.authoredLine && (
               <p className="mt-6 rounded-sm border border-dashed border-[var(--color-golden)] bg-[color-mix(in_oklab,#1a120a_60%,transparent)] p-3 text-[0.86rem] italic text-[var(--color-card)]">
-                <span className="label-mono not-italic text-[var(--color-golden)]!">
-                  Draft · Jethro to author:
-                </span>{" "}
-                {landmark.authoredLine.replace(/^JETHRO:\s*/, "")}
+                {landmark.authoredLine}
               </p>
             )}
 

@@ -52,7 +52,7 @@ export interface Landmark {
   projects?: string[];
   /** pack faceset used as the panel headshot (Peter-style) */
   faceset?: string;
-  /** a JETHRO placeholder line to author, rendered as a clearly-marked draft */
+  /** an authored identity statement rendered in the existing callout */
   authoredLine?: string;
   /** when true, the modal renders the full structured resume (ResumeSheet) below the body */
   resumeSheet?: boolean;
@@ -100,7 +100,7 @@ export const landmarks: Landmark[] = [
     body: [],
     clinicalJourney: {
       intro:
-        "I am completing my Bachelor of Science in Nursing at Azusa Pacific University and expect to graduate in December 2026. Through more than 560 clinical hours across healthcare institutions in California and China, I have cared for patients in cardiac, critical-care, pediatric, psychiatric, emergency, and medical-surgical settings.",
+        "I am completing my Bachelor of Science in Nursing (BSN) at Azusa Pacific University (expected graduation December 2026) as a new graduate nursing candidate. Through more than 560 clinical hours across six healthcare institutions in California and Hangzhou, China, I have cared for patients across cardiology, cardiac surgery, cardiac catheterization (cath lab), pediatric intensive care (PICU), bone marrow transplant, psychiatric, emergency, orthopedics, step-down/DOU, telemetry, and medical-surgical settings.",
       stats: [
         { label: "Education", value: "BSN, December 2026" },
         { label: "Experience", value: "560+ clinical hours" },
@@ -118,20 +118,20 @@ export const landmarks: Landmark[] = [
         },
         { organization: "Kaiser Permanente", experience: "Clinical rotation" },
         {
-          organization: "Huntington Hospital",
-          experience: "Medical-surgical, telemetry, GI, and cardiac care",
+          organization: "Huntington Health (Huntington Hospital)",
+          experience: "Medical-surgical, telemetry, GI, cath lab, and cardiovascular care",
         },
         {
           organization: "Emanate Health",
-          experience: "DOU and medical-surgical nursing",
+          experience: "Step-down / DOU and medical-surgical nursing",
         },
         {
-          organization: "Second Affiliated Hospital of Zhejiang University",
-          experience: "Emergency, cardiology, cardiac surgery, and orthopedics",
+          organization: "Second Affiliated Hospital of Zhejiang University (Hangzhou, China)",
+          experience: "International clinical rotation in emergency care, cardiology, cardiac surgery, and orthopedics",
         },
       ],
       interest:
-        "I am especially drawn to cardiac and critical-care nursing, where careful assessment, telemetry interpretation, and early recognition of clinical changes can directly improve patient outcomes.",
+        "I am especially drawn to critical-care and cardiovascular nursing, with a strong focus on hemodynamics, telemetry interpretation, evidence-based practice, and the early recognition of patient deterioration to directly improve patient outcomes.",
     },
     links: [
       { label: "View Résumé", href: resume.pdf },
@@ -201,7 +201,7 @@ export const landmarks: Landmark[] = [
     title: "Resume",
     faceset: FACE,
     body: [
-      `Five clinical rotations, ${status.clinicalHours} hours across pediatric, mental health, oncology, cardiac, and emergency settings. The full breakdown is below.`,
+      `Six clinical rotations and ${status.clinicalHours}+ hours across pediatric intensive care, mental health, oncology, cardiovascular, step-down/DOU, and emergency settings. The full breakdown is below.`,
     ],
     resumeSheet: true,
     links: [{ label: "Download resume", href: resume.pdf }],
@@ -215,7 +215,7 @@ export const landmarks: Landmark[] = [
     title: "The whole valley",
     faceset: FACE,
     authoredLine:
-      "JETHRO: the dual-identity statement. The one or two lines that say who you are as a nurse and a builder, taking in the view.",
+      "New graduate BSN candidate (December 2026) focused on critical care and cardiovascular nursing, building live clinical software shaped by bedside experience.",
     body: [
       "BSN expected December 2026. Building live software now.",
     ],
