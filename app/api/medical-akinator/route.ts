@@ -1,3 +1,4 @@
+import { protectApi } from "@/lib/apiSecurity";
 import { NextResponse } from "next/server";
 import {
   getLearnedConditions,
@@ -180,7 +181,7 @@ const ANSWER_LABEL: Record<string, string> = {
   unknown: "I don't know",
 };
 
-export async function POST(request: Request) {
+async function handlePOST(request: Request) {
   const apiKey = process.env.GEMINI_API_KEY;
 
   // --- validate the request body ------------------------------------------
@@ -202,7 +203,7 @@ export async function POST(request: Request) {
     category = String(body?.category ?? "").toLowerCase().trim();
     learn = String(body?.learn ?? "").slice(0, 120).trim(); // the topic that stumped the engine
     gameId = String(body?.gameId ?? "").slice(0, 64).trim();
-    debug = body?.debug === true; // when true, also return the model's reasoning (never shown in the UI)
+    debug = process.env.NODE_ENV !== "production" && body?.debug === true; // when true, also return the model's reasoning (never shown in the UI)
     const raw = Array.isArray(body?.answers) ? (body.answers as IncomingAnswer[]) : [];
     answers = raw
       .slice(0, MAX_TURNS + 8) // small slack over the cap; we still force a guess below
@@ -466,6 +467,7 @@ async function callGeminiJSON(
         method: "POST",
         headers: { "Content-Type": "application/json", "x-goog-api-key": apiKey },
         body: requestBody,
+        signal: AbortSignal.timeout(15_000),
       });
     } catch (err) {
       console.warn(`[medical-akinator] ${id} network error, trying next:`, (err as Error).message);
@@ -490,12 +492,12 @@ async function callGeminiJSON(
     }
 
     lastStatus = res.status;
-    const body = (await res.text()).slice(0, 300);
+    await res.body?.cancel();
     // only an auth error is unfixable by switching models; a 400 can be a
     // model-specific config rejection (e.g. an unsupported thinking field on a
     // future alias target), so it falls through to the next model too
     if (res.status === 401 || res.status === 403) {
-      console.error(`[medical-akinator] Gemini ${res.status} (${id}):`, body);
+      console.error(`[medical-akinator] Gemini ${res.status} (${id})`);
       throw new Error(`gemini-${res.status}`);
     }
     // bad config / overload / rate limit / unavailable → try the next model
@@ -714,3 +716,5 @@ function sanitizeSummary(raw: unknown): Summary | null {
   // only return a summary if at least one field came back populated
   return Object.values(summary).some(Boolean) ? summary : null;
 }
+
+export const POST = protectApi(handlePOST, { scope: "ai", perMinute: 30, daily: 400, maxBytes: 32768 });

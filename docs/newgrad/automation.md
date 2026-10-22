@@ -257,7 +257,7 @@ at `/newgrad`.
 ### Storage & API
 
 - Endpoint: `POST /api/newgrad/suggestions` (validates, rate-limits, and persists).
-- Primary storage: `data/newgrad/suggestions.json`.
+- Primary storage: `data/newgrad/private/suggestions.json`.
 - Cloud fallback: Upstash Redis `{newgrad}:suggestions:v1` when `KV_URL` / `KV_REST_API_URL`
   credentials are set in serverless production environments.
 - Read endpoint: `GET /api/newgrad/suggestions` (retrieves recent suggestions, public rate-limited).
@@ -277,7 +277,7 @@ npm run newgrad:suggestions -- reject <suggestion_id> [--reason <text>]
 During each scheduled daily run, before finalizing research targets:
 
 1. **Scan queue**: Antigravity checks pending suggestions via
-   `npm run newgrad:suggestions -- list --status PENDING` or by reading `data/newgrad/suggestions.json`.
+   `npm run newgrad:suggestions -- list --status PENDING` or by reading `data/newgrad/private/suggestions.json`.
 2. **Research**: For each pending hospital, Antigravity attempts to locate the official nurse
    residency or new-graduate careers portal and confirm eligibility.
 3. **Resolve**:
@@ -289,3 +289,5 @@ During each scheduled daily run, before finalizing research targets:
      rejected with an explanatory reason:
      `npm run newgrad:suggestions -- reject <id> --reason "No residency or acute care program found"`.
 
+
+Security: the remote suggestion queue requires the server-only `NEWGRAD_ADMIN_TOKEN`. Set the same token in the local CLI environment. Production submission requests require the shared Upstash budget store. Keep the private suggestion directory out of Git.

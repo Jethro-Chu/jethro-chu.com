@@ -154,6 +154,21 @@ export async function getSession(sessionId: string): Promise<StoredSession | nul
   }
 }
 
+// First writer claims a session atomically. A request cannot replace another
+// browser's ownership, even when two requests race to create the same ID.
+export async function claimOwnedSession(session: StoredSession): Promise<StoredSession> {
+  if (!KV_URL || !KV_TOKEN) {
+    const existing = memSessions.get(session.sessionId);
+    if (existing) return existing;
+    memSessions.set(session.sessionId, session);
+    return session;
+  }
+  await redis(["HSETNX", SESSIONS_KEY, session.sessionId, JSON.stringify(session)]);
+  const result = await redis(["HGET", SESSIONS_KEY, session.sessionId]);
+  if (!result) throw new Error("Session unavailable");
+  return JSON.parse(String(result)) as StoredSession;
+}
+
 export async function recordAttempt(attempt: StoredAttemptRecord): Promise<void> {
   if (!hasMedMathStore()) {
     memAttempts.set(attempt.attemptId, attempt);

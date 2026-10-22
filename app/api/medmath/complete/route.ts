@@ -1,3 +1,5 @@
+import { ownerToken, ownsSession, publicSession, validSessionPayload } from "@/lib/medmath/sessionSecurity";
+import { protectApi } from "@/lib/apiSecurity";
 import { NextRequest, NextResponse } from "next/server";
 import { saveSession, getSession } from "@/lib/medmath/store";
 import { getStoredQuestion, gradeQuestionAnswer, createQuestionInstance } from "@/lib/medmath/engine";
@@ -5,13 +7,17 @@ import type { ExamQuestionReview, MedMathCategory, StoredSession } from "@/lib/m
 
 export const dynamic = "force-dynamic";
 
-export async function POST(req: NextRequest) {
+async function handlePOST(req: NextRequest) {
   try {
     const payload = (await req.json()) as Partial<StoredSession> & { sessionId: string };
 
-    if (!payload.sessionId) {
+    if (!payload || typeof payload.sessionId !== "string" || !/^[a-zA-Z0-9_-]{8,100}$/.test(payload.sessionId)) {
       return NextResponse.json({ error: "Missing sessionId" }, { status: 400 });
     }
+
+    const existing = await getSession(payload.sessionId);
+    if (!existing || !ownsSession(existing, ownerToken(req))) return NextResponse.json({ error: "Session not found" }, { status: 404 });
+    if (!validSessionPayload({ ...existing, ...payload })) return NextResponse.json({ error: "Invalid session" }, { status: 400 });
 
     if (payload.examReview !== undefined) {
       if (!Array.isArray(payload.examReview)) {
@@ -46,7 +52,6 @@ export async function POST(req: NextRequest) {
       }
     }
 
-    const existing = (await getSession(payload.sessionId)) || ({} as StoredSession);
 
     // Identify weak categories: categories attempted with < 75% first attempt accuracy
     const categoryBreakdown = payload.categoryBreakdown || existing.categoryBreakdown || {};
@@ -64,6 +69,7 @@ export async function POST(req: NextRequest) {
     const completedSession: StoredSession = {
       ...existing,
       ...payload,
+      ownerHash: existing.ownerHash,
       sessionId: payload.sessionId,
       visitorId: payload.visitorId || existing.visitorId || "anon",
       sessionType: payload.sessionType || existing.sessionType || "practice",
@@ -91,7 +97,7 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json({
       success: true,
-      session: completedSession,
+      session: publicSession(completedSession),
     });
   } catch (error) {
     console.error("[api/medmath/complete] Error:", error);
@@ -101,3 +107,5 @@ export async function POST(req: NextRequest) {
     );
   }
 }
+
+export const POST = protectApi(handlePOST, { scope: "medmath-complete", perMinute: 15, daily: 5000, maxBytes: 262144 });

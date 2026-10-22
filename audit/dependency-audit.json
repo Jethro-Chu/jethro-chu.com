@@ -1,0 +1,141 @@
+{
+  "checked_on": "2026-10-21 America/Los_Angeles",
+  "source": "https://api.osv.dev/v1/querybatch",
+  "scope": "All versioned package entries in npm lockfile, including optional/dev dependencies. Does not cover CDN scripts or provider-internal packages.",
+  "deployed_commit": "d756b0cc544cd51fc1ce59ddabce1841be499a59",
+  "before": [
+    {
+      "package": "braces",
+      "version": "3.0.3",
+      "id": "GHSA-vfj7-8cjw-p6xm"
+    },
+    {
+      "package": "nanoid",
+      "version": "3.3.12",
+      "id": "GHSA-28wg-ghj8-5hjv"
+    },
+    {
+      "package": "nanoid",
+      "version": "3.3.12",
+      "id": "GHSA-2v37-7h3g-55p8"
+    },
+    {
+      "package": "next",
+      "version": "15.5.19",
+      "id": "GHSA-2xp9-vwfh-vxw4"
+    },
+    {
+      "package": "next",
+      "version": "15.5.19",
+      "id": "GHSA-4633-3j49-mh5q"
+    },
+    {
+      "package": "next",
+      "version": "15.5.19",
+      "id": "GHSA-4c39-4ccg-62r3"
+    },
+    {
+      "package": "next",
+      "version": "15.5.19",
+      "id": "GHSA-4jqv-mc3x-m676"
+    },
+    {
+      "package": "next",
+      "version": "15.5.19",
+      "id": "GHSA-68g3-v927-f742"
+    },
+    {
+      "package": "next",
+      "version": "15.5.19",
+      "id": "GHSA-89xv-2m56-2m9x"
+    },
+    {
+      "package": "next",
+      "version": "15.5.19",
+      "id": "GHSA-955p-x3mx-jcvp"
+    },
+    {
+      "package": "next",
+      "version": "15.5.19",
+      "id": "GHSA-m99w-x7hq-7vfj"
+    },
+    {
+      "package": "next",
+      "version": "15.5.19",
+      "id": "GHSA-mcj8-r9mp-w47p"
+    },
+    {
+      "package": "next",
+      "version": "15.5.19",
+      "id": "GHSA-p293-qw3h-jr36"
+    },
+    {
+      "package": "next",
+      "version": "15.5.19",
+      "id": "GHSA-p9j2-gv94-2wf4"
+    },
+    {
+      "package": "next",
+      "version": "15.5.19",
+      "id": "GHSA-q8wf-6r8g-63ch"
+    },
+    {
+      "package": "postcss",
+      "version": "8.4.31",
+      "id": "GHSA-6g55-p6wh-862q"
+    },
+    {
+      "package": "postcss",
+      "version": "8.4.31",
+      "id": "GHSA-fxqj-rqcc-2cmp"
+    },
+    {
+      "package": "postcss",
+      "version": "8.4.31",
+      "id": "GHSA-qx2v-qp2m-jg93"
+    },
+    {
+      "package": "postcss",
+      "version": "8.4.31",
+      "id": "GHSA-r28c-9q8g-f849"
+    },
+    {
+      "package": "postcss",
+      "version": "8.5.15",
+      "id": "GHSA-fxqj-rqcc-2cmp"
+    },
+    {
+      "package": "postcss",
+      "version": "8.5.15",
+      "id": "GHSA-r28c-9q8g-f849"
+    },
+    {
+      "package": "sharp",
+      "version": "0.34.5",
+      "id": "GHSA-f88m-g3jw-g9cj"
+    },
+    {
+      "package": "sharp",
+      "version": "0.34.5",
+      "id": "GHSA-rgj7-g3m4-5g8c"
+    },
+    {
+      "package": "sharp",
+      "version": "0.34.5",
+      "id": "GHSA-wq5f-xc86-pv6w"
+    },
+    {
+      "package": "source-map-js",
+      "version": "1.2.1",
+      "id": "GHSA-68fv-2mgg-jv7q"
+    }
+  ],
+  "locally_prepared_after": [
+    {
+      "package": "braces",
+      "version": "3.0.3",
+      "id": "GHSA-vfj7-8cjw-p6xm"
+    }
+  ],
+  "production_updated": false
+}

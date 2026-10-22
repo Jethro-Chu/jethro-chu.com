@@ -1,3 +1,4 @@
+import { protectApi } from "@/lib/apiSecurity";
 import { NextRequest, NextResponse } from "next/server";
 import { createPlayer, updateDisplayName } from "@/lib/abg/service";
 import { getPlayer, getRank } from "@/lib/abg/store";
@@ -29,7 +30,7 @@ export async function GET(request: NextRequest) {
   return NextResponse.json({ player: publicPlayer(player, await getRank(id)) });
 }
 
-export async function POST(request: NextRequest) {
+async function handlePOST(request: NextRequest) {
   try {
     const body = await request.json() as { displayName?: unknown };
     const player = await createPlayer(body.displayName);
@@ -44,7 +45,7 @@ export async function POST(request: NextRequest) {
   }
 }
 
-export async function PATCH(request: NextRequest) {
+async function handlePATCH(request: NextRequest) {
   try {
     const id = request.cookies.get(COOKIE_NAME)?.value;
     if (!id) return NextResponse.json({ error: "Player not found." }, { status: 401 });
@@ -58,3 +59,7 @@ export async function PATCH(request: NextRequest) {
     );
   }
 }
+
+export const POST = protectApi(handlePOST, { scope: "abg-player", perMinute: 5, daily: 1000, maxBytes: 4096 });
+
+export const PATCH = protectApi(handlePATCH, { scope: "abg-player", perMinute: 5, daily: 1000, maxBytes: 4096 });

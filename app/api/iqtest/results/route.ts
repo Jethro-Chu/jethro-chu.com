@@ -1,3 +1,4 @@
+import { protectApi } from "@/lib/apiSecurity";
 import { NextResponse } from "next/server";
 import {
   iqQuestions,
@@ -96,7 +97,7 @@ export async function GET(request: Request) {
   }
 }
 
-export async function POST(request: Request) {
+async function handlePOST(request: Request) {
   if (!hasIQResultsStore()) {
     return noStoreJson({ error: "Participant comparison is unavailable." }, 503);
   }
@@ -188,3 +189,5 @@ export async function POST(request: Request) {
     return noStoreJson({ error: "Result could not be recorded." }, 503);
   }
 }
+
+export const POST = protectApi(handlePOST, { scope: "iq-results", perMinute: 8, daily: 3000, maxBytes: 32768 });

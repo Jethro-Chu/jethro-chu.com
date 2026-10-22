@@ -1,4 +1,4 @@
-import { readFile, writeFile } from "node:fs/promises";
+import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { join } from "node:path";
 
 export interface HospitalSuggestion {
@@ -36,19 +36,25 @@ async function redis(command: Array<string | number>): Promise<unknown> {
   return body.result;
 }
 
-const filePath = join(process.cwd(), "data", "newgrad", "suggestions.json");
+const privateDir = join(process.cwd(), "data", "newgrad", "private");
+const filePath = join(privateDir, "suggestions.json");
+const legacyFilePath = join(process.cwd(), "data", "newgrad", "suggestions.json");
 
 export async function readLocalSuggestions(): Promise<HospitalSuggestion[]> {
   try {
     const raw = await readFile(filePath, "utf8");
     return JSON.parse(raw) as HospitalSuggestion[];
   } catch {
-    return [];
+    // Preserve the historical public seed without writing future submissions
+    // back into a tracked repository file.
+    try { return JSON.parse(await readFile(legacyFilePath, "utf8")) as HospitalSuggestion[]; }
+    catch { return []; }
   }
 }
 
 export async function writeLocalSuggestions(items: HospitalSuggestion[]): Promise<void> {
   try {
+    await mkdir(privateDir, { recursive: true });
     await writeFile(filePath, `${JSON.stringify(items, null, 2)}\n`, "utf8");
   } catch (err) {
     console.error("[newgrad-suggestions] writeLocalSuggestions failed:", err);
@@ -65,9 +71,10 @@ export async function getAllSuggestions(): Promise<HospitalSuggestion[]> {
     } catch (err) {
       console.warn("[newgrad-suggestions] Redis GET failed, falling back to local file:", err);
     }
-  } else {
+  } else if (process.env.NODE_ENV !== "production" && process.env.NEWGRAD_ADMIN_TOKEN) {
     try {
-      const res = await fetch("https://jethrochu.com/api/newgrad/suggestions", {
+      const res = await fetch("https://www.jethrochu.com/api/newgrad/suggestions", {
+        headers: { Authorization: `Bearer ${process.env.NEWGRAD_ADMIN_TOKEN}` },
         signal: AbortSignal.timeout(4000),
       });
       if (res.ok) {
