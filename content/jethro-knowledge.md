@@ -250,7 +250,7 @@ The Emotion Stock Market Game is a playful browser game built on a twist: everyo
 
 Core idea:
 
-> Everyone says not to trade with your emotions, so I built a game that does the opposite. Your facial expressions drive simulated trades in a chaotic browser market where every smile, panic, and overreaction can move your portfolio.
+> Everyone says not to trade with your emotions, so I built a game that does the opposite. I made a fun game that uses your facial expressions to make trades. When you smile it buys a stock and when you frown it sells a stock.
 
 The game uses:
 
