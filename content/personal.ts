@@ -39,7 +39,7 @@ export const personalBackground = {
     alt: "Jethro Chu (second from left) and his four-person engineering team wearing navy HackTech crewnecks after winning 4th place at Caltech's HackTech hackathon for building Lab Logger",
     caption: "4th Place at HackTech · Building Lab Logger (lab-logger.com)",
   },
-  overlook: "BSN expected December 2026 at Azusa Pacific University · NYC Marathon runner, Sierra backpacker, family caregiver, and 4th-place HackTech builder.",
+  overlook: "Outside of nursing school, I like running, hiking, and backpacking. My current goal is to qualify for the Boston Marathon.",
 } as const;
 
 export type PersonalBackgroundContent = typeof personalBackground;

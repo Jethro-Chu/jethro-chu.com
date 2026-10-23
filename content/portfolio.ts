@@ -219,7 +219,7 @@ export const landmarks: Landmark[] = [
     title: "The whole valley",
     faceset: FACE,
     authoredLine:
-      "New graduate BSN candidate (December 2026) focused on critical care and cardiovascular nursing, building live clinical software shaped by bedside experience.",
+      "I'm Jethro, a nursing student at Azusa Pacific University graduating in December 2026. I'm interested in critical care and cardiac nursing. I also like building websites and working on random projects when I have an idea I want to try.",
     body: [
       personalBackground.overlook,
     ],
