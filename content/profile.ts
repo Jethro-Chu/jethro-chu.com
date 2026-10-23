@@ -359,22 +359,16 @@ export const profile = {
   // editable "currently building" cards
   currentFocus: [
     {
-      project: "NurseJet",
-      status: "Live · publishing daily",
-      improving: "Sharper specialty filtering and faster-to-act briefs.",
-      why: "It only works if a nurse can trust it and use it on shift.",
-    },
-    {
-      project: "Lab Logger",
-      status: "Live · ongoing UX",
-      improving: "The path from raw capture to a trustworthy AI summary.",
-      why: "Documentation has to feel lighter than the experiment it records.",
-    },
-    {
       project: "Jethro OS (this site)",
       status: "In progress",
       improving: "The Ask-Jethro assistant and per-project deep dives.",
       why: "People should be able to ask what I build instead of digging for it.",
+    },
+    {
+      project: "NurseJet",
+      status: "Live · publishing daily",
+      improving: "Sharper specialty filtering and faster-to-act briefs.",
+      why: "It only works if a nurse can trust it and use it on shift.",
     },
   ],
   contactEmail: contact.links.find((l) => l.label === "Email")?.href ?? "",

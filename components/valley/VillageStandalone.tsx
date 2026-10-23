@@ -10,8 +10,9 @@
    ============================================================ */
 
 import dynamic from "next/dynamic";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { gameBus } from "@/lib/gameBus";
+import { VillageLoadBoundary } from "./VillageLoadBoundary";
 
 const VillageMount = dynamic(() => import("@/components/valley/VillageMount"), {
   ssr: false,
@@ -47,6 +48,28 @@ export function VillageStandalone() {
   const [playing, setPlaying] = useState(true);
   const [capable, setCapable] = useState(true);
   const [roomOpen, setRoomOpen] = useState(false);
+  const recover = useCallback(() => {
+    setRoomOpen(false);
+    setPlaying(false);
+  }, []);
+
+  // Covers both dynamic imports, renderer boot, requests and image decoding.
+  // The readable portfolio is already server-rendered beneath this overlay.
+  useEffect(() => {
+    if (!playing) return;
+    const timer = window.setTimeout(() => {
+      console.error("[village] Initialization exceeded 5000ms; showing readable portfolio");
+      recover();
+    }, 5000);
+    const offReady = gameBus.on("game:ready", () => clearTimeout(timer));
+    const offError = gameBus.on("game:error", recover);
+    if (gameBus.isGameReady()) clearTimeout(timer);
+    return () => {
+      clearTimeout(timer);
+      offReady();
+      offError();
+    };
+  }, [playing, recover]);
 
   useEffect(() => {
     const able = ok();
@@ -97,7 +120,9 @@ export function VillageStandalone() {
     <div className="z-30 bg-[#3f7a57]" style={{ position: "fixed", inset: 0 }}>
       {/* the exit lives inside the village nav ("← Portfolio"); the intro's
           skip link covers leaving before PLAY, and ESC works throughout */}
-      <VillageMount onLeave={leaveToSite} />
+      <VillageLoadBoundary onFailure={recover}>
+        <VillageMount onLeave={leaveToSite} />
+      </VillageLoadBoundary>
     </div>
   ) : (
     <button

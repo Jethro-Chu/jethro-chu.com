@@ -1,3 +1,4 @@
+import { protectApi } from "@/lib/apiSecurity";
 import { NextResponse } from "next/server";
 import { readFileSync } from "fs";
 import { join } from "path";
@@ -38,7 +39,7 @@ interface GeminiResponse {
   candidates?: { content?: { parts?: { text?: string }[] } }[];
 }
 
-export async function POST(request: Request) {
+async function handlePOST(request: Request) {
   const apiKey = process.env.GEMINI_API_KEY;
 
   let question = "";
@@ -58,6 +59,7 @@ export async function POST(request: Request) {
     const res = await fetch(ENDPOINT, {
       method: "POST",
       headers: { "Content-Type": "application/json", "x-goog-api-key": apiKey },
+      signal: AbortSignal.timeout(15_000),
       body: JSON.stringify({
         systemInstruction: { parts: [{ text: systemText }] },
         contents: [{ role: "user", parts: [{ text: question }] }],
@@ -67,7 +69,7 @@ export async function POST(request: Request) {
 
     if (!res.ok) {
       // log server-side only; never leak provider details to the client
-      console.error(`[ask-jethro] Gemini ${res.status}:`, (await res.text()).slice(0, 400));
+      console.error(`[ask-jethro] Gemini ${res.status}`);
       return NextResponse.json({ error: "upstream" }, { status: 502 });
     }
 
@@ -84,3 +86,5 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "network" }, { status: 502 });
   }
 }
+
+export const POST = protectApi(handlePOST, { scope: "ai", perMinute: 8, daily: 400, maxBytes: 8192 });

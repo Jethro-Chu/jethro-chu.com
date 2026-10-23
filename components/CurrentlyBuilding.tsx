@@ -20,7 +20,13 @@ export function CurrentlyBuilding() {
           Currently building
         </h2>
 
-        <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        <div
+          className={`mt-10 grid gap-5 ${
+            profile.currentFocus.length <= 2
+              ? "sm:grid-cols-2"
+              : "sm:grid-cols-2 lg:grid-cols-3"
+          }`}
+        >
           {profile.currentFocus.map((f, i) => (
             <Reveal key={f.project} delay={i * 0.06}>
               <article className="h-full rounded-md border border-[var(--color-granite-line)] bg-[var(--color-card)] p-5">

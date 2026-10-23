@@ -172,8 +172,7 @@ export const about = {
   // Clinical detail is kept generic for the same reason.
   body: [
     "I'm a BSN nursing student.",
-    "I've done clinical rotations across several hospital systems. On the side I build software like Lab Logger, and I climb granite in the Sierra.",
-    "This is the top of Half Dome, 8,839 feet up.",
+    "I've done clinical rotations across several hospital around southern california. On the side I love building software and websites, and I love hiking.",
   ],
 } as const;
 

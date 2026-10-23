@@ -39,3 +39,4 @@ next-env.d.ts
 # New Grad tracker: local batch inbox + backups (never committed)
 data/newgrad/inbox/
 data/newgrad/*.bak
+data/newgrad/private/

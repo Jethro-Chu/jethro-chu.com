@@ -12,6 +12,7 @@
 import * as Phaser from "phaser";
 import { gameBus } from "@/lib/gameBus";
 import { landmarks } from "@/content/portfolio";
+import { queueVillageAssets, type VillageAsset } from "../villageAssets";
 
 export const TILE = 16;
 
@@ -221,24 +222,56 @@ export class VillageScene extends Phaser.Scene {
   private signs: Record<string, Phaser.GameObjects.Image> = {};
   private fogs: Phaser.GameObjects.TileSprite[] = [];
   private introDrift?: Phaser.Tweens.Tween;
+  private assetResults?: ReturnType<typeof queueVillageAssets>;
+  private assets: VillageAsset[] = [];
+  private initialized = false;
 
   constructor() {
     super("village");
   }
 
   preload() {
-    for (const t of TILESETS) this.load.image(t.key, `${BASE}${t.file}.png`);
-    // atmosphere FX from the pack (fog sheet + a slanting light ray)
-    this.load.image("fog", "/game/ninja-adventure/fx/Fog.png");
-    this.load.image("raylight", "/game/ninja-adventure/fx/Raylight.png");
     const S = "/game/ninja-adventure/sprites/";
-    for (const k of ["bear", "racoon", "frog", "cat", "villager", "oldman"])
-      this.load.spritesheet(k, `${S}${k}.png`, { frameWidth: TILE, frameHeight: TILE });
-    // player — Jethro: front-facing idle + 4-frame walk (no side/back art)
-    this.load.spritesheet("jethro", "/game/jethro/player.png", { frameWidth: PLAYER_FW, frameHeight: PLAYER_FH });
+    this.assets = [
+      ...TILESETS.map((t) => ({ key: t.key, url: `${BASE}${t.file}.png`, required: true })),
+      { key: "fog", url: "/game/ninja-adventure/fx/Fog.png" },
+      { key: "raylight", url: "/game/ninja-adventure/fx/Raylight.png" },
+      ...["bear", "racoon", "frog", "cat", "villager", "oldman"].map((key) => ({
+        key, url: `${S}${key}.png`, frameConfig: { frameWidth: TILE, frameHeight: TILE },
+      })),
+      { key: "jethro", url: "/game/jethro/player.png", required: true,
+        frameConfig: { frameWidth: PLAYER_FW, frameHeight: PLAYER_FH } },
+    ];
+    this.assetResults = queueVillageAssets(this, this.assets);
   }
 
   create() {
+    // Register teardown before any world-building step can throw.
+    this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => this.teardown());
+    void this.initialize();
+  }
+
+  private async initialize() {
+    try {
+      const results = await this.assetResults;
+      if (!this.sys.game || this.registry.get("village:disposed") || !this.sys.isActive()) return;
+      const missing = this.assets.filter((asset, i) =>
+        asset.required && results?.[i].status === "rejected");
+      if (missing.length) throw new Error(`Missing required assets: ${missing.map((a) => a.url).join(", ")}`);
+      this.buildWorld();
+      this.initialized = true;
+      if (process.env.NODE_ENV !== "production")
+        (window as unknown as { __village?: unknown }).__village = this;
+      gameBus.emit("game:ready");
+    } catch (error) {
+      console.error("[village] Scene initialization failed", error);
+      gameBus.emit("game:error", { error });
+    } finally {
+      this.assetResults = undefined;
+    }
+  }
+
+  private buildWorld() {
     this.buildGround();
     this.buildPlayer();
     this.makeBushTextures();
@@ -278,11 +311,6 @@ export class VillageScene extends Phaser.Scene {
     });
     this.player.setVisible(false);
     this.playerShadow.setVisible(false);
-
-    this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => this.teardown());
-    if (process.env.NODE_ENV !== "production")
-      (window as unknown as { __village?: unknown }).__village = this;
-    gameBus.emit("game:ready");
   }
 
   private gid(ts: string, localId: number) {
@@ -692,7 +720,7 @@ export class VillageScene extends Phaser.Scene {
       [618, 84, 1.6, 0.09],
       [SPAWN.tx * TILE, SPAWN.ty * TILE - 26, 1.9, 0.05],
     ];
-    rays.forEach(([x, y, s, a], i) => {
+    if (this.textures.exists("raylight")) rays.forEach(([x, y, s, a], i) => {
       const r = this.add
         .image(x, y, "raylight")
         .setScale(s)
@@ -710,7 +738,7 @@ export class VillageScene extends Phaser.Scene {
     });
 
     // two counter-drifting fog sheets, barely-there (drifted in update())
-    for (const [alpha, depth] of [[0.055, 9550], [0.038, 9560]] as const) {
+    if (this.textures.exists("fog")) for (const [alpha, depth] of [[0.055, 9550], [0.038, 9560]] as const) {
       this.fogs.push(
         this.add.tileSprite(0, 0, W, H, "fog").setOrigin(0).setAlpha(alpha).setDepth(depth)
       );
@@ -1439,7 +1467,7 @@ export class VillageScene extends Phaser.Scene {
   }
 
   update(time: number, delta: number) {
-    if (!this.player) return;
+    if (!this.initialized) return;
     this.shimmers.forEach((s, i) => (s.tilePositionX += (i === 0 ? 0.32 : -0.22) * (delta / 16)));
     this.fogs.forEach((f, i) => {
       f.tilePositionX += (i === 0 ? 0.045 : -0.03) * (delta / 16);
@@ -1683,7 +1711,7 @@ export class VillageScene extends Phaser.Scene {
   }
 
   private teardown() {
-    gameBus.emit("game:shutdown");
+    this.initialized = false;
     this.busOff.forEach((off) => off());
     this.busOff = [];
     this.input.removeAllListeners();

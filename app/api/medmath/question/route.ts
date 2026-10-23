@@ -1,3 +1,4 @@
+import { protectApi } from "@/lib/apiSecurity";
 import { NextRequest, NextResponse } from "next/server";
 import {
   generateCanvasMedMathExam,
@@ -8,7 +9,7 @@ import type { MedMathCategory, PracticeDifficultySelection } from "@/lib/medmath
 
 export const dynamic = "force-dynamic";
 
-export async function POST(req: NextRequest) {
+async function handlePOST(req: NextRequest) {
   try {
     const body = (await req.json()) as {
       categories?: MedMathCategory[];
@@ -65,3 +66,5 @@ export async function POST(req: NextRequest) {
     );
   }
 }
+
+export const POST = protectApi(handlePOST, { scope: "medmath-question", perMinute: 60, daily: 10000, maxBytes: 32768 });

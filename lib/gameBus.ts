@@ -11,6 +11,8 @@ export interface ValleyEventMap {
   "game:ready": void;
   /** the Phaser scene is shutting down */
   "game:shutdown": void;
+  /** initialization failed; show the existing readable portfolio */
+  "game:error": { error: unknown };
   /** the player walked into a landmark trigger zone (opens the interior room) */
   "landmark:enter": { id: string };
   /** a landmark was discovered for the first time (HUD/minimap) */

@@ -1,3 +1,6 @@
+import { ownerToken, ownsSession } from "@/lib/medmath/sessionSecurity";
+import { getSession } from "@/lib/medmath/store";
+import { protectApi } from "@/lib/apiSecurity";
 import { NextRequest, NextResponse } from "next/server";
 import { gradeAttempt, getCachedQuestionInstance } from "@/lib/medmath/engine";
 import { recordAttempt } from "@/lib/medmath/store";
@@ -5,13 +8,19 @@ import type { AttemptSubmission, StoredAttemptRecord } from "@/lib/medmath/types
 
 export const dynamic = "force-dynamic";
 
-export async function POST(req: NextRequest) {
+async function handlePOST(req: NextRequest) {
   try {
     const body = (await req.json()) as AttemptSubmission & {
       action?: "grade" | "hint" | "reveal-solution";
       hintIndex?: number;
     };
 
+    if (typeof body?.sessionId !== "string" || body.sessionId.length > 100 || typeof body.instanceId !== "string" || body.instanceId.length > 200) return NextResponse.json({ error: "Invalid attempt" }, { status: 400 });
+    const session = await getSession(body.sessionId);
+    if (session && !ownsSession(session, ownerToken(req))) return NextResponse.json({ error: "Session not found" }, { status: 404 });
+    if (body.action === undefined || body.action === "grade") {
+      if (typeof body.submittedAnswer !== "string" || body.submittedAnswer.length > 200 || !Number.isInteger(body.attemptNumber) || body.attemptNumber < 1 || body.attemptNumber > 100) return NextResponse.json({ error: "Invalid attempt" }, { status: 400 });
+    }
     const instance = getCachedQuestionInstance(body.instanceId);
     if (!instance) {
       return NextResponse.json(
@@ -73,3 +82,5 @@ export async function POST(req: NextRequest) {
     );
   }
 }
+
+export const POST = protectApi(handlePOST, { scope: "medmath-attempt", perMinute: 120, daily: 20000, maxBytes: 32768 });

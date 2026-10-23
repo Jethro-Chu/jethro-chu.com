@@ -1,36 +1,13 @@
+import { protectApi } from "@/lib/apiSecurity";
+import { timingSafeEqual } from "node:crypto";
 import { NextRequest, NextResponse } from "next/server";
 import { getAllSuggestions, saveSuggestion } from "@/lib/newgrad/suggestions";
 
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
 
-const ipRequests = new Map<string, { count: number; resetAt: number }>();
-
-function isRateLimited(ip: string): boolean {
-  const now = Date.now();
-  const entry = ipRequests.get(ip);
-  if (!entry || entry.resetAt <= now) {
-    ipRequests.set(ip, { count: 1, resetAt: now + 60_000 });
-    return false;
-  }
-  entry.count += 1;
-  return entry.count > 10; // 10 suggestions per minute per IP
-}
-
-export async function POST(request: NextRequest) {
+async function handlePOST(request: NextRequest) {
   try {
-    const ip =
-      request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ??
-      request.headers.get("x-real-ip") ??
-      "anonymous";
-
-    if (isRateLimited(ip)) {
-      return NextResponse.json(
-        { error: "Too many suggestions submitted. Please wait a moment." },
-        { status: 429 },
-      );
-    }
-
     const body = (await request.json()) as {
       hospital_name?: unknown;
       location?: unknown;
@@ -52,7 +29,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    if (body.url && (typeof body.url !== "string" || body.url.length > 2048)) {
+    if (body.url && (typeof body.url !== "string" || body.url.length > 2048 || !safeWebUrl(body.url))) {
       return NextResponse.json(
         { error: "The provided URL is invalid or too long." },
         { status: 400 },
@@ -64,6 +41,12 @@ export async function POST(request: NextRequest) {
         { error: "Notes cannot exceed 2000 characters." },
         { status: 400 },
       );
+    }
+
+    for (const value of [body.location, body.city, body.state]) {
+      if (value !== undefined && value !== null && (typeof value !== "string" || value.length > 300)) {
+        return NextResponse.json({ error: "Invalid location." }, { status: 400 });
+      }
     }
 
     const resolvedLocation =
@@ -95,14 +78,21 @@ export async function POST(request: NextRequest) {
   }
 }
 
-export async function GET() {
+export async function GET(request: NextRequest) {
+  const token = process.env.NEWGRAD_ADMIN_TOKEN;
+  const supplied = request.headers.get("authorization") ?? "";
+  const expected = token ? `Bearer ${token}` : "";
+  if (!token || Buffer.byteLength(supplied) !== Buffer.byteLength(expected) ||
+      !timingSafeEqual(Buffer.from(supplied), Buffer.from(expected))) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401, headers: { "Cache-Control": "no-store" } });
+  }
   try {
     const suggestions = await getAllSuggestions();
     return NextResponse.json({
       ok: true,
       count: suggestions.length,
       suggestions,
-    });
+    }, { headers: { "Cache-Control": "no-store" } });
   } catch (error) {
     console.error("[api/newgrad/suggestions] GET error:", error);
     return NextResponse.json(
@@ -111,3 +101,10 @@ export async function GET() {
     );
   }
 }
+
+function safeWebUrl(value: string): boolean {
+  try { const u = new URL(value); return ["https:", "http:"].includes(u.protocol) && !u.username && !u.password; }
+  catch { return false; }
+}
+
+export const POST = protectApi(handlePOST, { scope: "suggestions", perMinute: 3, daily: 200, maxBytes: 8192 });

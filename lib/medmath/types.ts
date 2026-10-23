@@ -238,6 +238,8 @@ export interface SessionConfig {
 
 export interface StoredSession {
   sessionId: string;
+  /** Server-only browser capability hash. Never accepted from a request. */
+  ownerHash?: string;
   visitorId: string;
   sessionType: SessionType;
   selectedCategories: MedMathCategory[];

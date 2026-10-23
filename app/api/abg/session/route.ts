@@ -1,3 +1,4 @@
+import { protectApi } from "@/lib/apiSecurity";
 import { NextRequest, NextResponse } from "next/server";
 import { publicQuestion, sessionSummary, startSession } from "@/lib/abg/service";
 import { checkRateLimit, getPlayer, getRank, getSession } from "@/lib/abg/store";
@@ -5,7 +6,7 @@ import { checkRateLimit, getPlayer, getRank, getSession } from "@/lib/abg/store"
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
 
-export async function POST(request: NextRequest) {
+async function handlePOST(request: NextRequest) {
   try {
     const playerId = request.cookies.get("abg_player")?.value;
     if (!playerId || !await getPlayer(playerId)) return NextResponse.json({ error: "Create an ABG name first." }, { status: 401 });
@@ -36,3 +37,5 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ error: "Could not restore the session." }, { status: 500 });
   }
 }
+
+export const POST = protectApi(handlePOST, { scope: "abg-session", perMinute: 15, daily: 10000, maxBytes: 4096 });

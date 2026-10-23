@@ -1,0 +1,149 @@
+{
+  "productionUpdated": false,
+  "excludedExistingWork": [
+    "components/valley/VillageStandalone.tsx",
+    "game/PhaserVillage.tsx",
+    "game/scenes/VillageScene.ts",
+    "lib/gameBus.ts",
+    "components/valley/VillageLoadBoundary.tsx",
+    "game/villageAssets.ts",
+    "scripts/verify-website-loader.mjs"
+  ],
+  "files": [
+    {
+      "path": ".env.example",
+      "sha256": "11bf32adcf0e18ea7072dff96749f3ca3a7590d8dc9da7d38a8a3ccbad08b5c8",
+      "state": "local-change"
+    },
+    {
+      "path": ".gitignore",
+      "sha256": "4c54990f102bd06ee9f809c3ce1b3cca6d6055ac2dd2e42b3095f558fd7463fc",
+      "state": "local-change"
+    },
+    {
+      "path": "app/api/abg/attempt/route.ts",
+      "sha256": "d67a00c19f0b19e7d3f3d3f83245c1c4daa3f4dbe0b7547fde7d97c1f6a09af5",
+      "state": "local-change"
+    },
+    {
+      "path": "app/api/abg/player/route.ts",
+      "sha256": "b3bd1e1ae7fe8a97a012137940fc5217550df7f409fe8500614c3dd70d0cc988",
+      "state": "local-change"
+    },
+    {
+      "path": "app/api/abg/session/route.ts",
+      "sha256": "d6940727c6f04072a1a041ab0bbad306a44c58f9ebceaeae54581e52bea324db",
+      "state": "local-change"
+    },
+    {
+      "path": "app/api/ask-jethro/route.ts",
+      "sha256": "12d0f1c083e566bd8f23d26490e9d41e2ae2b9e2848f7245a148f3be6702732f",
+      "state": "local-change"
+    },
+    {
+      "path": "app/api/iqtest/results/route.ts",
+      "sha256": "96b97dbc00eeada0746d9008f42e6c43f89a05d5f81b94160a68d04e32245ccf",
+      "state": "local-change"
+    },
+    {
+      "path": "app/api/medical-akinator/route.ts",
+      "sha256": "f5aaff929c4e68e10bed5ddc752a4626a2685d787e0d3057abab950e2e10e7ca",
+      "state": "local-change"
+    },
+    {
+      "path": "app/api/medmath/attempt/route.ts",
+      "sha256": "56b2af24102ac461c8bb8095389f88867f3de44e3846cce3993e96f4d37126ea",
+      "state": "local-change"
+    },
+    {
+      "path": "app/api/medmath/complete/route.ts",
+      "sha256": "b40b13e2b74629465fd7656744b8161ad81a6447f83689d27d1f99bcc9061bc4",
+      "state": "local-change"
+    },
+    {
+      "path": "app/api/medmath/question/route.ts",
+      "sha256": "4b0fd8c0e02f2b5e35ecb3fa19ff680a181393bebaa9de0c85cc937f41669abe",
+      "state": "local-change"
+    },
+    {
+      "path": "app/api/medmath/session/route.ts",
+      "sha256": "127a1c3a85434644232eb0cf090a8a3eb4ff59d280754bda118cf9350964eec3",
+      "state": "local-change"
+    },
+    {
+      "path": "app/api/newgrad/suggestions/route.ts",
+      "sha256": "5dd73473ca9570cae0d59e328dd7d694dc5222c41c5d5af7a893d049eb162f98",
+      "state": "local-change"
+    },
+    {
+      "path": "app/medmath/results/[sessionId]/page.tsx",
+      "sha256": "8041289c3cad4e8318e0fba07ddc86ab9f8f07577f1deeaddaa60a69adb1143b",
+      "state": "local-change"
+    },
+    {
+      "path": "docs/newgrad/automation.md",
+      "sha256": "6e73fb71c3f3925f7a19ac72c5e83605efad8282387a9cad61dc8c576e55e8aa",
+      "state": "local-change"
+    },
+    {
+      "path": "lib/medmath/store.ts",
+      "sha256": "1c006a0d5869cbb7c6a678b30cf373d42287972c46fb3deac8be3f03eb402f8f",
+      "state": "local-change"
+    },
+    {
+      "path": "lib/medmath/types.ts",
+      "sha256": "acf654408b301496f0d107b749e3b6bdbf1e876cf00972270887ae9e7de758e6",
+      "state": "local-change"
+    },
+    {
+      "path": "lib/newgrad/suggestions.ts",
+      "sha256": "55202431655f822017ee7771de91dab0e849e22152a57676c6ce1f698230a836",
+      "state": "local-change"
+    },
+    {
+      "path": "next.config.mjs",
+      "sha256": "2bbaeffade782e22b3c862d05748cb8bd13e4f7f2cbb5ea5803362c106a860d8",
+      "state": "local-change"
+    },
+    {
+      "path": "package-lock.json",
+      "sha256": "c20d334c77c306d901336d5d5fdb487cf2cabc6aa92cb12126c9f570e1bb7edc",
+      "state": "local-change"
+    },
+    {
+      "path": "package.json",
+      "sha256": "c72936402a7528b182062e74d3c92ad0edc288f9023a24952ccb07318e34d461",
+      "state": "local-change"
+    },
+    {
+      "path": "scripts/verify-medmath-http.ts",
+      "sha256": "8bc8d151c08703fc4827acaa45fd9d96500c052c3f66a50920b6ad6d580abbc2",
+      "state": "local-change"
+    },
+    {
+      "path": "SECURITY_AUDIT.md",
+      "sha256": "1c4d15fe79e6215a44d1a05341e4a3cb55818ac594b0240bec00fd0e78cb9120",
+      "state": "local-change"
+    },
+    {
+      "path": "audit/dependency-audit.json",
+      "sha256": "4c56cb517f56b4f62565be75a12e452f250e0df592a2fd454d18a660aa196c4b",
+      "state": "local-change"
+    },
+    {
+      "path": "lib/apiSecurity.ts",
+      "sha256": "c0c48bdefd1158a125160e0f76d1a2b8271cd3e59b4db492f4021cf2a511eb15",
+      "state": "local-change"
+    },
+    {
+      "path": "lib/medmath/sessionSecurity.ts",
+      "sha256": "ae91c378fc51b5cfe34d0384d641d71ca3a9bc786552f773b004070890f08b8b",
+      "state": "local-change"
+    },
+    {
+      "path": "scripts/verify-security.mjs",
+      "sha256": "6dfb9543b3e21a765a5bd3403c78fb0fef3202e5a69afab4d9e0c42d684ff9ea",
+      "state": "local-change"
+    }
+  ]
+}

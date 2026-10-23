@@ -1,3 +1,4 @@
+import { protectApi } from "@/lib/apiSecurity";
 import { NextRequest, NextResponse } from "next/server";
 import { ABG_COMPENSATIONS, ABG_DISORDERS } from "@/lib/abg/types";
 import { submitAnswer } from "@/lib/abg/service";
@@ -6,7 +7,7 @@ import { checkRateLimit, getPlayer } from "@/lib/abg/store";
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
 
-export async function POST(request: NextRequest) {
+async function handlePOST(request: NextRequest) {
   try {
     const playerId = request.cookies.get("abg_player")?.value;
     if (!playerId || !await getPlayer(playerId)) return NextResponse.json({ error: "Player not found." }, { status: 401 });
@@ -26,3 +27,5 @@ export async function POST(request: NextRequest) {
   }
 }
 
+
+export const POST = protectApi(handlePOST, { scope: "abg-attempt", perMinute: 100, daily: 20000, maxBytes: 4096 });

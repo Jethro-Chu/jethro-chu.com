@@ -17,11 +17,18 @@ function assert(condition: unknown, message: string): asserts condition {
   if (!condition) throw new Error(message);
 }
 
+let verificationCookie = "";
+
 async function requestJson<T>(
   path: string,
   init?: RequestInit,
 ): Promise<T> {
-  const response = await fetch(`${baseUrl}${path}`, init);
+  const response = await fetch(`${baseUrl}${path}`, {
+    ...init,
+    headers: { ...Object.fromEntries(new Headers(init?.headers)), Origin: process.env.MEDMATH_TEST_ORIGIN ?? new URL(baseUrl).origin, ...(verificationCookie ? { Cookie: verificationCookie } : {}) },
+  });
+  const setCookie = response.headers.get("set-cookie");
+  if (setCookie?.startsWith("medmath_owner=")) verificationCookie = setCookie.split(";")[0];
   const payload = (await response.json()) as T & { error?: string };
   assert(
     response.ok,
@@ -162,6 +169,21 @@ assert(
   saved.session.examReview.every((item) => item.isCorrect),
   "Saved HTTP result contains an incorrectly graded known answer",
 );
+
+const privatePath = `/api/medmath/session?sessionId=${encodeURIComponent(sessionId)}`;
+const testOrigin = process.env.MEDMATH_TEST_ORIGIN ?? new URL(baseUrl).origin;
+const unauthorized = await fetch(`${baseUrl}${privatePath}`);
+assert(unauthorized.status === 404, "An unrelated browser could read the session");
+const unauthorizedWrite = await fetch(`${baseUrl}/api/medmath/session`, {
+  method: "POST", headers: { "Content-Type": "application/json", Origin: testOrigin },
+  body: JSON.stringify(saved.session),
+});
+assert(unauthorizedWrite.status === 404, "An unrelated browser could overwrite the session");
+const unauthorizedPage = await fetch(`${baseUrl}/medmath/results/${sessionId}`);
+assert(unauthorizedPage.status === 404, "A result page leaked to an unrelated browser");
+const authorizedPage = await fetch(`${baseUrl}/medmath/results/${sessionId}`, { headers: { Cookie: verificationCookie } });
+assert(authorizedPage.status === 200, "The owner could not view the result page");
+console.log("PASS: unauthorized session reads, writes, and result-page access denied; owner access retained.");
 
 console.log(
   `PASS: generated, graded, persisted, and re-read ${exam.questions.length} known-correct questions over HTTP.`,

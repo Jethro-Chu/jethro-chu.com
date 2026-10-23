@@ -1,3 +1,5 @@
+import { cookies } from "next/headers";
+import { OWNER_COOKIE, ownsSession } from "@/lib/medmath/sessionSecurity";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getSession } from "@/lib/medmath/store";
@@ -16,7 +18,7 @@ export default async function MedMathResultsPage({ params }: ResultsPageProps) {
   const { sessionId } = await params;
   const session = await getSession(sessionId);
 
-  if (!session) {
+  if (!session || !ownsSession(session, (await cookies()).get(OWNER_COOKIE)?.value)) {
     return notFound();
   }
 
