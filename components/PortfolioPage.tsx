@@ -15,7 +15,6 @@ import { AskJethroProvider } from "@/components/ask-jethro/AskJethro";
 import { EyeScrollProvider } from "@/components/eye-scroll/EyeScroll";
 import { FloatingAsk } from "@/components/ask-jethro/triggers";
 import { CurrentlyBuilding } from "@/components/CurrentlyBuilding";
-import { CaseStudyExplorer } from "@/components/CaseStudyExplorer";
 import { Method } from "@/components/Method";
 
 export function PortfolioPage() {
@@ -39,7 +38,6 @@ export function PortfolioPage() {
             <Approach />
             <Projects />
             <CurrentlyBuilding />
-            <CaseStudyExplorer />
             <Method />
             <About />
           </main>
