@@ -403,5 +403,26 @@
       "kind": "text",
       "value": "November 2026"
     }
+  },
+  {
+    "id": "cohort_96a9e93a33",
+    "program_id": "prog_76bb8bd11f",
+    "label": "Monthly Cohorts 2026-2027",
+    "program_start": null
+  },
+  {
+    "id": "cohort_54301c4e6f",
+    "program_id": "prog_a68b06dcb8",
+    "label": "2026-2027 Cohorts",
+    "program_start": null
+  },
+  {
+    "id": "cohort_c64aa325af",
+    "program_id": "prog_a68b06dcb8",
+    "label": "March 2027",
+    "program_start": {
+      "kind": "text",
+      "value": "March 2027"
+    }
   }
 ]

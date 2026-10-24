@@ -9342,5 +9342,578 @@
         "claim": "license"
       }
     ]
+  },
+  {
+    "id": "hist_2026-10-24-daily_0001",
+    "run_id": "2026-10-24-daily",
+    "at": "2026-10-24T12:18:39.243Z",
+    "type": "CLOSED",
+    "opportunity_id": "opp_afb6ead28f",
+    "changes": [
+      {
+        "field": "application_status",
+        "before": "OPEN",
+        "after": "CLOSED"
+      },
+      {
+        "field": "closed_at",
+        "before": null,
+        "after": "2026-10-24T12:18:39.243Z"
+      }
+    ],
+    "reason": "Official evidence verified closure.",
+    "evidence": [
+      {
+        "source_url": "https://employment.ucsd.edu/nursing",
+        "excerpt": "Filing Deadline: Thu 10/22/2026. This posting for the March 2027 Nurse Residency Program Cohort is closed.",
+        "retrieved_at": "2026-10-24T12:15:00.000Z",
+        "claim": "closure"
+      },
+      {
+        "source_url": "https://employment.ucsd.edu/rn-new-grad-registered-nurse-neonatal-icu-141812/job/82189E26CBD188F262759D783070B937",
+        "excerpt": "This posting is for our March 2027 Nurse Residency Program Cohort. Filing Deadline: Thu 10/22/2026. Date Posted: 10/13/2026.",
+        "retrieved_at": "2026-10-24T12:15:00.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://employment.ucsd.edu/rn-new-grad-registered-nurse-neonatal-icu-141812/job/82189E26CBD188F262759D783070B937",
+        "excerpt": "The New Graduate Nurse Transition to Practice Program is accredited with distinction as a Practice Transition Program by the ANCC... designed to support our New Grads with a comprehensive transition-to-practice experience.",
+        "retrieved_at": "2026-10-24T12:15:00.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://employment.ucsd.edu/rn-new-grad-registered-nurse-neonatal-icu-141812/job/82189E26CBD188F262759D783070B937",
+        "excerpt": "California RN license by start date. Licensure and certification are not required at time of application but will be required by the cohort start date.",
+        "retrieved_at": "2026-10-24T12:15:00.000Z",
+        "claim": "license_timing"
+      },
+      {
+        "source_url": "https://employment.ucsd.edu/rn-new-grad-registered-nurse-neonatal-icu-141812/job/82189E26CBD188F262759D783070B937",
+        "excerpt": "Filing Deadline: Thu 10/22/2026. This posting is for our March 2027 Nurse Residency Program Cohort.",
+        "retrieved_at": "2026-10-24T12:15:00.000Z",
+        "claim": "deadline"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-10-24-daily_0002",
+    "run_id": "2026-10-24-daily",
+    "at": "2026-10-24T12:18:39.243Z",
+    "type": "UPDATED",
+    "opportunity_id": "opp_afb6ead28f",
+    "changes": [
+      {
+        "field": "application_status",
+        "before": "OPEN",
+        "after": "CLOSED"
+      },
+      {
+        "field": "closed_at",
+        "before": null,
+        "after": "2026-10-24T12:18:39.243Z"
+      }
+    ],
+    "reason": "Updated from run evidence (CLOSED).",
+    "evidence": [
+      {
+        "source_url": "https://employment.ucsd.edu/nursing",
+        "excerpt": "Filing Deadline: Thu 10/22/2026. This posting for the March 2027 Nurse Residency Program Cohort is closed.",
+        "retrieved_at": "2026-10-24T12:15:00.000Z",
+        "claim": "closure"
+      },
+      {
+        "source_url": "https://employment.ucsd.edu/rn-new-grad-registered-nurse-neonatal-icu-141812/job/82189E26CBD188F262759D783070B937",
+        "excerpt": "This posting is for our March 2027 Nurse Residency Program Cohort. Filing Deadline: Thu 10/22/2026. Date Posted: 10/13/2026.",
+        "retrieved_at": "2026-10-24T12:15:00.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://employment.ucsd.edu/rn-new-grad-registered-nurse-neonatal-icu-141812/job/82189E26CBD188F262759D783070B937",
+        "excerpt": "The New Graduate Nurse Transition to Practice Program is accredited with distinction as a Practice Transition Program by the ANCC... designed to support our New Grads with a comprehensive transition-to-practice experience.",
+        "retrieved_at": "2026-10-24T12:15:00.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://employment.ucsd.edu/rn-new-grad-registered-nurse-neonatal-icu-141812/job/82189E26CBD188F262759D783070B937",
+        "excerpt": "California RN license by start date. Licensure and certification are not required at time of application but will be required by the cohort start date.",
+        "retrieved_at": "2026-10-24T12:15:00.000Z",
+        "claim": "license_timing"
+      },
+      {
+        "source_url": "https://employment.ucsd.edu/rn-new-grad-registered-nurse-neonatal-icu-141812/job/82189E26CBD188F262759D783070B937",
+        "excerpt": "Filing Deadline: Thu 10/22/2026. This posting is for our March 2027 Nurse Residency Program Cohort.",
+        "retrieved_at": "2026-10-24T12:15:00.000Z",
+        "claim": "deadline"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-10-24-daily_0003",
+    "run_id": "2026-10-24-daily",
+    "at": "2026-10-24T12:18:39.243Z",
+    "type": "CLOSED",
+    "opportunity_id": "opp_feb65b9edc",
+    "changes": [
+      {
+        "field": "application_status",
+        "before": "OPEN",
+        "after": "CLOSED"
+      },
+      {
+        "field": "closed_at",
+        "before": null,
+        "after": "2026-10-24T12:18:39.243Z"
+      }
+    ],
+    "reason": "Official evidence verified closure.",
+    "evidence": [
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/102609/new-grad-rn-ortho-trauma-general-surgery-unit-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "This job is no longer available. Please try another search.",
+        "retrieved_at": "2026-10-24T12:15:00.000Z",
+        "claim": "closure"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/102609/new-grad-rn-ortho-trauma-general-surgery-unit-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "Requisition #: 677735 Location: Johns Hopkins Hospital, Baltimore, MD 21287 Category: Nursing New Grad RN Schedule: Rotating Shift Employment Type: Full Time",
+        "retrieved_at": "2026-10-24T12:15:00.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/102609/new-grad-rn-ortho-trauma-general-surgery-unit-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "No RN work experience required! Training will be provided - All New Grad RNs are automatically enrolled in our Nurse Residency Program ranked #3 in the nation!",
+        "retrieved_at": "2026-10-24T12:15:00.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/102609/new-grad-rn-ortho-trauma-general-surgery-unit-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "Qualifications : Associate degree in Nursing required Applicants with an Associate’s degree in nursing from an accredited nursing program may be considered",
+        "retrieved_at": "2026-10-24T12:15:00.000Z",
+        "claim": "education"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-10-24-daily_0004",
+    "run_id": "2026-10-24-daily",
+    "at": "2026-10-24T12:18:39.243Z",
+    "type": "UPDATED",
+    "opportunity_id": "opp_feb65b9edc",
+    "changes": [
+      {
+        "field": "application_status",
+        "before": "OPEN",
+        "after": "CLOSED"
+      },
+      {
+        "field": "closed_at",
+        "before": null,
+        "after": "2026-10-24T12:18:39.243Z"
+      }
+    ],
+    "reason": "Updated from run evidence (CLOSED).",
+    "evidence": [
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/102609/new-grad-rn-ortho-trauma-general-surgery-unit-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "This job is no longer available. Please try another search.",
+        "retrieved_at": "2026-10-24T12:15:00.000Z",
+        "claim": "closure"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/102609/new-grad-rn-ortho-trauma-general-surgery-unit-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "Requisition #: 677735 Location: Johns Hopkins Hospital, Baltimore, MD 21287 Category: Nursing New Grad RN Schedule: Rotating Shift Employment Type: Full Time",
+        "retrieved_at": "2026-10-24T12:15:00.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/102609/new-grad-rn-ortho-trauma-general-surgery-unit-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "No RN work experience required! Training will be provided - All New Grad RNs are automatically enrolled in our Nurse Residency Program ranked #3 in the nation!",
+        "retrieved_at": "2026-10-24T12:15:00.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/102609/new-grad-rn-ortho-trauma-general-surgery-unit-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "Qualifications : Associate degree in Nursing required Applicants with an Associate’s degree in nursing from an accredited nursing program may be considered",
+        "retrieved_at": "2026-10-24T12:15:00.000Z",
+        "claim": "education"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-10-24-daily_0005",
+    "run_id": "2026-10-24-daily",
+    "at": "2026-10-24T12:18:39.243Z",
+    "type": "CLOSED",
+    "opportunity_id": "opp_3a1d0e02ce",
+    "changes": [
+      {
+        "field": "application_status",
+        "before": "OPEN",
+        "after": "CLOSED"
+      },
+      {
+        "field": "closed_at",
+        "before": null,
+        "after": "2026-10-24T12:18:39.243Z"
+      }
+    ],
+    "reason": "Official evidence verified closure.",
+    "evidence": [
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/101319/new-grad-rn-sicu-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "This job is no longer available. Please try another search.",
+        "retrieved_at": "2026-10-24T12:15:00.000Z",
+        "claim": "closure"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/101319/new-grad-rn-sicu-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "No RN work experience required! Training will be provided - All New Grad RNs are automatically enrolled in our Nurse Residency Program ranked #3 in the nation!",
+        "retrieved_at": "2026-10-24T12:15:00.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/101319/new-grad-rn-sicu-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "Nursing New Grad RN Job: New Grad RN - SICU at Johns Hopkins Medicine in Johns Hopkins Hospital, Baltimore, MD",
+        "retrieved_at": "2026-10-24T12:15:00.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/101319/new-grad-rn-sicu-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "The Surgical Intensive Care Unit (Zayed 9 East) at Johns Hopkins is an 18-bed adult ICU which includes 4 dedicated cardiac surgery beds specializing in the care of critically ill post-operative surgical patients.",
+        "retrieved_at": "2026-10-24T12:15:00.000Z",
+        "claim": "unit"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/101319/new-grad-rn-sicu-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "Active Maryland or Compact RN license is required",
+        "retrieved_at": "2026-10-24T12:15:00.000Z",
+        "claim": "license"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/101319/new-grad-rn-sicu-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "Associate degree in Nursing required. Applicants with an Associate’s degree in nursing from an accredited nursing program may be considered, provided they are enrolled in an accredited BSN/MSN program within 1 year of hire and complete the degree within 4 years of hire",
+        "retrieved_at": "2026-10-24T12:15:00.000Z",
+        "claim": "education"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-10-24-daily_0006",
+    "run_id": "2026-10-24-daily",
+    "at": "2026-10-24T12:18:39.243Z",
+    "type": "UPDATED",
+    "opportunity_id": "opp_3a1d0e02ce",
+    "changes": [
+      {
+        "field": "application_status",
+        "before": "OPEN",
+        "after": "CLOSED"
+      },
+      {
+        "field": "closed_at",
+        "before": null,
+        "after": "2026-10-24T12:18:39.243Z"
+      }
+    ],
+    "reason": "Updated from run evidence (CLOSED).",
+    "evidence": [
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/101319/new-grad-rn-sicu-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "This job is no longer available. Please try another search.",
+        "retrieved_at": "2026-10-24T12:15:00.000Z",
+        "claim": "closure"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/101319/new-grad-rn-sicu-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "No RN work experience required! Training will be provided - All New Grad RNs are automatically enrolled in our Nurse Residency Program ranked #3 in the nation!",
+        "retrieved_at": "2026-10-24T12:15:00.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/101319/new-grad-rn-sicu-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "Nursing New Grad RN Job: New Grad RN - SICU at Johns Hopkins Medicine in Johns Hopkins Hospital, Baltimore, MD",
+        "retrieved_at": "2026-10-24T12:15:00.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/101319/new-grad-rn-sicu-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "The Surgical Intensive Care Unit (Zayed 9 East) at Johns Hopkins is an 18-bed adult ICU which includes 4 dedicated cardiac surgery beds specializing in the care of critically ill post-operative surgical patients.",
+        "retrieved_at": "2026-10-24T12:15:00.000Z",
+        "claim": "unit"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/101319/new-grad-rn-sicu-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "Active Maryland or Compact RN license is required",
+        "retrieved_at": "2026-10-24T12:15:00.000Z",
+        "claim": "license"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/101319/new-grad-rn-sicu-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "Associate degree in Nursing required. Applicants with an Associate’s degree in nursing from an accredited nursing program may be considered, provided they are enrolled in an accredited BSN/MSN program within 1 year of hire and complete the degree within 4 years of hire",
+        "retrieved_at": "2026-10-24T12:15:00.000Z",
+        "claim": "education"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-10-24-daily_0007",
+    "run_id": "2026-10-24-daily",
+    "at": "2026-10-24T12:18:39.243Z",
+    "type": "CLOSED",
+    "opportunity_id": "opp_99a5cca755",
+    "changes": [
+      {
+        "field": "application_status",
+        "before": "OPEN",
+        "after": "CLOSED"
+      },
+      {
+        "field": "closed_at",
+        "before": null,
+        "after": "2026-10-24T12:18:39.243Z"
+      }
+    ],
+    "reason": "Official evidence verified closure.",
+    "evidence": [
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/103427/new-grad-rn-hospitalist-unit-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "This job is no longer available. Please try another search.",
+        "retrieved_at": "2026-10-24T12:15:00.000Z",
+        "claim": "closure"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/103427/new-grad-rn-hospitalist-unit-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "Requirements: New grads RN's should apply. Baccalaureate degree, in nursing from an accredited School of Nursing, preferred. Applicants with an Associate Degree in nursing will be considered.",
+        "retrieved_at": "2026-10-24T12:15:00.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/103427/new-grad-rn-hospitalist-unit-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "Nursing New Grad RN Job: New Grad RN - Hospitalist Unit at Johns Hopkins Medicine in Johns Hopkins Hospital, Baltimore, MD. Requisition #: 677776.",
+        "retrieved_at": "2026-10-24T12:15:00.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/103427/new-grad-rn-hospitalist-unit-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "Active Maryland RN or Compact License at time of hire. Active BLS via AHA, American Red Cross or Military Training Network at time of hire",
+        "retrieved_at": "2026-10-24T12:15:00.000Z",
+        "claim": "license"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/103427/new-grad-rn-hospitalist-unit-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "Baccalaureate degree, in nursing from an accredited School of Nursing, preferred. Applicants with an Associate Degree in nursing will be considered. per nursing guidelines, must matriculate to Bachelors of Nursing program within 1 year of employment and complete their BSN within 4 years",
+        "retrieved_at": "2026-10-24T12:15:00.000Z",
+        "claim": "education"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/103427/new-grad-rn-hospitalist-unit-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "Our Meyer 8 Hospitalist unit tackles a diverse range of diagnoses, including sickle cell crisis, heart failure, sepsis, COPD/asthma, DVT/PE, and much more.",
+        "retrieved_at": "2026-10-24T12:15:00.000Z",
+        "claim": "unit"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-10-24-daily_0008",
+    "run_id": "2026-10-24-daily",
+    "at": "2026-10-24T12:18:39.243Z",
+    "type": "UPDATED",
+    "opportunity_id": "opp_99a5cca755",
+    "changes": [
+      {
+        "field": "application_status",
+        "before": "OPEN",
+        "after": "CLOSED"
+      },
+      {
+        "field": "closed_at",
+        "before": null,
+        "after": "2026-10-24T12:18:39.243Z"
+      }
+    ],
+    "reason": "Updated from run evidence (CLOSED).",
+    "evidence": [
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/103427/new-grad-rn-hospitalist-unit-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "This job is no longer available. Please try another search.",
+        "retrieved_at": "2026-10-24T12:15:00.000Z",
+        "claim": "closure"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/103427/new-grad-rn-hospitalist-unit-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "Requirements: New grads RN's should apply. Baccalaureate degree, in nursing from an accredited School of Nursing, preferred. Applicants with an Associate Degree in nursing will be considered.",
+        "retrieved_at": "2026-10-24T12:15:00.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/103427/new-grad-rn-hospitalist-unit-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "Nursing New Grad RN Job: New Grad RN - Hospitalist Unit at Johns Hopkins Medicine in Johns Hopkins Hospital, Baltimore, MD. Requisition #: 677776.",
+        "retrieved_at": "2026-10-24T12:15:00.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/103427/new-grad-rn-hospitalist-unit-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "Active Maryland RN or Compact License at time of hire. Active BLS via AHA, American Red Cross or Military Training Network at time of hire",
+        "retrieved_at": "2026-10-24T12:15:00.000Z",
+        "claim": "license"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/103427/new-grad-rn-hospitalist-unit-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "Baccalaureate degree, in nursing from an accredited School of Nursing, preferred. Applicants with an Associate Degree in nursing will be considered. per nursing guidelines, must matriculate to Bachelors of Nursing program within 1 year of employment and complete their BSN within 4 years",
+        "retrieved_at": "2026-10-24T12:15:00.000Z",
+        "claim": "education"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/103427/new-grad-rn-hospitalist-unit-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "Our Meyer 8 Hospitalist unit tackles a diverse range of diagnoses, including sickle cell crisis, heart failure, sepsis, COPD/asthma, DVT/PE, and much more.",
+        "retrieved_at": "2026-10-24T12:15:00.000Z",
+        "claim": "unit"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-10-24-daily_0009",
+    "run_id": "2026-10-24-daily",
+    "at": "2026-10-24T12:18:39.243Z",
+    "type": "NEW",
+    "opportunity_id": "opp_f1ac939d80",
+    "changes": null,
+    "reason": "First published from run evidence (OPEN).",
+    "evidence": [
+      {
+        "source_url": "https://osu.wd1.myworkdayjobs.com/OSUCareers/job/University-Hospital/Buckeye-Nurse-Residency-Program_R153518-1",
+        "excerpt": "The Ohio State Wexner Medical Center Health System Buckeye Nurse Residency Program provides support for the new graduate nurse as they transition from nursing student to professional clinician. Our program is a full-time, 12-month program and cohorts are added monthly.",
+        "retrieved_at": "2026-10-24T12:15:00.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://osu.wd1.myworkdayjobs.com/OSUCareers/job/University-Hospital/Buckeye-Nurse-Residency-Program_R153518-1",
+        "excerpt": "Graduate from a CCNE or ACEN accredited nursing program required; current licensure or interim permit in the practice of registered nursing from the State of Ohio Board of Nursing required; Bachelor’s Degree in Nursing preferred.",
+        "retrieved_at": "2026-10-24T12:15:00.000Z",
+        "claim": "license"
+      },
+      {
+        "source_url": "https://osu.wd1.myworkdayjobs.com/OSUCareers/job/University-Hospital/Buckeye-Nurse-Residency-Program_R153518-1",
+        "excerpt": "Positions can be located at University Hospital, Ross Heart Hospital, East Hospital, Brain & Spine Hospital, Dodd Hospital & Harding Hospital. Scheduled Hours: 40.",
+        "retrieved_at": "2026-10-24T12:15:00.000Z",
+        "claim": "status"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-10-24-daily_0010",
+    "run_id": "2026-10-24-daily",
+    "at": "2026-10-24T12:18:39.243Z",
+    "type": "NEW",
+    "opportunity_id": "opp_de06f36726",
+    "changes": null,
+    "reason": "First published from run evidence (OPEN).",
+    "evidence": [
+      {
+        "source_url": "https://osu.wd1.myworkdayjobs.com/OSUCareers/job/East-Hospital/Buckeye-Nurse-Residency-OSU-East-Hospital_R153520-1",
+        "excerpt": "The Ohio State Wexner Medical Center Health System Buckeye Nurse Residency Program provides support for the new graduate nurse as they transition from nursing student to professional clinician. Our program is a full-time, 12-month program and cohorts are added monthly.",
+        "retrieved_at": "2026-10-24T12:15:00.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://osu.wd1.myworkdayjobs.com/OSUCareers/job/East-Hospital/Buckeye-Nurse-Residency-OSU-East-Hospital_R153520-1",
+        "excerpt": "Graduate from a CCNE or ACEN accredited nursing program required; current licensure or interim permit in the practice of registered nursing from the State of Ohio Board of Nursing required; Bachelor’s Degree in Nursing preferred.",
+        "retrieved_at": "2026-10-24T12:15:00.000Z",
+        "claim": "license"
+      },
+      {
+        "source_url": "https://osu.wd1.myworkdayjobs.com/OSUCareers/job/East-Hospital/Buckeye-Nurse-Residency-OSU-East-Hospital_R153520-1",
+        "excerpt": "Location: East Hospital - Tower (0397) Position Type: Regular Scheduled Hours: 40 Shift: Varying Shifts.",
+        "retrieved_at": "2026-10-24T12:15:00.000Z",
+        "claim": "status"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-10-24-daily_0011",
+    "run_id": "2026-10-24-daily",
+    "at": "2026-10-24T12:18:39.243Z",
+    "type": "NEW",
+    "opportunity_id": "opp_cc016fcbd1",
+    "changes": null,
+    "reason": "First published from run evidence (OPEN).",
+    "evidence": [
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/103096/new-grad-rn-weinberg-surgical-icu-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "No RN work experience required! Training will be provided - All New Grad RNs are automatically enrolled in our Nurse Residency Program ranked #3 in the nation!",
+        "retrieved_at": "2026-10-24T12:15:00.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/103096/new-grad-rn-weinberg-surgical-icu-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "Nursing New Grad RN Job: New Grad RN - Weinberg Surgical ICU at Johns Hopkins Medicine in Johns Hopkins Hospital, Baltimore, MD.",
+        "retrieved_at": "2026-10-24T12:15:00.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/103096/new-grad-rn-weinberg-surgical-icu-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "Active Maryland or Compact RN license is required. BLS CPR certification required. Associate degree in Nursing required.",
+        "retrieved_at": "2026-10-24T12:15:00.000Z",
+        "claim": "license"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-10-24-daily_0012",
+    "run_id": "2026-10-24-daily",
+    "at": "2026-10-24T12:18:39.243Z",
+    "type": "NEW",
+    "opportunity_id": "opp_218180b2fc",
+    "changes": null,
+    "reason": "First published from run evidence (OPEN).",
+    "evidence": [
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/103506/new-grad-rn-peds-emergency-department-12-hour-rotating-shifts-jhh-march-start-date-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "New Graduate RNs will be automatically enrolled in our yearlong Nurse Residency Program to facilitate your successful transition into professional nursing practice. Prior work experience not required.",
+        "retrieved_at": "2026-10-24T12:15:00.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/103506/new-grad-rn-peds-emergency-department-12-hour-rotating-shifts-jhh-march-start-date-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "Nursing New Grad RN Job: New Grad RN - Peds Emergency Department, 12 hour Rotating shifts (JHH) March Start Date at Johns Hopkins Medicine in Johns Hopkins Hospital, Baltimore, MD.",
+        "retrieved_at": "2026-10-24T12:15:00.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/103506/new-grad-rn-peds-emergency-department-12-hour-rotating-shifts-jhh-march-start-date-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "RN-Registered Nurse License (Required). CPR - Basic CPR (Required). Associate's Degree in nursing (ADN) (Required).",
+        "retrieved_at": "2026-10-24T12:15:00.000Z",
+        "claim": "license"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-10-24-daily_0013",
+    "run_id": "2026-10-24-daily",
+    "at": "2026-10-24T12:18:39.243Z",
+    "type": "NEW",
+    "opportunity_id": "opp_6aaf25acc2",
+    "changes": null,
+    "reason": "First published from run evidence (OPEN).",
+    "evidence": [
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/100396/new-grad-rn-inpatient-psych-psych-ed-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "New Graduate RNs will be automatically enrolled in our yearlong accredited Nurse Residency Program to facilitate your successful transition into professional nursing practice. No RN work experience required",
+        "retrieved_at": "2026-10-24T12:15:00.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/100396/new-grad-rn-inpatient-psych-psych-ed-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "Nursing New Grad RN Job: New Grad RN - Inpatient Psych & Psych ED at Johns Hopkins Medicine in Johns Hopkins Hospital, Baltimore, MD.",
+        "retrieved_at": "2026-10-24T12:15:00.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/100396/new-grad-rn-inpatient-psych-psych-ed-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "Active Maryland or Compact RN license is required. BLS CPR certification required. Associate degree in Nursing required.",
+        "retrieved_at": "2026-10-24T12:15:00.000Z",
+        "claim": "license"
+      }
+    ]
   }
 ]
