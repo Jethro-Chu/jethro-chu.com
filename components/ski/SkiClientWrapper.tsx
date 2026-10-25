@@ -3,14 +3,14 @@
 import React, { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 
-const SkiGameMount = dynamic(
-  () => import("./SkiGameMount").then((mod) => mod.SkiGameMount),
+const WokAndSkisGame = dynamic(
+  () => import("./WokAndSkisPage"),
   {
     ssr: false,
     loading: () => (
-      <div className="w-screen h-screen flex flex-col items-center justify-center bg-[#d9ebf7] text-[#2b2114] font-mono select-none">
-        <div className="text-xl font-bold tracking-wider mb-2">PREPARING WOK & SKIS…</div>
-        <div className="text-xs text-[#5e5749]">Loading Three.js alpine physics simulation</div>
+      <div className="w-screen h-screen flex flex-col items-center justify-center bg-slate-950 text-white font-sans select-none">
+        <div className="text-xl font-bold tracking-wider mb-2 text-amber-400 animate-pulse">PREPARING WOK &amp; SKIS…</div>
+        <div className="text-xs text-slate-400">Loading Three.js alpine physics simulation</div>
       </div>
     ),
   }
@@ -25,12 +25,12 @@ export function SkiClientWrapper() {
 
   if (!mounted) {
     return (
-      <div className="w-screen h-screen flex flex-col items-center justify-center bg-[#d9ebf7] text-[#2b2114] font-mono select-none">
-        <div className="text-xl font-bold tracking-wider mb-2">PREPARING WOK & SKIS…</div>
-        <div className="text-xs text-[#5e5749]">Loading Three.js alpine physics simulation</div>
+      <div className="w-screen h-screen flex flex-col items-center justify-center bg-slate-950 text-white font-sans select-none">
+        <div className="text-xl font-bold tracking-wider mb-2 text-amber-400 animate-pulse">PREPARING WOK &amp; SKIS…</div>
+        <div className="text-xs text-slate-400">Loading Three.js alpine physics simulation</div>
       </div>
     );
   }
 
-  return <SkiGameMount />;
+  return <WokAndSkisGame />;
 }

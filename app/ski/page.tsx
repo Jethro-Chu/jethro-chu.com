@@ -3,9 +3,9 @@ import { site } from "@/content/content";
 import { homeMetadata } from "@/lib/profileSeo";
 import { SkiClientWrapper } from "@/components/ski/SkiClientWrapper";
 
-const title = "Wok This Slope · Jethro Chu";
+const title = "Wok & Skis · Jethro Chu";
 const description =
-  "A first-person 3D downhill physics comedy game. Fry 300 grains of rice in a skillet on mini-skis while hurtling down an alpine slope. Balance inertia, avoid trees, cook without burning, and plate your dish at the finish!";
+  "Carve down the mountain while stir-frying ingredients in a blazing carbon-steel wok. Steer through slalom gates, avoid trees, and toss to build Wok Hei without burning!";
 
 export const metadata: Metadata = {
   ...homeMetadata,
@@ -26,12 +26,12 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#d9ebf7",
+  themeColor: "#020617",
 };
 
 export default function SkiPage() {
   return (
-    <main id="main" className="relative w-screen h-screen overflow-hidden bg-[#d9ebf7]">
+    <main id="main" className="relative w-screen h-screen overflow-hidden bg-slate-950">
       <SkiClientWrapper />
     </main>
   );
