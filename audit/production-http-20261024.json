@@ -1,0 +1,35 @@
+{
+  "checkedAtUTC": "2026-10-25T05:22:06Z",
+  "checks": [
+    {
+      "domain": "jethrochu.com",
+      "path": "/",
+      "status": 308,
+      "finalUrl": "https://jethrochu.com/",
+      "passed": true
+    },
+    {
+      "domain": "www.jethrochu.com",
+      "path": "/",
+      "status": 200,
+      "finalUrl": "https://www.jethrochu.com/",
+      "passed": true,
+      "securityHeadersVerified": true
+    },
+    {
+      "domain": "www.jethrochu.com",
+      "path": "/api/newgrad/suggestions",
+      "status": 401,
+      "finalUrl": "https://www.jethrochu.com/api/newgrad/suggestions",
+      "passed": true
+    },
+    {
+      "domain": "www.jethrochu.com",
+      "path": "/api/newgrad/suggestions",
+      "status": 200,
+      "finalUrl": "https://www.jethrochu.com/api/newgrad/suggestions",
+      "passed": true,
+      "queueCount": 5
+    }
+  ]
+}
