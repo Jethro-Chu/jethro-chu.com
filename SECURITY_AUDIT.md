@@ -2,7 +2,7 @@
 
 Audit date: October 21, 2026 (America/Los_Angeles).
 
-**Status: fixes prepared locally. No production deployment, hosting change, database migration, credential rotation, commit, or push was performed. The production findings below remain until the reviewed release is deployed and checked.**
+**Release update, October 24, 2026: the security fixes are deployed to production. See [production release verification](audit/PRODUCTION_RELEASE_20261024.md) for current deployment, checks, credentials, and remaining work. The October 21 sections below are the original audit baseline; their release/access statements describe that earlier point in time.**
 
 ## 1. Deployment identity and PHP2Shell
 

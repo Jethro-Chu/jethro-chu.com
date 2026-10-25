@@ -25,7 +25,8 @@
     "newgrad:publish": "node --no-warnings --experimental-strip-types scripts/newgrad-publish.ts",
     "newgrad:suggestions": "node --no-warnings --experimental-strip-types scripts/newgrad-suggestions.ts",
     "verify:newgrad": "node --no-warnings --experimental-strip-types scripts/verify-newgrad.ts",
-    "verify:security": "node scripts/verify-security.mjs"
+    "verify:security": "node scripts/verify-security.mjs",
+    "verify:ski": "node --no-warnings --experimental-strip-types scripts/verify-ski-game.ts"
   },
   "dependencies": {
     "@react-three/drei": "^10.7.8",

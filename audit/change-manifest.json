@@ -1,5 +1,5 @@
 {
-  "productionUpdated": false,
+  "productionUpdated": true,
   "excludedExistingWork": [
     "components/valley/VillageStandalone.tsx",
     "game/PhaserVillage.tsx",
@@ -145,5 +145,13 @@
       "sha256": "6dfb9543b3e21a765a5bd3403c78fb0fef3202e5a69afab4d9e0c42d684ff9ea",
       "state": "local-change"
     }
-  ]
+  ],
+  "baselineSnapshotNote": "File states and hashes below describe the original October 21 prepared changes. Current release status is recorded separately.",
+  "productionRelease": {
+    "verifiedDate": "2026-10-24",
+    "gitSha": "a6bc4895311167963be2a5af2478c65590976486",
+    "deploymentId": "dpl_AsQq1KHT29LsroawHchRdhtC2UTo",
+    "state": "READY",
+    "verificationReport": "audit/PRODUCTION_RELEASE_20261024.md"
+  }
 }
