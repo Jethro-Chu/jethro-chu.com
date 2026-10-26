@@ -174,9 +174,9 @@ export class SkiRenderer {
     geom.computeVertexNormals();
 
     const snowMat = new THREE.MeshStandardMaterial({
-      color: 0xf2f7fc,
-      roughness: 0.85,
-      metalness: 0.05,
+      color: 0xffffff,
+      roughness: 0.95,
+      metalness: 0.0,
     });
 
     const terrainMesh = new THREE.Mesh(geom, snowMat);
@@ -196,19 +196,23 @@ export class SkiRenderer {
     });
 
     const mGroup = new THREE.Group();
-    for (let i = 0; i < 18; i++) {
-      const radius = 90 + Math.random() * 70;
-      const height = 180 + Math.random() * 140;
+    // Two side ranges flanking the course plus a far cap beyond the finish.
+    // A full ring around the course put a cone on top of the start gate,
+    // which the first-person camera then rendered as a giant blue slab.
+    const placements: Array<{ x: number; z: number }> = [];
+    for (let i = 0; i < 9; i++) {
+      const z = -80 + i * 140 + Math.random() * 60;
+      placements.push({ x: -(300 + Math.random() * 140), z });
+      placements.push({ x: 300 + Math.random() * 140, z: z + 40 });
+    }
+    placements.push({ x: -140, z: 1330 }, { x: 60, z: 1420 }, { x: 240, z: 1340 });
+
+    for (const p of placements) {
+      const radius = 110 + Math.random() * 80;
+      const height = 200 + Math.random() * 150;
       const coneGeom = new THREE.ConeGeometry(radius, height, 5);
-
-      const angle = (i / 18) * Math.PI * 2;
-      const dist = 380 + Math.random() * 120;
-      const x = Math.sin(angle) * dist;
-      const z = Math.cos(angle) * dist + 450;
-      const y = -120 + height / 2;
-
       const cone = new THREE.Mesh(coneGeom, mountainMat);
-      cone.position.set(x, y, z);
+      cone.position.set(p.x, -140 + height / 2, p.z);
       cone.rotation.y = Math.random() * Math.PI;
       mGroup.add(cone);
     }
@@ -395,19 +399,16 @@ export class SkiRenderer {
     panRig.position.set(0, -0.38, -0.72);
     cameraRig.add(panRig);
 
-    // Build the Metal Wok/Skillet
-    // Parabolic curved bowl
-    const wokGeom = new THREE.CylinderGeometry(
-      SKI_CONFIG.PAN.RADIUS,
-      SKI_CONFIG.PAN.RADIUS * 0.45,
-      SKI_CONFIG.PAN.DEPTH,
-      28,
-      1,
-      true
-    );
-    // Pan bottom disc
-    const bottomGeom = new THREE.CircleGeometry(SKI_CONFIG.PAN.RADIUS * 0.45, 24);
-    bottomGeom.rotateX(Math.PI / 2);
+    // Build the Metal Wok/Skillet as a lathed parabolic bowl whose inner
+    // surface is exactly the physics floor (y = CURVATURE_A * r^2). The
+    // previous straight cone wall diverged from that parabola, so grains
+    // rested inside the pan mesh and rendered invisible.
+    const lathePoints: THREE.Vector2[] = [];
+    for (let i = 0; i <= 14; i++) {
+      const r = (i / 14) * SKI_CONFIG.PAN.RADIUS;
+      lathePoints.push(new THREE.Vector2(r, SKI_CONFIG.PAN.CURVATURE_A * r * r));
+    }
+    const wokGeom = new THREE.LatheGeometry(lathePoints, 28);
 
     const panMetalMat = new THREE.MeshStandardMaterial({
       color: SKI_CONFIG.COLORS.PAN_METAL,
@@ -417,15 +418,10 @@ export class SkiRenderer {
     });
 
     const panMesh = new THREE.Mesh(wokGeom, panMetalMat);
-    panMesh.position.y = SKI_CONFIG.PAN.DEPTH / 2;
     panMesh.castShadow = true;
     panRig.add(panMesh);
 
-    const bottomMesh = new THREE.Mesh(bottomGeom, panMetalMat);
-    bottomMesh.position.y = 0.001;
-    panRig.add(bottomMesh);
-
-    // Rim lip
+    // Rim lip at the top of the parabolic wall (y = a * R^2)
     const rimGeom = new THREE.TorusGeometry(SKI_CONFIG.PAN.RADIUS, 0.008, 8, 28);
     rimGeom.rotateX(Math.PI / 2);
     const rimMat = new THREE.MeshStandardMaterial({
@@ -434,7 +430,7 @@ export class SkiRenderer {
       metalness: 0.9,
     });
     const rimMesh = new THREE.Mesh(rimGeom, rimMat);
-    rimMesh.position.y = SKI_CONFIG.PAN.DEPTH;
+    rimMesh.position.y = SKI_CONFIG.PAN.CURVATURE_A * SKI_CONFIG.PAN.RADIUS * SKI_CONFIG.PAN.RADIUS;
     panRig.add(rimMesh);
 
     // Long pan handle extending towards player (+Z)
@@ -473,10 +469,12 @@ export class SkiRenderer {
       opacity: 0.85,
     });
     const burnerFlame = new THREE.Mesh(flameGeom, flameMat);
-    burnerFlame.position.set(0, -0.005, 0);
+    // Fully below the pan bowl: at -0.005 the cone tip poked through the
+    // pan floor and showed as a blue hexagon inside the pan.
+    burnerFlame.position.set(0, -0.03, 0);
     panRig.add(burnerFlame);
 
-    const burnerLight = new THREE.PointLight(0xf97316, 1.2, 0.85);
+    const burnerLight = new THREE.PointLight(0xf97316, 0.55, 0.6);
     burnerLight.position.set(0, 0.06, 0);
     panRig.add(burnerLight);
 
@@ -592,7 +590,11 @@ export class SkiRenderer {
       skierState.worldPos.z
     );
 
-    // Camera rotation: slope pitch, steering banking, and optional impact shake
+    // Camera rotation: the course travels toward +Z, but a Three.js camera
+    // looks down its local -Z, so the rig yaws PI to face downhill. Order
+    // YXZ applies that yaw before pitch/banking so the signs stay intuitive:
+    // negative X pitches the view down the slope.
+    this.cameraRig.rotation.order = "YXZ";
     let shakeX = 0;
     let shakeY = 0;
     let shakeZ = 0;
@@ -604,9 +606,9 @@ export class SkiRenderer {
     }
 
     this.cameraRig.rotation.set(
-      skierState.slopePitch + shakeX,
-      0,
-      skierState.steerAngle + shakeZ
+      -skierState.slopePitch - 0.04 + shakeX,
+      Math.PI + shakeY,
+      -skierState.steerAngle + shakeZ
     );
 
     // 2. Update Pan Rig Transformation relative to camera
@@ -631,27 +633,40 @@ export class SkiRenderer {
     // Burner flame flicker
     const flicker = 0.85 + Math.random() * 0.35;
     this.burnerFlame.scale.set(flicker, flicker, flicker);
-    this.burnerLight.intensity = 1.0 * flicker;
+    this.burnerLight.intensity = 0.55 * flicker;
 
-    // 3. Step Rice Simulation
+    // 3. Step Rice Simulation only while a run is live. On the title,
+    // countdown, pause, and results screens the pan must stay frozen:
+    // rice that cooks or spills before the run starts breaks the brief's
+    // tuning (and showed up as phantom doneness on the title screen).
     // Pass pan's world transform matrix so spilled grains inherit exact world velocity & origin!
     this.panRig.updateMatrixWorld(true);
     const panWorldMatrix = this.panRig.matrixWorld;
 
+    const isLiveRun = phase === "skiing" || phase === "plating";
     const isPlating = phase === "plating";
-    this.rice.step(
-      dt,
-      panOrientation.pitch,
-      panOrientation.roll,
-      this.skier.lateralInertia,
-      this.skier.verticalBumpImpulse,
-      panWorldMatrix,
-      isPlating,
-      this.plateWorldPos
-    );
+    if (isLiveRun) {
+      this.rice.step(
+        dt,
+        panOrientation.pitch,
+        panOrientation.roll,
+        this.skier.lateralInertia,
+        this.skier.verticalBumpImpulse,
+        panWorldMatrix,
+        isPlating,
+        this.plateWorldPos,
+        // The pan travels with the skier: forward down the course (+Z)
+        // plus lateral carving velocity. Spilled grains inherit it.
+        {
+          x: this.skier.state.lateralSpeed,
+          y: 0,
+          z: this.skier.state.speed,
+        }
+      );
 
-    // 4. Update Particle Systems
-    this.updateParticles(dt, phase);
+      // 4. Update Particle Systems
+      this.updateParticles(dt, phase);
+    }
 
     // 5. Render Scene
     this.renderer.render(this.scene, this.camera);

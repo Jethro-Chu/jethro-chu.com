@@ -349,10 +349,12 @@ export function SkiGameMount() {
           finishPlatingRef.current("empty_pan");
         } else if (
           riceRef.current &&
-          riceRef.current.avgBurnRisk >= SKI_CONFIG.COOKING.MAX_ALLOWABLE_BURN &&
+          (riceRef.current.avgBurnRisk >= SKI_CONFIG.COOKING.MAX_ALLOWABLE_BURN ||
+            riceRef.current.charredFraction >= SKI_CONFIG.COOKING.MAX_CHARRED_FRACTION) &&
           curPhase === "skiing"
         ) {
-          // Check Ruined Burnt Batch failure
+          // Ruined batch: average burn is charred, or so many grains are
+          // individually charred that raw grains cannot dilute it away
           finishPlatingRef.current("burnt_batch");
         } else if (curPhase === "plating") {
           // Plating timeout check
@@ -422,7 +424,8 @@ export function SkiGameMount() {
         },
         triggerPlatingPour: () => {
           if (skierRef.current) {
-            skierRef.current.panOrientation.pitch = 0.85;
+            // Negative pitch tips the pan's front edge down to pour.
+            skierRef.current.panOrientation.pitch = -0.85;
           }
         },
         simulatePlatedGrains: (count = 265, doneness = 0.96, burn = 0.03) => {
@@ -655,15 +658,20 @@ export function SkiGameMount() {
         </div>
       )}
 
-      {/* PLATING PHASE PROMPT (At finish line) */}
+      {/* PLATING PHASE PROMPT (At finish line). The skier rolls ~35 m
+          into the serving area after crossing the finish; inviting the
+          pour immediately made players dump the pan on the snow, so the
+          pour instructions wait until the skier has nearly stopped. */}
       {phase === "plating" && (
         <div className="absolute top-28 left-1/2 -translate-x-1/2 z-40 pointer-events-auto flex flex-col items-center gap-2">
           <div className="bg-[#2b2114]/95 text-[#ece4d3] px-6 py-3 rounded-xl border border-[#c98f45]/50 shadow-2xl backdrop-blur-md text-center max-w-md">
             <h3 className="font-mono text-sm tracking-widest text-[#c98f45] uppercase font-bold">
-              Serving Platter Reached!
+              {speedKmh > 2 ? "Rolling Into The Serving Area…" : "Serving Platter Reached!"}
             </h3>
             <p className="font-sans text-xs text-[#ece4d3]/90 mt-1">
-              Move mouse forward / tilt down to pour rice onto the golden banquet plate!
+              {speedKmh > 2
+                ? "Glide to a stop at the banquet table. Keep the pan level!"
+                : "Move mouse forward / tilt down to pour rice onto the golden banquet plate!"}
             </p>
             <div className="mt-3 flex items-center justify-center gap-3">
               <button

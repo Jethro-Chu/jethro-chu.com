@@ -147,10 +147,14 @@ export class SkierController {
     const track = this.course.getTrackCenter(this.state.distance);
 
     // 1. Forward downhill acceleration & speed
+    // Terminal velocity works out to ~16 m/s, so the 950 m course takes
+    // roughly 70 s at pace: inside the brief's 60-90 s window and the
+    // 80 s S-rank limit. The previous tuning capped out near 7.4 m/s,
+    // which made even a perfect run take ~128 s and S-rank impossible.
     const g = SKI_CONFIG.RICE.GRAVITY;
     const slopeGravity = g * Math.sin(track.slope);
     const drag = SKI_CONFIG.SKIER.DRAG_COEFF * this.state.speed;
-    const netAccel = slopeGravity * SKI_CONFIG.SKIER.ACCEL_MPS2 * 0.22 - drag;
+    const netAccel = slopeGravity * SKI_CONFIG.SKIER.ACCEL_MPS2 * 0.28 - drag;
 
     this.state.acceleration = netAccel;
     this.state.speed = Math.max(
@@ -253,12 +257,18 @@ export class SkierController {
     dt: number,
     onTossTriggered?: () => void
   ): { phaseTransition?: GamePhase; failureReason?: FailureReason } {
-    // Decelerate smoothly to stop at table
-    const targetDist = this.course.tableZ - 1.2;
+    // Decelerate smoothly to stop with the pan over the plate. The pan
+    // rides ~0.72 m ahead of the skier, so stopping 1.0 m short of the
+    // table puts the pan's front rim right at the plate's center; the
+    // previous 1.2 m stop (with a slower creep) left pours landing
+    // up to 2 m short in the snow.
+    const targetDist = this.course.tableZ - 1.0;
     const distRemain = targetDist - this.state.distance;
 
     if (distRemain > 0.05) {
-      this.state.speed = Math.max(0, distRemain * 2.8);
+      // Carry entry speed, then let the remaining distance brake the
+      // skier: uncapped, the approach speed read as 250 km/h on the HUD.
+      this.state.speed = Math.max(0, Math.min(this.state.speed, distRemain * 4.0));
       this.state.distance += this.state.speed * dt;
     } else {
       this.state.speed = 0;
@@ -288,7 +298,14 @@ export class SkierController {
   }
 
   private updatePanOrientation(dt: number, isPlating: boolean): void {
-    const maxPitch = isPlating ? 1.35 : SKI_CONFIG.PAN.MAX_PITCH_RAD; // up to ~77 deg pitch during plating
+    // Pitch sign convention (shared with the rice simulation): positive
+    // pitch raises the pan's front edge, negative pitch tips it forward.
+    // Pouring at the plate therefore needs a strongly negative pitch, so
+    // plating extends the negative range instead of the positive one.
+    // Pushing the mouse forward (negative delta/normalized Y) tips the
+    // pan forward, which is what the plating prompt tells the player.
+    const minPitch = isPlating ? -1.35 : -SKI_CONFIG.PAN.MAX_PITCH_RAD;
+    const maxPitch = SKI_CONFIG.PAN.MAX_PITCH_RAD;
     const maxRoll = SKI_CONFIG.PAN.MAX_ROLL_RAD;
 
     let targetPitch = 0;
@@ -299,7 +316,7 @@ export class SkierController {
       const sens = isPlating ? 0.0028 : 0.0018;
       targetPitch = THREE.MathUtils.clamp(
         this.panOrientation.pitch + this.input.mouseDeltaY * sens,
-        -0.35,
+        minPitch,
         maxPitch
       );
       targetRoll = THREE.MathUtils.clamp(
@@ -311,10 +328,12 @@ export class SkierController {
       this.input.mouseDeltaX = 0;
       this.input.mouseDeltaY = 0;
     } else {
-      // Non-pointer-lock fallback: follow normalized mouse (-1 to +1)
+      // Non-pointer-lock fallback: follow normalized mouse (-1 to +1).
+      // Plating amplifies the forward (negative) half of the range.
+      const pitchScale = this.input.mouseNormalizedY < 0 && isPlating ? 1.35 : maxPitch;
       targetPitch = THREE.MathUtils.clamp(
-        this.input.mouseNormalizedY * maxPitch,
-        -0.35,
+        this.input.mouseNormalizedY * pitchScale,
+        minPitch,
         maxPitch
       );
       targetRoll = THREE.MathUtils.clamp(

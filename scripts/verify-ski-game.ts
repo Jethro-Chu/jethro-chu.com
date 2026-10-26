@@ -106,12 +106,15 @@ console.log("TEST 3: Thermal Model & Cooking/Burn Progression");
   const dummyPanMatrix = new THREE.Matrix4();
   const platePos = { x: 0, y: 0, z: 1000 };
 
-  // Step 1: Cook for 10 seconds without tilting
+  // Step 1: Cook for 10 seconds without tilting. The burner is
+  // deliberately concentrated, so a still pan cooks unevenly: some
+  // doneness, but far from a cooked batch, and no burn yet.
   for (let s = 0; s < 600; s++) {
     rice.step(1 / 60, 0, 0, 0, 0, dummyPanMatrix, false, platePos);
   }
 
-  assert.ok(rice.avgDoneness > 0.15, `Doneness after 10s should increase, got ${rice.avgDoneness}`);
+  assert.ok(rice.avgDoneness > 0.03, `Doneness after 10s should increase, got ${rice.avgDoneness}`);
+  assert.ok(rice.avgDoneness < 0.6, `A still pan must not cook the batch evenly, got ${rice.avgDoneness}`);
   assert.equal(rice.avgBurnRisk, 0, "No burn should occur in the first 10 seconds");
 
   // Step 2: Airborne test - when tossing, heating is paused
@@ -125,13 +128,15 @@ console.log("TEST 3: Thermal Model & Cooking/Burn Progression");
   }
   assert.equal(airborneContactCount, 0, "Tossed grains must leave contact surface");
 
-  // Step 3: Prolonged cooking until doneness reaches 100% and burn accumulates
-  // Cook for 45 more seconds
+  // Step 3: Cook like a player: toss every ~7 seconds to redistribute
+  // grains across the hot center. The batch must approach full doneness
+  // and start accumulating burn damage once cooked.
   for (let s = 0; s < 2700; s++) {
+    if (s > 0 && s % 420 === 0) rice.toss(1.0);
     rice.step(1 / 60, 0, 0, 0, 0, dummyPanMatrix, false, platePos);
   }
 
-  assert.ok(rice.avgDoneness >= 0.90, `Doneness should exceed 90%, got ${rice.avgDoneness}`);
+  assert.ok(rice.avgDoneness >= 0.85, `Doneness with regular tossing should exceed 85%, got ${rice.avgDoneness}`);
   assert.ok(rice.avgBurnRisk > 0, `Burn should start accumulating once cooked, got ${rice.avgBurnRisk}`);
 
   // Test color transitions
@@ -166,10 +171,14 @@ console.log("TEST 4: Plating Phase & Grade Rank Boundaries");
     g.burnDamage = 0.03; // 3% burn
   }
 
-  // Trigger Plating Phase: tilt pan steeply forward (pitch = 0.8 rad) to pour onto plate
-  dummyPanMatrix.makeTranslation(0, 0.5, 100);
+  // Trigger Plating Phase: tilt pan steeply forward (pitch = -0.85 rad;
+  // negative pitch drops the front edge) to pour onto plate. The matrix
+  // reproduces the real finish geometry: the pan rig is yawed PI (camera
+  // faces +Z), sits ~0.5 m short of the plate and ~0.35 m above it.
+  dummyPanMatrix.makeRotationY(Math.PI);
+  dummyPanMatrix.setPosition(0, 0.35, 99.52);
   for (let s = 0; s < 180; s++) {
-    rice.step(1 / 60, 0.85, 0, 0, 0, dummyPanMatrix, true, platePos);
+    rice.step(1 / 60, -0.85, 0, 0, 0, dummyPanMatrix, true, platePos);
   }
 
   assert.ok(rice.platedCount > 0, `Plating must deposit grains on the plate, got ${rice.platedCount}`);

@@ -394,9 +394,14 @@ async function runAll() {
       const link = Array.from(document.querySelectorAll('a')).find(a => a.innerText.toLowerCase().includes('portfolio'));
       if (link) link.click();
     `);
-    await new Promise((r) => setTimeout(r, 1600));
-
-    const path = await client.evaluate("window.location.pathname");
+    // Client-side navigation after WebGL teardown can take a moment in
+    // headless SwiftShader; poll instead of one fixed wait.
+    let path = "";
+    for (let attempt = 0; attempt < 12; attempt++) {
+      await new Promise((r) => setTimeout(r, 500));
+      path = await client.evaluate("window.location.pathname");
+      if (path === "/") break;
+    }
     console.log(`  Current Path: "${path}"`);
     assert.equal(path, "/", "Should navigate back to portfolio homepage");
 

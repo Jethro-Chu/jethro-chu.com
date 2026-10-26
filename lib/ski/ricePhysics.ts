@@ -28,6 +28,7 @@ export class RiceSimulation {
   public platedCount: number = 0;
   public avgDoneness: number = 0;
   public avgBurnRisk: number = 0;
+  public charredFraction: number = 0;
   public activeCookingCount: number = 0;
 
   // Audio Engine reference
@@ -50,11 +51,13 @@ export class RiceSimulation {
     // Align cylinder along grain's longitudinal axis
     grainGeom.rotateX(Math.PI / 2);
 
-    // Retained grains material (instanced color support)
+    // Retained grains material. Per-grain color comes from instanceColor
+    // (set via setColorAt). Do NOT set vertexColors here: the grain geometry
+    // has no color attribute, so that flag shades every grain black and the
+    // rice renders invisible against the dark pan.
     const grainMat = new THREE.MeshStandardMaterial({
       roughness: 0.45,
       metalness: 0.1,
-      vertexColors: true,
     });
 
     this.retainedMesh = new THREE.InstancedMesh(grainGeom, grainMat, SKI_CONFIG.RICE.GRAIN_COUNT);
@@ -63,11 +66,11 @@ export class RiceSimulation {
       this.retainedMesh.instanceColor.setUsage(THREE.DynamicDrawUsage);
     }
 
-    // Spilled particles mesh (max 300 particles)
+    // Spilled particles mesh (max 300 particles). Same instanceColor note
+    // as the retained material above: no vertexColors flag.
     const spilledMat = new THREE.MeshStandardMaterial({
       roughness: 0.5,
       metalness: 0.1,
-      vertexColors: true,
     });
     this.spilledMesh = new THREE.InstancedMesh(grainGeom, spilledMat, SKI_CONFIG.RICE.GRAIN_COUNT);
     this.spilledMesh.instanceMatrix.setUsage(THREE.DynamicDrawUsage);
@@ -88,6 +91,7 @@ export class RiceSimulation {
     this.platedCount = 0;
     this.avgDoneness = 0;
     this.avgBurnRisk = 0;
+    this.charredFraction = 0;
     this.activeCookingCount = 0;
 
     // Distribute 300 grains in a natural layer at the bottom of the pan
@@ -150,7 +154,8 @@ export class RiceSimulation {
     verticalBumpImpulse: number,
     panWorldTransform: THREE.Matrix4,
     isPlatingPhase: boolean,
-    plateWorldPos: { x: number; y: number; z: number }
+    plateWorldPos: { x: number; y: number; z: number },
+    panWorldVelocity: { x: number; y: number; z: number } = { x: 0, y: 0, z: 0 }
   ): void {
     // Sub-stepping for numerical stability
     const substeps = SKI_CONFIG.RICE.SUBSTEPS;
@@ -176,10 +181,43 @@ export class RiceSimulation {
         const grain = this.grains[i];
         if (!grain.retained) continue;
 
+        // Static friction: a settled grain sticks to the pan until the
+        // tangential pull (bowl slope + pan tilt + turn inertia) exceeds
+        // the break-loose threshold. Without this, every grain funnels
+        // down the parabolic bowl into a single point at the center.
+        let ax = gxLocal;
+        let ay = gyLocal;
+        let az = gzLocal;
+        if (grain.inContact) {
+          const nx0 = -2 * curvA * grain.x;
+          const nz0 = -2 * curvA * grain.z;
+          const nLen0 = Math.sqrt(nx0 * nx0 + 1 + nz0 * nz0);
+          const ux = nx0 / nLen0;
+          const uy = 1 / nLen0;
+          const uz = nz0 / nLen0;
+          const gDotN = ax * ux + ay * uy + az * uz;
+          const gtx = ax - gDotN * ux;
+          const gty = ay - gDotN * uy;
+          const gtz = az - gDotN * uz;
+          const gtMag = Math.sqrt(gtx * gtx + gty * gty + gtz * gtz);
+          const vDotN = grain.vx * ux + grain.vy * uy + grain.vz * uz;
+          const vtx = grain.vx - vDotN * ux;
+          const vty = grain.vy - vDotN * uy;
+          const vtz = grain.vz - vDotN * uz;
+          const vtMag = Math.sqrt(vtx * vtx + vty * vty + vtz * vtz);
+          if (gtMag < 2.3 && vtMag < 0.5) {
+            // Stuck: only the normal component of gravity acts (it is
+            // cancelled by the surface in the collision response below)
+            ax = gDotN * ux;
+            ay = gDotN * uy;
+            az = gDotN * uz;
+          }
+        }
+
         // Apply local forces
-        grain.vx += gxLocal * subDt;
-        grain.vy += gyLocal * subDt;
-        grain.vz += gzLocal * subDt;
+        grain.vx += ax * subDt;
+        grain.vy += ay * subDt;
+        grain.vz += az * subDt;
 
         // Apply velocity
         grain.x += grain.vx * subDt;
@@ -224,13 +262,15 @@ export class RiceSimulation {
 
         // Rim containment vs Spilling
         if (r >= panR) {
-          // If the grain has cleared the rim height or is pouring out during steep tilt
+          // If the grain has cleared the rim height or is pouring out during steep tilt.
+          // Pitch sign: positive pitch raises the pan's front edge (-Z), so
+          // pouring over the front rim needs a strongly NEGATIVE pitch.
           const rimHeightAtEdge = panDepth;
-          const isPouringForward = isPlatingPhase && panPitch > 0.45 && grain.z < 0;
+          const isPouringForward = isPlatingPhase && panPitch < -0.45 && grain.z < 0;
 
           if (grain.y >= rimHeightAtEdge || isPouringForward || (grain.vy > 0.6 && r > panR + 0.015)) {
             // GRAIN SPILLS OUT!
-            this.spillGrain(grain, i, panWorldTransform);
+            this.spillGrain(grain, i, panWorldTransform, panWorldVelocity);
           } else {
             // Inside rim boundary: bounce back inward
             const pushBack = (panR - 0.002) / r;
@@ -305,11 +345,19 @@ export class RiceSimulation {
       const g = this.grains[i];
       if (!g.retained) continue;
 
-      // Impart upward velocity with slight random scatter
+      // Impart upward velocity with real redistribution: each grain is
+      // aimed at a random landing spot inside the bowl, so a toss cycles
+      // grains through the hot center instead of landing them where they
+      // started (which burned the batch even with regular tossing).
+      // Aiming inside the bowl keeps the spill risk to grains knocked
+      // loose at the rim rather than ejecting the whole batch.
       if (g.inContact || g.y < 0.04) {
         g.vy += impulse + (Math.random() - 0.5) * 0.35;
-        g.vx += (Math.random() - 0.5) * 0.25;
-        g.vz += (Math.random() - 0.5) * 0.25;
+        const targetR = Math.sqrt(Math.random()) * SKI_CONFIG.PAN.RADIUS * 0.68;
+        const targetA = Math.random() * Math.PI * 2;
+        const flight = 0.45; // approx airborne seconds for the toss impulse
+        g.vx = ((Math.cos(targetA) * targetR - g.x) / flight) * (0.65 + Math.random() * 0.3);
+        g.vz = ((Math.sin(targetA) * targetR - g.z) / flight) * (0.65 + Math.random() * 0.3);
         g.inContact = false;
         tossedCount++;
       }
@@ -323,13 +371,21 @@ export class RiceSimulation {
   /**
    * Spill an individual grain over the pan rim into world coordinates
    */
-  private spillGrain(grain: GrainState, index: number, panWorldTransform: THREE.Matrix4): void {
+  private spillGrain(
+    grain: GrainState,
+    index: number,
+    panWorldTransform: THREE.Matrix4,
+    panWorldVelocity: { x: number; y: number; z: number } = { x: 0, y: 0, z: 0 }
+  ): void {
     grain.retained = false;
     this.retainedCount--;
 
-    // Compute grain's world position from pan transform
-    this.dummyPos.set(grain.x, grain.y, grain.z);
-    this.dummyPos.applyMatrix4(panWorldTransform);
+    // Compute grain's world position from pan transform. Keep it in its own
+    // vector: decompose() writes the pan's origin into its first argument,
+    // which previously overwrote the grain position and spawned every
+    // spilled grain at the pan center.
+    const worldPos = new THREE.Vector3(grain.x, grain.y, grain.z);
+    worldPos.applyMatrix4(panWorldTransform);
 
     // Extract pan world rotation to project velocity into world frame
     panWorldTransform.decompose(this.dummyPos, this.dummyQuat, this.dummyScale);
@@ -343,10 +399,17 @@ export class RiceSimulation {
     outwardDir.applyQuaternion(this.dummyQuat);
     localVel.addScaledVector(outwardDir, 0.4);
 
+    // Inherit the pan's world velocity: grains leaving a moving pan keep
+    // its momentum. Without this they dropped straight down from the
+    // spawn point and landed short whenever the skier was still rolling.
+    localVel.x += panWorldVelocity.x;
+    localVel.y += panWorldVelocity.y;
+    localVel.z += panWorldVelocity.z;
+
     this.spilledParticles.push({
-      x: this.dummyPos.x,
-      y: this.dummyPos.y,
-      z: this.dummyPos.z,
+      x: worldPos.x,
+      y: worldPos.y,
+      z: worldPos.z,
       vx: localVel.x,
       vy: localVel.y,
       vz: localVel.z,
@@ -379,6 +442,7 @@ export class RiceSimulation {
     let totalDoneness = 0;
     let totalBurn = 0;
     let cookingCount = 0;
+    let charredCount = 0;
 
     for (let i = 0; i < this.grains.length; i++) {
       const g = this.grains[i];
@@ -408,14 +472,17 @@ export class RiceSimulation {
 
       totalDoneness += g.doneness;
       totalBurn += g.burnDamage;
+      if (g.burnDamage >= SKI_CONFIG.COOKING.CHARRED_GRAIN_BURN) charredCount++;
     }
 
     if (this.retainedCount > 0) {
       this.avgDoneness = totalDoneness / this.retainedCount;
       this.avgBurnRisk = totalBurn / this.retainedCount;
+      this.charredFraction = charredCount / this.retainedCount;
     } else {
       this.avgDoneness = 0;
       this.avgBurnRisk = 0;
+      this.charredFraction = 0;
     }
 
     this.activeCookingCount = cookingCount;
@@ -450,7 +517,15 @@ export class RiceSimulation {
         continue;
       }
 
-      // World gravity & drag
+      // World gravity & drag. Age falling grains too: without this they
+      // fell through the snow forever and were only culled at y <= -200.
+      // The terrain mesh occludes them once they drop below the surface,
+      // so expiring on lifetime reads as landing in the snow.
+      p.life -= dt;
+      if (p.life <= 0) {
+        this.spilledParticles.splice(i, 1);
+        continue;
+      }
       p.vy -= g * dt;
       p.vx *= 0.98;
       p.vz *= 0.98;
@@ -461,8 +536,10 @@ export class RiceSimulation {
 
       // Check collision with serving plate or ground
       if (isPlatingPhase) {
-        // Table height is plateWorldPos.y
-        if (p.y <= plateWorldPos.y + 0.02) {
+        // Grains passing low over the plate land on it: checking only at
+        // table height let a normal pour's momentum carry every grain
+        // past the far rim. Capture within a forgiving height band.
+        if (p.y <= plateWorldPos.y + 0.4) {
           const dx = p.x - plateWorldPos.x;
           const dz = p.z - plateWorldPos.z;
           const distSq = dx * dx + dz * dz;
@@ -482,8 +559,9 @@ export class RiceSimulation {
               this.audio.playPlateClink();
               this.lastPlateSoundTime = now;
             }
-          } else {
-            // Missed plate - landed on table or snow
+          } else if (p.y <= plateWorldPos.y + 0.02) {
+            // Missed plate - landed on table or snow (only settle once
+            // actually at table height, not inside the capture band)
             p.settled = true;
             p.onPlate = false;
             p.y = plateWorldPos.y;
@@ -511,15 +589,20 @@ export class RiceSimulation {
     for (let i = 0; i < this.grains.length; i++) {
       const g = this.grains[i];
       if (g.retained) {
-        // Position grain in pan local space
-        this.dummyPos.set(g.x, g.y, g.z);
+        // Position grain in pan local space, lifted a few mm so the drawn
+        // grain rests on the pan surface instead of half-sinking into it.
+        // A tiny per-grain height jitter keeps the settled layer from
+        // looking like one flat sheet of overlapping grains.
+        this.dummyPos.set(g.x, g.y + 0.004 + (i % 5) * 0.0016, g.z);
 
         // Orient grain along velocity or slight natural tilt
         const rotY = Math.atan2(g.vx, g.vz || 0.001);
         const rotX = Math.sin(i * 1.7) * 0.15;
         this.dummyQuat.setFromEuler(new THREE.Euler(rotX, rotY, 0));
 
-        this.dummyScale.set(1, 1, 1);
+        // Drawn larger than the physical grain so individual grains read
+        // clearly in the pan at first-person distance (brief requirement).
+        this.dummyScale.set(1.7, 1.7, 1.7);
         this.dummyMatrix.compose(this.dummyPos, this.dummyQuat, this.dummyScale);
         this.retainedMesh.setMatrixAt(i, this.dummyMatrix);
 
@@ -544,7 +627,7 @@ export class RiceSimulation {
         const p = this.spilledParticles[i];
         this.dummyPos.set(p.x, p.y, p.z);
         this.dummyQuat.set(0, 0, 0, 1);
-        this.dummyScale.set(1, 1, 1);
+        this.dummyScale.set(1.7, 1.7, 1.7);
         this.dummyMatrix.compose(this.dummyPos, this.dummyQuat, this.dummyScale);
         this.spilledMesh.setMatrixAt(i, this.dummyMatrix);
 
