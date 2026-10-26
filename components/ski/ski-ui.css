@@ -1,0 +1,139 @@
+/* A field report for an improbable downhill kitchen. All chrome is scoped to the game. */
+.ski-shell { position:relative; width:100%; height:100dvh; overflow:hidden; background:#d9ebf7; color:#0E1A16; font-family:var(--font-ski-body),sans-serif; }
+.ski-canvas { position:absolute; inset:0; cursor:crosshair; }
+.ski-nav, .ski-label, .ski-number, .ski-speed, .ski-progress-head, .ski-toss-state, .ski-cooking, .ski-alert, .ski-serve-step, .ski-countdown, .ski-sheet-header, .ski-eyebrow, .ski-briefing, .ski-personal-best, .ski-result-table, .ski-grade, .ski-button, .ski-text-link { font-family:var(--font-ski-mono),monospace; font-variant-numeric:tabular-nums; }
+.ski-nav { position:absolute; z-index:40; top:16px; left:20px; right:20px; display:flex; align-items:center; justify-content:space-between; gap:16px; color:#EAF1ED; font-size:11px; letter-spacing:.04em; pointer-events:none; }
+.ski-nav-link, .ski-nav-options { pointer-events:auto; }
+.ski-nav-link, .ski-nav-options button { color:#EAF1ED; background:#0C3A33; border:1px solid #2f6658; min-height:42px; display:inline-flex; align-items:center; gap:9px; padding:0 14px; text-decoration:none; }
+.ski-nav-link:hover, .ski-nav-options button:hover { background:#07533F; color:white; }
+.ski-nav-name { background:#0C3A33; padding:7px 12px; font-size:10px; font-weight:700; letter-spacing:.14em; }
+.ski-nav-name span { color:#5FD8BE; }
+.ski-nav-options { display:flex; gap:1px; }
+.ski-nav-options button { cursor:pointer; font-size:10px; font-weight:700; letter-spacing:.06em; }
+.ski-nav-options button span { color:#5FD8BE; }
+.ski-nav-options button[aria-pressed=true] span { color:#B4C5BE; }
+.ski-hud { position:absolute; inset:70px 20px 20px; z-index:25; pointer-events:none; display:flex; flex-direction:column; justify-content:space-between; }
+.ski-hud-top,.ski-hud-bottom { display:flex; justify-content:space-between; align-items:flex-start; gap:16px; }
+.ski-hud-bottom { align-items:flex-end; }
+.ski-instrument { color:#EAF1ED; background:#0C3A33; border-top:2px solid #2FB694; padding:12px 15px; min-width:150px; }
+.ski-label { display:block; color:#B4C5BE; text-transform:uppercase; font-size:10px; letter-spacing:.10em; }
+.ski-number { margin-top:4px; font-size:27px; line-height:1.2; font-weight:700; letter-spacing:-.06em; }
+.ski-number span { font-size:11px; letter-spacing:0; color:#B4C5BE; font-weight:400; }
+.ski-progress { width:240px; min-width:0; margin-top:4px; padding:10px 14px 12px; }
+.ski-progress-head { display:flex; align-items:center; justify-content:space-between; color:#B4C5BE; font-size:9px; letter-spacing:.08em; }
+.ski-progress-head strong { color:#EAF1ED; font-size:11px; }
+.ski-progress-track, .ski-gauge-track { height:4px; background:#31534b; margin-top:8px; overflow:hidden; }
+.ski-progress-track span,.ski-gauge-track span { display:block; height:100%; }
+.ski-progress-track span, .ski-gauge-cooked { background:#2FB694; }
+.ski-timer { text-align:right; }
+.ski-speed { display:block; color:#B4C5BE; font-size:10px; margin-top:4px; }
+.ski-toss { min-width:170px; }
+.ski-toss-state { display:flex; align-items:center; gap:8px; margin-top:7px; font-size:11px; font-weight:700; }
+.ski-toss-state span { width:7px; height:7px; background:#2FB694; }
+.ski-toss-state .ski-cooling { background:#74817B; }
+.ski-cooking { width:240px; }
+.ski-cooking-title { display:flex; justify-content:space-between; padding-bottom:8px; margin-bottom:8px; border-bottom:1px solid #42645b; color:#B4C5BE; font-size:9px; letter-spacing:.1em; }
+.ski-cooking-title span:first-child { color:#EAF1ED; font-weight:700; }
+.ski-gauge + .ski-gauge { margin-top:10px; }
+.ski-gauge > div:first-child { display:flex; justify-content:space-between; font-size:10px; color:#B4C5BE; }
+.ski-gauge strong { color:#EAF1ED; }
+.ski-gauge-track { margin-top:5px; }
+.ski-gauge-burn { background:#FF8A1F; }
+.ski-alert { align-self:center; padding:11px 16px; color:white; background:#B3261E; font-size:11px; font-weight:700; letter-spacing:.04em; text-align:center; }
+.ski-serve { position:absolute; z-index:41; top:135px; left:50%; transform:translateX(-50%); width:min(420px,calc(100% - 32px)); padding:18px 20px; color:#EAF1ED; background:#0C3A33; border-left:3px solid #2FB694; }
+.ski-serve-step { display:block; font-size:10px; color:#5FD8BE; letter-spacing:.14em; }
+.ski-serve h2 { font:700 19px/1.2 var(--font-ski-display),sans-serif; margin:8px 0 5px; }
+.ski-serve p { color:#EAF1ED; font-size:13px; margin:0 0 12px; }
+.ski-countdown { position:absolute; inset:0; z-index:39; display:grid; place-items:center; color:#0E1A16; font-size:clamp(80px,15vw,150px); font-weight:700; pointer-events:none; }
+.ski-overlay { position:absolute; z-index:40; inset:0; padding:24px; display:flex; align-items:center; justify-content:center; background:rgba(14,26,22,.76); }
+.ski-start-sheet, .ski-result-sheet { width:min(840px,100%); max-height:100%; overflow:auto; background:#FCFDFC; border:1px solid #C9D2CE; color:#0E1A16; }
+.ski-sheet-header { display:flex; justify-content:space-between; gap:16px; padding:14px 26px; border-bottom:1px solid #C9D2CE; color:#51605A; font-size:10px; font-weight:700; letter-spacing:.1em; }
+.ski-sheet-header b { color:#0B6E59; }
+.ski-start-main { display:grid; grid-template-columns:1.2fr 1fr; }
+.ski-intro { padding:38px 36px 34px; }
+.ski-eyebrow { display:flex; align-items:center; gap:9px; color:#0B6E59; font-size:10px; font-weight:700; letter-spacing:.14em; margin:0 0 16px; }
+.ski-eyebrow span { display:inline-block; width:16px; height:2px; background:#0B6E59; }
+.ski-intro h1 { font:700 clamp(44px,5.2vw,70px)/.95 var(--font-ski-display),sans-serif; letter-spacing:-.06em; margin:0 0 19px; }
+.ski-intro h1 span { color:#0B6E59; }
+.ski-deck { font:500 20px/1.35 var(--font-ski-display),sans-serif; letter-spacing:-.025em; margin:0 0 14px; }
+.ski-intro-copy, .ski-device-note { color:#51605A; font-size:13px; line-height:1.55; max-width:34ch; margin:0; }
+.ski-device-note { color:#8A4B00; margin-top:10px; }
+.ski-briefing { padding:30px 30px 24px; background:#ECF0EE; border-left:1px solid #C9D2CE; }
+.ski-brief-heading { display:flex; justify-content:space-between; padding-bottom:11px; color:#51605A; border-bottom:1px solid #C9D2CE; font-size:10px; font-weight:700; letter-spacing:.1em; }
+.ski-brief-row { display:grid; grid-template-columns:28px 1fr; gap:8px; padding:12px 0; border-bottom:1px solid #C9D2CE; }
+.ski-brief-row > span { color:#0B6E59; font-size:10px; font-weight:700; }
+.ski-brief-row strong { display:block; font-size:10px; letter-spacing:.06em; }
+.ski-brief-row p { color:#51605A; font:400 12px/1.45 var(--font-ski-body),sans-serif; margin:4px 0 0; }
+.ski-brief-row kbd { color:#0E1A16; font:700 11px var(--font-ski-mono),monospace; }
+.ski-target { display:flex; gap:14px; align-items:flex-start; padding-top:14px; }
+.ski-target > span { color:#8A4B00; font-size:10px; font-weight:700; white-space:nowrap; }
+.ski-target p { color:#51605A; font-size:10px; line-height:1.6; margin:0; }
+.ski-personal-best { padding:10px 36px; display:flex; justify-content:space-between; gap:8px; border-top:1px solid #C9D2CE; color:#51605A; font-size:10px; }
+.ski-personal-best strong { color:#0B6E59; }
+.ski-sheet-footer { display:flex; align-items:center; justify-content:space-between; gap:20px; padding:19px 36px; border-top:1px solid #C9D2CE; }
+.ski-sheet-footer p { color:#51605A; font-size:12px; line-height:1.4; margin:0; }
+.ski-sheet-footer p span { display:block; }
+.ski-button { min-height:44px; display:inline-flex; align-items:center; justify-content:space-between; gap:26px; padding:11px 15px; border:1px solid transparent; font-size:11px; line-height:1.4; font-weight:700; letter-spacing:.04em; text-decoration:none; cursor:pointer; transition:background-color .15s,color .15s; }
+.ski-button span { font-size:16px; }
+.ski-button-primary { color:white; background:#0B6E59; }
+.ski-button-primary:hover { background:#07533F; color:white; }
+.ski-button-outline { color:#0E1A16; background:#FCFDFC; border-color:#74817B; }
+.ski-button-outline:hover { background:#ECF0EE; }
+.ski-button-light { color:#0E1A16; background:#EAF1ED; font-size:10px; }
+.ski-button-light:hover { background:white; }
+.ski-button:disabled { opacity:.5; cursor:not-allowed; }
+.ski-result-sheet { width:min(580px,100%); position:relative; }
+.ski-result-intro { display:grid; grid-template-columns:1fr 86px; gap:24px; padding:30px 34px 25px; }
+.ski-result-intro .ski-eyebrow { margin-bottom:12px; }
+.ski-result-intro h2,.ski-pause-body h2 { margin:0; font:700 clamp(26px,3vw,35px)/1.07 var(--font-ski-display),sans-serif; letter-spacing:-.04em; }
+.ski-result-intro > div:first-child > p:last-child,.ski-pause-body > p:last-child { color:#51605A; font-size:13px; line-height:1.55; margin:10px 0 0; }
+.ski-grade { display:flex; flex-direction:column; align-items:center; justify-content:center; align-self:start; width:86px; height:94px; color:#EAF1ED; background:#0C3A33; border-top:3px solid #2FB694; font-size:52px; line-height:1; font-weight:700; }
+.ski-grade span { color:#B4C5BE; font-size:9px; font-weight:400; letter-spacing:.12em; margin-top:5px; }
+.ski-grade-fail { border-top-color:#B3261E; }
+.ski-fail-label { color:#B3261E; }
+.ski-result-table { padding:0 34px; font-size:11px; }
+.ski-result-table > div { display:flex; align-items:baseline; justify-content:space-between; gap:14px; padding:10px 0; border-top:1px solid #C9D2CE; }
+.ski-result-table > div span { color:#51605A; }
+.ski-result-table strong { text-align:right; font-size:12px; }
+.ski-result-table small { font-size:10px; font-weight:400; color:#51605A; }
+.ski-result-table .ski-score { color:#0B6E59; padding-top:14px; }
+.ski-score span,.ski-score small { color:#0B6E59 !important; }
+.ski-result-actions { padding:22px 34px 28px; display:flex; flex-direction:column; gap:10px; }
+.ski-result-actions-row { flex-direction:row; }
+.ski-result-actions-row > * { flex:1; }
+.ski-text-link { color:#07533F; text-align:center; font-size:11px; padding:10px; text-decoration:underline; }
+.ski-pause-sheet { width:min(440px,100%); }
+.ski-pause-body { padding:30px 34px 0; }
+.ski-confetti-wrap { position:absolute; inset:0; pointer-events:none; overflow:hidden; }
+.ski-confetti { position:absolute; top:0; width:6px; height:12px; background:#0B6E59; animation:ski-confetti 2.8s ease-in both; }
+.ski-confetti:nth-child(3n) { background:#8A4B00; }
+@keyframes ski-confetti { 0% { transform:translateY(-24px) rotate(0); opacity:0; } 12% { opacity:.5; } 100% { transform:translateY(520px) rotate(560deg); opacity:0; } }
+@media (max-width:650px) {
+ .ski-nav { left:12px; right:12px; top:12px; gap:8px; }
+ .ski-nav-name { display:none; }
+ .ski-nav-link,.ski-nav-options button { min-height:40px; padding:0 10px; }
+ .ski-hud { inset:62px 12px 12px; }
+ .ski-instrument { min-width:110px; padding:9px 10px; }
+ .ski-number { font-size:21px; }
+ .ski-progress { display:none; }
+ .ski-cooking { width:190px; }
+ .ski-toss { min-width:130px; }
+ .ski-overlay { padding:12px; }
+ .ski-start-main { grid-template-columns:1fr; }
+ .ski-intro { padding:25px 24px 20px; }
+ .ski-intro h1 { font-size:46px; margin-bottom:12px; }
+ .ski-deck { font-size:17px; }
+ .ski-briefing { padding:20px 24px; border-left:0; border-top:1px solid #C9D2CE; }
+ .ski-brief-row { padding:8px 0; }
+ .ski-sheet-footer { padding:16px 24px; flex-wrap:wrap; }
+ .ski-sheet-footer .ski-button { flex:1 1 100%; }
+ .ski-sheet-header { padding:12px 24px; font-size:9px; }
+ .ski-result-intro { padding:24px 24px 20px; grid-template-columns:1fr 62px; gap:12px; }
+ .ski-grade { width:62px; height:76px; font-size:40px; }
+ .ski-result-table { padding:0 24px; }
+ .ski-result-actions { padding:18px 24px 24px; }
+ .ski-result-actions-row { flex-direction:column; }
+ .ski-serve { top:135px; }
+}
+@media (max-height:600px) and (min-width:651px) { .ski-intro { padding:22px 32px; } .ski-briefing { padding:20px 30px; } .ski-brief-row { padding:7px 0; } .ski-intro h1 { font-size:50px; margin-bottom:12px; } .ski-sheet-footer { padding:12px 32px; } }
+@media (prefers-reduced-motion:reduce) { .ski-confetti { animation:none; display:none; } .ski-button { transition:none; } }
