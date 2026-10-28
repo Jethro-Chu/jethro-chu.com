@@ -424,5 +424,14 @@
       "kind": "text",
       "value": "March 2027"
     }
+  },
+  {
+    "id": "cohort_0894eb2abd",
+    "program_id": "prog_0a15cf343d",
+    "label": "March 2027 Cohort",
+    "program_start": {
+      "kind": "date",
+      "value": "2027-03-05"
+    }
   }
 ]

@@ -454,5 +454,11 @@
     "hospital_id": "hosp_ohiostate",
     "name": "The James Nurse Residency",
     "source_url": "https://osu.wd1.myworkdayjobs.com/OSUCareers/job/James-Cancer-Hospital-and-Solove-Research-Institute/Staff-Nurse--RN---Oncology-New-Grad-Nurse-Residency-Program--The-James_R153524-1"
+  },
+  {
+    "id": "prog_0a15cf343d",
+    "hospital_id": "hosp_ucsd",
+    "name": "UC San Diego Nurse Residency Program",
+    "source_url": "https://employment.ucsd.edu/rn-new-grad-registered-nurse-hillcrest-10-icu-141944/job/F06815DC717880604B545BCC75EC5A8F"
   }
 ]

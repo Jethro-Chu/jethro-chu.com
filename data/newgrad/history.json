@@ -9915,5 +9915,297 @@
         "claim": "license"
       }
     ]
+  },
+  {
+    "id": "hist_2026-10-27-daily_0001",
+    "run_id": "2026-10-27-daily",
+    "at": "2026-10-28T01:45:36.274Z",
+    "type": "NEW",
+    "opportunity_id": "opp_962eb87d2e",
+    "changes": null,
+    "reason": "First published from run evidence (OPEN).",
+    "evidence": [
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/103718/new-grad-rn-general-surgery-marburg-2-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "Nursing New Grad RN Job: New Grad RN - General Surgery - Marburg 2 at Johns Hopkins Medicine in Johns Hopkins Hospital, Baltimore, MD",
+        "retrieved_at": "2026-10-28T01:05:00.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/103718/new-grad-rn-general-surgery-marburg-2-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "Nursing New Grad RN Job: New Grad RN - General Surgery - Marburg 2 at Johns Hopkins Medicine in Johns Hopkins Hospital, Baltimore, MD",
+        "retrieved_at": "2026-10-28T01:05:00.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/103718/new-grad-rn-general-surgery-marburg-2-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "Qualifications : BSN or MSN preferred. Must be from an accredited nursing program . Applicants with an Associate’s degree in nursing from an accredited nursing program may be considered",
+        "retrieved_at": "2026-10-28T01:05:00.000Z",
+        "claim": "education"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/103718/new-grad-rn-general-surgery-marburg-2-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "Active Maryland or Compact RN license is required BLS CPR certification required: AHA, Red Cross, or Military Training Network accepted",
+        "retrieved_at": "2026-10-28T01:05:00.000Z",
+        "claim": "license"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-10-27-daily_0002",
+    "run_id": "2026-10-27-daily",
+    "at": "2026-10-28T01:45:36.274Z",
+    "type": "NEW",
+    "opportunity_id": "opp_9247bf2c0b",
+    "changes": null,
+    "reason": "First published from run evidence (OPEN).",
+    "evidence": [
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/103756/new-grad-rn-hematologic-malignancies-unit-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "Nursing New Grad RN Job: New Grad RN - Hematologic Malignancies Unit at Johns Hopkins Medicine in Johns Hopkins Hospital, Baltimore, MD",
+        "retrieved_at": "2026-10-28T01:05:00.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/103756/new-grad-rn-hematologic-malignancies-unit-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "No RN work experience required! Training will be provided - All New Grad RNs are automatically enrolled in our Nurse Residency Program ranked #3 in the nation!",
+        "retrieved_at": "2026-10-28T01:05:00.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/103756/new-grad-rn-hematologic-malignancies-unit-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "Active Maryland or Compact RN license is required BLS CPR certification required No RN work experience required!",
+        "retrieved_at": "2026-10-28T01:05:00.000Z",
+        "claim": "license"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-10-27-daily_0003",
+    "run_id": "2026-10-27-daily",
+    "at": "2026-10-28T01:45:36.274Z",
+    "type": "NEW",
+    "opportunity_id": "opp_eeb933a8b9",
+    "changes": null,
+    "reason": "First published from run evidence (OPEN).",
+    "evidence": [
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/103755/new-grad-rn-heme-malignancy-bone-marrow-transplant-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "Nursing New Grad RN Job: New Grad RN - Heme Malignancy & Bone Marrow Transplant at Johns Hopkins Medicine in Johns Hopkins Hospital, Baltimore, MD",
+        "retrieved_at": "2026-10-28T01:05:00.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/103755/new-grad-rn-heme-malignancy-bone-marrow-transplant-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "Nursing New Grad RN Job: New Grad RN - Heme Malignancy & Bone Marrow Transplant at Johns Hopkins Medicine in Johns Hopkins Hospital, Baltimore, MD",
+        "retrieved_at": "2026-10-28T01:05:00.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/103755/new-grad-rn-heme-malignancy-bone-marrow-transplant-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "Active Maryland or Compact RN license BLS CPR certification No RN work experience needed!",
+        "retrieved_at": "2026-10-28T01:05:00.000Z",
+        "claim": "license"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-10-27-daily_0004",
+    "run_id": "2026-10-27-daily",
+    "at": "2026-10-28T01:45:36.274Z",
+    "type": "NEW",
+    "opportunity_id": "opp_89297a92f7",
+    "changes": null,
+    "reason": "First published from run evidence (OPEN).",
+    "evidence": [
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/103722/new-grad-rn-cvsicu-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "Nursing New Grad RN Job: New Grad RN - CVSICU at Johns Hopkins Medicine in Johns Hopkins Hospital, Baltimore, MD",
+        "retrieved_at": "2026-10-28T01:05:00.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/103722/new-grad-rn-cvsicu-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "No RN work experience required! Training will be provided - All New Grad RNs are automatically enrolled in our Nurse Residency Program ranked #3 in the nation!",
+        "retrieved_at": "2026-10-28T01:05:00.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/103722/new-grad-rn-cvsicu-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "Active Maryland or Compact RN license is required BLS CPR certification required No RN work experience required!",
+        "retrieved_at": "2026-10-28T01:05:00.000Z",
+        "claim": "license"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-10-27-daily_0005",
+    "run_id": "2026-10-27-daily",
+    "at": "2026-10-28T01:45:36.274Z",
+    "type": "NEW",
+    "opportunity_id": "opp_2fac2a9a7d",
+    "changes": null,
+    "reason": "First published from run evidence (OPEN).",
+    "evidence": [
+      {
+        "source_url": "https://employment.ucsd.edu/rn-new-grad-registered-nurse-hillcrest-10-icu-141944/job/F06815DC717880604B545BCC75EC5A8F",
+        "excerpt": "Application Deadline: Thu 10/29/2026 Apply Now UC San Diego values and welcomes people from all backgrounds.",
+        "retrieved_at": "2026-10-28T01:11:00.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://employment.ucsd.edu/rn-new-grad-registered-nurse-hillcrest-10-icu-141944/job/F06815DC717880604B545BCC75EC5A8F",
+        "excerpt": "Application Deadline: Thu 10/29/2026 Apply Now UC San Diego values and welcomes people from all backgrounds.",
+        "retrieved_at": "2026-10-28T01:11:00.000Z",
+        "claim": "deadline"
+      },
+      {
+        "source_url": "https://employment.ucsd.edu/rn-new-grad-registered-nurse-hillcrest-10-icu-141944/job/F06815DC717880604B545BCC75EC5A8F",
+        "excerpt": "The UC San Diego Nurse Residency Program provides Newly Licensed Registered Nurses with a comprehensive transition-to-practice experience through enhanced clinical learning",
+        "retrieved_at": "2026-10-28T01:11:00.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://employment.ucsd.edu/rn-new-grad-registered-nurse-hillcrest-10-icu-141944/job/F06815DC717880604B545BCC75EC5A8F",
+        "excerpt": "QUALIFICATIONS Must be a graduate from an accredited school of Nursing. California RN license by start date... Licensure and certification are not required at time of application but will be required by the cohort start date of March 5, 2027.",
+        "retrieved_at": "2026-10-28T01:11:00.000Z",
+        "claim": "license"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-10-27-daily_0006",
+    "run_id": "2026-10-27-daily",
+    "at": "2026-10-28T01:45:36.274Z",
+    "type": "NEW",
+    "opportunity_id": "opp_16c4607e00",
+    "changes": null,
+    "reason": "First published from run evidence (OPEN).",
+    "evidence": [
+      {
+        "source_url": "https://employment.ucsd.edu/rn-new-grad-registered-nurse-scvc-4ab-pcu-141918/job/80CFB720201501EF5723BF8DAC73AA98",
+        "excerpt": "Application Deadline: Tue 10/27/2026 Apply Now UC San Diego values and welcomes people from all backgrounds.",
+        "retrieved_at": "2026-10-28T01:11:00.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://employment.ucsd.edu/rn-new-grad-registered-nurse-scvc-4ab-pcu-141918/job/80CFB720201501EF5723BF8DAC73AA98",
+        "excerpt": "Application Deadline: Tue 10/27/2026 Apply Now UC San Diego values and welcomes people from all backgrounds.",
+        "retrieved_at": "2026-10-28T01:11:00.000Z",
+        "claim": "deadline"
+      },
+      {
+        "source_url": "https://employment.ucsd.edu/rn-new-grad-registered-nurse-scvc-4ab-pcu-141918/job/80CFB720201501EF5723BF8DAC73AA98",
+        "excerpt": "The UC San Diego Nurse Residency Program provides Newly Licensed Registered Nurses with a comprehensive transition-to-practice experience through enhanced clinical learning",
+        "retrieved_at": "2026-10-28T01:11:00.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://employment.ucsd.edu/rn-new-grad-registered-nurse-scvc-4ab-pcu-141918/job/80CFB720201501EF5723BF8DAC73AA98",
+        "excerpt": "QUALIFICATIONS Must be a graduate from an accredited school of Nursing. California RN license by start date... Licensure and certification are not required at time of application but will be required by the cohort start date of March 5, 2027.",
+        "retrieved_at": "2026-10-28T01:11:00.000Z",
+        "claim": "license"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-10-27-daily_0007",
+    "run_id": "2026-10-27-daily",
+    "at": "2026-10-28T01:45:36.274Z",
+    "type": "UPDATED",
+    "opportunity_id": "opp_c2b45c0fed",
+    "changes": [
+      {
+        "field": "application_url",
+        "before": "https://careers.lluh.org/",
+        "after": "https://egln.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX/job/17676/"
+      },
+      {
+        "field": "dedup_key",
+        "before": null,
+        "after": "oracle|lluh|17676"
+      },
+      {
+        "field": "application_status",
+        "before": "OPENING_SOON",
+        "after": "OPEN"
+      }
+    ],
+    "reason": "Updated from run evidence (OPEN).",
+    "evidence": [
+      {
+        "source_url": "https://lluh.org/health-professionals/adult-rn-residency-program/how-apply",
+        "excerpt": "Applications for the February 2027 Cohort are now being accepted through Friday, November 6, 2026, at 11:59 p.m.",
+        "retrieved_at": "2026-10-28T01:05:00.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://lluh.org/health-professionals/adult-rn-residency-program/how-apply",
+        "excerpt": "Applications for the February 2027 Cohort are now being accepted through Friday, November 6, 2026, at 11:59 p.m.",
+        "retrieved_at": "2026-10-28T01:05:00.000Z",
+        "claim": "deadline"
+      },
+      {
+        "source_url": "https://lluch.org/health-professionals/residency/rn-residency",
+        "excerpt": "The LLU Children's Hospital RN Residency is designed for the new graduate nurse who wants to begin their career in pediatrics. As a new graduate nurse, you have many important choices in front of you.",
+        "retrieved_at": "2026-10-28T01:05:00.000Z",
+        "claim": "eligibility"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-10-27-daily_0008",
+    "run_id": "2026-10-27-daily",
+    "at": "2026-10-28T01:45:36.274Z",
+    "type": "UPDATED",
+    "opportunity_id": "opp_da8fc4bb99",
+    "changes": [
+      {
+        "field": "unit",
+        "before": "Critical Care Oncology - The James",
+        "after": "James | James Nurse Residency"
+      },
+      {
+        "field": "program_id",
+        "before": "prog_e8acfa8a4f",
+        "after": "prog_76bb8bd11f"
+      },
+      {
+        "field": "application_url",
+        "before": "https://osu.wd1.myworkdayjobs.com/en-US/OSUCareers/job/Staff-Nurse--RN---Critical-Care-Oncology-New-Grad-Nurse-Residency-Program--The-James_R153527-1",
+        "after": "https://osu.wd1.myworkdayjobs.com/OSUCareers/job/James-Cancer-Hospital-and-Solove-Research-Institute/Staff-Nurse--RN---Critical-Care-Oncology-New-Grad-Nurse-Residency-Program--The-James_R153527-1"
+      }
+    ],
+    "reason": "Updated from run evidence (OPEN).",
+    "evidence": [
+      {
+        "source_url": "https://osu.wd1.myworkdayjobs.com/OSUCareers/job/James-Cancer-Hospital-and-Solove-Research-Institute/Staff-Nurse--RN---Critical-Care-Oncology-New-Grad-Nurse-Residency-Program--The-James_R153527-1",
+        "excerpt": "The Ohio State University James Cancer Hospital Nurse Residency Program offers unique opportunities for newly licensed graduate nurses to successfully transition from student to professional",
+        "retrieved_at": "2026-10-28T01:07:00.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://osu.wd1.myworkdayjobs.com/OSUCareers/job/James-Cancer-Hospital-and-Solove-Research-Institute/Staff-Nurse--RN---Critical-Care-Oncology-New-Grad-Nurse-Residency-Program--The-James_R153527-1",
+        "excerpt": "Job Title: Staff Nurse (RN)- Critical Care Oncology New Grad Nurse Residency Program- The James Department: James | James Nurse Residency",
+        "retrieved_at": "2026-10-28T01:07:00.000Z",
+        "claim": "status"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-10-27-daily_0009",
+    "run_id": "2026-10-27-daily",
+    "at": "2026-10-28T01:45:36.274Z",
+    "type": "CLOSED",
+    "opportunity_id": "opp_16c4607e00",
+    "changes": [
+      {
+        "field": "application_status",
+        "before": "OPEN",
+        "after": "CLOSED"
+      }
+    ],
+    "reason": "Confirmed deadline passed (ingest sweep).",
+    "evidence": []
   }
 ]
