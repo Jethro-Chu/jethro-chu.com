@@ -460,5 +460,11 @@
     "hospital_id": "hosp_ucsd",
     "name": "UC San Diego Nurse Residency Program",
     "source_url": "https://employment.ucsd.edu/rn-new-grad-registered-nurse-hillcrest-10-icu-141944/job/F06815DC717880604B545BCC75EC5A8F"
+  },
+  {
+    "id": "prog_2e94847aae",
+    "hospital_id": "hosp_duke",
+    "name": "Nurse Residency Program",
+    "source_url": "https://careers.dukehealth.org/"
   }
 ]

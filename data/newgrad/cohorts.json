@@ -433,5 +433,11 @@
       "kind": "date",
       "value": "2027-03-05"
     }
+  },
+  {
+    "id": "cohort_ba5df17d96",
+    "program_id": "prog_2e94847aae",
+    "label": "Year-Round",
+    "program_start": null
   }
 ]

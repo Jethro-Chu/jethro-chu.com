@@ -10207,5 +10207,39 @@
     ],
     "reason": "Confirmed deadline passed (ingest sweep).",
     "evidence": []
+  },
+  {
+    "id": "hist_2026-10-28-daily_0001",
+    "run_id": "2026-10-28-daily",
+    "at": "2026-10-28T12:16:30.877Z",
+    "type": "UPDATED",
+    "opportunity_id": "opp_b90ce57ca2",
+    "changes": [
+      {
+        "field": "program_id",
+        "before": "prog_3916f80566",
+        "after": "prog_2e94847aae"
+      },
+      {
+        "field": "cohort_id",
+        "before": "cohort_866b98ed5b",
+        "after": "cohort_ba5df17d96"
+      }
+    ],
+    "reason": "Updated from run evidence (OPEN).",
+    "evidence": [
+      {
+        "source_url": "https://careers.dukehealth.org/",
+        "excerpt": "All newly hired new graduate nurses at Duke Health are automatically enrolled in the 12-month paid Nurse Residency Program accredited by the ANCC PTAP.",
+        "retrieved_at": "2026-10-28T12:05:00.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://careers.dukehealth.org/",
+        "excerpt": "Applications are open year-round for Clinical Nurse I positions across Emergency, Heart, Oncology, and Surgical units at Duke Health.",
+        "retrieved_at": "2026-10-28T12:05:00.000Z",
+        "claim": "status"
+      }
+    ]
   }
 ]
