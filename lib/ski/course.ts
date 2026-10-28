@@ -163,13 +163,18 @@ export class SkiCourse {
       const offset = [4, 12, 20].includes(obstacleIndex) ? 0 : sideOffset;
 
       const isRock = rng() > 0.75;
+      const isLog = [7, 14, 19, 23].includes(obstacleIndex);
+      // Consume the same random value as before so unrelated obstacles
+      // stay in their established positions.
+      const obstacleHeight = isRock ? 1.2 : 5.0 + rng() * 2.5;
       this.obstacles.push({
         id: idCounter++,
-        type: isRock ? "rock" : "pine",
+        type: isLog ? "log" : isRock ? "rock" : "pine",
         distance: z,
         lateralOffset: center.x + offset,
-        radius: isRock ? 0.75 : 0.9,
-        height: isRock ? 1.2 : 5.0 + rng() * 2.5,
+        radius: isLog ? 0.42 : isRock ? 0.75 : 0.9,
+        width: isLog ? 3.0 : undefined,
+        height: isLog ? 0.84 : obstacleHeight,
         rotation: rng() * Math.PI * 2,
         scale: 0.8 + rng() * 0.35,
       });
@@ -211,7 +216,7 @@ export class SkiCourse {
 
       const dx = worldX - obs.lateralOffset;
       const dz = worldZ - obs.distance;
-      if (obs.type === "barrier" && obs.width !== undefined) {
+      if ((obs.type === "barrier" || obs.type === "log") && obs.width !== undefined) {
         // Circle vs the same thin rectangle drawn by the renderer.
         const outsideX = Math.max(0, Math.abs(dx) - obs.width / 2);
         const outsideZ = Math.max(0, Math.abs(dz) - obs.radius);

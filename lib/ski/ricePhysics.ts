@@ -73,6 +73,9 @@ export class RiceSimulation {
       metalness: 0.1,
     });
     this.spilledMesh = new THREE.InstancedMesh(grainGeom, spilledMat, SKI_CONFIG.RICE.GRAIN_COUNT);
+    // Instances move in world space along the entire slope. Their initial
+    // bounds are at the origin and become stale after a spill or crash.
+    this.spilledMesh.frustumCulled = false;
     this.spilledMesh.instanceMatrix.setUsage(THREE.DynamicDrawUsage);
     if (this.spilledMesh.instanceColor) {
       this.spilledMesh.instanceColor.setUsage(THREE.DynamicDrawUsage);
@@ -366,6 +369,37 @@ export class RiceSimulation {
     if (tossedCount > 0 && this.audio) {
       this.audio.playToss();
     }
+  }
+
+  /** Throw the remaining rice out once when the cooking rig crashes. */
+  public scatterOnCrash(
+    panWorldTransform: THREE.Matrix4,
+    panWorldVelocity: { x: number; y: number; z: number }
+  ): void {
+    for (let i = 0; i < this.grains.length; i++) {
+      const grain = this.grains[i];
+      if (!grain.retained) continue;
+      // Keep a portion of the downhill momentum while spreading grains
+      // through a readable arc around the airborne pan and stove.
+      this.spillGrain(grain, i, panWorldTransform, {
+        x: panWorldVelocity.x * 0.3,
+        y: panWorldVelocity.y,
+        z: panWorldVelocity.z * 0.3,
+      });
+      const particle = this.spilledParticles[this.spilledParticles.length - 1];
+      const angle = i * 2.399963229728653;
+      const strength = 1.2 + (i % 9) * 0.26;
+      particle.vx += Math.cos(angle) * strength;
+      particle.vy += 1.8 + (i % 7) * 0.27;
+      particle.vz += Math.sin(angle) * strength;
+    }
+    this.updateMeshTransforms();
+  }
+
+  /** Advance the airborne rice during the crash, without cooking it. */
+  public stepCrash(dt: number): void {
+    this.updateSpilledParticles(Math.min(dt, 0.05), false, { x: 0, y: 0, z: 0 });
+    this.updateMeshTransforms();
   }
 
   /**

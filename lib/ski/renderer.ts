@@ -18,11 +18,21 @@ export class SkiRenderer {
   private course: SkiCourse;
   private skier: SkierController;
   private rice: RiceSimulation;
+  private treeModels = new Map<number, THREE.Group>();
+  private fadedTreeMaterials: Array<{ mesh: THREE.Mesh; original: THREE.Material; faded: THREE.Material }> = [];
 
   // Skier Rig
   private cameraRig: THREE.Group;
   private panRig: THREE.Group;
   private panMesh: THREE.Mesh;
+  private stoveRig: THREE.Group;
+  private crashing = false;
+  private crashElapsed = 0;
+  private crashSide = 1;
+  private crashPanPosition = new THREE.Vector3();
+  private crashStovePosition = new THREE.Vector3();
+  private crashPanRotation = new THREE.Euler();
+  private crashStoveRotation = new THREE.Euler();
   private burnerFlame: THREE.Mesh;
   private burnerLight: THREE.PointLight;
   private leftHand: THREE.Group;
@@ -69,6 +79,9 @@ export class SkiRenderer {
 
     const aspect = container.clientWidth / container.clientHeight || 16 / 9;
     this.camera = new THREE.PerspectiveCamera(65, aspect, 0.1, 800);
+    // Pull the eye back without moving the pan in the world. Its established
+    // position relative to the finish plate remains part of the physics.
+    this.camera.position.z = 0.28;
 
     // 2. Setup WebGLRenderer
     this.renderer = new THREE.WebGLRenderer({
@@ -122,6 +135,7 @@ export class SkiRenderer {
     this.cameraRig = rigData.cameraRig;
     this.panRig = rigData.panRig;
     this.panMesh = rigData.panMesh;
+    this.stoveRig = rigData.stoveRig;
     this.burnerFlame = rigData.burnerFlame;
     this.burnerLight = rigData.burnerLight;
     this.leftHand = rigData.leftHand;
@@ -265,6 +279,7 @@ export class SkiRenderer {
         tree.position.set(obs.lateralOffset, groundY, obs.distance);
         tree.scale.set(obs.scale, obs.scale, obs.scale);
         tree.rotation.y = obs.rotation;
+        this.treeModels.set(obs.id, tree);
         this.scene.add(tree);
       } else if (obs.type === "barrier" && obs.width !== undefined) {
         const groundY = this.course.getGroundHeight(obs.lateralOffset, obs.distance);
@@ -294,6 +309,14 @@ export class SkiRenderer {
         rock.rotation.set(obs.rotation, obs.rotation * 0.5, 0);
         rock.castShadow = true;
         this.scene.add(rock);
+      } else if (obs.type === "log") {
+        const width = obs.width ?? 3;
+        const groundY = this.course.getGroundHeight(obs.lateralOffset, obs.distance);
+        const log = new THREE.Mesh(new THREE.CylinderGeometry(obs.radius, obs.radius, width, 10), trunkMat);
+        log.rotation.z = Math.PI / 2;
+        log.position.set(obs.lateralOffset, groundY + obs.radius, obs.distance);
+        log.castShadow = true;
+        this.scene.add(log);
       }
     }
   }
@@ -405,6 +428,7 @@ export class SkiRenderer {
     cameraRig: THREE.Group;
     panRig: THREE.Group;
     panMesh: THREE.Mesh;
+    stoveRig: THREE.Group;
     burnerFlame: THREE.Mesh;
     burnerLight: THREE.PointLight;
     leftHand: THREE.Group;
@@ -456,31 +480,52 @@ export class SkiRenderer {
     panRig.add(rimMesh);
 
     // Long pan handle extending towards player (+Z)
-    const handleGeom = new THREE.CylinderGeometry(0.016, 0.018, 0.35, 12);
-    handleGeom.rotateX(Math.PI / 2);
+    const handleStart = new THREE.Vector3(0.17, 0.065, 0.19);
+    const handleEnd = new THREE.Vector3(0.37, 0.065, 0.44);
+    const handleGeom = new THREE.CylinderGeometry(0.016, 0.018, handleStart.distanceTo(handleEnd), 12);
     const handleMat = new THREE.MeshStandardMaterial({ color: 0x1c1e22, roughness: 0.6 });
     const handleMesh = new THREE.Mesh(handleGeom, handleMat);
-    handleMesh.position.set(0, SKI_CONFIG.PAN.DEPTH * 0.85, SKI_CONFIG.PAN.RADIUS + 0.16);
+    handleMesh.position.copy(handleStart).add(handleEnd).multiplyScalar(0.5);
+    handleMesh.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), handleEnd.clone().sub(handleStart).normalize());
     panRig.add(handleMesh);
 
-    // TWO MINI SKIS MOUNTED UNDERNEATH THE PAN! (The comedic premise)
-    const miniSkiGeom = new THREE.BoxGeometry(0.04, 0.015, 0.45);
-    const miniSkiMat = new THREE.MeshStandardMaterial({ color: 0x8a3324, roughness: 0.6 }); // Red ski wax
+    // A portable tabletop burner, carried on two little skis. Keeping it in
+    // its own group lets the stove and pan fly apart separately in a crash.
+    const stoveRig = new THREE.Group();
+    panRig.add(stoveRig);
+    const stoveBodyMat = new THREE.MeshStandardMaterial({ color: 0x8b9491, roughness: 0.65, metalness: 0.35 });
+    const stoveTopMat = new THREE.MeshStandardMaterial({ color: 0x17211f, roughness: 0.75, metalness: 0.25 });
+    const stoveBody = new THREE.Mesh(new THREE.BoxGeometry(0.61, 0.12, 0.51), stoveBodyMat);
+    stoveBody.position.y = -0.14;
+    stoveRig.add(stoveBody);
+    const stoveTop = new THREE.Mesh(new THREE.BoxGeometry(0.57, 0.012, 0.47), stoveTopMat);
+    stoveTop.position.y = -0.075;
+    stoveRig.add(stoveTop);
+    const stoveControl = new THREE.Mesh(new THREE.CylinderGeometry(0.026, 0.026, 0.018, 12), stoveTopMat);
+    stoveControl.rotation.x = Math.PI / 2;
+    stoveControl.position.set(0.19, -0.14, 0.264);
+    stoveRig.add(stoveControl);
+    const stoveMark = new THREE.Mesh(new THREE.BoxGeometry(0.13, 0.034, 0.006), new THREE.MeshStandardMaterial({ color: 0x0b6e59, roughness: 0.8 }));
+    stoveMark.position.set(-0.14, -0.14, 0.258);
+    stoveRig.add(stoveMark);
+
+    const miniSkiGeom = new THREE.BoxGeometry(0.045, 0.025, 0.9);
+    const miniSkiMat = new THREE.MeshStandardMaterial({ color: 0x165f4d, roughness: 0.6 });
 
     const leftMiniSki = new THREE.Mesh(miniSkiGeom, miniSkiMat);
-    leftMiniSki.position.set(-0.14, -0.04, 0);
-    panRig.add(leftMiniSki);
+    leftMiniSki.position.set(-0.19, -0.215, 0.04);
+    stoveRig.add(leftMiniSki);
 
     const rightMiniSki = new THREE.Mesh(miniSkiGeom, miniSkiMat);
-    rightMiniSki.position.set(0.14, -0.04, 0);
-    panRig.add(rightMiniSki);
+    rightMiniSki.position.set(0.19, -0.215, 0.04);
+    stoveRig.add(rightMiniSki);
 
     // Camping Gas Burner mounted under pan center
     const burnerCanisterGeom = new THREE.CylinderGeometry(0.065, 0.065, 0.05, 16);
     const burnerCanisterMat = new THREE.MeshStandardMaterial({ color: 0x2563eb, metalness: 0.6, roughness: 0.4 }); // Blue gas can
     const burnerCanister = new THREE.Mesh(burnerCanisterGeom, burnerCanisterMat);
     burnerCanister.position.set(0, -0.035, 0);
-    panRig.add(burnerCanister);
+    stoveRig.add(burnerCanister);
 
     // Flickering Flame Cone
     const flameGeom = new THREE.ConeGeometry(0.04, 0.045, 10);
@@ -494,42 +539,42 @@ export class SkiRenderer {
     // Fully below the pan bowl: at -0.005 the cone tip poked through the
     // pan floor and showed as a blue hexagon inside the pan.
     burnerFlame.position.set(0, -0.03, 0);
-    panRig.add(burnerFlame);
+    stoveRig.add(burnerFlame);
 
     const burnerLight = new THREE.PointLight(0xf97316, 0.55, 0.6);
     burnerLight.position.set(0, 0.06, 0);
-    panRig.add(burnerLight);
+    stoveRig.add(burnerLight);
 
     // Gloved Hands holding the handle
-    const gloveMat = new THREE.MeshStandardMaterial({ color: 0x1e3a5f, roughness: 0.85 }); // Dark alpine navy mittens
-    const palmMat = new THREE.MeshStandardMaterial({ color: 0x855436, roughness: 0.9 });  // Leather palm
+    const gloveMat = new THREE.MeshStandardMaterial({ color: 0x172c2a, roughness: 0.85 });
+    const sleeveMat = new THREE.MeshStandardMaterial({ color: 0x286e60, roughness: 0.9 });
 
     const makeMitten = (isLeft: boolean) => {
       const g = new THREE.Group();
       // Forearm sleeve
-      const sleeveGeom = new THREE.CylinderGeometry(0.045, 0.055, 0.32, 10);
-      sleeveGeom.rotateX(Math.PI / 3);
-      const sleeve = new THREE.Mesh(sleeveGeom, gloveMat);
+      const sleeveEnd = new THREE.Vector3(isLeft ? -0.28 : 0.28, -0.35, 0.49);
+      const sleeveGeom = new THREE.CylinderGeometry(0.055, 0.075, sleeveEnd.length(), 10);
+      const sleeve = new THREE.Mesh(sleeveGeom, sleeveMat);
+      sleeve.position.copy(sleeveEnd).multiplyScalar(0.5);
+      sleeve.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), sleeveEnd.clone().normalize());
       g.add(sleeve);
 
       // Mitten hand
       const handGeom = new THREE.SphereGeometry(0.055, 10, 8);
       handGeom.scale(1, 0.8, 1.3);
       const hand = new THREE.Mesh(handGeom, gloveMat);
-      hand.position.set(0, 0.04, -0.15);
+      hand.position.set(0, 0, 0);
       g.add(hand);
 
       return g;
     };
 
     const leftHand = makeMitten(true);
-    leftHand.position.set(-0.16, -0.44, -0.45);
-    leftHand.rotation.set(0.2, 0.3, -0.2);
+    leftHand.position.set(-0.29, -0.48, -0.47);
     cameraRig.add(leftHand);
 
     const rightHand = makeMitten(false);
-    rightHand.position.set(0.16, -0.44, -0.45);
-    rightHand.rotation.set(0.2, -0.3, 0.2);
+    rightHand.position.set(0.37, -0.315, -0.28);
     cameraRig.add(rightHand);
 
     // Full-size skis cutting through snow on the ground (visible in bottom peripheral)
@@ -550,6 +595,7 @@ export class SkiRenderer {
       cameraRig,
       panRig,
       panMesh,
+      stoveRig,
       burnerFlame,
       burnerLight,
       leftHand,
@@ -598,6 +644,64 @@ export class SkiRenderer {
   }
 
   /**
+   * Break the pan and portable stove apart on impact. Their movement stays
+   * camera-relative so the accident remains readable, while the rice is
+   * released into the real world simulation from the pan's actual transform.
+   */
+  public beginCrash(): void {
+    if (this.crashing) return;
+    this.crashing = true;
+    this.crashElapsed = 0;
+    this.crashSide = this.skier.crashImpact?.side || 1;
+    // At impact the camera can be inside a tree's canopy. Fade only that
+    // tree so the flying pan and rice remain visible through the branches.
+    if (this.skier.crashImpact?.obstacle === "pine") {
+      this.treeModels.get(this.skier.crashImpact.obstacleId)?.traverse((object) => {
+        if (!(object instanceof THREE.Mesh) || Array.isArray(object.material)) return;
+        const original = object.material;
+        const faded = original.clone();
+        faded.transparent = true;
+        faded.opacity = 0.18;
+        faded.depthWrite = false;
+        object.material = faded;
+        this.fadedTreeMaterials.push({ mesh: object, original, faded });
+      });
+    }
+    this.panRig.updateWorldMatrix(true, true);
+    this.rice.scatterOnCrash(this.panRig.matrixWorld, {
+      x: this.skier.state.lateralSpeed,
+      y: 0,
+      z: this.skier.state.speed,
+    });
+    this.cameraRig.attach(this.stoveRig);
+    this.crashPanPosition.copy(this.panRig.position);
+    this.crashStovePosition.copy(this.stoveRig.position);
+    this.crashPanRotation.copy(this.panRig.rotation);
+    this.crashStoveRotation.copy(this.stoveRig.rotation);
+  }
+
+  public resetCrash(): void {
+    this.restoreCrashedTree();
+    this.crashing = false;
+    this.crashElapsed = 0;
+    this.panRig.add(this.stoveRig);
+    this.panRig.position.set(0, -0.38, -0.72);
+    this.panRig.rotation.set(0, 0, 0);
+    this.stoveRig.position.set(0, 0, 0);
+    this.stoveRig.rotation.set(0, 0, 0);
+    this.leftHand.visible = true;
+    this.rightHand.visible = true;
+  }
+
+  private restoreCrashedTree(): void {
+    for (const { mesh, original, faded } of this.fadedTreeMaterials) {
+      mesh.material = original;
+      faded.dispose();
+    }
+    this.fadedTreeMaterials = [];
+  }
+
+  /**
    * Main render tick
    */
   public render(dt: number, phase: GamePhase): void {
@@ -639,18 +743,33 @@ export class SkiRenderer {
     const tossY = panOrientation.tossProgress * 0.14;
     const tossPitch = -panOrientation.tossProgress * 0.15; // slight nose up when tossed
 
-    this.panRig.position.set(0, -0.38 + tossY, -0.72);
-    this.panRig.rotation.set(
-      panOrientation.pitch + tossPitch,
-      0,
-      panOrientation.roll
-    );
+    if (phase === "crashing" && this.crashing) {
+      this.crashElapsed += dt;
+      this.skier.cameraShakeIntensity = Math.max(0, this.skier.cameraShakeIntensity - dt * 2.5);
+      const t = this.crashElapsed;
+      this.panRig.position.set(
+        this.crashPanPosition.x + this.crashSide * 0.44 * t,
+        this.crashPanPosition.y + 1.05 * t - 0.8 * t * t,
+        this.crashPanPosition.z - 0.36 * t,
+      );
+      this.panRig.rotation.set(this.crashPanRotation.x + 3 * t, this.crashPanRotation.y + 2.2 * t, this.crashPanRotation.z + this.crashSide * 2.5 * t);
+      this.stoveRig.position.set(
+        this.crashStovePosition.x - this.crashSide * 0.52 * t,
+        this.crashStovePosition.y + 0.8 * t - 0.9 * t * t,
+        this.crashStovePosition.z - 0.22 * t,
+      );
+      this.stoveRig.rotation.set(this.crashStoveRotation.x - 2.4 * t, this.crashStoveRotation.y - 1.6 * t, this.crashStoveRotation.z - this.crashSide * 2 * t);
+    } else if (!this.crashing) {
+      this.panRig.position.set(0, -0.38 + tossY, -0.72);
+      this.panRig.rotation.set(panOrientation.pitch + tossPitch, 0, panOrientation.roll);
+    }
 
     // Mini ski flutter & hand follow
-    this.leftHand.position.x = -0.16 + panOrientation.roll * 0.15;
-    this.rightHand.position.x = 0.16 + panOrientation.roll * 0.15;
-    this.leftHand.position.y = -0.44 + tossY * 0.7;
-    this.rightHand.position.y = -0.44 + tossY * 0.7;
+    const recoil = phase === "crashing" ? Math.min(0.15, this.crashElapsed * 0.3) : 0;
+    this.leftHand.position.x = -0.29 + panOrientation.roll * 0.15 - recoil;
+    this.rightHand.position.x = 0.37 + panOrientation.roll * 0.15 + recoil;
+    this.leftHand.position.y = -0.48 + tossY * 0.7 - recoil;
+    this.rightHand.position.y = -0.315 + tossY * 0.7 - recoil;
 
     // Burner flame flicker
     const flicker = 0.85 + Math.random() * 0.35;
@@ -688,6 +807,8 @@ export class SkiRenderer {
 
       // 4. Update Particle Systems
       this.updateParticles(dt, phase);
+    } else if (phase === "crashing" && this.crashing) {
+      this.rice.stepCrash(dt);
     }
 
     // 5. Render Scene
@@ -843,6 +964,7 @@ export class SkiRenderer {
    * Complete GPU resource cleanup
    */
   public dispose(): void {
+    this.restoreCrashedTree();
     this.rice.dispose();
 
     // Dispose all scene geometries and materials

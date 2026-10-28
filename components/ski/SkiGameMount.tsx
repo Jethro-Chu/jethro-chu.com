@@ -60,6 +60,8 @@ export function SkiGameMount() {
 
   // Auto-finish timer for plating
   const platingTimerRef = useRef<number>(0);
+  const crashTimerRef = useRef<number>(0);
+  const crashReasonRef = useRef<FailureReason>("tree_crash");
   const timeElapsedRef = useRef<number>(0);
   const phaseRef = useRef<GamePhase>(phase);
   const pausedFromRef = useRef<"skiing" | "plating">("skiing");
@@ -75,6 +77,7 @@ export function SkiGameMount() {
     if (typeof window !== "undefined") {
       const isTouch = "ontouchstart" in window || navigator.maxTouchPoints > 0;
       setIsMobileDevice(isTouch);
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) setReducedShake(true);
 
       const hasPointerLock = "pointerLockElement" in document || "mozPointerLockElement" in document;
       setPointerLockSupported(hasPointerLock);
@@ -126,8 +129,10 @@ export function SkiGameMount() {
       skierRef.current.clearInputs();
       skierRef.current.reset();
     }
+    rendererRef.current?.resetCrash();
 
     platingTimerRef.current = 0;
+    crashTimerRef.current = 0;
     timeElapsedRef.current = 0;
     setPlatedCount(0);
     setGrainsRemaining(SKI_CONFIG.RICE.GRAIN_COUNT);
@@ -341,7 +346,12 @@ export function SkiGameMount() {
 
         // Handle phase changes from controller (e.g. reach finish line or crash)
         if (transition?.phaseTransition) {
-          if (transition.phaseTransition === "failed") {
+          if (transition.phaseTransition === "crashing") {
+            crashReasonRef.current = transition.failureReason ?? "tree_crash";
+            crashTimerRef.current = 0;
+            rendererRef.current?.beginCrash();
+            updatePhase("crashing");
+          } else if (transition.phaseTransition === "failed") {
             finishPlatingRef.current(transition.failureReason);
           } else if (transition.phaseTransition === "plating" && curPhase !== "plating") {
             updatePhase("plating");
@@ -392,6 +402,9 @@ export function SkiGameMount() {
             setWarningMessage(null);
           }
         }
+      } else if (curPhase === "crashing") {
+        crashTimerRef.current += dt;
+        if (crashTimerRef.current >= 1.8) finishPlatingRef.current(crashReasonRef.current);
       }
 
       // Render scene
@@ -456,6 +469,20 @@ export function SkiGameMount() {
         finishPlating: () => {
           finishPlatingRef.current();
         },
+        // Developer scenario: move to an obstacle, then let the actual
+        // controller and renderer handle the collision on subsequent frames.
+        approachObstacle: (type: "pine" | "rock" | "log") => {
+          const course = courseRef.current;
+          const skier = skierRef.current;
+          const obstacle = course?.obstacles.find((o) => o.type === type && o.distance > 100 && o.distance < course.finishZ - 60 && Math.abs(o.lateralOffset - course.getTrackCenter(o.distance).x) < course.width / 2 - 2);
+          if (!course || !skier || !obstacle || phaseRef.current !== "skiing") return false;
+          const distance = obstacle.distance - 3;
+          skier.state.distance = distance;
+          skier.state.lateralOffset = obstacle.lateralOffset - course.getTrackCenter(distance).x;
+          skier.state.lateralSpeed = 0;
+          skier.state.speed = 10;
+          return true;
+        },
         getState: () => ({
           phase: phaseRef.current,
           retained: riceRef.current?.retainedCount ?? 0,
@@ -464,6 +491,8 @@ export function SkiGameMount() {
           lateral: skierRef.current?.state.lateralOffset ?? 0,
           speed: skierRef.current?.state.speed ?? 0,
           elapsed: timeElapsedRef.current,
+          crash: skierRef.current?.crashImpact?.obstacle ?? null,
+          crashTime: crashTimerRef.current,
         }),
       };
     }

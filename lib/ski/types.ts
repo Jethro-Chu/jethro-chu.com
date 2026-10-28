@@ -6,6 +6,7 @@ export type GamePhase =
   | "ready"       // Title screen
   | "countdown"   // 3... 2... 1... WOK!
   | "skiing"      // Downhill run with wok & rice
+  | "crashing"    // Equipment and rice fly apart before the result screen
   | "plating"     // At the finish line: tipping pan onto serving plate
   | "result"      // Run finished, grading displayed
   | "failed"      // Catastrophic crash, empty pan, or burnt to charcoal
@@ -14,6 +15,8 @@ export type GamePhase =
 export type FailureReason =
   | "empty_pan"   // All rice spilled
   | "tree_crash"  // Direct high-speed collision with pine tree
+  | "rock_crash"  // Hit a rock
+  | "log_crash"   // Hit a fallen log
   | "burnt_batch" // Ruined charcoal batch
   | "out_of_bounds"; // Fell off mountain track
 
@@ -78,7 +81,7 @@ export interface PanOrientation {
 
 export interface Obstacle {
   id: number;
-  type: "pine" | "rock" | "banner_post" | "barrier";
+  type: "pine" | "rock" | "log" | "banner_post" | "barrier";
   distance: number;       // Along course Z
   lateralOffset: number;  // X offset from course center
   radius: number;         // Collision radius

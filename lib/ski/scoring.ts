@@ -53,8 +53,14 @@ export class SkiScoringEngine {
         failTitle = "PAN EMPTIED!";
         failSummary = "You fed the entire mountain snowpack. Not a single grain reached the plate.";
       } else if (failureReason === "tree_crash") {
-        failTitle = "SEVERE TREE CRASH!";
-        failSummary = "You wrapped your skillet around an alpine pine tree at 50 km/h.";
+        failTitle = "TREE CRASH!";
+        failSummary = "The pine stood its ground. Your kitchen did not.";
+      } else if (failureReason === "rock_crash") {
+        failTitle = "ROCK CRASH!";
+        failSummary = "The rock stayed put. The pan, burner, and rice went elsewhere.";
+      } else if (failureReason === "log_crash") {
+        failTitle = "LOG CRASH!";
+        failSummary = "The fallen log turned your downhill kitchen into a yard sale.";
       } else if (failureReason === "burnt_batch") {
         failTitle = "CHARRED TO ASH!";
         failSummary = "The fire department was summoned to the finish line. The rice is toxic charcoal.";

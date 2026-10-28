@@ -99,6 +99,22 @@ console.log("TEST 1: Course Determinism & Boundaries");
   skier.reset();
   assert.equal(skier.input.mouseNormalizedX, 0, "Restart must center fallback pan roll");
   assert.equal(skier.input.mouseNormalizedY, 0, "Restart must center fallback pan pitch");
+  for (const kind of ["pine", "rock", "log"] as const) {
+    const obstacle = courseA.obstacles.find((o) => o.type === kind &&
+      Math.abs(o.lateralOffset - courseA.getTrackCenter(o.distance).x) < 10);
+    assert.ok(obstacle, `Course needs an in-course ${kind}`);
+    const impactSkier = new SkierController(courseA);
+    impactSkier.state.distance = obstacle.distance - 0.3;
+    impactSkier.state.lateralOffset = obstacle.lateralOffset - courseA.getTrackCenter(obstacle.distance).x + 0.6;
+    impactSkier.state.speed = 6;
+    const result = impactSkier.update(1 / 60, "skiing");
+    const reason = kind === "pine" ? "tree_crash" : kind === "rock" ? "rock_crash" : "log_crash";
+    assert.equal(result.phaseTransition, "crashing", `${kind} contact must start a crash even on a glancing hit`);
+    assert.equal(result.failureReason, reason);
+    assert.equal(impactSkier.crashImpact?.obstacle, kind);
+    impactSkier.reset();
+    assert.equal(impactSkier.crashImpact, null, "Restart must clear crash state");
+  }
 
   console.log("  ✓ Seeded Mulberry32 PRNG produces identical course layouts");
   console.log("  ✓ Smooth course transitions and avoidable centerline obstacles verified");
@@ -113,6 +129,7 @@ console.log("TEST 2: Grain Accounting Invariant (Strict Conservation)");
 {
   const rice = new RiceSimulation();
   assert.equal(rice.grains.length, 300, "Must initialize with exactly 300 grains");
+  assert.equal(rice.spilledMesh.frustumCulled, false, "Moving spilled grains must stay visible throughout the course");
   assert.equal(rice.retainedCount, 300, "Retained count must be 300 initially");
   assert.equal(rice.spilledParticles.length, 0, "No particles spilled initially");
 
@@ -153,6 +170,19 @@ console.log("TEST 2: Grain Accounting Invariant (Strict Conservation)");
     300,
     `Grain conservation violated! Retained (${retained}) + Spilled (${spilled}) != 300`
   );
+
+  // Crash scatters each surviving grain once, conserving the already-spilled
+  // grains and leaving no invisible rice attached to the pan.
+  rice.scatterOnCrash(dummyPanMatrix, { x: 0, y: 0, z: 14 });
+  assert.equal(rice.retainedCount, 0);
+  assert.equal(rice.spilledParticles.length, 300, "Crash must release every remaining grain exactly once");
+  assert.ok(rice.spilledParticles.some((p) => p.vy > 1), "Crash must launch grains upward");
+  rice.scatterOnCrash(dummyPanMatrix, { x: 0, y: 0, z: 14 });
+  assert.equal(rice.spilledParticles.length, 300, "Repeated crash setup must not duplicate grains");
+  rice.stepCrash(1 / 60);
+  rice.reset();
+  assert.equal(rice.retainedCount, 300, "Restart must restore the full pan after a crash");
+  assert.equal(rice.spilledParticles.length, 0, "Restart must clear crash debris");
 
   console.log(`  ✓ Retained (${retained}) + Spilled (${spilled}) = 300 exactly`);
   console.log("  ✓ No phantom grain deletion or unphysical grain generation\n");
@@ -287,7 +317,9 @@ console.log("TEST 4: Plating Phase & Grade Rank Boundaries");
 
   const failCrash = SkiScoringEngine.evaluateRun(rice, 35.0, "tree_crash");
   assert.equal(failCrash.grade, "D");
-  assert.equal(failCrash.title, "SEVERE TREE CRASH!");
+  assert.equal(failCrash.title, "TREE CRASH!");
+  assert.equal(SkiScoringEngine.evaluateRun(rice, 35.0, "rock_crash").title, "ROCK CRASH!");
+  assert.equal(SkiScoringEngine.evaluateRun(rice, 35.0, "log_crash").title, "LOG CRASH!");
 
   const failBurnt = SkiScoringEngine.evaluateRun(rice, 50.0, "burnt_batch");
   assert.equal(failBurnt.grade, "D");

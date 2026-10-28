@@ -44,6 +44,7 @@ export class SkierController {
   // Collision state
   public hasCrashed: boolean = false;
   public crashReason?: FailureReason;
+  public crashImpact: { obstacle: "pine" | "rock" | "log"; obstacleId: number; speed: number; side: number } | null = null;
   private lastCollisionId: number | null = null;
   private impactImpulse = 0;
   private impactTime = 0;
@@ -105,6 +106,7 @@ export class SkierController {
     this.verticalBumpImpulse = 0;
     this.hasCrashed = false;
     this.crashReason = undefined;
+    this.crashImpact = null;
     this.lastCollisionId = null;
     this.impactImpulse = 0;
     this.impactTime = 0;
@@ -245,13 +247,16 @@ export class SkierController {
         this.lateralInertia += this.impactImpulse;
         this.verticalBumpImpulse += 5;
         if (this.audio) this.audio.playImpact(0.8);
-      } else if (this.state.speed >= SKI_CONFIG.SKIER.HEAD_ON_CRASH_SPEED && Math.abs(this.state.lateralOffset - (collision.lateralOffset - currentTrack.x)) < 0.45) {
-        // FATAL HEAD-ON COLLISION
+      } else if (collision.type === "pine" || collision.type === "rock" || collision.type === "log") {
+        // Any contact with a solid obstacle throws the cooking rig apart.
+        // Capture impact speed before stopping so the renderer can give the
+        // pan, burner, and rice coherent downhill momentum.
         this.hasCrashed = true;
-        this.crashReason = "tree_crash";
+        this.crashReason = collision.type === "pine" ? "tree_crash" : collision.type === "rock" ? "rock_crash" : "log_crash";
+        this.crashImpact = { obstacle: collision.type, obstacleId: collision.id, speed: this.state.speed, side: worldX < collision.lateralOffset ? -1 : 1 };
         this.cameraShakeIntensity = 1.0;
         if (this.audio) this.audio.playImpact(1.0);
-        return { phaseTransition: "failed", failureReason: "tree_crash" };
+        return { phaseTransition: "crashing", failureReason: this.crashReason };
       } else {
         // GLANCING HIT
         this.state.speed *= 0.65; // speed drop
