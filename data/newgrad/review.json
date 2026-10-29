@@ -5276,5 +5276,78 @@
       "uncertainties": []
     },
     "decision": null
+  },
+  {
+    "id": "rev_2026-10-29-daily_001",
+    "run_id": "2026-10-29-daily",
+    "created_at": "2026-10-29T12:21:24.091Z",
+    "state": "PENDING",
+    "reason": "Possible duplicate of an existing record (closely matching title); held for human decision instead of auto-creating.",
+    "finding": {
+      "employer": {
+        "name": "Johns Hopkins Medicine",
+        "hospital_id": "hosp_hopkins"
+      },
+      "identifiers": {
+        "program": "Nurse Residency Program",
+        "cohort": null,
+        "requisition_id": "103786",
+        "ats_provider": "talemetry",
+        "ats_tenant": "hopkins",
+        "employer_tenant": "hopkins",
+        "opportunity_id": null
+      },
+      "observed_state": "OPEN",
+      "eligibility": {
+        "assessment": "ELIGIBLE",
+        "note": "Explicit new grad RN posting for Marburg 3 general surgery unit"
+      },
+      "facts": {
+        "position_title": "New Grad RN - General Surgery - Marburg 3",
+        "unit": "General Surgery - Marburg 3",
+        "locations": [
+          {
+            "city": "Baltimore",
+            "state": "MD"
+          }
+        ],
+        "specialties": [
+          "Med-Surg"
+        ],
+        "bsn_required": false,
+        "rn_license_requirement": "Active Maryland or Compact RN license is required. BLS CPR certification required.",
+        "experience_requirement": "No RN work experience required. Associate degree from Accredited Nursing Program required. BSN/MSN matriculation required within 1 year of hire and completion of degree within 5 years of hire.",
+        "source_url": "https://jobs.hopkinsmedicine.org/job/103786/new-grad-rn-general-surgery-marburg-3-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "application_url": "https://jobs.hopkinsmedicine.org/apply/103786/new-grad-rn-general-surgery-marburg-3-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/"
+      },
+      "evidence": [
+        {
+          "source_url": "https://jobs.hopkinsmedicine.org/job/103786/new-grad-rn-general-surgery-marburg-3-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+          "excerpt": "Nursing New Grad RN Job: New Grad RN - General Surgery - Marburg 3 at Johns Hopkins Medicine in Johns Hopkins Hospital, Baltimore, MD",
+          "retrieved_at": "2026-10-29T12:05:00.000Z",
+          "claim": "status"
+        },
+        {
+          "source_url": "https://jobs.hopkinsmedicine.org/job/103786/new-grad-rn-general-surgery-marburg-3-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+          "excerpt": "All New Graduate RNs will be automatically enrolled in our yearlong accredited Nurse Residency Program to facilitate your successful transition into professional nursing practice. No RN work experience required",
+          "retrieved_at": "2026-10-29T12:05:00.000Z",
+          "claim": "eligibility"
+        },
+        {
+          "source_url": "https://jobs.hopkinsmedicine.org/job/103786/new-grad-rn-general-surgery-marburg-3-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+          "excerpt": "Qualifications: Associate degree from Accredited Nursing Program required. BSN/MSN matriculation required within 1 year of hire and completion of degree within 5 years of hire. Applicants with an Associate’s degree JHH provides Tuition Assistance towards earning your BSN/MSN",
+          "retrieved_at": "2026-10-29T12:05:00.000Z",
+          "claim": "education"
+        },
+        {
+          "source_url": "https://jobs.hopkinsmedicine.org/job/103786/new-grad-rn-general-surgery-marburg-3-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+          "excerpt": "Active Maryland or Compact RN license is required BLS CPR certification required",
+          "retrieved_at": "2026-10-29T12:05:00.000Z",
+          "claim": "license"
+        }
+      ],
+      "uncertainties": null
+    },
+    "decision": null
   }
 ]
