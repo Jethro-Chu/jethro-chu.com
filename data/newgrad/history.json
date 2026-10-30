@@ -10803,5 +10803,256 @@
         "claim": "eligibility"
       }
     ]
+  },
+  {
+    "id": "hist_2026-10-30-daily_0001",
+    "run_id": "2026-10-30-daily",
+    "at": "2026-10-30T12:12:48.888Z",
+    "type": "CLOSED",
+    "opportunity_id": "opp_9247bf2c0b",
+    "changes": [
+      {
+        "field": "application_status",
+        "before": "OPEN",
+        "after": "CLOSED"
+      },
+      {
+        "field": "closed_at",
+        "before": null,
+        "after": "2026-10-30T12:12:48.888Z"
+      }
+    ],
+    "reason": "Official evidence verified closure.",
+    "evidence": [
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/103756/new-grad-rn-hematologic-malignancies-unit-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "This job is no longer available. Please try another search.",
+        "retrieved_at": "2026-10-30T12:04:08.000Z",
+        "claim": "closure"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/103756/new-grad-rn-hematologic-malignancies-unit-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "Nursing New Grad RN Job: New Grad RN - Hematologic Malignancies Unit at Johns Hopkins Medicine in Johns Hopkins Hospital, Baltimore, MD",
+        "retrieved_at": "2026-10-30T12:04:08.000Z",
+        "claim": "eligibility"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-10-30-daily_0002",
+    "run_id": "2026-10-30-daily",
+    "at": "2026-10-30T12:12:48.888Z",
+    "type": "UPDATED",
+    "opportunity_id": "opp_9247bf2c0b",
+    "changes": [
+      {
+        "field": "application_status",
+        "before": "OPEN",
+        "after": "CLOSED"
+      },
+      {
+        "field": "closed_at",
+        "before": null,
+        "after": "2026-10-30T12:12:48.888Z"
+      }
+    ],
+    "reason": "Updated from run evidence (CLOSED).",
+    "evidence": [
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/103756/new-grad-rn-hematologic-malignancies-unit-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "This job is no longer available. Please try another search.",
+        "retrieved_at": "2026-10-30T12:04:08.000Z",
+        "claim": "closure"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/103756/new-grad-rn-hematologic-malignancies-unit-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "Nursing New Grad RN Job: New Grad RN - Hematologic Malignancies Unit at Johns Hopkins Medicine in Johns Hopkins Hospital, Baltimore, MD",
+        "retrieved_at": "2026-10-30T12:04:08.000Z",
+        "claim": "eligibility"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-10-30-daily_0003",
+    "run_id": "2026-10-30-daily",
+    "at": "2026-10-30T12:12:48.888Z",
+    "type": "CLOSED",
+    "opportunity_id": "opp_eeb933a8b9",
+    "changes": [
+      {
+        "field": "application_status",
+        "before": "OPEN",
+        "after": "CLOSED"
+      },
+      {
+        "field": "closed_at",
+        "before": null,
+        "after": "2026-10-30T12:12:48.888Z"
+      }
+    ],
+    "reason": "Official evidence verified closure.",
+    "evidence": [
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/103755/new-grad-rn-heme-malignancy-bone-marrow-transplant-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "This job is no longer available. Please try another search.",
+        "retrieved_at": "2026-10-30T12:04:13.000Z",
+        "claim": "closure"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/103755/new-grad-rn-heme-malignancy-bone-marrow-transplant-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "Nursing New Grad RN Job: New Grad RN - Heme Malignancy & Bone Marrow Transplant at Johns Hopkins Medicine in Johns Hopkins Hospital, Baltimore, MD",
+        "retrieved_at": "2026-10-30T12:04:13.000Z",
+        "claim": "eligibility"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-10-30-daily_0004",
+    "run_id": "2026-10-30-daily",
+    "at": "2026-10-30T12:12:48.888Z",
+    "type": "UPDATED",
+    "opportunity_id": "opp_eeb933a8b9",
+    "changes": [
+      {
+        "field": "application_status",
+        "before": "OPEN",
+        "after": "CLOSED"
+      },
+      {
+        "field": "closed_at",
+        "before": null,
+        "after": "2026-10-30T12:12:48.888Z"
+      }
+    ],
+    "reason": "Updated from run evidence (CLOSED).",
+    "evidence": [
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/103755/new-grad-rn-heme-malignancy-bone-marrow-transplant-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "This job is no longer available. Please try another search.",
+        "retrieved_at": "2026-10-30T12:04:13.000Z",
+        "claim": "closure"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/103755/new-grad-rn-heme-malignancy-bone-marrow-transplant-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "Nursing New Grad RN Job: New Grad RN - Heme Malignancy & Bone Marrow Transplant at Johns Hopkins Medicine in Johns Hopkins Hospital, Baltimore, MD",
+        "retrieved_at": "2026-10-30T12:04:13.000Z",
+        "claim": "eligibility"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-10-30-daily_0005",
+    "run_id": "2026-10-30-daily",
+    "at": "2026-10-30T12:12:48.888Z",
+    "type": "CLOSED",
+    "opportunity_id": "opp_2fac2a9a7d",
+    "changes": [
+      {
+        "field": "application_status",
+        "before": "OPEN",
+        "after": "CLOSED"
+      },
+      {
+        "field": "closed_at",
+        "before": null,
+        "after": "2026-10-30T12:12:48.888Z"
+      }
+    ],
+    "reason": "Official evidence verified closure.",
+    "evidence": [
+      {
+        "source_url": "https://employment.ucsd.edu/rn-new-grad-registered-nurse-hillcrest-10-icu-141944/job/F06815DC717880604B545BCC75EC5A8F",
+        "excerpt": "Page Not Found Hi There! The page you requested may have been moved, deleted, or is temporarily unavailable.",
+        "retrieved_at": "2026-10-30T12:03:33.000Z",
+        "claim": "closure"
+      },
+      {
+        "source_url": "https://employment.ucsd.edu/rn-new-grad-registered-nurse-hillcrest-10-icu-141944/job/F06815DC717880604B545BCC75EC5A8F",
+        "excerpt": "The UC San Diego Nurse Residency Program provides Newly Licensed Registered Nurses with a comprehensive transition-to-practice experience through enhanced clinical learning",
+        "retrieved_at": "2026-10-30T12:03:33.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://employment.ucsd.edu/rn-new-grad-registered-nurse-hillcrest-10-icu-141944/job/F06815DC717880604B545BCC75EC5A8F",
+        "excerpt": "Application Deadline: Thu 10/29/2026 Apply Now UC San Diego values and welcomes people from all backgrounds.",
+        "retrieved_at": "2026-10-30T12:03:33.000Z",
+        "claim": "deadline"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-10-30-daily_0006",
+    "run_id": "2026-10-30-daily",
+    "at": "2026-10-30T12:12:48.888Z",
+    "type": "UPDATED",
+    "opportunity_id": "opp_2fac2a9a7d",
+    "changes": [
+      {
+        "field": "application_status",
+        "before": "OPEN",
+        "after": "CLOSED"
+      },
+      {
+        "field": "closed_at",
+        "before": null,
+        "after": "2026-10-30T12:12:48.888Z"
+      }
+    ],
+    "reason": "Updated from run evidence (CLOSED).",
+    "evidence": [
+      {
+        "source_url": "https://employment.ucsd.edu/rn-new-grad-registered-nurse-hillcrest-10-icu-141944/job/F06815DC717880604B545BCC75EC5A8F",
+        "excerpt": "Page Not Found Hi There! The page you requested may have been moved, deleted, or is temporarily unavailable.",
+        "retrieved_at": "2026-10-30T12:03:33.000Z",
+        "claim": "closure"
+      },
+      {
+        "source_url": "https://employment.ucsd.edu/rn-new-grad-registered-nurse-hillcrest-10-icu-141944/job/F06815DC717880604B545BCC75EC5A8F",
+        "excerpt": "The UC San Diego Nurse Residency Program provides Newly Licensed Registered Nurses with a comprehensive transition-to-practice experience through enhanced clinical learning",
+        "retrieved_at": "2026-10-30T12:03:33.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://employment.ucsd.edu/rn-new-grad-registered-nurse-hillcrest-10-icu-141944/job/F06815DC717880604B545BCC75EC5A8F",
+        "excerpt": "Application Deadline: Thu 10/29/2026 Apply Now UC San Diego values and welcomes people from all backgrounds.",
+        "retrieved_at": "2026-10-30T12:03:33.000Z",
+        "claim": "deadline"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-10-30-daily_0007",
+    "run_id": "2026-10-30-daily",
+    "at": "2026-10-30T12:12:48.888Z",
+    "type": "NEW",
+    "opportunity_id": "opp_958aea44b7",
+    "changes": null,
+    "reason": "First published from run evidence (OPEN).",
+    "evidence": [
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/103804/new-grad-rn-neuroscience-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-bayview-medical-center/",
+        "excerpt": "Nursing New Grad RN Job: New Grad RN - Neuroscience at Johns Hopkins Medicine in Johns Hopkins Bayview Medical Center, Baltimore, MD",
+        "retrieved_at": "2026-10-30T12:05:00.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/103804/new-grad-rn-neuroscience-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-bayview-medical-center/",
+        "excerpt": "All New Graduate RNs will be automatically enrolled in our yearlong accredited Nurse Residency Program to facilitate your successful transition into professional nursing practice. 1 year of RN work experience preferred",
+        "retrieved_at": "2026-10-30T12:05:00.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/103804/new-grad-rn-neuroscience-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-bayview-medical-center/",
+        "excerpt": "Qualifications: Associate degree in Nursing required Applicants with an Associate’s degree in nursing from an accredited nursing program may be considered, provided they are enrolled in an accredited BSN/MSN program within 1 year of hire and complete the degree within 4 years of hire",
+        "retrieved_at": "2026-10-30T12:05:00.000Z",
+        "claim": "education"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/103804/new-grad-rn-neuroscience-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-bayview-medical-center/",
+        "excerpt": "Active Maryland or Compact RN license is required BLS CPR certification required",
+        "retrieved_at": "2026-10-30T12:05:00.000Z",
+        "claim": "license"
+      }
+    ]
   }
 ]
