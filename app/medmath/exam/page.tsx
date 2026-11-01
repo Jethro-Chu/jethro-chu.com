@@ -78,6 +78,7 @@ export default function MedMathExamPage() {
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             sessionId: newSessionId,
+            visitorId: "anon",
             sessionType: "exam",
             examMode,
             selectedCategories: categories,
@@ -93,6 +94,9 @@ export default function MedMathExamPage() {
             totalHintsUsed: 0,
             totalSolutionsRevealed: 0,
             averageResponseTimeSeconds: 0,
+            categoryBreakdown: {},
+            difficultyBreakdown: {},
+            weakCategories: [],
           }),
         });
 

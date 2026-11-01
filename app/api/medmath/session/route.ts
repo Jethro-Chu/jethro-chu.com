@@ -8,10 +8,18 @@ export const dynamic = "force-dynamic";
 
 async function handlePOST(req: NextRequest) {
   try {
-    const session = (await req.json()) as StoredSession;
-    if (!validSessionPayload(session)) {
+    const raw = (await req.json()) as Partial<StoredSession>;
+    if (!validSessionPayload(raw)) {
       return NextResponse.json({ error: "Missing sessionId" }, { status: 400 });
     }
+
+    const session: StoredSession = {
+      ...raw,
+      visitorId: raw.visitorId ?? "anon",
+      categoryBreakdown: raw.categoryBreakdown ?? {},
+      difficultyBreakdown: raw.difficultyBreakdown ?? {},
+      weakCategories: raw.weakCategories ?? [],
+    } as StoredSession;
 
     const token = ownerToken(req) ?? newOwnerToken();
     const claimed = await claimOwnedSession({ ...session, ownerHash: ownerHash(token) });

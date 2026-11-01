@@ -22,16 +22,18 @@ export function validSessionPayload(value: unknown): value is StoredSession {
   if (typeof s.sessionId !== "string" || !/^[a-zA-Z0-9_-]{8,100}$/.test(s.sessionId)) return false;
   if (!Array.isArray(s.selectedCategories) || s.selectedCategories.length > 30 || !s.selectedCategories.every(c => typeof c === "string" && c.length < 80)) return false;
   if (!["practice", "exam", "study-exam", "adaptive"].includes(s.sessionType)) return false;
-  if (typeof s.visitorId !== "string" || s.visitorId.length > 100 || typeof s.selectedDifficulty !== "string" || s.selectedDifficulty.length > 50) return false;
+  if ((s.visitorId !== undefined && (typeof s.visitorId !== "string" || s.visitorId.length > 100)) || typeof s.selectedDifficulty !== "string" || s.selectedDifficulty.length > 50) return false;
   if (typeof s.startedAt !== "string" || !Number.isFinite(Date.parse(s.startedAt))) return false;
   for (const field of ["plannedQuestionCount", "completedQuestionCount", "totalAttempts", "firstAttemptCorrectCount", "eventualCorrectCount", "totalHintsUsed", "totalSolutionsRevealed", "averageResponseTimeSeconds"] as const) {
     if (typeof s[field] !== "number" || !Number.isFinite(s[field]) || s[field] < 0 || s[field] > 10000) return false;
   }
   for (const field of ["categoryBreakdown", "difficultyBreakdown"] as const) {
     const map = s[field];
-    if (!map || typeof map !== "object" || Array.isArray(map) || Object.keys(map).length > 50) return false;
-    for (const stats of Object.values(map)) {
-      if (!stats || typeof stats !== "object" || Object.values(stats).some(n => typeof n !== "number" || !Number.isFinite(n) || n < 0 || n > 10000)) return false;
+    if (map !== undefined) {
+      if (!map || typeof map !== "object" || Array.isArray(map) || Object.keys(map).length > 50) return false;
+      for (const stats of Object.values(map)) {
+        if (!stats || typeof stats !== "object" || Object.values(stats).some(n => typeof n !== "number" || !Number.isFinite(n) || n < 0 || n > 10000)) return false;
+      }
     }
   }
   return s.examReview === undefined || (Array.isArray(s.examReview) && s.examReview.length <= 50);
