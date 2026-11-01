@@ -23,10 +23,6 @@ export const personalBackground = {
       },
     },
     {
-      title: "Caring for Family",
-      body: "I help care for my grandmother. Being on the family side of healthcare has given me a better understanding of what patients and their families deal with at home.",
-    },
-    {
       title: "Building Things & Live Production",
       body: "I like making things and figuring out how they work. I helped build Lab Logger at HackTech, where our team placed 4th.",
     },

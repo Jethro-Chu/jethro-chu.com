@@ -6,9 +6,9 @@ import { resume } from "@/content/resume";
 /** Metadata copy is separate from the shared visible landmark content. */
 export const profileTitle = "Jethro Chu · BSN Nursing Candidate (Dec 2026) & Healthcare Software Builder";
 export const profileDescription =
-  "Portfolio of Jethro Chu, a December 2026 BSN candidate at Azusa Pacific University (560+ clinical hours across Huntington Health, City of Hope, CHLA, Emanate Health, Kaiser Permanente, and Zhejiang University in Hangzhou), 4th-place HackTech winner (Lab Logger), NYC Marathon runner, and family caregiver focused on critical care and cardiovascular nursing.";
+  "Portfolio of Jethro Chu, a December 2026 BSN candidate at Azusa Pacific University (560+ clinical hours across Huntington Health, City of Hope, CHLA, Emanate Health, Kaiser Permanente, and Zhejiang University in Hangzhou), 4th-place HackTech winner (Lab Logger), and distance marathon runner focused on critical care and cardiovascular nursing.";
 export const profileOpenGraphDescription =
-  "New graduate BSN nursing candidate at Azusa Pacific University (Dec 2026) focused on critical care and cardiovascular nursing. Creator of NurseJet, MedMath, and ABG Arena, 4th-place HackTech winner (Lab Logger), NYC Marathon runner, and family caregiver.";
+  "New graduate BSN nursing candidate at Azusa Pacific University (Dec 2026) focused on critical care and cardiovascular nursing. Creator of NurseJet, MedMath, and ABG Arena, 4th-place HackTech winner (Lab Logger), and distance marathon runner.";
 export const profileTwitterDescription =
   "BSN candidate at Azusa Pacific University (Dec 2026) with 560+ clinical hours in critical care, cardiovascular, telemetry, and step-down settings. 4th-place HackTech winner, marathon runner, and Sierra backpacker.";
 
@@ -107,7 +107,7 @@ export const profileStructuredData = {
   url: `${site.url}/`,
   jobTitle: "BSN Student & New Graduate Nursing Candidate (Expected December 2026)",
   description:
-    "Bachelor of Science in Nursing (BSN) candidate at Azusa Pacific University (expected graduation December 2026), healthcare software developer (4th-place winner at HackTech for Lab Logger), and distance marathon runner training for the November 2026 NYC Marathon using Zone 2 physiological pacing. Grounded in hands-on family caregiving for his grandmother, live A/V production operations, and High-Sierra backpacking, with 560+ hours of clinical training across California and Hangzhou, China focused on critical care and cardiovascular nursing.",
+    "Bachelor of Science in Nursing (BSN) candidate at Azusa Pacific University (expected graduation December 2026), healthcare software developer (4th-place winner at HackTech for Lab Logger), and distance marathon runner training for the November 2026 NYC Marathon using Zone 2 physiological pacing. Grounded in live A/V production operations and High-Sierra backpacking, with 560+ hours of clinical training across California and Hangzhou, China focused on critical care and cardiovascular nursing.",
   image: [
     `${site.url}/images/halfdome-summit.jpg`,
     `${site.url}/images/hacktech-team.jpg`,
@@ -151,7 +151,6 @@ export const profileStructuredData = {
     "Healthcare Software Development",
     "Clinical Decision Support & Nursing Education Tools",
     "Distance Marathon Running & Zone 2 Heart-Rate Physiological Training",
-    "Hands-On Family Caregiving & Home Care Support",
     "Live Audio/Visual (A/V) Technical Production",
     "High-Sierra Wilderness Backpacking",
   ],
