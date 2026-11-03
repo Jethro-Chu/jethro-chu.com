@@ -145,15 +145,9 @@ export default function AbstractAndReferencesPage() {
           className={styles.referencesCard}
           aria-labelledby="references-heading"
         >
-          <div className={styles.referencesHeaderGroup}>
-            <h2 id="references-heading" className={styles.sectionHeading}>
-              References
-            </h2>
-            <p className={styles.referencesSubtitle}>
-              Full reference list for the senior nursing ethics poster
-            </p>
-            <div className={styles.referencesDivider} aria-hidden="true" />
-          </div>
+          <h2 id="references-heading" className={styles.sectionHeading}>
+            References
+          </h2>
 
           <ol className={styles.referencesList}>
             {/* 1. Abràmoff et al. (2023) */}

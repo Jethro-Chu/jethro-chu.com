@@ -236,30 +236,6 @@
 }
 
 /* References */
-.referencesHeaderGroup {
-  margin-bottom: 2rem;
-}
-
-.referencesSubtitle {
-  font-size: 0.95rem;
-  color: var(--poster-muted);
-  margin: 0.35rem 0 1rem;
-  line-height: 1.5;
-}
-
-@media (min-width: 640px) {
-  .referencesSubtitle {
-    font-size: 1.025rem;
-  }
-}
-
-.referencesDivider {
-  height: 1.5px;
-  background-color: var(--poster-border);
-  width: 100%;
-  margin-top: 0.75rem;
-}
-
 .referencesList {
   list-style: none;
   margin: 0;
