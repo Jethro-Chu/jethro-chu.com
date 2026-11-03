@@ -70,9 +70,6 @@ export default function AbstractAndReferencesPage() {
       {/* 1. Academic Poster Title Banner */}
       <header className={styles.headerBanner} role="banner">
         <div className={styles.headerInner}>
-          <span className={styles.headerEyebrow}>
-            Senior Nursing Ethics Research Poster Companion
-          </span>
           <h1 className={styles.title}>
             Who Benefits When AI Decides? Bias and the Ethical Use of
             Artificial Intelligence in Healthcare
@@ -80,11 +77,10 @@ export default function AbstractAndReferencesPage() {
           <p className={styles.authorLine}>
             Jethro Chu | Azusa Pacific University School of Nursing
           </p>
-          <div className={styles.badgeRow}>
-            <span className={styles.categoryBadge}>
-              Category: Special Projects
-            </span>
-          </div>
+          <p className={styles.categoryLine}>
+            <span className={styles.categoryLabel}>Category:</span> Special
+            Projects
+          </p>
         </div>
       </header>
 
@@ -129,16 +125,19 @@ export default function AbstractAndReferencesPage() {
             advances in AI do not worsen existing healthcare disparities.
           </p>
 
-          <div className={styles.keywordsBox}>
-            <h3 className={styles.keywordsHeading}>Keywords:</h3>
-            <div className={styles.keywordsList}>
-              {keywords.map((kw) => (
-                <span key={kw} className={styles.keywordPill}>
-                  {kw}
-                </span>
-              ))}
-            </div>
-          </div>
+          <p className={styles.keywordsLine}>
+            <strong className={styles.keywordsLabel}>Keywords:</strong>{" "}
+            {keywords.map((kw, index) => (
+              <span key={kw}>
+                {index > 0 && (
+                  <span className={styles.keywordSeparator} aria-hidden="true">
+                    ·
+                  </span>
+                )}
+                {kw}
+              </span>
+            ))}
+          </p>
         </section>
 
         {/* 3. References Card */}
