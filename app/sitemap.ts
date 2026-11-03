@@ -13,6 +13,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/ABG/ranks",
     "/projects/nursejet",
     "/projects/emotion-stock-market-game",
+    "/Abstractandreferences",
   ];
   return routes.map((path) => ({
     url: `${site.url}${path}`,
