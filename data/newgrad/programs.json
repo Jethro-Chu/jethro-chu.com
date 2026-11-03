@@ -466,5 +466,11 @@
     "hospital_id": "hosp_duke",
     "name": "Nurse Residency Program",
     "source_url": "https://careers.dukehealth.org/"
+  },
+  {
+    "id": "prog_e80c3e6007",
+    "hospital_id": "hosp_stelizabeth",
+    "name": "CommonSpirit Health National Nurse Residency Program",
+    "source_url": "https://www.commonspirit.careers/NNRP-CA"
   }
 ]

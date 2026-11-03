@@ -11054,5 +11054,269 @@
         "claim": "license"
       }
     ]
+  },
+  {
+    "id": "hist_2026-11-03-daily_0001",
+    "run_id": "2026-11-03-daily",
+    "at": "2026-11-03T13:12:10.111Z",
+    "type": "CLOSED",
+    "opportunity_id": "opp_8f89b96096",
+    "changes": [
+      {
+        "field": "cohort_id",
+        "before": "cohort_01a39ea0b1",
+        "after": "cohort_6169077750"
+      },
+      {
+        "field": "rn_license_requirement",
+        "before": "Current California RN license required. Basic Life Support (BLS) certification.",
+        "after": "A current California RN license is required. Basic Life Support (BLS) certification."
+      },
+      {
+        "field": "experience_requirement",
+        "before": "Open to new graduate registered nurses. Direct supervision provided during orientation and residency.",
+        "after": "Graduation from an accredited nursing program. The new grad RN will be precepted in the provision of safe cost-effective care."
+      },
+      {
+        "field": "application_status",
+        "before": "OPEN",
+        "after": "CLOSED"
+      },
+      {
+        "field": "closed_at",
+        "before": null,
+        "after": "2026-11-03T13:12:10.111Z"
+      }
+    ],
+    "reason": "Official evidence verified closure.",
+    "evidence": [
+      {
+        "source_url": "https://careers.memorialcare.org/job/long-beach/new-grad-registered-nurse-rn-pediatrics-mch-west/28372/101148883952",
+        "excerpt": "Custom Job Error Skip to main content Saved Jobs Candidate Profile Fraud Alert Current Employees Join Our Talent Network Career Areas Grow, Thrive, Make a Difference",
+        "retrieved_at": "2026-11-03T13:05:00.000Z",
+        "claim": "closure"
+      },
+      {
+        "source_url": "https://careers.memorialcare.org/job/long-beach/new-grad-registered-nurse-rn-pediatrics-mch-west/28372/101148883952",
+        "excerpt": "A newly graduated RN shall practice under the direct supervision of a registered nurse... The new grad RN will be precepted in the provision of safe cost-effective care.",
+        "retrieved_at": "2026-11-03T13:05:00.000Z",
+        "claim": "eligibility"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-11-03-daily_0002",
+    "run_id": "2026-11-03-daily",
+    "at": "2026-11-03T13:12:10.111Z",
+    "type": "UPDATED",
+    "opportunity_id": "opp_8f89b96096",
+    "changes": [
+      {
+        "field": "cohort_id",
+        "before": "cohort_01a39ea0b1",
+        "after": "cohort_6169077750"
+      },
+      {
+        "field": "rn_license_requirement",
+        "before": "Current California RN license required. Basic Life Support (BLS) certification.",
+        "after": "A current California RN license is required. Basic Life Support (BLS) certification."
+      },
+      {
+        "field": "experience_requirement",
+        "before": "Open to new graduate registered nurses. Direct supervision provided during orientation and residency.",
+        "after": "Graduation from an accredited nursing program. The new grad RN will be precepted in the provision of safe cost-effective care."
+      },
+      {
+        "field": "application_status",
+        "before": "OPEN",
+        "after": "CLOSED"
+      },
+      {
+        "field": "closed_at",
+        "before": null,
+        "after": "2026-11-03T13:12:10.111Z"
+      }
+    ],
+    "reason": "Updated from run evidence (CLOSED).",
+    "evidence": [
+      {
+        "source_url": "https://careers.memorialcare.org/job/long-beach/new-grad-registered-nurse-rn-pediatrics-mch-west/28372/101148883952",
+        "excerpt": "Custom Job Error Skip to main content Saved Jobs Candidate Profile Fraud Alert Current Employees Join Our Talent Network Career Areas Grow, Thrive, Make a Difference",
+        "retrieved_at": "2026-11-03T13:05:00.000Z",
+        "claim": "closure"
+      },
+      {
+        "source_url": "https://careers.memorialcare.org/job/long-beach/new-grad-registered-nurse-rn-pediatrics-mch-west/28372/101148883952",
+        "excerpt": "A newly graduated RN shall practice under the direct supervision of a registered nurse... The new grad RN will be precepted in the provision of safe cost-effective care.",
+        "retrieved_at": "2026-11-03T13:05:00.000Z",
+        "claim": "eligibility"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-11-03-daily_0003",
+    "run_id": "2026-11-03-daily",
+    "at": "2026-11-03T13:12:10.111Z",
+    "type": "CLOSED",
+    "opportunity_id": "opp_1381e8d059",
+    "changes": [
+      {
+        "field": "cohort_id",
+        "before": "cohort_01a39ea0b1",
+        "after": "cohort_6169077750"
+      },
+      {
+        "field": "application_status",
+        "before": "OPEN",
+        "after": "CLOSED"
+      },
+      {
+        "field": "closed_at",
+        "before": null,
+        "after": "2026-11-03T13:12:10.111Z"
+      }
+    ],
+    "reason": "Official evidence verified closure.",
+    "evidence": [
+      {
+        "source_url": "https://careers.memorialcare.org/job/long-beach/registered-nurse-new-grad-periop-101/28372/101405134448",
+        "excerpt": "Custom Job Error Skip to main content Saved Jobs Candidate Profile Fraud Alert Current Employees Join Our Talent Network Career Areas Grow, Thrive, Make a Difference",
+        "retrieved_at": "2026-11-03T13:05:00.000Z",
+        "claim": "closure"
+      },
+      {
+        "source_url": "https://careers.memorialcare.org/job/long-beach/registered-nurse-new-grad-periop-101/28372/101405134448",
+        "excerpt": "A newly graduated RN shall practice under the direct supervision of a registered nurse. The new grad RN will be precepted in the provision of safe cost-effective care to the patient population according to established MemorialCare Long Beach Medical Center Nursing Standards of Practice.",
+        "retrieved_at": "2026-11-03T13:05:00.000Z",
+        "claim": "eligibility"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-11-03-daily_0004",
+    "run_id": "2026-11-03-daily",
+    "at": "2026-11-03T13:12:10.111Z",
+    "type": "UPDATED",
+    "opportunity_id": "opp_1381e8d059",
+    "changes": [
+      {
+        "field": "cohort_id",
+        "before": "cohort_01a39ea0b1",
+        "after": "cohort_6169077750"
+      },
+      {
+        "field": "application_status",
+        "before": "OPEN",
+        "after": "CLOSED"
+      },
+      {
+        "field": "closed_at",
+        "before": null,
+        "after": "2026-11-03T13:12:10.111Z"
+      }
+    ],
+    "reason": "Updated from run evidence (CLOSED).",
+    "evidence": [
+      {
+        "source_url": "https://careers.memorialcare.org/job/long-beach/registered-nurse-new-grad-periop-101/28372/101405134448",
+        "excerpt": "Custom Job Error Skip to main content Saved Jobs Candidate Profile Fraud Alert Current Employees Join Our Talent Network Career Areas Grow, Thrive, Make a Difference",
+        "retrieved_at": "2026-11-03T13:05:00.000Z",
+        "claim": "closure"
+      },
+      {
+        "source_url": "https://careers.memorialcare.org/job/long-beach/registered-nurse-new-grad-periop-101/28372/101405134448",
+        "excerpt": "A newly graduated RN shall practice under the direct supervision of a registered nurse. The new grad RN will be precepted in the provision of safe cost-effective care to the patient population according to established MemorialCare Long Beach Medical Center Nursing Standards of Practice.",
+        "retrieved_at": "2026-11-03T13:05:00.000Z",
+        "claim": "eligibility"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-11-03-daily_0005",
+    "run_id": "2026-11-03-daily",
+    "at": "2026-11-03T13:12:10.111Z",
+    "type": "CLOSED",
+    "opportunity_id": "opp_5775823a98",
+    "changes": [
+      {
+        "field": "program_id",
+        "before": "prog_83b8bfcd22",
+        "after": "prog_e80c3e6007"
+      },
+      {
+        "field": "cohort_id",
+        "before": "cohort_ba0b0ca610",
+        "after": "cohort_2b43125393"
+      },
+      {
+        "field": "application_status",
+        "before": "OPEN",
+        "after": "CLOSED"
+      },
+      {
+        "field": "closed_at",
+        "before": null,
+        "after": "2026-11-03T13:12:10.111Z"
+      }
+    ],
+    "reason": "Official evidence verified closure.",
+    "evidence": [
+      {
+        "source_url": "https://www.commonspirit.careers/job/red-bluff/national-resident-rn/35300/101098375920",
+        "excerpt": "Custom Job Error function OptanonWrapper() { var OTCC = function(){ var re = /[|,]/; var otc = document.cookie.split(';');",
+        "retrieved_at": "2026-11-03T13:05:00.000Z",
+        "claim": "closure"
+      },
+      {
+        "source_url": "https://www.commonspirit.careers/NNRP-CA",
+        "excerpt": "The National Nurse Residency Program supports newly licensed registered nurses and recent graduates with less than 1 year of professional nursing experience upon hire.",
+        "retrieved_at": "2026-11-03T13:05:00.000Z",
+        "claim": "eligibility"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-11-03-daily_0006",
+    "run_id": "2026-11-03-daily",
+    "at": "2026-11-03T13:12:10.111Z",
+    "type": "UPDATED",
+    "opportunity_id": "opp_5775823a98",
+    "changes": [
+      {
+        "field": "program_id",
+        "before": "prog_83b8bfcd22",
+        "after": "prog_e80c3e6007"
+      },
+      {
+        "field": "cohort_id",
+        "before": "cohort_ba0b0ca610",
+        "after": "cohort_2b43125393"
+      },
+      {
+        "field": "application_status",
+        "before": "OPEN",
+        "after": "CLOSED"
+      },
+      {
+        "field": "closed_at",
+        "before": null,
+        "after": "2026-11-03T13:12:10.111Z"
+      }
+    ],
+    "reason": "Updated from run evidence (CLOSED).",
+    "evidence": [
+      {
+        "source_url": "https://www.commonspirit.careers/job/red-bluff/national-resident-rn/35300/101098375920",
+        "excerpt": "Custom Job Error function OptanonWrapper() { var OTCC = function(){ var re = /[|,]/; var otc = document.cookie.split(';');",
+        "retrieved_at": "2026-11-03T13:05:00.000Z",
+        "claim": "closure"
+      },
+      {
+        "source_url": "https://www.commonspirit.careers/NNRP-CA",
+        "excerpt": "The National Nurse Residency Program supports newly licensed registered nurses and recent graduates with less than 1 year of professional nursing experience upon hire.",
+        "retrieved_at": "2026-11-03T13:05:00.000Z",
+        "claim": "eligibility"
+      }
+    ]
   }
 ]
