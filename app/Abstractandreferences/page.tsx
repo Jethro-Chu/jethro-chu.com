@@ -183,12 +183,12 @@ export default function AbstractAndReferencesPage() {
               American Nurses Association. (2025).{" "}
               <em>Code of ethics for nurses</em>.{" "}
               <a
-                href="https://www.nursingworld.org/nurses-books/Code-of-ethics-2025/"
+                href="https://codeofethics.ana.org/home"
                 target="_blank"
                 rel="noopener noreferrer"
                 className={styles.refLink}
               >
-                https://www.nursingworld.org/nurses-books/Code-of-ethics-2025/
+                https://codeofethics.ana.org/home
               </a>
             </li>
 
