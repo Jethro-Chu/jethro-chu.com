@@ -95,34 +95,34 @@ export default function AbstractAndReferencesPage() {
             Abstract
           </h2>
           <p className={styles.abstractBody}>
-            Artificial intelligence in our day and age is becoming more and
-            more common as better AI models come out every month. It has the
-            potential to improve clinical decision-making, diagnosis, and
-            patient outcomes; however, an AI system that performs well overall
-            may not perform equally well for every patient population. This
-            project looks at whether it is ethical to use AI in healthcare to
-            improve outcomes for most patients when it may perform worse for
-            certain populations. Current research shows that differences in
-            training data, health disparities, model design, and data can
-            contribute to unequal AI performance, and studies have found
-            examples of AI systems underdiagnosing underserved populations and
-            performing differently across populations based on race, gender, and
-            skin tone, producing biased recommendations that can influence a
-            healthcare provider&apos;s decision. These differences raise ethical
-            concerns related to justice, beneficence, and nonmaleficence because
-            an AI system may benefit many patients while placing certain
-            populations at a greater risk of harm. According to current
-            research, AI systems can still be ethically used in healthcare, but
-            healthcare organizations have a responsibility to identify and
-            reduce disparities before and after implementation. In order to
-            responsibly implement AI, there needs to be testing across
-            different patient populations using more representative data while
-            also being transparent about the limitations of the technology.
-            Overall, healthcare organizations should not rely solely on an AI
-            system&apos;s overall accuracy when determining whether it is safe
-            or ethical to use. Instead, they should also consider how the
-            technology affects individual patient populations to ensure that
-            advances in AI do not worsen existing healthcare disparities.
+            Artificial intelligence is becoming more common in healthcare as
+            better AI models are released every month. It has the potential to
+            improve clinical decision making, diagnosis, and patient outcomes.
+            However, an AI system that performs well overall may not perform
+            equally well for every patient population. This project examines
+            when it is ethical to use AI that benefits most patients but
+            performs worse for certain populations. Research shows that
+            training data, model design, and healthcare disparities can
+            contribute to unequal AI performance. Studies have found AI systems
+            underdiagnosing underserved populations and performing differently
+            by race, gender, and skin tone, with biased recommendations
+            potentially influencing providers&apos; decisions. These differences
+            raise concerns related to justice, beneficence, and nonmaleficence.
+            From a utilitarian perspective, AI may be justified when it
+            benefits the greatest number of patients, while duty based ethics
+            emphasizes protecting individuals from harm even when most patients
+            benefit. AI systems can still be ethically used, but healthcare
+            organizations have a responsibility to identify and reduce
+            disparities before and after implementation. Responsible
+            implementation requires testing across patient populations, using
+            more representative data, being transparent about limitations, and
+            maintaining clinical oversight. Healthcare organizations should not
+            rely solely on an AI system&apos;s overall accuracy when determining
+            whether it is safe or ethical to use. Instead, they should consider
+            how the technology affects different patient populations to prevent
+            existing healthcare disparities from worsening. Nurses also have a
+            responsibility to use independent clinical judgment and advocate
+            for patients when AI recommendations may place them at risk.
           </p>
 
           <p className={styles.keywordsLine}>
