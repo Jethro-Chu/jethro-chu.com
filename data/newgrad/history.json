@@ -11318,5 +11318,246 @@
         "claim": "eligibility"
       }
     ]
+  },
+  {
+    "id": "hist_2026-11-04-daily_0001",
+    "run_id": "2026-11-04-daily",
+    "at": "2026-11-04T13:12:19.904Z",
+    "type": "CLOSED",
+    "opportunity_id": "opp_958aea44b7",
+    "changes": [
+      {
+        "field": "specialties",
+        "before": [
+          "Med-Surg"
+        ],
+        "after": [
+          "Neuro ICU",
+          "Med-Surg"
+        ]
+      },
+      {
+        "field": "experience_requirement",
+        "before": "1 year of RN work experience preferred. Associate degree in Nursing required. Applicants with an Associate’s degree in nursing from an accredited nursing program may be considered, provided they are enrolled in an accredited BSN/MSN program within 1 year of hire and complete the degree within 4 years of hire.",
+        "after": "Associate degree in Nursing required. Applicants with an Associate degree in nursing from an accredited nursing program may be considered."
+      },
+      {
+        "field": "application_status",
+        "before": "OPEN",
+        "after": "CLOSED"
+      },
+      {
+        "field": "closed_at",
+        "before": null,
+        "after": "2026-11-04T13:12:19.904Z"
+      }
+    ],
+    "reason": "Official evidence verified closure.",
+    "evidence": [
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/103804/new-grad-rn-neuroscience-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-bayview-medical-center/",
+        "excerpt": "This job is no longer available. Please try another search.",
+        "retrieved_at": "2026-11-04T13:05:00.000Z",
+        "claim": "closure"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/103804/new-grad-rn-neuroscience-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-bayview-medical-center/",
+        "excerpt": "Nursing New Grad RN Job: New Grad RN - Neuroscience at Johns Hopkins Medicine in Johns Hopkins Bayview Medical Center, Baltimore, MD",
+        "retrieved_at": "2026-11-04T13:05:00.000Z",
+        "claim": "eligibility"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-11-04-daily_0002",
+    "run_id": "2026-11-04-daily",
+    "at": "2026-11-04T13:12:19.904Z",
+    "type": "UPDATED",
+    "opportunity_id": "opp_958aea44b7",
+    "changes": [
+      {
+        "field": "specialties",
+        "before": [
+          "Med-Surg"
+        ],
+        "after": [
+          "Neuro ICU",
+          "Med-Surg"
+        ]
+      },
+      {
+        "field": "experience_requirement",
+        "before": "1 year of RN work experience preferred. Associate degree in Nursing required. Applicants with an Associate’s degree in nursing from an accredited nursing program may be considered, provided they are enrolled in an accredited BSN/MSN program within 1 year of hire and complete the degree within 4 years of hire.",
+        "after": "Associate degree in Nursing required. Applicants with an Associate degree in nursing from an accredited nursing program may be considered."
+      },
+      {
+        "field": "application_status",
+        "before": "OPEN",
+        "after": "CLOSED"
+      },
+      {
+        "field": "closed_at",
+        "before": null,
+        "after": "2026-11-04T13:12:19.904Z"
+      }
+    ],
+    "reason": "Updated from run evidence (CLOSED).",
+    "evidence": [
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/103804/new-grad-rn-neuroscience-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-bayview-medical-center/",
+        "excerpt": "This job is no longer available. Please try another search.",
+        "retrieved_at": "2026-11-04T13:05:00.000Z",
+        "claim": "closure"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/103804/new-grad-rn-neuroscience-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-bayview-medical-center/",
+        "excerpt": "Nursing New Grad RN Job: New Grad RN - Neuroscience at Johns Hopkins Medicine in Johns Hopkins Bayview Medical Center, Baltimore, MD",
+        "retrieved_at": "2026-11-04T13:05:00.000Z",
+        "claim": "eligibility"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-11-04-daily_0003",
+    "run_id": "2026-11-04-daily",
+    "at": "2026-11-04T13:12:19.904Z",
+    "type": "REOPENED",
+    "opportunity_id": "opp_3a1d0e02ce",
+    "changes": [
+      {
+        "field": "program_id",
+        "before": "prog_a68b06dcb8",
+        "after": "prog_4f16bd2769"
+      },
+      {
+        "field": "experience_requirement",
+        "before": "No RN work experience required! Training will be provided.",
+        "after": "No RN work experience required! Training will be provided - All New Grad RNs are automatically enrolled in our Nurse Residency Program ranked #3 in the nation!"
+      },
+      {
+        "field": "application_status",
+        "before": "CLOSED",
+        "after": "OPEN"
+      }
+    ],
+    "reason": "Re-verified as OPEN.",
+    "evidence": [
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/101319/new-grad-rn-sicu-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "Nursing New Grad RN Job: New Grad RN - SICU at Johns Hopkins Medicine in Johns Hopkins Hospital, Baltimore, MD",
+        "retrieved_at": "2026-11-04T13:05:00.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/101319/new-grad-rn-sicu-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "No RN work experience required! Training will be provided - All New Grad RNs are automatically enrolled in our Nurse Residency Program ranked #3 in the nation!",
+        "retrieved_at": "2026-11-04T13:05:00.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/101319/new-grad-rn-sicu-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "Active Maryland or Compact RN license is required. BLS CPR certification required.",
+        "retrieved_at": "2026-11-04T13:05:00.000Z",
+        "claim": "license"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/101319/new-grad-rn-sicu-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "Associate degree in Nursing required. Applicants with an Associate’s degree in nursing from an accredited nursing program may be considered, provided they are enrolled in an accredited BSN/MSN program within 1 year of hire and complete the degree within 4 years of hire",
+        "retrieved_at": "2026-11-04T13:05:00.000Z",
+        "claim": "education"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-11-04-daily_0004",
+    "run_id": "2026-11-04-daily",
+    "at": "2026-11-04T13:12:19.904Z",
+    "type": "UPDATED",
+    "opportunity_id": "opp_3a1d0e02ce",
+    "changes": [
+      {
+        "field": "program_id",
+        "before": "prog_a68b06dcb8",
+        "after": "prog_4f16bd2769"
+      },
+      {
+        "field": "experience_requirement",
+        "before": "No RN work experience required! Training will be provided.",
+        "after": "No RN work experience required! Training will be provided - All New Grad RNs are automatically enrolled in our Nurse Residency Program ranked #3 in the nation!"
+      },
+      {
+        "field": "application_status",
+        "before": "CLOSED",
+        "after": "OPEN"
+      }
+    ],
+    "reason": "Updated from run evidence (OPEN).",
+    "evidence": [
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/101319/new-grad-rn-sicu-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "Nursing New Grad RN Job: New Grad RN - SICU at Johns Hopkins Medicine in Johns Hopkins Hospital, Baltimore, MD",
+        "retrieved_at": "2026-11-04T13:05:00.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/101319/new-grad-rn-sicu-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "No RN work experience required! Training will be provided - All New Grad RNs are automatically enrolled in our Nurse Residency Program ranked #3 in the nation!",
+        "retrieved_at": "2026-11-04T13:05:00.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/101319/new-grad-rn-sicu-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "Active Maryland or Compact RN license is required. BLS CPR certification required.",
+        "retrieved_at": "2026-11-04T13:05:00.000Z",
+        "claim": "license"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/101319/new-grad-rn-sicu-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "Associate degree in Nursing required. Applicants with an Associate’s degree in nursing from an accredited nursing program may be considered, provided they are enrolled in an accredited BSN/MSN program within 1 year of hire and complete the degree within 4 years of hire",
+        "retrieved_at": "2026-11-04T13:05:00.000Z",
+        "claim": "education"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-11-04-daily_0005",
+    "run_id": "2026-11-04-daily",
+    "at": "2026-11-04T13:12:19.904Z",
+    "type": "NEW",
+    "opportunity_id": "opp_dd9c3c8450",
+    "changes": null,
+    "reason": "First published from run evidence (OPEN).",
+    "evidence": [
+      {
+        "source_url": "https://jobs.mayoclinic.org/job/rochester/nurse-residency-new-grad-rn/33647/102719984064",
+        "excerpt": "The current application will be open through November 8th. Currently accepting new graduate RNs through December 2026.",
+        "retrieved_at": "2026-11-04T13:05:00.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://jobs.mayoclinic.org/job/rochester/nurse-residency-new-grad-rn/33647/102719984064",
+        "excerpt": "Currently accepting new graduate RNs through December 2026. The future of your career is in your hands when you participate in our Nurse Residency program at Mayo Clinic.",
+        "retrieved_at": "2026-11-04T13:05:00.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://jobs.mayoclinic.org/job/rochester/nurse-residency-new-grad-rn/33647/102719984064",
+        "excerpt": "The current application will be open through November 8th. Currently accepting new graduate RNs through December 2026.",
+        "retrieved_at": "2026-11-04T13:05:00.000Z",
+        "claim": "deadline"
+      },
+      {
+        "source_url": "https://jobs.mayoclinic.org/job/rochester/nurse-residency-new-grad-rn/33647/102719984064",
+        "excerpt": "Qualifications Student or Graduate of a nursing program, as recognized by the Accreditation Commission for Education in Nursing (ACEN), Commission on Collegiate Nursing Education (CCNE)",
+        "retrieved_at": "2026-11-04T13:05:00.000Z",
+        "claim": "education"
+      },
+      {
+        "source_url": "https://jobs.mayoclinic.org/job/rochester/nurse-residency-new-grad-rn/33647/102719984064",
+        "excerpt": "License and Certification (Must obtain prior to start date): Current RN license by applicable state requirements. BLS (Basic Life Support) must be valid for 90 days post start date",
+        "retrieved_at": "2026-11-04T13:05:00.000Z",
+        "claim": "license"
+      }
+    ]
   }
 ]
