@@ -392,22 +392,12 @@ export const invite = {
 
 /* ---- "Method" — how Jethro builds (homepage section) ---- */
 export const method = {
-  title: "I build from the part that feels harder than it should.",
-  intro:
-    "Most of my ideas start the same way: I notice a workflow that feels slower, messier, or more annoying than it needs to be. Then I try to turn that friction into something usable: a clinical briefing tool, a lab notebook, a review app, or even a weird browser experiment.",
-  steps: [
-    {
-      title: "Notice the friction",
-      copy: "Clinical work, research, and everyday tools all have moments where people lose time fighting the system. I pay attention to those moments because they usually point to something worth building.",
-    },
-    {
-      title: "Prototype fast",
-      copy: "I use AI tools, design judgment, and modern web stacks to move from rough idea to working product quickly. The goal is not to make a perfect first version. It is to make something real enough to test.",
-    },
-    {
-      title: "Make it useful",
-      copy: "The projects I care about most are the ones that remove friction instead of adding more software to manage. Lab Logger, NurseJet, and my other builds all come from that same instinct.",
-    },
+  title: "Most of my projects start with curiosity.",
+  paragraphs: [
+    "I'm a nursing student who also enjoys building software. It's a slightly unusual combination, but I think that's why I end up working on such different projects.",
+    "Sometimes I'll notice something during clinicals that could be done better. Other times, I'll have a random idea while studying or running and want to see if I can actually make it work.",
+    "I enjoy figuring things out, especially when I have no idea how to build something at first. Some projects turn into useful tools, others stay as experiments, and a few don't work out at all.",
+    "But I usually learn something along the way, and that's what keeps me building.",
   ],
 } as const;
 
