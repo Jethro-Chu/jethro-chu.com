@@ -46,7 +46,7 @@ export function profileMetadata(
 }
 
 const homeDefaults = profileMetadata(profileTitle, profileDescription, "/");
-const socialTitle = "Jethro Chu · BSN Nursing Candidate & Healthcare Software Builder";
+const socialTitle = "Jethro Chu";
 
 export const homeMetadata: Metadata = {
   ...homeDefaults,
