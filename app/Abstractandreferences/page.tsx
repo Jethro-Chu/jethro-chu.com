@@ -259,10 +259,19 @@ export default function AbstractAndReferencesPage() {
               </a>
             </li>
 
-            {/* 8. The Holy Bible, English Standard Version. (2016) */}
+            {/* 8. English Standard Version: Holy Bible. (2016) */}
             <li className={styles.referenceItem}>
-              <em>The Holy Bible, English Standard Version</em>. (2016).
-              Crossway. (Original work published 2001)
+              <em>English Standard Version: Holy Bible</em>. (2016).
+              BibleGateway.com.{" "}
+              <a
+                href="https://www.biblegateway.com/versions/English-Standard-Version-ESV-Bible/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles.refLink}
+              >
+                https://www.biblegateway.com/versions/English-Standard-Version-ESV-Bible/
+              </a>{" "}
+              (Original work published 2001)
             </li>
 
             {/* 9. Jabbour et al. (2023) */}
