@@ -22,7 +22,9 @@ export function CurrentlyBuilding() {
 
         <div
           className={`mt-10 grid gap-5 ${
-            profile.currentFocus.length <= 2
+            profile.currentFocus.length === 1
+              ? "max-w-xl"
+              : profile.currentFocus.length === 2
               ? "sm:grid-cols-2"
               : "sm:grid-cols-2 lg:grid-cols-3"
           }`}

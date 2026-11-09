@@ -196,13 +196,13 @@ export function generateJethroAnswer(question: string, context?: { projectId?: s
 
   // --- current focus ---
   if (has(q, "currently", "right now", "working on", "focused", "building now", "these days", "at the moment")) {
-    const lines = profile.currentFocus.map((f) => `• ${f.project} (${f.status}) — ${f.improving}`).join("\n");
+    const lines = profile.currentFocus.map((f) => `• ${f.project} (${f.status}): ${f.improving}`).join("\n");
     return {
       intent: "current_focus",
       content: `Right now he's focused on:\n\n${lines}`,
-      relatedProjects: ["nursejet", "lab-logger", "jethro-os"],
-      followUps: ["What is NurseJet?", "What should he build next?"],
-      actions: [askAction("About NurseJet", "What is NurseJet?")],
+      relatedProjects: ["jethro-os", "lab-logger"],
+      followUps: ["Tell me about Jethro OS", "What should he build next?"],
+      actions: [askAction("About Jethro OS", "Tell me about Jethro OS")],
     };
   }
 

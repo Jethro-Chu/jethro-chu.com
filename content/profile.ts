@@ -364,12 +364,6 @@ export const profile = {
       improving: "The Ask-Jethro assistant and per-project deep dives.",
       why: "People should be able to ask what I build instead of digging for it.",
     },
-    {
-      project: "NurseJet",
-      status: "Live · publishing daily",
-      improving: "Sharper specialty filtering and faster-to-act briefs.",
-      why: "It only works if a nurse can trust it and use it on shift.",
-    },
   ],
   contactEmail: contact.links.find((l) => l.label === "Email")?.href ?? "",
   github: contact.links.find((l) => l.label === "GitHub")?.href ?? "",
