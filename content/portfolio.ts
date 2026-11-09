@@ -71,7 +71,7 @@ export const status = {
   school: resume.education.school,
   degree: resume.education.degree,
   bsnGraduation: "December 2026",
-  clinicalHours: 560,
+  clinicalHours: 660,
   certifications: resume.skills.certifications,
   resumePdf: resume.pdf,
 } as const;
@@ -104,10 +104,10 @@ export const landmarks: Landmark[] = [
     body: [],
     clinicalJourney: {
       intro:
-        "I am completing my Bachelor of Science in Nursing (BSN) at Azusa Pacific University (expected graduation December 2026) as a new graduate nursing candidate. Through more than 560 clinical hours across six healthcare institutions in California and Hangzhou, China, I have cared for patients across cardiology, cardiac surgery, cardiac catheterization (cath lab), pediatric intensive care (PICU), bone marrow transplant, psychiatric, emergency, orthopedics, step-down/DOU, telemetry, and medical-surgical settings.",
+        "I am completing my Bachelor of Science in Nursing (BSN) at Azusa Pacific University (expected graduation December 2026) as a new graduate nursing candidate. Through more than 660 clinical hours across six healthcare institutions in California and Hangzhou, China, I have cared for patients across cardiology, cardiac surgery, cardiac catheterization (cath lab), pediatric intensive care (PICU), bone marrow transplant, psychiatric, emergency, orthopedics, step-down/DOU, telemetry, and medical-surgical settings.",
       stats: [
         { label: "Education", value: "BSN, December 2026" },
-        { label: "Experience", value: "560+ clinical hours" },
+        { label: "Experience", value: "660+ clinical hours" },
         { label: "Certifications", value: "BLS and ACLS" },
         {
           label: "Clinical interests",
@@ -205,7 +205,7 @@ export const landmarks: Landmark[] = [
     title: "Resume",
     faceset: FACE,
     body: [
-      `Six clinical rotations and ${status.clinicalHours}+ hours across pediatric intensive care, mental health, oncology, cardiovascular, step-down/DOU, and emergency settings. The full breakdown is below.`,
+      `Six clinical rotations, nursing research, and ${status.clinicalHours}+ hours across ICU, emergency, pediatric intensive care, oncology, cardiovascular, and mental health settings. The full breakdown is below.`,
     ],
     resumeSheet: true,
     links: [{ label: "Download resume", href: resume.pdf }],

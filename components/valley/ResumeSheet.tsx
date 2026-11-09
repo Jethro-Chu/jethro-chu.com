@@ -74,7 +74,7 @@ export function ResumeSheet() {
         <SectionLabel n="02" label="clinical experience" />
         <ol className="mt-3 space-y-4 border-l border-[var(--color-granite-line)] pl-4">
           {resume.clinical.map((c) => (
-            <li key={c.org} className="relative">
+            <li key={`${c.org}-${c.dates}`} className="relative">
               <span
                 aria-hidden
                 className="absolute -left-4 top-1.5 size-2 -translate-x-1/2 rounded-full border-2 border-[var(--color-card)] bg-[var(--color-pine)]"
@@ -88,7 +88,7 @@ export function ResumeSheet() {
                 </span>
               </div>
               <p className="label-mono mt-1 text-[0.62rem]">
-                {c.role} · {c.hours} · {c.location}
+                {[c.role, c.hours, c.location].filter(Boolean).join(" · ")}
               </p>
               <ul className="mt-2 space-y-1">
                 {c.bullets.map((b) => (
@@ -119,15 +119,11 @@ export function ResumeSheet() {
           <SkillBlock title="Clinical skills">
             <SkillList items={resume.skills.clinical} />
           </SkillBlock>
-          <SkillBlock title="Professional">
-            <SkillList items={resume.skills.professional} />
-          </SkillBlock>
-          <SkillBlock title="Mentorship">
-            <p className="mt-1 text-[0.84rem] leading-snug text-[var(--color-shadow)]">
-              <span className="font-medium">{resume.skills.mentorship.title}.</span>{" "}
-              <span className="text-[var(--color-muted)]">{resume.skills.mentorship.desc}</span>
-            </p>
-          </SkillBlock>
+          {resume.skills.leadership && (
+            <SkillBlock title="Projects & leadership">
+              <Chips tags={resume.skills.leadership} />
+            </SkillBlock>
+          )}
           <SkillBlock title="Interests">
             <Chips tags={resume.skills.interests} />
           </SkillBlock>
