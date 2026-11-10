@@ -44,10 +44,17 @@ export class SkierController {
   // Collision state
   public hasCrashed: boolean = false;
   public crashReason?: FailureReason;
-  public crashImpact: { obstacle: "pine" | "rock" | "log"; obstacleId: number; speed: number; side: number } | null = null;
+  public crashImpact: { obstacle: "pine" | "rock" | "log"; obstacleId: number; speed: number; lateralSpeed: number; lateralRatio: number; side: number } | null = null;
   private lastCollisionId: number | null = null;
+  private lastNearMissId: number | null = null;
+  // Cosmetic near-miss signal for the renderer/HUD (0..1, decays).
+  public nearMissIntensity: number = 0;
   private impactImpulse = 0;
   private impactTime = 0;
+
+  public maxSpeedAt(distance: number): number {
+    return this.course.maxSpeedAt(distance);
+  }
 
   constructor(course: SkiCourse, audioEngine?: SkiAudioEngine) {
     this.course = course;
@@ -108,6 +115,8 @@ export class SkierController {
     this.crashReason = undefined;
     this.crashImpact = null;
     this.lastCollisionId = null;
+    this.lastNearMissId = null;
+    this.nearMissIntensity = 0;
     this.impactImpulse = 0;
     this.impactTime = 0;
     this.input.mouseDeltaX = 0;
@@ -127,6 +136,9 @@ export class SkierController {
     // Decay camera shake
     if (this.cameraShakeIntensity > 0) {
       this.cameraShakeIntensity = Math.max(0, this.cameraShakeIntensity - dt * 2.5);
+    }
+    if (this.nearMissIntensity > 0) {
+      this.nearMissIntensity = Math.max(0, this.nearMissIntensity - dt * 1.8);
     }
 
     // Toss timers
@@ -156,20 +168,19 @@ export class SkierController {
   ): { phaseTransition?: GamePhase; failureReason?: FailureReason } {
     const track = this.course.getTrackCenter(this.state.distance);
 
-    // 1. Forward downhill acceleration & speed
-    // Terminal velocity works out to ~16 m/s, so the 950 m course takes
-    // roughly 70 s at pace: inside the brief's 60-90 s window and the
-    // 80 s S-rank limit. The previous tuning capped out near 7.4 m/s,
-    // which made even a perfect run take ~128 s and S-rank impossible.
+    // 1. Forward downhill acceleration & speed. Short warm-up, then the
+    // distance ramp: first obstacle is reached in ~8 s, and by 30-45 s
+    // (~400-600 m) the cap is 16-18 m/s with dense rows to thread.
     const g = SKI_CONFIG.RICE.GRAVITY;
     const slopeGravity = g * Math.sin(track.slope);
     const drag = SKI_CONFIG.SKIER.DRAG_COEFF * this.state.speed;
     const netAccel = slopeGravity * SKI_CONFIG.SKIER.ACCEL_MPS2 * 0.28 - drag;
 
     this.state.acceleration = netAccel;
+    const speedCap = this.course.maxSpeedAt(this.state.distance);
     this.state.speed = Math.max(
       SKI_CONFIG.SKIER.MIN_SPEED_MPS,
-      Math.min(SKI_CONFIG.SKIER.MAX_SPEED_MPS, this.state.speed + netAccel * dt)
+      Math.min(speedCap, this.state.speed + netAccel * dt)
     );
 
     // Advance along course
@@ -227,12 +238,12 @@ export class SkierController {
 
     // 4. Update Audio Engine
     if (this.audio) {
-      const speedFraction = this.state.speed / SKI_CONFIG.SKIER.MAX_SPEED_MPS;
+      const speedFraction = this.state.speed / Math.max(1, this.course.maxSpeedAt(this.state.distance));
       this.audio.updateSkiSound(speedFraction, this.state.isGrounded);
     }
 
-    // 5. Check Obstacle Collisions
-    const collision = this.course.checkCollision(worldX, worldZ, 0.55);
+    // 5. Check Obstacle Collisions (hitbox tightened to the visible tips)
+    const collision = this.course.checkCollision(worldX, worldZ, SKI_CONFIG.SKIER.PLAYER_RADIUS);
     if (!collision) this.lastCollisionId = null;
     if (collision && collision.id !== this.lastCollisionId) {
       this.lastCollisionId = collision.id;
@@ -249,11 +260,20 @@ export class SkierController {
         if (this.audio) this.audio.playImpact(0.8);
       } else if (collision.type === "pine" || collision.type === "rock" || collision.type === "log") {
         // Any contact with a solid obstacle throws the cooking rig apart.
-        // Capture impact speed before stopping so the renderer can give the
-        // pan, burner, and rice coherent downhill momentum.
+        // Capture impact motion before stopping so the crash can react to
+        // how the skier was actually moving: head-on faceplants pitch
+        // forward; sideways hits spin and throw gear sideways.
         this.hasCrashed = true;
         this.crashReason = collision.type === "pine" ? "tree_crash" : collision.type === "rock" ? "rock_crash" : "log_crash";
-        this.crashImpact = { obstacle: collision.type, obstacleId: collision.id, speed: this.state.speed, side: worldX < collision.lateralOffset ? -1 : 1 };
+        const lateralSpeed = this.state.lateralSpeed;
+        this.crashImpact = {
+          obstacle: collision.type,
+          obstacleId: collision.id,
+          speed: this.state.speed,
+          lateralSpeed,
+          lateralRatio: Math.abs(lateralSpeed) / Math.max(1e-6, this.state.speed),
+          side: worldX < collision.lateralOffset ? -1 : 1,
+        };
         this.cameraShakeIntensity = 1.0;
         if (this.audio) this.audio.playImpact(1.0);
         return { phaseTransition: "crashing", failureReason: this.crashReason };
@@ -265,6 +285,17 @@ export class SkierController {
         this.verticalBumpImpulse += 4.5;
         if (this.audio) this.audio.playImpact(0.5);
       }
+    }
+
+    // 5b. Near-miss (cosmetic): passing within the close-call band without
+    // colliding flashes a small reward. Throttled to one per obstacle.
+    if (!collision && this.state.speed > 8) {
+      const near = this.course.checkNearMiss(worldX, worldZ, SKI_CONFIG.SKIER.PLAYER_RADIUS);
+      if (near && near.id !== this.lastNearMissId) {
+        this.lastNearMissId = near.id;
+        this.nearMissIntensity = 1.0;
+      }
+      if (!near) this.lastNearMissId = null;
     }
 
     // 6. Pan Orientation & Toss

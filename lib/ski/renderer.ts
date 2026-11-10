@@ -28,17 +28,47 @@ export class SkiRenderer {
   private stoveRig: THREE.Group;
   private crashing = false;
   private crashElapsed = 0;
+  private crashHitPause = 0;
+  private crashVariant: 0 | 1 | 2 = 0;
+  private crashSpeedNorm = 1;
   private crashSide = 1;
   private crashPanPosition = new THREE.Vector3();
   private crashStovePosition = new THREE.Vector3();
   private crashPanRotation = new THREE.Euler();
   private crashStoveRotation = new THREE.Euler();
+  // Crash-tumble base pose (frozen at impact so the tumble is readable).
+  private crashBasePos = new THREE.Vector3();
+  private crashBaseRot = new THREE.Euler();
+  private crashSlideX = 0;
+
+  // Flying yard-sale gear: skis, poles, goggles, hat. Each piece has its
+  // own velocity, spin, gravity, bounce and slide. After the crash the
+  // gear is cosmetic (no collision); items past their life are culled.
+  private flyingItems: Array<{
+    mesh: THREE.Object3D;
+    vel: THREE.Vector3;
+    ang: THREE.Vector3;
+    delay: number;
+    bounce: number;
+    radius: number;
+    resting: boolean;
+  }> = [];
+  private nearMissFlash = 0;
+  private fovKick = 0;
   private burnerFlame: THREE.Mesh;
   private burnerLight: THREE.PointLight;
   private leftHand: THREE.Group;
   private rightHand: THREE.Group;
   private leftSkiTip: THREE.Mesh;
   private rightSkiTip: THREE.Mesh;
+  private leftPole: THREE.Mesh;
+  private rightPole: THREE.Mesh;
+  private gogglesGroup: THREE.Group;
+  private hatGroup: THREE.Group;
+  private leftSkiHome = { pos: new THREE.Vector3(), rot: new THREE.Euler() };
+  private rightSkiHome = { pos: new THREE.Vector3(), rot: new THREE.Euler() };
+  private leftPoleHome = { pos: new THREE.Vector3(), rot: new THREE.Euler() };
+  private rightPoleHome = { pos: new THREE.Vector3(), rot: new THREE.Euler() };
 
   // Finish Arena & Plate
   public plateWorldPos: { x: number; y: number; z: number };
@@ -142,6 +172,18 @@ export class SkiRenderer {
     this.rightHand = rigData.rightHand;
     this.leftSkiTip = rigData.leftSkiTip;
     this.rightSkiTip = rigData.rightSkiTip;
+    this.leftPole = rigData.leftPole;
+    this.rightPole = rigData.rightPole;
+    this.gogglesGroup = rigData.gogglesGroup;
+    this.hatGroup = rigData.hatGroup;
+    this.leftSkiHome.pos.copy(rigData.leftSkiTip.position);
+    this.leftSkiHome.rot.copy(rigData.leftSkiTip.rotation);
+    this.rightSkiHome.pos.copy(rigData.rightSkiTip.position);
+    this.rightSkiHome.rot.copy(rigData.rightSkiTip.rotation);
+    this.leftPoleHome.pos.copy(rigData.leftPole.position);
+    this.leftPoleHome.rot.copy(rigData.leftPole.rotation);
+    this.rightPoleHome.pos.copy(rigData.rightPole.position);
+    this.rightPoleHome.rot.copy(rigData.rightPole.rotation);
 
     this.scene.add(this.cameraRig);
 
@@ -435,6 +477,10 @@ export class SkiRenderer {
     rightHand: THREE.Group;
     leftSkiTip: THREE.Mesh;
     rightSkiTip: THREE.Mesh;
+    leftPole: THREE.Mesh;
+    rightPole: THREE.Mesh;
+    gogglesGroup: THREE.Group;
+    hatGroup: THREE.Group;
   } {
     const cameraRig = new THREE.Group();
     cameraRig.add(this.camera);
@@ -591,6 +637,67 @@ export class SkiRenderer {
     rightSkiTip.rotation.x = -0.18;
     cameraRig.add(rightSkiTip);
 
+    // Poles: thin shafts with baskets, angled from the hands toward the
+    // snow. They ride in view during skiing and become yard-sale debris
+    // on a crash, each on its own flight path.
+    const poleGeom = new THREE.CylinderGeometry(0.016, 0.02, 1.15, 8);
+    const poleMat = new THREE.MeshStandardMaterial({ color: 0x3a4149, roughness: 0.5, metalness: 0.4 });
+    const basketGeom = new THREE.CylinderGeometry(0.055, 0.055, 0.02, 10);
+    const basketMat = new THREE.MeshStandardMaterial({ color: 0xff8a1f, roughness: 0.7 });
+    const gripGeom = new THREE.CylinderGeometry(0.022, 0.022, 0.12, 8);
+    const gripMat = new THREE.MeshStandardMaterial({ color: 0x172c2a, roughness: 0.85 });
+    const makePole = (isLeft: boolean): THREE.Mesh => {
+      const pole = new THREE.Mesh(poleGeom, poleMat);
+      const basket = new THREE.Mesh(basketGeom, basketMat);
+      basket.position.y = -0.32;
+      pole.add(basket);
+      const grip = new THREE.Mesh(gripGeom, gripMat);
+      grip.position.y = 0.5;
+      pole.add(grip);
+      pole.castShadow = true;
+      pole.position.set(isLeft ? -0.42 : 0.42, -0.62, -0.45);
+      pole.rotation.set(0.35, 0, isLeft ? 0.28 : -0.28);
+      cameraRig.add(pole);
+      return pole;
+    };
+    const leftPole = makePole(true);
+    const rightPole = makePole(false);
+
+    // Goggles + beanie: worn on the head, so they stay off-frame while
+    // skiing but launch from the eyes on impact. Kept hidden until a
+    // crash so they never block the view.
+    const gogglesGroup = new THREE.Group();
+    const frameMat = new THREE.MeshStandardMaterial({ color: 0x172c2a, roughness: 0.5 });
+    const lensMat = new THREE.MeshStandardMaterial({ color: 0x5fd8be, roughness: 0.15, metalness: 0.3 });
+    const lensL = new THREE.Mesh(new THREE.BoxGeometry(0.14, 0.07, 0.02), lensMat);
+    lensL.position.set(-0.08, 0, 0);
+    gogglesGroup.add(lensL);
+    const lensR = new THREE.Mesh(new THREE.BoxGeometry(0.14, 0.07, 0.02), lensMat);
+    lensR.position.set(0.08, 0, 0);
+    gogglesGroup.add(lensR);
+    const bridge = new THREE.Mesh(new THREE.BoxGeometry(0.3, 0.05, 0.03), frameMat);
+    gogglesGroup.add(bridge);
+    const strap = new THREE.Mesh(new THREE.BoxGeometry(0.36, 0.025, 0.02), frameMat);
+    strap.position.z = -0.02;
+    gogglesGroup.add(strap);
+    gogglesGroup.position.set(0.08, 0.12, -0.45);
+    gogglesGroup.visible = false;
+    cameraRig.add(gogglesGroup);
+
+    const hatGroup = new THREE.Group();
+    const hatMat = new THREE.MeshStandardMaterial({ color: 0xff8a1f, roughness: 0.9, side: THREE.DoubleSide });
+    const dome = new THREE.Mesh(new THREE.SphereGeometry(0.12, 12, 8, 0, Math.PI * 2, 0, Math.PI / 2), hatMat);
+    hatGroup.add(dome);
+    const brim = new THREE.Mesh(new THREE.CylinderGeometry(0.13, 0.13, 0.045, 12), hatMat);
+    brim.position.y = -0.01;
+    hatGroup.add(brim);
+    const pom = new THREE.Mesh(new THREE.SphereGeometry(0.045, 8, 8), new THREE.MeshStandardMaterial({ color: 0xfcfbf9, roughness: 0.95 }));
+    pom.position.y = 0.14;
+    hatGroup.add(pom);
+    hatGroup.position.set(-0.06, 0.24, -0.55);
+    hatGroup.visible = false;
+    cameraRig.add(hatGroup);
+
     return {
       cameraRig,
       panRig,
@@ -602,6 +709,10 @@ export class SkiRenderer {
       rightHand,
       leftSkiTip,
       rightSkiTip,
+      leftPole,
+      rightPole,
+      gogglesGroup,
+      hatGroup,
     };
   }
 
@@ -616,7 +727,9 @@ export class SkiRenderer {
     const sphereGeom = new THREE.SphereGeometry(0.03, 6, 6);
 
     // Snow spray particles
-    const snowMat = new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.8 });
+    // Pale blue-grey reads against the pure-white slope so carve spray and
+    // the crash burst stay visible without going dark.
+    const snowMat = new THREE.MeshBasicMaterial({ color: 0xc7e0f5, transparent: true, opacity: 0.9 });
     const snow = new THREE.InstancedMesh(sphereGeom, snowMat, 80);
 
     // Steam particles (wispy white/cream)
@@ -626,6 +739,12 @@ export class SkiRenderer {
     // Smoke particles (dark grey / charred)
     const smokeMat = new THREE.MeshBasicMaterial({ color: 0x27272a, transparent: true, opacity: 0.65 });
     const smoke = new THREE.InstancedMesh(sphereGeom, smokeMat, 60);
+
+    // World-space particles streak along the whole course; the default
+    // bounds (origin) would frustum-cull them once the skier passes it.
+    snow.frustumCulled = false;
+    steam.frustumCulled = false;
+    smoke.frustumCulled = false;
 
     // Hide initially
     for (let i = 0; i < 80; i++) {
@@ -643,16 +762,42 @@ export class SkiRenderer {
     return { snow, steam, smoke };
   }
 
+  private pickCrashVariant(): 0 | 1 | 2 {
+    const impact = this.skier.crashImpact;
+    if (!impact) return 0;
+    // Sideways hits spin; head-on hits faceplant; logs cartwheel. The
+    // obstacle id breaks ties so repeat crashes at the same spot vary.
+    if (impact.lateralRatio > 0.32) return 1;
+    if (impact.obstacle === "log") return 2;
+    if (impact.obstacleId % 3 === 1) return 2;
+    if (impact.obstacleId % 3 === 2) return 1;
+    return 0;
+  }
+
   /**
-   * Break the pan and portable stove apart on impact. Their movement stays
-   * camera-relative so the accident remains readable, while the rice is
-   * released into the real world simulation from the pan's actual transform.
+   * Yard sale on impact: hit pause, snow burst, and every piece of gear
+   * (pan, stove, both skis, both poles, goggles, beanie) leaves on its
+   * own flight path. The skier tumbles through one of three variants.
+   * Gear flies in world space so it stays put while the camera cartwheels.
    */
   public beginCrash(): void {
     if (this.crashing) return;
     this.crashing = true;
     this.crashElapsed = 0;
+    const reduced = this.skier.reducedCameraShake;
+    this.crashHitPause = reduced
+      ? SKI_CONFIG.CRASH.HIT_PAUSE_REDUCED_SEC
+      : SKI_CONFIG.CRASH.HIT_PAUSE_SEC;
     this.crashSide = this.skier.crashImpact?.side || 1;
+    this.crashVariant = this.pickCrashVariant();
+    const impactSpeed = this.skier.crashImpact?.speed ?? this.skier.state.speed;
+    const impactLateral = this.skier.crashImpact?.lateralSpeed ?? 0;
+    this.crashSpeedNorm = Math.max(0.55, Math.min(1.45, impactSpeed / 14));
+    // Camera tumble starts from the exact impact pose, then slides in the
+    // direction of the hit so side impacts visibly drag sideways.
+    this.crashBasePos.copy(this.cameraRig.position);
+    this.crashBaseRot.copy(this.cameraRig.rotation);
+    this.crashSlideX = impactLateral * 0.09 * this.crashSpeedNorm;
     // At impact the camera can be inside a tree's canopy. Fade only that
     // tree so the flying pan and rice remain visible through the branches.
     if (this.skier.crashImpact?.obstacle === "pine") {
@@ -669,28 +814,153 @@ export class SkiRenderer {
     }
     this.panRig.updateWorldMatrix(true, true);
     this.rice.scatterOnCrash(this.panRig.matrixWorld, {
-      x: this.skier.state.lateralSpeed,
+      x: impactLateral,
       y: 0,
-      z: this.skier.state.speed,
+      z: impactSpeed,
     });
     this.cameraRig.attach(this.stoveRig);
     this.crashPanPosition.copy(this.panRig.position);
     this.crashStovePosition.copy(this.stoveRig.position);
     this.crashPanRotation.copy(this.panRig.rotation);
     this.crashStoveRotation.copy(this.stoveRig.rotation);
+
+    // Freeze the impact pose for the hit pause, then release the gear.
+    this.launchFlyingGear(impactSpeed, impactLateral);
+    this.burstSnow(SKI_CONFIG.CRASH.SNOW_BURST_COUNT);
+    this.nearMissFlash = 0;
+    this.fovKick = 0;
+  }
+
+  private launchFlyingGear(impactSpeed: number, impactLateral: number): void {
+    this.flyingItems = [];
+    const side = this.crashSide;
+    const k = this.crashSpeedNorm;
+    const spin = this.crashVariant === 1 ? 1 : -1;
+
+    // Detach the rig-mounted pieces into the world (keeps their world pose).
+    this.scene.attach(this.leftSkiTip);
+    this.scene.attach(this.rightSkiTip);
+    this.scene.attach(this.leftPole);
+    this.scene.attach(this.rightPole);
+    // Head gear was parented to the camera rig for positioning; detach it too.
+    // Delayed pieces stay hidden until their launch beat (stepFlyingGear),
+    // including through the hit pause, so they never freeze huge in view.
+    this.scene.attach(this.gogglesGroup);
+    this.scene.attach(this.hatGroup);
+    this.gogglesGroup.visible = false;
+    this.hatGroup.visible = false;
+    this.leftHand.visible = true;
+    this.rightHand.visible = true;
+
+    // Each piece: position (from its mount point), velocity (scaled by
+    // impact speed + sideways component), spin, delay (comedic timing: a
+    // stray item lands late), bounce and rest size.
+    const specs: Array<{ mesh: THREE.Object3D; vx: number; vy: number; vz: number; ax: number; ay: number; az: number; delay: number; bounce: number; radius: number }> = [
+      // Left ski splits away to the left, slightly delayed.
+      { mesh: this.leftSkiTip, vx: -3.2 * k + impactLateral * 0.25, vy: 4.4 * k, vz: 1.2 * k + impactSpeed * 0.18, ax: 6, ay: spin * 4, az: side * 5, delay: 0, bounce: 0.42, radius: 0.05 },
+      // Right ski pops late — the stray that lands a beat after impact.
+      { mesh: this.rightSkiTip, vx: 2.4 * k + impactLateral * 0.2, vy: 3.6 * k, vz: 0.8 * k + impactSpeed * 0.14, ax: -5, ay: -spin * 3, az: -side * 4, delay: 0.3, bounce: 0.42, radius: 0.05 },
+      // Left pole shoots up and over.
+      { mesh: this.leftPole, vx: -2.2 * k, vy: 5.2 * k, vz: 1.6 * k, ax: 3, ay: 5, az: -side * 6, delay: 0.05, bounce: 0.3, radius: 0.08 },
+      // Right pole goes wide and low, bouncing past.
+      { mesh: this.rightPole, vx: 3.0 * k + impactLateral * 0.3, vy: 3.0 * k, vz: 1.0 * k + impactSpeed * 0.1, ax: -4, ay: -3, az: side * 5, delay: 0.12, bounce: 0.38, radius: 0.08 },
+      // Goggles fly off the face forward and high — they land last.
+      { mesh: this.gogglesGroup, vx: impactLateral * 0.3, vy: 3.4 * k, vz: (2.2 + impactSpeed * 0.22) * k, ax: 7, ay: spin * 5, az: 3, delay: 0.42, bounce: 0.35, radius: 0.06 },
+      // Beanie pops straight up and flutters down behind.
+      { mesh: this.hatGroup, vx: -impactLateral * 0.2 + side * 0.8 * k, vy: 4.8 * k, vz: 0.6 * k - impactSpeed * 0.08, ax: 5, ay: -2, az: -side * 3, delay: 0.18, bounce: 0.25, radius: 0.1 },
+    ];
+    for (const s of specs) {
+      if (this.flyingItems.length >= SKI_CONFIG.CRASH.MAX_FLYING_ITEMS) break;
+      s.mesh.visible = s.delay === 0;
+      this.flyingItems.push({
+        mesh: s.mesh,
+        vel: new THREE.Vector3(s.vx, s.vy, s.vz),
+        ang: new THREE.Vector3(s.ax, s.ay, s.az),
+        delay: s.delay,
+        bounce: s.bounce,
+        radius: s.radius,
+        resting: false,
+      });
+    }
+  }
+
+  private burstSnow(count: number): void {
+    const ox = this.skier.state.worldPos.x;
+    const oy = this.skier.state.worldPos.y;
+    const oz = this.skier.state.worldPos.z;
+    for (let i = 0; i < count; i++) {
+      const a = Math.random() * Math.PI * 2;
+      const r = 0.4 + Math.random() * 2.6;
+      this.snowParticles.push({
+        x: ox + Math.cos(a) * 0.4,
+        y: oy + 0.2 + Math.random() * 0.6,
+        z: oz + 0.6 + Math.random() * 1.2,
+        vx: Math.cos(a) * r,
+        vy: 1.2 + Math.random() * 3.2,
+        vz: Math.sin(a) * r * 0.5 + Math.random() * 1.5,
+        life: 0.5 + Math.random() * 0.5,
+      });
+    }
+    this.trimParticles();
+  }
+
+  private trimParticles(): void {
+    const max = SKI_CONFIG.PARTICLES;
+    if (this.snowParticles.length > max.SNOW_MAX) {
+      this.snowParticles.splice(0, this.snowParticles.length - max.SNOW_MAX);
+    }
+    if (this.steamParticles.length > max.STEAM_MAX) {
+      this.steamParticles.splice(0, this.steamParticles.length - max.STEAM_MAX);
+    }
+    if (this.smokeParticles.length > max.SMOKE_MAX) {
+      this.smokeParticles.splice(0, this.smokeParticles.length - max.SMOKE_MAX);
+    }
   }
 
   public resetCrash(): void {
     this.restoreCrashedTree();
     this.crashing = false;
     this.crashElapsed = 0;
+    this.crashHitPause = 0;
+    this.nearMissFlash = 0;
+    this.fovKick = 0;
+    this.flyingItems = [];
+    this.cameraRig.remove(this.stoveRig);
     this.panRig.add(this.stoveRig);
     this.panRig.position.set(0, -0.38, -0.72);
     this.panRig.rotation.set(0, 0, 0);
     this.stoveRig.position.set(0, 0, 0);
     this.stoveRig.rotation.set(0, 0, 0);
+    // Return every flying piece to its rig mount.
+    const mounts: Array<{ mesh: THREE.Object3D; pos: THREE.Vector3; rot: THREE.Euler }> = [
+      { mesh: this.leftSkiTip, pos: this.leftSkiHome.pos, rot: this.leftSkiHome.rot },
+      { mesh: this.rightSkiTip, pos: this.rightSkiHome.pos, rot: this.rightSkiHome.rot },
+      { mesh: this.leftPole, pos: this.leftPoleHome.pos, rot: this.leftPoleHome.rot },
+      { mesh: this.rightPole, pos: this.rightPoleHome.pos, rot: this.rightPoleHome.rot },
+    ];
+    for (const m of mounts) {
+      this.cameraRig.add(m.mesh);
+      m.mesh.position.copy(m.pos);
+      m.mesh.rotation.copy(m.rot);
+      m.mesh.visible = true;
+    }
+    this.cameraRig.add(this.gogglesGroup);
+    this.gogglesGroup.position.set(0.08, 0.12, -0.45);
+    this.gogglesGroup.rotation.set(0, 0, 0);
+    this.gogglesGroup.visible = false;
+    this.cameraRig.add(this.hatGroup);
+    this.hatGroup.position.set(-0.06, 0.24, -0.55);
+    this.hatGroup.rotation.set(0, 0, 0);
+    this.hatGroup.visible = false;
     this.leftHand.visible = true;
     this.rightHand.visible = true;
+    // Fully clear particles so repeated crashes stay smooth.
+    this.snowParticles = [];
+    this.steamParticles = [];
+    this.smokeParticles = [];
+    // Camera back to the start-gate framing.
+    this.camera.fov = 65;
+    this.camera.updateProjectionMatrix();
   }
 
   private restoreCrashedTree(): void {
@@ -707,35 +977,117 @@ export class SkiRenderer {
   public render(dt: number, phase: GamePhase): void {
     const skierState = this.skier.state;
     const panOrientation = this.skier.panOrientation;
+    const reduced = this.skier.reducedCameraShake;
+    const isCrash = phase === "crashing" && this.crashing;
 
-    // 1. Position Camera Rig at Skier World Position
-    // Eye height ~ 1.55m above snow surface
-    this.cameraRig.position.set(
-      skierState.worldPos.x,
-      skierState.worldPos.y + 1.55,
-      skierState.worldPos.z
-    );
-
-    // Camera rotation: the course travels toward +Z, but a Three.js camera
-    // looks down its local -Z, so the rig yaws PI to face downhill. Order
-    // YXZ applies that yaw before pitch/banking so the signs stay intuitive:
-    // negative X pitches the view down the slope.
-    this.cameraRig.rotation.order = "YXZ";
-    let shakeX = 0;
-    let shakeY = 0;
-    let shakeZ = 0;
-    if (!this.skier.reducedCameraShake && this.skier.cameraShakeIntensity > 0) {
-      const intensity = this.skier.cameraShakeIntensity * 0.08;
-      shakeX = (Math.random() - 0.5) * intensity;
-      shakeY = (Math.random() - 0.5) * intensity;
-      shakeZ = (Math.random() - 0.5) * intensity;
+    // Hit pause: freeze the crash clock for a few frames so the impact
+    // reads before the tumble starts. Reduced motion shortens it.
+    let simDt = dt;
+    if (isCrash && this.crashHitPause > 0) {
+      this.crashHitPause = Math.max(0, this.crashHitPause - dt);
+      simDt = 0;
+    }
+    if (isCrash) {
+      this.crashElapsed += simDt;
+      this.skier.cameraShakeIntensity = Math.max(0, this.skier.cameraShakeIntensity - simDt * 2.2);
     }
 
-    this.cameraRig.rotation.set(
-      -skierState.slopePitch - 0.04 + shakeX,
-      Math.PI + shakeY,
-      -skierState.steerAngle + shakeZ
-    );
+    // Near-miss reward: brief FOV kick + snow puff (visual only).
+    if (this.skier.nearMissIntensity > 0.9 && phase === "skiing") {
+      this.fovKick = reduced ? 0 : 2.2;
+      this.nearMissFlash = 1;
+      this.burstSmallSpray(6);
+      this.skier.nearMissIntensity = 0.6;
+    }
+    this.nearMissFlash = Math.max(0, this.nearMissFlash - dt * 1.6);
+    this.fovKick = Math.max(0, this.fovKick - dt * 6);
+    const targetFov = 65 + this.fovKick;
+    if (Math.abs(this.camera.fov - targetFov) > 0.05) {
+      this.camera.fov = targetFov;
+      this.camera.updateProjectionMatrix();
+    }
+
+    // 1. Position Camera Rig at Skier World Position (or tumble pose)
+    const easeOut = (x: number): number => 1 - Math.pow(1 - Math.min(1, x), 3);
+    const easeInOut = (x: number): number => x * x * (3 - 2 * x);
+    if (isCrash) {
+      const total = SKI_CONFIG.CRASH.SEQUENCE_SEC;
+      const p = Math.min(1, this.crashElapsed / total);
+      const amp = reduced ? 0.45 : 1;
+      if (this.crashVariant === 0) {
+        // Faceplant: nose-dive pitch, drop to the snow, slight roll.
+        const e = easeOut(p * 1.6);
+        this.cameraRig.position.set(
+          this.crashBasePos.x + this.crashSlideX * e,
+          this.crashBasePos.y - 1.15 * amp * e + Math.sin(p * Math.PI * 2) * 0.02,
+          this.crashBasePos.z + 0.5 * e
+        );
+        this.cameraRig.rotation.order = "YXZ";
+        this.cameraRig.rotation.set(
+          this.crashBaseRot.x - 0.85 * amp * e,
+          Math.PI + this.crashSide * 0.25 * e,
+          this.crashBaseRot.z + this.crashSide * 0.5 * amp * e
+        );
+      } else if (this.crashVariant === 1) {
+        // Side spin: full barrel roll sideways, lateral slide, ends on side.
+        const e = easeInOut(p);
+        this.cameraRig.position.set(
+          this.crashBasePos.x + this.crashSlideX * 1.6 * e + this.crashSide * 0.4 * e,
+          this.crashBasePos.y - 0.8 * amp * e,
+          this.crashBasePos.z + 0.3 * e
+        );
+        this.cameraRig.rotation.order = "YXZ";
+        this.cameraRig.rotation.set(
+          this.crashBaseRot.x - 0.15 * e,
+          Math.PI,
+          this.crashBaseRot.z + this.crashSide * e * Math.PI * 2 * amp
+        );
+      } else {
+        // Cartwheel / upside-down: pop up, flip over, land inverted.
+        const e = easeInOut(p);
+        const pop = Math.sin(Math.min(1, p * 1.4) * Math.PI);
+        this.cameraRig.position.set(
+          this.crashBasePos.x + this.crashSlideX * e,
+          this.crashBasePos.y + 0.55 * amp * pop - 1.05 * amp * e,
+          this.crashBasePos.z + 0.6 * e
+        );
+        this.cameraRig.rotation.order = "YXZ";
+        this.cameraRig.rotation.set(
+          this.crashBaseRot.x + 0.6 * amp * Math.sin(p * Math.PI * 2) - 0.5 * e,
+          Math.PI + this.crashSide * 0.4 * e,
+          this.crashBaseRot.z + this.crashSide * Math.PI * 0.95 * amp * e
+        );
+      }
+      // Hands flail out of frame during the tumble.
+      this.leftHand.position.set(-0.55, -0.25, -0.4);
+      this.rightHand.position.set(0.55, -0.25, -0.3);
+    } else {
+      this.cameraRig.position.set(
+        skierState.worldPos.x,
+        skierState.worldPos.y + 1.55,
+        skierState.worldPos.z
+      );
+      // Camera rotation: the course travels toward +Z, but a Three.js camera
+      // looks down its local -Z, so the rig yaws PI to face downhill. Order
+      // YXZ applies that yaw before pitch/banking so the signs stay intuitive:
+      // negative X pitches the view down the slope.
+      this.cameraRig.rotation.order = "YXZ";
+      let shakeX = 0;
+      let shakeY = 0;
+      let shakeZ = 0;
+      const shakeScale = reduced ? SKI_CONFIG.CRASH.SHAKE_REDUCED_AMPLITUDE : SKI_CONFIG.CRASH.SHAKE_AMPLITUDE;
+      if (this.skier.cameraShakeIntensity > 0) {
+        const intensity = this.skier.cameraShakeIntensity * shakeScale;
+        shakeX = (Math.random() - 0.5) * intensity;
+        shakeY = (Math.random() - 0.5) * intensity;
+        shakeZ = (Math.random() - 0.5) * intensity;
+      }
+      this.cameraRig.rotation.set(
+        -skierState.slopePitch - 0.04 + shakeX,
+        Math.PI + shakeY,
+        -skierState.steerAngle + shakeZ
+      );
+    }
 
     // 2. Update Pan Rig Transformation relative to camera
     // Pitch (forward/back) and Roll (left/right) from mouse input
@@ -743,18 +1095,16 @@ export class SkiRenderer {
     const tossY = panOrientation.tossProgress * 0.14;
     const tossPitch = -panOrientation.tossProgress * 0.15; // slight nose up when tossed
 
-    if (phase === "crashing" && this.crashing) {
-      this.crashElapsed += dt;
-      this.skier.cameraShakeIntensity = Math.max(0, this.skier.cameraShakeIntensity - dt * 2.5);
+    if (isCrash) {
       const t = this.crashElapsed;
       this.panRig.position.set(
-        this.crashPanPosition.x + this.crashSide * 0.44 * t,
+        this.crashPanPosition.x + this.crashSide * 0.44 * t * (0.7 + this.crashSpeedNorm * 0.5),
         this.crashPanPosition.y + 1.05 * t - 0.8 * t * t,
         this.crashPanPosition.z - 0.36 * t,
       );
       this.panRig.rotation.set(this.crashPanRotation.x + 3 * t, this.crashPanRotation.y + 2.2 * t, this.crashPanRotation.z + this.crashSide * 2.5 * t);
       this.stoveRig.position.set(
-        this.crashStovePosition.x - this.crashSide * 0.52 * t,
+        this.crashStovePosition.x - this.crashSide * 0.52 * t * (0.7 + this.crashSpeedNorm * 0.5),
         this.crashStovePosition.y + 0.8 * t - 0.9 * t * t,
         this.crashStovePosition.z - 0.22 * t,
       );
@@ -764,17 +1114,22 @@ export class SkiRenderer {
       this.panRig.rotation.set(panOrientation.pitch + tossPitch, 0, panOrientation.roll);
     }
 
-    // Mini ski flutter & hand follow
-    const recoil = phase === "crashing" ? Math.min(0.15, this.crashElapsed * 0.3) : 0;
-    this.leftHand.position.x = -0.29 + panOrientation.roll * 0.15 - recoil;
-    this.rightHand.position.x = 0.37 + panOrientation.roll * 0.15 + recoil;
-    this.leftHand.position.y = -0.48 + tossY * 0.7 - recoil;
-    this.rightHand.position.y = -0.315 + tossY * 0.7 - recoil;
+    // Mini ski flutter & hand follow (hands pinned during the tumble)
+    if (!isCrash) {
+      const recoil = phase === "crashing" ? Math.min(0.15, this.crashElapsed * 0.3) : 0;
+      this.leftHand.position.x = -0.29 + panOrientation.roll * 0.15 - recoil;
+      this.rightHand.position.x = 0.37 + panOrientation.roll * 0.15 + recoil;
+      this.leftHand.position.y = -0.48 + tossY * 0.7 - recoil;
+      this.rightHand.position.y = -0.315 + tossY * 0.7 - recoil;
+    }
 
     // Burner flame flicker
     const flicker = 0.85 + Math.random() * 0.35;
     this.burnerFlame.scale.set(flicker, flicker, flicker);
     this.burnerLight.intensity = 0.55 * flicker;
+
+    // Flying yard-sale gear: gravity, bounce and slide per piece.
+    if (isCrash) this.stepFlyingGear(simDt);
 
     // 3. Step Rice Simulation only while a run is live. On the title,
     // countdown, pause, and results screens the pan must stay frozen:
@@ -807,32 +1162,135 @@ export class SkiRenderer {
 
       // 4. Update Particle Systems
       this.updateParticles(dt, phase);
-    } else if (phase === "crashing" && this.crashing) {
-      this.rice.stepCrash(dt);
+    } else if (isCrash) {
+      this.rice.stepCrash(simDt);
+      this.updateParticles(simDt, phase);
     }
 
     // 5. Render Scene
     this.renderer.render(this.scene, this.camera);
   }
 
+  /** Small snow puff for near-miss rewards and carve bursts. */
+  private burstSmallSpray(count: number): void {
+    const ox = this.skier.state.worldPos.x;
+    const oy = this.skier.state.worldPos.y;
+    const oz = this.skier.state.worldPos.z;
+    for (let i = 0; i < count; i++) {
+      this.snowParticles.push({
+        x: ox + (Math.random() - 0.5) * 0.6,
+        y: oy + 0.15,
+        z: oz + (Math.random() - 0.5) * 0.6,
+        vx: (Math.random() - 0.5) * 2.0,
+        vy: 0.8 + Math.random() * 1.4,
+        vz: -1 - Math.random() * 1.5,
+        life: 0.35 + Math.random() * 0.3,
+      });
+    }
+    this.trimParticles();
+  }
+
+  /**
+   * Step each flying piece: gravity, ground bounce, friction slide, spin
+   * decay. Delayed pieces pop in late for comedic timing. Resting pieces
+   * stop updating; anything too far away is culled so the draw stays cheap.
+   */
+  private stepFlyingGear(dt: number): void {
+    if (dt <= 0) return;
+    const g = SKI_CONFIG.CRASH.GRAVITY;
+    const camX = this.cameraRig.position.x;
+    const camZ = this.cameraRig.position.z;
+    for (const item of this.flyingItems) {
+      if (this.crashElapsed < item.delay) {
+        item.mesh.visible = false; // stray pops in only on its launch beat
+        continue;
+      }
+      if (item.resting) continue;
+      item.mesh.visible = true;
+      item.vel.y -= g * dt;
+      item.mesh.position.addScaledVector(item.vel, dt);
+      item.mesh.rotation.x += item.ang.x * dt;
+      item.mesh.rotation.y += item.ang.y * dt;
+      item.mesh.rotation.z += item.ang.z * dt;
+      const groundY = this.course.getGroundHeight(item.mesh.position.x, item.mesh.position.z) + item.radius;
+      if (item.mesh.position.y <= groundY) {
+        item.mesh.position.y = groundY;
+        if (Math.abs(item.vel.y) > 0.9) {
+          item.vel.y = -item.vel.y * item.bounce;
+          item.vel.x *= 0.72;
+          item.vel.z *= 0.72;
+          item.ang.multiplyScalar(0.62);
+          // Small dust puff on each bounce.
+          this.snowParticles.push({
+            x: item.mesh.position.x,
+            y: groundY + 0.05,
+            z: item.mesh.position.z,
+            vx: (Math.random() - 0.5) * 1.2,
+            vy: 0.5 + Math.random() * 0.6,
+            vz: (Math.random() - 0.5) * 1.2,
+            life: 0.3,
+          });
+          this.trimParticles();
+        } else {
+          item.vel.y = 0;
+          const slide = Math.max(0, 1 - 4.2 * dt);
+          item.vel.x *= slide;
+          item.vel.z *= slide;
+          item.ang.multiplyScalar(Math.max(0, 1 - 3.0 * dt));
+          if (item.vel.length() < 0.25 && item.ang.length() < 0.6) {
+            item.resting = true;
+            item.vel.set(0, 0, 0);
+            item.ang.set(0, 0, 0);
+          }
+        }
+      }
+      // Cull far-away debris (cosmetic only).
+      const dx = item.mesh.position.x - camX;
+      const dz = item.mesh.position.z - camZ;
+      if (dx * dx + dz * dz > SKI_CONFIG.PARTICLES.CULL_DISTANCE * SKI_CONFIG.PARTICLES.CULL_DISTANCE) {
+        item.resting = true;
+        item.mesh.visible = false;
+      }
+    }
+  }
+
   /**
    * Spawn and update snow spray, cooking steam, and burn smoke
    */
   private updateParticles(dt: number, phase: GamePhase): void {
-    // 1. Snow Spray from skis
+    // 1. Snow Spray from skis — restrained while cruising, stronger while
+    // carving hard (spray kicks to the outside of the turn).
     if (phase === "skiing" && this.skier.state.speed > 5) {
-      if (Math.random() < 0.6) {
+      const carving = Math.abs(this.skier.state.lateralSpeed) > 1.5;
+      const prob = carving ? 0.95 : 0.5;
+      if (Math.random() < prob) {
+        const carveDir = this.skier.state.lateralSpeed > 0 ? 1 : -1;
+        // Spray must land inside the view cone: spawned at the feet it sits
+        // ~65 deg below the view axis (off-frame), so kick it ~1 m ahead and
+        // downhill-fast to arc through the lower frame.
         this.snowParticles.push({
-          x: this.skier.state.worldPos.x + (Math.random() > 0.5 ? 0.35 : -0.35),
-          y: this.skier.state.worldPos.y + 0.1,
-          z: this.skier.state.worldPos.z - 0.2,
-          vx: (Math.random() - 0.5) * 1.5,
-          vy: 0.6 + Math.random() * 0.8,
-          vz: -this.skier.state.speed * 0.3,
-          life: 0.6,
+          x: this.skier.state.worldPos.x + carveDir * -0.5,
+          y: this.skier.state.worldPos.y + 0.25,
+          z: this.skier.state.worldPos.z + 0.9,
+          vx: -carveDir * (1.5 + Math.random() * 1.8),
+          vy: 1.6 + Math.random() * 1.0,
+          vz: this.skier.state.speed * 0.55,
+          life: 0.5,
         });
+        if (carving && Math.random() < 0.55) {
+          this.snowParticles.push({
+            x: this.skier.state.worldPos.x + (Math.random() - 0.5) * 0.6,
+            y: this.skier.state.worldPos.y + 0.2,
+            z: this.skier.state.worldPos.z + 0.6,
+            vx: -carveDir * (1.8 + Math.random() * 1.6),
+            vy: 1.9 + Math.random() * 1.0,
+            vz: this.skier.state.speed * 0.75,
+            life: 0.4,
+          });
+        }
       }
     }
+    this.trimParticles();
 
     // 2. Steam & Smoke from Cooking Pan
     if (this.rice.retainedCount > 0 && phase !== "ready") {
@@ -866,8 +1324,12 @@ export class SkiRenderer {
         });
       }
     }
+    this.trimParticles();
 
-    // Update Snow Particles
+    // Update Snow Particles (+ cull offscreen / far debris)
+    const cullSq = SKI_CONFIG.PARTICLES.CULL_DISTANCE * SKI_CONFIG.PARTICLES.CULL_DISTANCE;
+    const camX = this.cameraRig.position.x;
+    const camZ = this.cameraRig.position.z;
     for (let i = this.snowParticles.length - 1; i >= 0; i--) {
       const p = this.snowParticles[i];
       p.life -= dt;
@@ -879,6 +1341,11 @@ export class SkiRenderer {
       p.y += p.vy * dt;
       p.z += p.vz * dt;
       p.vy -= 4.0 * dt;
+      const dx = p.x - camX;
+      const dz = p.z - camZ;
+      if (dx * dx + dz * dz > cullSq || p.z < camZ - 6) {
+        this.snowParticles.splice(i, 1);
+      }
     }
 
     // Update Steam Particles
@@ -893,6 +1360,9 @@ export class SkiRenderer {
       p.y += p.vy * dt;
       p.z += p.vz * dt;
       p.scale += dt * 0.15;
+      const dx = p.x - camX;
+      const dz = p.z - camZ;
+      if (dx * dx + dz * dz > cullSq) this.steamParticles.splice(i, 1);
     }
 
     // Update Smoke Particles
@@ -907,6 +1377,9 @@ export class SkiRenderer {
       p.y += p.vy * dt;
       p.z += p.vz * dt;
       p.scale += dt * 0.22;
+      const dx = p.x - camX;
+      const dz = p.z - camZ;
+      if (dx * dx + dz * dz > cullSq) this.smokeParticles.splice(i, 1);
     }
 
     // Write instances into meshes
@@ -914,7 +1387,7 @@ export class SkiRenderer {
       if (i < this.snowParticles.length) {
         const p = this.snowParticles[i];
         this.dummyPos.set(p.x, p.y, p.z);
-        this.dummyScale.set(1, 1, 1).multiplyScalar(p.life);
+        this.dummyScale.set(1, 1, 1).multiplyScalar(Math.max(0.15, p.life) * 1.9);
         this.dummyMatrix.compose(this.dummyPos, this.dummyQuat, this.dummyScale);
         this.snowSprayMesh.setMatrixAt(i, this.dummyMatrix);
       } else {
@@ -951,6 +1424,18 @@ export class SkiRenderer {
       }
     }
     this.smokeMesh.instanceMatrix.needsUpdate = true;
+  }
+
+  public getCrashVariant(): 0 | 1 | 2 {
+    return this.crashVariant;
+  }
+
+  public getNearMissFlash(): number {
+    return this.nearMissFlash;
+  }
+
+  public isCrashing(): boolean {
+    return this.crashing;
   }
 
   public resize(width: number, height: number): void {

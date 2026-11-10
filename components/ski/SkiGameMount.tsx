@@ -53,6 +53,8 @@ export function SkiGameMount() {
   const [burnPercent, setBurnPercent] = useState<number>(0);
   const [warningMessage, setWarningMessage] = useState<string | null>(null);
   const [tossReady, setTossReady] = useState<boolean>(true);
+  const [nearMiss, setNearMiss] = useState<boolean>(false);
+  const [crashVariantLabel, setCrashVariantLabel] = useState<string | null>(null);
 
   // Results & Personal Best
   const [runResults, setRunResults] = useState<RunResults | null>(null);
@@ -139,6 +141,8 @@ export function SkiGameMount() {
     setTimeElapsed(0);
     setRunResults(null);
     setWarningMessage(null);
+    setNearMiss(false);
+    setCrashVariantLabel(null);
 
     // Countdown sequence
     updatePhase("countdown");
@@ -350,6 +354,10 @@ export function SkiGameMount() {
             crashReasonRef.current = transition.failureReason ?? "tree_crash";
             crashTimerRef.current = 0;
             rendererRef.current?.beginCrash();
+            const variant = rendererRef.current?.getCrashVariant() ?? 0;
+            setCrashVariantLabel(
+              variant === 0 ? "FACEPLANT!" : variant === 1 ? "SIDE-SPIN YARD SALE!" : "CARTWHEEL CRASH!"
+            );
             updatePhase("crashing");
           } else if (transition.phaseTransition === "failed") {
             finishPlatingRef.current(transition.failureReason);
@@ -392,6 +400,8 @@ export function SkiGameMount() {
           setDonenessPercent(Math.round(riceRef.current.avgDoneness * 100));
           setBurnPercent(Math.round(riceRef.current.avgBurnRisk * 100));
           setTossReady(skierRef.current.tossCooldownTimer <= 0);
+          // Near-miss flash (visual-only reward, no score change).
+          setNearMiss(rendererRef.current?.getNearMissFlash() !== undefined && rendererRef.current.getNearMissFlash() > 0.05);
 
           // Warning indicators
           if (riceRef.current.avgBurnRisk > SKI_CONFIG.COOKING.WARNING_BURN_THRESHOLD) {
@@ -404,7 +414,7 @@ export function SkiGameMount() {
         }
       } else if (curPhase === "crashing") {
         crashTimerRef.current += dt;
-        if (crashTimerRef.current >= 1.8) finishPlatingRef.current(crashReasonRef.current);
+        if (crashTimerRef.current >= SKI_CONFIG.CRASH.SEQUENCE_SEC) finishPlatingRef.current(crashReasonRef.current);
       }
 
       // Render scene
@@ -481,6 +491,18 @@ export function SkiGameMount() {
           skier.state.lateralOffset = obstacle.lateralOffset - course.getTrackCenter(distance).x;
           skier.state.lateralSpeed = 0;
           skier.state.speed = 10;
+          return true;
+        },
+        approachId: (id: number, lateralSpeed = 0, speed = 10) => {
+          const course = courseRef.current;
+          const skier = skierRef.current;
+          const obstacle = course?.obstacles.find((o) => o.id === id);
+          if (!course || !skier || !obstacle || phaseRef.current !== "skiing") return false;
+          const distance = obstacle.distance - 3;
+          skier.state.distance = distance;
+          skier.state.lateralOffset = obstacle.lateralOffset - course.getTrackCenter(distance).x;
+          skier.state.lateralSpeed = lateralSpeed;
+          skier.state.speed = speed;
           return true;
         },
         getState: () => ({
@@ -576,6 +598,7 @@ export function SkiGameMount() {
           </div>
 
           {warningMessage && <div className="ski-alert" role="status">{warningMessage.replace(/^[^A-Z]+/, "")}</div>}
+          {nearMiss && <div className="ski-nearmiss" role="status" aria-live="polite">CLOSE CALL!</div>}
 
           <div className="ski-hud-bottom">
             <div className="ski-instrument ski-toss">
@@ -607,6 +630,15 @@ export function SkiGameMount() {
       )}
 
       {phase === "countdown" && <div className="ski-countdown" aria-live="polite">{countdownNumber === 0 ? "WOK!" : countdownNumber}</div>}
+
+      {phase === "crashing" && (
+        <div className="ski-crash-hud" aria-live="polite">
+          <div className="ski-crash-banner">{crashVariantLabel ?? "YARD SALE!"}</div>
+          <button type="button" onClick={startRun} className="ski-button ski-button-primary ski-crash-retry">
+            Retry now (R)<span aria-hidden="true">↗</span>
+          </button>
+        </div>
+      )}
 
       {phase === "ready" && (
         <div className="ski-overlay">

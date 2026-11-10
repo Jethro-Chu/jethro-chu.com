@@ -15,17 +15,50 @@ export const SKI_CONFIG = {
 
   // Skier movement physics
   SKIER: {
-    MAX_SPEED_MPS: 14.0,    // Max downhill speed (~50 km/h; pace tuned so cooking completes near the finish)
+    MAX_SPEED_MPS: 19.0,    // Peak downhill speed (~68 km/h; ramped by distance below)
     MIN_SPEED_MPS: 3.5,     // Minimum cruising speed
-    ACCEL_MPS2: 4.8,        // Downhill acceleration
-    DRAG_COEFF: 0.16,       // Air drag (linear; terminal ~16 m/s with ACCEL)
-    TURN_SPEED: 11.0,       // Lateral steering responsiveness
-    TURN_INERTIA: 0.12,     // Steering smoothing factor
-    RICE_TURN_FORCE: 0.22,  // Normal course corrections remain manageable; pan tilt and impacts still spill rice
+    ACCEL_MPS2: 5.6,        // Downhill acceleration (warm-up reaches cruise quickly)
+    DRAG_COEFF: 0.135,      // Air drag (terminal ~22 m/s, capped by distance ramp)
+    TURN_SPEED: 12.5,       // Lateral steering responsiveness (up for higher speeds)
+    TURN_INERTIA: 0.16,     // Steering smoothing factor (snappier response)
+    RICE_TURN_FORCE: 0.26,  // Hard carving now spills faster: steering has consequence
     BANKING_FACTOR: 0.18,   // Camera & skier roll when turning
     BUMP_FREQUENCY: 35.0,   // Frequency of terrain rolls
     BUMP_AMPLITUDE: 0.45,   // Height of moguls / rolls (meters)
     HEAD_ON_CRASH_SPEED: 11.5, // Speed threshold for fatal tree crash
+    // Distance-based speed cap: short warm-up, then a clear ramp so the
+    // first 10 s engage and 30-45 s feels genuinely difficult.
+    // (distanceMeters, maxSpeedMps) — linearly interpolated.
+    SPEED_PROFILE: [
+      [0, 10.5],
+      [70, 12.5],
+      [200, 15.0],
+      [450, 17.0],
+      [750, 19.0],
+      [950, 19.0],
+    ],
+    PLAYER_RADIUS: 0.48,    // Collision radius (tight to visible ski tips)
+    NEAR_MISS_BAND: 0.62,   // Extra clearance that still counts as a close call
+  },
+
+  // Crash / yard-sale tuning
+  CRASH: {
+    HIT_PAUSE_SEC: 0.07,        // Brief freeze on impact
+    HIT_PAUSE_REDUCED_SEC: 0.03, // Shorter under reduced motion
+    SEQUENCE_SEC: 1.35,         // Crash animation before result sheet
+    SHAKE_AMPLITUDE: 0.09,      // Camera shake peak
+    SHAKE_REDUCED_AMPLITUDE: 0.022, // Reduced-motion shake
+    SNOW_BURST_COUNT: 34,       // Snow burst particles on impact
+    GRAVITY: 9.81,
+    MAX_FLYING_ITEMS: 8,        // Hard cap on debris pieces
+  },
+
+  // Particle budgets (mobile smooth)
+  PARTICLES: {
+    SNOW_MAX: 80,
+    STEAM_MAX: 48,
+    SMOKE_MAX: 48,
+    CULL_DISTANCE: 34,
   },
 
   // Frying pan & rig dimensions

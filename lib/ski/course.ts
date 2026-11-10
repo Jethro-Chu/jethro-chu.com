@@ -116,7 +116,48 @@ export class SkiCourse {
   }
 
   /**
-   * Generate pine trees and track obstacles deterministically
+   * Max-speed cap at a distance (mirrors the skier's speed ramp so obstacle
+   * spacing can be checked against the speed actually reached there).
+   */
+  public maxSpeedAt(distance: number): number {
+    const profile = SKI_CONFIG.SKIER.SPEED_PROFILE;
+    if (distance <= profile[0][0]) return profile[0][1];
+    for (let i = 1; i < profile.length; i++) {
+      const [d1, s1] = profile[i - 1];
+      const [d2, s2] = profile[i];
+      if (distance <= d2) {
+        const t = (distance - d1) / Math.max(1e-6, d2 - d1);
+        return s1 + (s2 - s1) * t;
+      }
+    }
+    return profile[profile.length - 1][1];
+  }
+
+  /**
+   * Lateral shift achievable between two obstacle rows, from steering
+   * ability at the speed in force there. The 0.6 factor leaves a safety
+   * margin for the steering smoothing and the skier's width, so every
+   * pattern keeps an achievable route.
+   */
+  private maxShiftFor(gapMeters: number, atDistance: number): number {
+    const speed = Math.max(8, this.maxSpeedAt(atDistance));
+    const dt = gapMeters / speed;
+    const raw = SKI_CONFIG.SKIER.TURN_SPEED * dt * 0.6;
+    return Math.max(2.8, Math.min(7.5, raw));
+  }
+
+  /**
+   * Generate pine trees and track obstacles deterministically.
+   *
+   * Difficulty is phased by distance:
+   *  - 0-70 m   warm-up, clear (first threat ~8 s in)
+   *  - 70-200 m gentle singles, wide spacing
+   *  - 200-450 m mid singles + staggered zig-zags
+   *  - 450-950 m dense singles, staggered slaloms, tree clusters (narrow
+   *    passages), and progressively tighter barrier gaps
+   * Every row's lateral shift from the previous row is clamped to what
+   * the steering can cover in the gap, so no pattern is unavoidable.
+   * The centre line is blocked often enough that holding still fails.
    */
   private generateObstacles(): void {
     const rng = mulberry32(SKI_CONFIG.COURSE.SEED);
@@ -152,49 +193,19 @@ export class SkiCourse {
       });
     }
 
-    // In-course obstacles (scattered pine trees and rocks that player must steer around)
-    // Avoid placing any in first 100 meters (tutorial zone) or near finish line (> 910m)
-    let obstacleIndex = 0;
-    for (let z = 130; z < this.finishZ - 60; z += 24 + rng() * 18, obstacleIndex++) {
-      const center = this.getTrackCenter(z);
-      // Keep clear navigable corridor: obstacles placed at lateral offsets with room to pass
-      const sign = rng() > 0.5 ? 1 : -1;
-      const sideOffset = sign * (3.5 + rng() * 6.5);
-      const offset = [4, 12, 20].includes(obstacleIndex) ? 0 : sideOffset;
-
-      const isRock = rng() > 0.75;
-      const isLog = [7, 14, 19, 23].includes(obstacleIndex);
-      // Consume the same random value as before so unrelated obstacles
-      // stay in their established positions.
-      const obstacleHeight = isRock ? 1.2 : 5.0 + rng() * 2.5;
-      this.obstacles.push({
-        id: idCounter++,
-        type: isLog ? "log" : isRock ? "rock" : "pine",
-        distance: z,
-        lateralOffset: center.x + offset,
-        radius: isLog ? 0.42 : isRock ? 0.75 : 0.9,
-        width: isLog ? 3.0 : undefined,
-        height: isLog ? 0.84 : obstacleHeight,
-        rotation: rng() * Math.PI * 2,
-        scale: 0.8 + rng() * 0.35,
-      });
-    }
-
-    // Alternating, clearly marked openings force players to plan a line.
-    // Each opening is 6 m wide; the usable track spans -12.8 to +12.8 m.
-    // Barriers sit between existing obstacles rather than hiding a tree in
-    // the opening, and are far enough apart for a controlled traverse.
-    const barriers = [
-      { z: 218, gap: 4.5 },
-      { z: 398, gap: -4.5 },
-      { z: 612, gap: 4.5 },
-      { z: 780, gap: -4.5 },
+    // Barrier narrow passages: gap narrows with distance (6 m -> 4.2 m).
+    // Barriers are non-fatal jolts, so threading the gap is the challenge.
+    const barriers: Array<{ z: number; gap: number; half: number }> = [
+      { z: 178, gap: 4.2, half: 3.0 },
+      { z: 372, gap: -4.2, half: 2.6 },
+      { z: 556, gap: 4.2, half: 2.4 },
+      { z: 738, gap: -4.2, half: 2.2 },
+      { z: 868, gap: 4.0, half: 2.1 },
     ];
     const edge = this.width / 2 - 1.2;
-    const gapHalfWidth = 3;
-    for (const { z, gap } of barriers) {
+    for (const { z, gap, half } of barriers) {
       const centerX = this.getTrackCenter(z).x;
-      for (const [left, right] of [[-edge, gap - gapHalfWidth], [gap + gapHalfWidth, edge]]) {
+      for (const [left, right] of [[-edge, gap - half], [gap + half, edge]]) {
         const width = right - left;
         this.obstacles.push({
           id: idCounter++, type: "barrier", distance: z,
@@ -203,12 +214,184 @@ export class SkiCourse {
         });
       }
     }
+    const barrierZs = barriers.map((b) => b.z);
+    const nearBarrier = (z: number) => barrierZs.some((bz) => Math.abs(z - bz) < 20);
+
+    const corridorsHalf = edge - 1.2; // obstacles live within +-11.6
+
+    const spacingFor = (z: number): number => {
+      if (z < 200) return 22 + rng() * 8; // gentle
+      if (z < 450) return 15 + rng() * 6; // mid
+      if (z < 750) return 12 + rng() * 5; // hard
+      return 10 + rng() * 4; // late dense
+    };
+
+    const pushSingle = (z: number, offset: number): void => {
+      const center = this.getTrackCenter(z);
+      const clamped = Math.max(-corridorsHalf, Math.min(corridorsHalf, offset));
+      const roll = rng();
+      const isLog = roll > 0.88 && z > 160;
+      const isRock = !isLog && roll > 0.68;
+      const obstacleHeight = isRock ? 1.2 : 5.0 + rng() * 2.5;
+      this.obstacles.push({
+        id: idCounter++,
+        type: isLog ? "log" : isRock ? "rock" : "pine",
+        distance: z,
+        lateralOffset: center.x + clamped,
+        radius: isLog ? 0.42 : isRock ? 0.75 : 0.9,
+        width: isLog ? 3.0 : undefined,
+        height: isLog ? 0.84 : obstacleHeight,
+        rotation: rng() * Math.PI * 2,
+        scale: 0.8 + rng() * 0.35,
+      });
+    };
+
+    // Cluster: two trees in one row flanking a gap (narrow passage).
+    // Gap half-width shrinks with distance; obstacles sit just outside it.
+    const pushCluster = (z: number, gapCenter: number, gapHalf: number): void => {
+      const center = this.getTrackCenter(z);
+      const clearance = 0.9 + 0.48 + 0.35; // tree + player + margin
+      const left = gapCenter - gapHalf - clearance;
+      const right = gapCenter + gapHalf + clearance;
+      const leftC = Math.max(-corridorsHalf, Math.min(corridorsHalf, left));
+      const rightC = Math.max(-corridorsHalf, Math.min(corridorsHalf, right));
+      this.obstacles.push({
+        id: idCounter++, type: "pine", distance: z,
+        lateralOffset: center.x + leftC, radius: 0.9,
+        height: 5.0 + rng() * 2.5, rotation: rng() * Math.PI * 2,
+        scale: 0.8 + rng() * 0.35,
+      });
+      this.obstacles.push({
+        id: idCounter++, type: "pine", distance: z,
+        lateralOffset: center.x + rightC, radius: 0.9,
+        height: 5.0 + rng() * 2.5, rotation: rng() * Math.PI * 2,
+        scale: 0.8 + rng() * 0.35,
+      });
+    };
+
+    // In-course rows. prevOffset tracks the last row's blocked line so the
+    // next row's shift is clamped to an achievable move; forcing a minimum
+    // shift (when asked) removes long "hold still and survive" stretches.
+    // The first two warm-up rows are side obstacles (idle passes) so new
+    // players learn to look; centre blocking starts after that.
+    let prevOffset: number | null = null;
+    let sinceCenterBlock = 0;
+    let rowsPlaced = 0;
+
+    for (let z = 70; z < this.finishZ - 55; ) {
+      const gap = spacingFor(z);
+      const nextZ = z + gap;
+      if (nextZ >= this.finishZ - 55) break;
+      if (nearBarrier(nextZ)) {
+        z = nextZ;
+        continue;
+      }
+      const zone = nextZ < 200 ? 0 : nextZ < 450 ? 1 : nextZ < 750 ? 2 : 3;
+
+      // Choose pattern for this row. Later zones mix in clusters; staggered
+      // zones demand a bigger (but still clamped) shift.
+      const roll = rng();
+      let isCluster = false;
+      let wantShift = 0;
+      if (zone === 0) {
+        isCluster = false;
+        wantShift = 3.0 + rng() * 2.0;
+      } else if (zone === 1) {
+        isCluster = roll > 0.86;
+        wantShift = 3.5 + rng() * 3.0; // staggered zig-zag
+      } else if (zone === 2) {
+        isCluster = roll > 0.72;
+        wantShift = 4.0 + rng() * 3.0;
+      } else {
+        isCluster = roll > 0.62;
+        wantShift = 4.5 + rng() * 3.0;
+      }
+
+      const maxShift = this.maxShiftFor(gap, nextZ);
+      const shift = Math.min(wantShift, maxShift);
+
+      if (isCluster) {
+        // Gap centre chases the previous line (or drifts to a side), then
+        // the flanking trees leave one clear slot roughly where the skier
+        // is heading — a narrow passage, not a wall.
+        let gapCenter: number;
+        if (prevOffset === null) {
+          gapCenter = (rng() - 0.5) * 6;
+        } else {
+          const dir = rng() > 0.5 ? 1 : -1;
+          gapCenter = prevOffset + dir * shift * 0.45;
+          gapCenter = Math.max(-6.5, Math.min(6.5, gapCenter));
+        }
+        const gapHalf = zone === 1 ? 2.8 : zone === 2 ? 2.4 : 2.1;
+        pushCluster(nextZ, gapCenter, gapHalf);
+        prevOffset = gapCenter;
+        sinceCenterBlock = Math.abs(gapCenter) < 3.5 ? 0 : sinceCenterBlock + 1;
+      } else {
+        let base: number;
+        // Regularly block the centre line so holding still eventually fails.
+        // First two rows are side obstacles so the warm-up is learnable.
+        if (rowsPlaced < 2) {
+          base = (rng() > 0.5 ? 1 : -1) * (4.5 + rng() * 3.5);
+          sinceCenterBlock = 2; // next row threatens centre
+        } else if (sinceCenterBlock >= 3) {
+          base = (rng() - 0.5) * 5; // -2.5..2.5 centre blocker
+          sinceCenterBlock = 0;
+        } else {
+          const dir = rng() > 0.42 ? 1 : -1; // slight same-side bias beats
+          base = (prevOffset ?? 0) + dir * shift;
+          sinceCenterBlock = Math.abs(base) < 3.5 ? 0 : sinceCenterBlock + 1;
+        }
+        // Clamp the step itself to what steering can cover.
+        if (prevOffset !== null) {
+          const d = base - prevOffset;
+          if (Math.abs(d) > maxShift) base = prevOffset + Math.sign(d) * maxShift;
+        }
+        pushSingle(nextZ, base);
+        prevOffset = base;
+      }
+      rowsPlaced += 1;
+      z = nextZ;
+    }
+  }
+
+  /**
+   * Nearest obstacle just missed (no collision, inside the close-call
+   * band). Used for the small visual near-miss reward; cosmetic only.
+   */
+  public checkNearMiss(worldX: number, worldZ: number, playerRadius: number): Obstacle | null {
+    let best: Obstacle | null = null;
+    let bestClearance = Number.POSITIVE_INFINITY;
+    for (let i = 0; i < this.obstacles.length; i++) {
+      const obs = this.obstacles[i];
+      if (Math.abs(obs.distance - worldZ) > 4.0) continue;
+      const dx = worldX - obs.lateralOffset;
+      const dz = worldZ - obs.distance;
+      if ((obs.type === "barrier" || obs.type === "log") && obs.width !== undefined) {
+        const outsideX = Math.max(0, Math.abs(dx) - obs.width / 2);
+        const outsideZ = Math.max(0, Math.abs(dz) - obs.radius);
+        const clearance = Math.sqrt(outsideX * outsideX + outsideZ * outsideZ) - playerRadius;
+        if (clearance < 0) continue; // actually colliding
+        if (clearance <= SKI_CONFIG.SKIER.NEAR_MISS_BAND && clearance < bestClearance) {
+          best = obs;
+          bestClearance = clearance;
+        }
+        continue;
+      }
+      const dist = Math.sqrt(dx * dx + dz * dz);
+      const clearance = dist - (playerRadius + obs.radius);
+      if (clearance < 0) continue;
+      if (clearance <= SKI_CONFIG.SKIER.NEAR_MISS_BAND && clearance < bestClearance) {
+        best = obs;
+        bestClearance = clearance;
+      }
+    }
+    return best;
   }
 
   /**
    * Check collision against nearby obstacles
    */
-  public checkCollision(worldX: number, worldZ: number, playerRadius: number = 0.55): Obstacle | null {
+  public checkCollision(worldX: number, worldZ: number, playerRadius: number = SKI_CONFIG.SKIER.PLAYER_RADIUS): Obstacle | null {
     // Only check obstacles in proximity (within 5m along Z)
     for (let i = 0; i < this.obstacles.length; i++) {
       const obs = this.obstacles[i];
