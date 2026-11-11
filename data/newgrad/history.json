@@ -11627,5 +11627,278 @@
         "claim": "eligibility"
       }
     ]
+  },
+  {
+    "id": "hist_2026-11-11-daily_0001",
+    "run_id": "2026-11-11-daily",
+    "at": "2026-11-11T18:00:40.152Z",
+    "type": "UPDATED",
+    "opportunity_id": "opp_116ea92514",
+    "changes": [
+      {
+        "field": "application_status",
+        "before": "OPENING_SOON",
+        "after": "OPEN"
+      }
+    ],
+    "reason": "Updated from run evidence (OPEN).",
+    "evidence": [
+      {
+        "source_url": "https://careers.stanfordhealthcare.org/us/en/nurse-residency-program",
+        "excerpt": "Cohort 46 Applications Open: November 9, 2026 – November 15, 2026 CA License required by: February 12th, 2027 Cohort 46 starts April 12, 2027.",
+        "retrieved_at": "2026-11-11T17:55:00.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://careers.stanfordhealthcare.org/us/en/nurse-residency-program",
+        "excerpt": "The Nurse Residency Program is for new graduate registered nurses who have graduated from an accredited nursing program within 19 months of the residency start date and have less than six months of paid registered nurse work experience.",
+        "retrieved_at": "2026-11-11T17:55:00.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://careers.stanfordhealthcare.org/us/en/nurse-residency-program",
+        "excerpt": "Cohort 46) February 12th, 2027. You will need to provide a CA RN licensure number, not just proof showing you passed your NCLEX.",
+        "retrieved_at": "2026-11-11T17:55:00.000Z",
+        "claim": "license"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-11-11-daily_0002",
+    "run_id": "2026-11-11-daily",
+    "at": "2026-11-11T18:00:40.152Z",
+    "type": "UPDATED",
+    "opportunity_id": "opp_bca06dc9a9",
+    "changes": [
+      {
+        "field": "application_url",
+        "before": "https://careers.sharp.com/SHC-nurse-residency-program",
+        "after": "https://careers.sharp.com/job/san-diego/nurse-residency-program-new-grad-rn-spring-2027-start-sharp-healthcare/1031/103122338944"
+      },
+      {
+        "field": "application_status",
+        "before": "OPENING_SOON",
+        "after": "OPEN"
+      }
+    ],
+    "reason": "Updated from run evidence (OPEN).",
+    "evidence": [
+      {
+        "source_url": "https://careers.sharp.com/job/san-diego/nurse-residency-program-new-grad-rn-spring-2027-start-sharp-healthcare/1031/103122338944",
+        "excerpt": "Applications for our Spring 2027 New Graduate Nurse Residency Program will be accepted on the following dates: Internal candidates: Tuesday, Nov 3rd 2026 (9am PST) - Friday, Nov 13th 2026 (5pm PST) External candidates: Tuesday, Nov 10th 2026 (9am PST) - Friday, Nov 13th 2026 (5pm PST)",
+        "retrieved_at": "2026-11-11T17:55:00.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://careers.sharp.com/job/san-diego/nurse-residency-program-new-grad-rn-spring-2027-start-sharp-healthcare/1031/103122338944",
+        "excerpt": "Nurse Residency Program | New Grad RN | Spring 2027 Start | Sharp HealthCare at SHARP HEALTHCARE in San Diego. Applications for our Spring 2027 New Graduate Nurse Residency Program will be accepted from November 10th - 13th, 2026.",
+        "retrieved_at": "2026-11-11T17:55:00.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://careers.sharp.com/job/san-diego/nurse-residency-program-new-grad-rn-spring-2027-start-sharp-healthcare/1031/103122338944",
+        "excerpt": "Must have a current unencumbered California RN license by the program start date.",
+        "retrieved_at": "2026-11-11T17:55:00.000Z",
+        "claim": "license"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-11-11-daily_0003",
+    "run_id": "2026-11-11-daily",
+    "at": "2026-11-11T18:00:40.152Z",
+    "type": "REOPENED",
+    "opportunity_id": "opp_cc016fcbd1",
+    "changes": [
+      {
+        "field": "application_status",
+        "before": "CLOSED",
+        "after": "OPEN"
+      }
+    ],
+    "reason": "Re-verified as OPEN.",
+    "evidence": [
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/103096/new-grad-rn-weinberg-surgical-icu-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "Nursing New Grad RN Job: New Grad RN - Weinberg Surgical ICU at Johns Hopkins Medicine in Johns Hopkins Hospital, Baltimore, MD",
+        "retrieved_at": "2026-11-11T17:55:00.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/103096/new-grad-rn-weinberg-surgical-icu-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "No RN work experience required! Training will be provided - All New Grad RNs are automatically enrolled in our Nurse Residency Program ranked #3 in the nation!",
+        "retrieved_at": "2026-11-11T17:55:00.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/103096/new-grad-rn-weinberg-surgical-icu-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "Associate degree in Nursing required Applicants with an Associate’s degree in nursing from an accredited nursing program may be considered, provided they are enrolled in an accredited BSN/MSN program within 1 year of hire",
+        "retrieved_at": "2026-11-11T17:55:00.000Z",
+        "claim": "education"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/103096/new-grad-rn-weinberg-surgical-icu-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "Active Maryland or Compact RN license is required BLS CPR certification required",
+        "retrieved_at": "2026-11-11T17:55:00.000Z",
+        "claim": "license"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-11-11-daily_0004",
+    "run_id": "2026-11-11-daily",
+    "at": "2026-11-11T18:00:40.152Z",
+    "type": "UPDATED",
+    "opportunity_id": "opp_cc016fcbd1",
+    "changes": [
+      {
+        "field": "application_status",
+        "before": "CLOSED",
+        "after": "OPEN"
+      }
+    ],
+    "reason": "Updated from run evidence (OPEN).",
+    "evidence": [
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/103096/new-grad-rn-weinberg-surgical-icu-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "Nursing New Grad RN Job: New Grad RN - Weinberg Surgical ICU at Johns Hopkins Medicine in Johns Hopkins Hospital, Baltimore, MD",
+        "retrieved_at": "2026-11-11T17:55:00.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/103096/new-grad-rn-weinberg-surgical-icu-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "No RN work experience required! Training will be provided - All New Grad RNs are automatically enrolled in our Nurse Residency Program ranked #3 in the nation!",
+        "retrieved_at": "2026-11-11T17:55:00.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/103096/new-grad-rn-weinberg-surgical-icu-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "Associate degree in Nursing required Applicants with an Associate’s degree in nursing from an accredited nursing program may be considered, provided they are enrolled in an accredited BSN/MSN program within 1 year of hire",
+        "retrieved_at": "2026-11-11T17:55:00.000Z",
+        "claim": "education"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/103096/new-grad-rn-weinberg-surgical-icu-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "Active Maryland or Compact RN license is required BLS CPR certification required",
+        "retrieved_at": "2026-11-11T17:55:00.000Z",
+        "claim": "license"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-11-11-daily_0005",
+    "run_id": "2026-11-11-daily",
+    "at": "2026-11-11T18:00:40.152Z",
+    "type": "CLOSED",
+    "opportunity_id": "opp_3a1d0e02ce",
+    "changes": [
+      {
+        "field": "application_status",
+        "before": "OPEN",
+        "after": "CLOSED"
+      },
+      {
+        "field": "closed_at",
+        "before": null,
+        "after": "2026-11-11T18:00:40.152Z"
+      }
+    ],
+    "reason": "Official evidence verified closure.",
+    "evidence": [
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/101319/new-grad-rn-sicu-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "This job is no longer available. Please try another search.",
+        "retrieved_at": "2026-11-11T17:55:00.000Z",
+        "claim": "closure"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/101319/new-grad-rn-sicu-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "Nursing New Grad RN Job: New Grad RN - SICU at Johns Hopkins Medicine in Johns Hopkins Hospital, Baltimore, MD",
+        "retrieved_at": "2026-11-11T17:55:00.000Z",
+        "claim": "eligibility"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-11-11-daily_0006",
+    "run_id": "2026-11-11-daily",
+    "at": "2026-11-11T18:00:40.152Z",
+    "type": "UPDATED",
+    "opportunity_id": "opp_3a1d0e02ce",
+    "changes": [
+      {
+        "field": "application_status",
+        "before": "OPEN",
+        "after": "CLOSED"
+      },
+      {
+        "field": "closed_at",
+        "before": null,
+        "after": "2026-11-11T18:00:40.152Z"
+      }
+    ],
+    "reason": "Updated from run evidence (CLOSED).",
+    "evidence": [
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/101319/new-grad-rn-sicu-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "This job is no longer available. Please try another search.",
+        "retrieved_at": "2026-11-11T17:55:00.000Z",
+        "claim": "closure"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/101319/new-grad-rn-sicu-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "Nursing New Grad RN Job: New Grad RN - SICU at Johns Hopkins Medicine in Johns Hopkins Hospital, Baltimore, MD",
+        "retrieved_at": "2026-11-11T17:55:00.000Z",
+        "claim": "eligibility"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-11-11-daily_0007",
+    "run_id": "2026-11-11-daily",
+    "at": "2026-11-11T18:00:40.152Z",
+    "type": "SOURCE_UNAVAILABLE",
+    "opportunity_id": "opp_dd9c3c8450",
+    "changes": [
+      {
+        "field": "verification_health",
+        "before": "VERIFIED",
+        "after": "NEEDS_REVERIFICATION"
+      }
+    ],
+    "reason": "Retrieval found no posting; last-known facts preserved.",
+    "evidence": []
+  },
+  {
+    "id": "hist_2026-11-11-daily_0008",
+    "run_id": "2026-11-11-daily",
+    "at": "2026-11-11T18:00:40.152Z",
+    "type": "CLOSED",
+    "opportunity_id": "opp_c2b45c0fed",
+    "changes": [
+      {
+        "field": "application_status",
+        "before": "OPEN",
+        "after": "CLOSED"
+      }
+    ],
+    "reason": "Confirmed deadline passed (ingest sweep).",
+    "evidence": []
+  },
+  {
+    "id": "hist_2026-11-11-daily_0009",
+    "run_id": "2026-11-11-daily",
+    "at": "2026-11-11T18:00:40.152Z",
+    "type": "CLOSED",
+    "opportunity_id": "opp_dd9c3c8450",
+    "changes": [
+      {
+        "field": "application_status",
+        "before": "OPEN",
+        "after": "CLOSED"
+      }
+    ],
+    "reason": "Confirmed deadline passed (ingest sweep).",
+    "evidence": []
   }
 ]

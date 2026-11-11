@@ -6379,5 +6379,155 @@
       "uncertainties": null
     },
     "decision": null
+  },
+  {
+    "id": "rev_2026-11-11-daily_001",
+    "run_id": "2026-11-11-daily",
+    "created_at": "2026-11-11T18:00:40.152Z",
+    "state": "PENDING",
+    "reason": "Possible duplicate of an existing record (closely matching title); held for human decision instead of auto-creating.",
+    "finding": {
+      "employer": {
+        "name": "Johns Hopkins Medicine",
+        "hospital_id": "hosp_hopkins"
+      },
+      "identifiers": {
+        "program": "Nurse Residency Program",
+        "cohort": null,
+        "requisition_id": "103912",
+        "ats_provider": "talemetry",
+        "ats_tenant": "hopkins",
+        "employer_tenant": "hopkins",
+        "opportunity_id": null
+      },
+      "observed_state": "OPEN",
+      "eligibility": {
+        "assessment": "ELIGIBLE",
+        "note": "Explicit new grad RN posting for Med/Tele unit at Johns Hopkins Hospital"
+      },
+      "facts": {
+        "position_title": "New Grad RN - Med/Tele",
+        "unit": "Med/Tele",
+        "locations": [
+          {
+            "city": "Baltimore",
+            "state": "MD"
+          }
+        ],
+        "specialties": [
+          "Med-Surg",
+          "Telemetry"
+        ],
+        "bsn_required": false,
+        "rn_license_requirement": "Active Maryland or Compact RN license is required at time of hire. BLS CPR required.",
+        "license_required_by": "hire",
+        "experience_requirement": "New grad RN's that want to start late Fall/early Winter should apply.",
+        "source_url": "https://jobs.hopkinsmedicine.org/job/103912/new-grad-rn-med-tele-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "application_url": "https://jobs.hopkinsmedicine.org/job/103912/new-grad-rn-med-tele-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/"
+      },
+      "evidence": [
+        {
+          "source_url": "https://jobs.hopkinsmedicine.org/job/103912/new-grad-rn-med-tele-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+          "excerpt": "Nursing New Grad RN Job: New Grad RN - Med/Tele at Johns Hopkins Medicine in Johns Hopkins Hospital, Baltimore, MD",
+          "retrieved_at": "2026-11-11T17:55:00.000Z",
+          "claim": "status"
+        },
+        {
+          "source_url": "https://jobs.hopkinsmedicine.org/job/103912/new-grad-rn-med-tele-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+          "excerpt": "New grad RN's that want to start late Fall/early Winter should apply We’re proud to offer a robust benefits package that supports your health, growth, and well-being.",
+          "retrieved_at": "2026-11-11T17:55:00.000Z",
+          "claim": "eligibility"
+        },
+        {
+          "source_url": "https://jobs.hopkinsmedicine.org/job/103912/new-grad-rn-med-tele-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+          "excerpt": "Associate's Degree in nursing (ADN) (Required) BSN (preferred) and applicants w/an ADN in nursing will be considered",
+          "retrieved_at": "2026-11-11T17:55:00.000Z",
+          "claim": "education"
+        },
+        {
+          "source_url": "https://jobs.hopkinsmedicine.org/job/103912/new-grad-rn-med-tele-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+          "excerpt": "Active Maryland or Compact RN license is required at time of hire BLS CPR required",
+          "retrieved_at": "2026-11-11T17:55:00.000Z",
+          "claim": "license"
+        }
+      ],
+      "uncertainties": null
+    },
+    "decision": null
+  },
+  {
+    "id": "rev_2026-11-11-daily_002",
+    "run_id": "2026-11-11-daily",
+    "created_at": "2026-11-11T18:00:40.152Z",
+    "state": "PENDING",
+    "reason": "Possible duplicate of an existing record (closely matching title); held for human decision instead of auto-creating.",
+    "finding": {
+      "employer": {
+        "name": "Johns Hopkins Medicine",
+        "hospital_id": "hosp_hopkins"
+      },
+      "identifiers": {
+        "program": "Nurse Residency Program",
+        "cohort": null,
+        "requisition_id": "104072",
+        "ats_provider": "talemetry",
+        "ats_tenant": "hopkins",
+        "employer_tenant": "hopkins",
+        "opportunity_id": null
+      },
+      "observed_state": "OPEN",
+      "eligibility": {
+        "assessment": "ELIGIBLE",
+        "note": "Explicit new grad RN posting for Meyer 9 Med Tele unit at Johns Hopkins Hospital"
+      },
+      "facts": {
+        "position_title": "New Grad RN - Med Tele",
+        "unit": "Meyer 9",
+        "locations": [
+          {
+            "city": "Baltimore",
+            "state": "MD"
+          }
+        ],
+        "specialties": [
+          "Med-Surg",
+          "Telemetry"
+        ],
+        "bsn_required": false,
+        "rn_license_requirement": "RN - Registered Nurse licensure Upon Hire (Required). CPR - Basic CPR Upon Hire (Required).",
+        "license_required_by": "hire",
+        "experience_requirement": "New grad nurses encouraged to apply. Associate's Degree in nursing (ADN) (Required). Bachelor of Science in Nursing (BSN) (Preferred).",
+        "source_url": "https://jobs.hopkinsmedicine.org/job/104072/new-grad-rn-med-tele-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "application_url": "https://jobs.hopkinsmedicine.org/job/104072/new-grad-rn-med-tele-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/"
+      },
+      "evidence": [
+        {
+          "source_url": "https://jobs.hopkinsmedicine.org/job/104072/new-grad-rn-med-tele-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+          "excerpt": "Nursing New Grad RN Job: New Grad RN - Med Tele at Johns Hopkins Medicine in Johns Hopkins Hospital, Baltimore, MD",
+          "retrieved_at": "2026-11-11T17:55:00.000Z",
+          "claim": "status"
+        },
+        {
+          "source_url": "https://jobs.hopkinsmedicine.org/job/104072/new-grad-rn-med-tele-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+          "excerpt": "Qualifications: • New grad nurses encouraged to apply Associate's Degree in nursing (ADN) (Required)",
+          "retrieved_at": "2026-11-11T17:55:00.000Z",
+          "claim": "eligibility"
+        },
+        {
+          "source_url": "https://jobs.hopkinsmedicine.org/job/104072/new-grad-rn-med-tele-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+          "excerpt": "Associate's Degree in nursing (ADN) (Required) • Bachelor of Science in Nursing (BSN) (Preferred) and Applicants with an associate degree in nursing will be considered.",
+          "retrieved_at": "2026-11-11T17:55:00.000Z",
+          "claim": "education"
+        },
+        {
+          "source_url": "https://jobs.hopkinsmedicine.org/job/104072/new-grad-rn-med-tele-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+          "excerpt": "RN - Registered Nurse licensure Upon Hire (Required) • CPR - Basic CPR Upon Hire (Required)",
+          "retrieved_at": "2026-11-11T17:55:00.000Z",
+          "claim": "license"
+        }
+      ],
+      "uncertainties": null
+    },
+    "decision": null
   }
 ]
