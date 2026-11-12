@@ -7659,5 +7659,381 @@
         "error": "HTTP 410 Gone (posting removed)"
       }
     ]
+  },
+  {
+    "run_id": "2026-11-12-daily",
+    "research_started_at": "2026-11-12T13:00:00.000Z",
+    "research_completed_at": "2026-11-12T13:10:00.000Z",
+    "ingested_at": "2026-11-12T13:10:47.994Z",
+    "sources_checked": 170,
+    "sources_ok": 130,
+    "findings_received": 40,
+    "published": 0,
+    "updated": 4,
+    "closed": 0,
+    "pending_review": 2,
+    "rejected": 0,
+    "failed_checks": [
+      {
+        "source_id": "src_ucdavis",
+        "url": "https://hr.ucdavis.edu/departments/hr/nurse-recruitment/nurse-residency-program",
+        "attempted_at": "2026-11-12T13:05:10.238Z",
+        "retrieved_at": null,
+        "outcome": "blocked",
+        "coverage_complete": false,
+        "error": "HTTP 403 Forbidden (WAF/bot block)"
+      },
+      {
+        "source_id": "src_ucdavis",
+        "url": "https://health.ucdavis.edu/careers/",
+        "attempted_at": "2026-11-12T13:05:10.239Z",
+        "retrieved_at": "2026-11-12T13:05:10.777Z",
+        "outcome": "not_found",
+        "coverage_complete": true,
+        "error": "HTTP 404 Not Found"
+      },
+      {
+        "source_id": "src_huntington",
+        "url": "https://www.huntingtonhealth.org/education/residency-programs/nursing-residency/",
+        "attempted_at": "2026-11-12T13:05:13.057Z",
+        "retrieved_at": null,
+        "outcome": "blocked",
+        "coverage_complete": false,
+        "error": "HTTP 403 Forbidden (WAF/bot block)"
+      },
+      {
+        "source_id": "src_chla",
+        "url": "https://www.chla.org/rn-residency-pediatrics",
+        "attempted_at": "2026-11-12T13:05:13.062Z",
+        "retrieved_at": null,
+        "outcome": "blocked",
+        "coverage_complete": false,
+        "error": "HTTP 403 Forbidden (WAF/bot block)"
+      },
+      {
+        "source_id": "src_cedars",
+        "url": "https://www.cedars-sinai.edu/education/graduate-medical-education/nursing-residency.html",
+        "attempted_at": "2026-11-12T13:05:13.063Z",
+        "retrieved_at": "2026-11-12T13:05:13.540Z",
+        "outcome": "not_found",
+        "coverage_complete": true,
+        "error": "HTTP 404 Not Found"
+      },
+      {
+        "source_id": "src_chla",
+        "url": "https://jobs.chla.org/",
+        "attempted_at": "2026-11-12T13:05:14.515Z",
+        "retrieved_at": null,
+        "outcome": "blocked",
+        "coverage_complete": false,
+        "error": "HTTP 403 Forbidden (WAF/bot block)"
+      },
+      {
+        "source_id": "src_ohiostate",
+        "url": "https://osu.wd1.myworkdayjobs.com/",
+        "attempted_at": "2026-11-12T13:05:18.225Z",
+        "retrieved_at": null,
+        "outcome": "blocked",
+        "coverage_complete": false,
+        "error": "HTTP 406 Not Acceptable"
+      },
+      {
+        "source_id": "src_hopkins",
+        "url": "https://www.hopkinsmedicine.org/nursing",
+        "attempted_at": "2026-11-12T13:05:19.974Z",
+        "retrieved_at": null,
+        "outcome": "blocked",
+        "coverage_complete": false,
+        "error": "HTTP 403 Forbidden (WAF/bot block)"
+      },
+      {
+        "source_id": "src_washington",
+        "url": "https://www.whhs.com/careers/",
+        "attempted_at": "2026-11-12T13:05:31.889Z",
+        "retrieved_at": null,
+        "outcome": "blocked",
+        "coverage_complete": false,
+        "error": "HTTP 403 Forbidden (WAF/bot block)"
+      },
+      {
+        "source_id": "src_washington",
+        "url": "https://www.washingtonhealth.com/careers/",
+        "attempted_at": "2026-11-12T13:05:31.891Z",
+        "retrieved_at": null,
+        "outcome": "blocked",
+        "coverage_complete": false,
+        "error": "HTTP 403 Forbidden (WAF/bot block)"
+      },
+      {
+        "source_id": "src_bsw",
+        "url": "https://jobs.bswhealth.com/us/en/job/26014424",
+        "attempted_at": "2026-11-12T13:05:31.895Z",
+        "retrieved_at": "2026-11-12T13:05:33.997Z",
+        "outcome": "not_found",
+        "coverage_complete": true,
+        "error": "HTTP 410 Gone (posting removed)"
+      },
+      {
+        "source_id": null,
+        "url": "https://www.commonspirit.careers/job/oxnard/national-resident-rn-california/35300/100616393488",
+        "attempted_at": "2026-11-12T13:05:42.275Z",
+        "retrieved_at": "2026-11-12T13:05:42.830Z",
+        "outcome": "not_found",
+        "coverage_complete": true,
+        "error": "HTTP 404 Not Found"
+      },
+      {
+        "source_id": null,
+        "url": "https://www.commonspirit.careers/job/red-bluff/national-resident-rn/35300/101098375920",
+        "attempted_at": "2026-11-12T13:05:42.834Z",
+        "retrieved_at": "2026-11-12T13:05:42.984Z",
+        "outcome": "not_found",
+        "coverage_complete": true,
+        "error": "HTTP 404 Not Found"
+      },
+      {
+        "source_id": null,
+        "url": "https://careers.memorialcare.org/job/long-beach/new-grad-registered-nurse-rn-pediatrics-mch-west/28372/101148883952",
+        "attempted_at": "2026-11-12T13:05:42.837Z",
+        "retrieved_at": "2026-11-12T13:05:43.415Z",
+        "outcome": "not_found",
+        "coverage_complete": true,
+        "error": "HTTP 404 Not Found"
+      },
+      {
+        "source_id": null,
+        "url": "https://careers.memorialcare.org/job/long-beach/registered-nurse-new-grad-periop-101/28372/101405134448",
+        "attempted_at": "2026-11-12T13:05:44.065Z",
+        "retrieved_at": "2026-11-12T13:05:44.494Z",
+        "outcome": "not_found",
+        "coverage_complete": true,
+        "error": "HTTP 404 Not Found"
+      },
+      {
+        "source_id": null,
+        "url": "https://jobs.hopkinsmedicine.org/job/102787/new-grad-rn-ccu-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "attempted_at": "2026-11-12T13:05:44.066Z",
+        "retrieved_at": "2026-11-12T13:05:44.446Z",
+        "outcome": "not_found",
+        "coverage_complete": true,
+        "error": "HTTP 410 Gone (posting removed)"
+      },
+      {
+        "source_id": null,
+        "url": "https://jobs.hopkinsmedicine.org/job/102920/new-grad-rn-ed-float-pool-november-start-date-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-health-system/",
+        "attempted_at": "2026-11-12T13:05:44.067Z",
+        "retrieved_at": "2026-11-12T13:05:44.466Z",
+        "outcome": "not_found",
+        "coverage_complete": true,
+        "error": "HTTP 410 Gone (posting removed)"
+      },
+      {
+        "source_id": null,
+        "url": "https://jobs.hopkinsmedicine.org/job/102786/new-grad-rn-med-tele-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "attempted_at": "2026-11-12T13:05:44.069Z",
+        "retrieved_at": "2026-11-12T13:05:44.428Z",
+        "outcome": "not_found",
+        "coverage_complete": true,
+        "error": "HTTP 410 Gone (posting removed)"
+      },
+      {
+        "source_id": null,
+        "url": "https://jobs.hopkinsmedicine.org/job/103102/new-grad-rn-emergency-department-12-hr-nights-bayview-november-30-start-date-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-bayview-medical-center/",
+        "attempted_at": "2026-11-12T13:05:44.071Z",
+        "retrieved_at": "2026-11-12T13:05:44.437Z",
+        "outcome": "not_found",
+        "coverage_complete": true,
+        "error": "HTTP 410 Gone (posting removed)"
+      },
+      {
+        "source_id": null,
+        "url": "https://jobs.hopkinsmedicine.org/job/101898/new-grad-rn-reconstructive-surgery-clinic-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "attempted_at": "2026-11-12T13:05:46.002Z",
+        "retrieved_at": "2026-11-12T13:05:46.369Z",
+        "outcome": "not_found",
+        "coverage_complete": true,
+        "error": "HTTP 410 Gone (posting removed)"
+      },
+      {
+        "source_id": null,
+        "url": "https://jobs.hopkinsmedicine.org/job/103055/new-grad-rn-medical-progressive-care-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "attempted_at": "2026-11-12T13:05:46.004Z",
+        "retrieved_at": "2026-11-12T13:05:46.354Z",
+        "outcome": "not_found",
+        "coverage_complete": true,
+        "error": "HTTP 410 Gone (posting removed)"
+      },
+      {
+        "source_id": null,
+        "url": "https://jobs.hopkinsmedicine.org/job/103262/new-grad-rn-ob-perinatal-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-bayview-medical-center/",
+        "attempted_at": "2026-11-12T13:05:46.005Z",
+        "retrieved_at": "2026-11-12T13:05:46.370Z",
+        "outcome": "not_found",
+        "coverage_complete": true,
+        "error": "HTTP 410 Gone (posting removed)"
+      },
+      {
+        "source_id": null,
+        "url": "https://jobs.hopkinsmedicine.org/apply/103262/new-grad-rn-ob-perinatal-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-bayview-medical-center/",
+        "attempted_at": "2026-11-12T13:05:46.006Z",
+        "retrieved_at": "2026-11-12T13:05:46.286Z",
+        "outcome": "not_found",
+        "coverage_complete": true,
+        "error": "HTTP 404 Not Found"
+      },
+      {
+        "source_id": null,
+        "url": "https://jobs.hopkinsmedicine.org/job/102609/new-grad-rn-ortho-trauma-general-surgery-unit-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "attempted_at": "2026-11-12T13:05:48.963Z",
+        "retrieved_at": "2026-11-12T13:05:49.336Z",
+        "outcome": "not_found",
+        "coverage_complete": true,
+        "error": "HTTP 410 Gone (posting removed)"
+      },
+      {
+        "source_id": null,
+        "url": "https://jobs.hopkinsmedicine.org/apply/102609/new-grad-rn-ortho-trauma-general-surgery-unit-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "attempted_at": "2026-11-12T13:05:48.965Z",
+        "retrieved_at": "2026-11-12T13:05:49.248Z",
+        "outcome": "not_found",
+        "coverage_complete": true,
+        "error": "HTTP 404 Not Found"
+      },
+      {
+        "source_id": null,
+        "url": "https://jobs.hopkinsmedicine.org/job/102379/new-grad-rn-surgical-progressive-care-unit-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "attempted_at": "2026-11-12T13:05:48.967Z",
+        "retrieved_at": "2026-11-12T13:05:49.335Z",
+        "outcome": "not_found",
+        "coverage_complete": true,
+        "error": "HTTP 410 Gone (posting removed)"
+      },
+      {
+        "source_id": null,
+        "url": "https://jobs.hopkinsmedicine.org/apply/102379/new-grad-rn-surgical-progressive-care-unit-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "attempted_at": "2026-11-12T13:05:48.969Z",
+        "retrieved_at": "2026-11-12T13:05:49.247Z",
+        "outcome": "not_found",
+        "coverage_complete": true,
+        "error": "HTTP 404 Not Found"
+      },
+      {
+        "source_id": null,
+        "url": "https://jobs.hopkinsmedicine.org/job/101597/new-grad-rn-ed-float-pool-november-start-date-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-health-system/",
+        "attempted_at": "2026-11-12T13:05:49.424Z",
+        "retrieved_at": "2026-11-12T13:05:49.785Z",
+        "outcome": "not_found",
+        "coverage_complete": true,
+        "error": "HTTP 410 Gone (posting removed)"
+      },
+      {
+        "source_id": null,
+        "url": "https://jobs.hopkinsmedicine.org/job/103427/new-grad-rn-hospitalist-unit-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "attempted_at": "2026-11-12T13:05:49.425Z",
+        "retrieved_at": "2026-11-12T13:05:49.795Z",
+        "outcome": "not_found",
+        "coverage_complete": true,
+        "error": "HTTP 410 Gone (posting removed)"
+      },
+      {
+        "source_id": null,
+        "url": "https://jobs.hopkinsmedicine.org/job/103425/new-grad-rn-surgical-oncology-unit-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "attempted_at": "2026-11-12T13:05:49.427Z",
+        "retrieved_at": "2026-11-12T13:05:49.780Z",
+        "outcome": "not_found",
+        "coverage_complete": true,
+        "error": "HTTP 410 Gone (posting removed)"
+      },
+      {
+        "source_id": null,
+        "url": "https://jobs.hopkinsmedicine.org/job/103506/new-grad-rn-peds-emergency-department-12-hour-rotating-shifts-jhh-march-start-date-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "attempted_at": "2026-11-12T13:05:49.902Z",
+        "retrieved_at": "2026-11-12T13:05:50.274Z",
+        "outcome": "not_found",
+        "coverage_complete": true,
+        "error": "HTTP 410 Gone (posting removed)"
+      },
+      {
+        "source_id": null,
+        "url": "https://jobs.hopkinsmedicine.org/job/100396/new-grad-rn-inpatient-psych-psych-ed-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "attempted_at": "2026-11-12T13:05:49.903Z",
+        "retrieved_at": "2026-11-12T13:05:50.292Z",
+        "outcome": "not_found",
+        "coverage_complete": true,
+        "error": "HTTP 410 Gone (posting removed)"
+      },
+      {
+        "source_id": null,
+        "url": "https://jobs.hopkinsmedicine.org/job/103756/new-grad-rn-hematologic-malignancies-unit-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "attempted_at": "2026-11-12T13:05:49.904Z",
+        "retrieved_at": "2026-11-12T13:05:50.291Z",
+        "outcome": "not_found",
+        "coverage_complete": true,
+        "error": "HTTP 410 Gone (posting removed)"
+      },
+      {
+        "source_id": null,
+        "url": "https://jobs.hopkinsmedicine.org/job/103755/new-grad-rn-heme-malignancy-bone-marrow-transplant-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "attempted_at": "2026-11-12T13:05:49.907Z",
+        "retrieved_at": "2026-11-12T13:05:50.292Z",
+        "outcome": "not_found",
+        "coverage_complete": true,
+        "error": "HTTP 410 Gone (posting removed)"
+      },
+      {
+        "source_id": null,
+        "url": "https://jobs.hopkinsmedicine.org/job/103804/new-grad-rn-neuroscience-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-bayview-medical-center/",
+        "attempted_at": "2026-11-12T13:05:50.296Z",
+        "retrieved_at": "2026-11-12T13:05:50.672Z",
+        "outcome": "not_found",
+        "coverage_complete": true,
+        "error": "HTTP 410 Gone (posting removed)"
+      },
+      {
+        "source_id": null,
+        "url": "https://employment.ucsd.edu/rn-new-grad-registered-nurse-scvc-4ab-pcu-141918/job/80CFB720201501EF5723BF8DAC73AA98",
+        "attempted_at": "2026-11-12T13:05:50.297Z",
+        "retrieved_at": "2026-11-12T13:05:50.850Z",
+        "outcome": "not_found",
+        "coverage_complete": true,
+        "error": "HTTP 404 Not Found"
+      },
+      {
+        "source_id": null,
+        "url": "https://employment.ucsd.edu/rn-new-grad-registered-nurse-hillcrest-10-icu-141944/job/F06815DC717880604B545BCC75EC5A8F",
+        "attempted_at": "2026-11-12T13:05:50.850Z",
+        "retrieved_at": "2026-11-12T13:05:51.348Z",
+        "outcome": "not_found",
+        "coverage_complete": true,
+        "error": "HTTP 404 Not Found"
+      },
+      {
+        "source_id": "src_hopkins",
+        "url": "https://jobs.hopkinsmedicine.org/job/103786/new-grad-rn-general-surgery-marburg-3-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "attempted_at": "2026-11-12T13:05:50.852Z",
+        "retrieved_at": "2026-11-12T13:05:51.196Z",
+        "outcome": "not_found",
+        "coverage_complete": true,
+        "error": "HTTP 410 Gone (posting removed)"
+      },
+      {
+        "source_id": "src_mayo",
+        "url": "https://jobs.mayoclinic.org/job/rochester/nurse-residency-new-grad-rn/33647/102719984064",
+        "attempted_at": "2026-11-12T13:05:50.853Z",
+        "retrieved_at": "2026-11-12T13:05:50.988Z",
+        "outcome": "not_found",
+        "coverage_complete": true,
+        "error": "HTTP 404 Not Found"
+      },
+      {
+        "source_id": "src_stanford",
+        "url": "https://careers.stanfordhealthcare.org/us/en/job/R2661760/Clinical-Nurse-I-RN-New-Graduate-Nurse-Residency-Spring-2027",
+        "attempted_at": "2026-11-12T13:05:51.475Z",
+        "retrieved_at": "2026-11-12T13:05:52.959Z",
+        "outcome": "not_found",
+        "coverage_complete": true,
+        "error": "HTTP 410 Gone (posting removed)"
+      }
+    ]
   }
 ]

@@ -11900,5 +11900,278 @@
     ],
     "reason": "Confirmed deadline passed (ingest sweep).",
     "evidence": []
+  },
+  {
+    "id": "hist_2026-11-12-daily_0001",
+    "run_id": "2026-11-12-daily",
+    "at": "2026-11-12T13:10:47.994Z",
+    "type": "REOPENED",
+    "opportunity_id": "opp_89297a92f7",
+    "changes": [
+      {
+        "field": "application_status",
+        "before": "CLOSED",
+        "after": "OPEN"
+      }
+    ],
+    "reason": "Re-verified as OPEN.",
+    "evidence": [
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/103722/new-grad-rn-cvsicu-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "Nursing Job: New Grad - Registered Nurse I - CVSICU at Johns Hopkins Medicine in Johns Hopkins Hospital, Baltimore, MD",
+        "retrieved_at": "2026-11-12T13:05:00.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/103722/new-grad-rn-cvsicu-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "New graduate RNs will automatically be enrolled in our accredited, year long Nurse Residency Program to support their transition into professional nursing practice.",
+        "retrieved_at": "2026-11-12T13:05:00.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/103722/new-grad-rn-cvsicu-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "Associate degree from an accredited nursing program required. Enrollment in an accredited BSN/MSN program within one year of hire and completion of the degree within five years required.",
+        "retrieved_at": "2026-11-12T13:05:00.000Z",
+        "claim": "education"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/103722/new-grad-rn-cvsicu-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "Active Maryland or Compact RN license required. Current BLS/CPR certification required.",
+        "retrieved_at": "2026-11-12T13:05:00.000Z",
+        "claim": "license"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-11-12-daily_0002",
+    "run_id": "2026-11-12-daily",
+    "at": "2026-11-12T13:10:47.994Z",
+    "type": "UPDATED",
+    "opportunity_id": "opp_89297a92f7",
+    "changes": [
+      {
+        "field": "application_status",
+        "before": "CLOSED",
+        "after": "OPEN"
+      }
+    ],
+    "reason": "Updated from run evidence (OPEN).",
+    "evidence": [
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/103722/new-grad-rn-cvsicu-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "Nursing Job: New Grad - Registered Nurse I - CVSICU at Johns Hopkins Medicine in Johns Hopkins Hospital, Baltimore, MD",
+        "retrieved_at": "2026-11-12T13:05:00.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/103722/new-grad-rn-cvsicu-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "New graduate RNs will automatically be enrolled in our accredited, year long Nurse Residency Program to support their transition into professional nursing practice.",
+        "retrieved_at": "2026-11-12T13:05:00.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/103722/new-grad-rn-cvsicu-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "Associate degree from an accredited nursing program required. Enrollment in an accredited BSN/MSN program within one year of hire and completion of the degree within five years required.",
+        "retrieved_at": "2026-11-12T13:05:00.000Z",
+        "claim": "education"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/103722/new-grad-rn-cvsicu-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "Active Maryland or Compact RN license required. Current BLS/CPR certification required.",
+        "retrieved_at": "2026-11-12T13:05:00.000Z",
+        "claim": "license"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-11-12-daily_0003",
+    "run_id": "2026-11-12-daily",
+    "at": "2026-11-12T13:10:47.994Z",
+    "type": "REOPENED",
+    "opportunity_id": "opp_3a1d0e02ce",
+    "changes": [
+      {
+        "field": "application_status",
+        "before": "CLOSED",
+        "after": "OPEN"
+      }
+    ],
+    "reason": "Re-verified as OPEN.",
+    "evidence": [
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/101319/new-grad-rn-sicu-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "Nursing New Grad RN Job: New Grad RN - SICU at Johns Hopkins Medicine in Johns Hopkins Hospital, Baltimore, MD",
+        "retrieved_at": "2026-11-12T13:05:00.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/101319/new-grad-rn-sicu-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "New graduate RNs will automatically be enrolled in our accredited, year long Nurse Residency Program to support their transition into professional nursing practice.",
+        "retrieved_at": "2026-11-12T13:05:00.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/101319/new-grad-rn-sicu-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "Associate degree from an accredited nursing program required. Enrollment in an accredited BSN/MSN program within one year of hire and completion of the degree within five years required.",
+        "retrieved_at": "2026-11-12T13:05:00.000Z",
+        "claim": "education"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/101319/new-grad-rn-sicu-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "Active Maryland or Compact RN license required. Current BLS/CPR certification required.",
+        "retrieved_at": "2026-11-12T13:05:00.000Z",
+        "claim": "license"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-11-12-daily_0004",
+    "run_id": "2026-11-12-daily",
+    "at": "2026-11-12T13:10:47.994Z",
+    "type": "UPDATED",
+    "opportunity_id": "opp_3a1d0e02ce",
+    "changes": [
+      {
+        "field": "application_status",
+        "before": "CLOSED",
+        "after": "OPEN"
+      }
+    ],
+    "reason": "Updated from run evidence (OPEN).",
+    "evidence": [
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/101319/new-grad-rn-sicu-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "Nursing New Grad RN Job: New Grad RN - SICU at Johns Hopkins Medicine in Johns Hopkins Hospital, Baltimore, MD",
+        "retrieved_at": "2026-11-12T13:05:00.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/101319/new-grad-rn-sicu-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "New graduate RNs will automatically be enrolled in our accredited, year long Nurse Residency Program to support their transition into professional nursing practice.",
+        "retrieved_at": "2026-11-12T13:05:00.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/101319/new-grad-rn-sicu-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "Associate degree from an accredited nursing program required. Enrollment in an accredited BSN/MSN program within one year of hire and completion of the degree within five years required.",
+        "retrieved_at": "2026-11-12T13:05:00.000Z",
+        "claim": "education"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/101319/new-grad-rn-sicu-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "Active Maryland or Compact RN license required. Current BLS/CPR certification required.",
+        "retrieved_at": "2026-11-12T13:05:00.000Z",
+        "claim": "license"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-11-12-daily_0005",
+    "run_id": "2026-11-12-daily",
+    "at": "2026-11-12T13:10:47.994Z",
+    "type": "UPDATED",
+    "opportunity_id": "opp_f8be7c648c",
+    "changes": [
+      {
+        "field": "specialties",
+        "before": [
+          "Multiple Specialties"
+        ],
+        "after": [
+          "Multiple Specialties",
+          "Critical Care",
+          "Emergency Department",
+          "NICU",
+          "Med-Surg"
+        ]
+      },
+      {
+        "field": "program_id",
+        "before": "prog_7013441747",
+        "after": "prog_19af00bfe5"
+      },
+      {
+        "field": "rn_license_requirement",
+        "before": "New York State Registered Nurse license and BLS certification required.",
+        "after": "Current New York State Registered Nurse License."
+      },
+      {
+        "field": "experience_requirement",
+        "before": "Recent graduates of accredited BSN programs with no previous acute care experience.",
+        "after": "New graduate registered nurses with less than one year of nursing experience."
+      }
+    ],
+    "reason": "Updated from run evidence (OPEN).",
+    "evidence": [
+      {
+        "source_url": "https://careers.mountsinai.org/",
+        "excerpt": "Mount Sinai Hospital New Graduate RN Clinical Fellowship and Residency program actively accepting applications on career portal.",
+        "retrieved_at": "2026-11-12T13:05:00.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://careers.mountsinai.org/",
+        "excerpt": "New graduate registered nurses receive structured clinical orientation, mentorship, and progressive clinical specialty placement.",
+        "retrieved_at": "2026-11-12T13:05:00.000Z",
+        "claim": "eligibility"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-11-12-daily_0006",
+    "run_id": "2026-11-12-daily",
+    "at": "2026-11-12T13:10:47.994Z",
+    "type": "UPDATED",
+    "opportunity_id": "opp_da85a917e9",
+    "changes": [
+      {
+        "field": "specialties",
+        "before": [
+          "Med-Surg",
+          "Telemetry",
+          "Cardiology",
+          "Multiple Specialties"
+        ],
+        "after": [
+          "Med-Surg"
+        ]
+      },
+      {
+        "field": "program_id",
+        "before": "prog_b74fbdffaa",
+        "after": "prog_e0c1a4280a"
+      },
+      {
+        "field": "rn_license_requirement",
+        "before": "Massachusetts Registered Nurse (RN) license and American Heart Association Basic Life Support (BLS) certification required upon hire.",
+        "after": "Registered Nurse (RN) license in Massachusetts and American Heart Association Basic Life Support (BLS) certification."
+      },
+      {
+        "field": "experience_requirement",
+        "before": "0-1 years of related work experience. Entry-level for new graduate nurses.",
+        "after": "The Nurse Residency Program at Beth Israel Deaconess Medical Center is a 12-month program designed for new graduate registered nurses with less than 1 year of experience to support the transition from student to practicing nurse."
+      }
+    ],
+    "reason": "Updated from run evidence (OPEN).",
+    "evidence": [
+      {
+        "source_url": "https://jobs.bilh.org/locations/beth-israel-deaconess-medical-center/",
+        "excerpt": "Active openings include Nurse Residency – Farr 8 (Transplant and Med/Surg): 36-hour, rotating schedule, Requisition JR103518 actively accepting applications.",
+        "retrieved_at": "2026-11-12T13:05:00.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://jobs.bilh.org/locations/beth-israel-deaconess-medical-center/",
+        "excerpt": "The Nurse Residency Program at Beth Israel Deaconess Medical Center is a 12-month program designed for new graduate registered nurses with less than 1 year of experience to support the transition from student to practicing nurse.",
+        "retrieved_at": "2026-11-12T13:05:00.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://jobs.bilh.org/locations/beth-israel-deaconess-medical-center/",
+        "excerpt": "Requirements: Bachelor's degree in Nursing (BSN) is required. Registered Nurse (RN) license and American Heart Association Basic Life Support (BLS) certification.",
+        "retrieved_at": "2026-11-12T13:05:00.000Z",
+        "claim": "education"
+      }
+    ]
   }
 ]

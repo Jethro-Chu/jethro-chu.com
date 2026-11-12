@@ -472,5 +472,17 @@
     "hospital_id": "hosp_stelizabeth",
     "name": "CommonSpirit Health National Nurse Residency Program",
     "source_url": "https://www.commonspirit.careers/NNRP-CA"
+  },
+  {
+    "id": "prog_19af00bfe5",
+    "hospital_id": "hosp_mountsinai",
+    "name": "Clinical Fellowship and Residency Program",
+    "source_url": "https://careers.mountsinai.org/"
+  },
+  {
+    "id": "prog_e0c1a4280a",
+    "hospital_id": "hosp_bidmc",
+    "name": "Nurse Residency Program",
+    "source_url": "https://jobs.bilh.org/locations/beth-israel-deaconess-medical-center/"
   }
 ]
