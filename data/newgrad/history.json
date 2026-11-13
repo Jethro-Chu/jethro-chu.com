@@ -12173,5 +12173,40 @@
         "claim": "education"
       }
     ]
+  },
+  {
+    "id": "hist_2026-11-13-daily_0001",
+    "run_id": "2026-11-13-daily",
+    "at": "2026-11-13T13:09:31.330Z",
+    "type": "NEW",
+    "opportunity_id": "opp_0ba8fa103d",
+    "changes": null,
+    "reason": "First published from run evidence (OPEN).",
+    "evidence": [
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/104342/new-grad-rn-solid-tumor-oncology-unit-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "Nursing New Grad RN Job: New Grad RN - Solid Tumor Oncology Unit at Johns Hopkins Medicine in Johns Hopkins Hospital, Baltimore, MD",
+        "retrieved_at": "2026-11-13T13:05:00.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/104342/new-grad-rn-solid-tumor-oncology-unit-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "Qualifications: Associate degree from Accredited Nursing Program required. No RN work experience required. New graduate RNs will automatically be enrolled in our accredited, year long Nurse Residency Program to support their transition into professional nursing practice.",
+        "retrieved_at": "2026-11-13T13:05:00.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/104342/new-grad-rn-solid-tumor-oncology-unit-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "Associate degree from Accredited Nursing Program required. BSN/MSN matriculation required within 1 year of hire and completion of degree within 5 years of hire. Applicants with an Associate’s degree JHH provides Tuition Assistance towards earning your BSN/MSN",
+        "retrieved_at": "2026-11-13T13:05:00.000Z",
+        "claim": "education"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/104342/new-grad-rn-solid-tumor-oncology-unit-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "Active Maryland or Compact RN license is required. BLS CPR certification required. No RN work experience required.",
+        "retrieved_at": "2026-11-13T13:05:00.000Z",
+        "claim": "license"
+      }
+    ]
   }
 ]
