@@ -12208,5 +12208,422 @@
         "claim": "license"
       }
     ]
+  },
+  {
+    "id": "hist_2026-11-14-daily_0001",
+    "run_id": "2026-11-14-daily",
+    "at": "2026-11-14T13:10:38.188Z",
+    "type": "VERIFIED_REMOVED",
+    "opportunity_id": "opp_89297a92f7",
+    "changes": [
+      {
+        "field": "unit",
+        "before": "CVSICU",
+        "after": "Cardiovascular Surgical ICU"
+      },
+      {
+        "field": "specialties",
+        "before": [
+          "CVICU"
+        ],
+        "after": [
+          "ICU",
+          "CVICU",
+          "Critical Care"
+        ]
+      },
+      {
+        "field": "rn_license_requirement",
+        "before": "Active Maryland or Compact RN license is required. BLS CPR certification required.",
+        "after": "Active Maryland or Compact RN license required. BLS CPR required."
+      },
+      {
+        "field": "experience_requirement",
+        "before": "No RN work experience required! Training will be provided - All New Grad RNs are automatically enrolled in our Nurse Residency Program ranked #3 in the nation!",
+        "after": "No RN work experience required; all New Grad RNs automatically enrolled in Nurse Residency."
+      },
+      {
+        "field": "application_status",
+        "before": "OPEN",
+        "after": "CLOSED"
+      },
+      {
+        "field": "closed_at",
+        "before": null,
+        "after": "2026-11-14T13:10:38.188Z"
+      }
+    ],
+    "reason": "Official requisition removal verified with complete enumeration.",
+    "evidence": [
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/103722/new-grad-rn-cvsicu-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "This job is no longer available. Please try another search .",
+        "retrieved_at": "2026-11-14T13:05:00.000Z",
+        "claim": "removal"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/103722/new-grad-rn-cvsicu-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "Nursing New Grad RN Job: New Grad RN - CVSICU at Johns Hopkins Medicine in Johns Hopkins Hospital, Baltimore, MD",
+        "retrieved_at": "2026-11-14T13:05:00.000Z",
+        "claim": "eligibility"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-11-14-daily_0002",
+    "run_id": "2026-11-14-daily",
+    "at": "2026-11-14T13:10:38.188Z",
+    "type": "UPDATED",
+    "opportunity_id": "opp_89297a92f7",
+    "changes": [
+      {
+        "field": "unit",
+        "before": "CVSICU",
+        "after": "Cardiovascular Surgical ICU"
+      },
+      {
+        "field": "specialties",
+        "before": [
+          "CVICU"
+        ],
+        "after": [
+          "ICU",
+          "CVICU",
+          "Critical Care"
+        ]
+      },
+      {
+        "field": "rn_license_requirement",
+        "before": "Active Maryland or Compact RN license is required. BLS CPR certification required.",
+        "after": "Active Maryland or Compact RN license required. BLS CPR required."
+      },
+      {
+        "field": "experience_requirement",
+        "before": "No RN work experience required! Training will be provided - All New Grad RNs are automatically enrolled in our Nurse Residency Program ranked #3 in the nation!",
+        "after": "No RN work experience required; all New Grad RNs automatically enrolled in Nurse Residency."
+      },
+      {
+        "field": "application_status",
+        "before": "OPEN",
+        "after": "CLOSED"
+      },
+      {
+        "field": "closed_at",
+        "before": null,
+        "after": "2026-11-14T13:10:38.188Z"
+      }
+    ],
+    "reason": "Updated from run evidence (CLOSED).",
+    "evidence": [
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/103722/new-grad-rn-cvsicu-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "This job is no longer available. Please try another search .",
+        "retrieved_at": "2026-11-14T13:05:00.000Z",
+        "claim": "removal"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/103722/new-grad-rn-cvsicu-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "Nursing New Grad RN Job: New Grad RN - CVSICU at Johns Hopkins Medicine in Johns Hopkins Hospital, Baltimore, MD",
+        "retrieved_at": "2026-11-14T13:05:00.000Z",
+        "claim": "eligibility"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-11-14-daily_0003",
+    "run_id": "2026-11-14-daily",
+    "at": "2026-11-14T13:10:38.188Z",
+    "type": "VERIFIED_REMOVED",
+    "opportunity_id": "opp_cc016fcbd1",
+    "changes": [
+      {
+        "field": "specialties",
+        "before": [
+          "ICU",
+          "Critical Care"
+        ],
+        "after": [
+          "ICU",
+          "SICU",
+          "Critical Care"
+        ]
+      },
+      {
+        "field": "program_id",
+        "before": "prog_a68b06dcb8",
+        "after": "prog_4f16bd2769"
+      },
+      {
+        "field": "rn_license_requirement",
+        "before": "Active Maryland or Compact RN license is required. BLS CPR certification required.",
+        "after": "Active Maryland or Compact RN license required. BLS CPR required."
+      },
+      {
+        "field": "experience_requirement",
+        "before": "No RN work experience required! Training will be provided - All New Grad RNs are automatically enrolled in our Nurse Residency Program ranked #3 in the nation!",
+        "after": "No RN work experience required; all New Grad RNs automatically enrolled in Nurse Residency."
+      },
+      {
+        "field": "application_status",
+        "before": "OPEN",
+        "after": "CLOSED"
+      },
+      {
+        "field": "closed_at",
+        "before": null,
+        "after": "2026-11-14T13:10:38.188Z"
+      }
+    ],
+    "reason": "Official requisition removal verified with complete enumeration.",
+    "evidence": [
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/103096/new-grad-rn-weinberg-surgical-icu-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "This job is no longer available. Please try another search .",
+        "retrieved_at": "2026-11-14T13:05:00.000Z",
+        "claim": "removal"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/103096/new-grad-rn-weinberg-surgical-icu-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "Nursing New Grad RN Job: New Grad RN - Weinberg Surgical ICU at Johns Hopkins Medicine in Johns Hopkins Hospital, Baltimore, MD",
+        "retrieved_at": "2026-11-14T13:05:00.000Z",
+        "claim": "eligibility"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-11-14-daily_0004",
+    "run_id": "2026-11-14-daily",
+    "at": "2026-11-14T13:10:38.188Z",
+    "type": "UPDATED",
+    "opportunity_id": "opp_cc016fcbd1",
+    "changes": [
+      {
+        "field": "specialties",
+        "before": [
+          "ICU",
+          "Critical Care"
+        ],
+        "after": [
+          "ICU",
+          "SICU",
+          "Critical Care"
+        ]
+      },
+      {
+        "field": "program_id",
+        "before": "prog_a68b06dcb8",
+        "after": "prog_4f16bd2769"
+      },
+      {
+        "field": "rn_license_requirement",
+        "before": "Active Maryland or Compact RN license is required. BLS CPR certification required.",
+        "after": "Active Maryland or Compact RN license required. BLS CPR required."
+      },
+      {
+        "field": "experience_requirement",
+        "before": "No RN work experience required! Training will be provided - All New Grad RNs are automatically enrolled in our Nurse Residency Program ranked #3 in the nation!",
+        "after": "No RN work experience required; all New Grad RNs automatically enrolled in Nurse Residency."
+      },
+      {
+        "field": "application_status",
+        "before": "OPEN",
+        "after": "CLOSED"
+      },
+      {
+        "field": "closed_at",
+        "before": null,
+        "after": "2026-11-14T13:10:38.188Z"
+      }
+    ],
+    "reason": "Updated from run evidence (CLOSED).",
+    "evidence": [
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/103096/new-grad-rn-weinberg-surgical-icu-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "This job is no longer available. Please try another search .",
+        "retrieved_at": "2026-11-14T13:05:00.000Z",
+        "claim": "removal"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/103096/new-grad-rn-weinberg-surgical-icu-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "Nursing New Grad RN Job: New Grad RN - Weinberg Surgical ICU at Johns Hopkins Medicine in Johns Hopkins Hospital, Baltimore, MD",
+        "retrieved_at": "2026-11-14T13:05:00.000Z",
+        "claim": "eligibility"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-11-14-daily_0005",
+    "run_id": "2026-11-14-daily",
+    "at": "2026-11-14T13:10:38.188Z",
+    "type": "VERIFIED_REMOVED",
+    "opportunity_id": "opp_3a1d0e02ce",
+    "changes": [
+      {
+        "field": "unit",
+        "before": "Surgical Intensive Care Unit (Zayed 9 East)",
+        "after": "Surgical Intensive Care Unit"
+      },
+      {
+        "field": "specialties",
+        "before": [
+          "SICU",
+          "ICU",
+          "Critical Care"
+        ],
+        "after": [
+          "ICU",
+          "SICU",
+          "Critical Care"
+        ]
+      },
+      {
+        "field": "rn_license_requirement",
+        "before": "Active Maryland or Compact RN license is required. BLS CPR certification required.",
+        "after": "Active Maryland or Compact RN license required. BLS CPR required."
+      },
+      {
+        "field": "experience_requirement",
+        "before": "No RN work experience required! Training will be provided - All New Grad RNs are automatically enrolled in our Nurse Residency Program ranked #3 in the nation!",
+        "after": "No RN work experience required; all New Grad RNs automatically enrolled in Nurse Residency."
+      },
+      {
+        "field": "application_status",
+        "before": "OPEN",
+        "after": "CLOSED"
+      },
+      {
+        "field": "closed_at",
+        "before": null,
+        "after": "2026-11-14T13:10:38.188Z"
+      }
+    ],
+    "reason": "Official requisition removal verified with complete enumeration.",
+    "evidence": [
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/101319/new-grad-rn-sicu-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "This job is no longer available. Please try another search .",
+        "retrieved_at": "2026-11-14T13:05:00.000Z",
+        "claim": "removal"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/101319/new-grad-rn-sicu-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "Nursing New Grad RN Job: New Grad RN - SICU at Johns Hopkins Medicine in Johns Hopkins Hospital, Baltimore, MD",
+        "retrieved_at": "2026-11-14T13:05:00.000Z",
+        "claim": "eligibility"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-11-14-daily_0006",
+    "run_id": "2026-11-14-daily",
+    "at": "2026-11-14T13:10:38.188Z",
+    "type": "UPDATED",
+    "opportunity_id": "opp_3a1d0e02ce",
+    "changes": [
+      {
+        "field": "unit",
+        "before": "Surgical Intensive Care Unit (Zayed 9 East)",
+        "after": "Surgical Intensive Care Unit"
+      },
+      {
+        "field": "specialties",
+        "before": [
+          "SICU",
+          "ICU",
+          "Critical Care"
+        ],
+        "after": [
+          "ICU",
+          "SICU",
+          "Critical Care"
+        ]
+      },
+      {
+        "field": "rn_license_requirement",
+        "before": "Active Maryland or Compact RN license is required. BLS CPR certification required.",
+        "after": "Active Maryland or Compact RN license required. BLS CPR required."
+      },
+      {
+        "field": "experience_requirement",
+        "before": "No RN work experience required! Training will be provided - All New Grad RNs are automatically enrolled in our Nurse Residency Program ranked #3 in the nation!",
+        "after": "No RN work experience required; all New Grad RNs automatically enrolled in Nurse Residency."
+      },
+      {
+        "field": "application_status",
+        "before": "OPEN",
+        "after": "CLOSED"
+      },
+      {
+        "field": "closed_at",
+        "before": null,
+        "after": "2026-11-14T13:10:38.188Z"
+      }
+    ],
+    "reason": "Updated from run evidence (CLOSED).",
+    "evidence": [
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/101319/new-grad-rn-sicu-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "This job is no longer available. Please try another search .",
+        "retrieved_at": "2026-11-14T13:05:00.000Z",
+        "claim": "removal"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/101319/new-grad-rn-sicu-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "Nursing New Grad RN Job: New Grad RN - SICU at Johns Hopkins Medicine in Johns Hopkins Hospital, Baltimore, MD",
+        "retrieved_at": "2026-11-14T13:05:00.000Z",
+        "claim": "eligibility"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-11-14-daily_0007",
+    "run_id": "2026-11-14-daily",
+    "at": "2026-11-14T13:10:38.188Z",
+    "type": "NEW",
+    "opportunity_id": "opp_b2aab167ec",
+    "changes": null,
+    "reason": "First published from run evidence (OPEN).",
+    "evidence": [
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/104408/new-grad-rn-nccu-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "Nursing New Grad RN Job: New Grad RN - NCCU at Johns Hopkins Medicine in Johns Hopkins Hospital, Baltimore, MD",
+        "retrieved_at": "2026-11-14T13:05:00.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/104408/new-grad-rn-nccu-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "Associate degree in Nursing required Active Maryland or Compact RN license is required BLS CPR certification required No RN experience required; PCT or practicum in an ICU preferred All New Graduate RNs will be automatically enrolled in our yearlong accredited Nurse Residency Program",
+        "retrieved_at": "2026-11-14T13:05:00.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/104408/new-grad-rn-nccu-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "Applicants with an Associate’s degree in nursing from an accredited nursing program may be considered; provided they are enrolled in an accredited BSN/MSN program within 1 year of hire and complete the degree within 5 years of hire",
+        "retrieved_at": "2026-11-14T13:05:00.000Z",
+        "claim": "education"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/104408/new-grad-rn-nccu-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "Active Maryland or Compact RN license is required BLS CPR certification required No RN experience required",
+        "retrieved_at": "2026-11-14T13:05:00.000Z",
+        "claim": "license"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-11-14-daily_0008",
+    "run_id": "2026-11-14-daily",
+    "at": "2026-11-14T13:10:38.188Z",
+    "type": "CLOSED",
+    "opportunity_id": "opp_bca06dc9a9",
+    "changes": [
+      {
+        "field": "application_status",
+        "before": "OPEN",
+        "after": "CLOSED"
+      }
+    ],
+    "reason": "Confirmed deadline passed (ingest sweep).",
+    "evidence": []
   }
 ]
