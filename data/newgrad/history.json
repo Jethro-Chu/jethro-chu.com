@@ -12670,5 +12670,97 @@
         "claim": "license"
       }
     ]
+  },
+  {
+    "id": "hist_2026-11-16-daily_0001",
+    "run_id": "2026-11-16-daily",
+    "at": "2026-11-16T13:09:47.865Z",
+    "type": "CLOSED",
+    "opportunity_id": "opp_116ea92514",
+    "changes": [
+      {
+        "field": "application_status",
+        "before": "OPEN",
+        "after": "CLOSED"
+      },
+      {
+        "field": "closed_at",
+        "before": null,
+        "after": "2026-11-16T13:09:47.865Z"
+      }
+    ],
+    "reason": "Official evidence verified closure.",
+    "evidence": [
+      {
+        "source_url": "https://careers.stanfordhealthcare.org/us/en/job/R2661760/Clinical-Nurse-I-RN-New-Graduate-Nurse-Residency-Spring-2027",
+        "excerpt": "We're sorry, but it looks like the job is no longer available.",
+        "retrieved_at": "2026-11-16T13:05:00.000Z",
+        "claim": "closure"
+      },
+      {
+        "source_url": "https://careers.stanfordhealthcare.org/us/en/nurse-residency-program",
+        "excerpt": "Cohort 46 Applications Open: November 9, 2026 – November 15, 2026 CA License required by: February 12th, 2027 Cohort 46 starts April 12, 2027.",
+        "retrieved_at": "2026-11-16T13:05:00.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://careers.stanfordhealthcare.org/us/en/nurse-residency-program",
+        "excerpt": "The Nurse Residency Program is for new graduate registered nurses who have graduated from an accredited nursing program within 19 months of the residency start date and have less than six months of paid registered nurse work experience.",
+        "retrieved_at": "2026-11-16T13:05:00.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://careers.stanfordhealthcare.org/us/en/nurse-residency-program",
+        "excerpt": "Cohort 46) February 12th, 2027. You will need to provide a CA RN licensure number, not just proof showing you passed your NCLEX.",
+        "retrieved_at": "2026-11-16T13:05:00.000Z",
+        "claim": "license"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-11-16-daily_0002",
+    "run_id": "2026-11-16-daily",
+    "at": "2026-11-16T13:09:47.865Z",
+    "type": "UPDATED",
+    "opportunity_id": "opp_116ea92514",
+    "changes": [
+      {
+        "field": "application_status",
+        "before": "OPEN",
+        "after": "CLOSED"
+      },
+      {
+        "field": "closed_at",
+        "before": null,
+        "after": "2026-11-16T13:09:47.865Z"
+      }
+    ],
+    "reason": "Updated from run evidence (CLOSED).",
+    "evidence": [
+      {
+        "source_url": "https://careers.stanfordhealthcare.org/us/en/job/R2661760/Clinical-Nurse-I-RN-New-Graduate-Nurse-Residency-Spring-2027",
+        "excerpt": "We're sorry, but it looks like the job is no longer available.",
+        "retrieved_at": "2026-11-16T13:05:00.000Z",
+        "claim": "closure"
+      },
+      {
+        "source_url": "https://careers.stanfordhealthcare.org/us/en/nurse-residency-program",
+        "excerpt": "Cohort 46 Applications Open: November 9, 2026 – November 15, 2026 CA License required by: February 12th, 2027 Cohort 46 starts April 12, 2027.",
+        "retrieved_at": "2026-11-16T13:05:00.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://careers.stanfordhealthcare.org/us/en/nurse-residency-program",
+        "excerpt": "The Nurse Residency Program is for new graduate registered nurses who have graduated from an accredited nursing program within 19 months of the residency start date and have less than six months of paid registered nurse work experience.",
+        "retrieved_at": "2026-11-16T13:05:00.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://careers.stanfordhealthcare.org/us/en/nurse-residency-program",
+        "excerpt": "Cohort 46) February 12th, 2027. You will need to provide a CA RN licensure number, not just proof showing you passed your NCLEX.",
+        "retrieved_at": "2026-11-16T13:05:00.000Z",
+        "claim": "license"
+      }
+    ]
   }
 ]
