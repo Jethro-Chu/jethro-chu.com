@@ -451,5 +451,194 @@
     "program_id": "prog_e80c3e6007",
     "label": "Fall 2026 Cohort",
     "program_start": null
+  },
+  {
+    "id": "cohort_ecb1c0fd89",
+    "program_id": "prog_b61f49dd0b",
+    "label": "Cohort 47",
+    "program_start": null
+  },
+  {
+    "id": "cohort_aba7e045cd",
+    "program_id": "prog_39961c506b",
+    "label": "Cohort 61",
+    "program_start": null
+  },
+  {
+    "id": "cohort_eab12c3b4b",
+    "program_id": "prog_e78305e4f6",
+    "label": "Fall 2027 Cohort",
+    "program_start": null
+  },
+  {
+    "id": "cohort_064ea87e83",
+    "program_id": "prog_4513fa99fc",
+    "label": "2027 Cohorts",
+    "program_start": null
+  },
+  {
+    "id": "cohort_af673e44a3",
+    "program_id": "prog_b00bfa21dd",
+    "label": "2026-2027 Cycles",
+    "program_start": null
+  },
+  {
+    "id": "cohort_6b45f2d10c",
+    "program_id": "prog_f199c98757",
+    "label": "February 2027 Cohort",
+    "program_start": {
+      "kind": "text",
+      "value": "February 2027"
+    }
+  },
+  {
+    "id": "cohort_7f6497d449",
+    "program_id": "prog_3ffafd825b",
+    "label": "Spring 2027 Cohort",
+    "program_start": {
+      "kind": "text",
+      "value": "February 2027"
+    }
+  },
+  {
+    "id": "cohort_8fcccfd717",
+    "program_id": "prog_288dc79d2b",
+    "label": "January 2027 Cohort",
+    "program_start": {
+      "kind": "date",
+      "value": "2027-01-11"
+    }
+  },
+  {
+    "id": "cohort_1ee8fad290",
+    "program_id": "prog_288dc79d2b",
+    "label": "March 2027 Cohort",
+    "program_start": {
+      "kind": "date",
+      "value": "2027-03-22"
+    }
+  },
+  {
+    "id": "cohort_20282d428e",
+    "program_id": "prog_b64e1ea737",
+    "label": "California Region",
+    "program_start": null
+  },
+  {
+    "id": "cohort_fa0a8eca8a",
+    "program_id": "prog_0893dc1982",
+    "label": "North State Cohort",
+    "program_start": null
+  },
+  {
+    "id": "cohort_a048995221",
+    "program_id": "prog_2a9317d2f8",
+    "label": "Fall 2026 Cohort",
+    "program_start": null
+  },
+  {
+    "id": "cohort_7dff5148fe",
+    "program_id": "prog_cdd658e476",
+    "label": "2027 Cohort",
+    "program_start": {
+      "kind": "text",
+      "value": "October 2027"
+    }
+  },
+  {
+    "id": "cohort_faacdfd0d3",
+    "program_id": "prog_046d5a4508",
+    "label": "Ongoing Enrollment",
+    "program_start": null
+  },
+  {
+    "id": "cohort_6e07c642f5",
+    "program_id": "prog_76bb8bd11f",
+    "label": "2027 Critical Care New Graduate Nurse Residency",
+    "program_start": null
+  },
+  {
+    "id": "cohort_71416a0b74",
+    "program_id": "prog_76bb8bd11f",
+    "label": "2027 Oncology New Graduate Nurse Residency",
+    "program_start": null
+  },
+  {
+    "id": "cohort_9268921917",
+    "program_id": "prog_76bb8bd11f",
+    "label": "2027 OR Nurse Residency",
+    "program_start": null
+  },
+  {
+    "id": "cohort_487260e6ea",
+    "program_id": "prog_76bb8bd11f",
+    "label": "University Hospital",
+    "program_start": null
+  },
+  {
+    "id": "cohort_075aa277b4",
+    "program_id": "prog_76bb8bd11f",
+    "label": "East Hospital",
+    "program_start": null
+  },
+  {
+    "id": "cohort_914a2b14ff",
+    "program_id": "prog_49327a9ed3",
+    "label": "Rolling Cohorts",
+    "program_start": null
+  },
+  {
+    "id": "cohort_7daf9a2684",
+    "program_id": "prog_43a6b99ba7",
+    "label": "Rolling / Semi-Annual",
+    "program_start": null
+  },
+  {
+    "id": "cohort_01a1e0e28e",
+    "program_id": "prog_47a3cab997",
+    "label": "Recurring Cohorts",
+    "program_start": null
+  },
+  {
+    "id": "cohort_166bd68bcc",
+    "program_id": "prog_ea147f7668",
+    "label": "Ongoing Cohorts",
+    "program_start": null
+  },
+  {
+    "id": "cohort_5a4ed63188",
+    "program_id": "prog_7888b3e140",
+    "label": "Farr 8",
+    "program_start": null
+  },
+  {
+    "id": "cohort_c37aae1752",
+    "program_id": "prog_617e487cea",
+    "label": "Arizona Feb 2027 Cohort",
+    "program_start": {
+      "kind": "date",
+      "value": "2027-02-22"
+    }
+  },
+  {
+    "id": "cohort_d7b2173dfc",
+    "program_id": "prog_617e487cea",
+    "label": "Rochester",
+    "program_start": null
+  },
+  {
+    "id": "cohort_34877d2f9b",
+    "program_id": "prog_a68b06dcb8",
+    "label": "2027 Inpatient Cohort",
+    "program_start": null
+  },
+  {
+    "id": "cohort_fade7d5ddb",
+    "program_id": "prog_d95266d6cf",
+    "label": "Summer 2027 Cohort",
+    "program_start": {
+      "kind": "date",
+      "value": "2027-06-28"
+    }
   }
 ]

@@ -7204,5 +7204,1200 @@
       "uncertainties": null
     },
     "decision": null
+  },
+  {
+    "id": "rev_2026-11-23-daily_001",
+    "run_id": "2026-11-23-daily",
+    "created_at": "2026-11-24T06:53:43.323Z",
+    "state": "PENDING",
+    "reason": "No active official sources on file for Cedars-Sinai; finding held for review until sources are verified.",
+    "finding": {
+      "employer": {
+        "name": "Cedars-Sinai",
+        "hospital_id": "hosp_cedars"
+      },
+      "identifiers": {
+        "program": "Geri and Richard Brawerman Nursing Institute New-Graduate RN Residency",
+        "cohort": "Winter 2027 Cohort",
+        "requisition_id": null,
+        "ats_provider": null,
+        "ats_tenant": null,
+        "opportunity_id": null
+      },
+      "observed_state": "CLOSED",
+      "eligibility": {
+        "assessment": "ELIGIBLE",
+        "note": "Graduates of accredited ADN, BSN, or MSN programs within the past 12 months with less than 9 months of paid RN experience."
+      },
+      "facts": {
+        "position_title": "New-Graduate Registered Nurse (RN) Residency Program - Winter 2027 Cohort",
+        "locations": [
+          {
+            "city": "Los Angeles",
+            "state": "CA"
+          }
+        ],
+        "specialties": [
+          "Med-Surg",
+          "Critical Care",
+          "Specialty Units"
+        ],
+        "source_url": "https://www.cedars-sinai.edu/education/graduate-medical-education/nursing-residency.html",
+        "application_url": "https://jobs.cedars-sinai.edu/"
+      },
+      "evidence": [
+        {
+          "source_url": "https://jobs.cedars-sinai.edu/",
+          "excerpt": "Winter 2027 Cohort applications opened November 9, 2026 and are now closed. Interviews scheduled for December 2026, program start date January 25, 2027.",
+          "retrieved_at": "2026-11-24T06:30:00Z",
+          "claim": "status"
+        },
+        {
+          "source_url": "https://www.cedars-sinai.edu/education/graduate-medical-education/nursing-residency.html",
+          "excerpt": "The New-Graduate Registered Nurse (RN) Residency Program is designed for new graduate nurses with less than 9 months of paid RN experience who graduated within the past 12 months.",
+          "retrieved_at": "2026-11-24T06:30:00Z",
+          "claim": "eligibility"
+        },
+        {
+          "source_url": "https://jobs.cedars-sinai.edu/",
+          "excerpt": "Winter 2027 Cohort program start date: Monday, January 25, 2027.",
+          "retrieved_at": "2026-11-24T06:30:00Z",
+          "claim": "start_date"
+        }
+      ],
+      "uncertainties": null
+    },
+    "decision": null
+  },
+  {
+    "id": "rev_2026-11-23-daily_002",
+    "run_id": "2026-11-23-daily",
+    "created_at": "2026-11-24T06:53:43.323Z",
+    "state": "PENDING",
+    "reason": "No active official sources on file for Children's Hospital Los Angeles; finding held for review until sources are verified.",
+    "finding": {
+      "employer": {
+        "name": "Children's Hospital Los Angeles",
+        "hospital_id": "hosp_chla"
+      },
+      "identifiers": {
+        "program": "RN Residency in Pediatrics",
+        "cohort": "March 2027 Cohort",
+        "requisition_id": null,
+        "ats_provider": null,
+        "ats_tenant": null,
+        "opportunity_id": null
+      },
+      "observed_state": "OPENING_SOON",
+      "eligibility": {
+        "assessment": "ELIGIBLE",
+        "note": "Open to new graduate nurses with less than 1 year of RN experience; BSN or MSN preferred (ADN accepted for select units)."
+      },
+      "facts": {
+        "position_title": "RN Residency in Pediatrics - March 2027 Cohort",
+        "locations": [
+          {
+            "city": "Los Angeles",
+            "state": "CA"
+          }
+        ],
+        "specialties": [
+          "Pediatrics",
+          "Med-Surg",
+          "PICU",
+          "NICU",
+          "ED",
+          "Oncology"
+        ],
+        "source_url": "https://www.chla.org/rn-residency-pediatrics",
+        "application_url": "https://jobs.chla.org/"
+      },
+      "evidence": [
+        {
+          "source_url": "https://www.chla.org/rn-residency-pediatrics",
+          "excerpt": "External Candidates Application Window: Opens December 1, 2026, at 9:00 AM PST and closes December 2, 2026, at 4:00 PM PST. Cohort Start Date: March 1, 2027.",
+          "retrieved_at": "2026-11-24T06:30:00Z",
+          "claim": "status"
+        },
+        {
+          "source_url": "https://www.chla.org/rn-residency-pediatrics",
+          "excerpt": "The RN Residency in Pediatrics is open to new graduate nurses with less than 1 year of RN experience.",
+          "retrieved_at": "2026-11-24T06:30:00Z",
+          "claim": "eligibility"
+        },
+        {
+          "source_url": "https://www.chla.org/rn-residency-pediatrics",
+          "excerpt": "External Candidates Application Window: Opens December 1, 2026, at 9:00 AM PST.",
+          "retrieved_at": "2026-11-24T06:30:00Z",
+          "claim": "opening_date"
+        },
+        {
+          "source_url": "https://www.chla.org/rn-residency-pediatrics",
+          "excerpt": "Application closes December 2, 2026, at 4:00 PM PST.",
+          "retrieved_at": "2026-11-24T06:30:00Z",
+          "claim": "deadline"
+        },
+        {
+          "source_url": "https://www.chla.org/rn-residency-pediatrics",
+          "excerpt": "Cohort Start Date: March 1, 2027.",
+          "retrieved_at": "2026-11-24T06:30:00Z",
+          "claim": "start_date"
+        }
+      ],
+      "uncertainties": null
+    },
+    "decision": null
+  },
+  {
+    "id": "rev_2026-11-23-daily_003",
+    "run_id": "2026-11-23-daily",
+    "created_at": "2026-11-24T06:53:43.323Z",
+    "state": "PENDING",
+    "reason": "No active official sources on file for Santa Clara Valley Medical Center; finding held for review until sources are verified.",
+    "finding": {
+      "employer": {
+        "name": "Santa Clara Valley Medical Center",
+        "hospital_id": "hosp_scvmc"
+      },
+      "identifiers": {
+        "program": "SCVH Nurse Training Program",
+        "cohort": null,
+        "requisition_id": null,
+        "ats_provider": "GovernmentJobs",
+        "ats_tenant": "County of Santa Clara",
+        "opportunity_id": null
+      },
+      "observed_state": "EXPECTED",
+      "eligibility": {
+        "assessment": "ELIGIBLE",
+        "note": "Candidates with less than one year of acute care nursing experience possessing valid CA RN license or interim permit."
+      },
+      "facts": {
+        "position_title": "Clinical Nurse I - Nurse Training Program",
+        "locations": [
+          {
+            "city": "San Jose",
+            "state": "CA"
+          }
+        ],
+        "specialties": [
+          "Critical Care",
+          "Med-Surg",
+          "Emergency"
+        ],
+        "source_url": "https://scvmc.scvh.org/careers/nursing/nurse-current-openings",
+        "application_url": "https://www.governmentjobs.com/careers/santaclara"
+      },
+      "evidence": [
+        {
+          "source_url": "https://scvmc.scvh.org/careers/nursing/nurse-current-openings",
+          "excerpt": "If you have less than one year of acute care experience and are looking to join the SCVMC Nurse Training Program, apply directly to Clinical Nurse I postings on the County of Santa Clara job board.",
+          "retrieved_at": "2026-11-24T06:30:00Z",
+          "claim": "status"
+        },
+        {
+          "source_url": "https://scvmc.scvh.org/careers/nursing/nurse-current-openings",
+          "excerpt": "The Nurse Training Program is open to new graduate nurses and registered nurses with less than one year of acute care nursing experience.",
+          "retrieved_at": "2026-11-24T06:30:00Z",
+          "claim": "eligibility"
+        }
+      ],
+      "uncertainties": null
+    },
+    "decision": null
+  },
+  {
+    "id": "rev_2026-11-23-daily_004",
+    "run_id": "2026-11-23-daily",
+    "created_at": "2026-11-24T06:53:43.323Z",
+    "state": "PENDING",
+    "reason": "No active official sources on file for Alameda Health System; finding held for review until sources are verified.",
+    "finding": {
+      "employer": {
+        "name": "Alameda Health System",
+        "hospital_id": "hosp_alameda"
+      },
+      "identifiers": {
+        "program": "Alameda Health System New Graduate Nursing Program",
+        "cohort": null,
+        "requisition_id": null,
+        "ats_provider": null,
+        "ats_tenant": null,
+        "opportunity_id": null
+      },
+      "observed_state": "EXPECTED",
+      "eligibility": {
+        "assessment": "ELIGIBLE",
+        "note": "Recent nursing graduates with less than 6 months of acute care RN experience."
+      },
+      "facts": {
+        "position_title": "Clinical Nurse I - New Graduate Nursing Program",
+        "locations": [
+          {
+            "city": "Oakland",
+            "state": "CA"
+          }
+        ],
+        "specialties": [
+          "Med-Surg",
+          "ED",
+          "Obstetrics"
+        ],
+        "source_url": "https://alamedahealthsystem.org/careers",
+        "application_url": "https://alamedahealthsystem.org/careers"
+      },
+      "evidence": [
+        {
+          "source_url": "https://alamedahealthsystem.org/careers",
+          "excerpt": "Application windows for AHS new grad cohorts open periodically based on organizational need rather than a rigid annual schedule.",
+          "retrieved_at": "2026-11-24T06:30:00Z",
+          "claim": "status"
+        },
+        {
+          "source_url": "https://alamedahealthsystem.org/careers",
+          "excerpt": "AHS provides a structured New Graduate Nursing Program for recent graduate registered nurses entering acute care clinical practice.",
+          "retrieved_at": "2026-11-24T06:30:00Z",
+          "claim": "eligibility"
+        }
+      ],
+      "uncertainties": null
+    },
+    "decision": null
+  },
+  {
+    "id": "rev_2026-11-23-daily_005",
+    "run_id": "2026-11-23-daily",
+    "created_at": "2026-11-24T06:53:43.323Z",
+    "state": "PENDING",
+    "reason": "No active official sources on file for Zuckerberg San Francisco General Hospital; finding held for review until sources are verified.",
+    "finding": {
+      "employer": {
+        "name": "Zuckerberg San Francisco General Hospital",
+        "hospital_id": "hosp_zsfg"
+      },
+      "identifiers": {
+        "program": "SFDPH 2320 Registered Nurse Training Program",
+        "cohort": null,
+        "requisition_id": null,
+        "ats_provider": "SmartRecruiters / careers.sf.gov",
+        "ats_tenant": "City and County of San Francisco",
+        "opportunity_id": null
+      },
+      "observed_state": "EXPECTED",
+      "eligibility": {
+        "assessment": "ELIGIBLE",
+        "note": "City and County of San Francisco 2320 civil service framework for newly licensed registered nurses."
+      },
+      "facts": {
+        "position_title": "2320 Registered Nurse - Training Program",
+        "locations": [
+          {
+            "city": "San Francisco",
+            "state": "CA"
+          }
+        ],
+        "specialties": [
+          "Critical Care",
+          "Emergency",
+          "Trauma",
+          "Med-Surg"
+        ],
+        "source_url": "https://www.zuckerbergsanfranciscogeneral.org/services/careers-zsfg/",
+        "application_url": "https://careers.sf.gov/"
+      },
+      "evidence": [
+        {
+          "source_url": "https://www.zuckerbergsanfranciscogeneral.org/services/careers-zsfg/",
+          "excerpt": "ZSFG periodically operates targeted training programs for inexperienced or transitioning nurses under the 2320 Registered Nurse classification; recruitment operates via careers.sf.gov.",
+          "retrieved_at": "2026-11-24T06:30:00Z",
+          "claim": "status"
+        },
+        {
+          "source_url": "https://www.zuckerbergsanfranciscogeneral.org/services/careers-zsfg/",
+          "excerpt": "The 2320 Registered Nurse training programs provide transition to acute care practice for newly licensed registered nurses.",
+          "retrieved_at": "2026-11-24T06:30:00Z",
+          "claim": "eligibility"
+        }
+      ],
+      "uncertainties": null
+    },
+    "decision": null
+  },
+  {
+    "id": "rev_2026-11-23-daily_006",
+    "run_id": "2026-11-23-daily",
+    "created_at": "2026-11-24T06:53:43.323Z",
+    "state": "PENDING",
+    "reason": "No active official sources on file for UCSF Benioff Children's Hospital Oakland; finding held for review until sources are verified.",
+    "finding": {
+      "employer": {
+        "name": "UCSF Benioff Children's Hospital Oakland",
+        "hospital_id": "hosp_benioff_oak"
+      },
+      "identifiers": {
+        "program": "New Nurse Residency Training Program (NNRTP - Oakland)",
+        "cohort": null,
+        "requisition_id": null,
+        "ats_provider": null,
+        "ats_tenant": null,
+        "opportunity_id": null
+      },
+      "observed_state": "CLOSED",
+      "eligibility": {
+        "assessment": "ELIGIBLE",
+        "note": "Pediatric new graduate nurse pathway managed under UCSF Health NNRTP."
+      },
+      "facts": {
+        "position_title": "New Nurse Residency Training Program (Oakland)",
+        "locations": [
+          {
+            "city": "Oakland",
+            "state": "CA"
+          }
+        ],
+        "specialties": [
+          "Pediatrics",
+          "PICU",
+          "NICU",
+          "Med-Surg"
+        ],
+        "source_url": "https://www.ucsfbenioffchildrens.org/careers",
+        "application_url": "https://hr.ucsf.edu/learning/career-professional-development/registered-nurse-training-programs"
+      },
+      "evidence": [
+        {
+          "source_url": "https://hr.ucsf.edu/learning/career-professional-development/registered-nurse-training-programs",
+          "excerpt": "UCSF Health manages new graduate opportunities across campuses including Benioff Children's Hospital Oakland through the NNRTP, which is currently paused.",
+          "retrieved_at": "2026-11-24T06:30:00Z",
+          "claim": "status"
+        },
+        {
+          "source_url": "https://hr.ucsf.edu/learning/career-professional-development/registered-nurse-training-programs",
+          "excerpt": "For UCSF Health (including Benioff Children's Hospitals in Oakland and San Francisco), the NNRTP serves as the primary formal pathway for new graduate RNs to join the network.",
+          "retrieved_at": "2026-11-24T06:30:00Z",
+          "claim": "eligibility"
+        }
+      ],
+      "uncertainties": null
+    },
+    "decision": null
+  },
+  {
+    "id": "rev_2026-11-23-daily_007",
+    "run_id": "2026-11-23-daily",
+    "created_at": "2026-11-24T06:53:43.323Z",
+    "state": "PENDING",
+    "reason": "No evidence URL matches an active official source for this employer.",
+    "finding": {
+      "employer": {
+        "name": "PIH Health",
+        "hospital_id": "hosp_pih"
+      },
+      "identifiers": {
+        "program": "PIH Health RN Residency Program",
+        "cohort": "On-going Departmental Hiring",
+        "requisition_id": null,
+        "ats_provider": "Phenom",
+        "ats_tenant": "pihhealth",
+        "employer_tenant": null,
+        "opportunity_id": "opp_650b1424a7"
+      },
+      "observed_state": "EXPECTED",
+      "eligibility": {
+        "assessment": "ELIGIBLE",
+        "note": "Hiring occurs on an on-going basis by departmental need for newly graduating nurses with an ADN, BSN, or MSN degree."
+      },
+      "facts": {
+        "position_title": "Registered Nurse - New Graduate RN Residency",
+        "unit": "Cardiac Telemetry, DOU, Medical-Surgical, Oncology, Telemetry",
+        "locations": [
+          {
+            "city": "Whittier",
+            "state": "CA"
+          },
+          {
+            "city": "Downey",
+            "state": "CA"
+          },
+          {
+            "city": "Los Angeles",
+            "state": "CA"
+          }
+        ],
+        "specialties": [
+          "Telemetry",
+          "DOU",
+          "Medical-Surgical",
+          "Oncology"
+        ],
+        "bsn_required": false,
+        "rn_license_requirement": "Must have a permanent CA RN license prior to start date. Interim permits are not accepted.",
+        "license_required_by": "start",
+        "experience_requirement": "This program is for newly graduating nurses with an ADN, BSN, or MSN degree. Less than one year of experience.",
+        "source_url": "https://pihcareers.silkroad.com/pihext/Getting-Hired/New-Graduate-FAQ-s.html",
+        "application_url": "https://jobs.pihhealth.org/"
+      },
+      "evidence": [
+        {
+          "source_url": "https://pihcareers.silkroad.com/pihext/Getting-Hired/New-Graduate-FAQ-s.html",
+          "excerpt": "Our New Graduate hiring is based on departmental needs throughout the year. Our Residency program lasts one year in duration, consisting of educational topics, mentoring, and team building . New Graduate comprehensive training is 8-12 weeks, including preceptorship. This program is for newly graduating nurses with an ADN, BSN, or MSN degree. Application period: On-going",
+          "retrieved_at": "2026-11-24T06:31:52Z",
+          "claim": "eligibility"
+        },
+        {
+          "source_url": "https://pihcareers.silkroad.com/pihext/Getting-Hired/New-Graduate-FAQ-s.html",
+          "excerpt": "Open positions will be posted as RN, New Graduate with the specific department that has openings. Important Information: Positions will be posted for each department with openings Applications are accepted on an ongoing basis Interviews will take place until positions are filled",
+          "retrieved_at": "2026-11-24T06:31:52Z",
+          "claim": "status"
+        },
+        {
+          "source_url": "https://pihcareers.silkroad.com/pihext/Getting-Hired/New-Graduate-FAQ-s.html",
+          "excerpt": "You must have a permanent CA RN license prior to start date Resume should contain clinical rotation sites, department, and hours Attach two letters of recommendation from clinical instructors, or school professors",
+          "retrieved_at": "2026-11-24T06:31:52Z",
+          "claim": "license"
+        }
+      ]
+    },
+    "decision": null
+  },
+  {
+    "id": "rev_2026-11-23-daily_008",
+    "run_id": "2026-11-23-daily",
+    "created_at": "2026-11-24T06:53:43.323Z",
+    "state": "PENDING",
+    "reason": "Observed state CLOSED has no status-claim evidence from an official source.",
+    "finding": {
+      "employer": {
+        "name": "Adventist Health",
+        "hospital_id": "hosp_adventist"
+      },
+      "identifiers": {
+        "program": "Adventist Health Nurse Residency Program",
+        "cohort": null,
+        "requisition_id": null,
+        "ats_provider": "Oracle Cloud",
+        "ats_tenant": "adventisthealth",
+        "employer_tenant": null,
+        "opportunity_id": "opp_b045e8e0d4"
+      },
+      "observed_state": "CLOSED",
+      "eligibility": {
+        "assessment": "ELIGIBLE",
+        "note": "Structured orientation and development to ease transition from new graduate to professional nurse."
+      },
+      "facts": {
+        "position_title": "Adventist Health Nurse Residency Program",
+        "locations": [
+          {
+            "city": "Roseville",
+            "state": "CA"
+          },
+          {
+            "city": "Bakersfield",
+            "state": "CA"
+          },
+          {
+            "city": "Glendale",
+            "state": "CA"
+          }
+        ],
+        "rn_license_requirement": "California, Oregon, or Hawaii Registered Nurse license prior to program start date.",
+        "experience_requirement": "Less than six months direct patient care experience.",
+        "source_url": "https://www.adventisthealth.org/careers/more-opportunities/nursing-careers/nurse-residency-program/",
+        "application_url": "https://www.adventisthealth.org/careers/more-opportunities/nursing-careers/nurse-residency-program/"
+      },
+      "evidence": [
+        {
+          "source_url": "https://www.adventisthealth.org/careers/more-opportunities/nursing-careers/nurse-residency-program/",
+          "excerpt": "The Adventist Health Nurse Residency Program is a structured orientation and professional development program designed to ease your transition from new graduate to professional nurse. Supported by clinical experts, engaged preceptors, and supportive leaders, the Nurse Residency Program promotes safe practice, knowledge development and self-confidence by bridging the gap from novice nurse to competent team member.",
+          "retrieved_at": "2026-11-24T06:36:35Z",
+          "claim": "eligibility"
+        },
+        {
+          "source_url": "https://www.adventisthealth.org/careers/more-opportunities/nursing-careers/nurse-residency-program/",
+          "excerpt": "Nurse Residency Program requirements Nursing degree as required by licensure; BSN preferred California, Oregon, or Hawaii Registered Nurse license prior to program start date Less than six months direct patient care experience",
+          "retrieved_at": "2026-11-24T06:36:35Z",
+          "claim": "experience"
+        }
+      ]
+    },
+    "decision": null
+  },
+  {
+    "id": "rev_2026-11-23-daily_009",
+    "run_id": "2026-11-23-daily",
+    "created_at": "2026-11-24T06:53:43.323Z",
+    "state": "PENDING",
+    "reason": "No active official sources on file for VA Greater Los Angeles Healthcare System; finding held for review until sources are verified.",
+    "finding": {
+      "employer": {
+        "name": "VA Greater Los Angeles Healthcare System",
+        "hospital_id": "hosp_va_gla"
+      },
+      "identifiers": {
+        "program": "VA Greater Los Angeles Post-Baccalaureate RN Residency Program (PB-RNR)",
+        "cohort": "AY 2027-2028 Fall Cohort",
+        "requisition_id": null,
+        "ats_provider": "USAJOBS",
+        "ats_tenant": "va",
+        "employer_tenant": null,
+        "opportunity_id": null
+      },
+      "observed_state": "EXPECTED",
+      "eligibility": {
+        "assessment": "UNCERTAIN",
+        "note": "Program targets novice RNs with zero to less than 12 months RN experience from CCNE or ACEN accredited programs; explicit 'new graduate' phrase not present on residency requirements page."
+      },
+      "facts": {
+        "position_title": "Post-Baccalaureate Registered Nurse Residency (PB-RNR)",
+        "locations": [
+          {
+            "city": "Los Angeles",
+            "state": "CA"
+          }
+        ],
+        "specialties": [
+          "Multiple Specialties"
+        ],
+        "application_open": {
+          "kind": "date",
+          "value": "2027-04-01"
+        },
+        "application_close": {
+          "kind": "date",
+          "value": "2027-04-07"
+        },
+        "program_start": {
+          "kind": "date",
+          "value": "2027-09-20"
+        },
+        "bsn_required": true,
+        "rn_license_requirement": "Unencumbered active RN license prior to the start of the program.",
+        "license_required_by": "start",
+        "experience_requirement": "Have zero to less than 12 months RN experience. Graduate from a BSN or MSN entry level program.",
+        "source_url": "https://www.va.gov/greater-los-angeles-health-care/work-with-us/internships-and-fellowships/nurse-residency-programs/registered-nurse-residency-program/",
+        "application_url": "https://www.va.gov/greater-los-angeles-health-care/work-with-us/internships-and-fellowships/nurse-residency-programs/registered-nurse-residency-program/"
+      },
+      "evidence": [
+        {
+          "source_url": "https://www.va.gov/greater-los-angeles-health-care/work-with-us/internships-and-fellowships/nurse-residency-programs/registered-nurse-residency-program/",
+          "excerpt": "RN Residency Program Requirements Be a US citizen Graduate from a BSN or MSN entry level program accredited by Commission on Collegiate Nursing Education (CCNE) or Accreditation Commission for Education in Nursing (ACEN). Have an unencumbered active RN license prior to the start of the program Have zero to less than 12 months RN experience",
+          "retrieved_at": "2026-11-24T06:42:08Z",
+          "claim": "eligibility"
+        },
+        {
+          "source_url": "https://www.va.gov/greater-los-angeles-health-care/work-with-us/internships-and-fellowships/nurse-residency-programs/registered-nurse-residency-program/",
+          "excerpt": "For Academic Year 2027-2028 Fall Cohort program dates: September 20, 2027 – September 15, 2028 Applications open: April 1, 2027 Spring Cohort program dates: March 20, 2028 – March 16, 2029 Applications open: October 1, 2027",
+          "retrieved_at": "2026-11-24T06:42:08Z",
+          "claim": "opening_date"
+        }
+      ]
+    },
+    "decision": null
+  },
+  {
+    "id": "rev_2026-11-23-daily_010",
+    "run_id": "2026-11-23-daily",
+    "created_at": "2026-11-24T06:53:43.323Z",
+    "state": "PENDING",
+    "reason": "No active official sources on file for NorthBay Health Medical Center; finding held for review until sources are verified.",
+    "finding": {
+      "employer": {
+        "name": "NorthBay Health",
+        "hospital_id": "hosp_northbay"
+      },
+      "identifiers": {
+        "program": "Northbay Health Nurse Residency Program",
+        "cohort": "Spring 2027 Cohort",
+        "requisition_id": null,
+        "ats_provider": "Oracle Cloud",
+        "ats_tenant": "northbay",
+        "employer_tenant": null,
+        "opportunity_id": null
+      },
+      "observed_state": "EXPECTED",
+      "eligibility": {
+        "assessment": "ELIGIBLE",
+        "note": "Yearlong initiative tailored for newly graduated nurses ensuring smooth transition from classroom learning to clinical practice."
+      },
+      "facts": {
+        "position_title": "Northbay Health Nurse Residency Program",
+        "locations": [
+          {
+            "city": "Fairfield",
+            "state": "CA"
+          },
+          {
+            "city": "Vacaville",
+            "state": "CA"
+          }
+        ],
+        "specialties": [
+          "Multiple Specialties"
+        ],
+        "program_start": {
+          "kind": "text",
+          "value": "Spring 2027"
+        },
+        "bsn_required": false,
+        "rn_license_requirement": "Current California RN license required by program start.",
+        "license_required_by": "start",
+        "experience_requirement": "Tailored for newly graduated nurses with an ADN, BSN, or MSN.",
+        "source_url": "https://www.northbay.org/en/careers/nursing/nursing-residency-program/",
+        "application_url": "https://erou.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1"
+      },
+      "evidence": [
+        {
+          "source_url": "https://www.northbay.org/en/careers/nursing/nursing-residency-program/",
+          "excerpt": "The residency year includes several key components and resources to ensure that new graduate RNs are set up for success: Orientation to Northbay Health, the nursing department, standards of care, and the clinical skills lab.",
+          "retrieved_at": "2026-11-24T06:42:49Z",
+          "claim": "eligibility"
+        },
+        {
+          "source_url": "https://www.northbay.org/en/careers/nursing/nursing-residency-program/",
+          "excerpt": "Cohort Information We offer two cohorts per year — Spring and Fall . Application periods vary and are subject to organizational needs. Note about applications Applications are only accepted when the Nurse Residency Program position is actively posted on our careers webpage. If the position is not currently listed, it means we are not accepting applications at this time.",
+          "retrieved_at": "2026-11-24T06:42:49Z",
+          "claim": "status"
+        }
+      ]
+    },
+    "decision": null
+  },
+  {
+    "id": "rev_2026-11-23-daily_011",
+    "run_id": "2026-11-23-daily",
+    "created_at": "2026-11-24T06:53:43.323Z",
+    "state": "PENDING",
+    "reason": "Conflicts on opp_473d98f794: Field \"application_open\" has conflicting evidence (stored vs batch); stored value kept. Field \"application_close\" has conflicting evidence (stored vs batch); stored value kept.",
+    "finding": {
+      "employer": {
+        "name": "Children's Hospital of Philadelphia",
+        "hospital_id": "hosp_chop"
+      },
+      "identifiers": {
+        "program": "CHOP Nurse Residency Program",
+        "cohort": "March 2027 Cohort",
+        "requisition_id": null,
+        "ats_provider": "Phenom",
+        "ats_tenant": "chop",
+        "opportunity_id": "opp_473d98f794"
+      },
+      "observed_state": "OPENING_SOON",
+      "eligibility": {
+        "assessment": "ELIGIBLE",
+        "note": "CHOP’s 12-month Nurse Residency helps new graduate nurses transition into their first professional roles."
+      },
+      "facts": {
+        "position_title": "CHOP Nurse Residency Program - March 2027 Cohort",
+        "locations": [
+          {
+            "city": "Philadelphia",
+            "state": "PA"
+          }
+        ],
+        "specialties": [
+          "Pediatrics"
+        ],
+        "application_open": {
+          "kind": "date",
+          "value": "2026-11-30"
+        },
+        "application_close": {
+          "kind": "date",
+          "value": "2026-12-04"
+        },
+        "program_start": {
+          "kind": "date",
+          "value": "2027-03-01"
+        },
+        "bsn_required": true,
+        "rn_license_requirement": "Pennsylvania RN license required prior to start.",
+        "license_required_by": "start",
+        "experience_requirement": "Open to students graduating in December 2026 or earlier with less than 1 year RN experience.",
+        "source_url": "https://careers.chop.edu/us/en/NurseResidency",
+        "application_url": "https://careers.chop.edu/us/en/NurseResidency"
+      },
+      "evidence": [
+        {
+          "source_url": "https://careers.chop.edu/us/en/NurseResidency",
+          "excerpt": "Applications Open Applications will be open from  Nov. 30 through Dec. 4, 2026 for students graduating in December 2026 or earlier. Candidates Notified By Jan. 15, 2027 : All candidates will be notified whether they have been selected to move forward.",
+          "retrieved_at": "2026-11-24T06:30:00Z",
+          "claim": "status"
+        },
+        {
+          "source_url": "https://careers.chop.edu/us/en/NurseResidency",
+          "excerpt": "CHOP’s 12-month Nurse Residency helps new graduate nurses transition into their first professional roles.",
+          "retrieved_at": "2026-11-24T06:30:00Z",
+          "claim": "eligibility"
+        },
+        {
+          "source_url": "https://careers.chop.edu/us/en/NurseResidency",
+          "excerpt": "Applications will be open from Nov. 30 through Dec. 4, 2026",
+          "retrieved_at": "2026-11-24T06:30:00Z",
+          "claim": "opening_date"
+        },
+        {
+          "source_url": "https://careers.chop.edu/us/en/NurseResidency",
+          "excerpt": "Applications will be open from Nov. 30 through Dec. 4, 2026",
+          "retrieved_at": "2026-11-24T06:30:00Z",
+          "claim": "deadline"
+        }
+      ],
+      "uncertainties": null
+    },
+    "decision": null
+  },
+  {
+    "id": "rev_2026-11-23-daily_012",
+    "run_id": "2026-11-23-daily",
+    "created_at": "2026-11-24T06:53:43.323Z",
+    "state": "PENDING",
+    "reason": "Possible duplicate of an existing record (closely matching title); held for human decision instead of auto-creating.",
+    "finding": {
+      "employer": {
+        "name": "Johns Hopkins Medicine",
+        "hospital_id": "hosp_hopkins"
+      },
+      "identifiers": {
+        "program": "Johns Hopkins Nurse Residency Program",
+        "cohort": "2027 Inpatient Cohort",
+        "requisition_id": "104718",
+        "ats_provider": "DirectEmployers",
+        "ats_tenant": "hopkinsmedicine",
+        "opportunity_id": null
+      },
+      "observed_state": "OPEN",
+      "eligibility": {
+        "assessment": "ELIGIBLE",
+        "note": "Open to new graduate registered nurses; all new grads are automatically enrolled in the Johns Hopkins Nurse Residency Program."
+      },
+      "facts": {
+        "position_title": "New Grad RN - Cardiovascular Progressive Care Unit",
+        "locations": [
+          {
+            "city": "Baltimore",
+            "state": "MD"
+          }
+        ],
+        "specialties": [
+          "Critical Care",
+          "Cardiology"
+        ],
+        "application_open": null,
+        "application_close": null,
+        "program_start": null,
+        "bsn_required": false,
+        "rn_license_requirement": "Active Maryland or Compact RN license is required prior to start.",
+        "license_required_by": "start",
+        "experience_requirement": "No RN work experience required; comprehensive orientation and training provided.",
+        "source_url": "https://jobs.hopkinsmedicine.org/jobs/nursing-new-grad-rn/",
+        "application_url": "https://jobs.hopkinsmedicine.org/job/104718/new-grad-rn-cardiovascular-progressive-care-unit-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/"
+      },
+      "evidence": [
+        {
+          "source_url": "https://jobs.hopkinsmedicine.org/job/104718/new-grad-rn-cardiovascular-progressive-care-unit-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+          "excerpt": "New graduate nurses will have a 14 week comprehensive orientation and Nurse Residency Program. No RN work experience required! Training will be provided - All New Grad RNs are automatically enrolled in our Nurse Residency Program.",
+          "retrieved_at": "2026-11-24T06:30:00Z",
+          "claim": "eligibility"
+        },
+        {
+          "source_url": "https://jobs.hopkinsmedicine.org/job/104718/new-grad-rn-cardiovascular-progressive-care-unit-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+          "excerpt": "Nursing New Grad RN Job: New Grad RN - Cardiovascular Progressive Care Unit at Johns Hopkins Medicine in Johns Hopkins Hospital. Requisition 104718 actively accepting applications.",
+          "retrieved_at": "2026-11-24T06:30:00Z",
+          "claim": "status"
+        }
+      ],
+      "uncertainties": null
+    },
+    "decision": null
+  },
+  {
+    "id": "rev_2026-11-23-daily_013",
+    "run_id": "2026-11-23-daily",
+    "created_at": "2026-11-24T06:53:43.323Z",
+    "state": "PENDING",
+    "reason": "Possible duplicate of an existing record (closely matching title); held for human decision instead of auto-creating.",
+    "finding": {
+      "employer": {
+        "name": "Johns Hopkins Medicine",
+        "hospital_id": "hosp_hopkins"
+      },
+      "identifiers": {
+        "program": "Johns Hopkins Nurse Residency Program",
+        "cohort": "2027 Inpatient Cohort",
+        "requisition_id": "104596",
+        "ats_provider": "DirectEmployers",
+        "ats_tenant": "hopkinsmedicine",
+        "opportunity_id": null
+      },
+      "observed_state": "OPEN",
+      "eligibility": {
+        "assessment": "ELIGIBLE",
+        "note": "Open to new graduate registered nurses; all new grads are automatically enrolled in the Johns Hopkins Nurse Residency Program."
+      },
+      "facts": {
+        "position_title": "New Grad RN - General Surgery - Marburg 2",
+        "locations": [
+          {
+            "city": "Baltimore",
+            "state": "MD"
+          }
+        ],
+        "specialties": [
+          "Med-Surg"
+        ],
+        "application_open": null,
+        "application_close": null,
+        "program_start": null,
+        "bsn_required": false,
+        "rn_license_requirement": "Active Maryland or Compact RN license is required prior to start.",
+        "license_required_by": "start",
+        "experience_requirement": "No RN work experience required; comprehensive orientation and training provided.",
+        "source_url": "https://jobs.hopkinsmedicine.org/jobs/nursing-new-grad-rn/",
+        "application_url": "https://jobs.hopkinsmedicine.org/job/104596/new-grad-rn-general-surgery-marburg-2-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/"
+      },
+      "evidence": [
+        {
+          "source_url": "https://jobs.hopkinsmedicine.org/job/104596/new-grad-rn-general-surgery-marburg-2-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+          "excerpt": "Nursing New Grad RN Job: New Grad RN - General Surgery - Marburg 2 at Johns Hopkins Medicine in Johns Hopkins Hospital. All New Grad RNs are automatically enrolled in our Nurse Residency Program.",
+          "retrieved_at": "2026-11-24T06:30:00Z",
+          "claim": "eligibility"
+        },
+        {
+          "source_url": "https://jobs.hopkinsmedicine.org/job/104596/new-grad-rn-general-surgery-marburg-2-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+          "excerpt": "New Grad RN - General Surgery - Marburg 2 at Johns Hopkins Medicine. Requisition 104596 actively accepting applications.",
+          "retrieved_at": "2026-11-24T06:30:00Z",
+          "claim": "status"
+        }
+      ],
+      "uncertainties": null
+    },
+    "decision": null
+  },
+  {
+    "id": "rev_2026-11-23-daily_014",
+    "run_id": "2026-11-23-daily",
+    "created_at": "2026-11-24T06:53:43.323Z",
+    "state": "PENDING",
+    "reason": "Possible duplicate of an existing record (closely matching title); held for human decision instead of auto-creating.",
+    "finding": {
+      "employer": {
+        "name": "Johns Hopkins Medicine",
+        "hospital_id": "hosp_hopkins"
+      },
+      "identifiers": {
+        "program": "Johns Hopkins Nurse Residency Program",
+        "cohort": "2027 Inpatient Cohort",
+        "requisition_id": "104670",
+        "ats_provider": "DirectEmployers",
+        "ats_tenant": "hopkinsmedicine",
+        "opportunity_id": null
+      },
+      "observed_state": "OPEN",
+      "eligibility": {
+        "assessment": "ELIGIBLE",
+        "note": "Open to new graduate registered nurses; all new grads are automatically enrolled in the Johns Hopkins Nurse Residency Program."
+      },
+      "facts": {
+        "position_title": "New Grad RN - Hematologic Malignancies Unit",
+        "locations": [
+          {
+            "city": "Baltimore",
+            "state": "MD"
+          }
+        ],
+        "specialties": [
+          "Oncology"
+        ],
+        "application_open": null,
+        "application_close": null,
+        "program_start": null,
+        "bsn_required": false,
+        "rn_license_requirement": "Active Maryland or Compact RN license is required prior to start.",
+        "license_required_by": "start",
+        "experience_requirement": "No RN work experience required; comprehensive orientation and training provided.",
+        "source_url": "https://jobs.hopkinsmedicine.org/jobs/nursing-new-grad-rn/",
+        "application_url": "https://jobs.hopkinsmedicine.org/job/104670/new-grad-rn-hematologic-malignancies-unit-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/"
+      },
+      "evidence": [
+        {
+          "source_url": "https://jobs.hopkinsmedicine.org/job/104670/new-grad-rn-hematologic-malignancies-unit-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+          "excerpt": "No RN work experience required! Training will be provided - All New Grad RNs are automatically enrolled in our Nurse Residency Program ranked #3 in the nation!",
+          "retrieved_at": "2026-11-24T06:30:00Z",
+          "claim": "eligibility"
+        },
+        {
+          "source_url": "https://jobs.hopkinsmedicine.org/job/104670/new-grad-rn-hematologic-malignancies-unit-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+          "excerpt": "New Grad RN - Hematologic Malignancies Unit at Johns Hopkins Medicine in Johns Hopkins Hospital. Requisition 104670 actively accepting applications.",
+          "retrieved_at": "2026-11-24T06:30:00Z",
+          "claim": "status"
+        }
+      ],
+      "uncertainties": null
+    },
+    "decision": null
+  },
+  {
+    "id": "rev_2026-11-23-daily_015",
+    "run_id": "2026-11-23-daily",
+    "created_at": "2026-11-24T06:53:43.323Z",
+    "state": "PENDING",
+    "reason": "Possible duplicate of an existing record (closely matching title); held for human decision instead of auto-creating.",
+    "finding": {
+      "employer": {
+        "name": "Johns Hopkins Medicine",
+        "hospital_id": "hosp_hopkins"
+      },
+      "identifiers": {
+        "program": "Johns Hopkins Nurse Residency Program",
+        "cohort": "2027 Inpatient Cohort",
+        "requisition_id": "104581",
+        "ats_provider": "DirectEmployers",
+        "ats_tenant": "hopkinsmedicine",
+        "opportunity_id": null
+      },
+      "observed_state": "OPEN",
+      "eligibility": {
+        "assessment": "ELIGIBLE",
+        "note": "Open to new graduate registered nurses; all new grads are automatically enrolled in the Johns Hopkins Nurse Residency Program."
+      },
+      "facts": {
+        "position_title": "New Grad RN - Med Tele",
+        "locations": [
+          {
+            "city": "Baltimore",
+            "state": "MD"
+          }
+        ],
+        "specialties": [
+          "Telemetry",
+          "Med-Surg"
+        ],
+        "application_open": null,
+        "application_close": null,
+        "program_start": null,
+        "bsn_required": false,
+        "rn_license_requirement": "Active Maryland or Compact RN license is required prior to start.",
+        "license_required_by": "start",
+        "experience_requirement": "No RN work experience required; comprehensive orientation and training provided.",
+        "source_url": "https://jobs.hopkinsmedicine.org/jobs/nursing-new-grad-rn/",
+        "application_url": "https://jobs.hopkinsmedicine.org/job/104581/new-grad-rn-med-tele-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/"
+      },
+      "evidence": [
+        {
+          "source_url": "https://jobs.hopkinsmedicine.org/job/104581/new-grad-rn-med-tele-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+          "excerpt": "Nursing New Grad RN Job: New Grad RN - Med Tele at Johns Hopkins Medicine in Johns Hopkins Hospital. All New Grad RNs are automatically enrolled in our Nurse Residency Program.",
+          "retrieved_at": "2026-11-24T06:30:00Z",
+          "claim": "eligibility"
+        },
+        {
+          "source_url": "https://jobs.hopkinsmedicine.org/job/104581/new-grad-rn-med-tele-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+          "excerpt": "New Grad RN - Med Tele at Johns Hopkins Medicine in Johns Hopkins Hospital. Requisition 104581 actively accepting applications.",
+          "retrieved_at": "2026-11-24T06:30:00Z",
+          "claim": "status"
+        }
+      ],
+      "uncertainties": null
+    },
+    "decision": null
+  },
+  {
+    "id": "rev_2026-11-23-daily_016",
+    "run_id": "2026-11-23-daily",
+    "created_at": "2026-11-24T06:53:43.323Z",
+    "state": "PENDING",
+    "reason": "No active official sources on file for NYU Langone Health; finding held for review until sources are verified.",
+    "finding": {
+      "employer": {
+        "name": "NYU Langone Health",
+        "hospital_id": "hosp_nyulangone"
+      },
+      "identifiers": {
+        "program": "NYU Langone Nurse Residency Program",
+        "cohort": "Fall/Winter 2026-2027",
+        "requisition_id": "24056457",
+        "ats_provider": "Phenom",
+        "ats_tenant": "nyulangone",
+        "opportunity_id": null
+      },
+      "observed_state": "OPEN",
+      "eligibility": {
+        "assessment": "ELIGIBLE",
+        "note": "Nurse Residency Program: Participation is required for all baccalaureate new graduate nurses."
+      },
+      "facts": {
+        "position_title": "2026 Fall/Winter New Graduate RN Posting – NYU Langone Hospital-Brooklyn",
+        "locations": [
+          {
+            "city": "Brooklyn",
+            "state": "NY"
+          }
+        ],
+        "specialties": [
+          "Multiple Specialties",
+          "Med-Surg"
+        ],
+        "application_open": null,
+        "application_close": null,
+        "program_start": null,
+        "bsn_required": true,
+        "rn_license_requirement": "New York State RN license required prior to start date.",
+        "license_required_by": "start",
+        "experience_requirement": "Open to new graduate registered nurses with BSN degrees.",
+        "source_url": "https://jobs.nyulangone.org/career-areas/nursing/",
+        "application_url": "https://jobs.nyulangone.org/job/24056457/2026-fall-winter-new-graduate-rn-posting-nyu-langone-hospital-brooklyn-brooklyn-ny/"
+      },
+      "evidence": [
+        {
+          "source_url": "https://jobs.nyulangone.org/job/24056457/2026-fall-winter-new-graduate-rn-posting-nyu-langone-hospital-brooklyn-brooklyn-ny/",
+          "excerpt": "Nurse Residency Program: Participation is required for all baccalaureate new graduate nurses at NYU Langone Hospital-Brooklyn.",
+          "retrieved_at": "2026-11-24T06:30:00Z",
+          "claim": "eligibility"
+        },
+        {
+          "source_url": "https://jobs.nyulangone.org/job/24056457/2026-fall-winter-new-graduate-rn-posting-nyu-langone-hospital-brooklyn-brooklyn-ny/",
+          "excerpt": "2026 Fall/Winter New Graduate RN Posting – NYU Langone Hospital-Brooklyn actively accepting applications.",
+          "retrieved_at": "2026-11-24T06:30:00Z",
+          "claim": "status"
+        }
+      ],
+      "uncertainties": null
+    },
+    "decision": null
+  },
+  {
+    "id": "rev_2026-11-23-daily_017",
+    "run_id": "2026-11-23-daily",
+    "created_at": "2026-11-24T06:53:43.323Z",
+    "state": "PENDING",
+    "reason": "No active official sources on file for Cleveland Clinic; finding held for review until sources are verified.",
+    "finding": {
+      "employer": {
+        "name": "Cleveland Clinic",
+        "hospital_id": "hosp_clevelandclinic"
+      },
+      "identifiers": {
+        "program": "Cleveland Clinic Nursing Residency Program",
+        "cohort": "Rolling Cohorts",
+        "requisition_id": null,
+        "ats_provider": "Workday",
+        "ats_tenant": "clevelandclinic",
+        "opportunity_id": null
+      },
+      "observed_state": "OPEN",
+      "eligibility": {
+        "assessment": "ELIGIBLE",
+        "note": "Turn nursing education into nursing excellence: Cleveland Clinic Nursing Residency Program supports new grad nurses."
+      },
+      "facts": {
+        "position_title": "New Grad RN Resident - Nurse Residency Program",
+        "locations": [
+          {
+            "city": "Cleveland",
+            "state": "OH"
+          }
+        ],
+        "specialties": [
+          "Multiple Specialties",
+          "Critical Care",
+          "Med-Surg",
+          "Telemetry"
+        ],
+        "application_open": null,
+        "application_close": null,
+        "program_start": null,
+        "bsn_required": false,
+        "rn_license_requirement": "Current Ohio Registered Nurse license required upon hire.",
+        "license_required_by": "start",
+        "experience_requirement": "Designed for new nursing graduates transitioning to professional practice.",
+        "source_url": "https://jobs.clevelandclinic.org/nursing-home/",
+        "application_url": "https://jobs.clevelandclinic.org/"
+      },
+      "evidence": [
+        {
+          "source_url": "https://jobs.clevelandclinic.org/nursing-home/",
+          "excerpt": "Turn nursing education into nursing excellence Cleveland Clinic Nursing Residency Program Go from enthusiastic new grad nurse to confident, capable caregiver.",
+          "retrieved_at": "2026-11-24T06:30:00Z",
+          "claim": "eligibility"
+        },
+        {
+          "source_url": "https://jobs.clevelandclinic.org/nursing-home/",
+          "excerpt": "Our residency programs enable you to advance your clinical competencies as you grow your confidence as a nursing professional across Cleveland Clinic health system.",
+          "retrieved_at": "2026-11-24T06:30:00Z",
+          "claim": "status"
+        }
+      ],
+      "uncertainties": null
+    },
+    "decision": null
+  },
+  {
+    "id": "rev_2026-11-23-daily_018",
+    "run_id": "2026-11-23-daily",
+    "created_at": "2026-11-24T06:53:43.323Z",
+    "state": "PENDING",
+    "reason": "No active official sources on file for Texas Children's Hospital; finding held for review until sources are verified.",
+    "finding": {
+      "employer": {
+        "name": "Texas Children's Hospital",
+        "hospital_id": "hosp_texaschildrens"
+      },
+      "identifiers": {
+        "program": "Texas Children's Hospital Nurse Residency Program",
+        "cohort": "July 2027 Cohort",
+        "requisition_id": null,
+        "ats_provider": "Phenom",
+        "ats_tenant": "texaschildrens",
+        "opportunity_id": null
+      },
+      "observed_state": "EXPECTED",
+      "eligibility": {
+        "assessment": "ELIGIBLE",
+        "note": "The Texas Children’s Hospital Nurse Residency Program provides a unique opportunity for the new graduate nurse to transition to professional practice."
+      },
+      "facts": {
+        "position_title": "Texas Children's Hospital Nurse Residency Program - July 2027 Cohort",
+        "locations": [
+          {
+            "city": "Houston",
+            "state": "TX"
+          }
+        ],
+        "specialties": [
+          "Pediatrics"
+        ],
+        "application_open": {
+          "kind": "text",
+          "value": "February/March 2027"
+        },
+        "application_close": null,
+        "program_start": {
+          "kind": "text",
+          "value": "July 2027"
+        },
+        "bsn_required": true,
+        "rn_license_requirement": "Current RN licensure from the State of Texas or compact state required by start date.",
+        "license_required_by": "start",
+        "experience_requirement": "Open to new nursing graduates with BSN degree and less than 12 months RN experience.",
+        "source_url": "https://www.texaschildrens.org/health-professionals/education-and-training/fellowships-and-residencies/nurse-residency-program",
+        "application_url": "https://www.texaschildrens.org/careers"
+      },
+      "evidence": [
+        {
+          "source_url": "https://www.texaschildrens.org/health-professionals/education-and-training/fellowships-and-residencies/nurse-residency-program",
+          "excerpt": "The Texas Children’s Hospital Nurse Residency Program provides a unique opportunity for the new graduate nurse to address the realities of clinical practice, overcome fears of transition from student to nurse, and develop competence and confidence in their nursing role.",
+          "retrieved_at": "2026-11-24T06:30:00Z",
+          "claim": "eligibility"
+        },
+        {
+          "source_url": "https://www.texaschildrens.org/health-professionals/education-and-training/fellowships-and-residencies/nurse-residency-program",
+          "excerpt": "Cohort Information: Graduation Month: May Applications Open: February/March Cohort Starts: July",
+          "retrieved_at": "2026-11-24T06:30:00Z",
+          "claim": "status"
+        }
+      ],
+      "uncertainties": null
+    },
+    "decision": null
   }
 ]

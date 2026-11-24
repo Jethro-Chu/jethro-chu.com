@@ -484,5 +484,113 @@
     "hospital_id": "hosp_bidmc",
     "name": "Nurse Residency Program",
     "source_url": "https://jobs.bilh.org/locations/beth-israel-deaconess-medical-center/"
+  },
+  {
+    "id": "prog_2e8a4a36b8",
+    "hospital_id": "hosp_uci",
+    "name": "UCI Health Transition to Practice Nurse Residency Program",
+    "source_url": "https://careers.ucihealth.org/"
+  },
+  {
+    "id": "prog_31c63d8104",
+    "hospital_id": "hosp_keck",
+    "name": "Versant RN Residency Program",
+    "source_url": "https://www.keckmedicine.org/careers/"
+  },
+  {
+    "id": "prog_4513fa99fc",
+    "hospital_id": "hosp_huntington",
+    "name": "Huntington Health Nurse Residency Program",
+    "source_url": "https://www.huntingtonhealth.org/education/residency-programs/nursing-residency/"
+  },
+  {
+    "id": "prog_b00bfa21dd",
+    "hospital_id": "hosp_choc",
+    "name": "CHOC RN Residency Program",
+    "source_url": "https://www.choc.org/careers/nursing/rn-residency/"
+  },
+  {
+    "id": "prog_9a2db4c43c",
+    "hospital_id": "hosp_packard",
+    "name": "Stanford Medicine Children's Health Nurse Residency Program",
+    "source_url": "https://careers.stanfordchildrens.org/"
+  },
+  {
+    "id": "prog_f199c98757",
+    "hospital_id": "hosp_washington",
+    "name": "RN New Graduate Residency Program",
+    "source_url": "https://jobs.jobvite.com/washingtonhospital/job/oEiWAfwc"
+  },
+  {
+    "id": "prog_288dc79d2b",
+    "hospital_id": "hosp_scripps",
+    "name": "Scripps Health New Graduate RN Residency Program",
+    "source_url": "https://careers.scripps.org/training-programs/new-grads-rn/"
+  },
+  {
+    "id": "prog_f490d31800",
+    "hospital_id": "hosp_kaiser",
+    "name": "Kaiser Permanente National RN Residency Program",
+    "source_url": "https://nursescholars.kp.org/residency"
+  },
+  {
+    "id": "prog_b64e1ea737",
+    "hospital_id": "hosp_dignity",
+    "name": "CommonSpirit National Nurse Residency Program",
+    "source_url": "https://www.commonspirit.careers/NNRP-CA"
+  },
+  {
+    "id": "prog_0893dc1982",
+    "hospital_id": "hosp_stelizabeth",
+    "name": "CommonSpirit National Nurse Residency Program",
+    "source_url": "https://www.commonspirit.careers/NNRP-CA"
+  },
+  {
+    "id": "prog_2a9317d2f8",
+    "hospital_id": "hosp_lb_memorial",
+    "name": "MemorialCare New Graduate RN Residency Program",
+    "source_url": "https://careers.memorialcare.org/recent-grads"
+  },
+  {
+    "id": "prog_cdd658e476",
+    "hospital_id": "hosp_va_sf",
+    "name": "San Francisco VA Post Baccalaureate RN Residency (PB-RNR) Program",
+    "source_url": "https://www.va.gov/san-francisco-health-care/work-with-us/internships-and-fellowships/post-baccalaureate-registered-nurse-residency-program-pb-rnr/"
+  },
+  {
+    "id": "prog_046d5a4508",
+    "hospital_id": "hosp_sutter",
+    "name": "Sutter Health Nurse Residency Program",
+    "source_url": "https://jobs.sutterhealth.org/us/en/clinical-career-development"
+  },
+  {
+    "id": "prog_49327a9ed3",
+    "hospital_id": "hosp_duke",
+    "name": "Duke Health Nurse Residency Program",
+    "source_url": "https://careers.dukehealth.org/us/en/new-graduate-nurse-programs"
+  },
+  {
+    "id": "prog_43a6b99ba7",
+    "hospital_id": "hosp_mountsinai",
+    "name": "Mount Sinai Nurse Residency & Fellowship Programs",
+    "source_url": "https://careers.mountsinai.org/special-programs"
+  },
+  {
+    "id": "prog_47a3cab997",
+    "hospital_id": "hosp_bmc",
+    "name": "New Graduate RN Residency Program",
+    "source_url": "https://jobs.bmc.org/"
+  },
+  {
+    "id": "prog_7888b3e140",
+    "hospital_id": "hosp_bidmc",
+    "name": "BIDMC Nurse Residency Program",
+    "source_url": "https://jobs.bilh.org/locations/beth-israel-deaconess-medical-center/"
+  },
+  {
+    "id": "prog_d95266d6cf",
+    "hospital_id": "hosp_bsw",
+    "name": "Baylor Scott & White Health Nurse Residency Program",
+    "source_url": "https://jobs.bswhealth.com/us/en/students-graduates"
   }
 ]
