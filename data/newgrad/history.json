@@ -17065,5 +17065,1050 @@
         "claim": "deadline"
       }
     ]
+  },
+  {
+    "id": "hist_manual_1a36dbd577e8",
+    "run_id": null,
+    "at": "2026-11-24T13:14:29.094Z",
+    "type": "CORRECTED",
+    "opportunity_id": "opp_473d98f794",
+    "changes": [
+      {
+        "field": "application_open",
+        "before": {
+          "kind": "date",
+          "value": "2026-09-28"
+        },
+        "after": {
+          "kind": "date",
+          "value": "2026-11-30"
+        }
+      }
+    ],
+    "reason": "Manual correction by Jethro: Official CHOP update: Nov 30 - Dec 4 application window for Dec grads",
+    "evidence": []
+  },
+  {
+    "id": "hist_manual_d438350ec09d",
+    "run_id": null,
+    "at": "2026-11-24T13:14:29.356Z",
+    "type": "CORRECTED",
+    "opportunity_id": "opp_473d98f794",
+    "changes": [
+      {
+        "field": "application_close",
+        "before": {
+          "kind": "date",
+          "value": "2026-10-02"
+        },
+        "after": {
+          "kind": "date",
+          "value": "2026-12-04"
+        }
+      }
+    ],
+    "reason": "Manual correction by Jethro: Official CHOP update: Nov 30 - Dec 4 application window for Dec grads",
+    "evidence": []
+  },
+  {
+    "id": "hist_2026-11-24-daily_0001",
+    "run_id": "2026-11-24-daily",
+    "at": "2026-11-24T13:15:17.100Z",
+    "type": "CLOSED",
+    "opportunity_id": "opp_116ea92514",
+    "changes": [
+      {
+        "field": "cohort_id",
+        "before": "cohort_ecb1c0fd89",
+        "after": "cohort_338ce79cfb"
+      },
+      {
+        "field": "application_status",
+        "before": "EXPECTED",
+        "after": "CLOSED"
+      },
+      {
+        "field": "closed_at",
+        "before": null,
+        "after": "2026-11-24T13:15:17.100Z"
+      }
+    ],
+    "reason": "Official evidence verified closure.",
+    "evidence": [
+      {
+        "source_url": "https://careers.stanfordhealthcare.org/us/en/nurse-residency-program",
+        "excerpt": "Cohort 46 Applications Open: November 9, 2026 – November 15, 2026. Application Screening: December 7th, 2026- January 29th, 2027. CA License required by: February 12th, 2027. Cohort 46 starts April 12, 2027.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://careers.stanfordhealthcare.org/us/en/nurse-residency-program",
+        "excerpt": "The Stanford Health Care Nurse Residency Program welcomes new graduate registered nurses who have graduated from an accredited BSN or MSN program within the last 18 months.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://careers.stanfordhealthcare.org/us/en/nurse-residency-program",
+        "excerpt": "Current California RN License is required prior to the start date of the residency program.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "license"
+      },
+      {
+        "source_url": "https://careers.stanfordhealthcare.org/us/en/nurse-residency-program",
+        "excerpt": "Cohort 46 starts April 12, 2027.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "start_date"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-11-24-daily_0002",
+    "run_id": "2026-11-24-daily",
+    "at": "2026-11-24T13:15:17.100Z",
+    "type": "UPDATED",
+    "opportunity_id": "opp_116ea92514",
+    "changes": [
+      {
+        "field": "cohort_id",
+        "before": "cohort_ecb1c0fd89",
+        "after": "cohort_338ce79cfb"
+      },
+      {
+        "field": "application_status",
+        "before": "EXPECTED",
+        "after": "CLOSED"
+      },
+      {
+        "field": "closed_at",
+        "before": null,
+        "after": "2026-11-24T13:15:17.100Z"
+      }
+    ],
+    "reason": "Updated from run evidence (CLOSED).",
+    "evidence": [
+      {
+        "source_url": "https://careers.stanfordhealthcare.org/us/en/nurse-residency-program",
+        "excerpt": "Cohort 46 Applications Open: November 9, 2026 – November 15, 2026. Application Screening: December 7th, 2026- January 29th, 2027. CA License required by: February 12th, 2027. Cohort 46 starts April 12, 2027.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://careers.stanfordhealthcare.org/us/en/nurse-residency-program",
+        "excerpt": "The Stanford Health Care Nurse Residency Program welcomes new graduate registered nurses who have graduated from an accredited BSN or MSN program within the last 18 months.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://careers.stanfordhealthcare.org/us/en/nurse-residency-program",
+        "excerpt": "Current California RN License is required prior to the start date of the residency program.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "license"
+      },
+      {
+        "source_url": "https://careers.stanfordhealthcare.org/us/en/nurse-residency-program",
+        "excerpt": "Cohort 46 starts April 12, 2027.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "start_date"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-11-24-daily_0003",
+    "run_id": "2026-11-24-daily",
+    "at": "2026-11-24T13:15:17.100Z",
+    "type": "UPDATED",
+    "opportunity_id": "opp_116ea92514",
+    "changes": [
+      {
+        "field": "cohort_id",
+        "before": "cohort_338ce79cfb",
+        "after": "cohort_ecb1c0fd89"
+      },
+      {
+        "field": "application_status",
+        "before": "CLOSED",
+        "after": "EXPECTED"
+      }
+    ],
+    "reason": "Updated from run evidence (EXPECTED).",
+    "evidence": [
+      {
+        "source_url": "https://careers.stanfordhealthcare.org/us/en/nurse-residency-program",
+        "excerpt": "Cohort 47 Applications Open: April 26, 2027 – May 2, 2027. Application Screening: May 24, 2027 – July 16, 2027. CA RN License Required By: July 30, 2027. Cohort 47 Start Date: September 27, 2027.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://careers.stanfordhealthcare.org/us/en/nurse-residency-program",
+        "excerpt": "Eligibility requirements: Graduate from an accredited Associate (ADN), Bachelor’s (BSN), or Master’s (MSN) nursing degree program within 18 months of cohort start date. Open to new graduate registered nurses with less than 1,040 hours of paid RN work experience.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://careers.stanfordhealthcare.org/us/en/nurse-residency-program",
+        "excerpt": "Cohort 47 Applications Open: April 26, 2027 – May 2, 2027.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "opening_date"
+      },
+      {
+        "source_url": "https://careers.stanfordhealthcare.org/us/en/nurse-residency-program",
+        "excerpt": "Cohort 47 Start Date: September 27, 2027.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "start_date"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-11-24-daily_0004",
+    "run_id": "2026-11-24-daily",
+    "at": "2026-11-24T13:15:17.100Z",
+    "type": "UPDATED",
+    "opportunity_id": "opp_73bcc0ea08",
+    "changes": [
+      {
+        "field": "position_title",
+        "before": "Nurse Residency Program - Cohort 61",
+        "after": "Nurse Residency Program - Cohort 60"
+      },
+      {
+        "field": "cohort_id",
+        "before": "cohort_aba7e045cd",
+        "after": "cohort_43b778c150"
+      }
+    ],
+    "reason": "Updated from run evidence (CLOSED).",
+    "evidence": [
+      {
+        "source_url": "https://hr.ucdavis.edu/departments/hr/nurse-recruitment/nurse-residency-program",
+        "excerpt": "Cohort 60 Application Acceptance Period: November 4th – November 11th, 2026. Cohort Start Date: March 15th, 2027.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://hr.ucdavis.edu/departments/hr/nurse-recruitment/nurse-residency-program",
+        "excerpt": "The UC Davis Health Nurse Residency Program is a 12-month program designed to support newly licensed registered nurses and new graduate registered nurses with less than six months RN experience.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://hr.ucdavis.edu/departments/hr/nurse-recruitment/nurse-residency-program",
+        "excerpt": "Cohort 60 Application Acceptance Period: November 4th – November 11th, 2026.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "deadline"
+      },
+      {
+        "source_url": "https://hr.ucdavis.edu/departments/hr/nurse-recruitment/nurse-residency-program",
+        "excerpt": "Cohort 60 Start Date: March 15th, 2027.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "start_date"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-11-24-daily_0005",
+    "run_id": "2026-11-24-daily",
+    "at": "2026-11-24T13:15:17.100Z",
+    "type": "UPDATED",
+    "opportunity_id": "opp_73bcc0ea08",
+    "changes": [
+      {
+        "field": "position_title",
+        "before": "Nurse Residency Program - Cohort 60",
+        "after": "Nurse Residency Program - Cohort 61"
+      },
+      {
+        "field": "cohort_id",
+        "before": "cohort_43b778c150",
+        "after": "cohort_aba7e045cd"
+      }
+    ],
+    "reason": "Updated from run evidence (CLOSED).",
+    "evidence": [
+      {
+        "source_url": "https://hr.ucdavis.edu/departments/hr/nurse-recruitment/nurse-residency-program",
+        "excerpt": "Cohort 61 Application Acceptance Period: November 4th – November 11th, 2026. Cohort Start Date: May 10th, 2027.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://hr.ucdavis.edu/departments/hr/nurse-recruitment/nurse-residency-program",
+        "excerpt": "The UC Davis Health Nurse Residency Program is a 12-month program designed to support newly licensed registered nurses and new graduate nurses transitioning into practice.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://hr.ucdavis.edu/departments/hr/nurse-recruitment/nurse-residency-program",
+        "excerpt": "Cohort 61 Application Acceptance Period: November 4th – November 11th, 2026.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "deadline"
+      },
+      {
+        "source_url": "https://hr.ucdavis.edu/departments/hr/nurse-recruitment/nurse-residency-program",
+        "excerpt": "Cohort 61 Start Date: May 10th, 2027.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "start_date"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-11-24-daily_0006",
+    "run_id": "2026-11-24-daily",
+    "at": "2026-11-24T13:15:17.100Z",
+    "type": "CLOSED",
+    "opportunity_id": "opp_4a34429f1c",
+    "changes": [
+      {
+        "field": "position_title",
+        "before": "New Graduate RN Residency - Fall 2027 Cohort",
+        "after": "New Graduate RN Residency - Spring 2027 Cohort"
+      },
+      {
+        "field": "cohort_id",
+        "before": "cohort_eab12c3b4b",
+        "after": "cohort_29e82f5e9c"
+      },
+      {
+        "field": "application_status",
+        "before": "EXPECTED",
+        "after": "CLOSED"
+      },
+      {
+        "field": "closed_at",
+        "before": null,
+        "after": "2026-11-24T13:15:17.100Z"
+      }
+    ],
+    "reason": "Official evidence verified closure.",
+    "evidence": [
+      {
+        "source_url": "https://www.uclahealthcareers.org/nursing-new-graduates/",
+        "excerpt": "Spring 2027 Cohort: Applications are closed. Program Start: March 2027.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://www.uclahealthcareers.org/nursing-new-graduates/",
+        "excerpt": "The UCLA Health Nurse Residency Program welcomes new graduate registered nurses who have graduated from an accredited BSN or entry-level MSN program with less than 6 months of inpatient RN experience.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://www.uclahealthcareers.org/nursing-new-graduates/",
+        "excerpt": "Spring 2027 Cohort Program Start: March 2027.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "start_date"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-11-24-daily_0007",
+    "run_id": "2026-11-24-daily",
+    "at": "2026-11-24T13:15:17.100Z",
+    "type": "UPDATED",
+    "opportunity_id": "opp_4a34429f1c",
+    "changes": [
+      {
+        "field": "position_title",
+        "before": "New Graduate RN Residency - Fall 2027 Cohort",
+        "after": "New Graduate RN Residency - Spring 2027 Cohort"
+      },
+      {
+        "field": "cohort_id",
+        "before": "cohort_eab12c3b4b",
+        "after": "cohort_29e82f5e9c"
+      },
+      {
+        "field": "application_status",
+        "before": "EXPECTED",
+        "after": "CLOSED"
+      },
+      {
+        "field": "closed_at",
+        "before": null,
+        "after": "2026-11-24T13:15:17.100Z"
+      }
+    ],
+    "reason": "Updated from run evidence (CLOSED).",
+    "evidence": [
+      {
+        "source_url": "https://www.uclahealthcareers.org/nursing-new-graduates/",
+        "excerpt": "Spring 2027 Cohort: Applications are closed. Program Start: March 2027.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://www.uclahealthcareers.org/nursing-new-graduates/",
+        "excerpt": "The UCLA Health Nurse Residency Program welcomes new graduate registered nurses who have graduated from an accredited BSN or entry-level MSN program with less than 6 months of inpatient RN experience.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://www.uclahealthcareers.org/nursing-new-graduates/",
+        "excerpt": "Spring 2027 Cohort Program Start: March 2027.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "start_date"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-11-24-daily_0008",
+    "run_id": "2026-11-24-daily",
+    "at": "2026-11-24T13:15:17.100Z",
+    "type": "UPDATED",
+    "opportunity_id": "opp_4a34429f1c",
+    "changes": [
+      {
+        "field": "position_title",
+        "before": "New Graduate RN Residency - Spring 2027 Cohort",
+        "after": "New Graduate RN Residency - Fall 2027 Cohort"
+      },
+      {
+        "field": "cohort_id",
+        "before": "cohort_29e82f5e9c",
+        "after": "cohort_eab12c3b4b"
+      },
+      {
+        "field": "application_status",
+        "before": "CLOSED",
+        "after": "EXPECTED"
+      }
+    ],
+    "reason": "Updated from run evidence (EXPECTED).",
+    "evidence": [
+      {
+        "source_url": "https://www.uclahealthcareers.org/nursing-new-graduates/",
+        "excerpt": "Applications for the Fall 2027 cohort are expected to begin in March 2027 with additional details posted around January 2027.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://www.uclahealthcareers.org/nursing-new-graduates/",
+        "excerpt": "The UCLA Health Nurse Residency Program is offered twice annually, welcoming new graduate nurses transitioning to professional acute care practice.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://www.uclahealthcareers.org/nursing-new-graduates/",
+        "excerpt": "Fall 2027 cohort recruitment opening: applications expected to begin in March 2027.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "opening_date"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-11-24-daily_0009",
+    "run_id": "2026-11-24-daily",
+    "at": "2026-11-24T13:15:17.100Z",
+    "type": "NEW",
+    "opportunity_id": "opp_ac372d47a9",
+    "changes": null,
+    "reason": "First published from run evidence (OPENING_SOON).",
+    "evidence": [
+      {
+        "source_url": "https://www.chla.org/rn-residency-pediatrics",
+        "excerpt": "External Candidates Application Window: Opens December 1, 2026, at 9:00 AM PST and closes December 2, 2026, at 4:00 PM PST. Cohort Start Date: March 1, 2027.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://www.chla.org/rn-residency-pediatrics",
+        "excerpt": "The RN Residency in Pediatrics is open to new graduate nurses with less than 1 year of RN experience.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://www.chla.org/rn-residency-pediatrics",
+        "excerpt": "External Candidates Application Window: Opens December 1, 2026, at 9:00 AM PST.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "opening_date"
+      },
+      {
+        "source_url": "https://www.chla.org/rn-residency-pediatrics",
+        "excerpt": "Application closes December 2, 2026, at 4:00 PM PST.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "deadline"
+      },
+      {
+        "source_url": "https://www.chla.org/rn-residency-pediatrics",
+        "excerpt": "Cohort Start Date: March 1, 2027.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "start_date"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-11-24-daily_0010",
+    "run_id": "2026-11-24-daily",
+    "at": "2026-11-24T13:15:17.100Z",
+    "type": "CLOSED",
+    "opportunity_id": "opp_b7945f70da",
+    "changes": [
+      {
+        "field": "position_title",
+        "before": "Palomar Health Nurse Residency Program - Spring 2027",
+        "after": "Palomar Health Nurse Residency Program"
+      },
+      {
+        "field": "application_open",
+        "before": {
+          "kind": "text",
+          "value": "December 2026"
+        },
+        "after": {
+          "kind": "date",
+          "value": "2026-08-18"
+        }
+      },
+      {
+        "field": "program_start",
+        "before": {
+          "kind": "text",
+          "value": "February 2027"
+        },
+        "after": {
+          "kind": "date",
+          "value": "2026-10-19"
+        }
+      },
+      {
+        "field": "cohort_id",
+        "before": "cohort_7f6497d449",
+        "after": "cohort_66fa7227f9"
+      },
+      {
+        "field": "experience_requirement",
+        "before": "New graduate RNs with less than one year of experience.",
+        "after": "Program focused on the New Graduate Nurse with less than one year RN experience."
+      },
+      {
+        "field": "application_status",
+        "before": "EXPECTED",
+        "after": "CLOSED"
+      },
+      {
+        "field": "closed_at",
+        "before": null,
+        "after": "2026-11-24T13:15:17.100Z"
+      }
+    ],
+    "reason": "Official evidence verified closure.",
+    "evidence": [
+      {
+        "source_url": "https://palomarucsdhealth.org/careers/nurse-residency/",
+        "excerpt": "Thank you for your interest in our Nurse Residency Program, a program focused on the New Graduate Nurse . Our Residency Program is offered three times per year: spring (February), summer (August) and fall (October).",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://palomarucsdhealth.org/careers/nurse-residency/",
+        "excerpt": "Next program start date is October 19, 2026. Nurse Resident positions will be posted beginning August 18, 2026. Positions may close externally based on applicant volume.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://palomarucsdhealth.org/careers/nurse-residency/",
+        "excerpt": "Please include your NCLEX date if you do not have your CA RN license. *You must have your CA RN license by the program start date. Current employees must submit a Transfer Request.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "license"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-11-24-daily_0011",
+    "run_id": "2026-11-24-daily",
+    "at": "2026-11-24T13:15:17.100Z",
+    "type": "UPDATED",
+    "opportunity_id": "opp_b7945f70da",
+    "changes": [
+      {
+        "field": "position_title",
+        "before": "Palomar Health Nurse Residency Program - Spring 2027",
+        "after": "Palomar Health Nurse Residency Program"
+      },
+      {
+        "field": "application_open",
+        "before": {
+          "kind": "text",
+          "value": "December 2026"
+        },
+        "after": {
+          "kind": "date",
+          "value": "2026-08-18"
+        }
+      },
+      {
+        "field": "program_start",
+        "before": {
+          "kind": "text",
+          "value": "February 2027"
+        },
+        "after": {
+          "kind": "date",
+          "value": "2026-10-19"
+        }
+      },
+      {
+        "field": "cohort_id",
+        "before": "cohort_7f6497d449",
+        "after": "cohort_66fa7227f9"
+      },
+      {
+        "field": "experience_requirement",
+        "before": "New graduate RNs with less than one year of experience.",
+        "after": "Program focused on the New Graduate Nurse with less than one year RN experience."
+      },
+      {
+        "field": "application_status",
+        "before": "EXPECTED",
+        "after": "CLOSED"
+      },
+      {
+        "field": "closed_at",
+        "before": null,
+        "after": "2026-11-24T13:15:17.100Z"
+      }
+    ],
+    "reason": "Updated from run evidence (CLOSED).",
+    "evidence": [
+      {
+        "source_url": "https://palomarucsdhealth.org/careers/nurse-residency/",
+        "excerpt": "Thank you for your interest in our Nurse Residency Program, a program focused on the New Graduate Nurse . Our Residency Program is offered three times per year: spring (February), summer (August) and fall (October).",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://palomarucsdhealth.org/careers/nurse-residency/",
+        "excerpt": "Next program start date is October 19, 2026. Nurse Resident positions will be posted beginning August 18, 2026. Positions may close externally based on applicant volume.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://palomarucsdhealth.org/careers/nurse-residency/",
+        "excerpt": "Please include your NCLEX date if you do not have your CA RN license. *You must have your CA RN license by the program start date. Current employees must submit a Transfer Request.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "license"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-11-24-daily_0012",
+    "run_id": "2026-11-24-daily",
+    "at": "2026-11-24T13:15:17.100Z",
+    "type": "UPDATED",
+    "opportunity_id": "opp_b7945f70da",
+    "changes": [
+      {
+        "field": "position_title",
+        "before": "Palomar Health Nurse Residency Program",
+        "after": "Palomar Health Nurse Residency Program - Spring 2027"
+      },
+      {
+        "field": "program_start",
+        "before": {
+          "kind": "date",
+          "value": "2026-10-19"
+        },
+        "after": {
+          "kind": "text",
+          "value": "February 2027"
+        }
+      },
+      {
+        "field": "cohort_id",
+        "before": "cohort_66fa7227f9",
+        "after": "cohort_7f6497d449"
+      },
+      {
+        "field": "experience_requirement",
+        "before": "Program focused on the New Graduate Nurse with less than one year RN experience.",
+        "after": "New graduate RNs with less than one year of experience."
+      },
+      {
+        "field": "application_status",
+        "before": "CLOSED",
+        "after": "EXPECTED"
+      }
+    ],
+    "reason": "Updated from run evidence (EXPECTED).",
+    "evidence": [
+      {
+        "source_url": "https://palomarucsdhealth.org/careers/nurse-residency/",
+        "excerpt": "Thank you for your interest in our Nurse Residency Program, a program focused on the New Graduate Nurse . Our Residency Program is offered three times per year: spring (February), summer (August) and fall (October).",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://palomarucsdhealth.org/careers/nurse-residency/",
+        "excerpt": "Spring Summer Fall Positions Posted December May August Program Start Date February August October Last updated: August 3, 2026",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "opening_date"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-11-24-daily_0013",
+    "run_id": "2026-11-24-daily",
+    "at": "2026-11-24T13:15:17.100Z",
+    "type": "UPDATED",
+    "opportunity_id": "opp_650b1424a7",
+    "changes": [
+      {
+        "field": "unit",
+        "before": null,
+        "after": "Cardiac Telemetry, DOU, Medical-Surgical, Oncology, Telemetry"
+      },
+      {
+        "field": "specialties",
+        "before": [
+          "Multiple Specialties",
+          "Med-Surg",
+          "Telemetry",
+          "Oncology",
+          "Rehabilitation"
+        ],
+        "after": [
+          "Telemetry",
+          "Unknown",
+          "Oncology"
+        ]
+      },
+      {
+        "field": "program_id",
+        "before": "prog_f4eae62a35",
+        "after": "prog_b0faaa584f"
+      },
+      {
+        "field": "cohort_id",
+        "before": null,
+        "after": "cohort_3c5d067673"
+      },
+      {
+        "field": "rn_license_requirement",
+        "before": "Permanent California RN license required at least two weeks prior to cohort start date. Active AHA BLS required.",
+        "after": "Must have a permanent CA RN license prior to start date. Interim permits are not accepted."
+      },
+      {
+        "field": "experience_requirement",
+        "before": "New graduate or RN with less than one year of experience in any area by start date.",
+        "after": "This program is for newly graduating nurses with an ADN, BSN, or MSN degree. Less than one year of experience."
+      }
+    ],
+    "reason": "Updated from run evidence (EXPECTED).",
+    "evidence": [
+      {
+        "source_url": "https://pihcareers.silkroad.com/pihext/Getting-Hired/New-Graduate-FAQ-s.html",
+        "excerpt": "Our New Graduate hiring is based on departmental needs throughout the year. Our Residency program lasts one year in duration, consisting of educational topics, mentoring, and team building . New Graduate comprehensive training is 8-12 weeks, including preceptorship. This program is for newly graduating nurses with an ADN, BSN, or MSN degree. Application period: On-going",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://pihcareers.silkroad.com/pihext/Getting-Hired/New-Graduate-FAQ-s.html",
+        "excerpt": "Open positions will be posted as RN, New Graduate with the specific department that has openings. Important Information: Positions will be posted for each department with openings Applications are accepted on an ongoing basis Interviews will take place until positions are filled",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://pihcareers.silkroad.com/pihext/Getting-Hired/New-Graduate-FAQ-s.html",
+        "excerpt": "You must have a permanent CA RN license prior to start date Resume should contain clinical rotation sites, department, and hours Attach two letters of recommendation from clinical instructors, or school professors",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "license"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-11-24-daily_0014",
+    "run_id": "2026-11-24-daily",
+    "at": "2026-11-24T13:15:17.100Z",
+    "type": "CLOSED",
+    "opportunity_id": "opp_5300617360",
+    "changes": [
+      {
+        "field": "position_title",
+        "before": "New Graduate RN Residency Program - March 2027 Cohort",
+        "after": "RN New Grad Residency - 2027 Cohorts"
+      },
+      {
+        "field": "application_open",
+        "before": {
+          "kind": "datetime",
+          "value": "2026-11-29T12:00:00-08:00"
+        },
+        "after": {
+          "kind": "datetime",
+          "value": "2026-09-20T12:00:00-07:00"
+        }
+      },
+      {
+        "field": "application_close",
+        "before": {
+          "kind": "datetime",
+          "value": "2026-12-01T23:59:59-08:00"
+        },
+        "after": {
+          "kind": "datetime",
+          "value": "2026-09-22T23:59:59-07:00"
+        }
+      },
+      {
+        "field": "program_start",
+        "before": {
+          "kind": "date",
+          "value": "2027-03-22"
+        },
+        "after": {
+          "kind": "date",
+          "value": "2027-01-11"
+        }
+      },
+      {
+        "field": "cohort_id",
+        "before": "cohort_1ee8fad290",
+        "after": "cohort_8fcccfd717"
+      },
+      {
+        "field": "experience_requirement",
+        "before": "New graduate RNs who have graduated from nursing school within the past 12 months and have 6 months or less of RN experience.",
+        "after": "New graduate RNs who have graduated within the past 12 months and have 6 months or less of RN experience."
+      },
+      {
+        "field": "application_status",
+        "before": "OPENING_SOON",
+        "after": "CLOSED"
+      },
+      {
+        "field": "closed_at",
+        "before": null,
+        "after": "2026-11-24T13:15:17.100Z"
+      }
+    ],
+    "reason": "Official evidence verified closure.",
+    "evidence": [
+      {
+        "source_url": "https://careers.scripps.org/training-programs/new-grads-rn/",
+        "excerpt": "Who can apply for the new grad program? New graduate RNs who have graduated from nursing school within the past 12 months and have 6 months or less of RN experience may apply.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://careers.scripps.org/wp-content/uploads/sites/3487/2026/08/Calendar-2027-program-dates-for-Careers-Site-Home-Page-Link_Final_8.2026.pdf",
+        "excerpt": "2027 New Graduate RN Residency / Transition Program Dates Program Start 1/11/2027 Program End 10/16/2027 Current Scripps employees: 9/20/2026 - 9/26/2026 All others: 9/20/2026 at 12 p.m. PST - 9/22/2026 at 11:59 p.m. PST 10/12/2026 - 11/6/2026",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "status"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-11-24-daily_0015",
+    "run_id": "2026-11-24-daily",
+    "at": "2026-11-24T13:15:17.100Z",
+    "type": "UPDATED",
+    "opportunity_id": "opp_5300617360",
+    "changes": [
+      {
+        "field": "position_title",
+        "before": "New Graduate RN Residency Program - March 2027 Cohort",
+        "after": "RN New Grad Residency - 2027 Cohorts"
+      },
+      {
+        "field": "application_open",
+        "before": {
+          "kind": "datetime",
+          "value": "2026-11-29T12:00:00-08:00"
+        },
+        "after": {
+          "kind": "datetime",
+          "value": "2026-09-20T12:00:00-07:00"
+        }
+      },
+      {
+        "field": "application_close",
+        "before": {
+          "kind": "datetime",
+          "value": "2026-12-01T23:59:59-08:00"
+        },
+        "after": {
+          "kind": "datetime",
+          "value": "2026-09-22T23:59:59-07:00"
+        }
+      },
+      {
+        "field": "program_start",
+        "before": {
+          "kind": "date",
+          "value": "2027-03-22"
+        },
+        "after": {
+          "kind": "date",
+          "value": "2027-01-11"
+        }
+      },
+      {
+        "field": "cohort_id",
+        "before": "cohort_1ee8fad290",
+        "after": "cohort_8fcccfd717"
+      },
+      {
+        "field": "experience_requirement",
+        "before": "New graduate RNs who have graduated from nursing school within the past 12 months and have 6 months or less of RN experience.",
+        "after": "New graduate RNs who have graduated within the past 12 months and have 6 months or less of RN experience."
+      },
+      {
+        "field": "application_status",
+        "before": "OPENING_SOON",
+        "after": "CLOSED"
+      },
+      {
+        "field": "closed_at",
+        "before": null,
+        "after": "2026-11-24T13:15:17.100Z"
+      }
+    ],
+    "reason": "Updated from run evidence (CLOSED).",
+    "evidence": [
+      {
+        "source_url": "https://careers.scripps.org/training-programs/new-grads-rn/",
+        "excerpt": "Who can apply for the new grad program? New graduate RNs who have graduated from nursing school within the past 12 months and have 6 months or less of RN experience may apply.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://careers.scripps.org/wp-content/uploads/sites/3487/2026/08/Calendar-2027-program-dates-for-Careers-Site-Home-Page-Link_Final_8.2026.pdf",
+        "excerpt": "2027 New Graduate RN Residency / Transition Program Dates Program Start 1/11/2027 Program End 10/16/2027 Current Scripps employees: 9/20/2026 - 9/26/2026 All others: 9/20/2026 at 12 p.m. PST - 9/22/2026 at 11:59 p.m. PST 10/12/2026 - 11/6/2026",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "status"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-11-24-daily_0016",
+    "run_id": "2026-11-24-daily",
+    "at": "2026-11-24T13:15:17.100Z",
+    "type": "REOPENED",
+    "opportunity_id": "opp_5300617360",
+    "changes": [
+      {
+        "field": "position_title",
+        "before": "RN New Grad Residency - 2027 Cohorts",
+        "after": "New Graduate RN Residency Program - March 2027 Cohort"
+      },
+      {
+        "field": "application_close",
+        "before": {
+          "kind": "datetime",
+          "value": "2026-09-22T23:59:59-07:00"
+        },
+        "after": {
+          "kind": "datetime",
+          "value": "2026-12-01T23:59:59-08:00"
+        }
+      },
+      {
+        "field": "program_start",
+        "before": {
+          "kind": "date",
+          "value": "2027-01-11"
+        },
+        "after": {
+          "kind": "date",
+          "value": "2027-03-22"
+        }
+      },
+      {
+        "field": "cohort_id",
+        "before": "cohort_8fcccfd717",
+        "after": "cohort_1ee8fad290"
+      },
+      {
+        "field": "experience_requirement",
+        "before": "New graduate RNs who have graduated within the past 12 months and have 6 months or less of RN experience.",
+        "after": "New graduate RNs who have graduated from nursing school within the past 12 months and have 6 months or less of RN experience."
+      },
+      {
+        "field": "application_status",
+        "before": "CLOSED",
+        "after": "OPENING_SOON"
+      }
+    ],
+    "reason": "Re-verified as OPENING_SOON.",
+    "evidence": [
+      {
+        "source_url": "https://careers.scripps.org/training-programs/new-grads-rn/",
+        "excerpt": "Who can apply for the new grad program? New graduate RNs who have graduated from nursing school within the past 12 months and have 6 months or less of RN experience may apply.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://careers.scripps.org/wp-content/uploads/sites/3487/2026/08/Calendar-2027-program-dates-for-Careers-Site-Home-Page-Link_Final_8.2026.pdf",
+        "excerpt": "Program Start 3/22/2027 Program End 12/25/2027 Current Scripps employees: 11/29/2026 - 12/5/2026 All others: 11/29/2026 at 12 p.m. PST - 12/1/2026 at 11:59 p.m. PST 12/21/2026 - 1/22/2027",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "opening_date"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-11-24-daily_0017",
+    "run_id": "2026-11-24-daily",
+    "at": "2026-11-24T13:15:17.100Z",
+    "type": "UPDATED",
+    "opportunity_id": "opp_5300617360",
+    "changes": [
+      {
+        "field": "position_title",
+        "before": "RN New Grad Residency - 2027 Cohorts",
+        "after": "New Graduate RN Residency Program - March 2027 Cohort"
+      },
+      {
+        "field": "application_close",
+        "before": {
+          "kind": "datetime",
+          "value": "2026-09-22T23:59:59-07:00"
+        },
+        "after": {
+          "kind": "datetime",
+          "value": "2026-12-01T23:59:59-08:00"
+        }
+      },
+      {
+        "field": "program_start",
+        "before": {
+          "kind": "date",
+          "value": "2027-01-11"
+        },
+        "after": {
+          "kind": "date",
+          "value": "2027-03-22"
+        }
+      },
+      {
+        "field": "cohort_id",
+        "before": "cohort_8fcccfd717",
+        "after": "cohort_1ee8fad290"
+      },
+      {
+        "field": "experience_requirement",
+        "before": "New graduate RNs who have graduated within the past 12 months and have 6 months or less of RN experience.",
+        "after": "New graduate RNs who have graduated from nursing school within the past 12 months and have 6 months or less of RN experience."
+      },
+      {
+        "field": "application_status",
+        "before": "CLOSED",
+        "after": "OPENING_SOON"
+      }
+    ],
+    "reason": "Updated from run evidence (OPENING_SOON).",
+    "evidence": [
+      {
+        "source_url": "https://careers.scripps.org/training-programs/new-grads-rn/",
+        "excerpt": "Who can apply for the new grad program? New graduate RNs who have graduated from nursing school within the past 12 months and have 6 months or less of RN experience may apply.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://careers.scripps.org/wp-content/uploads/sites/3487/2026/08/Calendar-2027-program-dates-for-Careers-Site-Home-Page-Link_Final_8.2026.pdf",
+        "excerpt": "Program Start 3/22/2027 Program End 12/25/2027 Current Scripps employees: 11/29/2026 - 12/5/2026 All others: 11/29/2026 at 12 p.m. PST - 12/1/2026 at 11:59 p.m. PST 12/21/2026 - 1/22/2027",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "opening_date"
+      }
+    ]
   }
 ]

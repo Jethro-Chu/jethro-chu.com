@@ -148,11 +148,12 @@
     "label": "Children's Hospital Los Angeles careers",
     "urls": [
       "https://www.chla.org/rn-residency-pediatrics",
-      "https://jobs.chla.org/"
+      "https://jobs.chla.org/",
+      "https://www.chla.org/nursing/rn-residency-pediatrics"
     ],
-    "status": "candidate",
+    "status": "active",
     "shared_board": null,
-    "notes": "Verified official CHLA pediatric residency and careers portals."
+    "notes": "Activated by Jethro"
   },
   {
     "id": "src_choc",
@@ -843,7 +844,8 @@
     "label": "PIH Health careers",
     "urls": [
       "https://jobs.pihhealth.org/",
-      "https://www.pihhealth.org/careers/"
+      "https://www.pihhealth.org/careers/",
+      "https://pihcareers.silkroad.com/"
     ],
     "status": "active",
     "shared_board": null,

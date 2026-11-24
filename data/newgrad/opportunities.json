@@ -43,10 +43,10 @@
     "dedup_key": null,
     "source_external_id": null,
     "first_discovered_at": "2026-09-18T23:38:07.076Z",
-    "last_seen_at": "2026-11-24T06:53:43.323Z",
-    "last_attempted_at": "2026-11-24T06:53:43.323Z",
-    "last_verified_at": "2026-11-24T06:53:43.323Z",
-    "closed_at": "2026-11-16T13:09:47.865Z",
+    "last_seen_at": "2026-11-24T13:15:17.100Z",
+    "last_attempted_at": "2026-11-24T13:15:17.100Z",
+    "last_verified_at": "2026-11-24T13:15:17.100Z",
+    "closed_at": "2026-11-24T13:15:17.100Z",
     "closure_reason": "verified_closed",
     "publication_state": "PUBLISHED",
     "evidence": [
@@ -653,7 +653,7 @@
     ],
     "manual_overrides": {},
     "created_at": "2026-09-18T23:38:07.076Z",
-    "updated_at": "2026-11-24T06:53:43.323Z"
+    "updated_at": "2026-11-24T13:15:17.100Z"
   },
   {
     "id": "opp_4a34429f1c",
@@ -694,10 +694,10 @@
     "dedup_key": null,
     "source_external_id": null,
     "first_discovered_at": "2026-09-18T23:38:07.076Z",
-    "last_seen_at": "2026-11-24T06:53:43.323Z",
-    "last_attempted_at": "2026-11-24T06:53:43.323Z",
-    "last_verified_at": "2026-11-24T06:53:43.323Z",
-    "closed_at": "2026-09-21T12:32:20.546Z",
+    "last_seen_at": "2026-11-24T13:15:17.100Z",
+    "last_attempted_at": "2026-11-24T13:15:17.100Z",
+    "last_verified_at": "2026-11-24T13:15:17.100Z",
+    "closed_at": "2026-11-24T13:15:17.100Z",
     "closure_reason": "verified_closed",
     "publication_state": "PUBLISHED",
     "evidence": [
@@ -1012,11 +1012,47 @@
         "excerpt": "Fall 2027 cohort recruitment opening: applications expected to begin in March 2027.",
         "retrieved_at": "2026-11-24T06:30:00Z",
         "claim": "opening_date"
+      },
+      {
+        "source_url": "https://www.uclahealthcareers.org/nursing-new-graduates/",
+        "excerpt": "Spring 2027 Cohort: Applications are closed. Program Start: March 2027.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://www.uclahealthcareers.org/nursing-new-graduates/",
+        "excerpt": "The UCLA Health Nurse Residency Program welcomes new graduate registered nurses who have graduated from an accredited BSN or entry-level MSN program with less than 6 months of inpatient RN experience.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://www.uclahealthcareers.org/nursing-new-graduates/",
+        "excerpt": "Spring 2027 Cohort Program Start: March 2027.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "start_date"
+      },
+      {
+        "source_url": "https://www.uclahealthcareers.org/nursing-new-graduates/",
+        "excerpt": "Applications for the Fall 2027 cohort are expected to begin in March 2027 with additional details posted around January 2027.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://www.uclahealthcareers.org/nursing-new-graduates/",
+        "excerpt": "The UCLA Health Nurse Residency Program is offered twice annually, welcoming new graduate nurses transitioning to professional acute care practice.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://www.uclahealthcareers.org/nursing-new-graduates/",
+        "excerpt": "Fall 2027 cohort recruitment opening: applications expected to begin in March 2027.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "opening_date"
       }
     ],
     "manual_overrides": {},
     "created_at": "2026-09-18T23:38:07.076Z",
-    "updated_at": "2026-11-24T06:53:43.323Z"
+    "updated_at": "2026-11-24T13:15:17.100Z"
   },
   {
     "id": "opp_5254939ba4",
@@ -1052,9 +1088,9 @@
     "dedup_key": null,
     "source_external_id": null,
     "first_discovered_at": "2026-09-18T23:38:07.076Z",
-    "last_seen_at": "2026-11-24T06:53:43.323Z",
-    "last_attempted_at": "2026-11-24T06:53:43.323Z",
-    "last_verified_at": "2026-11-24T06:53:43.323Z",
+    "last_seen_at": "2026-11-24T13:15:17.100Z",
+    "last_attempted_at": "2026-11-24T13:15:17.100Z",
+    "last_verified_at": "2026-11-24T13:15:17.100Z",
     "closed_at": "2026-09-21T12:32:20.546Z",
     "closure_reason": "verified_closed",
     "publication_state": "PUBLISHED",
@@ -1274,11 +1310,23 @@
         "excerpt": "The Alan & Marlene Norton Nurse Residency Program is a 12-month program designed for new graduate RNs with less than 1 year of acute care RN experience.",
         "retrieved_at": "2026-11-24T06:30:00Z",
         "claim": "eligibility"
+      },
+      {
+        "source_url": "https://www.cityofhopejobs.org/",
+        "excerpt": "The August 2026 application window is now closed. The next application window will open in January 2027.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://www.cityofhopejobs.org/",
+        "excerpt": "The Alan & Marlene Norton Nurse Residency Program is a 12-month program designed for new graduate RNs with less than 1 year of acute care RN experience.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "eligibility"
       }
     ],
     "manual_overrides": {},
     "created_at": "2026-09-18T23:38:07.076Z",
-    "updated_at": "2026-11-24T06:53:43.323Z"
+    "updated_at": "2026-11-24T13:15:17.100Z"
   },
   {
     "id": "opp_b7945f70da",
@@ -1301,8 +1349,8 @@
       "Multiple Specialties"
     ],
     "application_open": {
-      "kind": "text",
-      "value": "December 2026"
+      "kind": "date",
+      "value": "2026-08-18"
     },
     "application_close": null,
     "program_start": {
@@ -1322,10 +1370,10 @@
     "dedup_key": null,
     "source_external_id": null,
     "first_discovered_at": "2026-09-19T00:01:48.014Z",
-    "last_seen_at": "2026-11-24T06:53:43.323Z",
-    "last_attempted_at": "2026-11-24T06:53:43.323Z",
-    "last_verified_at": "2026-11-24T06:53:43.323Z",
-    "closed_at": "2026-11-24T06:53:43.323Z",
+    "last_seen_at": "2026-11-24T13:15:17.100Z",
+    "last_attempted_at": "2026-11-24T13:15:17.100Z",
+    "last_verified_at": "2026-11-24T13:15:17.100Z",
+    "closed_at": "2026-11-24T13:15:17.100Z",
     "closure_reason": "verified_closed",
     "publication_state": "PUBLISHED",
     "evidence": [
@@ -1844,11 +1892,35 @@
         "excerpt": "Spring Summer Fall Positions Posted December May August Program Start Date February August October Last updated: August 3, 2026",
         "retrieved_at": "2026-11-24T06:30:00Z",
         "claim": "opening_date"
+      },
+      {
+        "source_url": "https://palomarucsdhealth.org/careers/nurse-residency/",
+        "excerpt": "Thank you for your interest in our Nurse Residency Program, a program focused on the New Graduate Nurse . Our Residency Program is offered three times per year: spring (February), summer (August) and fall (October).",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://palomarucsdhealth.org/careers/nurse-residency/",
+        "excerpt": "Next program start date is October 19, 2026. Nurse Resident positions will be posted beginning August 18, 2026. Positions may close externally based on applicant volume.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://palomarucsdhealth.org/careers/nurse-residency/",
+        "excerpt": "Please include your NCLEX date if you do not have your CA RN license. *You must have your CA RN license by the program start date. Current employees must submit a Transfer Request.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "license"
+      },
+      {
+        "source_url": "https://palomarucsdhealth.org/careers/nurse-residency/",
+        "excerpt": "Spring Summer Fall Positions Posted December May August Program Start Date February August October Last updated: August 3, 2026",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "opening_date"
       }
     ],
     "manual_overrides": {},
     "created_at": "2026-09-19T00:01:48.014Z",
-    "updated_at": "2026-11-24T06:53:43.323Z"
+    "updated_at": "2026-11-24T13:15:17.100Z"
   },
   {
     "id": "opp_73bcc0ea08",
@@ -1892,9 +1964,9 @@
     "dedup_key": null,
     "source_external_id": null,
     "first_discovered_at": "2026-09-19T00:12:25.308Z",
-    "last_seen_at": "2026-11-24T06:53:43.323Z",
-    "last_attempted_at": "2026-11-24T06:53:43.323Z",
-    "last_verified_at": "2026-11-24T06:53:43.323Z",
+    "last_seen_at": "2026-11-24T13:15:17.100Z",
+    "last_attempted_at": "2026-11-24T13:15:17.100Z",
+    "last_verified_at": "2026-11-24T13:15:17.100Z",
     "closed_at": "2026-11-24T06:53:43.323Z",
     "closure_reason": "verified_closed",
     "publication_state": "PUBLISHED",
@@ -2168,11 +2240,59 @@
         "excerpt": "Cohort 61 Start Date: May 10th, 2027.",
         "retrieved_at": "2026-11-24T06:30:00Z",
         "claim": "start_date"
+      },
+      {
+        "source_url": "https://hr.ucdavis.edu/departments/hr/nurse-recruitment/nurse-residency-program",
+        "excerpt": "Cohort 60 Application Acceptance Period: November 4th – November 11th, 2026. Cohort Start Date: March 15th, 2027.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://hr.ucdavis.edu/departments/hr/nurse-recruitment/nurse-residency-program",
+        "excerpt": "The UC Davis Health Nurse Residency Program is a 12-month program designed to support newly licensed registered nurses and new graduate registered nurses with less than six months RN experience.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://hr.ucdavis.edu/departments/hr/nurse-recruitment/nurse-residency-program",
+        "excerpt": "Cohort 60 Application Acceptance Period: November 4th – November 11th, 2026.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "deadline"
+      },
+      {
+        "source_url": "https://hr.ucdavis.edu/departments/hr/nurse-recruitment/nurse-residency-program",
+        "excerpt": "Cohort 60 Start Date: March 15th, 2027.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "start_date"
+      },
+      {
+        "source_url": "https://hr.ucdavis.edu/departments/hr/nurse-recruitment/nurse-residency-program",
+        "excerpt": "Cohort 61 Application Acceptance Period: November 4th – November 11th, 2026. Cohort Start Date: May 10th, 2027.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://hr.ucdavis.edu/departments/hr/nurse-recruitment/nurse-residency-program",
+        "excerpt": "The UC Davis Health Nurse Residency Program is a 12-month program designed to support newly licensed registered nurses and new graduate nurses transitioning into practice.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://hr.ucdavis.edu/departments/hr/nurse-recruitment/nurse-residency-program",
+        "excerpt": "Cohort 61 Application Acceptance Period: November 4th – November 11th, 2026.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "deadline"
+      },
+      {
+        "source_url": "https://hr.ucdavis.edu/departments/hr/nurse-recruitment/nurse-residency-program",
+        "excerpt": "Cohort 61 Start Date: May 10th, 2027.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "start_date"
       }
     ],
     "manual_overrides": {},
     "created_at": "2026-09-19T00:12:25.308Z",
-    "updated_at": "2026-11-24T06:53:43.323Z"
+    "updated_at": "2026-11-24T13:15:17.100Z"
   },
   {
     "id": "opp_afb6ead28f",
@@ -2217,9 +2337,9 @@
     "dedup_key": "paradox|ucsd|141812",
     "source_external_id": null,
     "first_discovered_at": "2026-09-19T00:12:25.308Z",
-    "last_seen_at": "2026-11-24T06:53:43.323Z",
-    "last_attempted_at": "2026-11-24T06:53:43.323Z",
-    "last_verified_at": "2026-11-24T06:53:43.323Z",
+    "last_seen_at": "2026-11-24T13:15:17.100Z",
+    "last_attempted_at": "2026-11-24T13:15:17.100Z",
+    "last_verified_at": "2026-11-24T13:15:17.100Z",
     "closed_at": "2026-10-24T12:18:39.243Z",
     "closure_reason": "verified_closed",
     "publication_state": "PUBLISHED",
@@ -2571,11 +2691,29 @@
         "excerpt": "Programs start semi-annually in March and September. Job postings for March cohort open around October.",
         "retrieved_at": "2026-11-24T06:30:00Z",
         "claim": "start_date"
+      },
+      {
+        "source_url": "https://employment.ucsd.edu/nursing",
+        "excerpt": "Filing Deadline: Thu 10/22/2026. This posting is for our March 2027 Nurse Residency Program Cohort.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://employment.ucsd.edu/nursing",
+        "excerpt": "Eligibility: Defined as newly licensed registered nurses (NLRNs) with less than six months of working RN experience.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://employment.ucsd.edu/nursing",
+        "excerpt": "Programs start semi-annually in March and September. Job postings for March cohort open around October.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "start_date"
       }
     ],
     "manual_overrides": {},
     "created_at": "2026-09-19T00:12:25.308Z",
-    "updated_at": "2026-11-24T06:53:43.323Z"
+    "updated_at": "2026-11-24T13:15:17.100Z"
   },
   {
     "id": "opp_b4a5537b8b",
@@ -2610,9 +2748,9 @@
     "dedup_key": null,
     "source_external_id": null,
     "first_discovered_at": "2026-09-19T00:12:25.308Z",
-    "last_seen_at": "2026-11-24T06:53:43.323Z",
-    "last_attempted_at": "2026-11-24T06:53:43.323Z",
-    "last_verified_at": "2026-11-24T06:53:43.323Z",
+    "last_seen_at": "2026-11-24T13:15:17.100Z",
+    "last_attempted_at": "2026-11-24T13:15:17.100Z",
+    "last_verified_at": "2026-11-24T13:15:17.100Z",
     "closed_at": "2026-09-21T12:32:20.546Z",
     "closure_reason": "verified_closed",
     "publication_state": "PUBLISHED",
@@ -2850,11 +2988,23 @@
         "excerpt": "The NNRTP serves as the designated pathway for new graduate registered nurses with less than six months of RN employment experience at the start date.",
         "retrieved_at": "2026-11-24T06:30:00Z",
         "claim": "eligibility"
+      },
+      {
+        "source_url": "https://hr.ucsf.edu/learning/career-professional-development/registered-nurse-training-programs",
+        "excerpt": "New Nurse Residency Training Program (NNRTP) Status: The NNRTP is indicated as not being offered at this time.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://hr.ucsf.edu/learning/career-professional-development/registered-nurse-training-programs",
+        "excerpt": "The NNRTP serves as the designated pathway for new graduate registered nurses with less than six months of RN employment experience at the start date.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "eligibility"
       }
     ],
     "manual_overrides": {},
     "created_at": "2026-09-19T00:12:25.308Z",
-    "updated_at": "2026-11-24T06:53:43.323Z"
+    "updated_at": "2026-11-24T13:15:17.100Z"
   },
   {
     "id": "opp_a2e7e134ff",
@@ -2889,9 +3039,9 @@
     "dedup_key": null,
     "source_external_id": null,
     "first_discovered_at": "2026-09-19T00:12:25.308Z",
-    "last_seen_at": "2026-11-24T06:53:43.323Z",
-    "last_attempted_at": "2026-11-24T06:53:43.323Z",
-    "last_verified_at": "2026-11-24T06:53:43.323Z",
+    "last_seen_at": "2026-11-24T13:15:17.100Z",
+    "last_attempted_at": "2026-11-24T13:15:17.100Z",
+    "last_verified_at": "2026-11-24T13:15:17.100Z",
     "closed_at": "2026-09-21T12:32:20.546Z",
     "closure_reason": "verified_closed",
     "publication_state": "PUBLISHED",
@@ -3105,11 +3255,23 @@
         "excerpt": "The Transition to Practice program is a one-year formal nurse residency designed for new graduate registered nurses.",
         "retrieved_at": "2026-11-24T06:30:00Z",
         "claim": "eligibility"
+      },
+      {
+        "source_url": "https://careers.ucihealth.org/",
+        "excerpt": "UCI Health offers a structured Transition to Practice nurse residency program bi-annually. No active application window is currently open.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://careers.ucihealth.org/",
+        "excerpt": "The Transition to Practice program is a one-year formal nurse residency designed for new graduate registered nurses.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "eligibility"
       }
     ],
     "manual_overrides": {},
     "created_at": "2026-09-19T00:12:25.308Z",
-    "updated_at": "2026-11-24T06:53:43.323Z"
+    "updated_at": "2026-11-24T13:15:17.100Z"
   },
   {
     "id": "opp_34afa285d5",
@@ -3152,9 +3314,9 @@
     "dedup_key": null,
     "source_external_id": null,
     "first_discovered_at": "2026-09-19T00:12:25.308Z",
-    "last_seen_at": "2026-11-24T06:53:43.323Z",
-    "last_attempted_at": "2026-11-24T06:53:43.323Z",
-    "last_verified_at": "2026-11-24T06:53:43.323Z",
+    "last_seen_at": "2026-11-24T13:15:17.100Z",
+    "last_attempted_at": "2026-11-24T13:15:17.100Z",
+    "last_verified_at": "2026-11-24T13:15:17.100Z",
     "closed_at": "2026-10-14T13:36:07.684Z",
     "closure_reason": "verified_closed",
     "publication_state": "PUBLISHED",
@@ -3602,11 +3764,23 @@
         "excerpt": "Fall 2026/Winter 2027 Cohort(s) The application windows have closed for all of our Fall 2026 and Winter 2027 cohorts. All hiring decisions for the Fall 2026 cohort have been made. The selection process will take place in October and November for the Winter 2027 Metropolitan Medical Campus cohort.",
         "retrieved_at": "2026-11-24T06:34:25Z",
         "claim": "status"
+      },
+      {
+        "source_url": "https://careers.sharp.com/SHC-nurse-residency-program",
+        "excerpt": "Thank you for your interest in our Nurse Residency Program, a program focused on the new graduate nurse with less than 1 year of experience.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://careers.sharp.com/SHC-nurse-residency-program",
+        "excerpt": "Fall 2026/Winter 2027 Cohort(s) The application windows have closed for all of our Fall 2026 and Winter 2027 cohorts. All hiring decisions for the Fall 2026 cohort have been made. The selection process will take place in October and November for the Winter 2027 Metropolitan Medical Campus cohort.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "status"
       }
     ],
     "manual_overrides": {},
     "created_at": "2026-09-19T00:12:25.308Z",
-    "updated_at": "2026-11-24T06:53:43.323Z"
+    "updated_at": "2026-11-24T13:15:17.100Z"
   },
   {
     "id": "opp_5300617360",
@@ -3634,7 +3808,7 @@
     ],
     "application_open": {
       "kind": "datetime",
-      "value": "2026-11-29T12:00:00-08:00"
+      "value": "2026-09-20T12:00:00-07:00"
     },
     "application_close": {
       "kind": "datetime",
@@ -3657,9 +3831,9 @@
     "dedup_key": "taleo||242006068",
     "source_external_id": null,
     "first_discovered_at": "2026-09-19T00:12:25.308Z",
-    "last_seen_at": "2026-11-24T06:53:43.323Z",
-    "last_attempted_at": "2026-11-24T06:53:43.323Z",
-    "last_verified_at": "2026-11-24T06:53:43.323Z",
+    "last_seen_at": "2026-11-24T13:15:17.100Z",
+    "last_attempted_at": "2026-11-24T13:15:17.100Z",
+    "last_verified_at": "2026-11-24T13:15:17.100Z",
     "closed_at": null,
     "closure_reason": null,
     "publication_state": "PUBLISHED",
@@ -3957,11 +4131,29 @@
         "excerpt": "Program Start 3/22/2027 Program End 12/25/2027 Current Scripps employees: 11/29/2026 - 12/5/2026 All others: 11/29/2026 at 12 p.m. PST - 12/1/2026 at 11:59 p.m. PST 12/21/2026 - 1/22/2027",
         "retrieved_at": "2026-11-24T06:41:20Z",
         "claim": "opening_date"
+      },
+      {
+        "source_url": "https://careers.scripps.org/training-programs/new-grads-rn/",
+        "excerpt": "Who can apply for the new grad program? New graduate RNs who have graduated from nursing school within the past 12 months and have 6 months or less of RN experience may apply.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://careers.scripps.org/wp-content/uploads/sites/3487/2026/08/Calendar-2027-program-dates-for-Careers-Site-Home-Page-Link_Final_8.2026.pdf",
+        "excerpt": "2027 New Graduate RN Residency / Transition Program Dates Program Start 1/11/2027 Program End 10/16/2027 Current Scripps employees: 9/20/2026 - 9/26/2026 All others: 9/20/2026 at 12 p.m. PST - 9/22/2026 at 11:59 p.m. PST 10/12/2026 - 11/6/2026",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://careers.scripps.org/wp-content/uploads/sites/3487/2026/08/Calendar-2027-program-dates-for-Careers-Site-Home-Page-Link_Final_8.2026.pdf",
+        "excerpt": "Program Start 3/22/2027 Program End 12/25/2027 Current Scripps employees: 11/29/2026 - 12/5/2026 All others: 11/29/2026 at 12 p.m. PST - 12/1/2026 at 11:59 p.m. PST 12/21/2026 - 1/22/2027",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "opening_date"
       }
     ],
     "manual_overrides": {},
     "created_at": "2026-09-19T00:12:25.308Z",
-    "updated_at": "2026-11-24T06:53:43.323Z"
+    "updated_at": "2026-11-24T13:15:17.100Z"
   },
   {
     "id": "opp_3778d35d23",
@@ -4000,9 +4192,9 @@
     "dedup_key": null,
     "source_external_id": null,
     "first_discovered_at": "2026-09-19T00:12:25.308Z",
-    "last_seen_at": "2026-11-24T06:53:43.323Z",
-    "last_attempted_at": "2026-11-24T06:53:43.323Z",
-    "last_verified_at": "2026-11-24T06:53:43.323Z",
+    "last_seen_at": "2026-11-24T13:15:17.100Z",
+    "last_attempted_at": "2026-11-24T13:15:17.100Z",
+    "last_verified_at": "2026-11-24T13:15:17.100Z",
     "closed_at": "2026-09-21T12:32:20.546Z",
     "closure_reason": "verified_closed",
     "publication_state": "PUBLISHED",
@@ -4204,11 +4396,23 @@
         "excerpt": "Our open positions change daily. View our current Nursing job opportunities and apply any time. Acceptance into the program is based solely on the hiring manager’s discretion and the needs of their department at that time. New cohorts begin their training at the end of each month.",
         "retrieved_at": "2026-11-24T06:38:49Z",
         "claim": "status"
+      },
+      {
+        "source_url": "https://careers.hoag.org/hoag-life/new-grad-nurses/",
+        "excerpt": "The New Graduate RN Program at Hoag Hospital is your chance to put knowledge into practice and grow as a nursing professional while delivering high-quality patient centered care to the communities we serve.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://careers.hoag.org/hoag-life/new-grad-nurses/",
+        "excerpt": "Our open positions change daily. View our current Nursing job opportunities and apply any time. Acceptance into the program is based solely on the hiring manager’s discretion and the needs of their department at that time. New cohorts begin their training at the end of each month.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "status"
       }
     ],
     "manual_overrides": {},
     "created_at": "2026-09-19T00:12:25.308Z",
-    "updated_at": "2026-11-24T06:53:43.323Z"
+    "updated_at": "2026-11-24T13:15:17.100Z"
   },
   {
     "id": "opp_746f786f0e",
@@ -4243,9 +4447,9 @@
     "dedup_key": null,
     "source_external_id": null,
     "first_discovered_at": "2026-09-19T00:12:25.308Z",
-    "last_seen_at": "2026-11-24T06:53:43.323Z",
-    "last_attempted_at": "2026-11-24T06:53:43.323Z",
-    "last_verified_at": "2026-11-24T06:53:43.323Z",
+    "last_seen_at": "2026-11-24T13:15:17.100Z",
+    "last_attempted_at": "2026-11-24T13:15:17.100Z",
+    "last_verified_at": "2026-11-24T13:15:17.100Z",
     "closed_at": null,
     "closure_reason": null,
     "publication_state": "PUBLISHED",
@@ -4555,11 +4759,23 @@
         "excerpt": "Keck Medicine of USC offers a structured Versant RN Residency Program for newly licensed registered nurses with less than one year of acute care hospital-based RN experience.",
         "retrieved_at": "2026-11-24T06:30:00Z",
         "claim": "eligibility"
+      },
+      {
+        "source_url": "https://www.keckmedicine.org/careers/",
+        "excerpt": "Residency cohorts start bi-annually in March and August. Application windows open periodically ahead of each cohort start date.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://www.keckmedicine.org/careers/",
+        "excerpt": "Keck Medicine of USC offers a structured Versant RN Residency Program for newly licensed registered nurses with less than one year of acute care hospital-based RN experience.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "eligibility"
       }
     ],
     "manual_overrides": {},
     "created_at": "2026-09-19T00:12:25.308Z",
-    "updated_at": "2026-11-24T06:53:43.323Z"
+    "updated_at": "2026-11-24T13:15:17.100Z"
   },
   {
     "id": "opp_2a200928c1",
@@ -4593,9 +4809,9 @@
     "dedup_key": null,
     "source_external_id": null,
     "first_discovered_at": "2026-09-19T00:12:25.308Z",
-    "last_seen_at": "2026-11-24T06:53:43.323Z",
-    "last_attempted_at": "2026-11-24T06:53:43.323Z",
-    "last_verified_at": "2026-11-24T06:53:43.323Z",
+    "last_seen_at": "2026-11-24T13:15:17.100Z",
+    "last_attempted_at": "2026-11-24T13:15:17.100Z",
+    "last_verified_at": "2026-11-24T13:15:17.100Z",
     "closed_at": "2026-09-21T12:32:20.546Z",
     "closure_reason": "verified_closed",
     "publication_state": "PUBLISHED",
@@ -4863,11 +5079,23 @@
         "excerpt": "custom_fields.SCALFacet-Nurse-Residency-Northern-CA Your dedication helps them share the love. Enable extraordinary moments default Sort By: Relevancy Date Posted Job Title Location Distance 0 Job Results",
         "retrieved_at": "2026-11-24T06:38:31Z",
         "claim": "status"
+      },
+      {
+        "source_url": "https://nursescholars.kp.org/residency",
+        "excerpt": "This program was designed to support newly licensed Registered Nurses (RNs) as they embark on their professional journey with Kaiser Permanente. During this innovative 12-month program, your knowledge, skills, and confidence will grow through our comprehensive evidence-based curriculum.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://www.kaiserpermanentejobs.org/nurseresidency-ncal",
+        "excerpt": "custom_fields.SCALFacet-Nurse-Residency-Northern-CA Your dedication helps them share the love. Enable extraordinary moments default Sort By: Relevancy Date Posted Job Title Location Distance 0 Job Results",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "status"
       }
     ],
     "manual_overrides": {},
     "created_at": "2026-09-19T00:12:25.308Z",
-    "updated_at": "2026-11-24T06:53:43.323Z"
+    "updated_at": "2026-11-24T13:15:17.100Z"
   },
   {
     "id": "opp_62a8c76769",
@@ -4917,9 +5145,9 @@
     "dedup_key": "icims|commonspirit|2026-485862",
     "source_external_id": null,
     "first_discovered_at": "2026-09-19T00:12:25.308Z",
-    "last_seen_at": "2026-11-24T06:53:43.323Z",
-    "last_attempted_at": "2026-11-24T06:53:43.323Z",
-    "last_verified_at": "2026-11-24T06:53:43.323Z",
+    "last_seen_at": "2026-11-24T13:15:17.100Z",
+    "last_attempted_at": "2026-11-24T13:15:17.100Z",
+    "last_verified_at": "2026-11-24T13:15:17.100Z",
     "closed_at": "2026-10-09T04:39:59.400Z",
     "closure_reason": "verified_closed",
     "publication_state": "PUBLISHED",
@@ -5451,11 +5679,23 @@
         "excerpt": "Spring: Application opens October 1st | Program starts 3rd week of March Summer: Application opens March 1st | Program starts 1st week of August Dominican Hospital Spring: Application opens in October/November 2026 | Program starts in March 2027",
         "retrieved_at": "2026-11-24T06:34:32Z",
         "claim": "status"
+      },
+      {
+        "source_url": "https://www.commonspirit.careers/NNRP-CA",
+        "excerpt": "Designed as a nationally standardized, evidence-based program aligned with ANCC standards, it supports your transition from nursing student to confident, competent clinician. Program focused on the new graduate nurse.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://www.commonspirit.careers/NNRP-CA",
+        "excerpt": "Spring: Application opens October 1st | Program starts 3rd week of March Summer: Application opens March 1st | Program starts 1st week of August Dominican Hospital Spring: Application opens in October/November 2026 | Program starts in March 2027",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "status"
       }
     ],
     "manual_overrides": {},
     "created_at": "2026-09-19T00:12:25.308Z",
-    "updated_at": "2026-11-24T06:53:43.323Z"
+    "updated_at": "2026-11-24T13:15:17.100Z"
   },
   {
     "id": "opp_b045e8e0d4",
@@ -5727,9 +5967,9 @@
     "dedup_key": "workday|osu|r153527",
     "source_external_id": null,
     "first_discovered_at": "2026-09-19T04:51:39.787Z",
-    "last_seen_at": "2026-11-24T06:53:43.323Z",
-    "last_attempted_at": "2026-11-24T06:53:43.323Z",
-    "last_verified_at": "2026-11-24T06:53:43.323Z",
+    "last_seen_at": "2026-11-24T13:15:17.100Z",
+    "last_attempted_at": "2026-11-24T13:15:17.100Z",
+    "last_verified_at": "2026-11-24T13:15:17.100Z",
     "closed_at": null,
     "closure_reason": null,
     "publication_state": "PUBLISHED",
@@ -6273,11 +6513,23 @@
         "excerpt": "Staff Nurse (RN)- Critical Care Oncology New Grad Nurse Residency Program- The James. Position is actively accepting applications for the 2027 Critical Care New Graduate Nurse Residency Program.",
         "retrieved_at": "2026-11-24T06:30:00Z",
         "claim": "status"
+      },
+      {
+        "source_url": "https://wexnermedical.osu.edu/careers/current-openings/nursing",
+        "excerpt": "The Buckeye Nurse Residency Program at The Ohio State University Wexner Medical Center is a 12-month, full-time Evidence-Based Transition to Practice program designed to support new graduate registered nurses as they transition from students to professional clinicians.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://osu.wd1.myworkdayjobs.com/OSUCareers/job/James-Cancer-Hospital-and-Solove-Research-Institute/Staff-Nurse--RN---Critical-Care-Oncology-New-Grad-Nurse-Residency-Program--The-James_R153527-1",
+        "excerpt": "Staff Nurse (RN)- Critical Care Oncology New Grad Nurse Residency Program- The James. Position is actively accepting applications for the 2027 Critical Care New Graduate Nurse Residency Program.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "status"
       }
     ],
     "manual_overrides": {},
     "created_at": "2026-09-19T04:51:39.787Z",
-    "updated_at": "2026-11-24T06:53:43.323Z"
+    "updated_at": "2026-11-24T13:15:17.100Z"
   },
   {
     "id": "opp_6d53fceca4",
@@ -6312,9 +6564,9 @@
     "dedup_key": "successfactors||674686",
     "source_external_id": "674686",
     "first_discovered_at": "2026-09-19T05:55:07.276Z",
-    "last_seen_at": "2026-11-24T06:53:43.323Z",
-    "last_attempted_at": "2026-11-24T06:53:43.323Z",
-    "last_verified_at": "2026-11-24T06:53:43.323Z",
+    "last_seen_at": "2026-11-24T13:15:17.100Z",
+    "last_attempted_at": "2026-11-24T13:15:17.100Z",
+    "last_verified_at": "2026-11-24T13:15:17.100Z",
     "closed_at": "2026-10-16T12:17:09.423Z",
     "closure_reason": "verified_closed",
     "publication_state": "PUBLISHED",
@@ -6690,11 +6942,23 @@
         "excerpt": "All New Grad RNs are automatically enrolled in our Nurse Residency Program at Johns Hopkins Medicine.",
         "retrieved_at": "2026-11-24T06:30:00Z",
         "claim": "eligibility"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/jobs/nursing-new-grad-rn/",
+        "excerpt": "Requisition New Grad RN - Inpatient Nursing returns HTTP 410 Gone; job posting removed from active listings.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/jobs/nursing-new-grad-rn/",
+        "excerpt": "All New Grad RNs are automatically enrolled in our Nurse Residency Program at Johns Hopkins Medicine.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "eligibility"
       }
     ],
     "manual_overrides": {},
     "created_at": "2026-09-19T05:55:07.276Z",
-    "updated_at": "2026-11-24T06:53:43.323Z"
+    "updated_at": "2026-11-24T13:15:17.100Z"
   },
   {
     "id": "opp_a29ee83cb9",
@@ -6739,9 +7003,9 @@
     "dedup_key": "oraclecloud||nrp-mayo-2026",
     "source_external_id": "NRP-MAYO-2026",
     "first_discovered_at": "2026-09-19T05:55:07.276Z",
-    "last_seen_at": "2026-11-24T06:53:43.323Z",
-    "last_attempted_at": "2026-11-24T06:53:43.323Z",
-    "last_verified_at": "2026-11-24T06:53:43.323Z",
+    "last_seen_at": "2026-11-24T13:15:17.100Z",
+    "last_attempted_at": "2026-11-24T13:15:17.100Z",
+    "last_verified_at": "2026-11-24T13:15:17.100Z",
     "closed_at": "2026-10-12T12:14:26.435Z",
     "closure_reason": "deadline_passed",
     "publication_state": "PUBLISHED",
@@ -7349,7 +7613,7 @@
     ],
     "manual_overrides": {},
     "created_at": "2026-09-19T05:55:07.276Z",
-    "updated_at": "2026-11-24T06:53:43.323Z"
+    "updated_at": "2026-11-24T13:15:17.100Z"
   },
   {
     "id": "opp_f8be7c648c",
@@ -7387,9 +7651,9 @@
     "dedup_key": "icims||mshs-ngrp-2026",
     "source_external_id": "MSHS-NGRP-2026",
     "first_discovered_at": "2026-09-19T05:55:07.276Z",
-    "last_seen_at": "2026-11-24T06:53:43.323Z",
-    "last_attempted_at": "2026-11-24T06:53:43.323Z",
-    "last_verified_at": "2026-11-24T06:53:43.323Z",
+    "last_seen_at": "2026-11-24T13:15:17.100Z",
+    "last_attempted_at": "2026-11-24T13:15:17.100Z",
+    "last_verified_at": "2026-11-24T13:15:17.100Z",
     "closed_at": null,
     "closure_reason": null,
     "publication_state": "PUBLISHED",
@@ -7549,11 +7813,23 @@
         "excerpt": "NICU New Grad RN Fellowship Our 24-week fellowship equips new grads with specialized skills in caring for newborns.",
         "retrieved_at": "2026-11-24T06:30:00Z",
         "claim": "status"
+      },
+      {
+        "source_url": "https://careers.mountsinai.org/special-programs",
+        "excerpt": "We understand the importance of a strong foundation and practical experience, especially for new graduates. That's why we offer comprehensive New Graduate Fellowships, designed to accelerate your career journey and equip you with invaluable expertise within a supportive and collaborative environment.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://careers.mountsinai.org/special-programs",
+        "excerpt": "NICU New Grad RN Fellowship Our 24-week fellowship equips new grads with specialized skills in caring for newborns.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "status"
       }
     ],
     "manual_overrides": {},
     "created_at": "2026-09-19T05:55:07.276Z",
-    "updated_at": "2026-11-24T06:53:43.323Z"
+    "updated_at": "2026-11-24T13:15:17.100Z"
   },
   {
     "id": "opp_bc9f9dd408",
@@ -7591,9 +7867,9 @@
     "dedup_key": null,
     "source_external_id": null,
     "first_discovered_at": "2026-09-19T05:58:14.206Z",
-    "last_seen_at": "2026-11-24T06:53:43.323Z",
-    "last_attempted_at": "2026-11-24T06:53:43.323Z",
-    "last_verified_at": "2026-11-24T06:53:43.323Z",
+    "last_seen_at": "2026-11-24T13:15:17.100Z",
+    "last_attempted_at": "2026-11-24T13:15:17.100Z",
+    "last_verified_at": "2026-11-24T13:15:17.100Z",
     "closed_at": null,
     "closure_reason": null,
     "publication_state": "PUBLISHED",
@@ -7999,11 +8275,29 @@
         "excerpt": "Spring Cohort New Employee Orientation starts March 15, 2027.",
         "retrieved_at": "2026-11-24T06:30:00Z",
         "claim": "start_date"
+      },
+      {
+        "source_url": "https://www.huntingtonhealth.org/education/residency-programs/nursing-residency/",
+        "excerpt": "2027 Cohort Schedules: Spring Cohort New Employee Orientation starts March 15, 2027; Fall Cohort New Employee Orientation starts August 16, 2027.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://www.huntingtonhealth.org/education/residency-programs/nursing-residency/",
+        "excerpt": "Candidates must be newly graduated registered nurses with less than one year of total RN work experience in any clinical area by the start of the program.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://www.huntingtonhealth.org/education/residency-programs/nursing-residency/",
+        "excerpt": "Spring Cohort New Employee Orientation starts March 15, 2027.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "start_date"
       }
     ],
     "manual_overrides": {},
     "created_at": "2026-09-19T05:58:14.206Z",
-    "updated_at": "2026-11-24T06:53:43.323Z"
+    "updated_at": "2026-11-24T13:15:17.100Z"
   },
   {
     "id": "opp_b90ce57ca2",
@@ -8041,9 +8335,9 @@
     "dedup_key": "successfactors||cn1-duhs-2026",
     "source_external_id": "CN1-DUHS-2026",
     "first_discovered_at": "2026-09-19T06:07:18.159Z",
-    "last_seen_at": "2026-11-24T06:53:43.323Z",
-    "last_attempted_at": "2026-11-24T06:53:43.323Z",
-    "last_verified_at": "2026-11-24T06:53:43.323Z",
+    "last_seen_at": "2026-11-24T13:15:17.100Z",
+    "last_attempted_at": "2026-11-24T13:15:17.100Z",
+    "last_verified_at": "2026-11-24T13:15:17.100Z",
     "closed_at": null,
     "closure_reason": null,
     "publication_state": "PUBLISHED",
@@ -8491,11 +8785,23 @@
         "excerpt": "Starting your journey as a new graduate nurse? Duke Health is always hiring and excited to support you as you transition to professional practice.",
         "retrieved_at": "2026-11-24T06:30:00Z",
         "claim": "status"
+      },
+      {
+        "source_url": "https://careers.dukehealth.org/us/en/new-graduate-nurse-programs",
+        "excerpt": "All new graduate nurses are automatically enrolled in our 12-month Nurse Residency Program—no separate application required.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://careers.dukehealth.org/us/en/new-graduate-nurse-programs",
+        "excerpt": "Starting your journey as a new graduate nurse? Duke Health is always hiring and excited to support you as you transition to professional practice.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "status"
       }
     ],
     "manual_overrides": {},
     "created_at": "2026-09-19T06:07:18.159Z",
-    "updated_at": "2026-11-24T06:53:43.323Z"
+    "updated_at": "2026-11-24T13:15:17.100Z"
   },
   {
     "id": "opp_717a814cb5",
@@ -8542,9 +8848,9 @@
     "dedup_key": "workday|vumc|r-62350",
     "source_external_id": "R-62350",
     "first_discovered_at": "2026-09-19T12:21:38.157Z",
-    "last_seen_at": "2026-11-24T06:53:43.323Z",
-    "last_attempted_at": "2026-11-24T06:53:43.323Z",
-    "last_verified_at": "2026-11-24T06:53:43.323Z",
+    "last_seen_at": "2026-11-24T13:15:17.100Z",
+    "last_attempted_at": "2026-11-24T13:15:17.100Z",
+    "last_verified_at": "2026-11-24T13:15:17.100Z",
     "closed_at": null,
     "closure_reason": null,
     "publication_state": "PUBLISHED",
@@ -9028,11 +9334,29 @@
         "excerpt": "Winter 2027 Application open for remaining needs Start dates ● Feb. 22 ● March 1",
         "retrieved_at": "2026-11-24T06:30:00Z",
         "claim": "start_date"
+      },
+      {
+        "source_url": "https://www.vumc.org/nurse-residency-program/application-requirements-track-options",
+        "excerpt": "Winter 2027 Application open for remaining needs Start dates ● Feb. 22 ● March 1 Summer 2027 Cohort VUMC staff: applications open Jan. 5-12, 2027 Non-VUMC staff: application opens Jan. 13, 2027 Initial deadline: Feb. 15, 2027 Start dates ● July 19, 2027 ● July 26, 2027",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://www.vumc.org/nurse-residency-program/",
+        "excerpt": "The Vanderbilt University Medical Center Nurse Residency Program provides a solid foundation for new graduate nurses transitioning into professional nursing. We help you thrive as skilled providers, committed to the best patient care.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://www.vumc.org/nurse-residency-program/application-requirements-track-options",
+        "excerpt": "Winter 2027 Application open for remaining needs Start dates ● Feb. 22 ● March 1",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "start_date"
       }
     ],
     "manual_overrides": {},
     "created_at": "2026-09-19T12:21:38.157Z",
-    "updated_at": "2026-11-24T06:53:43.323Z"
+    "updated_at": "2026-11-24T13:15:17.100Z"
   },
   {
     "id": "opp_473d98f794",
@@ -9052,11 +9376,11 @@
     ],
     "application_open": {
       "kind": "date",
-      "value": "2026-09-28"
+      "value": "2026-11-30"
     },
     "application_close": {
       "kind": "date",
-      "value": "2026-10-02"
+      "value": "2026-12-04"
     },
     "program_start": {
       "kind": "date",
@@ -9075,9 +9399,9 @@
     "dedup_key": "workday|chop|1028236",
     "source_external_id": null,
     "first_discovered_at": "2026-09-19T17:01:32.388Z",
-    "last_seen_at": "2026-11-24T06:53:43.323Z",
-    "last_attempted_at": "2026-11-24T06:53:43.323Z",
-    "last_verified_at": "2026-11-24T06:53:43.323Z",
+    "last_seen_at": "2026-11-24T13:15:17.100Z",
+    "last_attempted_at": "2026-11-24T13:15:17.100Z",
+    "last_verified_at": "2026-11-24T13:15:17.100Z",
     "closed_at": null,
     "closure_reason": null,
     "publication_state": "PUBLISHED",
@@ -9543,11 +9867,54 @@
         "excerpt": "Applications will be open from Nov. 30 through Dec. 4, 2026",
         "retrieved_at": "2026-11-24T06:30:00Z",
         "claim": "deadline"
+      },
+      {
+        "source_url": "https://careers.chop.edu/us/en/NurseResidency",
+        "excerpt": "Applications Open Applications will be open from  Nov. 30 through Dec. 4, 2026 for students graduating in December 2026 or earlier. Candidates Notified By Jan. 15, 2027 : All candidates will be notified whether they have been selected to move forward.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://careers.chop.edu/us/en/NurseResidency",
+        "excerpt": "CHOP’s 12-month Nurse Residency helps new graduate nurses transition into their first professional roles.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://careers.chop.edu/us/en/NurseResidency",
+        "excerpt": "Applications will be open from Nov. 30 through Dec. 4, 2026",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "opening_date"
+      },
+      {
+        "source_url": "https://careers.chop.edu/us/en/NurseResidency",
+        "excerpt": "Applications will be open from Nov. 30 through Dec. 4, 2026",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "deadline"
       }
     ],
-    "manual_overrides": {},
+    "manual_overrides": {
+      "application_open": {
+        "value": {
+          "kind": "date",
+          "value": "2026-11-30"
+        },
+        "reason": "Official CHOP update: Nov 30 - Dec 4 application window for Dec grads",
+        "by": "Jethro",
+        "at": "2026-11-24T13:14:29.073Z"
+      },
+      "application_close": {
+        "value": {
+          "kind": "date",
+          "value": "2026-12-04"
+        },
+        "reason": "Official CHOP update: Nov 30 - Dec 4 application window for Dec grads",
+        "by": "Jethro",
+        "at": "2026-11-24T13:14:29.340Z"
+      }
+    },
     "created_at": "2026-09-19T17:01:32.388Z",
-    "updated_at": "2026-11-24T06:53:43.323Z"
+    "updated_at": "2026-11-24T13:15:17.100Z"
   },
   {
     "id": "opp_04a44aa517",
@@ -9591,9 +9958,9 @@
     "dedup_key": "phenom|bswhealth|26014424",
     "source_external_id": "26014424",
     "first_discovered_at": "2026-09-19T17:01:32.388Z",
-    "last_seen_at": "2026-11-24T06:53:43.323Z",
-    "last_attempted_at": "2026-11-24T06:53:43.323Z",
-    "last_verified_at": "2026-11-24T06:53:43.323Z",
+    "last_seen_at": "2026-11-24T13:15:17.100Z",
+    "last_attempted_at": "2026-11-24T13:15:17.100Z",
+    "last_verified_at": "2026-11-24T13:15:17.100Z",
     "closed_at": "2026-09-23T12:16:49.865Z",
     "closure_reason": "verified_closed",
     "publication_state": "PUBLISHED",
@@ -9897,19 +10264,31 @@
         "excerpt": "Winter 2027 cohort requisition 26014424 is closed; summer 2027 cohort opens February 1, 2027.",
         "retrieved_at": "2026-11-24T06:30:00Z",
         "claim": "status"
+      },
+      {
+        "source_url": "https://jobs.bswhealth.com/us/en/students-graduates",
+        "excerpt": "Whether you are a recent graduate or an experienced nurse who is interested in learning new clinical skills and specialty knowledge, our Nurse Residency Program will provide the support you need.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://jobs.bswhealth.com/us/en/students-graduates",
+        "excerpt": "Winter 2027 cohort requisition 26014424 is closed; summer 2027 cohort opens February 1, 2027.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "status"
       }
     ],
     "manual_overrides": {},
     "created_at": "2026-09-19T17:01:32.388Z",
-    "updated_at": "2026-11-24T06:53:43.323Z"
+    "updated_at": "2026-11-24T13:15:17.100Z"
   },
   {
     "id": "opp_650b1424a7",
     "hospital_id": "hosp_pih",
-    "program_id": "prog_f4eae62a35",
-    "cohort_id": null,
+    "program_id": "prog_b0faaa584f",
+    "cohort_id": "cohort_3c5d067673",
     "position_title": "Registered Nurse - New Graduate RN Residency",
-    "unit": null,
+    "unit": "Cardiac Telemetry, DOU, Medical-Surgical, Oncology, Telemetry",
     "locations": [
       {
         "city": "Whittier",
@@ -9925,11 +10304,9 @@
       }
     ],
     "specialties": [
-      "Multiple Specialties",
-      "Med-Surg",
       "Telemetry",
-      "Oncology",
-      "Rehabilitation"
+      "Unknown",
+      "Oncology"
     ],
     "application_open": null,
     "application_close": null,
@@ -9939,17 +10316,17 @@
     "verification_health": "VERIFIED",
     "eligibility": "ELIGIBLE",
     "bsn_required": false,
-    "rn_license_requirement": "Permanent California RN license required at least two weeks prior to cohort start date. Active AHA BLS required.",
+    "rn_license_requirement": "Must have a permanent CA RN license prior to start date. Interim permits are not accepted.",
     "license_required_by": "start",
-    "experience_requirement": "New graduate or RN with less than one year of experience in any area by start date.",
+    "experience_requirement": "This program is for newly graduating nurses with an ADN, BSN, or MSN degree. Less than one year of experience.",
     "source_url": "https://jobs.pihhealth.org/",
     "application_url": "https://jobs.pihhealth.org/",
     "dedup_key": null,
     "source_external_id": null,
     "first_discovered_at": "2026-09-20T19:01:35.368Z",
-    "last_seen_at": "2026-11-16T13:09:47.865Z",
-    "last_attempted_at": "2026-11-16T13:09:47.865Z",
-    "last_verified_at": "2026-11-16T13:09:47.865Z",
+    "last_seen_at": "2026-11-24T13:15:17.100Z",
+    "last_attempted_at": "2026-11-24T13:15:17.100Z",
+    "last_verified_at": "2026-11-24T13:15:17.100Z",
     "closed_at": null,
     "closure_reason": null,
     "publication_state": "PUBLISHED",
@@ -10385,11 +10762,29 @@
         "excerpt": "The New Graduate Registered Nurse (RN) Residency Program at PIH Health is designed for new graduate nurses or RNs with less than one year of experience to support their transition into professional nursing practice.",
         "retrieved_at": "2026-11-16T13:05:00.000Z",
         "claim": "eligibility"
+      },
+      {
+        "source_url": "https://pihcareers.silkroad.com/pihext/Getting-Hired/New-Graduate-FAQ-s.html",
+        "excerpt": "Our New Graduate hiring is based on departmental needs throughout the year. Our Residency program lasts one year in duration, consisting of educational topics, mentoring, and team building . New Graduate comprehensive training is 8-12 weeks, including preceptorship. This program is for newly graduating nurses with an ADN, BSN, or MSN degree. Application period: On-going",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://pihcareers.silkroad.com/pihext/Getting-Hired/New-Graduate-FAQ-s.html",
+        "excerpt": "Open positions will be posted as RN, New Graduate with the specific department that has openings. Important Information: Positions will be posted for each department with openings Applications are accepted on an ongoing basis Interviews will take place until positions are filled",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://pihcareers.silkroad.com/pihext/Getting-Hired/New-Graduate-FAQ-s.html",
+        "excerpt": "You must have a permanent CA RN license prior to start date Resume should contain clinical rotation sites, department, and hours Attach two letters of recommendation from clinical instructors, or school professors",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "license"
       }
     ],
     "manual_overrides": {},
     "created_at": "2026-09-20T19:01:35.368Z",
-    "updated_at": "2026-11-16T13:09:47.865Z"
+    "updated_at": "2026-11-24T13:15:17.100Z"
   },
   {
     "id": "opp_e3cdecc646",
@@ -10426,9 +10821,9 @@
     "dedup_key": "jobvite|washingtonhospital|oeiwafwc",
     "source_external_id": null,
     "first_discovered_at": "2026-09-21T03:28:08.057Z",
-    "last_seen_at": "2026-11-24T06:53:43.323Z",
-    "last_attempted_at": "2026-11-24T06:53:43.323Z",
-    "last_verified_at": "2026-11-24T06:53:43.323Z",
+    "last_seen_at": "2026-11-24T13:15:17.100Z",
+    "last_attempted_at": "2026-11-24T13:15:17.100Z",
+    "last_verified_at": "2026-11-24T13:15:17.100Z",
     "closed_at": null,
     "closure_reason": null,
     "publication_state": "PUBLISHED",
@@ -10858,11 +11253,53 @@
         "excerpt": "Upon successful completion of the Residency Program, the RN New Grad will be transferred into a specified Medical-Surgical unit, position and shift out of the Residency Program cost center.",
         "retrieved_at": "2026-11-24T06:30:19Z",
         "claim": "unit"
+      },
+      {
+        "source_url": "https://jobs.jobvite.com/washingtonhospital/job/oEiWAfwc",
+        "excerpt": "Note : During the 6-month RN New Graduate Residency program (the first 6 months of employment), the RN New Grad will work up to 80 hours per two (2) week pay period and variable shifts based on the training needs of the employee and program.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://jobs.jobvite.com/washingtonhospital/job/oEiWAfwc",
+        "excerpt": "There will be 10 RNs selected for this New Grad Residency Program. Start date of program: exact start date is to be determined, anticipated start date will be in February 2027",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://jobs.jobvite.com/washingtonhospital/job/oEiWAfwc",
+        "excerpt": "RN New Grad Residency Program, Staff Nurse I Nursing - Registered Nurse Fremont, California Apply Description Salary: $89.19 February 2027 RN New Grad Residency Program",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "title"
+      },
+      {
+        "source_url": "https://jobs.jobvite.com/washingtonhospital/job/oEiWAfwc",
+        "excerpt": "Work Experience Requirements: Required: Less than 6 months of RN acute care hospital experience. Applicants with greater than 6 months of RN acute care hospital experience are ineligible for program.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "experience"
+      },
+      {
+        "source_url": "https://jobs.jobvite.com/washingtonhospital/job/oEiWAfwc",
+        "excerpt": "Educational Requirements: Required: Graduate of an accredited school of nursing. Required: BSN or higher nursing degree.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "education"
+      },
+      {
+        "source_url": "https://jobs.jobvite.com/washingtonhospital/job/oEiWAfwc",
+        "excerpt": "Licensure/Certification Requirements Required: Current California RN license. Required: American Heart Association BLS Preferred: American Heart Association ACLS, NIH Stroke Scale Certificate",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "license"
+      },
+      {
+        "source_url": "https://jobs.jobvite.com/washingtonhospital/job/oEiWAfwc",
+        "excerpt": "Upon successful completion of the Residency Program, the RN New Grad will be transferred into a specified Medical-Surgical unit, position and shift out of the Residency Program cost center.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "unit"
       }
     ],
     "manual_overrides": {},
     "created_at": "2026-09-21T03:28:08.057Z",
-    "updated_at": "2026-11-24T06:53:43.323Z"
+    "updated_at": "2026-11-24T13:15:17.100Z"
   },
   {
     "id": "opp_da85a917e9",
@@ -10896,9 +11333,9 @@
     "dedup_key": "workday|bilh|jr103518",
     "source_external_id": null,
     "first_discovered_at": "2026-09-21T03:36:38.835Z",
-    "last_seen_at": "2026-11-24T06:53:43.323Z",
-    "last_attempted_at": "2026-11-24T06:53:43.323Z",
-    "last_verified_at": "2026-11-24T06:53:43.323Z",
+    "last_seen_at": "2026-11-24T13:15:17.100Z",
+    "last_attempted_at": "2026-11-24T13:15:17.100Z",
+    "last_verified_at": "2026-11-24T13:15:17.100Z",
     "closed_at": "2026-11-24T06:53:43.323Z",
     "closure_reason": "verified_closed",
     "publication_state": "PUBLISHED",
@@ -11058,11 +11495,23 @@
         "excerpt": "Transition to Practice Nurse Residency Program at Beth Israel Deaconess Medical Center welcomes new graduate registered nurses.",
         "retrieved_at": "2026-11-24T06:30:00Z",
         "claim": "eligibility"
+      },
+      {
+        "source_url": "https://jobs.bilh.org/locations/beth-israel-deaconess-medical-center/",
+        "excerpt": "The specific job posting for Nurse Residency - Farr 8 - Transplant and Med/Surg (Req ID: JR103518) is no longer active on the Beth Israel Lahey Health careers portal.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://jobs.bilh.org/locations/beth-israel-deaconess-medical-center/",
+        "excerpt": "Transition to Practice Nurse Residency Program at Beth Israel Deaconess Medical Center welcomes new graduate registered nurses.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "eligibility"
       }
     ],
     "manual_overrides": {},
     "created_at": "2026-09-21T03:36:38.835Z",
-    "updated_at": "2026-11-24T06:53:43.323Z"
+    "updated_at": "2026-11-24T13:15:17.100Z"
   },
   {
     "id": "opp_27f523fd47",
@@ -11099,9 +11548,9 @@
     "dedup_key": null,
     "source_external_id": null,
     "first_discovered_at": "2026-09-21T03:36:38.835Z",
-    "last_seen_at": "2026-11-24T06:53:43.323Z",
-    "last_attempted_at": "2026-11-24T06:53:43.323Z",
-    "last_verified_at": "2026-11-24T06:53:43.323Z",
+    "last_seen_at": "2026-11-24T13:15:17.100Z",
+    "last_attempted_at": "2026-11-24T13:15:17.100Z",
+    "last_verified_at": "2026-11-24T13:15:17.100Z",
     "closed_at": null,
     "closure_reason": null,
     "publication_state": "PUBLISHED",
@@ -11501,11 +11950,23 @@
         "excerpt": "Boston Medical Center hires new graduate RN residents in cohorts across inpatient medical-surgical, intermediate care, and acute specialty units.",
         "retrieved_at": "2026-11-24T06:30:00Z",
         "claim": "status"
+      },
+      {
+        "source_url": "https://jobs.bmc.org/",
+        "excerpt": "The New Graduate RN Residency Program at Boston Medical Center supports newly licensed new graduate registered nurses graduating within 12 months of hire as they transition into professional practice.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://jobs.bmc.org/",
+        "excerpt": "Boston Medical Center hires new graduate RN residents in cohorts across inpatient medical-surgical, intermediate care, and acute specialty units.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "status"
       }
     ],
     "manual_overrides": {},
     "created_at": "2026-09-21T03:36:38.835Z",
-    "updated_at": "2026-11-24T06:53:43.323Z"
+    "updated_at": "2026-11-24T13:15:17.100Z"
   },
   {
     "id": "opp_4dbe7c89e1",
@@ -11541,9 +12002,9 @@
     "dedup_key": null,
     "source_external_id": null,
     "first_discovered_at": "2026-09-21T03:36:38.835Z",
-    "last_seen_at": "2026-11-24T06:53:43.323Z",
-    "last_attempted_at": "2026-11-24T06:53:43.323Z",
-    "last_verified_at": "2026-11-24T06:53:43.323Z",
+    "last_seen_at": "2026-11-24T13:15:17.100Z",
+    "last_attempted_at": "2026-11-24T13:15:17.100Z",
+    "last_verified_at": "2026-11-24T13:15:17.100Z",
     "closed_at": null,
     "closure_reason": null,
     "publication_state": "PUBLISHED",
@@ -11943,11 +12404,23 @@
         "excerpt": "Newly licensed nurses hired into eligible staff nurse positions at Brigham and Women's Hospital are placed into cohorts upon hire.",
         "retrieved_at": "2026-11-24T06:30:00Z",
         "claim": "status"
+      },
+      {
+        "source_url": "https://www.brighamandwomens.org/nursing-and-patient-care-services/nursing-careers",
+        "excerpt": "The Nora McDonough Nurse Residency Program at Brigham and Women's Hospital is an ANCC PTAP accredited yearlong program designed for newly licensed new graduate registered nurses with BSN degrees.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://www.brighamandwomens.org/nursing-and-patient-care-services/nursing-careers",
+        "excerpt": "Newly licensed nurses hired into eligible staff nurse positions at Brigham and Women's Hospital are placed into cohorts upon hire.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "status"
       }
     ],
     "manual_overrides": {},
     "created_at": "2026-09-21T03:36:38.835Z",
-    "updated_at": "2026-11-24T06:53:43.323Z"
+    "updated_at": "2026-11-24T13:15:17.100Z"
   },
   {
     "id": "opp_34dee97be9",
@@ -11992,9 +12465,9 @@
     "dedup_key": null,
     "source_external_id": null,
     "first_discovered_at": "2026-09-21T12:32:20.546Z",
-    "last_seen_at": "2026-11-24T06:53:43.323Z",
-    "last_attempted_at": "2026-11-24T06:53:43.323Z",
-    "last_verified_at": "2026-11-24T06:53:43.323Z",
+    "last_seen_at": "2026-11-24T13:15:17.100Z",
+    "last_attempted_at": "2026-11-24T13:15:17.100Z",
+    "last_verified_at": "2026-11-24T13:15:17.100Z",
     "closed_at": null,
     "closure_reason": null,
     "publication_state": "PUBLISHED",
@@ -12454,11 +12927,35 @@
         "excerpt": "Cohort starts: July 12, 2027",
         "retrieved_at": "2026-11-24T06:30:00Z",
         "claim": "start_date"
+      },
+      {
+        "source_url": "https://jobs.utsouthwestern.edu/nursing-residency/",
+        "excerpt": "The Nurse Residency Program is a paid, fast-paced one-year program that provides you, a recent graduate, the opportunity for professional growth and increased self-confidence as you transition from being a student into your first patient-care role as an RN.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://jobs.utsouthwestern.edu/nursing-residency/",
+        "excerpt": "Nurse Residency Program List Title 11 Cohort starts: July 12, 2027 Application dates: Jan. 25 – Feb. 5, 2027",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://jobs.utsouthwestern.edu/nursing-residency/",
+        "excerpt": "Application dates: Jan. 25 – Feb. 5, 2027",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "opening_date"
+      },
+      {
+        "source_url": "https://jobs.utsouthwestern.edu/nursing-residency/",
+        "excerpt": "Cohort starts: July 12, 2027",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "start_date"
       }
     ],
     "manual_overrides": {},
     "created_at": "2026-09-21T12:32:20.546Z",
-    "updated_at": "2026-11-24T06:53:43.323Z"
+    "updated_at": "2026-11-24T13:15:17.100Z"
   },
   {
     "id": "opp_5775823a98",
@@ -12494,9 +12991,9 @@
     "dedup_key": "icims|commonspirit|2026-494269",
     "source_external_id": "2026-494269",
     "first_discovered_at": "2026-09-27T15:11:14.064Z",
-    "last_seen_at": "2026-11-24T06:53:43.323Z",
-    "last_attempted_at": "2026-11-24T06:53:43.323Z",
-    "last_verified_at": "2026-11-24T06:53:43.323Z",
+    "last_seen_at": "2026-11-24T13:15:17.100Z",
+    "last_attempted_at": "2026-11-24T13:15:17.100Z",
+    "last_verified_at": "2026-11-24T13:15:17.100Z",
     "closed_at": "2026-11-03T13:12:10.111Z",
     "closure_reason": "verified_closed",
     "publication_state": "PUBLISHED",
@@ -12740,11 +13237,23 @@
         "excerpt": "North State: Mercy Medical Center (Mt. Shasta), Mercy Medical Center (Redding) & St. Elizabeth Community Hospital Summer: Application opens in March | Program starts July 12, 2026 Spring: Application opens in October 2026 | Program starts in February 2027",
         "retrieved_at": "2026-11-24T06:34:32Z",
         "claim": "status"
+      },
+      {
+        "source_url": "https://www.commonspirit.careers/NNRP-CA",
+        "excerpt": "Start your nursing career where innovation, compassion, and professional growth come together through the California Region National Nurse Residency Program at CommonSpirit Health. Designed to support your transition from classroom to clinical practice for new graduate nurses.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://www.commonspirit.careers/NNRP-CA",
+        "excerpt": "North State: Mercy Medical Center (Mt. Shasta), Mercy Medical Center (Redding) & St. Elizabeth Community Hospital Summer: Application opens in March | Program starts July 12, 2026 Spring: Application opens in October 2026 | Program starts in February 2027",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "status"
       }
     ],
     "manual_overrides": {},
     "created_at": "2026-09-27T15:11:14.064Z",
-    "updated_at": "2026-11-24T06:53:43.323Z"
+    "updated_at": "2026-11-24T13:15:17.100Z"
   },
   {
     "id": "opp_8f89b96096",
@@ -12778,9 +13287,9 @@
     "dedup_key": "taleo|memorialcare|mil005258",
     "source_external_id": "MIL005258",
     "first_discovered_at": "2026-09-29T00:12:40.854Z",
-    "last_seen_at": "2026-11-24T06:53:43.323Z",
-    "last_attempted_at": "2026-11-24T06:53:43.323Z",
-    "last_verified_at": "2026-11-24T06:53:43.323Z",
+    "last_seen_at": "2026-11-24T13:15:17.100Z",
+    "last_attempted_at": "2026-11-24T13:15:17.100Z",
+    "last_verified_at": "2026-11-24T13:15:17.100Z",
     "closed_at": "2026-11-03T13:12:10.111Z",
     "closure_reason": "verified_closed",
     "publication_state": "PUBLISHED",
@@ -12976,11 +13485,23 @@
         "excerpt": "Long Beach Medical Center & Miller Children’s & Women’s Hospital Long Beach Start date: March with positions posted in January Start date: August with positions posted in June Start date: November with positions posted in September",
         "retrieved_at": "2026-11-24T06:44:27Z",
         "claim": "status"
+      },
+      {
+        "source_url": "https://careers.memorialcare.org/recent-grads",
+        "excerpt": "MemorialCare is committed to supporting your professional growth and advancement as a newly graduated registered nurse. The New Graduate RN Residency Program provides the tools and experiences you’ll need as you transition from your school studies into professional nursing practice.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://careers.memorialcare.org/recent-grads",
+        "excerpt": "Long Beach Medical Center & Miller Children’s & Women’s Hospital Long Beach Start date: March with positions posted in January Start date: August with positions posted in June Start date: November with positions posted in September",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "status"
       }
     ],
     "manual_overrides": {},
     "created_at": "2026-09-29T00:12:40.854Z",
-    "updated_at": "2026-11-24T06:53:43.323Z"
+    "updated_at": "2026-11-24T13:15:17.100Z"
   },
   {
     "id": "opp_dbd3900de7",
@@ -13015,9 +13536,9 @@
     "dedup_key": "jhmi|hopkins|676639",
     "source_external_id": "676639",
     "first_discovered_at": "2026-09-29T12:17:48.422Z",
-    "last_seen_at": "2026-11-24T06:53:43.323Z",
-    "last_attempted_at": "2026-11-24T06:53:43.323Z",
-    "last_verified_at": "2026-11-24T06:53:43.323Z",
+    "last_seen_at": "2026-11-24T13:15:17.100Z",
+    "last_attempted_at": "2026-11-24T13:15:17.100Z",
+    "last_verified_at": "2026-11-24T13:15:17.100Z",
     "closed_at": "2026-10-03T12:21:29.951Z",
     "closure_reason": "verified_closed",
     "publication_state": "PUBLISHED",
@@ -13345,11 +13866,23 @@
         "excerpt": "All New Grad RNs are automatically enrolled in our Nurse Residency Program at Johns Hopkins Medicine.",
         "retrieved_at": "2026-11-24T06:30:00Z",
         "claim": "eligibility"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/jobs/nursing-new-grad-rn/",
+        "excerpt": "Requisition 102787 returns HTTP 410 Gone; job posting removed from active listings.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/jobs/nursing-new-grad-rn/",
+        "excerpt": "All New Grad RNs are automatically enrolled in our Nurse Residency Program at Johns Hopkins Medicine.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "eligibility"
       }
     ],
     "manual_overrides": {},
     "created_at": "2026-09-29T12:17:48.422Z",
-    "updated_at": "2026-11-24T06:53:43.323Z"
+    "updated_at": "2026-11-24T13:15:17.100Z"
   },
   {
     "id": "opp_c2b45c0fed",
@@ -13392,9 +13925,9 @@
     "dedup_key": "oracle|lluh|17676",
     "source_external_id": null,
     "first_discovered_at": "2026-09-30T12:17:01.877Z",
-    "last_seen_at": "2026-11-24T06:53:43.323Z",
-    "last_attempted_at": "2026-11-24T06:53:43.323Z",
-    "last_verified_at": "2026-11-24T06:53:43.323Z",
+    "last_seen_at": "2026-11-24T13:15:17.100Z",
+    "last_attempted_at": "2026-11-24T13:15:17.100Z",
+    "last_verified_at": "2026-11-24T13:15:17.100Z",
     "closed_at": "2026-11-11T18:00:40.152Z",
     "closure_reason": "deadline_passed",
     "publication_state": "PUBLISHED",
@@ -14002,7 +14535,7 @@
     ],
     "manual_overrides": {},
     "created_at": "2026-09-30T12:17:01.877Z",
-    "updated_at": "2026-11-24T06:53:43.323Z"
+    "updated_at": "2026-11-24T13:15:17.100Z"
   },
   {
     "id": "opp_1381e8d059",
@@ -14036,9 +14569,9 @@
     "dedup_key": "taleo|memorialcare|lon015848",
     "source_external_id": "LON015848",
     "first_discovered_at": "2026-10-02T12:19:22.781Z",
-    "last_seen_at": "2026-11-24T06:53:43.323Z",
-    "last_attempted_at": "2026-11-24T06:53:43.323Z",
-    "last_verified_at": "2026-11-24T06:53:43.323Z",
+    "last_seen_at": "2026-11-24T13:15:17.100Z",
+    "last_attempted_at": "2026-11-24T13:15:17.100Z",
+    "last_verified_at": "2026-11-24T13:15:17.100Z",
     "closed_at": "2026-11-03T13:12:10.111Z",
     "closure_reason": "verified_closed",
     "publication_state": "PUBLISHED",
@@ -14204,11 +14737,23 @@
         "excerpt": "Long Beach Medical Center & Miller Children’s & Women’s Hospital Long Beach Start date: March with positions posted in January Start date: August with positions posted in June Start date: November with positions posted in September",
         "retrieved_at": "2026-11-24T06:44:27Z",
         "claim": "status"
+      },
+      {
+        "source_url": "https://careers.memorialcare.org/recent-grads",
+        "excerpt": "MemorialCare is committed to supporting your professional growth and advancement as a newly graduated registered nurse. The New Graduate RN Residency Program provides the tools and experiences you’ll need as you transition from your school studies into professional nursing practice.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://careers.memorialcare.org/recent-grads",
+        "excerpt": "Long Beach Medical Center & Miller Children’s & Women’s Hospital Long Beach Start date: March with positions posted in January Start date: August with positions posted in June Start date: November with positions posted in September",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "status"
       }
     ],
     "manual_overrides": {},
     "created_at": "2026-10-02T12:19:22.781Z",
-    "updated_at": "2026-11-24T06:53:43.323Z"
+    "updated_at": "2026-11-24T13:15:17.100Z"
   },
   {
     "id": "opp_5144668644",
@@ -14246,9 +14791,9 @@
     "dedup_key": "jhmi|hopkins|675454",
     "source_external_id": "675454",
     "first_discovered_at": "2026-10-03T12:21:29.951Z",
-    "last_seen_at": "2026-11-24T06:53:43.323Z",
-    "last_attempted_at": "2026-11-24T06:53:43.323Z",
-    "last_verified_at": "2026-11-24T06:53:43.323Z",
+    "last_seen_at": "2026-11-24T13:15:17.100Z",
+    "last_attempted_at": "2026-11-24T13:15:17.100Z",
+    "last_verified_at": "2026-11-24T13:15:17.100Z",
     "closed_at": "2026-10-07T12:18:16.283Z",
     "closure_reason": "verified_closed",
     "publication_state": "PUBLISHED",
@@ -14576,11 +15121,23 @@
         "excerpt": "All New Grad RNs are automatically enrolled in our Nurse Residency Program at Johns Hopkins Medicine.",
         "retrieved_at": "2026-11-24T06:30:00Z",
         "claim": "eligibility"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/jobs/nursing-new-grad-rn/",
+        "excerpt": "Requisition 102920 returns HTTP 410 Gone; job posting removed from active listings.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/jobs/nursing-new-grad-rn/",
+        "excerpt": "All New Grad RNs are automatically enrolled in our Nurse Residency Program at Johns Hopkins Medicine.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "eligibility"
       }
     ],
     "manual_overrides": {},
     "created_at": "2026-10-03T12:21:29.951Z",
-    "updated_at": "2026-11-24T06:53:43.323Z"
+    "updated_at": "2026-11-24T13:15:17.100Z"
   },
   {
     "id": "opp_dc316ff3f0",
@@ -14615,9 +15172,9 @@
     "dedup_key": "jhmi|hopkins|677775",
     "source_external_id": "677775",
     "first_discovered_at": "2026-10-04T12:19:38.942Z",
-    "last_seen_at": "2026-11-24T06:53:43.323Z",
-    "last_attempted_at": "2026-11-24T06:53:43.323Z",
-    "last_verified_at": "2026-11-24T06:53:43.323Z",
+    "last_seen_at": "2026-11-24T13:15:17.100Z",
+    "last_attempted_at": "2026-11-24T13:15:17.100Z",
+    "last_verified_at": "2026-11-24T13:15:17.100Z",
     "closed_at": "2026-10-17T13:02:12.426Z",
     "closure_reason": "verified_closed",
     "publication_state": "PUBLISHED",
@@ -14981,11 +15538,23 @@
         "excerpt": "All New Grad RNs are automatically enrolled in our Nurse Residency Program at Johns Hopkins Medicine.",
         "retrieved_at": "2026-11-24T06:30:00Z",
         "claim": "eligibility"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/jobs/nursing-new-grad-rn/",
+        "excerpt": "Requisition 102786 returns HTTP 410 Gone; job posting removed from active listings.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/jobs/nursing-new-grad-rn/",
+        "excerpt": "All New Grad RNs are automatically enrolled in our Nurse Residency Program at Johns Hopkins Medicine.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "eligibility"
       }
     ],
     "manual_overrides": {},
     "created_at": "2026-10-04T12:19:38.942Z",
-    "updated_at": "2026-11-24T06:53:43.323Z"
+    "updated_at": "2026-11-24T13:15:17.100Z"
   },
   {
     "id": "opp_b8d7708d79",
@@ -15023,9 +15592,9 @@
     "dedup_key": "jhmi|hopkins|675493",
     "source_external_id": "675493",
     "first_discovered_at": "2026-10-10T12:12:44.375Z",
-    "last_seen_at": "2026-11-24T06:53:43.323Z",
-    "last_attempted_at": "2026-11-24T06:53:43.323Z",
-    "last_verified_at": "2026-11-24T06:53:43.323Z",
+    "last_seen_at": "2026-11-24T13:15:17.100Z",
+    "last_attempted_at": "2026-11-24T13:15:17.100Z",
+    "last_verified_at": "2026-11-24T13:15:17.100Z",
     "closed_at": "2026-10-14T13:36:07.684Z",
     "closure_reason": "verified_closed",
     "publication_state": "PUBLISHED",
@@ -15215,11 +15784,23 @@
         "excerpt": "All New Grad RNs are automatically enrolled in our Nurse Residency Program at Johns Hopkins Medicine.",
         "retrieved_at": "2026-11-24T06:30:00Z",
         "claim": "eligibility"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/jobs/nursing-new-grad-rn/",
+        "excerpt": "Requisition 103102 returns HTTP 410 Gone; job posting removed from active listings.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/jobs/nursing-new-grad-rn/",
+        "excerpt": "All New Grad RNs are automatically enrolled in our Nurse Residency Program at Johns Hopkins Medicine.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "eligibility"
       }
     ],
     "manual_overrides": {},
     "created_at": "2026-10-10T12:12:44.375Z",
-    "updated_at": "2026-11-24T06:53:43.323Z"
+    "updated_at": "2026-11-24T13:15:17.100Z"
   },
   {
     "id": "opp_06171c46cf",
@@ -15254,9 +15835,9 @@
     "dedup_key": "jhmi|hopkins|675747",
     "source_external_id": "675747",
     "first_discovered_at": "2026-10-11T12:17:50.766Z",
-    "last_seen_at": "2026-11-24T06:53:43.323Z",
-    "last_attempted_at": "2026-11-24T06:53:43.323Z",
-    "last_verified_at": "2026-11-24T06:53:43.323Z",
+    "last_seen_at": "2026-11-24T13:15:17.100Z",
+    "last_attempted_at": "2026-11-24T13:15:17.100Z",
+    "last_verified_at": "2026-11-24T13:15:17.100Z",
     "closed_at": "2026-10-16T12:17:09.423Z",
     "closure_reason": "verified_closed",
     "publication_state": "PUBLISHED",
@@ -15518,11 +16099,23 @@
         "excerpt": "All New Grad RNs are automatically enrolled in our Nurse Residency Program at Johns Hopkins Medicine.",
         "retrieved_at": "2026-11-24T06:30:00Z",
         "claim": "eligibility"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/jobs/nursing-new-grad-rn/",
+        "excerpt": "Requisition 101898 returns HTTP 410 Gone; job posting removed from active listings.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/jobs/nursing-new-grad-rn/",
+        "excerpt": "All New Grad RNs are automatically enrolled in our Nurse Residency Program at Johns Hopkins Medicine.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "eligibility"
       }
     ],
     "manual_overrides": {},
     "created_at": "2026-10-11T12:17:50.766Z",
-    "updated_at": "2026-11-24T06:53:43.323Z"
+    "updated_at": "2026-11-24T13:15:17.100Z"
   },
   {
     "id": "opp_e6577cf35e",
@@ -15557,9 +16150,9 @@
     "dedup_key": "jhmi|hopkins|679581",
     "source_external_id": "679581",
     "first_discovered_at": "2026-10-11T12:17:50.766Z",
-    "last_seen_at": "2026-11-24T06:53:43.323Z",
-    "last_attempted_at": "2026-11-24T06:53:43.323Z",
-    "last_verified_at": "2026-11-24T06:53:43.323Z",
+    "last_seen_at": "2026-11-24T13:15:17.100Z",
+    "last_attempted_at": "2026-11-24T13:15:17.100Z",
+    "last_verified_at": "2026-11-24T13:15:17.100Z",
     "closed_at": "2026-10-29T12:21:24.091Z",
     "closure_reason": "verified_closed",
     "publication_state": "PUBLISHED",
@@ -15995,11 +16588,23 @@
         "excerpt": "All New Grad RNs are automatically enrolled in our Nurse Residency Program at Johns Hopkins Medicine.",
         "retrieved_at": "2026-11-24T06:30:00Z",
         "claim": "eligibility"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/jobs/nursing-new-grad-rn/",
+        "excerpt": "Requisition 103055 returns HTTP 410 Gone; job posting removed from active listings.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/jobs/nursing-new-grad-rn/",
+        "excerpt": "All New Grad RNs are automatically enrolled in our Nurse Residency Program at Johns Hopkins Medicine.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "eligibility"
       }
     ],
     "manual_overrides": {},
     "created_at": "2026-10-11T12:17:50.766Z",
-    "updated_at": "2026-11-24T06:53:43.323Z"
+    "updated_at": "2026-11-24T13:15:17.100Z"
   },
   {
     "id": "opp_64c5fb455c",
@@ -16034,9 +16639,9 @@
     "dedup_key": "custom|hopkinsmedicine|659418",
     "source_external_id": "659418",
     "first_discovered_at": "2026-10-14T13:36:07.684Z",
-    "last_seen_at": "2026-11-24T06:53:43.323Z",
-    "last_attempted_at": "2026-11-24T06:53:43.323Z",
-    "last_verified_at": "2026-11-24T06:53:43.323Z",
+    "last_seen_at": "2026-11-24T13:15:17.100Z",
+    "last_attempted_at": "2026-11-24T13:15:17.100Z",
+    "last_verified_at": "2026-11-24T13:15:17.100Z",
     "closed_at": "2026-10-16T12:17:09.423Z",
     "closure_reason": "verified_closed",
     "publication_state": "PUBLISHED",
@@ -16166,11 +16771,23 @@
         "excerpt": "All New Grad RNs are automatically enrolled in our Nurse Residency Program at Johns Hopkins Medicine.",
         "retrieved_at": "2026-11-24T06:30:00Z",
         "claim": "eligibility"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/jobs/nursing-new-grad-rn/",
+        "excerpt": "Requisition 103262 returns HTTP 410 Gone; job posting removed from active listings.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/jobs/nursing-new-grad-rn/",
+        "excerpt": "All New Grad RNs are automatically enrolled in our Nurse Residency Program at Johns Hopkins Medicine.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "eligibility"
       }
     ],
     "manual_overrides": {},
     "created_at": "2026-10-14T13:36:07.684Z",
-    "updated_at": "2026-11-24T06:53:43.323Z"
+    "updated_at": "2026-11-24T13:15:17.100Z"
   },
   {
     "id": "opp_feb65b9edc",
@@ -16205,9 +16822,9 @@
     "dedup_key": "custom|hopkins|677735",
     "source_external_id": "677735",
     "first_discovered_at": "2026-10-14T13:36:07.684Z",
-    "last_seen_at": "2026-11-24T06:53:43.323Z",
-    "last_attempted_at": "2026-11-24T06:53:43.323Z",
-    "last_verified_at": "2026-11-24T06:53:43.323Z",
+    "last_seen_at": "2026-11-24T13:15:17.100Z",
+    "last_attempted_at": "2026-11-24T13:15:17.100Z",
+    "last_verified_at": "2026-11-24T13:15:17.100Z",
     "closed_at": "2026-10-24T12:18:39.243Z",
     "closure_reason": "verified_closed",
     "publication_state": "PUBLISHED",
@@ -16361,11 +16978,23 @@
         "excerpt": "All New Grad RNs are automatically enrolled in our Nurse Residency Program at Johns Hopkins Medicine.",
         "retrieved_at": "2026-11-24T06:30:00Z",
         "claim": "eligibility"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/jobs/nursing-new-grad-rn/",
+        "excerpt": "Requisition 102609 returns HTTP 410 Gone; job posting removed from active listings.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/jobs/nursing-new-grad-rn/",
+        "excerpt": "All New Grad RNs are automatically enrolled in our Nurse Residency Program at Johns Hopkins Medicine.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "eligibility"
       }
     ],
     "manual_overrides": {},
     "created_at": "2026-10-14T13:36:07.684Z",
-    "updated_at": "2026-11-24T06:53:43.323Z"
+    "updated_at": "2026-11-24T13:15:17.100Z"
   },
   {
     "id": "opp_a1772ae2ff",
@@ -16400,9 +17029,9 @@
     "dedup_key": "custom|hopkins|673057",
     "source_external_id": "673057",
     "first_discovered_at": "2026-10-14T13:36:07.684Z",
-    "last_seen_at": "2026-11-24T06:53:43.323Z",
-    "last_attempted_at": "2026-11-24T06:53:43.323Z",
-    "last_verified_at": "2026-11-24T06:53:43.323Z",
+    "last_seen_at": "2026-11-24T13:15:17.100Z",
+    "last_attempted_at": "2026-11-24T13:15:17.100Z",
+    "last_verified_at": "2026-11-24T13:15:17.100Z",
     "closed_at": "2026-11-06T13:09:28.822Z",
     "closure_reason": "verified_closed",
     "publication_state": "PUBLISHED",
@@ -16748,11 +17377,23 @@
         "excerpt": "All New Grad RNs are automatically enrolled in our Nurse Residency Program at Johns Hopkins Medicine.",
         "retrieved_at": "2026-11-24T06:30:00Z",
         "claim": "eligibility"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/jobs/nursing-new-grad-rn/",
+        "excerpt": "Requisition 102379 returns HTTP 410 Gone; job posting removed from active listings.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/jobs/nursing-new-grad-rn/",
+        "excerpt": "All New Grad RNs are automatically enrolled in our Nurse Residency Program at Johns Hopkins Medicine.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "eligibility"
       }
     ],
     "manual_overrides": {},
     "created_at": "2026-10-14T13:36:07.684Z",
-    "updated_at": "2026-11-24T06:53:43.323Z"
+    "updated_at": "2026-11-24T13:15:17.100Z"
   },
   {
     "id": "opp_3a1d0e02ce",
@@ -16787,9 +17428,9 @@
     "dedup_key": "jhmi|hopkins|674713",
     "source_external_id": "674713",
     "first_discovered_at": "2026-10-16T12:17:09.423Z",
-    "last_seen_at": "2026-11-24T06:53:43.323Z",
-    "last_attempted_at": "2026-11-24T06:53:43.323Z",
-    "last_verified_at": "2026-11-24T06:53:43.323Z",
+    "last_seen_at": "2026-11-24T13:15:17.100Z",
+    "last_attempted_at": "2026-11-24T13:15:17.100Z",
+    "last_verified_at": "2026-11-24T13:15:17.100Z",
     "closed_at": "2026-11-14T13:10:38.188Z",
     "closure_reason": "verified_removed",
     "publication_state": "PUBLISHED",
@@ -17135,11 +17776,23 @@
         "excerpt": "All New Grad RNs are automatically enrolled in our Nurse Residency Program at Johns Hopkins Medicine.",
         "retrieved_at": "2026-11-24T06:30:00Z",
         "claim": "eligibility"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/jobs/nursing-new-grad-rn/",
+        "excerpt": "Requisition 101319 returns HTTP 410 Gone; job posting removed from active listings.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/jobs/nursing-new-grad-rn/",
+        "excerpt": "All New Grad RNs are automatically enrolled in our Nurse Residency Program at Johns Hopkins Medicine.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "eligibility"
       }
     ],
     "manual_overrides": {},
     "created_at": "2026-10-16T12:17:09.423Z",
-    "updated_at": "2026-11-24T06:53:43.323Z"
+    "updated_at": "2026-11-24T13:15:17.100Z"
   },
   {
     "id": "opp_e629a4c778",
@@ -17174,9 +17827,9 @@
     "dedup_key": "jhmi|hopkins|675448",
     "source_external_id": "675448",
     "first_discovered_at": "2026-10-16T12:17:09.423Z",
-    "last_seen_at": "2026-11-24T06:53:43.323Z",
-    "last_attempted_at": "2026-11-24T06:53:43.323Z",
-    "last_verified_at": "2026-11-24T06:53:43.323Z",
+    "last_seen_at": "2026-11-24T13:15:17.100Z",
+    "last_attempted_at": "2026-11-24T13:15:17.100Z",
+    "last_verified_at": "2026-11-24T13:15:17.100Z",
     "closed_at": "2026-10-29T12:21:24.091Z",
     "closure_reason": "verified_closed",
     "publication_state": "PUBLISHED",
@@ -17522,11 +18175,23 @@
         "excerpt": "All New Grad RNs are automatically enrolled in our Nurse Residency Program at Johns Hopkins Medicine.",
         "retrieved_at": "2026-11-24T06:30:00Z",
         "claim": "eligibility"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/jobs/nursing-new-grad-rn/",
+        "excerpt": "Requisition 101597 returns HTTP 410 Gone; job posting removed from active listings.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/jobs/nursing-new-grad-rn/",
+        "excerpt": "All New Grad RNs are automatically enrolled in our Nurse Residency Program at Johns Hopkins Medicine.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "eligibility"
       }
     ],
     "manual_overrides": {},
     "created_at": "2026-10-16T12:17:09.423Z",
-    "updated_at": "2026-11-24T06:53:43.323Z"
+    "updated_at": "2026-11-24T13:15:17.100Z"
   },
   {
     "id": "opp_99a5cca755",
@@ -17561,9 +18226,9 @@
     "dedup_key": "jhmi|hopkins|677776",
     "source_external_id": "677776",
     "first_discovered_at": "2026-10-17T13:02:12.426Z",
-    "last_seen_at": "2026-11-24T06:53:43.323Z",
-    "last_attempted_at": "2026-11-24T06:53:43.323Z",
-    "last_verified_at": "2026-11-24T06:53:43.323Z",
+    "last_seen_at": "2026-11-24T13:15:17.100Z",
+    "last_attempted_at": "2026-11-24T13:15:17.100Z",
+    "last_verified_at": "2026-11-24T13:15:17.100Z",
     "closed_at": "2026-10-24T12:18:39.243Z",
     "closure_reason": "verified_closed",
     "publication_state": "PUBLISHED",
@@ -17711,11 +18376,23 @@
         "excerpt": "All New Grad RNs are automatically enrolled in our Nurse Residency Program at Johns Hopkins Medicine.",
         "retrieved_at": "2026-11-24T06:30:00Z",
         "claim": "eligibility"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/jobs/nursing-new-grad-rn/",
+        "excerpt": "Requisition 103427 returns HTTP 410 Gone; job posting removed from active listings.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/jobs/nursing-new-grad-rn/",
+        "excerpt": "All New Grad RNs are automatically enrolled in our Nurse Residency Program at Johns Hopkins Medicine.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "eligibility"
       }
     ],
     "manual_overrides": {},
     "created_at": "2026-10-17T13:02:12.426Z",
-    "updated_at": "2026-11-24T06:53:43.323Z"
+    "updated_at": "2026-11-24T13:15:17.100Z"
   },
   {
     "id": "opp_8151d4e061",
@@ -17750,9 +18427,9 @@
     "dedup_key": "jhmi|hopkins|681772",
     "source_external_id": "681772",
     "first_discovered_at": "2026-10-17T13:02:12.426Z",
-    "last_seen_at": "2026-11-24T06:53:43.323Z",
-    "last_attempted_at": "2026-11-24T06:53:43.323Z",
-    "last_verified_at": "2026-11-24T06:53:43.323Z",
+    "last_seen_at": "2026-11-24T13:15:17.100Z",
+    "last_attempted_at": "2026-11-24T13:15:17.100Z",
+    "last_verified_at": "2026-11-24T13:15:17.100Z",
     "closed_at": "2026-10-29T12:21:24.091Z",
     "closure_reason": "verified_closed",
     "publication_state": "PUBLISHED",
@@ -18092,11 +18769,23 @@
         "excerpt": "All New Grad RNs are automatically enrolled in our Nurse Residency Program at Johns Hopkins Medicine.",
         "retrieved_at": "2026-11-24T06:30:00Z",
         "claim": "eligibility"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/jobs/nursing-new-grad-rn/",
+        "excerpt": "Requisition 103425 returns HTTP 410 Gone; job posting removed from active listings.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/jobs/nursing-new-grad-rn/",
+        "excerpt": "All New Grad RNs are automatically enrolled in our Nurse Residency Program at Johns Hopkins Medicine.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "eligibility"
       }
     ],
     "manual_overrides": {},
     "created_at": "2026-10-17T13:02:12.426Z",
-    "updated_at": "2026-11-24T06:53:43.323Z"
+    "updated_at": "2026-11-24T13:15:17.100Z"
   },
   {
     "id": "opp_bca06dc9a9",
@@ -18136,9 +18825,9 @@
     "dedup_key": "workday|sharp|jr211850",
     "source_external_id": null,
     "first_discovered_at": "2026-10-18T12:15:31.322Z",
-    "last_seen_at": "2026-11-24T06:53:43.323Z",
-    "last_attempted_at": "2026-11-24T06:53:43.323Z",
-    "last_verified_at": "2026-11-24T06:53:43.323Z",
+    "last_seen_at": "2026-11-24T13:15:17.100Z",
+    "last_attempted_at": "2026-11-24T13:15:17.100Z",
+    "last_verified_at": "2026-11-24T13:15:17.100Z",
     "closed_at": "2026-11-14T13:10:38.188Z",
     "closure_reason": "deadline_passed",
     "publication_state": "PUBLISHED",
@@ -18448,11 +19137,23 @@
         "excerpt": "Applications for the Spring 2027 Sharp HealthCare Nurse Residency Program will be open from November 10th - 13th (November 3rd - 13th for current Sharp team members) .",
         "retrieved_at": "2026-11-24T06:34:25Z",
         "claim": "status"
+      },
+      {
+        "source_url": "https://careers.sharp.com/SHC-nurse-residency-program",
+        "excerpt": "Thank you for your interest in our Nurse Residency Program, a program focused on the new graduate nurse with less than 1 year of experience.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://careers.sharp.com/SHC-nurse-residency-program",
+        "excerpt": "Applications for the Spring 2027 Sharp HealthCare Nurse Residency Program will be open from November 10th - 13th (November 3rd - 13th for current Sharp team members) .",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "status"
       }
     ],
     "manual_overrides": {},
     "created_at": "2026-10-18T12:15:31.322Z",
-    "updated_at": "2026-11-24T06:53:43.323Z"
+    "updated_at": "2026-11-24T13:15:17.100Z"
   },
   {
     "id": "opp_9230a83b45",
@@ -18489,9 +19190,9 @@
     "dedup_key": "workday|osu|r153524",
     "source_external_id": "R153524",
     "first_discovered_at": "2026-10-18T12:15:31.322Z",
-    "last_seen_at": "2026-11-24T06:53:43.323Z",
-    "last_attempted_at": "2026-11-24T06:53:43.323Z",
-    "last_verified_at": "2026-11-24T06:53:43.323Z",
+    "last_seen_at": "2026-11-24T13:15:17.100Z",
+    "last_attempted_at": "2026-11-24T13:15:17.100Z",
+    "last_verified_at": "2026-11-24T13:15:17.100Z",
     "closed_at": null,
     "closure_reason": null,
     "publication_state": "PUBLISHED",
@@ -18783,11 +19484,23 @@
         "excerpt": "Staff Nurse (RN)- Oncology New Grad Nurse Residency Program- The James. Requisition R153524 actively accepting applications.",
         "retrieved_at": "2026-11-24T06:30:00Z",
         "claim": "status"
+      },
+      {
+        "source_url": "https://wexnermedical.osu.edu/careers/current-openings/nursing",
+        "excerpt": "The Buckeye Nurse Residency Program at The Ohio State University Wexner Medical Center is a 12-month program for newly licensed registered nurses transitioning to practice.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://osu.wd1.myworkdayjobs.com/OSUCareers/job/James-Cancer-Hospital-and-Solove-Research-Institute/Staff-Nurse--RN---Oncology-New-Grad-Nurse-Residency-Program--The-James_R153524-1",
+        "excerpt": "Staff Nurse (RN)- Oncology New Grad Nurse Residency Program- The James. Requisition R153524 actively accepting applications.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "status"
       }
     ],
     "manual_overrides": {},
     "created_at": "2026-10-18T12:15:31.322Z",
-    "updated_at": "2026-11-24T06:53:43.323Z"
+    "updated_at": "2026-11-24T13:15:17.100Z"
   },
   {
     "id": "opp_0dfd7b3e34",
@@ -18824,9 +19537,9 @@
     "dedup_key": "workday|osu|r153540",
     "source_external_id": "R153540",
     "first_discovered_at": "2026-10-18T12:15:31.322Z",
-    "last_seen_at": "2026-11-24T06:53:43.323Z",
-    "last_attempted_at": "2026-11-24T06:53:43.323Z",
-    "last_verified_at": "2026-11-24T06:53:43.323Z",
+    "last_seen_at": "2026-11-24T13:15:17.100Z",
+    "last_attempted_at": "2026-11-24T13:15:17.100Z",
+    "last_verified_at": "2026-11-24T13:15:17.100Z",
     "closed_at": null,
     "closure_reason": null,
     "publication_state": "PUBLISHED",
@@ -19100,11 +19813,23 @@
         "excerpt": "Staff Nurse (RN) - New Grad OR Nurse Residency - Varying Shifts. Requisition R153540 actively accepting applications.",
         "retrieved_at": "2026-11-24T06:30:00Z",
         "claim": "status"
+      },
+      {
+        "source_url": "https://wexnermedical.osu.edu/careers/current-openings/nursing",
+        "excerpt": "The Buckeye Nurse Residency Program at The Ohio State University Wexner Medical Center is designed to support new graduate registered nurses transitioning into specialized clinical practice.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://osu.wd1.myworkdayjobs.com/OSUCareers/job/University-Hospital/Staff-Nurse--RN----New-Grad-OR-Nurse-Residency---Varying-Shifts_R153540-1",
+        "excerpt": "Staff Nurse (RN) - New Grad OR Nurse Residency - Varying Shifts. Requisition R153540 actively accepting applications.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "status"
       }
     ],
     "manual_overrides": {},
     "created_at": "2026-10-18T12:15:31.322Z",
-    "updated_at": "2026-11-24T06:53:43.323Z"
+    "updated_at": "2026-11-24T13:15:17.100Z"
   },
   {
     "id": "opp_f1ac939d80",
@@ -19142,9 +19867,9 @@
     "dedup_key": "workday|osu|r153518",
     "source_external_id": "R153518",
     "first_discovered_at": "2026-10-24T12:18:39.243Z",
-    "last_seen_at": "2026-11-24T06:53:43.323Z",
-    "last_attempted_at": "2026-11-24T06:53:43.323Z",
-    "last_verified_at": "2026-11-24T06:53:43.323Z",
+    "last_seen_at": "2026-11-24T13:15:17.100Z",
+    "last_attempted_at": "2026-11-24T13:15:17.100Z",
+    "last_verified_at": "2026-11-24T13:15:17.100Z",
     "closed_at": null,
     "closure_reason": null,
     "publication_state": "PUBLISHED",
@@ -19400,11 +20125,23 @@
         "excerpt": "Buckeye Nurse Residency Program. Requisition R153518 actively accepting applications at University Hospital.",
         "retrieved_at": "2026-11-24T06:30:00Z",
         "claim": "status"
+      },
+      {
+        "source_url": "https://wexnermedical.osu.edu/careers/current-openings/nursing",
+        "excerpt": "The Buckeye Nurse Residency Program at The Ohio State University Wexner Medical Center is a 12-month, full-time Evidence-Based Transition to Practice program designed to support new graduate registered nurses as they transition from students to professional clinicians.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://osu.wd1.myworkdayjobs.com/OSUCareers/job/University-Hospital/Buckeye-Nurse-Residency-Program_R153518-1",
+        "excerpt": "Buckeye Nurse Residency Program. Requisition R153518 actively accepting applications at University Hospital.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "status"
       }
     ],
     "manual_overrides": {},
     "created_at": "2026-10-24T12:18:39.243Z",
-    "updated_at": "2026-11-24T06:53:43.323Z"
+    "updated_at": "2026-11-24T13:15:17.100Z"
   },
   {
     "id": "opp_de06f36726",
@@ -19442,9 +20179,9 @@
     "dedup_key": "workday|osu|r153520",
     "source_external_id": "R153520",
     "first_discovered_at": "2026-10-24T12:18:39.243Z",
-    "last_seen_at": "2026-11-24T06:53:43.323Z",
-    "last_attempted_at": "2026-11-24T06:53:43.323Z",
-    "last_verified_at": "2026-11-24T06:53:43.323Z",
+    "last_seen_at": "2026-11-24T13:15:17.100Z",
+    "last_attempted_at": "2026-11-24T13:15:17.100Z",
+    "last_verified_at": "2026-11-24T13:15:17.100Z",
     "closed_at": null,
     "closure_reason": null,
     "publication_state": "PUBLISHED",
@@ -19700,11 +20437,23 @@
         "excerpt": "Buckeye Nurse Residency OSU East Hospital. Requisition R153520 actively accepting applications.",
         "retrieved_at": "2026-11-24T06:30:00Z",
         "claim": "status"
+      },
+      {
+        "source_url": "https://wexnermedical.osu.edu/careers/current-openings/nursing",
+        "excerpt": "The Buckeye Nurse Residency Program at The Ohio State University Wexner Medical Center is a 12-month program for newly licensed registered nurses transitioning to practice.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://osu.wd1.myworkdayjobs.com/OSUCareers/job/East-Hospital/Buckeye-Nurse-Residency-OSU-East-Hospital_R153520-1",
+        "excerpt": "Buckeye Nurse Residency OSU East Hospital. Requisition R153520 actively accepting applications.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "status"
       }
     ],
     "manual_overrides": {},
     "created_at": "2026-10-24T12:18:39.243Z",
-    "updated_at": "2026-11-24T06:53:43.323Z"
+    "updated_at": "2026-11-24T13:15:17.100Z"
   },
   {
     "id": "opp_cc016fcbd1",
@@ -19739,9 +20488,9 @@
     "dedup_key": "jhmi|hopkins|675920",
     "source_external_id": "675920",
     "first_discovered_at": "2026-10-24T12:18:39.243Z",
-    "last_seen_at": "2026-11-24T06:53:43.323Z",
-    "last_attempted_at": "2026-11-24T06:53:43.323Z",
-    "last_verified_at": "2026-11-24T06:53:43.323Z",
+    "last_seen_at": "2026-11-24T13:15:17.100Z",
+    "last_attempted_at": "2026-11-24T13:15:17.100Z",
+    "last_verified_at": "2026-11-24T13:15:17.100Z",
     "closed_at": "2026-11-14T13:10:38.188Z",
     "closure_reason": "verified_removed",
     "publication_state": "PUBLISHED",
@@ -20033,11 +20782,23 @@
         "excerpt": "All New Grad RNs are automatically enrolled in our Nurse Residency Program at Johns Hopkins Medicine.",
         "retrieved_at": "2026-11-24T06:30:00Z",
         "claim": "eligibility"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/jobs/nursing-new-grad-rn/",
+        "excerpt": "Requisition 103096 returns HTTP 410 Gone; job posting removed from active listings.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/jobs/nursing-new-grad-rn/",
+        "excerpt": "All New Grad RNs are automatically enrolled in our Nurse Residency Program at Johns Hopkins Medicine.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "eligibility"
       }
     ],
     "manual_overrides": {},
     "created_at": "2026-10-24T12:18:39.243Z",
-    "updated_at": "2026-11-24T06:53:43.323Z"
+    "updated_at": "2026-11-24T13:15:17.100Z"
   },
   {
     "id": "opp_218180b2fc",
@@ -20075,9 +20836,9 @@
     "dedup_key": "jhmi|hopkins|681930",
     "source_external_id": "681930",
     "first_discovered_at": "2026-10-24T12:18:39.243Z",
-    "last_seen_at": "2026-11-24T06:53:43.323Z",
-    "last_attempted_at": "2026-11-24T06:53:43.323Z",
-    "last_verified_at": "2026-11-24T06:53:43.323Z",
+    "last_seen_at": "2026-11-24T13:15:17.100Z",
+    "last_attempted_at": "2026-11-24T13:15:17.100Z",
+    "last_verified_at": "2026-11-24T13:15:17.100Z",
     "closed_at": "2026-10-29T12:21:24.091Z",
     "closure_reason": "verified_closed",
     "publication_state": "PUBLISHED",
@@ -20309,11 +21070,23 @@
         "excerpt": "All New Grad RNs are automatically enrolled in our Nurse Residency Program at Johns Hopkins Medicine.",
         "retrieved_at": "2026-11-24T06:30:00Z",
         "claim": "eligibility"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/jobs/nursing-new-grad-rn/",
+        "excerpt": "Requisition 103506 returns HTTP 410 Gone; job posting removed from active listings.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/jobs/nursing-new-grad-rn/",
+        "excerpt": "All New Grad RNs are automatically enrolled in our Nurse Residency Program at Johns Hopkins Medicine.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "eligibility"
       }
     ],
     "manual_overrides": {},
     "created_at": "2026-10-24T12:18:39.243Z",
-    "updated_at": "2026-11-24T06:53:43.323Z"
+    "updated_at": "2026-11-24T13:15:17.100Z"
   },
   {
     "id": "opp_6aaf25acc2",
@@ -20348,9 +21121,9 @@
     "dedup_key": "jhmi|hopkins|672498",
     "source_external_id": "672498",
     "first_discovered_at": "2026-10-24T12:18:39.243Z",
-    "last_seen_at": "2026-11-24T06:53:43.323Z",
-    "last_attempted_at": "2026-11-24T06:53:43.323Z",
-    "last_verified_at": "2026-11-24T06:53:43.323Z",
+    "last_seen_at": "2026-11-24T13:15:17.100Z",
+    "last_attempted_at": "2026-11-24T13:15:17.100Z",
+    "last_verified_at": "2026-11-24T13:15:17.100Z",
     "closed_at": "2026-10-29T12:21:24.091Z",
     "closure_reason": "verified_closed",
     "publication_state": "PUBLISHED",
@@ -20582,11 +21355,23 @@
         "excerpt": "All New Grad RNs are automatically enrolled in our Nurse Residency Program at Johns Hopkins Medicine.",
         "retrieved_at": "2026-11-24T06:30:00Z",
         "claim": "eligibility"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/jobs/nursing-new-grad-rn/",
+        "excerpt": "Requisition 100396 returns HTTP 410 Gone; job posting removed from active listings.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/jobs/nursing-new-grad-rn/",
+        "excerpt": "All New Grad RNs are automatically enrolled in our Nurse Residency Program at Johns Hopkins Medicine.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "eligibility"
       }
     ],
     "manual_overrides": {},
     "created_at": "2026-10-24T12:18:39.243Z",
-    "updated_at": "2026-11-24T06:53:43.323Z"
+    "updated_at": "2026-11-24T13:15:17.100Z"
   },
   {
     "id": "opp_962eb87d2e",
@@ -20621,9 +21406,9 @@
     "dedup_key": "talemetry|hopkins|103718",
     "source_external_id": "103718",
     "first_discovered_at": "2026-10-28T01:45:36.274Z",
-    "last_seen_at": "2026-11-24T06:53:43.323Z",
-    "last_attempted_at": "2026-11-24T06:53:43.323Z",
-    "last_verified_at": "2026-11-24T06:53:43.323Z",
+    "last_seen_at": "2026-11-24T13:15:17.100Z",
+    "last_attempted_at": "2026-11-24T13:15:17.100Z",
+    "last_verified_at": "2026-11-24T13:15:17.100Z",
     "closed_at": "2026-11-24T06:53:43.323Z",
     "closure_reason": "verified_closed",
     "publication_state": "PUBLISHED",
@@ -21047,11 +21832,23 @@
         "excerpt": "All New Grad RNs are automatically enrolled in our Nurse Residency Program at Johns Hopkins Medicine.",
         "retrieved_at": "2026-11-24T06:30:00Z",
         "claim": "eligibility"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/jobs/nursing-new-grad-rn/",
+        "excerpt": "Requisition 103718 returns HTTP 410 Gone; job posting removed from active listings.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/jobs/nursing-new-grad-rn/",
+        "excerpt": "All New Grad RNs are automatically enrolled in our Nurse Residency Program at Johns Hopkins Medicine.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "eligibility"
       }
     ],
     "manual_overrides": {},
     "created_at": "2026-10-28T01:45:36.274Z",
-    "updated_at": "2026-11-24T06:53:43.323Z"
+    "updated_at": "2026-11-24T13:15:17.100Z"
   },
   {
     "id": "opp_9247bf2c0b",
@@ -21086,9 +21883,9 @@
     "dedup_key": "talemetry|hopkins|103756",
     "source_external_id": "103756",
     "first_discovered_at": "2026-10-28T01:45:36.274Z",
-    "last_seen_at": "2026-11-24T06:53:43.323Z",
-    "last_attempted_at": "2026-11-24T06:53:43.323Z",
-    "last_verified_at": "2026-11-24T06:53:43.323Z",
+    "last_seen_at": "2026-11-24T13:15:17.100Z",
+    "last_attempted_at": "2026-11-24T13:15:17.100Z",
+    "last_verified_at": "2026-11-24T13:15:17.100Z",
     "closed_at": "2026-10-30T12:12:48.888Z",
     "closure_reason": "verified_closed",
     "publication_state": "PUBLISHED",
@@ -21326,11 +22123,23 @@
         "excerpt": "All New Grad RNs are automatically enrolled in our Nurse Residency Program at Johns Hopkins Medicine.",
         "retrieved_at": "2026-11-24T06:30:00Z",
         "claim": "eligibility"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/jobs/nursing-new-grad-rn/",
+        "excerpt": "Requisition 103756 returns HTTP 410 Gone; job posting removed from active listings.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/jobs/nursing-new-grad-rn/",
+        "excerpt": "All New Grad RNs are automatically enrolled in our Nurse Residency Program at Johns Hopkins Medicine.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "eligibility"
       }
     ],
     "manual_overrides": {},
     "created_at": "2026-10-28T01:45:36.274Z",
-    "updated_at": "2026-11-24T06:53:43.323Z"
+    "updated_at": "2026-11-24T13:15:17.100Z"
   },
   {
     "id": "opp_eeb933a8b9",
@@ -21365,9 +22174,9 @@
     "dedup_key": "talemetry|hopkins|103755",
     "source_external_id": "103755",
     "first_discovered_at": "2026-10-28T01:45:36.274Z",
-    "last_seen_at": "2026-11-24T06:53:43.323Z",
-    "last_attempted_at": "2026-11-24T06:53:43.323Z",
-    "last_verified_at": "2026-11-24T06:53:43.323Z",
+    "last_seen_at": "2026-11-24T13:15:17.100Z",
+    "last_attempted_at": "2026-11-24T13:15:17.100Z",
+    "last_verified_at": "2026-11-24T13:15:17.100Z",
     "closed_at": "2026-10-30T12:12:48.888Z",
     "closure_reason": "verified_closed",
     "publication_state": "PUBLISHED",
@@ -21605,11 +22414,23 @@
         "excerpt": "All New Grad RNs are automatically enrolled in our Nurse Residency Program at Johns Hopkins Medicine.",
         "retrieved_at": "2026-11-24T06:30:00Z",
         "claim": "eligibility"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/jobs/nursing-new-grad-rn/",
+        "excerpt": "Requisition 103755 returns HTTP 410 Gone; job posting removed from active listings.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/jobs/nursing-new-grad-rn/",
+        "excerpt": "All New Grad RNs are automatically enrolled in our Nurse Residency Program at Johns Hopkins Medicine.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "eligibility"
       }
     ],
     "manual_overrides": {},
     "created_at": "2026-10-28T01:45:36.274Z",
-    "updated_at": "2026-11-24T06:53:43.323Z"
+    "updated_at": "2026-11-24T13:15:17.100Z"
   },
   {
     "id": "opp_89297a92f7",
@@ -21644,9 +22465,9 @@
     "dedup_key": "talemetry|hopkins|103722",
     "source_external_id": "103722",
     "first_discovered_at": "2026-10-28T01:45:36.274Z",
-    "last_seen_at": "2026-11-24T06:53:43.323Z",
-    "last_attempted_at": "2026-11-24T06:53:43.323Z",
-    "last_verified_at": "2026-11-24T06:53:43.323Z",
+    "last_seen_at": "2026-11-24T13:15:17.100Z",
+    "last_attempted_at": "2026-11-24T13:15:17.100Z",
+    "last_verified_at": "2026-11-24T13:15:17.100Z",
     "closed_at": "2026-11-14T13:10:38.188Z",
     "closure_reason": "verified_removed",
     "publication_state": "PUBLISHED",
@@ -21902,11 +22723,23 @@
         "excerpt": "All New Grad RNs are automatically enrolled in our Nurse Residency Program at Johns Hopkins Medicine.",
         "retrieved_at": "2026-11-24T06:30:00Z",
         "claim": "eligibility"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/jobs/nursing-new-grad-rn/",
+        "excerpt": "Requisition 103722 returns HTTP 410 Gone; job posting removed from active listings.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/jobs/nursing-new-grad-rn/",
+        "excerpt": "All New Grad RNs are automatically enrolled in our Nurse Residency Program at Johns Hopkins Medicine.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "eligibility"
       }
     ],
     "manual_overrides": {},
     "created_at": "2026-10-28T01:45:36.274Z",
-    "updated_at": "2026-11-24T06:53:43.323Z"
+    "updated_at": "2026-11-24T13:15:17.100Z"
   },
   {
     "id": "opp_2fac2a9a7d",
@@ -21947,9 +22780,9 @@
     "dedup_key": "paradox|ucsd|141944",
     "source_external_id": "141944",
     "first_discovered_at": "2026-10-28T01:45:36.274Z",
-    "last_seen_at": "2026-11-24T06:53:43.323Z",
-    "last_attempted_at": "2026-11-24T06:53:43.323Z",
-    "last_verified_at": "2026-11-24T06:53:43.323Z",
+    "last_seen_at": "2026-11-24T13:15:17.100Z",
+    "last_attempted_at": "2026-11-24T13:15:17.100Z",
+    "last_verified_at": "2026-11-24T13:15:17.100Z",
     "closed_at": "2026-10-30T12:12:48.888Z",
     "closure_reason": "verified_closed",
     "publication_state": "PUBLISHED",
@@ -22289,11 +23122,23 @@
         "excerpt": "QUALIFICATIONS: Must be a new grad registered nurse with less than six (6) months of working RN experience.",
         "retrieved_at": "2026-11-24T06:30:00Z",
         "claim": "eligibility"
+      },
+      {
+        "source_url": "https://employment.ucsd.edu/rn-new-grad-registered-nurse-hillcrest-10-icu-141944/job/F06815DC717880604B545BCC75EC5A8F",
+        "excerpt": "Application Deadline: Thu 10/29/2026. This requisition is closed.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://employment.ucsd.edu/rn-new-grad-registered-nurse-hillcrest-10-icu-141944/job/F06815DC717880604B545BCC75EC5A8F",
+        "excerpt": "QUALIFICATIONS: Must be a new grad registered nurse with less than six (6) months of working RN experience.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "eligibility"
       }
     ],
     "manual_overrides": {},
     "created_at": "2026-10-28T01:45:36.274Z",
-    "updated_at": "2026-11-24T06:53:43.323Z"
+    "updated_at": "2026-11-24T13:15:17.100Z"
   },
   {
     "id": "opp_16c4607e00",
@@ -22333,9 +23178,9 @@
     "dedup_key": "paradox|ucsd|141918",
     "source_external_id": "141918",
     "first_discovered_at": "2026-10-28T01:45:36.274Z",
-    "last_seen_at": "2026-11-24T06:53:43.323Z",
-    "last_attempted_at": "2026-11-24T06:53:43.323Z",
-    "last_verified_at": "2026-11-24T06:53:43.323Z",
+    "last_seen_at": "2026-11-24T13:15:17.100Z",
+    "last_attempted_at": "2026-11-24T13:15:17.100Z",
+    "last_verified_at": "2026-11-24T13:15:17.100Z",
     "closed_at": "2026-10-28T01:45:36.274Z",
     "closure_reason": "deadline_passed",
     "publication_state": "PUBLISHED",
@@ -22375,11 +23220,23 @@
         "excerpt": "QUALIFICATIONS: Must be a new grad registered nurse with less than six (6) months of working RN experience.",
         "retrieved_at": "2026-11-24T06:30:00Z",
         "claim": "eligibility"
+      },
+      {
+        "source_url": "https://employment.ucsd.edu/rn-new-grad-registered-nurse-scvc-4ab-pcu-141918/job/80CFB720201501EF5723BF8DAC73AA98",
+        "excerpt": "Application Deadline: Tue 10/27/2026. This requisition is closed.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://employment.ucsd.edu/rn-new-grad-registered-nurse-scvc-4ab-pcu-141918/job/80CFB720201501EF5723BF8DAC73AA98",
+        "excerpt": "QUALIFICATIONS: Must be a new grad registered nurse with less than six (6) months of working RN experience.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "eligibility"
       }
     ],
     "manual_overrides": {},
     "created_at": "2026-10-28T01:45:36.274Z",
-    "updated_at": "2026-11-24T06:53:43.323Z"
+    "updated_at": "2026-11-24T13:15:17.100Z"
   },
   {
     "id": "opp_958aea44b7",
@@ -22414,9 +23271,9 @@
     "dedup_key": "talemetry|hopkins|103804",
     "source_external_id": "103804",
     "first_discovered_at": "2026-10-30T12:12:48.888Z",
-    "last_seen_at": "2026-11-24T06:53:43.323Z",
-    "last_attempted_at": "2026-11-24T06:53:43.323Z",
-    "last_verified_at": "2026-11-24T06:53:43.323Z",
+    "last_seen_at": "2026-11-24T13:15:17.100Z",
+    "last_attempted_at": "2026-11-24T13:15:17.100Z",
+    "last_verified_at": "2026-11-24T13:15:17.100Z",
     "closed_at": "2026-11-04T13:12:19.904Z",
     "closure_reason": "verified_closed",
     "publication_state": "PUBLISHED",
@@ -22660,11 +23517,23 @@
         "excerpt": "All New Grad RNs are automatically enrolled in our Nurse Residency Program at Johns Hopkins Medicine.",
         "retrieved_at": "2026-11-24T06:30:00Z",
         "claim": "eligibility"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/jobs/nursing-new-grad-rn/",
+        "excerpt": "Requisition 103804 returns HTTP 410 Gone; job posting removed from active listings.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/jobs/nursing-new-grad-rn/",
+        "excerpt": "All New Grad RNs are automatically enrolled in our Nurse Residency Program at Johns Hopkins Medicine.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "eligibility"
       }
     ],
     "manual_overrides": {},
     "created_at": "2026-10-30T12:12:48.888Z",
-    "updated_at": "2026-11-24T06:53:43.323Z"
+    "updated_at": "2026-11-24T13:15:17.100Z"
   },
   {
     "id": "opp_dd9c3c8450",
@@ -22705,9 +23574,9 @@
     "dedup_key": "oraclecloud|fa-euwp-saasfaprod1|394366",
     "source_external_id": "394366",
     "first_discovered_at": "2026-11-04T13:12:19.904Z",
-    "last_seen_at": "2026-11-24T06:53:43.323Z",
-    "last_attempted_at": "2026-11-24T06:53:43.323Z",
-    "last_verified_at": "2026-11-24T06:53:43.323Z",
+    "last_seen_at": "2026-11-24T13:15:17.100Z",
+    "last_attempted_at": "2026-11-24T13:15:17.100Z",
+    "last_verified_at": "2026-11-24T13:15:17.100Z",
     "closed_at": "2026-11-11T18:00:40.152Z",
     "closure_reason": "deadline_passed",
     "publication_state": "PUBLISHED",
@@ -22813,11 +23682,23 @@
         "excerpt": "Starting August 2026 applications will be open the 1 - 8 of each month. Requisition 394366 is currently closed.",
         "retrieved_at": "2026-11-24T06:30:00Z",
         "claim": "status"
+      },
+      {
+        "source_url": "https://jobs.mayoclinic.org/nurseresidencyprograms",
+        "excerpt": "The Rochester, Minnesota Nurse Residency Program New graduate RNs are automatically enrolled in the Nurse Residency Program upon accepting a nursing position.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://jobs.mayoclinic.org/nurseresidencyprograms",
+        "excerpt": "Starting August 2026 applications will be open the 1 - 8 of each month. Requisition 394366 is currently closed.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "status"
       }
     ],
     "manual_overrides": {},
     "created_at": "2026-11-04T13:12:19.904Z",
-    "updated_at": "2026-11-24T06:53:43.323Z"
+    "updated_at": "2026-11-24T13:15:17.100Z"
   },
   {
     "id": "opp_0ba8fa103d",
@@ -22852,9 +23733,9 @@
     "dedup_key": "talemetry|hopkins|104342",
     "source_external_id": "104342",
     "first_discovered_at": "2026-11-13T13:09:31.330Z",
-    "last_seen_at": "2026-11-24T06:53:43.323Z",
-    "last_attempted_at": "2026-11-24T06:53:43.323Z",
-    "last_verified_at": "2026-11-24T06:53:43.323Z",
+    "last_seen_at": "2026-11-24T13:15:17.100Z",
+    "last_attempted_at": "2026-11-24T13:15:17.100Z",
+    "last_verified_at": "2026-11-24T13:15:17.100Z",
     "closed_at": "2026-11-24T06:53:43.323Z",
     "closure_reason": "verified_closed",
     "publication_state": "PUBLISHED",
@@ -22966,11 +23847,23 @@
         "excerpt": "All New Grad RNs are automatically enrolled in our Nurse Residency Program at Johns Hopkins Medicine.",
         "retrieved_at": "2026-11-24T06:30:00Z",
         "claim": "eligibility"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/jobs/nursing-new-grad-rn/",
+        "excerpt": "Requisition 104342 returns HTTP 410 Gone; job posting removed from active listings.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/jobs/nursing-new-grad-rn/",
+        "excerpt": "All New Grad RNs are automatically enrolled in our Nurse Residency Program at Johns Hopkins Medicine.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "eligibility"
       }
     ],
     "manual_overrides": {},
     "created_at": "2026-11-13T13:09:31.330Z",
-    "updated_at": "2026-11-24T06:53:43.323Z"
+    "updated_at": "2026-11-24T13:15:17.100Z"
   },
   {
     "id": "opp_b2aab167ec",
@@ -23005,9 +23898,9 @@
     "dedup_key": "talemetry|hopkins|104408",
     "source_external_id": "104408",
     "first_discovered_at": "2026-11-14T13:10:38.188Z",
-    "last_seen_at": "2026-11-24T06:53:43.323Z",
-    "last_attempted_at": "2026-11-24T06:53:43.323Z",
-    "last_verified_at": "2026-11-24T06:53:43.323Z",
+    "last_seen_at": "2026-11-24T13:15:17.100Z",
+    "last_attempted_at": "2026-11-24T13:15:17.100Z",
+    "last_verified_at": "2026-11-24T13:15:17.100Z",
     "closed_at": "2026-11-24T06:53:43.323Z",
     "closure_reason": "verified_closed",
     "publication_state": "PUBLISHED",
@@ -23095,11 +23988,23 @@
         "excerpt": "All New Grad RNs are automatically enrolled in our Nurse Residency Program at Johns Hopkins Medicine.",
         "retrieved_at": "2026-11-24T06:30:00Z",
         "claim": "eligibility"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/jobs/nursing-new-grad-rn/",
+        "excerpt": "Requisition 104408 returns HTTP 410 Gone; job posting removed from active listings.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/jobs/nursing-new-grad-rn/",
+        "excerpt": "All New Grad RNs are automatically enrolled in our Nurse Residency Program at Johns Hopkins Medicine.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "eligibility"
       }
     ],
     "manual_overrides": {},
     "created_at": "2026-11-14T13:10:38.188Z",
-    "updated_at": "2026-11-24T06:53:43.323Z"
+    "updated_at": "2026-11-24T13:15:17.100Z"
   },
   {
     "id": "opp_ece7b060b0",
@@ -23137,9 +24042,9 @@
     "dedup_key": null,
     "source_external_id": null,
     "first_discovered_at": "2026-11-24T06:53:43.323Z",
-    "last_seen_at": "2026-11-24T06:53:43.323Z",
-    "last_attempted_at": "2026-11-24T06:53:43.323Z",
-    "last_verified_at": "2026-11-24T06:53:43.323Z",
+    "last_seen_at": "2026-11-24T13:15:17.100Z",
+    "last_attempted_at": "2026-11-24T13:15:17.100Z",
+    "last_verified_at": "2026-11-24T13:15:17.100Z",
     "closed_at": null,
     "closure_reason": null,
     "publication_state": "PUBLISHED",
@@ -23155,11 +24060,23 @@
         "excerpt": "Stanford Children's Health partners with the Vizient/AACN Nurse Residency Program to offer a structured transition program designed for new graduate registered nurses entering acute pediatric care.",
         "retrieved_at": "2026-11-24T06:30:00Z",
         "claim": "eligibility"
+      },
+      {
+        "source_url": "https://careers.stanfordchildrens.org/",
+        "excerpt": "Application windows for new graduate residencies open on specific cohort cycles (Spring/Fall tracks); active applications are managed directly through the careers site.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://careers.stanfordchildrens.org/",
+        "excerpt": "Stanford Children's Health partners with the Vizient/AACN Nurse Residency Program to offer a structured transition program designed for new graduate registered nurses entering acute pediatric care.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "eligibility"
       }
     ],
     "manual_overrides": {},
     "created_at": "2026-11-24T06:53:43.323Z",
-    "updated_at": "2026-11-24T06:53:43.323Z"
+    "updated_at": "2026-11-24T13:15:17.100Z"
   },
   {
     "id": "opp_01d5c2d264",
@@ -23199,9 +24116,9 @@
     "dedup_key": null,
     "source_external_id": null,
     "first_discovered_at": "2026-11-24T06:53:43.323Z",
-    "last_seen_at": "2026-11-24T06:53:43.323Z",
-    "last_attempted_at": "2026-11-24T06:53:43.323Z",
-    "last_verified_at": "2026-11-24T06:53:43.323Z",
+    "last_seen_at": "2026-11-24T13:15:17.100Z",
+    "last_attempted_at": "2026-11-24T13:15:17.100Z",
+    "last_verified_at": "2026-11-24T13:15:17.100Z",
     "closed_at": null,
     "closure_reason": null,
     "publication_state": "PUBLISHED",
@@ -23217,11 +24134,23 @@
         "excerpt": "Application process Thank you for your interest in the PB‑RNR program! At this time, we offer only 1 cohort per year. Please continue to check our website for updates. The tentative dates for the next application cycle are listed below: Next application period: May/June 2027 Tentative program start date: October 2027",
         "retrieved_at": "2026-11-24T06:41:48Z",
         "claim": "opening_date"
+      },
+      {
+        "source_url": "https://www.va.gov/san-francisco-health-care/work-with-us/internships-and-fellowships/post-baccalaureate-registered-nurse-residency-program-pb-rnr/",
+        "excerpt": "Be a recent graduate within the past 12 months. Serving in their first registered nurse role. The PB-RNR offers new nurses the opportunity to gain confidence and competence through enhancing the knowledge, skills, and attitudes necessary to care for our nation’s Veterans.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://www.va.gov/san-francisco-health-care/work-with-us/internships-and-fellowships/post-baccalaureate-registered-nurse-residency-program-pb-rnr/",
+        "excerpt": "Application process Thank you for your interest in the PB‑RNR program! At this time, we offer only 1 cohort per year. Please continue to check our website for updates. The tentative dates for the next application cycle are listed below: Next application period: May/June 2027 Tentative program start date: October 2027",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "opening_date"
       }
     ],
     "manual_overrides": {},
     "created_at": "2026-11-24T06:53:43.323Z",
-    "updated_at": "2026-11-24T06:53:43.323Z"
+    "updated_at": "2026-11-24T13:15:17.100Z"
   },
   {
     "id": "opp_42e1f3dc6b",
@@ -23266,9 +24195,9 @@
     "dedup_key": null,
     "source_external_id": null,
     "first_discovered_at": "2026-11-24T06:53:43.323Z",
-    "last_seen_at": "2026-11-24T06:53:43.323Z",
-    "last_attempted_at": "2026-11-24T06:53:43.323Z",
-    "last_verified_at": "2026-11-24T06:53:43.323Z",
+    "last_seen_at": "2026-11-24T13:15:17.100Z",
+    "last_attempted_at": "2026-11-24T13:15:17.100Z",
+    "last_verified_at": "2026-11-24T13:15:17.100Z",
     "closed_at": null,
     "closure_reason": null,
     "publication_state": "PUBLISHED",
@@ -23284,11 +24213,23 @@
         "excerpt": "RN Transition in Practice Program Advance Your Clinical Skills and Career with Sutter Health! Specialty Areas: Critical Care Emergency Department Labor and Delivery Post-Partum Operating Room (including Ambulatory Surgery) Program Highlights: 70-87 hours of training to reach advanced beginner status",
         "retrieved_at": "2026-11-24T06:36:09Z",
         "claim": "specialty"
+      },
+      {
+        "source_url": "https://jobs.sutterhealth.org/us/en/clinical-career-development",
+        "excerpt": "Sutter Health Nurse Residency Program Are you a recent nursing graduate? Our program enhances clinical skills, fosters professional development, and provides essential emotional support. Gain hands-on experience through didactic sessions and simulations at Sutter Health University, along with direct patient care in your home department. Target Audience: Recent nursing graduates with less than one year of experience will automatically be enrolled into the residency as part of their employment (there is no separate application).",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://jobs.sutterhealth.org/us/en/clinical-career-development",
+        "excerpt": "RN Transition in Practice Program Advance Your Clinical Skills and Career with Sutter Health! Specialty Areas: Critical Care Emergency Department Labor and Delivery Post-Partum Operating Room (including Ambulatory Surgery) Program Highlights: 70-87 hours of training to reach advanced beginner status",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "specialty"
       }
     ],
     "manual_overrides": {},
     "created_at": "2026-11-24T06:53:43.323Z",
-    "updated_at": "2026-11-24T06:53:43.323Z"
+    "updated_at": "2026-11-24T13:15:17.100Z"
   },
   {
     "id": "opp_b54e8945e7",
@@ -23323,9 +24264,9 @@
     "dedup_key": "directemployers|hopkinsmedicine|104635",
     "source_external_id": "104635",
     "first_discovered_at": "2026-11-24T06:53:43.323Z",
-    "last_seen_at": "2026-11-24T06:53:43.323Z",
-    "last_attempted_at": "2026-11-24T06:53:43.323Z",
-    "last_verified_at": "2026-11-24T06:53:43.323Z",
+    "last_seen_at": "2026-11-24T13:15:17.100Z",
+    "last_attempted_at": "2026-11-24T13:15:17.100Z",
+    "last_verified_at": "2026-11-24T13:15:17.100Z",
     "closed_at": null,
     "closure_reason": null,
     "publication_state": "PUBLISHED",
@@ -23341,11 +24282,23 @@
         "excerpt": "New Grad RN - Neurosurgical IMC & Brain Rescue at Johns Hopkins Medicine in Johns Hopkins Hospital. Requisition 104635 actively accepting applications.",
         "retrieved_at": "2026-11-24T06:30:00Z",
         "claim": "status"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/104635/new-grad-rn-neurosurgical-imc-brain-rescue-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "Nursing New Grad RN Job: New Grad RN - Neurosurgical IMC & Brain Rescue at Johns Hopkins Medicine in Johns Hopkins Hospital. All New Grad RNs are automatically enrolled in our Nurse Residency Program.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/104635/new-grad-rn-neurosurgical-imc-brain-rescue-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "New Grad RN - Neurosurgical IMC & Brain Rescue at Johns Hopkins Medicine in Johns Hopkins Hospital. Requisition 104635 actively accepting applications.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "status"
       }
     ],
     "manual_overrides": {},
     "created_at": "2026-11-24T06:53:43.323Z",
-    "updated_at": "2026-11-24T06:53:43.323Z"
+    "updated_at": "2026-11-24T13:15:17.100Z"
   },
   {
     "id": "opp_aaffa3d788",
@@ -23396,9 +24349,9 @@
     "dedup_key": null,
     "source_external_id": null,
     "first_discovered_at": "2026-11-24T06:53:43.323Z",
-    "last_seen_at": "2026-11-24T06:53:43.323Z",
-    "last_attempted_at": "2026-11-24T06:53:43.323Z",
-    "last_verified_at": "2026-11-24T06:53:43.323Z",
+    "last_seen_at": "2026-11-24T13:15:17.100Z",
+    "last_attempted_at": "2026-11-24T13:15:17.100Z",
+    "last_verified_at": "2026-11-24T13:15:17.100Z",
     "closed_at": null,
     "closure_reason": null,
     "publication_state": "PUBLISHED",
@@ -23426,10 +24379,122 @@
         "excerpt": "Applications close February 21, 2027",
         "retrieved_at": "2026-11-24T06:30:00Z",
         "claim": "deadline"
+      },
+      {
+        "source_url": "https://jobs.bswhealth.com/us/en/students-graduates",
+        "excerpt": "Whether you are a recent graduate or an experienced nurse who is interested in learning new clinical skills and specialty knowledge, our Nurse Residency Program will provide the support you need.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://jobs.bswhealth.com/us/en/students-graduates",
+        "excerpt": "Graduate Nurse Summer 2027 Residency Program The Baylor Scott & White Health Nurse Residency Program is accredited with distinction as a Practice Transition Program by the American Nurses Credentialing Center.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://jobs.bswhealth.com/us/en/students-graduates",
+        "excerpt": "Application Beginning February 1, 2027 External applications open... Applications close February 21, 2027.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "opening_date"
+      },
+      {
+        "source_url": "https://jobs.bswhealth.com/us/en/students-graduates",
+        "excerpt": "Applications close February 21, 2027",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "deadline"
       }
     ],
     "manual_overrides": {},
     "created_at": "2026-11-24T06:53:43.323Z",
-    "updated_at": "2026-11-24T06:53:43.323Z"
+    "updated_at": "2026-11-24T13:15:17.100Z"
+  },
+  {
+    "id": "opp_ac372d47a9",
+    "hospital_id": "hosp_chla",
+    "program_id": "prog_8ba50df8ca",
+    "cohort_id": "cohort_d790bff532",
+    "position_title": "RN Residency in Pediatrics - March 2027 Cohort",
+    "unit": null,
+    "locations": [
+      {
+        "city": "Los Angeles",
+        "state": "CA"
+      }
+    ],
+    "specialties": [
+      "Pediatrics",
+      "Med-Surg",
+      "PICU",
+      "NICU",
+      "Unknown",
+      "Oncology"
+    ],
+    "application_open": {
+      "kind": "datetime",
+      "value": "2026-12-01T09:00:00-08:00"
+    },
+    "application_close": {
+      "kind": "datetime",
+      "value": "2026-12-02T16:00:00-08:00"
+    },
+    "program_start": {
+      "kind": "date",
+      "value": "2027-03-01"
+    },
+    "source_posted_at": null,
+    "application_status": "OPENING_SOON",
+    "verification_health": "VERIFIED",
+    "eligibility": "ELIGIBLE",
+    "bsn_required": null,
+    "rn_license_requirement": null,
+    "license_required_by": null,
+    "experience_requirement": null,
+    "source_url": "https://www.chla.org/rn-residency-pediatrics",
+    "application_url": "https://jobs.chla.org/",
+    "dedup_key": null,
+    "source_external_id": null,
+    "first_discovered_at": "2026-11-24T13:15:17.100Z",
+    "last_seen_at": "2026-11-24T13:15:17.100Z",
+    "last_attempted_at": "2026-11-24T13:15:17.100Z",
+    "last_verified_at": "2026-11-24T13:15:17.100Z",
+    "closed_at": null,
+    "closure_reason": null,
+    "publication_state": "PUBLISHED",
+    "evidence": [
+      {
+        "source_url": "https://www.chla.org/rn-residency-pediatrics",
+        "excerpt": "External Candidates Application Window: Opens December 1, 2026, at 9:00 AM PST and closes December 2, 2026, at 4:00 PM PST. Cohort Start Date: March 1, 2027.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://www.chla.org/rn-residency-pediatrics",
+        "excerpt": "The RN Residency in Pediatrics is open to new graduate nurses with less than 1 year of RN experience.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://www.chla.org/rn-residency-pediatrics",
+        "excerpt": "External Candidates Application Window: Opens December 1, 2026, at 9:00 AM PST.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "opening_date"
+      },
+      {
+        "source_url": "https://www.chla.org/rn-residency-pediatrics",
+        "excerpt": "Application closes December 2, 2026, at 4:00 PM PST.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "deadline"
+      },
+      {
+        "source_url": "https://www.chla.org/rn-residency-pediatrics",
+        "excerpt": "Cohort Start Date: March 1, 2027.",
+        "retrieved_at": "2026-11-24T13:14:40.000Z",
+        "claim": "start_date"
+      }
+    ],
+    "manual_overrides": {},
+    "created_at": "2026-11-24T13:15:17.100Z",
+    "updated_at": "2026-11-24T13:15:17.100Z"
   }
 ]

@@ -592,5 +592,17 @@
     "hospital_id": "hosp_bsw",
     "name": "Baylor Scott & White Health Nurse Residency Program",
     "source_url": "https://jobs.bswhealth.com/us/en/students-graduates"
+  },
+  {
+    "id": "prog_8ba50df8ca",
+    "hospital_id": "hosp_chla",
+    "name": "RN Residency in Pediatrics",
+    "source_url": "https://www.chla.org/rn-residency-pediatrics"
+  },
+  {
+    "id": "prog_b0faaa584f",
+    "hospital_id": "hosp_pih",
+    "name": "PIH Health RN Residency Program",
+    "source_url": "https://pihcareers.silkroad.com/pihext/Getting-Hired/New-Graduate-FAQ-s.html"
   }
 ]

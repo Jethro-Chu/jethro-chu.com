@@ -640,5 +640,20 @@
       "kind": "date",
       "value": "2027-06-28"
     }
+  },
+  {
+    "id": "cohort_d790bff532",
+    "program_id": "prog_8ba50df8ca",
+    "label": "March 2027 Cohort",
+    "program_start": {
+      "kind": "date",
+      "value": "2027-03-01"
+    }
+  },
+  {
+    "id": "cohort_3c5d067673",
+    "program_id": "prog_b0faaa584f",
+    "label": "On-going Departmental Hiring",
+    "program_start": null
   }
 ]
