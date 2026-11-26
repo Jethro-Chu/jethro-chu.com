@@ -604,5 +604,95 @@
     "hospital_id": "hosp_pih",
     "name": "PIH Health RN Residency Program",
     "source_url": "https://pihcareers.silkroad.com/pihext/Getting-Hired/New-Graduate-FAQ-s.html"
+  },
+  {
+    "id": "prog_84e13c40a3",
+    "hospital_id": "hosp_packard",
+    "name": "New Graduate RN Residency Program",
+    "source_url": "https://careers.stanfordchildrens.org/rn-residency-program"
+  },
+  {
+    "id": "prog_8e3ff5c9f1",
+    "hospital_id": "hosp_uci",
+    "name": "Transition to Practice / Nurse Residency Program",
+    "source_url": "https://www.ucihealth.org/healthcare-professionals/nursing/nursing-at-uci"
+  },
+  {
+    "id": "prog_2d864b4ca4",
+    "hospital_id": "hosp_huntington",
+    "name": "Nurse Residency Training Program",
+    "source_url": "https://www.huntingtonhealth.org/education/residency-programs/nursing-residency/"
+  },
+  {
+    "id": "prog_a9076313b2",
+    "hospital_id": "hosp_hoag",
+    "name": "New Graduate RN Program",
+    "source_url": "https://careers.hoag.org/hoag-life/new-grad-nurses/"
+  },
+  {
+    "id": "prog_ab86d3291b",
+    "hospital_id": "hosp_lb_memorial",
+    "name": "New Grad RN Residency Program",
+    "source_url": "https://careers.memorialcare.org/recent-grads"
+  },
+  {
+    "id": "prog_c670461d8c",
+    "hospital_id": "hosp_lluh",
+    "name": "LLUCH RN Residency Program",
+    "source_url": "https://lluch.org/health-professionals/residency/rn-residency/how-apply"
+  },
+  {
+    "id": "prog_028c7fa775",
+    "hospital_id": "hosp_pih",
+    "name": "New Graduate RN Residency",
+    "source_url": "https://pihcareers.silkroad.com/pihext/Getting-Hired/New-Graduate-FAQ-s.html"
+  },
+  {
+    "id": "prog_f0ba51cee2",
+    "hospital_id": "hosp_washington",
+    "name": "RN New Grad Residency Program",
+    "source_url": "https://jobs.jobvite.com/washingtonhospital/job/oEiWAfwc"
+  },
+  {
+    "id": "prog_30a604c463",
+    "hospital_id": "hosp_va_sf",
+    "name": "Post Baccalaureate Registered Nurse Residency (PB-RNR)",
+    "source_url": "https://www.va.gov/san-francisco-health-care/work-with-us/internships-and-fellowships/post-baccalaureate-registered-nurse-residency-program-pb-rnr/"
+  },
+  {
+    "id": "prog_95015f410c",
+    "hospital_id": "hosp_providence",
+    "name": "Providence RN Residency Program - California",
+    "source_url": "https://providence.jobs/rn-residency/"
+  },
+  {
+    "id": "prog_d506bf2e7d",
+    "hospital_id": "hosp_eden",
+    "name": "Sutter Health Nurse Residency Program",
+    "source_url": "https://jobs.sutterhealth.org/us/en/job/SHJSHYUSR145214EXTERNALENUS/staff-nurse-i-new-grad-emergency-services"
+  },
+  {
+    "id": "prog_7cb49bb814",
+    "hospital_id": "hosp_adv_rideout",
+    "name": "Adventist Health Nurse Residency Program",
+    "source_url": "https://ecvz.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1/job/76074"
+  },
+  {
+    "id": "prog_dbecbaa009",
+    "hospital_id": "hosp_adv_lodi",
+    "name": "Adventist Health Nurse Residency Program",
+    "source_url": "https://ecvz.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1/job/76344"
+  },
+  {
+    "id": "prog_95a75b4a60",
+    "hospital_id": "hosp_adv_sonora",
+    "name": "Adventist Health Nurse Residency Program",
+    "source_url": "https://ecvz.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1/job/73786"
+  },
+  {
+    "id": "prog_86b444b1c5",
+    "hospital_id": "hosp_mayo",
+    "name": "Mayo Clinic Rochester Nurse Residency Program",
+    "source_url": "https://jobs.mayoclinic.org/nurseresidencyprograms#rochester-dec-2026"
   }
 ]

@@ -655,5 +655,161 @@
     "program_id": "prog_b0faaa584f",
     "label": "On-going Departmental Hiring",
     "program_start": null
+  },
+  {
+    "id": "cohort_f2cb405a03",
+    "program_id": "prog_32554fab70",
+    "label": "Cohort 47",
+    "program_start": {
+      "kind": "date",
+      "value": "2027-09-27"
+    }
+  },
+  {
+    "id": "cohort_105aedce99",
+    "program_id": "prog_84e13c40a3",
+    "label": "Fall 2027 Cohort",
+    "program_start": {
+      "kind": "date",
+      "value": "2027-08-16"
+    }
+  },
+  {
+    "id": "cohort_3e283bde2a",
+    "program_id": "prog_0fb2e55574",
+    "label": "Fall 2027 Cohort",
+    "program_start": null
+  },
+  {
+    "id": "cohort_242cf41e71",
+    "program_id": "prog_2d864b4ca4",
+    "label": "Spring 2027 Cohort",
+    "program_start": {
+      "kind": "date",
+      "value": "2027-03-15"
+    }
+  },
+  {
+    "id": "cohort_a73fd2a0eb",
+    "program_id": "prog_f37ae5986d",
+    "label": "Winter 2027",
+    "program_start": {
+      "kind": "text",
+      "value": "January 2027"
+    }
+  },
+  {
+    "id": "cohort_1266c36126",
+    "program_id": "prog_f37ae5986d",
+    "label": "Spring 2027 Cohort",
+    "program_start": null
+  },
+  {
+    "id": "cohort_af2d77694e",
+    "program_id": "prog_4dd3273bc6",
+    "label": "March 2027 Cohort",
+    "program_start": {
+      "kind": "date",
+      "value": "2027-03-22"
+    }
+  },
+  {
+    "id": "cohort_ba54f6c36a",
+    "program_id": "prog_246bd4c471",
+    "label": "Spring 2027",
+    "program_start": {
+      "kind": "date",
+      "value": "2027-02-22"
+    }
+  },
+  {
+    "id": "cohort_394b164d67",
+    "program_id": "prog_c670461d8c",
+    "label": "56th Cohort",
+    "program_start": {
+      "kind": "date",
+      "value": "2027-06-07"
+    }
+  },
+  {
+    "id": "cohort_c4378c6ce2",
+    "program_id": "prog_f0ba51cee2",
+    "label": "February 2027",
+    "program_start": {
+      "kind": "text",
+      "value": "February 2027"
+    }
+  },
+  {
+    "id": "cohort_6ab1d5ff05",
+    "program_id": "prog_30a604c463",
+    "label": "October 2027",
+    "program_start": {
+      "kind": "text",
+      "value": "October 2027"
+    }
+  },
+  {
+    "id": "cohort_3b983e4908",
+    "program_id": "prog_f490d31800",
+    "label": "Northern California Cohort 1 (Spring 2027)",
+    "program_start": {
+      "kind": "date",
+      "value": "2027-04-05"
+    }
+  },
+  {
+    "id": "cohort_9591e310d4",
+    "program_id": "prog_f490d31800",
+    "label": "Southern California Cohort 1 (Spring 2027)",
+    "program_start": {
+      "kind": "date",
+      "value": "2027-03-29"
+    }
+  },
+  {
+    "id": "cohort_85155b58b6",
+    "program_id": "prog_95015f410c",
+    "label": "February 2027 Cohort",
+    "program_start": {
+      "kind": "date",
+      "value": "2027-02-22"
+    }
+  },
+  {
+    "id": "cohort_8607757bc5",
+    "program_id": "prog_95a75b4a60",
+    "label": "February 2027 Cohort",
+    "program_start": {
+      "kind": "text",
+      "value": "February 2027"
+    }
+  },
+  {
+    "id": "cohort_c6e8d52d4a",
+    "program_id": "prog_7888b3e140",
+    "label": "Klarman 10 Surgical",
+    "program_start": null
+  },
+  {
+    "id": "cohort_9f92362bd2",
+    "program_id": "prog_47a3cab997",
+    "label": "March 2027 & Ongoing Cohorts",
+    "program_start": {
+      "kind": "text",
+      "value": "March 2027"
+    }
+  },
+  {
+    "id": "cohort_1ffed2a260",
+    "program_id": "prog_47a3cab997",
+    "label": "Current / Rolling",
+    "program_start": null
+  },
+  {
+    "id": "cohort_cd34ec6c5d",
+    "program_id": "prog_86b444b1c5",
+    "label": "Rochester Dec 2026 Window",
+    "program_start": null
   }
 ]

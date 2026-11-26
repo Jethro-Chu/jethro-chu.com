@@ -65,7 +65,8 @@
     "label": "UC Irvine Health careers",
     "urls": [
       "https://careers.ucihealth.org/",
-      "https://www.ucihealth.org/careers"
+      "https://www.ucihealth.org/careers",
+      "https://jobs.uci.edu/careers-nursing"
     ],
     "status": "active",
     "shared_board": null,
@@ -136,7 +137,9 @@
     "label": "Cedars-Sinai careers",
     "urls": [
       "https://www.cedars-sinai.edu/education/graduate-medical-education/nursing-residency.html",
-      "https://jobs.cedars-sinai.edu/"
+      "https://jobs.cedars-sinai.edu/",
+      "https://careers.cshs.org/nursing-new-grads/",
+      "https://hdkk.fa.us6.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1/"
     ],
     "status": "candidate",
     "shared_board": null,
@@ -161,7 +164,9 @@
     "label": "CHOC careers",
     "urls": [
       "https://www.choc.org/careers/nursing/rn-residency/",
-      "https://www.choc.org/careers/"
+      "https://www.choc.org/careers/",
+      "https://choc.org/professionals/residency-training-programs/rn-residency/",
+      "https://rch.wd108.myworkdayjobs.com/Careers"
     ],
     "status": "active",
     "shared_board": null,
@@ -197,7 +202,8 @@
     "hospital_id": "hosp_hoag",
     "label": "Hoag careers",
     "urls": [
-      "https://careers.hoag.org/"
+      "https://careers.hoag.org/",
+      "https://jobs.hoag.org/"
     ],
     "status": "active",
     "shared_board": null,
@@ -208,7 +214,8 @@
     "hospital_id": "hosp_providence",
     "label": "Providence careers (shared board)",
     "urls": [
-      "https://providence.jobs/"
+      "https://providence.jobs/",
+      "https://evac.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1/"
     ],
     "status": "active",
     "shared_board": "providence",
@@ -247,7 +254,8 @@
     "label": "Adventist Health careers (shared board)",
     "urls": [
       "https://www.adventisthealth.org/careers/",
-      "https://www.adventisthealth.org/careers/more-opportunities/nursing-careers/nurse-residency-program/"
+      "https://www.adventisthealth.org/careers/more-opportunities/nursing-careers/nurse-residency-program/",
+      "https://ecvz.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1/"
     ],
     "status": "active",
     "shared_board": "adventist",
@@ -257,7 +265,9 @@
     "id": "src_mgb",
     "hospital_id": "hosp_mgb",
     "label": "Mass General Brigham careers (shared board)",
-    "urls": [],
+    "urls": [
+      "https://massgeneralbrigham.wd1.myworkdayjobs.com/MGBExternal"
+    ],
     "status": "candidate",
     "shared_board": "mgb",
     "notes": "One shared board serves member hospitals; scan once, tag locations per requisition."
@@ -267,7 +277,8 @@
     "hospital_id": "hosp_bostonchildrens",
     "label": "Boston Children's Hospital careers",
     "urls": [
-      "https://www.childrenshospital.org/career-opportunities"
+      "https://www.childrenshospital.org/career-opportunities",
+      "https://jobs.bostonchildrens.org/working-at-childrens/new-graduate-nurse-residency-program/"
     ],
     "status": "candidate",
     "shared_board": null,
@@ -279,7 +290,8 @@
     "label": "Beth Israel Deaconess Medical Center careers",
     "urls": [
       "https://jobs.bilh.org/locations/beth-israel-deaconess-medical-center/",
-      "https://jobs.bilh.org/jobs/"
+      "https://jobs.bilh.org/jobs/",
+      "https://bilh.wd1.myworkdayjobs.com/External"
     ],
     "status": "active",
     "shared_board": null,
@@ -291,7 +303,8 @@
     "label": "Boston Medical Center careers",
     "urls": [
       "https://jobs.bmc.org/",
-      "https://www.bmc.org/"
+      "https://www.bmc.org/",
+      "https://bmc.wd1.myworkdayjobs.com/BMC"
     ],
     "status": "active",
     "shared_board": null,
@@ -302,7 +315,8 @@
     "hospital_id": "hosp_nyulangone",
     "label": "NYU Langone Health careers",
     "urls": [
-      "https://jobs.nyulangone.org/"
+      "https://jobs.nyulangone.org/",
+      "https://jobs.nyulangone.org/career-areas/nursing/"
     ],
     "status": "candidate",
     "shared_board": null,
@@ -314,7 +328,8 @@
     "label": "NewYork-Presbyterian careers",
     "urls": [
       "https://careers.nyp.org/us/en",
-      "https://www.nyp.org/careers"
+      "https://www.nyp.org/careers",
+      "https://nyp.wd1.myworkdayjobs.com/nypcareers"
     ],
     "status": "candidate",
     "shared_board": null,
@@ -337,7 +352,9 @@
     "hospital_id": "hosp_northwell",
     "label": "Northwell Health careers",
     "urls": [
-      "https://jobs.northwell.edu/"
+      "https://jobs.northwell.edu/",
+      "https://jobs.northwell.edu/career-specialties/nursing/nursing-externship-fellowship/",
+      "https://eppr.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_2"
     ],
     "status": "candidate",
     "shared_board": null,
@@ -349,7 +366,9 @@
     "label": "Cleveland Clinic careers",
     "urls": [
       "https://jobs.clevelandclinic.org/",
-      "https://clevelandclinic.jobs/"
+      "https://clevelandclinic.jobs/",
+      "https://jobs.clevelandclinic.org/nursing-home/",
+      "https://ccf.wd1.myworkdayjobs.com/ClevelandClinicCareers"
     ],
     "status": "candidate",
     "shared_board": null,
@@ -423,7 +442,9 @@
     "hospital_id": "hosp_emory",
     "label": "Emory Healthcare careers",
     "urls": [
-      "https://www.emoryhealthcare.org/careers"
+      "https://www.emoryhealthcare.org/careers",
+      "https://www.emoryhealthcare.org/careers/career-areas/nurses/nurse-residencies",
+      "https://ehccareers-emory.icims.com/jobs/search?ss=1&searchCategory=2140"
     ],
     "status": "candidate",
     "shared_board": null,
@@ -434,7 +455,8 @@
     "hospital_id": "hosp_upmc",
     "label": "UPMC careers (shared board)",
     "urls": [
-      "https://careers.upmc.com/"
+      "https://careers.upmc.com/",
+      "https://careers.upmc.com/nursing/"
     ],
     "status": "candidate",
     "shared_board": "upmc",
@@ -444,7 +466,10 @@
     "id": "src_penn",
     "hospital_id": "hosp_penn",
     "label": "Penn Medicine careers",
-    "urls": [],
+    "urls": [
+      "https://careers.pennmedicine.org/pages/nursing",
+      "https://www.pennmedicine.org/for-health-care-professionals/for-nurses-and-advanced-practice/nursing-at-penn/nurse-residency-program"
+    ],
     "status": "candidate",
     "shared_board": null,
     "notes": "Verify official new-grad/residency and ATS URLs before activating."
@@ -466,7 +491,9 @@
     "hospital_id": "hosp_houstonmethodist",
     "label": "Houston Methodist careers",
     "urls": [
-      "https://www.houstonmethodistcareers.org/"
+      "https://www.houstonmethodistcareers.org/",
+      "https://www.houstonmethodistcareers.org/graduatenurse/",
+      "https://houstonmethodist.wd12.myworkdayjobs.com/GTI"
     ],
     "status": "candidate",
     "shared_board": null,
@@ -477,7 +504,9 @@
     "hospital_id": "hosp_texaschildrens",
     "label": "Texas Children's Hospital careers",
     "urls": [
-      "https://www.texaschildrens.org/careers"
+      "https://www.texaschildrens.org/careers",
+      "https://www.texaschildrens.org/health-professionals/education-and-training/fellowships-and-residencies/nurse-residency-program",
+      "https://eohh.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX"
     ],
     "status": "candidate",
     "shared_board": null,
@@ -512,7 +541,10 @@
     "id": "src_banner",
     "hospital_id": "hosp_banner",
     "label": "Banner Health careers (shared board)",
-    "urls": [],
+    "urls": [
+      "https://www.bannerhealth.com/careers",
+      "https://bannerhealth.wd108.myworkdayjobs.com/Careers"
+    ],
     "status": "candidate",
     "shared_board": "banner",
     "notes": "One shared board serves Banner facilities; scan once, tag locations per requisition."
@@ -522,7 +554,8 @@
     "hospital_id": "hosp_intermountain",
     "label": "Intermountain Health careers (shared board)",
     "urls": [
-      "https://intermountainhealthcare.org/careers"
+      "https://intermountainhealthcare.org/careers",
+      "https://imh.wd108.myworkdayjobs.com/IntermountainCareers"
     ],
     "status": "candidate",
     "shared_board": "intermountain",
@@ -533,7 +566,9 @@
     "hospital_id": "hosp_uw",
     "label": "UW Medicine careers",
     "urls": [
-      "https://www.uwmedicine.org/careers"
+      "https://www.uwmedicine.org/careers",
+      "https://www.washington.edu/jobs/healthcare-jobs/",
+      "https://wd5.myworkdaysite.com/recruiting/uw/UWHires"
     ],
     "status": "candidate",
     "shared_board": null,
@@ -544,7 +579,9 @@
     "hospital_id": "hosp_ohsu",
     "label": "OHSU careers",
     "urls": [
-      "https://www.ohsu.edu/jobs"
+      "https://www.ohsu.edu/jobs",
+      "https://www.ohsu.edu/human-resources/transition-practice-program-rns",
+      "https://externalcareers-ohsu.icims.com/jobs/search?ss=1&searchCategory=24533"
     ],
     "status": "candidate",
     "shared_board": null,
@@ -568,7 +605,8 @@
     "hospital_id": "hosp_packard",
     "label": "Stanford Children's Health careers",
     "urls": [
-      "https://careers.stanfordchildrens.org/"
+      "https://careers.stanfordchildrens.org/",
+      "https://api.smartrecruiters.com/v1/companies/StanfordMedicineChildrensHealth/postings"
     ],
     "status": "active",
     "shared_board": null,
@@ -578,7 +616,10 @@
     "id": "src_trivalley",
     "hospital_id": "hosp_trivalley",
     "label": "Stanford Tri-Valley careers",
-    "urls": [],
+    "urls": [
+      "https://stanfordhealthcare.org/tri-valley/about-us/join-our-team.html",
+      "https://stanfordmedicine.wd115.myworkdayjobs.com/SHC_Tri-Valley_External_Careers"
+    ],
     "status": "candidate",
     "shared_board": "stanford",
     "notes": "Confirm whether SHC board covers Tri-Valley new-grad postings or a separate pathway exists."
@@ -588,7 +629,9 @@
     "hospital_id": "hosp_elcamino",
     "label": "El Camino Health careers",
     "urls": [
-      "https://www.elcaminohealth.org/careers"
+      "https://www.elcaminohealth.org/careers",
+      "https://www.elcaminohealth.org/about-us/careers/hospital-careers/nurse-residency-program",
+      "https://ech.wd5.myworkdayjobs.com/ech"
     ],
     "status": "candidate",
     "shared_board": null,
@@ -612,7 +655,9 @@
     "hospital_id": "hosp_jmwc",
     "label": "John Muir Walnut Creek careers",
     "urls": [
-      "https://www.johnmuirhealth.com/careers.html"
+      "https://www.johnmuirhealth.com/careers.html",
+      "https://www.johnmuirhealth.com/for-physicians/nursing/nursing-residency-program.html",
+      "https://jmh.wd5.myworkdayjobs.com/JohnMuirHealthCareers"
     ],
     "status": "candidate",
     "shared_board": "johnmuir",
@@ -623,7 +668,9 @@
     "hospital_id": "hosp_jmconcord",
     "label": "John Muir Concord careers",
     "urls": [
-      "https://www.johnmuirhealth.com/careers.html"
+      "https://www.johnmuirhealth.com/careers.html",
+      "https://www.johnmuirhealth.com/for-physicians/nursing/nursing-residency-program.html",
+      "https://jmh.wd5.myworkdayjobs.com/JohnMuirHealthCareers"
     ],
     "status": "candidate",
     "shared_board": "johnmuir",
@@ -642,7 +689,10 @@
     "id": "src_scvmc",
     "hospital_id": "hosp_scvmc",
     "label": "Santa Clara Valley Medical Center careers",
-    "urls": [],
+    "urls": [
+      "https://scvmc.scvh.org/careers/nursing/nurse-current-openings",
+      "https://www.governmentjobs.com/careers/santaclara"
+    ],
     "status": "candidate",
     "shared_board": "scvh",
     "notes": "County recruitment; shares SCVH system with Regional Medical Center."
@@ -651,7 +701,10 @@
     "id": "src_regional_sj",
     "hospital_id": "hosp_regional_sj",
     "label": "Regional Medical Center careers",
-    "urls": [],
+    "urls": [
+      "https://rmc.scvh.org/careers/nursing",
+      "https://www.governmentjobs.com/careers/santaclara"
+    ],
     "status": "candidate",
     "shared_board": "scvh",
     "notes": "Use current Santa Clara Valley Healthcare recruitment."
@@ -660,7 +713,9 @@
     "id": "src_alameda",
     "hospital_id": "hosp_alameda",
     "label": "Alameda Health System careers",
-    "urls": [],
+    "urls": [
+      "https://alameda-health-system-careers.hctsportals.com/"
+    ],
     "status": "candidate",
     "shared_board": null,
     "notes": "Oakland-area recruitment; confirm hospital assignment per posting."
@@ -671,7 +726,8 @@
     "label": "ZSFG careers",
     "urls": [
       "https://www.zuckerbergsanfranciscogeneral.org/services/careers-zsfg/",
-      "https://careers.sf.gov/"
+      "https://careers.sf.gov/",
+      "https://api.smartrecruiters.com/v1/companies/CityAndCountyOfSanFrancisco1/postings"
     ],
     "status": "candidate",
     "shared_board": null,
@@ -681,7 +737,9 @@
     "id": "src_marinhealth",
     "hospital_id": "hosp_marinhealth",
     "label": "MarinHealth careers",
-    "urls": [],
+    "urls": [
+      "https://mymarinhealth.wd5.myworkdayjobs.com/MHCareers"
+    ],
     "status": "candidate",
     "shared_board": null,
     "notes": "Verify official careers/ATS URLs before activating."
@@ -691,7 +749,9 @@
     "hospital_id": "hosp_northbay",
     "label": "NorthBay Fairfield careers",
     "urls": [
-      "https://www.northbay.org/careers/nursing/"
+      "https://www.northbay.org/careers/nursing/",
+      "https://www.northbay.org/en/careers/nursing/nursing-residency-program/",
+      "https://erou.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1/"
     ],
     "status": "candidate",
     "shared_board": "northbay",
@@ -702,7 +762,9 @@
     "hospital_id": "hosp_vacavalley",
     "label": "NorthBay VacaValley careers",
     "urls": [
-      "https://www.northbay.org/careers/nursing/"
+      "https://www.northbay.org/careers/nursing/",
+      "https://www.northbay.org/en/careers/nursing/nursing-residency-program/",
+      "https://erou.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1/"
     ],
     "status": "candidate",
     "shared_board": "northbay",
@@ -712,7 +774,10 @@
     "id": "src_benioff_oak",
     "hospital_id": "hosp_benioff_oak",
     "label": "Benioff Oakland careers",
-    "urls": [],
+    "urls": [
+      "https://www.ucsf.edu/about/working-ucsf",
+      "https://careers.ucsf.edu/"
+    ],
     "status": "candidate",
     "shared_board": null,
     "notes": "Verify its current recruitment pathway separately from UCSF Health."
@@ -733,7 +798,8 @@
     "hospital_id": "hosp_enloe",
     "label": "Enloe Health careers",
     "urls": [
-      "https://www.enloe.org/careers/"
+      "https://www.enloe.org/careers/",
+      "https://enloe.wd12.myworkdayjobs.com/EnloeHealth"
     ],
     "status": "candidate",
     "shared_board": null,
@@ -744,7 +810,8 @@
     "hospital_id": "hosp_shasta",
     "label": "Shasta Regional careers",
     "urls": [
-      "https://shastaregional.com/careers/"
+      "https://shastaregional.com/careers/",
+      "https://careers-primehealthcare.icims.com/jobs/search?ss=1&searchRelation=keyword_all&searchCompany=31"
     ],
     "status": "candidate",
     "shared_board": null,
@@ -754,7 +821,10 @@
     "id": "src_lassen",
     "hospital_id": "hosp_lassen",
     "label": "Banner Lassen careers",
-    "urls": [],
+    "urls": [
+      "https://www.bannerhealth.com/careers",
+      "https://bannerhealth.wd108.myworkdayjobs.com/Careers"
+    ],
     "status": "candidate",
     "shared_board": "banner",
     "notes": "Covered by Banner Health board; confirm Lassen new-grad participation."
@@ -787,7 +857,8 @@
     "hospital_id": "hosp_va_sd",
     "label": "VA San Diego nurse residency",
     "urls": [
-      "https://www.usajobs.gov/"
+      "https://www.usajobs.gov/",
+      "https://www.va.gov/san-diego-health-care/work-with-us/internships-and-fellowships/post-baccalaureate-nurse-residency-program/"
     ],
     "status": "candidate",
     "shared_board": "va-usajobs",
@@ -798,7 +869,8 @@
     "hospital_id": "hosp_va_paloalto",
     "label": "VA Palo Alto nurse residency",
     "urls": [
-      "https://www.usajobs.gov/"
+      "https://www.usajobs.gov/",
+      "https://www.va.gov/palo-alto-health-care/work-with-us/internships-and-fellowships/nursing-internships-and-va-step/"
     ],
     "status": "candidate",
     "shared_board": "va-usajobs",
@@ -821,7 +893,8 @@
     "hospital_id": "hosp_va_norcal",
     "label": "VA Northern California nurse residency",
     "urls": [
-      "https://www.usajobs.gov/"
+      "https://www.usajobs.gov/",
+      "https://www.va.gov/northern-california-health-care/work-with-us/internships-and-fellowships/post-baccalaureate-nurse-residency-program/"
     ],
     "status": "candidate",
     "shared_board": "va-usajobs",
@@ -832,7 +905,8 @@
     "hospital_id": "hosp_va_centralca",
     "label": "VA Central California nurse residency",
     "urls": [
-      "https://www.usajobs.gov/"
+      "https://www.usajobs.gov/",
+      "https://www.va.gov/central-california-health-care/work-with-us/internships-and-fellowships/post-baccalaureate-registered-nurse-residency-pb-rnr-program/"
     ],
     "status": "candidate",
     "shared_board": "va-usajobs",
@@ -902,6 +976,54 @@
     ],
     "status": "active",
     "shared_board": null,
+    "notes": null
+  },
+  {
+    "id": "src_2421912fbd",
+    "hospital_id": "hosp_eden",
+    "label": "Eden Medical Center careers",
+    "urls": [
+      "https://jobs.sutterhealth.org/",
+      "https://jobs.sutterhealth.org/us/en/clinical-career-development"
+    ],
+    "status": "active",
+    "shared_board": "sutter",
+    "notes": null
+  },
+  {
+    "id": "src_05a9c45605",
+    "hospital_id": "hosp_adv_rideout",
+    "label": "Adventist Health and Rideout careers",
+    "urls": [
+      "https://ecvz.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1/",
+      "https://www.adventisthealth.org/careers/more-opportunities/nursing-careers/nurse-residency-program/"
+    ],
+    "status": "active",
+    "shared_board": "adventist",
+    "notes": null
+  },
+  {
+    "id": "src_7d12a2112b",
+    "hospital_id": "hosp_adv_lodi",
+    "label": "Adventist Health Lodi Memorial careers",
+    "urls": [
+      "https://ecvz.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1/",
+      "https://www.adventisthealth.org/careers/more-opportunities/nursing-careers/nurse-residency-program/"
+    ],
+    "status": "active",
+    "shared_board": "adventist",
+    "notes": null
+  },
+  {
+    "id": "src_9c7c9694a2",
+    "hospital_id": "hosp_adv_sonora",
+    "label": "Adventist Health Sonora careers",
+    "urls": [
+      "https://ecvz.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1/",
+      "https://www.adventisthealth.org/careers/more-opportunities/nursing-careers/nurse-residency-program/"
+    ],
+    "status": "active",
+    "shared_board": "adventist",
     "notes": null
   }
 ]

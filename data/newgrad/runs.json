@@ -10723,5 +10723,363 @@
         "error": "HTTP 410"
       }
     ]
+  },
+  {
+    "run_id": "2026-11-26-daily",
+    "research_started_at": "2026-11-26T16:09:00.000Z",
+    "research_completed_at": "2026-11-26T16:24:03.000Z",
+    "ingested_at": "2026-11-26T16:31:39.015Z",
+    "sources_checked": 209,
+    "sources_ok": 171,
+    "findings_received": 148,
+    "published": 13,
+    "updated": 35,
+    "closed": 2,
+    "pending_review": 66,
+    "rejected": 0,
+    "failed_checks": [
+      {
+        "source_id": "src_ucdavis",
+        "url": "https://hr.ucdavis.edu/departments/hr/nurse-recruitment/nurse-residency-program",
+        "attempted_at": "2026-11-26T16:13:47.060296Z",
+        "retrieved_at": null,
+        "outcome": "blocked",
+        "coverage_complete": false,
+        "error": "HTTP 403 Forbidden"
+      },
+      {
+        "source_id": "src_ucdavis",
+        "url": "https://hr.ucdavis.edu/careers",
+        "attempted_at": "2026-11-26T16:18:01.157239Z",
+        "retrieved_at": null,
+        "outcome": "blocked",
+        "coverage_complete": false,
+        "error": "HTTP 403 Forbidden"
+      },
+      {
+        "source_id": "src_ucdavis",
+        "url": "https://health.ucdavis.edu/careers/",
+        "attempted_at": "2026-11-26T16:13:47.092681Z",
+        "retrieved_at": null,
+        "outcome": "not_found",
+        "coverage_complete": false,
+        "error": "HTTP 404 Page Not Found"
+      },
+      {
+        "source_id": "src_ucsd",
+        "url": "https://employment.ucsd.edu/rn-new-grad-registered-nurse-hillcrest-10-icu-141944/job/F06815DC717880604B545BCC75EC5A8F",
+        "attempted_at": "2026-11-26T16:16:44.393820Z",
+        "retrieved_at": null,
+        "outcome": "not_found",
+        "coverage_complete": true,
+        "error": "HTTP 404"
+      },
+      {
+        "source_id": "src_ucsd",
+        "url": "https://employment.ucsd.edu/rn-new-grad-registered-nurse-scvc-4ab-pcu-141918/job/80CFB720201501EF5723BF8DAC73AA98",
+        "attempted_at": "2026-11-26T16:16:44.393952Z",
+        "retrieved_at": null,
+        "outcome": "not_found",
+        "coverage_complete": true,
+        "error": "HTTP 404"
+      },
+      {
+        "source_id": "src_cityofhope",
+        "url": "https://www.cityofhope.org/education/nursing-education/nurse-residency-program",
+        "attempted_at": "2026-11-26T16:13:47.814961Z",
+        "retrieved_at": null,
+        "outcome": "blocked",
+        "coverage_complete": false,
+        "error": "HTTP 403 Forbidden (Cloudflare)"
+      },
+      {
+        "source_id": "src_huntington",
+        "url": "https://www.hhcareers.com/career-search?category=nursing",
+        "attempted_at": "2026-11-26T16:13:47.959728Z",
+        "retrieved_at": "2026-11-26T16:13:48.192555Z",
+        "outcome": "needs_reverification",
+        "coverage_complete": false,
+        "error": "Job search table rendered via Webflow code component JS bundle that returned HTTP 403"
+      },
+      {
+        "source_id": "src_cedars",
+        "url": "https://www.cedars-sinai.edu/education/graduate-medical-education/nursing-residency.html",
+        "attempted_at": "2026-11-26T16:13:48.065036Z",
+        "retrieved_at": null,
+        "outcome": "not_found",
+        "coverage_complete": false,
+        "error": "HTTP 404 Not Found"
+      },
+      {
+        "source_id": "src_chla",
+        "url": "https://www.chla.org/nursing/rn-residency-pediatrics",
+        "attempted_at": "2026-11-26T16:13:48.218801Z",
+        "retrieved_at": null,
+        "outcome": "blocked",
+        "coverage_complete": false,
+        "error": "HTTP 403 Forbidden (Cloudflare)"
+      },
+      {
+        "source_id": "src_chla",
+        "url": "https://jobs.chla.org/",
+        "attempted_at": "2026-11-26T16:13:48.228454Z",
+        "retrieved_at": null,
+        "outcome": "blocked",
+        "coverage_complete": false,
+        "error": "HTTP 403 Forbidden (Cloudflare)"
+      },
+      {
+        "source_id": "src_sharp",
+        "url": "https://careers.sharp.com/job/san-diego/nurse-residency-program-new-grad-rn-spring-2027-start-sharp-healthcare/1031/103122338944",
+        "attempted_at": "2026-11-26T16:16:44.974401Z",
+        "retrieved_at": null,
+        "outcome": "not_found",
+        "coverage_complete": true,
+        "error": "HTTP 404"
+      },
+      {
+        "source_id": "src_84db63ff46",
+        "url": "https://careers.memorialcare.org/job/long-beach/new-grad-registered-nurse-rn-pediatrics-mch-west/28372/101148883952",
+        "attempted_at": "2026-11-26T16:16:44.829954Z",
+        "retrieved_at": null,
+        "outcome": "not_found",
+        "coverage_complete": true,
+        "error": "HTTP 404"
+      },
+      {
+        "source_id": "src_84db63ff46",
+        "url": "https://careers.memorialcare.org/job/long-beach/registered-nurse-new-grad-periop-101/28372/101405134448",
+        "attempted_at": "2026-11-26T16:16:44.914871Z",
+        "retrieved_at": null,
+        "outcome": "not_found",
+        "coverage_complete": true,
+        "error": "HTTP 404"
+      },
+      {
+        "source_id": "src_washington",
+        "url": "https://www.whhs.com/careers/",
+        "attempted_at": "2026-11-26T16:12:20.000Z",
+        "retrieved_at": null,
+        "outcome": "blocked",
+        "coverage_complete": false,
+        "error": "HTTP 403 Forbidden"
+      },
+      {
+        "source_id": "src_washington",
+        "url": "https://www.washingtonhealth.com/careers/",
+        "attempted_at": "2026-11-26T16:14:15.000Z",
+        "retrieved_at": null,
+        "outcome": "blocked",
+        "coverage_complete": false,
+        "error": "HTTP 403 Forbidden (Cloudflare challenge)"
+      },
+      {
+        "source_id": "src_goodsam_sj",
+        "url": "https://www.goodsamsanjose.com/careers",
+        "attempted_at": "2026-11-26T16:14:25.000Z",
+        "retrieved_at": null,
+        "outcome": "blocked",
+        "coverage_complete": false,
+        "error": "HTTP 403 Forbidden"
+      },
+      {
+        "source_id": "src_goodsam_sj",
+        "url": "https://careers.hcahealthcare.com/",
+        "attempted_at": "2026-11-26T16:14:26.000Z",
+        "retrieved_at": null,
+        "outcome": "blocked",
+        "coverage_complete": false,
+        "error": "HTTP 403 Forbidden (Cloudflare challenge)"
+      },
+      {
+        "source_id": "src_goodsam_sj",
+        "url": "https://careers.hcahealthcare.com/jobs",
+        "attempted_at": "2026-11-26T16:20:05.000Z",
+        "retrieved_at": null,
+        "outcome": "blocked",
+        "coverage_complete": false,
+        "error": "HTTP 403 Forbidden"
+      },
+      {
+        "source_id": "src_scvmc",
+        "url": "https://sccgov.taleo.net/careersection/cs/jobsearch.ftl",
+        "attempted_at": "2026-11-26T16:18:45.000Z",
+        "retrieved_at": null,
+        "outcome": "not_found",
+        "coverage_complete": false,
+        "error": "DNS lookup failed (legacy Taleo host retired)"
+      },
+      {
+        "source_id": "src_alameda",
+        "url": "https://www.alamedahealthsystem.org/careers/",
+        "attempted_at": "2026-11-26T16:14:32.000Z",
+        "retrieved_at": null,
+        "outcome": "temporarily_unavailable",
+        "coverage_complete": false,
+        "error": "SSL certificate verification failed / empty response"
+      },
+      {
+        "source_id": "src_marinhealth",
+        "url": "https://www.mymarinhealth.org/careers/",
+        "attempted_at": "2026-11-26T16:14:35.000Z",
+        "retrieved_at": null,
+        "outcome": "blocked",
+        "coverage_complete": false,
+        "error": "HTTP 403 Forbidden (Cloudflare challenge)"
+      },
+      {
+        "source_id": "src_barton",
+        "url": "https://www.bartonhealth.org/careers/",
+        "attempted_at": "2026-11-26T16:12:26.000Z",
+        "retrieved_at": null,
+        "outcome": "blocked",
+        "coverage_complete": false,
+        "error": "HTTP 403 Forbidden"
+      },
+      {
+        "source_id": "src_barton",
+        "url": "https://www.bartonhealth.org/page/careers.aspx",
+        "attempted_at": "2026-11-26T16:14:38.000Z",
+        "retrieved_at": null,
+        "outcome": "blocked",
+        "coverage_complete": false,
+        "error": "HTTP 403 Access Denied"
+      },
+      {
+        "source_id": "src_barton",
+        "url": "https://recruiting2.ultipro.com/BAR1002BARTH/JobBoard/c607ecbb-f529-4ae8-8086-5faab2e67a68/",
+        "attempted_at": "2026-11-26T16:16:35.000Z",
+        "retrieved_at": null,
+        "outcome": "not_found",
+        "coverage_complete": false,
+        "error": "HTTP 404 Not Found"
+      },
+      {
+        "source_id": "src_enloe",
+        "url": "https://www.enloe.org/careers/",
+        "attempted_at": "2026-11-26T16:12:27.000Z",
+        "retrieved_at": null,
+        "outcome": "blocked",
+        "coverage_complete": false,
+        "error": "HTTP 403 Forbidden"
+      },
+      {
+        "source_id": "src_lassen",
+        "url": "https://www.bannerhealth.com/careers/nursing/new-nurse-experience",
+        "attempted_at": "2026-11-26T16:14:42.000Z",
+        "retrieved_at": null,
+        "outcome": "not_found",
+        "coverage_complete": false,
+        "error": "HTTP 404 Not Found"
+      },
+      {
+        "source_id": null,
+        "url": "https://data.usajobs.gov/api/search?LocationName=California&Keyword=Nurse%20Residency",
+        "attempted_at": "2026-11-26T16:17:02.000Z",
+        "retrieved_at": null,
+        "outcome": "blocked",
+        "coverage_complete": false,
+        "error": "HTTP 401 Unauthorized (API key required; used official www.usajobs.gov/Search/ExecuteSearch)"
+      },
+      {
+        "source_id": "src_kaiser",
+        "url": "https://kp.taleo.net/careersection/external/jobsearch.ftl?lang=en",
+        "attempted_at": "2026-11-26T16:14:15.000Z",
+        "retrieved_at": null,
+        "outcome": "blocked",
+        "coverage_complete": false,
+        "error": "Redirected to mysubmissions.ftl requiring browser cookies/sign-in; public job search is served via kaiserpermanentejobs.org TalentBrew."
+      },
+      {
+        "source_id": "src_dignity",
+        "url": "https://www.commonspirit.careers/job/oxnard/national-resident-rn-california/35300/100616393488",
+        "attempted_at": "2026-11-26T16:12:41.240Z",
+        "retrieved_at": null,
+        "outcome": "not_found",
+        "coverage_complete": true,
+        "error": "HTTP 404 (TalentBrew Custom Job Error); iCIMS req 485862 returned HTTP 410 Gone."
+      },
+      {
+        "source_id": "src_3b0b738776",
+        "url": "https://www.commonspirit.careers/job/red-bluff/national-resident-rn/35300/101098375920",
+        "attempted_at": "2026-11-26T16:14:20.000Z",
+        "retrieved_at": null,
+        "outcome": "not_found",
+        "coverage_complete": true,
+        "error": "HTTP 404 (TalentBrew Custom Job Error); iCIMS req 494269 returned HTTP 410 Gone."
+      },
+      {
+        "source_id": "src_mountsinai",
+        "url": "https://www.mountsinai.org/care/nursing-at-mount-sinai/education/fellowship",
+        "attempted_at": "2026-11-26T16:22:40.000Z",
+        "retrieved_at": null,
+        "outcome": "blocked",
+        "coverage_complete": false,
+        "error": "HTTP 403 Akamai EdgeSuite"
+      },
+      {
+        "source_id": "src_hopkins",
+        "url": "https://www.hopkinsmedicine.org/nursing",
+        "attempted_at": "2026-11-26T16:09:00.000Z",
+        "retrieved_at": null,
+        "outcome": "blocked",
+        "coverage_complete": false,
+        "error": "HTTP 403 Cloudflare"
+      },
+      {
+        "source_id": "src_hopkins",
+        "url": "https://jobs.hopkinsmedicine.org/job/104635/new-grad-rn-neurosurgical-imc-brain-rescue-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "attempted_at": "2026-11-26T16:14:21.000Z",
+        "retrieved_at": null,
+        "outcome": "not_found",
+        "coverage_complete": false,
+        "error": "HTTP 410 This job is no longer available"
+      },
+      {
+        "source_id": "src_hopkins",
+        "url": "https://jobs.hopkinsmedicine.org/job/104670/new-grad-rn-hematologic-malignancies-unit-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "attempted_at": "2026-11-26T16:14:49.000Z",
+        "retrieved_at": null,
+        "outcome": "not_found",
+        "coverage_complete": false,
+        "error": "HTTP 410 This job is no longer available"
+      },
+      {
+        "source_id": "src_hopkins",
+        "url": "https://jobs.hopkinsmedicine.org/job/104581/new-grad-rn-med-tele-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "attempted_at": "2026-11-26T16:14:49.000Z",
+        "retrieved_at": null,
+        "outcome": "not_found",
+        "coverage_complete": false,
+        "error": "HTTP 410 This job is no longer available"
+      },
+      {
+        "source_id": "src_penn",
+        "url": "https://careers.pennmedicine.org/search/nursing/jobs?q=Nurse+Residency",
+        "attempted_at": "2026-11-26T16:16:02.000Z",
+        "retrieved_at": null,
+        "outcome": "blocked",
+        "coverage_complete": false,
+        "error": "HTTP 403 Cloudflare challenge"
+      },
+      {
+        "source_id": "src_bsw",
+        "url": "https://jobs.bswhealth.com/us/en/job/26014424",
+        "attempted_at": "2026-11-26T16:09:00.000Z",
+        "retrieved_at": null,
+        "outcome": "not_found",
+        "coverage_complete": false,
+        "error": "HTTP 410 Gone"
+      },
+      {
+        "source_id": "src_uw",
+        "url": "https://www.uwmedicine.org/jobs/nursing",
+        "attempted_at": "2026-11-26T16:14:49.000Z",
+        "retrieved_at": null,
+        "outcome": "blocked",
+        "coverage_complete": false,
+        "error": "HTTP 403 Akamai Access Denied"
+      }
+    ]
   }
 ]

@@ -18110,5 +18110,2474 @@
         "claim": "opening_date"
       }
     ]
+  },
+  {
+    "id": "hist_2026-11-26-daily_0001",
+    "run_id": "2026-11-26-daily",
+    "at": "2026-11-26T16:31:39.015Z",
+    "type": "CLOSED",
+    "opportunity_id": "opp_116ea92514",
+    "changes": [
+      {
+        "field": "specialties",
+        "before": [
+          "Multiple Specialties",
+          "Unknown",
+          "Critical Care",
+          "Oncology"
+        ],
+        "after": [
+          "Multiple Specialties"
+        ]
+      },
+      {
+        "field": "program_id",
+        "before": "prog_b61f49dd0b",
+        "after": "prog_32554fab70"
+      },
+      {
+        "field": "cohort_id",
+        "before": "cohort_ecb1c0fd89",
+        "after": "cohort_a56bcbfc96"
+      },
+      {
+        "field": "bsn_required",
+        "before": true,
+        "after": false
+      },
+      {
+        "field": "rn_license_requirement",
+        "before": "Current California RN license is required prior to the start date of the residency program.",
+        "after": "Current CA RN license required by February 12, 2027; interim permits not accepted."
+      },
+      {
+        "field": "experience_requirement",
+        "before": "Graduates from an accredited BSN or MSN program within the past 18 months with less than 6 months acute care RN experience.",
+        "after": "Must not exceed 1040 hours of paid RN work experience by the cohort start date."
+      },
+      {
+        "field": "application_status",
+        "before": "EXPECTED",
+        "after": "CLOSED"
+      },
+      {
+        "field": "closed_at",
+        "before": null,
+        "after": "2026-11-26T16:31:39.015Z"
+      }
+    ],
+    "reason": "Official evidence verified closure.",
+    "evidence": [
+      {
+        "source_url": "https://careers.stanfordhealthcare.org/us/en/nrpfaq",
+        "excerpt": "Do new grads receive full benefits? Yes. You are a full time permanent employee... Is the residency program a paid position? Yes. Nurse residents receive a competitive hourly wage... official graduation date is no greater than 18 months from cohort start date and you do not have more than 6 months or 1040 hours paid RN experience in any practice setting.",
+        "retrieved_at": "2026-11-26T16:15:02.854934Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://careers.stanfordhealthcare.org/us/en/nurse-residency-program",
+        "excerpt": "Cohort 46 Applications Open: November 9, 2026 – November 15, 2026 ... CA License required by: February 12th, 2027 ... Cohort 46 starts April 12, 2027.",
+        "retrieved_at": "2026-11-26T16:13:48.707914Z",
+        "claim": "deadline"
+      },
+      {
+        "source_url": "https://stanfordmedicine.wd115.myworkdayjobs.com/wday/cxs/stanfordmedicine/SHC_External_Career_Site/jobs",
+        "excerpt": "Workday query 'Nurse Residency' returned total: 0 open postings on SHC_External_Career_Site.",
+        "retrieved_at": "2026-11-26T16:15:22.265780Z",
+        "claim": "status"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-11-26-daily_0002",
+    "run_id": "2026-11-26-daily",
+    "at": "2026-11-26T16:31:39.015Z",
+    "type": "UPDATED",
+    "opportunity_id": "opp_116ea92514",
+    "changes": [
+      {
+        "field": "specialties",
+        "before": [
+          "Multiple Specialties",
+          "Unknown",
+          "Critical Care",
+          "Oncology"
+        ],
+        "after": [
+          "Multiple Specialties"
+        ]
+      },
+      {
+        "field": "program_id",
+        "before": "prog_b61f49dd0b",
+        "after": "prog_32554fab70"
+      },
+      {
+        "field": "cohort_id",
+        "before": "cohort_ecb1c0fd89",
+        "after": "cohort_a56bcbfc96"
+      },
+      {
+        "field": "bsn_required",
+        "before": true,
+        "after": false
+      },
+      {
+        "field": "rn_license_requirement",
+        "before": "Current California RN license is required prior to the start date of the residency program.",
+        "after": "Current CA RN license required by February 12, 2027; interim permits not accepted."
+      },
+      {
+        "field": "experience_requirement",
+        "before": "Graduates from an accredited BSN or MSN program within the past 18 months with less than 6 months acute care RN experience.",
+        "after": "Must not exceed 1040 hours of paid RN work experience by the cohort start date."
+      },
+      {
+        "field": "application_status",
+        "before": "EXPECTED",
+        "after": "CLOSED"
+      },
+      {
+        "field": "closed_at",
+        "before": null,
+        "after": "2026-11-26T16:31:39.015Z"
+      }
+    ],
+    "reason": "Updated from run evidence (CLOSED).",
+    "evidence": [
+      {
+        "source_url": "https://careers.stanfordhealthcare.org/us/en/nrpfaq",
+        "excerpt": "Do new grads receive full benefits? Yes. You are a full time permanent employee... Is the residency program a paid position? Yes. Nurse residents receive a competitive hourly wage... official graduation date is no greater than 18 months from cohort start date and you do not have more than 6 months or 1040 hours paid RN experience in any practice setting.",
+        "retrieved_at": "2026-11-26T16:15:02.854934Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://careers.stanfordhealthcare.org/us/en/nurse-residency-program",
+        "excerpt": "Cohort 46 Applications Open: November 9, 2026 – November 15, 2026 ... CA License required by: February 12th, 2027 ... Cohort 46 starts April 12, 2027.",
+        "retrieved_at": "2026-11-26T16:13:48.707914Z",
+        "claim": "deadline"
+      },
+      {
+        "source_url": "https://stanfordmedicine.wd115.myworkdayjobs.com/wday/cxs/stanfordmedicine/SHC_External_Career_Site/jobs",
+        "excerpt": "Workday query 'Nurse Residency' returned total: 0 open postings on SHC_External_Career_Site.",
+        "retrieved_at": "2026-11-26T16:15:22.265780Z",
+        "claim": "status"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-11-26-daily_0003",
+    "run_id": "2026-11-26-daily",
+    "at": "2026-11-26T16:31:39.015Z",
+    "type": "NEW",
+    "opportunity_id": "opp_cba1d3bc00",
+    "changes": null,
+    "reason": "First published from run evidence (OPENING_SOON).",
+    "evidence": [
+      {
+        "source_url": "https://careers.stanfordhealthcare.org/us/en/nrpfaq",
+        "excerpt": "Do new grads receive full benefits? Yes. You are a full time permanent employee... Is the residency program a paid position? Yes. Nurse residents receive a competitive hourly wage... official graduation date is no greater than 18 months from cohort start date and you do not have more than 6 months or 1040 hours paid RN experience in any practice setting.",
+        "retrieved_at": "2026-11-26T16:15:02.854934Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://careers.stanfordhealthcare.org/us/en/nurse-residency-program",
+        "excerpt": "Cohort 47 Applications Open: April 26th, 2027 – May 2nd, 2027 ... CA License required by: July 30th, 2027 ... Cohort 47 starts September 27th, 2027.",
+        "retrieved_at": "2026-11-26T16:13:48.707914Z",
+        "claim": "opening_date"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-11-26-daily_0004",
+    "run_id": "2026-11-26-daily",
+    "at": "2026-11-26T16:31:39.015Z",
+    "type": "UPDATED",
+    "opportunity_id": "opp_ece7b060b0",
+    "changes": [
+      {
+        "field": "specialties",
+        "before": [
+          "Pediatrics",
+          "Unknown",
+          "NICU",
+          "PICU",
+          "Med-Surg"
+        ],
+        "after": [
+          "Pediatrics"
+        ]
+      },
+      {
+        "field": "application_open",
+        "before": null,
+        "after": {
+          "kind": "date",
+          "value": "2027-03-10"
+        }
+      },
+      {
+        "field": "application_close",
+        "before": null,
+        "after": {
+          "kind": "date",
+          "value": "2027-03-17"
+        }
+      },
+      {
+        "field": "program_start",
+        "before": null,
+        "after": {
+          "kind": "date",
+          "value": "2027-08-16"
+        }
+      },
+      {
+        "field": "program_id",
+        "before": "prog_9a2db4c43c",
+        "after": "prog_84e13c40a3"
+      },
+      {
+        "field": "cohort_id",
+        "before": null,
+        "after": "cohort_105aedce99"
+      },
+      {
+        "field": "bsn_required",
+        "before": null,
+        "after": true
+      },
+      {
+        "field": "rn_license_requirement",
+        "before": null,
+        "after": "Current unencumbered California RN license verified by August 10, 2027; interim permits not accepted."
+      },
+      {
+        "field": "license_required_by",
+        "before": null,
+        "after": "2027-08-10"
+      },
+      {
+        "field": "experience_requirement",
+        "before": null,
+        "after": "May not have any paid work experience as a Registered Nurse (RN), at program start."
+      },
+      {
+        "field": "application_url",
+        "before": "https://careers.stanfordchildrens.org/",
+        "after": "https://careers.stanfordchildrens.org/rn-residency-program"
+      },
+      {
+        "field": "application_status",
+        "before": "EXPECTED",
+        "after": "OPENING_SOON"
+      }
+    ],
+    "reason": "Updated from run evidence (OPENING_SOON).",
+    "evidence": [
+      {
+        "source_url": "https://careers.stanfordchildrens.org/rn-residency-program",
+        "excerpt": "to prepare new graduate nurses for the highly complex and fast-paced acute care environment... May not have any paid work experience as a Registered Nurse (RN), at program start.",
+        "retrieved_at": "2026-11-26T16:16:22.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://careers.stanfordchildrens.org/rn-residency-program",
+        "excerpt": "Application and Review Timeline - Fall 2027 Cohort: Application Window: Wednesday, March 10, 2027 – Wednesday, March 17, 2027 ... Cohort Start: August 16, 2027",
+        "retrieved_at": "2026-11-26T16:16:22.000Z",
+        "claim": "opening_date"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-11-26-daily_0005",
+    "run_id": "2026-11-26-daily",
+    "at": "2026-11-26T16:31:39.015Z",
+    "type": "UPDATED",
+    "opportunity_id": "opp_4a34429f1c",
+    "changes": [
+      {
+        "field": "locations",
+        "before": [
+          {
+            "city": "Los Angeles",
+            "state": "CA"
+          }
+        ],
+        "after": [
+          {
+            "city": "Los Angeles",
+            "state": "CA"
+          },
+          {
+            "city": "Santa Monica",
+            "state": "CA"
+          },
+          {
+            "city": "West Hills",
+            "state": "CA"
+          }
+        ]
+      },
+      {
+        "field": "specialties",
+        "before": [
+          "Unknown",
+          "Multiple Specialties"
+        ],
+        "after": [
+          "Multiple Specialties"
+        ]
+      },
+      {
+        "field": "program_id",
+        "before": "prog_e78305e4f6",
+        "after": "prog_0fb2e55574"
+      },
+      {
+        "field": "cohort_id",
+        "before": "cohort_eab12c3b4b",
+        "after": "cohort_3e283bde2a"
+      },
+      {
+        "field": "rn_license_requirement",
+        "before": "California RN license required prior to program start.",
+        "after": "Current, valid California RN license by the program start date."
+      },
+      {
+        "field": "experience_requirement",
+        "before": "Graduation from an accredited BSN or MSN program; less than six months RN experience.",
+        "after": "No RN experience or less than 6 months of RN experience in an inpatient setting by the program start date."
+      },
+      {
+        "field": "application_url",
+        "before": "https://www.uclahealthcareers.org/",
+        "after": "https://www.uclahealthcareers.org/nursing-new-graduates/"
+      }
+    ],
+    "reason": "Updated from run evidence (EXPECTED).",
+    "evidence": [
+      {
+        "source_url": "https://www.uclahealthcareers.org/nursing-new-graduates/",
+        "excerpt": "This program is specifically designed for new graduate nurses, post-degree with little to no RN experience. Completion of a BSN or MSN degree is required.",
+        "retrieved_at": "2026-11-26T16:13:47.249325Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://www.uclahealthcareers.org/nursing-new-graduates/",
+        "excerpt": "The application window for the Spring 2027 Nurse Residency & OR Training Programs has now closed... Programs will begin in March 2027. Recruitment for our Fall 2027 cohort will begin March 2027. More information regarding this cohort will be provided in January 2027.",
+        "retrieved_at": "2026-11-26T16:13:47.249325Z",
+        "claim": "opening_date"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-11-26-daily_0006",
+    "run_id": "2026-11-26-daily",
+    "at": "2026-11-26T16:31:39.015Z",
+    "type": "SOURCE_UNAVAILABLE",
+    "opportunity_id": "opp_73bcc0ea08",
+    "changes": [
+      {
+        "field": "verification_health",
+        "before": "VERIFIED",
+        "after": "TEMPORARY_FAILURE"
+      }
+    ],
+    "reason": "Retrieval failed; last-known facts preserved.",
+    "evidence": []
+  },
+  {
+    "id": "hist_2026-11-26-daily_0007",
+    "run_id": "2026-11-26-daily",
+    "at": "2026-11-26T16:31:39.015Z",
+    "type": "UPDATED",
+    "opportunity_id": "opp_a2e7e134ff",
+    "changes": [
+      {
+        "field": "locations",
+        "before": [
+          {
+            "city": "Orange",
+            "state": "CA"
+          }
+        ],
+        "after": [
+          {
+            "city": "Orange",
+            "state": "CA"
+          },
+          {
+            "city": "Irvine",
+            "state": "CA"
+          }
+        ]
+      },
+      {
+        "field": "specialties",
+        "before": [
+          "Multiple Specialties",
+          "Unknown"
+        ],
+        "after": [
+          "Multiple Specialties"
+        ]
+      },
+      {
+        "field": "program_id",
+        "before": "prog_2e8a4a36b8",
+        "after": "prog_8e3ff5c9f1"
+      },
+      {
+        "field": "experience_requirement",
+        "before": "Open to new graduate nurses with less than six months RN experience.",
+        "after": "New graduate nurses refer to externally hired nursing graduates who have recently obtained a BSN and have less than six months experience working as an RN."
+      },
+      {
+        "field": "application_url",
+        "before": "https://careers.ucihealth.org/",
+        "after": "https://jobs.uci.edu/careers-home/jobs"
+      }
+    ],
+    "reason": "Updated from run evidence (CLOSED).",
+    "evidence": [
+      {
+        "source_url": "https://www.ucihealth.org/healthcare-professionals/nursing/nursing-at-uci",
+        "excerpt": "The Transition to Practice program is a one-year program designed to support the new graduate nurse hired at UCI Health transition from a novice nurse to an advanced beginner... offered bi-annually",
+        "retrieved_at": "2026-11-26T16:13:47.779111Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://jobs.uci.edu/careers-nursing",
+        "excerpt": "New graduate nurses refer to externally hired nursing graduates who have recently obtained a BSN and have less than six months experience working as an RN... New graduate nurse hiring is often done in cohorts, beginning around March and September.",
+        "retrieved_at": "2026-11-26T16:15:02.594530Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://www.ucihealth.org/healthcare-professionals/nursing/nursing-at-uci",
+        "excerpt": "Nursing job opportunities on our careers portal (jobs.uci.edu API returned 0 open New Grad / Nurse Residency RN postings on 2026-11-26).",
+        "retrieved_at": "2026-11-26T16:13:47.779111Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://jobs.uci.edu/api/jobs?keywords=new%20grad&limit=25",
+        "excerpt": "Official UCI Jibe jobs API returned totalCount: 0 for keywords 'new grad' and 0 New Grad RN / Nurse Residency openings under 'residency' or 'Clinical Nurse I'.",
+        "retrieved_at": "2026-11-26T16:18:02.254566Z",
+        "claim": "status"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-11-26-daily_0008",
+    "run_id": "2026-11-26-daily",
+    "at": "2026-11-26T16:31:39.015Z",
+    "type": "UPDATED",
+    "opportunity_id": "opp_afb6ead28f",
+    "changes": [
+      {
+        "field": "specialties",
+        "before": [
+          "Multiple Specialties",
+          "Unknown",
+          "ICU"
+        ],
+        "after": [
+          "Multiple Specialties"
+        ]
+      },
+      {
+        "field": "program_id",
+        "before": "prog_e34b839852",
+        "after": "prog_293b44c055"
+      },
+      {
+        "field": "application_url",
+        "before": "https://employment.ucsd.edu/",
+        "after": "https://employment.ucsd.edu/new-grad"
+      }
+    ],
+    "reason": "Updated from run evidence (CLOSED).",
+    "evidence": [
+      {
+        "source_url": "https://employment.ucsd.edu/nursing",
+        "excerpt": "This program is designed to support Newly Licensed Registered Nurses with a comprehensive transition-to-practice experience... We hire new graduate nurses twice a year, with job postings available during the following timeframes: October for the NRP cohort starting in March; April for the NRP cohort starting in September",
+        "retrieved_at": "2026-11-26T16:13:48.249339Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://employment.ucsd.edu/nursing",
+        "excerpt": "October for the NRP cohort starting in March; April for the NRP cohort starting in September",
+        "retrieved_at": "2026-11-26T16:13:48.249339Z",
+        "claim": "status"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-11-26-daily_0009",
+    "run_id": "2026-11-26-daily",
+    "at": "2026-11-26T16:31:39.015Z",
+    "type": "UPDATED",
+    "opportunity_id": "opp_2fac2a9a7d",
+    "changes": [
+      {
+        "field": "specialties",
+        "before": [
+          "ICU",
+          "Critical Care"
+        ],
+        "after": [
+          "ICU"
+        ]
+      },
+      {
+        "field": "program_id",
+        "before": "prog_e34b839852",
+        "after": "prog_293b44c055"
+      }
+    ],
+    "reason": "Updated from run evidence (CLOSED).",
+    "evidence": [
+      {
+        "source_url": "https://employment.ucsd.edu/new-grad",
+        "excerpt": "New Grad job board enumerated all 8 Entry Level/New Graduate postings; requisition 141944 is absent and its direct URL returned HTTP 404.",
+        "retrieved_at": "2026-11-26T16:15:01.735195Z",
+        "claim": "removal"
+      },
+      {
+        "source_url": "https://employment.ucsd.edu/nursing",
+        "excerpt": "This program is designed to support Newly Licensed Registered Nurses with a comprehensive transition-to-practice experience",
+        "retrieved_at": "2026-11-26T16:13:48.249339Z",
+        "claim": "eligibility"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-11-26-daily_0010",
+    "run_id": "2026-11-26-daily",
+    "at": "2026-11-26T16:31:39.015Z",
+    "type": "UPDATED",
+    "opportunity_id": "opp_16c4607e00",
+    "changes": [
+      {
+        "field": "specialties",
+        "before": [
+          "Unknown"
+        ],
+        "after": [
+          "Telemetry"
+        ]
+      },
+      {
+        "field": "program_id",
+        "before": "prog_e34b839852",
+        "after": "prog_293b44c055"
+      }
+    ],
+    "reason": "Updated from run evidence (CLOSED).",
+    "evidence": [
+      {
+        "source_url": "https://employment.ucsd.edu/new-grad",
+        "excerpt": "New Grad job board enumerated all 8 Entry Level/New Graduate postings; requisition 141918 is absent and its direct URL returned HTTP 404.",
+        "retrieved_at": "2026-11-26T16:15:01.735195Z",
+        "claim": "removal"
+      },
+      {
+        "source_url": "https://employment.ucsd.edu/nursing",
+        "excerpt": "This program is designed to support Newly Licensed Registered Nurses with a comprehensive transition-to-practice experience",
+        "retrieved_at": "2026-11-26T16:13:48.249339Z",
+        "claim": "eligibility"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-11-26-daily_0011",
+    "run_id": "2026-11-26-daily",
+    "at": "2026-11-26T16:31:39.015Z",
+    "type": "NEW",
+    "opportunity_id": "opp_1ea4728b2f",
+    "changes": null,
+    "reason": "First published from run evidence (OPEN).",
+    "evidence": [
+      {
+        "source_url": "https://employment.ucsd.edu/rn-new-grad-registered-nurse-medicine-imu-pcu-142267/job/42E495D643B0FB7554677017A5CD6727",
+        "excerpt": "This posting is for our March 2027 Nurse Residency Program Cohort... Under general supervision, the New Grad RN identifies and implements nursing interventions... Must have less than six (6) months of working RN experience.",
+        "retrieved_at": "2026-11-26T16:16:44.740448Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://employment.ucsd.edu/rn-new-grad-registered-nurse-medicine-imu-pcu-142267/job/42E495D643B0FB7554677017A5CD6727",
+        "excerpt": "Date Posted 11/22/2026 ... #142267 (RN) New Grad Registered Nurse - Medicine IMU/PCU Filing Deadline: Mon 11/30/2026 Apply Now",
+        "retrieved_at": "2026-11-26T16:16:44.740448Z",
+        "claim": "deadline"
+      },
+      {
+        "source_url": "https://employment.ucsd.edu/rn-new-grad-registered-nurse-medicine-imu-pcu-142267/job/42E495D643B0FB7554677017A5CD6727",
+        "excerpt": "Licensure and certification are not required at time of application but will be required by the cohort start date of March 5, 2027.",
+        "retrieved_at": "2026-11-26T16:16:44.740448Z",
+        "claim": "start_date"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-11-26-daily_0012",
+    "run_id": "2026-11-26-daily",
+    "at": "2026-11-26T16:31:39.015Z",
+    "type": "UPDATED",
+    "opportunity_id": "opp_746f786f0e",
+    "changes": [
+      {
+        "field": "specialties",
+        "before": [
+          "Unknown",
+          "Oncology"
+        ],
+        "after": [
+          "Multiple Specialties"
+        ]
+      },
+      {
+        "field": "experience_requirement",
+        "before": "Graduates of accredited BSN programs with less than 6 months of RN experience.",
+        "after": "Less than one year of acute care hospital-based experience as a licensed RN prior to start"
+      },
+      {
+        "field": "application_url",
+        "before": "https://usccareers.usc.edu/",
+        "after": "https://usccareers.usc.edu/category/keck-medicine-of-usc-jobs/1728-1209-11109/11857/1"
+      }
+    ],
+    "reason": "Updated from run evidence (EXPECTED).",
+    "evidence": [
+      {
+        "source_url": "https://www.keckmedicine.org/nurses/#residency-training-program",
+        "excerpt": "Requirements to Qualify for the New Graduate Nurses Program: Less than one year of acute care hospital-based experience as a licensed RN prior to start A 3.0 nursing GPA or above A 2-year commitment Bachelor's of Science in Nursing required at the time of application.",
+        "retrieved_at": "2026-11-26T16:13:49.407841Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://www.keckmedicine.org/nurses/#residency-training-program",
+        "excerpt": "The residency programs are offered twice a year with one cohort beginning in March and a second in August.",
+        "retrieved_at": "2026-11-26T16:13:49.407841Z",
+        "claim": "start_date"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-11-26-daily_0013",
+    "run_id": "2026-11-26-daily",
+    "at": "2026-11-26T16:31:39.015Z",
+    "type": "UPDATED",
+    "opportunity_id": "opp_bc9f9dd408",
+    "changes": [
+      {
+        "field": "specialties",
+        "before": [
+          "Critical Care",
+          "Unknown",
+          "Med-Surg",
+          "NICU",
+          "L&D"
+        ],
+        "after": [
+          "Multiple Specialties"
+        ]
+      },
+      {
+        "field": "program_start",
+        "before": null,
+        "after": {
+          "kind": "date",
+          "value": "2027-03-15"
+        }
+      },
+      {
+        "field": "program_id",
+        "before": "prog_4513fa99fc",
+        "after": "prog_2d864b4ca4"
+      },
+      {
+        "field": "cohort_id",
+        "before": "cohort_064ea87e83",
+        "after": "cohort_242cf41e71"
+      },
+      {
+        "field": "rn_license_requirement",
+        "before": "Valid California Registered Nursing License required at time of application.",
+        "after": "Valid California Registered Nursing License at time of application."
+      },
+      {
+        "field": "license_required_by",
+        "before": "application",
+        "after": "at time of application"
+      },
+      {
+        "field": "experience_requirement",
+        "before": "Candidates must have less than one year of nursing experience in any area by the start of the program; BSN or MSN required.",
+        "after": "Newly graduated Registered Nurse with a total of less than one year of nursing experience in any area by the start of the program."
+      }
+    ],
+    "reason": "Updated from run evidence (EXPECTED).",
+    "evidence": [
+      {
+        "source_url": "https://www.huntingtonhealth.org/education/residency-programs/nursing-residency/",
+        "excerpt": "Requirements to qualify for the New Grad RN Residency Program: Graduated from an accredited bachelor's in nursing or a Master of Science in Nursing... Newly graduated Registered Nurse with a total of less than one year of nursing experience in any area by the start of the program. Valid California Registered Nursing License at time of application.",
+        "retrieved_at": "2026-11-26T16:13:48.031322Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://www.huntingtonhealth.org/education/residency-programs/nursing-residency/",
+        "excerpt": "The Residency program will offer two cohorts for 2027... New Grad RN positions posted at Huntington Hospital careers page prior to the start of each program. New Grad RN Residency 2027 Spring Cohort New Employee Orientation March 15, 2027 Fall Cohort New Employee Orientation August 16, 2027",
+        "retrieved_at": "2026-11-26T16:13:48.031322Z",
+        "claim": "start_date"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-11-26-daily_0014",
+    "run_id": "2026-11-26-daily",
+    "at": "2026-11-26T16:31:39.015Z",
+    "type": "SOURCE_UNAVAILABLE",
+    "opportunity_id": "opp_ac372d47a9",
+    "changes": [
+      {
+        "field": "verification_health",
+        "before": "VERIFIED",
+        "after": "TEMPORARY_FAILURE"
+      }
+    ],
+    "reason": "Retrieval failed; last-known facts preserved.",
+    "evidence": []
+  },
+  {
+    "id": "hist_2026-11-26-daily_0015",
+    "run_id": "2026-11-26-daily",
+    "at": "2026-11-26T16:31:39.015Z",
+    "type": "UPDATED",
+    "opportunity_id": "opp_34afa285d5",
+    "changes": [
+      {
+        "field": "program_id",
+        "before": "prog_68ed2a7de6",
+        "after": "prog_f37ae5986d"
+      },
+      {
+        "field": "cohort_id",
+        "before": "cohort_8d4acd7349",
+        "after": "cohort_a73fd2a0eb"
+      }
+    ],
+    "reason": "Updated from run evidence (CLOSED).",
+    "evidence": [
+      {
+        "source_url": "https://careers.sharp.com/SHC-nurse-residency-program",
+        "excerpt": "We hire Nurse Residents (new grads) in cohorts, approximately three times a year... Sharp HealthCare's New Graduate Nurse Residency Program... you must have less than 12 months RN work experience by the program start date.",
+        "retrieved_at": "2026-11-26T16:13:48.623341Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://careers.sharp.com/SHC-nurse-residency-program",
+        "excerpt": "Fall 2026/Winter 2027 Cohort(s): The application windows have closed for all of our Fall 2026 and Winter 2027 cohorts.",
+        "retrieved_at": "2026-11-26T16:13:48.623341Z",
+        "claim": "closure"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-11-26-daily_0016",
+    "run_id": "2026-11-26-daily",
+    "at": "2026-11-26T16:31:39.015Z",
+    "type": "UPDATED",
+    "opportunity_id": "opp_bca06dc9a9",
+    "changes": [
+      {
+        "field": "program_id",
+        "before": "prog_68ed2a7de6",
+        "after": "prog_f37ae5986d"
+      },
+      {
+        "field": "cohort_id",
+        "before": "cohort_4b360e9b66",
+        "after": "cohort_1266c36126"
+      },
+      {
+        "field": "application_url",
+        "before": "https://careers.sharp.com/job/san-diego/nurse-residency-program-new-grad-rn-spring-2027-start-sharp-healthcare/1031/103122338944",
+        "after": "https://careers.sharp.com/SHC-nurse-residency-program"
+      }
+    ],
+    "reason": "Updated from run evidence (CLOSED).",
+    "evidence": [
+      {
+        "source_url": "https://careers.sharp.com/SHC-nurse-residency-program",
+        "excerpt": "We hire Nurse Residents (new grads) in cohorts, approximately three times a year... Sharp HealthCare's New Graduate Nurse Residency Program... you must have less than 12 months RN work experience by the program start date.",
+        "retrieved_at": "2026-11-26T16:13:48.623341Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://careers.sharp.com/SHC-nurse-residency-program",
+        "excerpt": "Applications for the Spring 2027 Sharp HealthCare Nurse Residency Program will be open from November 10th - 13th (November 3rd - 13th for current Sharp team members).",
+        "retrieved_at": "2026-11-26T16:13:48.623341Z",
+        "claim": "deadline"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-11-26-daily_0017",
+    "run_id": "2026-11-26-daily",
+    "at": "2026-11-26T16:31:39.015Z",
+    "type": "UPDATED",
+    "opportunity_id": "opp_5300617360",
+    "changes": [
+      {
+        "field": "locations",
+        "before": [
+          {
+            "city": "San Diego",
+            "state": "CA"
+          },
+          {
+            "city": "La Jolla",
+            "state": "CA"
+          },
+          {
+            "city": "Encinitas",
+            "state": "CA"
+          }
+        ],
+        "after": [
+          {
+            "city": "San Diego",
+            "state": "CA"
+          },
+          {
+            "city": "La Jolla",
+            "state": "CA"
+          },
+          {
+            "city": "Encinitas",
+            "state": "CA"
+          },
+          {
+            "city": "Chula Vista",
+            "state": "CA"
+          }
+        ]
+      },
+      {
+        "field": "program_id",
+        "before": "prog_288dc79d2b",
+        "after": "prog_4dd3273bc6"
+      },
+      {
+        "field": "cohort_id",
+        "before": "cohort_1ee8fad290",
+        "after": "cohort_af2d77694e"
+      },
+      {
+        "field": "rn_license_requirement",
+        "before": "California RN license required by the start of the program.",
+        "after": "Current California RN licensure is required by the program start date; interim permits not accepted."
+      },
+      {
+        "field": "experience_requirement",
+        "before": "New graduate RNs who have graduated from nursing school within the past 12 months and have 6 months or less of RN experience.",
+        "after": "Six months or less of RN experience at the date of application."
+      },
+      {
+        "field": "application_url",
+        "before": "https://careers.scripps.org/",
+        "after": "https://careers.scripps.org/job-search-results/"
+      }
+    ],
+    "reason": "Updated from run evidence (OPENING_SOON).",
+    "evidence": [
+      {
+        "source_url": "https://careers.scripps.org/training-programs/new-grads-rn/",
+        "excerpt": "New graduate RNs who have graduated from nursing school within the past 12 months and have 6 months or less of RN experience may apply.",
+        "retrieved_at": "2026-11-26T16:13:48.972622Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://careers.scripps.org/wp-content/uploads/sites/3487/2026/08/Calendar-2027-program-dates-for-Careers-Site-Home-Page-Link_Final_8.2026.pdf",
+        "excerpt": "New Graduate RN Residency Program: Program Start 3/22/2027, Program End 12/25/2027; Current Scripps employees: 11/29/2026 - 12/5/2026; All others: 11/29/2026 at 12 p.m. PST - 12/1/2026 at 11:59 p.m. PST",
+        "retrieved_at": "2026-11-26T16:15:01.778547Z",
+        "claim": "opening_date"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-11-26-daily_0018",
+    "run_id": "2026-11-26-daily",
+    "at": "2026-11-26T16:31:39.015Z",
+    "type": "UPDATED",
+    "opportunity_id": "opp_3778d35d23",
+    "changes": [
+      {
+        "field": "specialties",
+        "before": [
+          "Unknown",
+          "Critical Care"
+        ],
+        "after": [
+          "Multiple Specialties"
+        ]
+      },
+      {
+        "field": "program_id",
+        "before": "prog_44620f4efa",
+        "after": "prog_a9076313b2"
+      },
+      {
+        "field": "bsn_required",
+        "before": true,
+        "after": false
+      },
+      {
+        "field": "application_url",
+        "before": "https://careers.hoag.org/",
+        "after": "https://jobs.hoag.org/en/sites/CX_1/jobs?lastSelectedFacet=CATEGORIES&selectedCategoriesFacet=300000012021263"
+      }
+    ],
+    "reason": "Updated from run evidence (CLOSED).",
+    "evidence": [
+      {
+        "source_url": "https://careers.hoag.org/hoag-life/new-grad-nurses/",
+        "excerpt": "The New Graduate RN (Registered Nurse) Program at Hoag Hospital supports new-to-the profession nurses as they transition into practice... Start your career journey by applying to a Clinical Nurse I role",
+        "retrieved_at": "2026-11-26T16:20:40.525264Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://careers.hoag.org/hoag-life/new-grad-nurses/",
+        "excerpt": "Our open positions change daily. View our current Nursing job opportunities and apply any time... linked jobs.hoag.org Oracle Cloud CX_1 currently lists 0 Nurse Residency postings.",
+        "retrieved_at": "2026-11-26T16:20:40.525264Z",
+        "claim": "status"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-11-26-daily_0019",
+    "run_id": "2026-11-26-daily",
+    "at": "2026-11-26T16:31:39.015Z",
+    "type": "UPDATED",
+    "opportunity_id": "opp_b7945f70da",
+    "changes": [
+      {
+        "field": "program_start",
+        "before": {
+          "kind": "text",
+          "value": "February 2027"
+        },
+        "after": {
+          "kind": "date",
+          "value": "2027-02-22"
+        }
+      },
+      {
+        "field": "program_id",
+        "before": "prog_3ffafd825b",
+        "after": "prog_246bd4c471"
+      },
+      {
+        "field": "cohort_id",
+        "before": "cohort_7f6497d449",
+        "after": "cohort_ba54f6c36a"
+      },
+      {
+        "field": "rn_license_requirement",
+        "before": "California RN license required prior to program start.",
+        "after": "You must have your CA RN license by the program start date. Interim permits not accepted."
+      },
+      {
+        "field": "license_required_by",
+        "before": "start",
+        "after": "2027-02-22"
+      },
+      {
+        "field": "experience_requirement",
+        "before": "New graduate RNs with less than one year of experience.",
+        "after": "New graduate RNs who have graduated from an accredited nursing program within the past 12 months and have less than 6 months of experience working as an RN."
+      },
+      {
+        "field": "application_status",
+        "before": "EXPECTED",
+        "after": "OPENING_SOON"
+      }
+    ],
+    "reason": "Updated from run evidence (OPENING_SOON).",
+    "evidence": [
+      {
+        "source_url": "https://palomarucsdhealth.org/careers/nurse-residency/faq/",
+        "excerpt": "New graduate RNs who have graduated from an accredited nursing program within the past 12 months and have less than 6 months of experience working as an RN.",
+        "retrieved_at": "2026-11-26T16:13:49.986574Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://palomarucsdhealth.org/careers/nurse-residency/",
+        "excerpt": "Next program start date is February 22, 2027. Nurse Resident positions will be posted beginning December 1, 2026. ... Last updated: November 24, 2026",
+        "retrieved_at": "2026-11-26T16:13:49.216016Z",
+        "claim": "opening_date"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-11-26-daily_0020",
+    "run_id": "2026-11-26-daily",
+    "at": "2026-11-26T16:31:39.015Z",
+    "type": "UPDATED",
+    "opportunity_id": "opp_8f89b96096",
+    "changes": [
+      {
+        "field": "program_id",
+        "before": "prog_2a9317d2f8",
+        "after": "prog_ab86d3291b"
+      },
+      {
+        "field": "application_url",
+        "before": "https://careers.memorialcare.org/job/long-beach/new-grad-registered-nurse-rn-pediatrics-mch-west/28372/101148883952",
+        "after": "https://careers.memorialcare.org/recent-grads"
+      }
+    ],
+    "reason": "Updated from run evidence (CLOSED).",
+    "evidence": [
+      {
+        "source_url": "https://careers.memorialcare.org/recent-grads",
+        "excerpt": "Launch your nursing career with MemorialCare's New Grad Residency Program... Long Beach Medical Center/Miller Children's Hospital it is required to have your BSN for the residency.",
+        "retrieved_at": "2026-11-26T16:13:49.525456Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://careers.memorialcare.org/job/long-beach/new-grad-registered-nurse-rn-pediatrics-mch-west/28372/101148883952",
+        "excerpt": "Requisition MIL005258 URL returned HTTP 404 and TalentBrew New Grad search returned 0 New Grad RN postings.",
+        "retrieved_at": "2026-11-26T16:16:44.829954Z",
+        "claim": "removal"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-11-26-daily_0021",
+    "run_id": "2026-11-26-daily",
+    "at": "2026-11-26T16:31:39.015Z",
+    "type": "UPDATED",
+    "opportunity_id": "opp_1381e8d059",
+    "changes": [
+      {
+        "field": "specialties",
+        "before": [
+          "Unknown"
+        ],
+        "after": [
+          "Operating Room"
+        ]
+      },
+      {
+        "field": "program_id",
+        "before": "prog_2a9317d2f8",
+        "after": "prog_ab86d3291b"
+      },
+      {
+        "field": "application_url",
+        "before": "https://careers.memorialcare.org/job/long-beach/registered-nurse-new-grad-periop-101/28372/101405134448",
+        "after": "https://careers.memorialcare.org/recent-grads"
+      }
+    ],
+    "reason": "Updated from run evidence (CLOSED).",
+    "evidence": [
+      {
+        "source_url": "https://careers.memorialcare.org/recent-grads",
+        "excerpt": "Launch your nursing career with MemorialCare's New Grad Residency Program... Long Beach Medical Center/Miller Children's Hospital it is required to have your BSN for the residency.",
+        "retrieved_at": "2026-11-26T16:13:49.525456Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://careers.memorialcare.org/job/long-beach/registered-nurse-new-grad-periop-101/28372/101405134448",
+        "excerpt": "Requisition LON015848 URL returned HTTP 404 and TalentBrew New Grad search returned 0 New Grad RN postings.",
+        "retrieved_at": "2026-11-26T16:16:44.914871Z",
+        "claim": "removal"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-11-26-daily_0022",
+    "run_id": "2026-11-26-daily",
+    "at": "2026-11-26T16:31:39.015Z",
+    "type": "NEW",
+    "opportunity_id": "opp_b499f7c2b2",
+    "changes": null,
+    "reason": "First published from run evidence (OPENING_SOON).",
+    "evidence": [
+      {
+        "source_url": "https://lluch.org/health-professionals/residency/rn-residency",
+        "excerpt": "The LLU Children's Hospital RN Residency is designed for the new graduate nurse who wants to develop and build a strong foundation... Applicant is a BSN-prepared RN with a total of less than 12 months of nursing experience in any area by the start of the program.",
+        "retrieved_at": "2026-11-26T16:13:49.599564Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://lluch.org/health-professionals/residency/rn-residency/how-apply",
+        "excerpt": "56 th Cohort Hiring Timeline Application Opens: Monday, January 25, 2027, at 0800 Application Closes: Friday, January 29, 2027, at 0001 (not end of day) Last day for CA RN license to be posted on BRN website: May 17, 2027 Program Start Date: June 7-11, 2027 (Hire Week)",
+        "retrieved_at": "2026-11-26T16:13:49.599564Z",
+        "claim": "opening_date"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-11-26-daily_0023",
+    "run_id": "2026-11-26-daily",
+    "at": "2026-11-26T16:31:39.015Z",
+    "type": "UPDATED",
+    "opportunity_id": "opp_650b1424a7",
+    "changes": [
+      {
+        "field": "specialties",
+        "before": [
+          "Telemetry",
+          "Unknown",
+          "Oncology"
+        ],
+        "after": [
+          "Telemetry",
+          "Med-Surg",
+          "Oncology"
+        ]
+      },
+      {
+        "field": "program_id",
+        "before": "prog_b0faaa584f",
+        "after": "prog_028c7fa775"
+      },
+      {
+        "field": "rn_license_requirement",
+        "before": "Must have a permanent CA RN license prior to start date. Interim permits are not accepted.",
+        "after": "You must have a permanent CA RN license prior to start date; interim permits not accepted."
+      },
+      {
+        "field": "application_url",
+        "before": "https://jobs.pihhealth.org/",
+        "after": "https://jobs.pihhealth.org/us/en"
+      }
+    ],
+    "reason": "Updated from run evidence (EXPECTED).",
+    "evidence": [
+      {
+        "source_url": "https://pihcareers.silkroad.com/pihext/Getting-Hired/New-Graduate-FAQ-s.html",
+        "excerpt": "This program is for newly graduating nurses with an ADN, BSN, or MSN degree. Application period: On-going Interviews scheduled: On-going ... Open positions will be posted as RN, New Graduate with the specific department that has openings.",
+        "retrieved_at": "2026-11-26T16:13:49.880936Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://jobs.pihhealth.org/us/en/search-results?keywords=New%20Grad",
+        "excerpt": "PIH Health Phenom search-results returned totalHits: 0 for 'New Grad' and 0 RN Residency postings under 'Residency' on 2026-11-26.",
+        "retrieved_at": "2026-11-26T16:16:45.854428Z",
+        "claim": "status"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-11-26-daily_0024",
+    "run_id": "2026-11-26-daily",
+    "at": "2026-11-26T16:31:39.015Z",
+    "type": "UPDATED",
+    "opportunity_id": "opp_e3cdecc646",
+    "changes": [
+      {
+        "field": "specialties",
+        "before": [
+          "Unknown"
+        ],
+        "after": [
+          "Med-Surg"
+        ]
+      },
+      {
+        "field": "program_id",
+        "before": "prog_f199c98757",
+        "after": "prog_f0ba51cee2"
+      },
+      {
+        "field": "cohort_id",
+        "before": "cohort_6b45f2d10c",
+        "after": "cohort_c4378c6ce2"
+      },
+      {
+        "field": "rn_license_requirement",
+        "before": "Current California RN license. American Heart Association BLS required.",
+        "after": "Current California RN license; American Heart Association BLS required."
+      },
+      {
+        "field": "experience_requirement",
+        "before": "Required: Less than 6 months of RN acute care hospital experience. Applicants with greater than 6 months of RN acute care hospital experience are ineligible for program.",
+        "after": "Less than 6 months of RN acute care hospital experience. Applicants with greater than 6 months of RN acute care hospital experience are ineligible for program."
+      }
+    ],
+    "reason": "Updated from run evidence (OPEN).",
+    "evidence": [
+      {
+        "source_url": "https://jobs.jobvite.com/washingtonhospital/job/oEiWAfwc",
+        "excerpt": "Note : During the 6-month RN New Graduate Residency program (the first 6 months of employment), the RN New Grad will work up to 80 hours per two (2) week pay period... Work Experience Requirements: Required: Less than 6 months of RN acute care hospital experience.",
+        "retrieved_at": "2026-11-26T16:12:19.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://jobs.jobvite.com/washingtonhospital/",
+        "excerpt": "Continue exploring opportunities and applying here through December 19, 2026. Beginning December 20, visit our new careers site to explore open positions and submit new applications.",
+        "retrieved_at": "2026-11-26T16:12:18.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://jobs.jobvite.com/washingtonhospital/job/oEiWAfwc",
+        "excerpt": "There will be 10 RNs selected for this New Grad Residency Program. Start date of program: exact start date is to be determined, anticipated start date will be in February 2027",
+        "retrieved_at": "2026-11-26T16:12:19.000Z",
+        "claim": "start_date"
+      },
+      {
+        "source_url": "https://jobs.jobvite.com/washingtonhospital/job/oEiWAfwc",
+        "excerpt": "Educational Requirements: Required: Graduate of an accredited school of nursing. Required: BSN or higher nursing degree. Licensure/Certification Requirements Required: Current California RN license.",
+        "retrieved_at": "2026-11-26T16:12:19.000Z",
+        "claim": "education"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-11-26-daily_0025",
+    "run_id": "2026-11-26-daily",
+    "at": "2026-11-26T16:31:39.015Z",
+    "type": "UPDATED",
+    "opportunity_id": "opp_01d5c2d264",
+    "changes": [
+      {
+        "field": "program_id",
+        "before": "prog_cdd658e476",
+        "after": "prog_30a604c463"
+      },
+      {
+        "field": "cohort_id",
+        "before": "cohort_7dff5148fe",
+        "after": "cohort_6ab1d5ff05"
+      },
+      {
+        "field": "rn_license_requirement",
+        "before": "Active unencumbered RN license prior to program start.",
+        "after": "Current, full, active, and unrestricted registration as a graduate professional nurse prior to the start of the PB-RNR program; U.S. citizen; CCNE/ACEN accredited BSN or MSN entry-to-practice with 3.0+ GPA."
+      },
+      {
+        "field": "license_required_by",
+        "before": "start",
+        "after": "Program start"
+      },
+      {
+        "field": "experience_requirement",
+        "before": "New graduate post-baccalaureate registered nurses.",
+        "after": "Be serving in their first registered nurse role; be a recent graduate within the past 12 months."
+      }
+    ],
+    "reason": "Updated from run evidence (EXPECTED).",
+    "evidence": [
+      {
+        "source_url": "https://www.va.gov/san-francisco-health-care/work-with-us/internships-and-fellowships/post-baccalaureate-registered-nurse-residency-program-pb-rnr/",
+        "excerpt": "Be a graduate of baccalaureate or master's level entry to practice program with a 3.0 or higher from an accredited school of nursing by CCNE or ACEN ... Be serving in their first registered nurse role. Be a recent graduate within the past 12 months.",
+        "retrieved_at": "2026-11-26T16:18:03.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://www.va.gov/san-francisco-health-care/work-with-us/internships-and-fellowships/post-baccalaureate-registered-nurse-residency-program-pb-rnr/",
+        "excerpt": "At this time, we offer only 1 cohort per year. Please continue to check our website for updates. The tentative dates for the next application cycle are listed below: Next application period: May/June 2027 Tentative program start date: October 2027",
+        "retrieved_at": "2026-11-26T16:18:03.000Z",
+        "claim": "opening_date"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-11-26-daily_0026",
+    "run_id": "2026-11-26-daily",
+    "at": "2026-11-26T16:31:39.015Z",
+    "type": "REOPENED",
+    "opportunity_id": "opp_2a200928c1",
+    "changes": [
+      {
+        "field": "specialties",
+        "before": [
+          "Multiple Specialties"
+        ],
+        "after": [
+          "Med-Surg",
+          "Telemetry"
+        ]
+      },
+      {
+        "field": "application_open",
+        "before": null,
+        "after": {
+          "kind": "date",
+          "value": "2027-01-03"
+        }
+      },
+      {
+        "field": "application_close",
+        "before": null,
+        "after": {
+          "kind": "datetime",
+          "value": "2027-01-05T20:59:00-08:00"
+        }
+      },
+      {
+        "field": "program_start",
+        "before": null,
+        "after": {
+          "kind": "date",
+          "value": "2027-04-05"
+        }
+      },
+      {
+        "field": "cohort_id",
+        "before": null,
+        "after": "cohort_3b983e4908"
+      },
+      {
+        "field": "bsn_required",
+        "before": true,
+        "after": false
+      },
+      {
+        "field": "rn_license_requirement",
+        "before": "California RN license required by deadline.",
+        "after": "An active California RN license (interim permits cannot be accepted) required by March 28, 2027, prior to the April 5, 2027 start date."
+      },
+      {
+        "field": "experience_requirement",
+        "before": "Less than six months of acute care nursing experience.",
+        "after": "No prior inpatient (acute care) RN experience preferred."
+      },
+      {
+        "field": "application_status",
+        "before": "CLOSED",
+        "after": "OPENING_SOON"
+      }
+    ],
+    "reason": "Re-verified as OPENING_SOON.",
+    "evidence": [
+      {
+        "source_url": "https://www.kaiserpermanentejobs.org/nurse-residency-career",
+        "excerpt": "Northern California: We're looking for new graduate Registered Nurses to join our team in the inpatient hospital setting. Nurse residents are trained in our inpatient Medical-Surgical and Telemetry units.",
+        "retrieved_at": "2026-11-26T16:12:36.508Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://www.kaiserpermanentejobs.org/nurse-residency-career",
+        "excerpt": "Northern California Recruiting Timeline: Cohort 1 Application Dates: (Applications close at 8:59 PM PT) January 3 - 5, 2027. California RN License Deadline: March 28, 2027. Start Date: April 5, 2027.",
+        "retrieved_at": "2026-11-26T16:12:36.508Z",
+        "claim": "opening_date"
+      },
+      {
+        "source_url": "https://www.kaiserpermanentejobs.org/nurse-residency-career",
+        "excerpt": "Cohort 1 Application Dates: (Applications close at 8:59 PM PT) January 3 - 5, 2027. Start Date: April 5, 2027.",
+        "retrieved_at": "2026-11-26T16:12:36.508Z",
+        "claim": "deadline"
+      },
+      {
+        "source_url": "https://www.kaiserpermanentejobs.org/nurse-residency-career",
+        "excerpt": "Requirements: The following must be completed or obtained by the start date: Graduate of an accredited registered nursing program. An active California RN license (interim permits cannot be accepted). Preferred Qualifications: Bachelor's degree in nursing. No prior inpatient (acute care) RN experience.",
+        "retrieved_at": "2026-11-26T16:12:36.508Z",
+        "claim": "education"
+      },
+      {
+        "source_url": "https://www.kaiserpermanentejobs.org/nurseresidency-ncal",
+        "excerpt": "0 Job Results for custom_fields.SCALFacet Nurse Residency Northern CA as of 2026-11-26.",
+        "retrieved_at": "2026-11-26T16:12:38.095Z",
+        "claim": "status"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-11-26-daily_0027",
+    "run_id": "2026-11-26-daily",
+    "at": "2026-11-26T16:31:39.015Z",
+    "type": "UPDATED",
+    "opportunity_id": "opp_2a200928c1",
+    "changes": [
+      {
+        "field": "specialties",
+        "before": [
+          "Multiple Specialties"
+        ],
+        "after": [
+          "Med-Surg",
+          "Telemetry"
+        ]
+      },
+      {
+        "field": "application_open",
+        "before": null,
+        "after": {
+          "kind": "date",
+          "value": "2027-01-03"
+        }
+      },
+      {
+        "field": "application_close",
+        "before": null,
+        "after": {
+          "kind": "datetime",
+          "value": "2027-01-05T20:59:00-08:00"
+        }
+      },
+      {
+        "field": "program_start",
+        "before": null,
+        "after": {
+          "kind": "date",
+          "value": "2027-04-05"
+        }
+      },
+      {
+        "field": "cohort_id",
+        "before": null,
+        "after": "cohort_3b983e4908"
+      },
+      {
+        "field": "bsn_required",
+        "before": true,
+        "after": false
+      },
+      {
+        "field": "rn_license_requirement",
+        "before": "California RN license required by deadline.",
+        "after": "An active California RN license (interim permits cannot be accepted) required by March 28, 2027, prior to the April 5, 2027 start date."
+      },
+      {
+        "field": "experience_requirement",
+        "before": "Less than six months of acute care nursing experience.",
+        "after": "No prior inpatient (acute care) RN experience preferred."
+      },
+      {
+        "field": "application_status",
+        "before": "CLOSED",
+        "after": "OPENING_SOON"
+      }
+    ],
+    "reason": "Updated from run evidence (OPENING_SOON).",
+    "evidence": [
+      {
+        "source_url": "https://www.kaiserpermanentejobs.org/nurse-residency-career",
+        "excerpt": "Northern California: We're looking for new graduate Registered Nurses to join our team in the inpatient hospital setting. Nurse residents are trained in our inpatient Medical-Surgical and Telemetry units.",
+        "retrieved_at": "2026-11-26T16:12:36.508Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://www.kaiserpermanentejobs.org/nurse-residency-career",
+        "excerpt": "Northern California Recruiting Timeline: Cohort 1 Application Dates: (Applications close at 8:59 PM PT) January 3 - 5, 2027. California RN License Deadline: March 28, 2027. Start Date: April 5, 2027.",
+        "retrieved_at": "2026-11-26T16:12:36.508Z",
+        "claim": "opening_date"
+      },
+      {
+        "source_url": "https://www.kaiserpermanentejobs.org/nurse-residency-career",
+        "excerpt": "Cohort 1 Application Dates: (Applications close at 8:59 PM PT) January 3 - 5, 2027. Start Date: April 5, 2027.",
+        "retrieved_at": "2026-11-26T16:12:36.508Z",
+        "claim": "deadline"
+      },
+      {
+        "source_url": "https://www.kaiserpermanentejobs.org/nurse-residency-career",
+        "excerpt": "Requirements: The following must be completed or obtained by the start date: Graduate of an accredited registered nursing program. An active California RN license (interim permits cannot be accepted). Preferred Qualifications: Bachelor's degree in nursing. No prior inpatient (acute care) RN experience.",
+        "retrieved_at": "2026-11-26T16:12:36.508Z",
+        "claim": "education"
+      },
+      {
+        "source_url": "https://www.kaiserpermanentejobs.org/nurseresidency-ncal",
+        "excerpt": "0 Job Results for custom_fields.SCALFacet Nurse Residency Northern CA as of 2026-11-26.",
+        "retrieved_at": "2026-11-26T16:12:38.095Z",
+        "claim": "status"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-11-26-daily_0028",
+    "run_id": "2026-11-26-daily",
+    "at": "2026-11-26T16:31:39.015Z",
+    "type": "NEW",
+    "opportunity_id": "opp_68b0b8d170",
+    "changes": null,
+    "reason": "First published from run evidence (OPENING_SOON).",
+    "evidence": [
+      {
+        "source_url": "https://www.kaiserpermanentejobs.org/nurse-residency-career",
+        "excerpt": "Kaiser Permanente National RN Residency Program: This program was designed to support newly licensed Registered Nurses (RNs) as they embark on their professional journey with Kaiser Permanente.",
+        "retrieved_at": "2026-11-26T16:12:36.508Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://www.kaiserpermanentejobs.org/nurse-residency-career",
+        "excerpt": "Southern California Cohort 1 Application Dates: (Applications close at 8:59 PM PT) Internal Applications: December 3, 2026 - December 9th, 2026. External Applications: December 7th, 2026 - December 9th, 2026. California RN License Deadline: March 5, 2027. Start Date: March 29, 2027.",
+        "retrieved_at": "2026-11-26T16:12:36.508Z",
+        "claim": "opening_date"
+      },
+      {
+        "source_url": "https://www.kaiserpermanentejobs.org/nurse-residency-career",
+        "excerpt": "External Applications: December 7th, 2026 - December 9th, 2026 (Applications close at 8:59 PM PT). Start Date: March 29, 2027.",
+        "retrieved_at": "2026-11-26T16:12:36.508Z",
+        "claim": "deadline"
+      },
+      {
+        "source_url": "https://www.kaiserpermanentejobs.org/nurse-residency-career",
+        "excerpt": "Southern California Requirements: Graduate of an accredited registered nursing program. An active California RN license (interim permits cannot be accepted). Less than 6 months paid RN work experience. Preferred Qualifications: Bachelor's degree in nursing.",
+        "retrieved_at": "2026-11-26T16:12:36.508Z",
+        "claim": "experience"
+      },
+      {
+        "source_url": "https://www.kaiserpermanentejobs.org/nurseresidency-scal",
+        "excerpt": "0 Job Results for custom_fields.SCALFacet Nurse Residency Southern CA as of 2026-11-26.",
+        "retrieved_at": "2026-11-26T16:13:20.000Z",
+        "claim": "status"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-11-26-daily_0029",
+    "run_id": "2026-11-26-daily",
+    "at": "2026-11-26T16:31:39.015Z",
+    "type": "NEW",
+    "opportunity_id": "opp_dc14bde4b5",
+    "changes": null,
+    "reason": "First published from run evidence (OPENING_SOON).",
+    "evidence": [
+      {
+        "source_url": "https://providence.jobs/rn-residency-faq/",
+        "excerpt": "Can I apply before I graduate from a nursing program? Yes, but applicants must complete a nursing program by the start date. Opportunities for new grad nurses are sometimes available. Must I have a Bachelor of Science in Nursing (BSN) to apply for an RN Residency? No, however, first consideration will be given to BSN, MSN and BSN-in-progress prepared applicants.",
+        "retrieved_at": "2026-11-26T16:17:19.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://providence.jobs/rn-residency/",
+        "excerpt": "2027 Cohort Hiring Schedule: California | Date(s) applications open: December 14, 2026 | June 14, 2027 | Date(s) cohort starts: February 22, 2027 | August 23, 2027.",
+        "retrieved_at": "2026-11-26T16:16:40.000Z",
+        "claim": "opening_date"
+      },
+      {
+        "source_url": "https://providence.jobs/rn-residency/",
+        "excerpt": "Date(s) cohort starts: February 22, 2027 (paired with December 14, 2026 application open date).",
+        "retrieved_at": "2026-11-26T16:16:40.000Z",
+        "claim": "start_date"
+      },
+      {
+        "source_url": "https://providence.jobs/rn-residency-faq/",
+        "excerpt": "An active RN license will be required prior to the start date, and will be verified with the state.",
+        "retrieved_at": "2026-11-26T16:17:19.000Z",
+        "claim": "license_timing"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-11-26-daily_0030",
+    "run_id": "2026-11-26-daily",
+    "at": "2026-11-26T16:31:39.015Z",
+    "type": "NEW",
+    "opportunity_id": "opp_b0ba73b5cf",
+    "changes": null,
+    "reason": "First published from run evidence (OPEN).",
+    "evidence": [
+      {
+        "source_url": "https://jobs.sutterhealth.org/us/en/job/SHJSHYUSR145214EXTERNALENUS/staff-nurse-i-new-grad-emergency-services",
+        "excerpt": "Organization: SEMC - Sutter Eden Medical Center. Staff Nurse I/New Grad, Emergency Services. EDUCATION: Graduation from an accredited school of nursing; Bachelor's: BSN Preferred. PREFERRED EXPERIENCE: Minimum 6 months or less clinical experience.",
+        "retrieved_at": "2026-11-26T16:15:47.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://jobs.sutterhealth.org/us/en/job/SHJSHYUSR145214EXTERNALENUS/staff-nurse-i-new-grad-emergency-services",
+        "excerpt": "Active job posting R-145214 at Sutter Eden Medical Center (Castro Valley, CA), datePosted 2026-11-26, Part Time 36 hours/week Days.",
+        "retrieved_at": "2026-11-26T16:15:47.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://jobs.sutterhealth.org/us/en/clinical-career-development",
+        "excerpt": "Recent nursing graduates with less than one year of experience will automatically be enrolled into the residency as part of their employment (there is no separate application).",
+        "retrieved_at": "2026-11-26T16:12:41.946Z",
+        "claim": "eligibility"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-11-26-daily_0031",
+    "run_id": "2026-11-26-daily",
+    "at": "2026-11-26T16:31:39.015Z",
+    "type": "REOPENED",
+    "opportunity_id": "opp_b045e8e0d4",
+    "changes": [
+      {
+        "field": "locations",
+        "before": [
+          {
+            "city": "Roseville",
+            "state": "CA"
+          },
+          {
+            "city": "Glendale",
+            "state": "CA"
+          }
+        ],
+        "after": [
+          {
+            "city": "Marysville",
+            "state": "CA"
+          },
+          {
+            "city": "Lodi",
+            "state": "CA"
+          },
+          {
+            "city": "Sonora",
+            "state": "CA"
+          }
+        ]
+      },
+      {
+        "field": "application_status",
+        "before": "CLOSED",
+        "after": "OPEN"
+      }
+    ],
+    "reason": "Re-verified as OPEN.",
+    "evidence": [
+      {
+        "source_url": "https://www.adventisthealth.org/careers/more-opportunities/nursing-careers/nurse-residency-program/",
+        "excerpt": "The Adventist Health Nurse Residency Program is a structured orientation and professional development program designed to ease your transition from new graduate to professional nurse. Nurse Residency Program requirements: Nursing degree as required by licensure; BSN preferred. California, Oregon, or Hawaii Registered Nurse license prior to program start date. Less than six months direct patient care experience.",
+        "retrieved_at": "2026-11-26T16:12:45.127Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://ecvz.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1/job/76344",
+        "excerpt": "Three active California RN Resident requisitions are open on Adventist Health Oracle Cloud HCM (CX_1): 76074 (Marysville, CA), 76344 (Lodi, CA), and 73786 (Sonora, CA) as of 2026-11-26.",
+        "retrieved_at": "2026-11-26T16:19:15.000Z",
+        "claim": "status"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-11-26-daily_0032",
+    "run_id": "2026-11-26-daily",
+    "at": "2026-11-26T16:31:39.015Z",
+    "type": "UPDATED",
+    "opportunity_id": "opp_b045e8e0d4",
+    "changes": [
+      {
+        "field": "locations",
+        "before": [
+          {
+            "city": "Roseville",
+            "state": "CA"
+          },
+          {
+            "city": "Glendale",
+            "state": "CA"
+          }
+        ],
+        "after": [
+          {
+            "city": "Marysville",
+            "state": "CA"
+          },
+          {
+            "city": "Lodi",
+            "state": "CA"
+          },
+          {
+            "city": "Sonora",
+            "state": "CA"
+          }
+        ]
+      },
+      {
+        "field": "application_status",
+        "before": "CLOSED",
+        "after": "OPEN"
+      }
+    ],
+    "reason": "Updated from run evidence (OPEN).",
+    "evidence": [
+      {
+        "source_url": "https://www.adventisthealth.org/careers/more-opportunities/nursing-careers/nurse-residency-program/",
+        "excerpt": "The Adventist Health Nurse Residency Program is a structured orientation and professional development program designed to ease your transition from new graduate to professional nurse. Nurse Residency Program requirements: Nursing degree as required by licensure; BSN preferred. California, Oregon, or Hawaii Registered Nurse license prior to program start date. Less than six months direct patient care experience.",
+        "retrieved_at": "2026-11-26T16:12:45.127Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://ecvz.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1/job/76344",
+        "excerpt": "Three active California RN Resident requisitions are open on Adventist Health Oracle Cloud HCM (CX_1): 76074 (Marysville, CA), 76344 (Lodi, CA), and 73786 (Sonora, CA) as of 2026-11-26.",
+        "retrieved_at": "2026-11-26T16:19:15.000Z",
+        "claim": "status"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-11-26-daily_0033",
+    "run_id": "2026-11-26-daily",
+    "at": "2026-11-26T16:31:39.015Z",
+    "type": "NEW",
+    "opportunity_id": "opp_0e820f7e4e",
+    "changes": null,
+    "reason": "First published from run evidence (OPEN).",
+    "evidence": [
+      {
+        "source_url": "https://www.adventisthealth.org/careers/more-opportunities/nursing-careers/nurse-residency-program/",
+        "excerpt": "The Adventist Health Nurse Residency Program is a structured orientation and professional development program designed to ease your transition from new graduate to professional nurse. Less than six months direct patient care experience.",
+        "retrieved_at": "2026-11-26T16:12:45.127Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://ecvz.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1/job/76074",
+        "excerpt": "Req 76074: RN Resident Med Surg 3 Main - Full Time, Night Shift, Adventist Health and Rideout, Marysville, CA, posted 2026-11-24T06:52:25+00:00, ExternalPostedEndDate 2026-12-01T06:52:00+00:00.",
+        "retrieved_at": "2026-11-26T16:19:15.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://ecvz.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1/job/76074",
+        "excerpt": "ExternalPostedEndDate: 2026-12-01T06:52:00+00:00.",
+        "retrieved_at": "2026-11-26T16:19:15.000Z",
+        "claim": "deadline"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-11-26-daily_0034",
+    "run_id": "2026-11-26-daily",
+    "at": "2026-11-26T16:31:39.015Z",
+    "type": "NEW",
+    "opportunity_id": "opp_89607de01a",
+    "changes": null,
+    "reason": "First published from run evidence (OPEN).",
+    "evidence": [
+      {
+        "source_url": "https://www.adventisthealth.org/careers/more-opportunities/nursing-careers/nurse-residency-program/",
+        "excerpt": "The Adventist Health Nurse Residency Program is a structured orientation and professional development program designed to ease your transition from new graduate to professional nurse. Less than six months direct patient care experience.",
+        "retrieved_at": "2026-11-26T16:12:45.127Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://ecvz.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1/job/76344",
+        "excerpt": "Req 76344: RN, Resident - full-time, Night shift, Adventist Health Lodi Memorial, Lodi, CA, posted 2026-11-26T02:46:34+00:00, ExternalPostedEndDate 2026-11-29T02:46:00+00:00.",
+        "retrieved_at": "2026-11-26T16:19:15.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://ecvz.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1/job/76344",
+        "excerpt": "ExternalPostedEndDate: 2026-11-29T02:46:00+00:00.",
+        "retrieved_at": "2026-11-26T16:19:15.000Z",
+        "claim": "deadline"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-11-26-daily_0035",
+    "run_id": "2026-11-26-daily",
+    "at": "2026-11-26T16:31:39.015Z",
+    "type": "NEW",
+    "opportunity_id": "opp_47ead23510",
+    "changes": null,
+    "reason": "First published from run evidence (OPEN).",
+    "evidence": [
+      {
+        "source_url": "https://www.adventisthealth.org/careers/more-opportunities/nursing-careers/nurse-residency-program/",
+        "excerpt": "The Adventist Health Nurse Residency Program is a structured orientation and professional development program designed to ease your transition from new graduate to professional nurse. Less than six months direct patient care experience.",
+        "retrieved_at": "2026-11-26T16:12:45.127Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://ecvz.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1/job/73786",
+        "excerpt": "Req 73786: RN Resident Med-Surg, February 2027 Cohort, Adventist Health Sonora, Sonora, CA, posted 2026-11-12T21:24:39+00:00, active with no ExternalPostedEndDate.",
+        "retrieved_at": "2026-11-26T16:19:15.000Z",
+        "claim": "status"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-11-26-daily_0036",
+    "run_id": "2026-11-26-daily",
+    "at": "2026-11-26T16:31:39.015Z",
+    "type": "UPDATED",
+    "opportunity_id": "opp_473d98f794",
+    "changes": [
+      {
+        "field": "specialties",
+        "before": [
+          "Pediatrics"
+        ],
+        "after": [
+          "Pediatrics",
+          "ICU",
+          "Med-Surg",
+          "Emergency Department"
+        ]
+      },
+      {
+        "field": "bsn_required",
+        "before": true,
+        "after": false
+      },
+      {
+        "field": "rn_license_requirement",
+        "before": "Pennsylvania RN license required prior to start.",
+        "after": "An active Pennsylvania Temporary Practice Permit or RN license required"
+      },
+      {
+        "field": "application_url",
+        "before": "https://careers.chop.edu/us/en/NurseResidency",
+        "after": "https://chop.wd108.myworkdayjobs.com/CHOPExternalCareers"
+      }
+    ],
+    "reason": "Updated from run evidence (OPENING_SOON).",
+    "evidence": [
+      {
+        "source_url": "https://careers.chop.edu/us/en/NurseResidency",
+        "excerpt": "CHOP's 12-month Nurse Residency helps new graduate nurses transition into their first professional roles. Must have graduated from an accredited Nursing program (ASN, Diploma, BSN, MSN).",
+        "retrieved_at": "2026-11-26T16:11:02.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://careers.chop.edu/us/en/NurseResidency",
+        "excerpt": "Applications will be open from Nov. 30 through Dec. 4, 2026 for students graduating in December 2026 or earlier. Candidates Notified By Jan. 15, 2027.",
+        "retrieved_at": "2026-11-26T16:11:02.000Z",
+        "claim": "opening_date"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-11-26-daily_0037",
+    "run_id": "2026-11-26-daily",
+    "at": "2026-11-26T16:31:39.015Z",
+    "type": "UPDATED",
+    "opportunity_id": "opp_717a814cb5",
+    "changes": [
+      {
+        "field": "specialties",
+        "before": [
+          "Multiple Specialties",
+          "Critical Care",
+          "Med-Surg",
+          "Cardiology",
+          "Pediatrics"
+        ],
+        "after": [
+          "Multiple Specialties",
+          "Critical Care",
+          "Med-Surg",
+          "Cardiology",
+          "Pediatrics",
+          "Emergency Department",
+          "Oncology"
+        ]
+      },
+      {
+        "field": "license_required_by",
+        "before": "start",
+        "after": "Before program start date"
+      },
+      {
+        "field": "experience_requirement",
+        "before": "Open to new graduate registered nurses.",
+        "after": "New graduate nurses, or Registered Nurses with less than six (6) months of RN experience at the time of application."
+      }
+    ],
+    "reason": "Updated from run evidence (OPEN).",
+    "evidence": [
+      {
+        "source_url": "https://vumc.wd1.myworkdayjobs.com/en-US/vumccareers/job/Nurse-Residency-Program-Winter-2027_R-62350-2",
+        "excerpt": "VUMC Nurse Residency Program - Winter 2027 Cohort Start Date: February 22 and March 1, 2027. This 12-month program is ideal for: New graduate nurses, or Registered Nurses with less than six (6) months of RN experience at the time of application.",
+        "retrieved_at": "2026-11-26T16:15:20.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://vumc.wd1.myworkdayjobs.com/en-US/vumccareers/job/Nurse-Residency-Program-Winter-2027_R-62350-2",
+        "excerpt": "Workday requisition R-62350 (Nurse Residency Program Winter 2027) active on vumc.wd1.myworkdayjobs.com/vumccareers.",
+        "retrieved_at": "2026-11-26T16:15:20.000Z",
+        "claim": "status"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-11-26-daily_0038",
+    "run_id": "2026-11-26-daily",
+    "at": "2026-11-26T16:31:39.015Z",
+    "type": "UPDATED",
+    "opportunity_id": "opp_da8fc4bb99",
+    "changes": [
+      {
+        "field": "position_title",
+        "before": "Staff Nurse (RN) - Critical Care Oncology New Grad Nurse Residency Program",
+        "after": "Staff Nurse (RN)- Critical Care Oncology New Grad Nurse Residency Program- The James"
+      },
+      {
+        "field": "bsn_required",
+        "before": true,
+        "after": false
+      },
+      {
+        "field": "rn_license_requirement",
+        "before": "Current licensure or interim permit in the practice of registered nursing from the State of Ohio Board of Nursing required.",
+        "after": "Current licensure or interim permit in the practice of registered nursing from the State of Ohio Board of Nursing required"
+      }
+    ],
+    "reason": "Updated from run evidence (OPEN).",
+    "evidence": [
+      {
+        "source_url": "https://osu.wd1.myworkdayjobs.com/OSUCareers/job/James-Cancer-Hospital-and-Solove-Research-Institute/Staff-Nurse--RN---Critical-Care-Oncology-New-Grad-Nurse-Residency-Program--The-James_R153527-1",
+        "excerpt": "This is for the 2027 Critical Care New Graduate Nurse Residency Program- Units included in interview; Medical ICU; Surgical ICU; Neuro ICU. Graduate from a CCNE or ACEN accredited nursing program required; Bachelor's Degree in Nursing preferred. New grad / nurse residency track verified active on OSUCareers Workday.",
+        "retrieved_at": "2026-11-26T16:15:47.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://osu.wd1.myworkdayjobs.com/OSUCareers/job/James-Cancer-Hospital-and-Solove-Research-Institute/Staff-Nurse--RN---Critical-Care-Oncology-New-Grad-Nurse-Residency-Program--The-James_R153527-1",
+        "excerpt": "Workday requisition R153527 active on osu.wd1.myworkdayjobs.com/OSUCareers (startDate 2026-10-30).",
+        "retrieved_at": "2026-11-26T16:15:47.000Z",
+        "claim": "status"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-11-26-daily_0039",
+    "run_id": "2026-11-26-daily",
+    "at": "2026-11-26T16:31:39.015Z",
+    "type": "UPDATED",
+    "opportunity_id": "opp_9230a83b45",
+    "changes": [
+      {
+        "field": "bsn_required",
+        "before": true,
+        "after": false
+      },
+      {
+        "field": "rn_license_requirement",
+        "before": "Ohio RN license required upon hire.",
+        "after": "Current licensure or interim permit in the practice of registered nursing from the State of Ohio Board of Nursing required"
+      }
+    ],
+    "reason": "Updated from run evidence (OPEN).",
+    "evidence": [
+      {
+        "source_url": "https://osu.wd1.myworkdayjobs.com/OSUCareers/job/James-Cancer-Hospital-and-Solove-Research-Institute/Staff-Nurse--RN---Oncology-New-Grad-Nurse-Residency-Program--The-James_R153524-1",
+        "excerpt": "Staff Nurse (RN)- Oncology New Grad Nurse Residency Program- The James. Graduate from a CCNE or ACEN accredited nursing program required; current licensure or interim permit from the State of Ohio Board of Nursing required. New grad / nurse residency track verified active on OSUCareers Workday.",
+        "retrieved_at": "2026-11-26T16:15:47.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://osu.wd1.myworkdayjobs.com/OSUCareers/job/James-Cancer-Hospital-and-Solove-Research-Institute/Staff-Nurse--RN---Oncology-New-Grad-Nurse-Residency-Program--The-James_R153524-1",
+        "excerpt": "Workday requisition R153524 active on osu.wd1.myworkdayjobs.com/OSUCareers (startDate 2026-11-13).",
+        "retrieved_at": "2026-11-26T16:15:47.000Z",
+        "claim": "status"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-11-26-daily_0040",
+    "run_id": "2026-11-26-daily",
+    "at": "2026-11-26T16:31:39.015Z",
+    "type": "UPDATED",
+    "opportunity_id": "opp_0dfd7b3e34",
+    "changes": [
+      {
+        "field": "bsn_required",
+        "before": true,
+        "after": false
+      },
+      {
+        "field": "rn_license_requirement",
+        "before": "Ohio RN license required upon hire.",
+        "after": "Current licensure or interim permit in the practice of registered nursing from the State of Ohio Board of Nursing required"
+      }
+    ],
+    "reason": "Updated from run evidence (OPEN).",
+    "evidence": [
+      {
+        "source_url": "https://osu.wd1.myworkdayjobs.com/OSUCareers/job/University-Hospital/Staff-Nurse--RN----New-Grad-OR-Nurse-Residency---Varying-Shifts_R153540-1",
+        "excerpt": "Staff Nurse (RN) - New Grad OR Nurse Residency - Varying Shifts. Graduate of a nursing program accredited by CCNE or ACEN; Current RN licensure or interim permit from the Ohio Board of Nursing required. New grad / nurse residency track verified active on OSUCareers Workday.",
+        "retrieved_at": "2026-11-26T16:15:47.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://osu.wd1.myworkdayjobs.com/OSUCareers/job/University-Hospital/Staff-Nurse--RN----New-Grad-OR-Nurse-Residency---Varying-Shifts_R153540-1",
+        "excerpt": "Workday requisition R153540 active on osu.wd1.myworkdayjobs.com/OSUCareers (startDate 2026-07-02).",
+        "retrieved_at": "2026-11-26T16:15:47.000Z",
+        "claim": "status"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-11-26-daily_0041",
+    "run_id": "2026-11-26-daily",
+    "at": "2026-11-26T16:31:39.015Z",
+    "type": "UPDATED",
+    "opportunity_id": "opp_f1ac939d80",
+    "changes": [
+      {
+        "field": "bsn_required",
+        "before": true,
+        "after": false
+      },
+      {
+        "field": "rn_license_requirement",
+        "before": "Ohio RN license required upon hire.",
+        "after": "Current licensure or interim permit in the practice of registered nursing from the State of Ohio Board of Nursing required"
+      }
+    ],
+    "reason": "Updated from run evidence (OPEN).",
+    "evidence": [
+      {
+        "source_url": "https://osu.wd1.myworkdayjobs.com/OSUCareers/job/University-Hospital/Buckeye-Nurse-Residency-Program_R153518-1",
+        "excerpt": "Buckeye Nurse Residency Program at University Hospital. Graduate from a CCNE or ACEN accredited nursing program required; previous experience in a relevant care setting preferred; Bachelor's Degree in Nursing preferred. New grad / nurse residency track verified active on OSUCareers Workday.",
+        "retrieved_at": "2026-11-26T16:15:47.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://osu.wd1.myworkdayjobs.com/OSUCareers/job/University-Hospital/Buckeye-Nurse-Residency-Program_R153518-1",
+        "excerpt": "Workday requisition R153518 active on osu.wd1.myworkdayjobs.com/OSUCareers (startDate 2026-07-01).",
+        "retrieved_at": "2026-11-26T16:15:47.000Z",
+        "claim": "status"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-11-26-daily_0042",
+    "run_id": "2026-11-26-daily",
+    "at": "2026-11-26T16:31:39.015Z",
+    "type": "UPDATED",
+    "opportunity_id": "opp_de06f36726",
+    "changes": [
+      {
+        "field": "bsn_required",
+        "before": true,
+        "after": false
+      },
+      {
+        "field": "rn_license_requirement",
+        "before": "Ohio RN license required upon hire.",
+        "after": "Current licensure or interim permit in the practice of registered nursing from the State of Ohio Board of Nursing required"
+      }
+    ],
+    "reason": "Updated from run evidence (OPEN).",
+    "evidence": [
+      {
+        "source_url": "https://osu.wd1.myworkdayjobs.com/OSUCareers/job/East-Hospital/Buckeye-Nurse-Residency-OSU-East-Hospital_R153520-1",
+        "excerpt": "Buckeye Nurse Residency OSU East Hospital. Graduate from a CCNE or ACEN accredited nursing program required; current licensure or interim permit from the State of Ohio Board of Nursing required. New grad / nurse residency track verified active on OSUCareers Workday.",
+        "retrieved_at": "2026-11-26T16:15:47.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://osu.wd1.myworkdayjobs.com/OSUCareers/job/East-Hospital/Buckeye-Nurse-Residency-OSU-East-Hospital_R153520-1",
+        "excerpt": "Workday requisition R153520 active on osu.wd1.myworkdayjobs.com/OSUCareers (startDate 2026-07-01).",
+        "retrieved_at": "2026-11-26T16:15:47.000Z",
+        "claim": "status"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-11-26-daily_0043",
+    "run_id": "2026-11-26-daily",
+    "at": "2026-11-26T16:31:39.015Z",
+    "type": "CLOSED",
+    "opportunity_id": "opp_b54e8945e7",
+    "changes": [
+      {
+        "field": "application_status",
+        "before": "OPEN",
+        "after": "CLOSED"
+      },
+      {
+        "field": "closed_at",
+        "before": null,
+        "after": "2026-11-26T16:31:39.015Z"
+      }
+    ],
+    "reason": "Official evidence verified closure.",
+    "evidence": [
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/104635/new-grad-rn-neurosurgical-imc-brain-rescue-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "New Grad RN posting (104635) returned HTTP 410: 'This job is no longer available. Please try another search.'",
+        "retrieved_at": "2026-11-26T16:14:58.000Z",
+        "claim": "closure"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/jobs/nursing-new-grad-rn/",
+        "excerpt": "Confirmed absent from full Johns Hopkins New Grad RN category enumeration (only 104718 and 104596 remain).",
+        "retrieved_at": "2026-11-26T16:14:30.000Z",
+        "claim": "eligibility"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-11-26-daily_0044",
+    "run_id": "2026-11-26-daily",
+    "at": "2026-11-26T16:31:39.015Z",
+    "type": "UPDATED",
+    "opportunity_id": "opp_b54e8945e7",
+    "changes": [
+      {
+        "field": "application_status",
+        "before": "OPEN",
+        "after": "CLOSED"
+      },
+      {
+        "field": "closed_at",
+        "before": null,
+        "after": "2026-11-26T16:31:39.015Z"
+      }
+    ],
+    "reason": "Updated from run evidence (CLOSED).",
+    "evidence": [
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/job/104635/new-grad-rn-neurosurgical-imc-brain-rescue-nursing-new-grad-rn-us-md-baltimore-johns-hopkins-hospital/",
+        "excerpt": "New Grad RN posting (104635) returned HTTP 410: 'This job is no longer available. Please try another search.'",
+        "retrieved_at": "2026-11-26T16:14:58.000Z",
+        "claim": "closure"
+      },
+      {
+        "source_url": "https://jobs.hopkinsmedicine.org/jobs/nursing-new-grad-rn/",
+        "excerpt": "Confirmed absent from full Johns Hopkins New Grad RN category enumeration (only 104718 and 104596 remain).",
+        "retrieved_at": "2026-11-26T16:14:30.000Z",
+        "claim": "eligibility"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-11-26-daily_0045",
+    "run_id": "2026-11-26-daily",
+    "at": "2026-11-26T16:31:39.015Z",
+    "type": "UPDATED",
+    "opportunity_id": "opp_da85a917e9",
+    "changes": [
+      {
+        "field": "application_url",
+        "before": "https://jobs.bilh.org/",
+        "after": "https://bilh.wd1.myworkdayjobs.com/External"
+      }
+    ],
+    "reason": "Updated from run evidence (CLOSED).",
+    "evidence": [
+      {
+        "source_url": "https://jobs.bilh.org/search-jobs/new%20grad%20rn",
+        "excerpt": "JR103518 absent from jobs.bilh.org new grad RN search results and BILH Workday (0 active hits).",
+        "retrieved_at": "2026-11-26T16:10:02.000Z",
+        "claim": "removal"
+      },
+      {
+        "source_url": "https://jobs.bilh.org/locations/beth-israel-deaconess-medical-center/",
+        "excerpt": "BIDMC Transition to Practice Nurse Residency Program for new graduate nurses (JR103518 closed).",
+        "retrieved_at": "2026-11-26T16:09:02.000Z",
+        "claim": "eligibility"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-11-26-daily_0046",
+    "run_id": "2026-11-26-daily",
+    "at": "2026-11-26T16:31:39.015Z",
+    "type": "NEW",
+    "opportunity_id": "opp_1fa39a3fcd",
+    "changes": null,
+    "reason": "First published from run evidence (OPEN).",
+    "evidence": [
+      {
+        "source_url": "https://bilh.wd1.myworkdayjobs.com/External/job/Beth-Israel-Deaconess-Medical-Center/BIDMC-Nurse-Residency--Klarman-10--Complex-and-Vascular-Surgery--36hr-Rotating-_JR106460",
+        "excerpt": "As a Nurse Resident, you will engage in an innovative orientation focused on developing Surgical nursing clinical competence. Required Qualifications: Graduate of an accredited Nursing Program required. Bachelor's Degree in Nursing strongly preferred. 0-1 years related work experience required.",
+        "retrieved_at": "2026-11-26T16:24:11.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://jobs.bilh.org/search-jobs/new%20grad%20rn",
+        "excerpt": "BIDMC Nurse Residency Klarman 10 Complex and Vascular Surgery (JR106460) linked live on jobs.bilh.org and posted 2026-11-25 on BILH Workday.",
+        "retrieved_at": "2026-11-26T16:10:02.000Z",
+        "claim": "status"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-11-26-daily_0047",
+    "run_id": "2026-11-26-daily",
+    "at": "2026-11-26T16:31:39.015Z",
+    "type": "UPDATED",
+    "opportunity_id": "opp_27f523fd47",
+    "changes": [
+      {
+        "field": "position_title",
+        "before": "Staff Nurse - New Graduate RN Residency Program",
+        "after": "New Graduate RN Residency, Cardiac/ Medical IMCU, Day/ Nights, (March 2027)"
+      },
+      {
+        "field": "unit",
+        "before": null,
+        "after": "Cardiac/Medical IMCU"
+      },
+      {
+        "field": "specialties",
+        "before": [
+          "Multiple Specialties",
+          "Med-Surg",
+          "Emergency Department",
+          "Critical Care"
+        ],
+        "after": [
+          "Cardiology",
+          "Telemetry",
+          "Critical Care"
+        ]
+      },
+      {
+        "field": "program_start",
+        "before": null,
+        "after": {
+          "kind": "text",
+          "value": "March 2027"
+        }
+      },
+      {
+        "field": "cohort_id",
+        "before": "cohort_01a1e0e28e",
+        "after": "cohort_9f92362bd2"
+      },
+      {
+        "field": "application_url",
+        "before": "https://jobs.bmc.org/",
+        "after": "https://bmc.wd1.myworkdayjobs.com/BMC/job/Boston/New-Graduate-RN-Residency--Cardiac--Medical-IMCU--Day--Nights---March-2027-_51757"
+      },
+      {
+        "field": "dedup_key",
+        "before": null,
+        "after": "workday|bmc|51757"
+      },
+      {
+        "field": "application_status",
+        "before": "EXPECTED",
+        "after": "OPEN"
+      }
+    ],
+    "reason": "Updated from run evidence (OPEN).",
+    "evidence": [
+      {
+        "source_url": "https://bmc.wd1.myworkdayjobs.com/BMC/job/Boston/New-Graduate-RN-Residency--Cardiac--Medical-IMCU--Day--Nights---March-2027-_51757",
+        "excerpt": "New Graduate RN Residency Program - Medical Cardiac IMCU. This is an ideal environment for a new graduate nurse who is eager to learn, grow, and develop advanced assessment and clinical skills.",
+        "retrieved_at": "2026-11-26T16:19:18.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://bmc.wd1.myworkdayjobs.com/BMC",
+        "excerpt": "Workday requisition 51757 posted 2026-11-25 on bmc.wd1.myworkdayjobs.com/BMC alongside 51753, 51754, 52194, 52192, and 39049.",
+        "retrieved_at": "2026-11-26T16:17:32.000Z",
+        "claim": "status"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-11-26-daily_0048",
+    "run_id": "2026-11-26-daily",
+    "at": "2026-11-26T16:31:39.015Z",
+    "type": "NEW",
+    "opportunity_id": "opp_b29fc64c37",
+    "changes": null,
+    "reason": "First published from run evidence (OPEN).",
+    "evidence": [
+      {
+        "source_url": "https://bmc.wd1.myworkdayjobs.com/BMC/job/Boston/New-Grad-RN-Residency--5W-Teaching-and-Innovation-Unit--36-Hours--Day--Night--Every-Third-Weekend-_52194",
+        "excerpt": "New graduate nurses in all other BMC practice areas are expected to remain in their roles for a minimum of 1 year from completion of orientation.",
+        "retrieved_at": "2026-11-26T16:19:07.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://bmc.wd1.myworkdayjobs.com/BMC/job/Boston/New-Grad-RN-Residency--5W-Teaching-and-Innovation-Unit--36-Hours--Day--Night--Every-Third-Weekend-_52194",
+        "excerpt": "Workday requisition 52194 verified live on bmc.wd1.myworkdayjobs.com/BMC.",
+        "retrieved_at": "2026-11-26T16:19:07.000Z",
+        "claim": "status"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-11-26-daily_0049",
+    "run_id": "2026-11-26-daily",
+    "at": "2026-11-26T16:31:39.015Z",
+    "type": "NEW",
+    "opportunity_id": "opp_5459b34090",
+    "changes": null,
+    "reason": "First published from run evidence (OPEN).",
+    "evidence": [
+      {
+        "source_url": "https://bmc.wd1.myworkdayjobs.com/BMC/job/Boston/RN-New-Grad-Residency-Program---Medical-Surgical-Unit_39049",
+        "excerpt": "RN New Grad Residency Program / Medical-Surgical Unit active on BMC Workday.",
+        "retrieved_at": "2026-11-26T16:19:07.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://bmc.wd1.myworkdayjobs.com/BMC/job/Boston/RN-New-Grad-Residency-Program---Medical-Surgical-Unit_39049",
+        "excerpt": "Workday requisition 39049 verified live on bmc.wd1.myworkdayjobs.com/BMC.",
+        "retrieved_at": "2026-11-26T16:19:07.000Z",
+        "claim": "status"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-11-26-daily_0050",
+    "run_id": "2026-11-26-daily",
+    "at": "2026-11-26T16:31:39.015Z",
+    "type": "UPDATED",
+    "opportunity_id": "opp_4dbe7c89e1",
+    "changes": [
+      {
+        "field": "application_url",
+        "before": "https://www.massgeneralbrigham.org/en/about/careers",
+        "after": "https://massgeneralbrigham.wd1.myworkdayjobs.com/MGBExternal"
+      }
+    ],
+    "reason": "Updated from run evidence (EXPECTED).",
+    "evidence": [
+      {
+        "source_url": "https://www.massgeneralbrigham.org/en/about/careers",
+        "excerpt": "Nora McDonough Nurse Residency Program at Brigham and Women's Hospital supports newly licensed nurses; MGBExternal Workday search for 'Nora McDonough' returned 0 active postings.",
+        "retrieved_at": "2026-11-26T16:15:20.000Z",
+        "claim": "status"
+      },
+      {
+        "source_url": "https://www.massgeneralbrigham.org/en/about/careers",
+        "excerpt": "Nora McDonough Nurse Residency Program for newly licensed / new graduate nurses at Brigham and Women's Hospital.",
+        "retrieved_at": "2026-11-26T16:09:02.000Z",
+        "claim": "eligibility"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-11-26-daily_0051",
+    "run_id": "2026-11-26-daily",
+    "at": "2026-11-26T16:31:39.015Z",
+    "type": "UPDATED",
+    "opportunity_id": "opp_f8be7c648c",
+    "changes": [
+      {
+        "field": "specialties",
+        "before": [
+          "Multiple Specialties",
+          "NICU",
+          "Critical Care",
+          "Emergency Department",
+          "Med-Surg"
+        ],
+        "after": [
+          "Multiple Specialties",
+          "NICU",
+          "Emergency Department",
+          "Med-Surg"
+        ]
+      },
+      {
+        "field": "application_url",
+        "before": "https://careers.mountsinai.org/",
+        "after": "https://careers.mountsinai.org/jobs"
+      }
+    ],
+    "reason": "Updated from run evidence (OPEN).",
+    "evidence": [
+      {
+        "source_url": "https://careers.mountsinai.org/special-programs",
+        "excerpt": "New Grad RN Fellowship: Launch your fulfilling nursing career with our 24-week New Grad RN Fellowship... NICU New Grad RN Fellowship... ED New Grad RN Fellowship... Ambulatory New Grad RN Fellowship (Join us in April or September).",
+        "retrieved_at": "2026-11-26T16:20:51.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://careers.mountsinai.org/special-programs",
+        "excerpt": "Mount Sinai Special Programs page live HTTP 200 advertising New Grad RN Fellowships across multiple tracks.",
+        "retrieved_at": "2026-11-26T16:20:51.000Z",
+        "claim": "status"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-11-26-daily_0052",
+    "run_id": "2026-11-26-daily",
+    "at": "2026-11-26T16:31:39.015Z",
+    "type": "NEW",
+    "opportunity_id": "opp_e0e1e93065",
+    "changes": null,
+    "reason": "First published from run evidence (OPENING_SOON).",
+    "evidence": [
+      {
+        "source_url": "https://jobs.mayoclinic.org/nurseresidencyprograms",
+        "excerpt": "The Rochester, Minnesota Nurse Residency Program: New graduate RNs are automatically enrolled in the Nurse Residency Program upon accepting a nursing position.",
+        "retrieved_at": "2026-11-26T16:20:51.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://jobs.mayoclinic.org/nurseresidencyprograms",
+        "excerpt": "Starting August 2026 applications will be open the 1 - 8 of each month (next cycle Dec 1-8, 2026).",
+        "retrieved_at": "2026-11-26T16:20:51.000Z",
+        "claim": "opening_date"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-11-26-daily_0053",
+    "run_id": "2026-11-26-daily",
+    "at": "2026-11-26T16:31:39.015Z",
+    "type": "UPDATED",
+    "opportunity_id": "opp_b90ce57ca2",
+    "changes": [
+      {
+        "field": "specialties",
+        "before": [
+          "Multiple Specialties",
+          "Critical Care",
+          "Med-Surg",
+          "Cardiology",
+          "Oncology"
+        ],
+        "after": [
+          "Multiple Specialties",
+          "Critical Care",
+          "Med-Surg",
+          "Cardiology",
+          "Oncology",
+          "Emergency Department",
+          "Pediatrics"
+        ]
+      },
+      {
+        "field": "application_url",
+        "before": "https://careers.dukehealth.org/",
+        "after": "https://careers.dukehealth.org/us/en/new-graduate-nurse-programs"
+      }
+    ],
+    "reason": "Updated from run evidence (OPEN).",
+    "evidence": [
+      {
+        "source_url": "https://careers.dukehealth.org/us/en/new-graduate-nurse-programs",
+        "excerpt": "Starting your journey as a new graduate nurse? Duke Health is always hiring and excited to support you as you transition into professional practice. All newly hired graduate nurses are automatically enrolled in our 12-month Nurse Residency Program.",
+        "retrieved_at": "2026-11-26T16:11:02.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://careers.dukehealth.org/us/en/new-graduate-nurse-programs",
+        "excerpt": "Duke Health is always hiring... Explore our open opportunities anytime.",
+        "retrieved_at": "2026-11-26T16:11:02.000Z",
+        "claim": "accepting_applications"
+      }
+    ]
+  },
+  {
+    "id": "hist_2026-11-26-daily_0054",
+    "run_id": "2026-11-26-daily",
+    "at": "2026-11-26T16:31:39.015Z",
+    "type": "UPDATED",
+    "opportunity_id": "opp_34dee97be9",
+    "changes": [
+      {
+        "field": "experience_requirement",
+        "before": "Open to recent graduates with less than 12 months RN experience.",
+        "after": "Open to B.S.N. graduates, as well as experienced B.S.N. RNs who will have fewer than 12 months of RN experience at the start of the program."
+      }
+    ],
+    "reason": "Updated from run evidence (EXPECTED).",
+    "evidence": [
+      {
+        "source_url": "https://jobs.utsouthwestern.edu/nursing-residency/",
+        "excerpt": "The Nurse Residency Program is open to B.S.N. graduates, as well as experienced B.S.N. RNs who will have fewer than 12 months of RN experience at the start of the program. Paid, fast-paced one-year program for a recent graduate.",
+        "retrieved_at": "2026-11-26T16:18:30.000Z",
+        "claim": "eligibility"
+      },
+      {
+        "source_url": "https://jobs.utsouthwestern.edu/nursing-residency/",
+        "excerpt": "Nurse Residency Program: Cohort starts: July 12, 2027. Application dates: Jan. 25 - Feb. 5, 2027.",
+        "retrieved_at": "2026-11-26T16:18:30.000Z",
+        "claim": "opening_date"
+      }
+    ]
   }
 ]
